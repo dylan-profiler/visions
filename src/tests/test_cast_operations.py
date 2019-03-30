@@ -8,6 +8,7 @@ test_series = {
     tenzing_float: pd.Series([0.0, 1.0, 2.0, 3.0, 4.0, np.nan])
 }
 
+
 def infer_cast_type(series, values_out, type_in):
     if not (series in type_in):
         raise TypeError("Input series %s not of expected type %s!" % (series, type_in))

@@ -12,7 +12,7 @@ class tenzing_integer(optionMixin, tenzing_model):
         elif pdt.is_float_dtype(series):
             # Need this additional check because it's an Option[Int] which in
             # pandas land will result in integers with decimal trailing 0's
-            return series.eq(series.astype(int))
+            return series.eq(series.astype(int)).all()
         else:
             return False
 
@@ -32,7 +32,12 @@ class tenzing_integer(optionMixin, tenzing_model):
 @singleton.singleton_object
 class tenzing_float(optionMixin, tenzing_model):
     def contains_op(self, series):
-        return pdt.is_float_dtype(series)
+        if not pdt.is_float_dtype(series):
+            return False
+        elif series in tenzing_integer:
+            return False
+        else:
+            return True
 
     def cast_op(self, series):
         return series.as_type(float)
@@ -163,12 +168,11 @@ class tenzing_string(optionMixin, tenzing_model):
 @singleton.singleton_object
 class tenzing_geometry(optionMixin, tenzing_model):
     from shapely import geometry, wkt
-
     geom_types = [geometry.Point, geometry.Polygon, geometry.MultiPolygon, geometry.MultiPoint,
                   geometry.LineString, geometry.LinearRing, geometry.MultiPoint, geometry.MultiLineString]
 
     def contains_op(self, series):
-        return any(isinstance(obj, geom_type) for geom_type in self.geom_types)
+        return all(any(isinstance(obj, geom_type) for geom_type in self.geom_types) for obj in series)
 
     def cast_op(self, series):
         return [wkt.loads(value) for value in series]
