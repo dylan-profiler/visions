@@ -35,7 +35,7 @@ Tenzing creates an internal type system representing the type of a pandas series
 ### Understanding Tenzing Types
 Let's take the example of a timestamp:
 
-```{python}
+```python
 from tenzing.core.model_implementations import tenzing_timestamp
 
 test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
@@ -43,14 +43,14 @@ test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.da
 
 We can do a couple of things with this, first we can check if `test_series` is a `tenzing_timestamp`
 
-```{python}
+```python
 test_series in tenzing_timestamp
 -> True
 ```
 
 We can also get a summary unique to the tenzing_type of the data
 
-```{python}
+```python
 tenzing_timestamp.summarize(test_series)
 -> {
 	 'nunique': 3,
@@ -66,7 +66,7 @@ tenzing_timestamp.summarize(test_series)
 
 If we had instead applied a summarization operation to a categorical series we would get
 
-```{python}
+```python
 test_series = pd.Series(pd.Categorical([True, False, np.nan, 'test'], categories=[True, False, 'test', 'missing']))
 tenzing_categorical.summarize(test_series)
 -> {
@@ -97,7 +97,7 @@ By default Tenzing includes implementations for the following types:
 
 Types can also be organized into groups of types to perform analysis over a dataframe or collection of series. These are called tenzing typesets.
 
-```{python}
+```python
 from tenzing.core.model_implementations.typesets import tenzing_standard
 
 df = pd.DataFrame({'a': range(3),
@@ -117,7 +117,7 @@ my_typeset.types
 
 The standard typeset includes all of the baseline tenzing types except geometries. Each typeset is unique to a dataset for caching purposes and can apply the same methods, like `summarize`, as a tenzing type.
 
-```{python}
+```python
 my_typeset.prep(df)
 my_typeset.summarize(df)
 -> {'a': {'nunique': 3.0,
@@ -167,7 +167,7 @@ Each Tenzing type is a singleton object extending the basic `tenzing_model` requ
 
 All tenzing_types can be made into `Option[tenzing_type]` by inheriting from `optionMixin` in `tenzing.core.Mixins`.
 
-```{python}
+```python
 from tenzing.core.models import tenzing_model
 from tenzing.utils import singleton
 from tenzing.core.mixins import optionMixin
