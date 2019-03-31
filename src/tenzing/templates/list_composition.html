@@ -1,0 +1,7 @@
+<div class="row variablerow">
+    {% for item in data %}
+        {% for name, html in item.items() %}
+            {{html}}
+        {% endfor %}
+    {% endfor %}
+</div>

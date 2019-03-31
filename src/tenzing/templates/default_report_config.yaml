@@ -1,0 +1,7 @@
+Overview:
+    - Dataset Info:
+        template: overview.html
+        data: general_summary
+    - Variable types:
+        template: overview.html
+        data: type_counts
