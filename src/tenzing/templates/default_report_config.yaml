@@ -5,3 +5,8 @@ Overview:
     - Variable types:
         template: overview.html
         data: type_counts
+Variable Statistics:
+    - Variable Name:
+        is_abstract_variable: true
+        template: overview.html
+        data: column_summary

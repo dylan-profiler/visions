@@ -24,7 +24,21 @@ def traverse_config(config, summary):
         list_cmp_template = template_map['list_composition.html']
         return list_cmp_template.render(data=[traverse_config(subconfig, summary) for subconfig in config])
     elif isinstance(config, dict):
-        if 'template' in config and 'data' in config:
+        if config.get('is_abstract_variable', False):
+            list_cmp_template = template_map['list_composition.html']
+            html_list = []
+            for title, val_dict in summary.get(config['data']).items():
+                new_data = {'title': summary.get('col_type_map')[title], 'data': val_dict}
+                html = template_map[config['template']].render(data=new_data)
+                new_data['title'] = title
+                new_data['data'] = html
+
+                html_list.append(new_data)
+
+            result = list_cmp_template.render(data=html_list)
+            return result
+
+        elif 'template' in config and 'data' in config:
             template = template_map[config['template']]
             data = config.copy()
             data.pop('template')
@@ -50,17 +64,21 @@ def process_yaml_template(template):
 
 class summary_report:
     def __init__(self, col_type_map, column_summary, general_summary, template=default_template):
-        self.column_summary = column_summary
-        self.general_summary = general_summary
+        self.column_summary = {k: self.prettify(v) for k, v in column_summary.items()}
+        self.general_summary = self.prettify(general_summary)
         self.col_type_map = col_type_map
         self.type_counts = Counter(self.col_type_map.values())
         self.template = process_yaml_template(template)
+
+    @staticmethod
+    def prettify(dict_):
+        print(dict_)
+        return {key: v if not isinstance(v, float) else round(v, 2) for key, v in dict_.items()}
 
     def generate_html(self):
         base_template = template_map['base.html']
         data = traverse_config(self.template, self)
         return base_template.render(data=data)
-        return data
 
     def get(self, attr):
         return getattr(self, attr)
