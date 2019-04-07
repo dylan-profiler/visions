@@ -72,7 +72,6 @@ class summary_report:
 
     @staticmethod
     def prettify(dict_):
-        print(dict_)
         return {key: v if not isinstance(v, float) else round(v, 2) for key, v in dict_.items()}
 
     def generate_html(self):
