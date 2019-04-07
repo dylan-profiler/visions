@@ -1,8 +1,10 @@
 from collections import Counter
 from os import path
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, PackageLoader, Markup
 import yaml
 
+# There's got to be a better way to do all this HTML bullshit...
+# Can I use a framework here or something? https://materializecss.com/getting-started.html
 
 pl = PackageLoader('tenzing', 'templates')
 jinja2_env = Environment(lstrip_blocks=True, trim_blocks=True, loader=pl)
@@ -10,7 +12,8 @@ jinja2_env = Environment(lstrip_blocks=True, trim_blocks=True, loader=pl)
 template_map = [
     'overview.html',
     'base.html',
-    'list_composition.html'
+    'list_composition.html',
+    'html_wrapper.html'
 ]
 template_map = {file: jinja2_env.get_template(file) for file in template_map}
 
@@ -69,6 +72,7 @@ class summary_report:
         self.col_type_map = col_type_map
         self.type_counts = Counter(self.col_type_map.values())
         self.template = process_yaml_template(template)
+        self.html = self.generate_html()
 
     @staticmethod
     def prettify(dict_):
@@ -77,7 +81,11 @@ class summary_report:
     def generate_html(self):
         base_template = template_map['base.html']
         data = traverse_config(self.template, self)
-        return base_template.render(data=data)
+        html_output = base_template.render(data=data)
+        return html_output
 
     def get(self, attr):
         return getattr(self, attr)
+
+    def _repr_html_(self):
+        return self.html
