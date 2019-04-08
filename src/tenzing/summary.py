@@ -18,12 +18,15 @@ template_map = [
 
 
 def get_template(template):
-    jinja2_env.get_template(template)
+    return jinja2_env.get_template(template)
 
 
-_resource_path = 'templates/default_report_config.yaml'
-_config_file = pkg_resources.resource_filename(__name__, _resource_path)
-default_template = yaml.load(_config_file, Loader=yaml.FullLoader)
+def _get_default_config():
+    _resource_path = 'templates/default_report_config.yaml'
+    _config_file = pkg_resources.resource_filename(__name__, _resource_path)
+    string_res = pkg_resources.resource_string(__name__, _resource_path)
+    default_template = yaml.load(string_res, Loader=yaml.FullLoader)
+    return process_yaml_template(default_template)
 
 
 def traverse_config(config, summary):
@@ -70,12 +73,12 @@ def process_yaml_template(template):
 
 
 class summary_report:
-    def __init__(self, col_type_map, column_summary, general_summary, template=default_template):
+    def __init__(self, col_type_map, column_summary, general_summary, template=None):
         self.column_summary = {k: self.prettify(v) for k, v in column_summary.items()}
         self.general_summary = self.prettify(general_summary)
         self.col_type_map = col_type_map
         self.type_counts = Counter(self.col_type_map.values())
-        self.template = process_yaml_template(template)
+        self.template = _get_default_config() if template is None else template
         self.html = self.generate_html()
 
     @staticmethod
