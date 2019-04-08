@@ -1,20 +1,44 @@
 from tenzing.summary import summary_report
+import networkx as nx
+import itertools
+
+
+def build_relation_graph(root_nodes, derivative_nodes):
+    relation_graph = nx.DiGraph()
+    relation_graph.add_node('root')
+    relation_graph.add_nodes_from(root_nodes)
+    relation_graph.add_edges_from(itertools.product(['root'], root_nodes))
+    relation_graph.add_nodes_from(derivative_nodes)
+    relation_graph.add_edges_from(node.edge for s_node in root_nodes for to_node, node in s_node.relations.items())
+    relation_graph.add_edges_from(node.edge for s_node in derivative_nodes for to_node, node in s_node.relations.items())
+
+    cycles = list(nx.simple_cycles(relation_graph))
+    assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
+    return relation_graph
+
+
+def traverse_relation_graph(series, G, node='root'):
+    successors = list(G.successors(node))
+    if not successors:
+        return node
+
+    for tenz_type in successors:
+        if series in tenz_type:
+            return traverse_relation_graph(series, G, tenz_type)
 
 
 class tenzing_typeset:
-    def __init__(self, types):
-        self.types = frozenset(types)
+    def __init__(self, base_types, derivative_types=[]):
+        self.base_types = frozenset(base_types)
+        self.derivative_types = frozenset(derivative_types)
 
-        self.relation_map = {typ: {} for typ in self.types}
-        for typ in self.types:
-            for friend_type, relation in typ.relations.items():
-                self.relation_map[friend_type][typ] = relation
+        self.relation_map = build_relation_graph(self.base_types, self.derivative_types)
 
 
 class tenzingTypeset(tenzing_typeset):
-    def __init__(self, types):
+    def __init__(self, base_types, derivative_types=[]):
         self.column_summary = {}
-        super().__init__(types)
+        super().__init__(base_types, derivative_types)
 
     def prep(self, df):
         self.column_type_map = {col: self._get_column_type(df[col]) for col in df.columns}
@@ -40,7 +64,5 @@ class tenzingTypeset(tenzing_typeset):
 
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified
-        candidates = [tenzing_type for tenzing_type in self.types if series in tenzing_type]
-        if len(candidates) > 1:
-            print("You forgot to implement handling for multiple matches. Go fix that retard")
-        return candidates[0]
+
+        return traverse_relation_graph(series, self.relation_map)

@@ -13,6 +13,7 @@ class model_relation:
     def __init__(self, model, friend_model, relationship=None, transformer=None):
         self.model = model
         self.friend_model = friend_model
+        self.edge = (self.friend_model, self.model)
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer if transformer else self.model.cast
 

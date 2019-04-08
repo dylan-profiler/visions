@@ -13,7 +13,8 @@ def _get_column_names(obj):
 
 class tenzing_standard(tenzingTypeset):
     def __init__(self):
-        basetypes = [tenzing_bool, tenzing_float, tenzing_string, tenzing_object,
-                     tenzing_complex, tenzing_categorical, tenzing_timestamp,
-                     tenzing_integer]
-        super().__init__(basetypes)
+        root_types = [tenzing_bool, tenzing_float, tenzing_object,
+                      tenzing_complex, tenzing_categorical, tenzing_timestamp,
+                      tenzing_integer]
+        derivative_types = [tenzing_string]
+        super().__init__(root_types, derivative_types)
