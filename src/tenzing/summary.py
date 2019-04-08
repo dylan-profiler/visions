@@ -1,6 +1,6 @@
 from collections import Counter
 from os import path
-from jinja2 import Environment, PackageLoader, Markup
+from jinja2 import Environment, PackageLoader
 import yaml
 
 # There's got to be a better way to do all this HTML bullshit...
@@ -15,7 +15,10 @@ template_map = [
     'list_composition.html',
     'html_wrapper.html'
 ]
-template_map = {file: jinja2_env.get_template(file) for file in template_map}
+
+
+def get_template(template):
+    jinja2_env.get_template(template)
 
 
 yaml_template_file = path.join(path.dirname(__file__), 'templates', 'default_report_config.yaml')
@@ -24,15 +27,15 @@ default_template = yaml.load(open(yaml_template_file), Loader=yaml.FullLoader)
 
 def traverse_config(config, summary):
     if isinstance(config, list):
-        list_cmp_template = template_map['list_composition.html']
+        list_cmp_template = get_template('list_composition.html')
         return list_cmp_template.render(data=[traverse_config(subconfig, summary) for subconfig in config])
     elif isinstance(config, dict):
         if config.get('is_abstract_variable', False):
-            list_cmp_template = template_map['list_composition.html']
+            list_cmp_template = get_template('list_composition.html')
             html_list = []
             for title, val_dict in summary.get(config['data']).items():
                 new_data = {'title': summary.get('col_type_map')[title], 'data': val_dict}
-                html = template_map[config['template']].render(data=new_data)
+                html = get_template(config['template']).render(data=new_data)
                 new_data['title'] = title
                 new_data['data'] = html
 
@@ -42,7 +45,7 @@ def traverse_config(config, summary):
             return result
 
         elif 'template' in config and 'data' in config:
-            template = template_map[config['template']]
+            template = get_template(config['template'])
             data = config.copy()
             data.pop('template')
             data['data'] = summary.get(config['data'])
@@ -79,7 +82,7 @@ class summary_report:
         return {key: v if not isinstance(v, float) else round(v, 2) for key, v in dict_.items()}
 
     def generate_html(self):
-        base_template = template_map['base.html']
+        base_template = get_template('base.html')
         data = traverse_config(self.template, self)
         html_output = base_template.render(data=data)
         return html_output

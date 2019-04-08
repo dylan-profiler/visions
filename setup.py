@@ -13,7 +13,10 @@ setup(
     install_requires=[
         'pandas',
         'numpy',
-        'shapely'
+        'shapely',
+        'jinja2',
+        'PyYAML',
+        'networkx'
     ],
     extras_require={
     },

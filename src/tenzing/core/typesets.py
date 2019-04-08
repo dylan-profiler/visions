@@ -18,13 +18,11 @@ def build_relation_graph(root_nodes, derivative_nodes):
 
 
 def traverse_relation_graph(series, G, node='root'):
-    successors = list(G.successors(node))
-    if not successors:
-        return node
-
-    for tenz_type in successors:
+    for tenz_type in G.successors(node):
         if series in tenz_type:
             return traverse_relation_graph(series, G, tenz_type)
+
+    return node
 
 
 class tenzing_typeset:
