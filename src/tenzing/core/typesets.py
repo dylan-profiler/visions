@@ -18,6 +18,8 @@ def build_relation_graph(root_nodes, derivative_nodes):
     relations = {node.edge: {'relationship': node} for s_node in derivative_nodes for to_node, node in s_node.relations.items()}
     nx.set_edge_attributes(relation_graph, relations)
 
+    relation_graph.remove_nodes_from(nx.isolates(relation_graph))
+
     cycles = list(nx.simple_cycles(relation_graph))
     assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
     return relation_graph
