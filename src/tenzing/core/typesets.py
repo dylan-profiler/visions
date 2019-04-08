@@ -18,6 +18,8 @@ def build_relation_graph(root_nodes, derivative_nodes):
     relations = {node.edge: {'relationship': node} for s_node in derivative_nodes for to_node, node in s_node.relations.items()}
     nx.set_edge_attributes(relation_graph, relations)
 
+    undefined_nodes = set(relation_graph.nodes) - set(['root']) - set(root_nodes) - set(derivative_nodes)
+    relation_graph.remove_nodes_from(undefined_nodes)
     relation_graph.remove_nodes_from(nx.isolates(relation_graph))
 
     cycles = list(nx.simple_cycles(relation_graph))
