@@ -12,6 +12,12 @@ def build_relation_graph(root_nodes, derivative_nodes):
     relation_graph.add_edges_from(node.edge for s_node in root_nodes for to_node, node in s_node.relations.items())
     relation_graph.add_edges_from(node.edge for s_node in derivative_nodes for to_node, node in s_node.relations.items())
 
+    relations = {node.edge: {'relationship': node} for s_node in root_nodes for to_node, node in s_node.relations.items()}
+    nx.set_edge_attributes(relation_graph, relations)
+
+    relations = {node.edge: {'relationship': node} for s_node in derivative_nodes for to_node, node in s_node.relations.items()}
+    nx.set_edge_attributes(relation_graph, relations)
+
     cycles = list(nx.simple_cycles(relation_graph))
     assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
     return relation_graph
@@ -21,8 +27,14 @@ def traverse_relation_graph(series, G, node='root'):
     for tenz_type in G.successors(node):
         if series in tenz_type:
             return traverse_relation_graph(series, G, tenz_type)
-
     return node
+
+
+def infer_type(base_type, series, G):
+    for tenz_type in G.successors(base_type):
+        if G[base_type][tenz_type]['relationship'].is_relation(series):
+            return infer_type(tenz_type, series, G)
+    return base_type
 
 
 class tenzing_typeset:
@@ -60,7 +72,12 @@ class tenzingTypeset(tenzing_typeset):
         column_summary = self.summarize(df)
         return summary_report(self.column_type_map, column_summary, general_summary)
 
+    def infer_types(self, df):
+        return {col: self._infer_column_type(df[col]) for col in df.columns}
+
+    def _infer_column_type(self, series):
+        return infer_type(self.column_type_map[series.name], series, self.relation_map)
+
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified
-
         return traverse_relation_graph(series, self.relation_map)

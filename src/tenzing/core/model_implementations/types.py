@@ -190,4 +190,13 @@ def register_integer_relations():
         tenzing_integer.register_relation(relation)
 
 
+def register_string_relations():
+    relations = [
+        model_relation(tenzing_string, tenzing_object),
+    ]
+    for relation in relations:
+        tenzing_string.register_relation(relation)
+
+
+register_string_relations()
 register_integer_relations()
