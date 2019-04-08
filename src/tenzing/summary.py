@@ -1,5 +1,5 @@
 from collections import Counter
-from os import path
+import pkg_resources
 from jinja2 import Environment, PackageLoader
 import yaml
 
@@ -21,8 +21,9 @@ def get_template(template):
     jinja2_env.get_template(template)
 
 
-yaml_template_file = path.join(path.dirname(__file__), 'templates', 'default_report_config.yaml')
-default_template = yaml.load(open(yaml_template_file), Loader=yaml.FullLoader)
+_resource_path = 'templates/default_report_config.yaml'
+_config_file = pkg_resources.resource_filename(__name__, _resource_path)
+default_template = yaml.load(_config_file, Loader=yaml.FullLoader)
 
 
 def traverse_config(config, summary):
