@@ -18,10 +18,10 @@ class model_relation:
         self.transformer = transformer if transformer else self.model.cast
 
     def is_relation(self, obj):
-        return self.relationship(obj)
+        return self.relationship(self.friend_model.get_series(obj))
 
     def transform(self, obj):
-        return self.transformer(obj)
+        return self.transformer(self.friend_model.get_series(obj))
 
 
 class tenzing_model(metaclass=singleton.Singleton):
@@ -29,6 +29,9 @@ class tenzing_model(metaclass=singleton.Singleton):
 
     def __init__(self):
         self.relations = {}
+
+    def get_series(self, series):
+        return series
 
     def register_relation(self, relation):
         assert relation.friend_model not in self.relations, "Only one relationship permitted per type"

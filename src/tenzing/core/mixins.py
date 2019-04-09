@@ -8,6 +8,9 @@ class optionMixin:
         result[idx] = self.cast_op(series[idx])
         return result
 
+    def get_series(self, series):
+        return series[series.notna()]
+
     def __contains__(self, series):
         idx = series.isna()
         notna_series = series[~idx].infer_objects() if idx.any() else series

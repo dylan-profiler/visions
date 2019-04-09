@@ -18,10 +18,14 @@ def build_relation_graph(root_nodes, derivative_nodes):
     relations = {node.edge: {'relationship': node} for s_node in derivative_nodes for to_node, node in s_node.relations.items()}
     nx.set_edge_attributes(relation_graph, relations)
 
-    undefined_nodes = set(relation_graph.nodes) - set(['root']) - set(root_nodes) - set(derivative_nodes)
+    provided_nodes = set(root_nodes) | set(derivative_nodes)
+    undefined_nodes = set(relation_graph.nodes) - (set(['root']) | provided_nodes)
     relation_graph.remove_nodes_from(undefined_nodes)
-    relation_graph.remove_nodes_from(nx.isolates(relation_graph))
+    relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
+    orphaned_nodes = [n for n in provided_nodes if n not in set(relation_graph.nodes)]
+
+    assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
     cycles = list(nx.simple_cycles(relation_graph))
     assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
     return relation_graph
@@ -37,7 +41,8 @@ def traverse_relation_graph(series, G, node='root'):
 def infer_type(base_type, series, G):
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]['relationship'].is_relation(series):
-            return infer_type(tenz_type, series, G)
+            new_series = G[base_type][tenz_type]['relationship'].transform(series)
+            return infer_type(tenz_type, new_series, G)
     return base_type
 
 
@@ -77,9 +82,9 @@ class tenzingTypeset(tenzing_typeset):
         return summary_report(self.column_type_map, column_summary, general_summary)
 
     def infer_types(self, df):
-        return {col: self._infer_column_type(df[col]) for col in df.columns}
+        return {col: self.infer_series_type(df[col]) for col in df.columns}
 
-    def _infer_column_type(self, series):
+    def infer_series_type(self, series):
         return infer_type(self.column_type_map[series.name], series, self.relation_map)
 
     def _get_column_type(self, series):
