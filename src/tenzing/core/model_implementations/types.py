@@ -1,6 +1,8 @@
 from tenzing.core.models import tenzing_model, model_relation
 from tenzing.core.mixins import optionMixin
 from tenzing.utils import singleton, test_utils
+import os
+import logging
 import pandas.api.types as pdt
 import pandas as pd
 
@@ -226,6 +228,7 @@ def register_timestamp_relations():
     relations = [
         model_relation(tenzing_timestamp, tenzing_string,
                        test_utils.coercion_test(lambda s: pd.to_datetime(s))),
+        model_relation(tenzing_timestamp, tenzing_object)
     ]
     for relation in relations:
         tenzing_timestamp.register_relation(relation)
@@ -236,17 +239,23 @@ register_timestamp_relations()
 
 def register_geometry_relations():
     def string_is_geometry(series):
+        """
+            Shapely logs failures at a silly severity, just trying to suppress it's output on failures.
+        """
         from shapely import wkt
-        import warnings
-        warnings.simplefilter("ignore")
+        logging.disable()
         try:
-            return all(wkt.loads(value) for value in series)
+            result = all(wkt.loads(value) for value in series)
         except Exception:
-            return False
+            result = False
+        finally:
+            logging.disable(logging.NOTSET)
+
+        return result
 
     relations = [
         model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-        model_relation(tenzing_geometry, tenzing_object),
+        model_relation(tenzing_geometry, tenzing_object)
     ]
     for relation in relations:
         tenzing_geometry.register_relation(relation)

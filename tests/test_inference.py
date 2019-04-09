@@ -37,7 +37,7 @@ standard_typeset = tenzing_standard()
 def standard_typeset_test(series, expected_type):
     series_type = traverse_relation_graph(series, standard_typeset.relation_map)
     inferred_type = infer_type(series_type, series, standard_typeset.relation_map)
-    assert inferred_type is expected_type
+    assert inferred_type is expected_type, f'Inferred type {inferred_type}, expected type {expected_type}'
 
 
 def test_int_to_int():
