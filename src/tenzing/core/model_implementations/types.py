@@ -243,7 +243,7 @@ def register_geometry_relations():
             Shapely logs failures at a silly severity, just trying to suppress it's output on failures.
         """
         from shapely import wkt
-        logging.disable()
+        #logging.disable()
         try:
             result = all(wkt.loads(value) for value in series)
         except Exception:
