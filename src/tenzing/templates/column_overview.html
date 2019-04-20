@@ -1,0 +1,22 @@
+{% if 'subtitle' in data and 'title' in data%}
+    <div class="row variablerow">
+        <div class="col-md-3 namecol">
+            <p class="h4 pp-anchor" id="pp_var_{{  data['title'] }}">{{ data['title'] }}<br/>
+                <small>{{ data['subtitle'] }}</small>
+            </p>
+    </div>
+{% endif %}
+
+<div class="col-md-6 namecol">
+    <table class="stats" style="margin-left: 1em;">
+        <tbody>
+        {% for type, count in data['data'].items() %}
+            <tr>
+                <th>{{type}}</th>
+                <td>{{count}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
