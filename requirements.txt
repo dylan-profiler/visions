@@ -2,5 +2,4 @@ numpy
 pandas
 shapely
 jinja2
-PyYAML
 networkx
