@@ -15,13 +15,16 @@ class model_relation:
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
         self.relationship = relationship if relationship else self.model.__contains__
-        self.transformer = transformer if transformer else self.model.cast
+        self.transformer = transformer
 
     def is_relation(self, obj):
         return self.relationship(self.friend_model.get_series(obj))
 
     def transform(self, obj):
-        return self.transformer(self.friend_model.get_series(obj))
+        return self.model.cast(obj, self.transformer)
+
+    def __repr__(self):
+        return f'({self.model}, {self.friend_model})'
 
 
 class tenzing_model(metaclass=singleton.Singleton):
@@ -37,8 +40,9 @@ class tenzing_model(metaclass=singleton.Singleton):
         assert relation.friend_model not in self.relations, "Only one relationship permitted per type"
         self.relations[relation.friend_model] = relation
 
-    def cast(self, series):
-        return self.cast_op(series)
+    def cast(self, series, operation=None):
+        operation = operation if operation is not None else self.cast_op
+        return operation(series)
 
     def summarize(self, series):
         return self.summarization_op(series)

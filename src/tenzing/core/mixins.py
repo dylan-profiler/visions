@@ -1,14 +1,23 @@
+from pandas import Series
+
 
 class optionMixin:
     is_option = True
 
-    def cast(self, series):
-        idx = series.notna()
-        result = series.copy()
-        result[idx] = self.cast_op(series[idx])
+    def cast(self, series, operation=None):
+        operation = operation if operation is not None else self.cast_op
+
+        idx = series.isna()
+        if idx.any():
+            result = series.copy()
+            result[~idx] = operation(series[~idx])
+        else:
+            result = operation(series)
+
         return result
 
-    def get_series(self, series):
+    @staticmethod
+    def get_series(series):
         return series[series.notna()]
 
     def __contains__(self, series):
