@@ -16,5 +16,14 @@ class tenzing_standard(tenzingTypeset):
         root_types = [tenzing_bool, tenzing_float, tenzing_object,
                       tenzing_complex, tenzing_categorical, tenzing_timestamp,
                       tenzing_integer]
+        derivative_types = [tenzing_string]
+        super().__init__(root_types, derivative_types)
+
+
+class tenzing_geometry_set(tenzingTypeset):
+    def __init__(self):
+        root_types = [tenzing_bool, tenzing_float, tenzing_object,
+                      tenzing_complex, tenzing_categorical, tenzing_timestamp,
+                      tenzing_integer]
         derivative_types = [tenzing_string, tenzing_geometry]
         super().__init__(root_types, derivative_types)

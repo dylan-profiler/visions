@@ -1,4 +1,4 @@
-from tenzing.core.model_implementations.typesets import tenzing_standard
+from tenzing.core.model_implementations.typesets import tenzing_standard, tenzing_geometry_set
 from tenzing.core.typesets import infer_type, traverse_relation_graph
 from tenzing.core.model_implementations import *
 import pandas as pd
@@ -32,11 +32,18 @@ geometry_series = pd.Series([wkt.loads('POINT (12 42)'), wkt.loads('POINT (100 4
 object_series = pd.Series([pd.datetime(2017, 1, 1), 1.0, 'tenzing was a baws'])
 
 standard_typeset = tenzing_standard()
+geometry_typeset = tenzing_geometry_set()
 
 
 def standard_typeset_test(series, expected_type):
     series_type = traverse_relation_graph(series, standard_typeset.relation_map)
     inferred_type = infer_type(series_type, series, standard_typeset.relation_map)
+    assert inferred_type is expected_type, f'Inferred type {inferred_type}, expected type {expected_type}'
+
+
+def geometry_typeset_test(series, expected_type):
+    series_type = traverse_relation_graph(series, geometry_typeset.relation_map)
+    inferred_type = infer_type(series_type, series, geometry_typeset.relation_map)
     assert inferred_type is expected_type, f'Inferred type {inferred_type}, expected type {expected_type}'
 
 
@@ -101,8 +108,8 @@ def test_string_nan_to_string():
 
 
 def test_geometry_to_geometry():
-    standard_typeset_test(geometry_series, tenzing_geometry)
+    geometry_typeset_test(geometry_series, tenzing_geometry)
 
 
 def test_string_to_geometry():
-    standard_typeset_test(geometry_string_series, tenzing_geometry)
+    geometry_typeset_test(geometry_string_series, tenzing_geometry)
