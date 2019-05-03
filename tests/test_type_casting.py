@@ -18,6 +18,7 @@ _test_suite = [
     pd.Series([1.0, 2.0, 3.35]),
     pd.Series([True, False]),
     pd.Series([True, False], dtype='category'),
+    pd.Series(['2013-7-12', '1/1/2016']),
     pd.Series([pd.datetime(2017, 1, 1), pd.datetime(2019, 3, 8)]),
     pd.Series(['POINT (12 42)', 'POINT (100 42.723)']),
     pd.Series([wkt.loads('POINT (12 42)'), wkt.loads('POINT (100 42.723)')]),
@@ -25,17 +26,51 @@ _test_suite = [
 ]
 
 
-def relations_test(source_type, relation_type):
+def relations_test(source_type, relation_type, test_set=_test_suite):
     relation = source_type.relations[relation_type]
-    for test_series in _test_suite:
-        if relation.is_relation(test_series):
+    for test_series in test_set:
+        if test_series in relation_type and relation.is_relation(test_series):
             cast_series = relation.transform(test_series)
-            assert cast_series in source_type, f'Relationship {relation} cast {test_series.values.tolist()} to {cast_series.values.tolist()} '
+            assert cast_series in source_type, f'Relationship {relation} cast {test_series.values} to {cast_series.values} '
 
 
-def test_integer_float_relations_test():
+def test_integer_float_relations():
     relations_test(tenzing_integer, tenzing_float)
 
 
-def test_integer_float_relations_test():
+def test_integer_string_relations():
     relations_test(tenzing_integer, tenzing_string)
+
+
+def test_float_string_relations():
+    # Since I've carved a hole out of the set of float for Option[Int], casting is now slightly discontinuous
+    # where tenzing_float.cast(Series[Option[Int]]) -> tenzing_integer not tenzing_float
+    tests = [
+        pd.Series(['1.1', '2']),
+        pd.Series(['1.1', '2', 'NAN', 'N/A'])
+    ]
+    relations_test(tenzing_float, tenzing_string, tests)
+
+
+def test_string_object_relations():
+    relations_test(tenzing_string, tenzing_object)
+
+
+def test_timestamp_string_relations():
+    relations_test(tenzing_timestamp, tenzing_string)
+
+
+def test_timestamp_object_relations():
+    relations_test(tenzing_timestamp, tenzing_object)
+
+
+def test_geometry_string_relations():
+    relations_test(tenzing_geometry, tenzing_string)
+
+
+def test_geometry_object_relations():
+    relations_test(tenzing_geometry, tenzing_object)
+
+
+def test_bool_string_relations():
+    relations_test(tenzing_bool, tenzing_string)

@@ -16,8 +16,7 @@ class optionMixin:
 
         return result
 
-    @staticmethod
-    def get_series(series):
+    def get_series(self, series):
         return series[series.notna()]
 
     def __contains__(self, series):

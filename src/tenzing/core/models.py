@@ -24,7 +24,7 @@ class model_relation:
         return self.model.cast(obj, self.transformer)
 
     def __repr__(self):
-        return f'({self.model}, {self.friend_model})'
+        return f'({self.friend_model} -> {self.model})'
 
 
 class tenzing_model(metaclass=singleton.Singleton):
