@@ -179,7 +179,7 @@ class tenzing_geometry(optionMixin, tenzing_model):
 
     def cast_op(self, series):
         from shapely import wkt
-        return [wkt.loads(value) for value in series]
+        return pd.Series([wkt.loads(value) for value in series])
 
     def summarization_op(self, series):
         summary = {}
@@ -189,7 +189,7 @@ class tenzing_geometry(optionMixin, tenzing_model):
 def register_integer_relations():
     relations = [
         model_relation(tenzing_integer, tenzing_float,
-                       lambda s: s.eq(s.astype(int)).all()),
+                       test_utils.coercion_equality_test(lambda s: s.astype(int))),
         model_relation(tenzing_integer, tenzing_string,
                        test_utils.coercion_test(lambda s: s.astype(int))),
     ]
@@ -201,9 +201,14 @@ register_integer_relations()
 
 
 def register_float_relations():
+    def test_string_is_float(series):
+        coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(series)
+        if coerced_series is None:
+            return False
+        else:
+            return True
     relations = [
-        model_relation(tenzing_float, tenzing_string,
-                       test_utils.coercion_test(tenzing_float.cast)),
+        model_relation(tenzing_float, tenzing_string, test_string_is_float),
     ]
     for relation in relations:
         tenzing_float.register_relation(relation)
@@ -243,7 +248,7 @@ def register_geometry_relations():
             Shapely logs failures at a silly severity, just trying to suppress it's output on failures.
         """
         from shapely import wkt
-        #logging.disable()
+        logging.disable()
         try:
             result = all(wkt.loads(value) for value in series)
         except Exception:
@@ -255,7 +260,7 @@ def register_geometry_relations():
 
     relations = [
         model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-        model_relation(tenzing_geometry, tenzing_object)
+        model_relation(tenzing_geometry, tenzing_object, transformer=lambda series: series)
     ]
     for relation in relations:
         tenzing_geometry.register_relation(relation)

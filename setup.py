@@ -15,7 +15,6 @@ setup(
         'numpy==1.16.2',
         'shapely==1.6.4.post2',
         'jinja2==2.10.1',
-        'PyYAML==5.1',
         'networkx==2.2'
     ],
     extras_require={
