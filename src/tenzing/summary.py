@@ -1,7 +1,6 @@
 from collections import Counter
 import pkg_resources
 from jinja2 import Environment, PackageLoader
-import yaml
 
 # There's got to be a better way to do all this HTML bullshit...
 # Can I use a framework here or something? https://materializecss.com/getting-started.html
@@ -19,14 +18,6 @@ template_map = [
 
 def get_template(template):
     return jinja2_env.get_template(template)
-
-
-def _get_default_config():
-    _resource_path = 'templates/default_report_config.yaml'
-    _config_file = pkg_resources.resource_filename(__name__, _resource_path)
-    string_res = pkg_resources.resource_string(__name__, _resource_path)
-    default_template = yaml.load(string_res, Loader=yaml.FullLoader)
-    return process_yaml_template(default_template)
 
 
 class renderable_config:

@@ -2,11 +2,13 @@ from abc import ABCMeta
 
 
 class Singleton(ABCMeta):
-    """Metaclass for singletons. Any instantiation of a Singleton class yields
-    the exact same object, e.g.:
+    """Singleton metaclass
+
+    Any instantiation of a Singleton class yields
+    the exact same object, e.g.
 
     >>> class MyClass(metaclass=Singleton):
-            pass
+    >>>     pass
     >>> a = MyClass()
     >>> b = MyClass()
     >>> a is b
@@ -28,17 +30,17 @@ class Singleton(ABCMeta):
 
 
 def singleton_object(cls):
-    """Class decorator that transforms (and replaces) a class definition (which
-    must have a Singleton metaclass) with the actual singleton object. Ensures
-    that the resulting object can still be "instantiated" (i.e., called),
-    returning the same object. Also ensures the object can be pickled, is
-    hashable, and has the correct string representation (the name of the
-    singleton)
+    """Singleton metaclass class decorator.
 
-    Permits this:
-    @singleton_object
-    class MySingleton(metaclass=Singleton):
-        pass
+    This class decorator transforms (and replaces) a class definition (which
+    must have a Singleton metaclass) with the actual singleton object.
+
+
+    >>> @singleton_object
+    >>> class MySingleton(metaclass=Singleton):
+    >>>     pass
+    >>> MySingleton is MySingleton() # Doesn't require instantiation
+    True
     """
     assert isinstance(cls, Singleton), cls.__name__ + " must use Singleton metaclass"
 

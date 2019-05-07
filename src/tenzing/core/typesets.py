@@ -5,6 +5,31 @@ import itertools
 
 
 def build_relation_graph(root_nodes, derivative_nodes):
+    """
+    Builds a type relation graph from a collection of root and derivative nodes. Usually
+    root nodes correspond to the baseline numpy types found in pandas while derivative
+    nodes correspond to subtypes with a defined relation.
+
+    Parameters
+    ----------
+    root_nodes : List[tenzing_type]
+        A list of tenzing_types considered at the root of the relations graph.
+
+    derivative_nodes : List[tenzing_type]
+        A list of tenzing_types with defined relations either to the root_nodes or each other.
+
+    Returns
+    -------
+    networkx DiGraph
+        A directed graph of type relations for the provided nodes.
+
+    Notes
+    -------
+     So much duplicated code here... got to be a better way. The fundamental issue
+        is that I have to modify the data to check the next step in the graph.
+        I could re-use some of this code but then I end up double performing those
+        cast operations
+    """
     relation_graph = nx.DiGraph()
     relation_graph.add_node('root')
     relation_graph.add_nodes_from(root_nodes)
@@ -30,14 +55,6 @@ def build_relation_graph(root_nodes, derivative_nodes):
     cycles = list(nx.simple_cycles(relation_graph))
     assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
     return relation_graph
-
-
-"""
-TODO: So much duplicated code here... got to be a better way. The fundamental issue
-        is that I have to modify the data to check the next step in the graph.
-        I could re-use some of this code but then I end up double performing those
-        cast operations
-"""
 
 
 def traverse_relation_graph(series, G, node='root'):
@@ -70,7 +87,40 @@ def cast_to_inferred_type(series, base_type, G):
 
 
 class tenzing_typeset:
+    """
+    A collection of tenzing_types with an associated relationship map between them.
+
+    Attributes
+    ----------
+    base_types : frozenset
+        The collection of tenzing types at the root of the relations graph
+
+    derivative_types: frozenset
+        The collection of tenzing types which are derived either from a base_type or themselves
+
+    types: frozenset
+        The collection of both base_types and derivative_types
+
+    relation_map: networkx DiGraph
+        A graph representing the relationships and mappings between each type in the typeset.
+
+    """
     def __init__(self, base_types, derivative_types=[]):
+        """
+
+        Parameters
+        ----------
+        base_types : List[tenzing_type]
+            The collection of tenzing types at the root of the relations graph
+
+        derivative_types: List[tenzing_type]
+            The collection of tenzing types which are derived either from a base_type or themselves
+
+        Returns
+        -------
+        self
+
+        """
         self.base_types = frozenset(base_types)
         self.derivative_types = frozenset(derivative_types)
         self.types = set(list(self.base_types | self.derivative_types))

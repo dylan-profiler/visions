@@ -1,5 +1,27 @@
 
+"""
+test_utils.py
+====================================
+A selection of testing utilities for tenzing.
+"""
+
+
 def option_coercion_evaluator(method):
+    """A coercion test evaluator
+
+    Evaluates a coercion method and optionally returns the coerced series.
+
+    Parameters
+    ----------
+    method : func
+        A method coercing a Series to another type.
+
+    Returns
+    -------
+    Option[Series]
+        The coerced series if the coercion succeeds otherwise None.
+
+    """
     # Returns Option[result] where result is the coercion of a series from method
     def f(series):
         try:
@@ -10,6 +32,21 @@ def option_coercion_evaluator(method):
 
 
 def coercion_test(method):
+    """A coercion test generator
+
+    Creates a coercion test based on a provided coercion method.
+
+    Parameters
+    ----------
+    method : func
+        A method coercing a Series to another type.
+
+    Returns
+    -------
+    bool
+        Whether the coercion failed or was succesful.
+
+    """
     # Returns True or False if the coercion succeeds
     tester = option_coercion_evaluator(method)
 
@@ -20,8 +57,24 @@ def coercion_test(method):
 
 
 def coercion_equality_test(method):
-    # Returns True if the coercion succeeds and the coerced series has the same
-    # underlying data as the original series (i.e. integer == float)
+    """A coercion equality test generator
+
+    Creates a coercion test based on a provided coercion method which also enforces
+    equality constraints on the output. This is useful when you want to change the
+    data type of a series without necessarily changing the data, for example,
+    when converting an integer to a float.
+
+    Parameters
+    ----------
+    method : func
+        A method coercing a Series to another type.
+
+    Returns
+    -------
+    bool
+        Whether the coercion failed or was succesful.
+
+    """
     tester = option_coercion_evaluator(method)
 
     def f(series):
