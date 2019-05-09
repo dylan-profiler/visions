@@ -11,11 +11,11 @@ setup(
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
     install_requires=[
-        'pandas==0.24.2',
-        'numpy==1.16.2',
-        'shapely==1.6.4.post2',
-        'jinja2==2.10.1',
-        'networkx==2.2'
+        'pandas>=0.23.0',
+        'numpy>=1.15',
+        'shapely>=1.6',
+        'jinja2>=2.7',
+        'networkx>=2.2'
     ],
     extras_require={
     },
