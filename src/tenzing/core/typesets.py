@@ -1,11 +1,11 @@
-from tenzing.summary import summary_report
+from tenzing.core.summary import summary_report
 import pandas as pd
 import networkx as nx
 import itertools
 
 
 def build_relation_graph(root_nodes, derivative_nodes):
-    """
+    """Constructs a traversible relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
     nodes correspond to subtypes with a defined relation.
@@ -129,6 +129,21 @@ class tenzing_typeset:
 
 
 class tenzingTypeset(tenzing_typeset):
+    """Base class for working with collections of tenzing types on a dataset
+
+    A tenzingTypeset represents a collection of tenzingTypes
+
+    Attributes
+    ----------
+    base_types : list
+        The collection of tenzing types at the root of the relations graph. This will usually be
+        basic pandas types like `int`, `float`, `object`, etc...
+
+    derivative_types: list
+        A List of tenzing types which are derived either from a base_type or themselves. For example,
+        `tenzing_string` is represented by `object` in it's underlying pandas/numpy datatype.
+
+    """
     def __init__(self, base_types, derivative_types=[]):
         self.column_summary = {}
         super().__init__(base_types, derivative_types)
