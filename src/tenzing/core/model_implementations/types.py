@@ -9,6 +9,12 @@ import pandas as pd
 
 @singleton.singleton_object
 class tenzing_integer(optionMixin, tenzing_model):
+    """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series([1, 2, 3, np.nan])
+    >>> x in tenzing_integer
+    True
+    """
     def contains_op(self, series):
         if pdt.is_integer_dtype(series):
             return True
@@ -34,6 +40,12 @@ class tenzing_integer(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_float(optionMixin, tenzing_model):
+    """**Float** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
+    >>> x in tenzing_float
+    True
+    """
     def contains_op(self, series):
         if not pdt.is_float_dtype(series):
             return False
@@ -57,6 +69,12 @@ class tenzing_float(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_bool(optionMixin, tenzing_model):
+    """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series([True, False, np.nan])
+    >>> x in tenzing_bool
+    True
+    """
     def contains_op(self, series):
         if pdt.is_categorical_dtype(series):
             return False
@@ -80,6 +98,12 @@ class tenzing_bool(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_categorical(optionMixin, tenzing_model):
+    """**Categorical** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series([True, False, 1], dtype='category')
+    >>> x in tenzing_categorical
+    True
+    """
     def contains_op(self, series):
         return pdt.is_categorical_dtype(series)
 
@@ -98,6 +122,12 @@ class tenzing_categorical(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_complex(optionMixin, tenzing_model):
+    """**Complex** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
+    >>> x in tenzing_complex
+    True
+    """
     def contains_op(self, series):
         return pdt.is_complex_dtype(series)
 
@@ -113,6 +143,12 @@ class tenzing_complex(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_timestamp(optionMixin, tenzing_model):
+    """**Timestamp** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+    >>> x in tenzing_timestamp
+    True
+    """
     def contains_op(self, series):
         return pdt.is_datetime64_dtype(series)
 
@@ -132,6 +168,12 @@ class tenzing_timestamp(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_object(optionMixin, tenzing_model):
+    """**Object** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series(['a', 1, np.nan])
+    >>> x in tenzing_object
+    True
+    """
     def contains_op(self, series):
         return pdt.is_object_dtype(series)
 
@@ -152,6 +194,12 @@ class tenzing_object(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_string(optionMixin, tenzing_model):
+    """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> x = pd.Series(['a', 'b', np.nan])
+    >>> x in tenzing_string
+    True
+    """
     def contains_op(self, series):
         if not pdt.is_object_dtype(series):
             return False
@@ -170,6 +218,13 @@ class tenzing_string(optionMixin, tenzing_model):
 
 @singleton.singleton_object
 class tenzing_geometry(optionMixin, tenzing_model):
+    """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
+
+    >>> from shapely import wkt
+    >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
+    >>> x in tenzing_geometry
+    True
+    """
     from shapely import geometry
     geom_types = [geometry.Point, geometry.Polygon, geometry.MultiPolygon, geometry.MultiPoint,
                   geometry.LineString, geometry.LinearRing, geometry.MultiPoint, geometry.MultiLineString]

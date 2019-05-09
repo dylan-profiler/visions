@@ -2,6 +2,16 @@ from pandas import Series
 
 
 class optionMixin:
+    """Mixin adding missing value support to tenzing types
+
+    When creating a custom Tenzing type simply inherit from optionMixin to add
+    automatic support for missing values.
+
+    >>> @singleton.singleton_object
+    >>> class tenzing_timestamp(optionMixin, tenzing_model):
+    >>>     // Implementation
+
+    """
     is_option = True
 
     def cast(self, series, operation=None):
