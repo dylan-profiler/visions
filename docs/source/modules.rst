@@ -1,7 +1,10 @@
-tenzing
-=======
+===
+API
+===
 
 .. toctree::
-   :maxdepth: 4
 
-   tenzing
+    tenzing/models
+    tenzing/typesets
+    tenzing/utils
+    tenzing/mixins

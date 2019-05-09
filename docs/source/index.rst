@@ -1,16 +1,16 @@
-
-
-Welcome to tenzing's documentation!
-===================================
-
-.. automodule:: tenzing
-    :members:
+=======
+Tenzing
+=======
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 3
+   :caption: Table of Contents:
 
-   readme
+   tenzing/introduction
+   tenzing/installation
+   tenzing/getting_started.md
+   modules
+
 
 
 Indices and tables
