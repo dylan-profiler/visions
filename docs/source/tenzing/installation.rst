@@ -14,6 +14,7 @@ Installation
 
 You can install tenzing from source and from pip
 
+Pip
 ---
 
 Installing with pip::
