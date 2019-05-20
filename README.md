@@ -1,12 +1,16 @@
 # Tenzing
 
-<img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201505/tenzing_650_051115023506.jpg" alt="drawing" width="300"/>
+<p align="center">
+<img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201505/tenzing_650_051115023506.jpg" width="200"/>
+</p>
 
 ## Introduction
 Tenzing provides an extensible suite of tools to support common data analysis operations including
 
 * automated data summarization
 * type inference on unknown data
+
+Full documentation can be found [here](https://tenzing.readthedocs.io/en/latest/).
 
 ## Requirements
 
