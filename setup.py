@@ -15,10 +15,12 @@ setup(
         'numpy>=1.15',
         'shapely>=1.6',
         'jinja2>=2.7',
-        'networkx>=2.2'
+        'networkx>=2.2',
+        'seaborn>=0.7.0',
+        'matplotlib>=2.2.4'
     ],
-    extras_require={
-    },
+    extras_require={'geopandas': ['geopandas'],
+                    },
     setup_requires=["pytest-runner"],
     tests_require=["pytest", "pytest-rerunfailures", "pytest-sugar", "pytest-tldr"],
     python_requires='>=3.4',

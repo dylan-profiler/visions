@@ -99,7 +99,6 @@ class tenzing_bool(optionMixin, tenzing_model):
 
         summary['perc_True'] = summary['num_True'] / summary['n_records']
         summary['perc_False'] = summary['num_False'] / summary['n_records']
-        summary['frequencies'] = create_frequency_table(summary['frequencies'])
         return summary
 
 
@@ -124,7 +123,6 @@ class tenzing_categorical(optionMixin, tenzing_model):
         summary['category_size'] = len(series.dtype._categories)
         summary['missing_categorical_values'] = True if summary['nunique'] != summary['category_size'] else False
         summary['frequencies'] = series.value_counts().to_dict()
-        summary['frequencies'] = create_frequency_table(summary['frequencies'])
         return summary
 
 
@@ -194,7 +192,6 @@ class tenzing_object(optionMixin, tenzing_model):
         try:
             summary['nunique'] = series.nunique()
             summary['frequencies'] = series.value_counts().to_dict()
-            summary['frequencies'] = create_frequency_table(summary['frequencies'])
         except Exception:
             pass
 
@@ -223,7 +220,6 @@ class tenzing_string(optionMixin, tenzing_model):
         summary = series.agg(['nunique']).to_dict()
         summary['n_records'] = series.shape[0]
         summary['frequencies'] = series.value_counts().to_dict()
-        summary['frequencies'] = create_frequency_table(summary['frequencies'])
         return summary
 
 
@@ -248,9 +244,13 @@ class tenzing_geometry(optionMixin, tenzing_model):
         return pd.Series([wkt.loads(value) for value in series])
 
     def summarization_op(self, series):
-        import geopandas as gpd
         summary = {}
-        summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())
+        try:
+            import geopandas as gpd
+            summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())
+        except ImportError:
+            pass
+
         return summary
 
 

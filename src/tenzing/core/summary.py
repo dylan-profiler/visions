@@ -35,6 +35,8 @@ class renderable_config:
         data = {}
         data['data'] = summary.get(self.data_name)
         data.update(self.extra_configs)
+        if 'frequencies' in data['data']:
+            data['data']['frequencies'] = create_frequency_table(data['data']['frequencies'])
         res = self.template.render(data=data)
         return res
 
