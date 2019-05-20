@@ -18,10 +18,11 @@ Pip
 ---
 
 Installing with pip::
+
     pip install tenzing
 
 
-Install from Source
+Source
 -------------------
 
 To install tenzing from source, clone the repository from `github
