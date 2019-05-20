@@ -12,7 +12,8 @@ template_map = [
     'overview.html',
     'base.html',
     'list_composition.html',
-    'html_wrapper.html'
+    'html_wrapper.html',
+    'frequency_table.html'
 ]
 
 
@@ -36,6 +37,14 @@ class renderable_config:
         data.update(self.extra_configs)
         res = self.template.render(data=data)
         return res
+
+
+def create_frequency_table(frequencies, n=6):
+    import heapq
+    total = sum(frequencies.values())
+    largest = heapq.nlargest(n, frequencies, key=frequencies.get)
+    data = {item: frequencies[item] for item in largest}
+    return get_template('frequency_table.html').render(data=data, total=total)
 
 
 def traverse_config(config, summary):
