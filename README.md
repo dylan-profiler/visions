@@ -12,17 +12,22 @@ Tenzing provides an extensible suite of tools to support common data analysis op
 
 * pandas
 * numpy
+* networkx
+* jinja2
+* seaborn
+* matplotlib
 
 ### Optional Requirements
 
 * shapely
+* geopandas
 
 ## Installation
 
 You can install tenzing from source and from pip
 
 ```
-pip install .
+pip install tenzing
 ```
 
 or from source,

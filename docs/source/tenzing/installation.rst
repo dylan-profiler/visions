@@ -3,6 +3,10 @@ Requirements
 
 * pandas
 * numpy
+* jinja2
+* networkx
+* seaborn
+* matplotlib
 
 
 Installation
@@ -13,10 +17,8 @@ You can install tenzing from source and from pip
 pip
 ---
 
-[TODO]
-
 Installing with pip::
-    pip install Tenzing
+    pip install tenzing
 
 
 Install from Source
