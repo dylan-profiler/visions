@@ -265,9 +265,6 @@ def register_integer_relations():
         tenzing_integer.register_relation(relation)
 
 
-register_integer_relations()
-
-
 def register_float_relations():
     def test_string_is_float(series):
         coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(series)
@@ -282,18 +279,12 @@ def register_float_relations():
         tenzing_float.register_relation(relation)
 
 
-register_float_relations()
-
-
 def register_string_relations():
     relations = [
         model_relation(tenzing_string, tenzing_object),
     ]
     for relation in relations:
         tenzing_string.register_relation(relation)
-
-
-register_string_relations()
 
 
 def register_timestamp_relations():
@@ -305,9 +296,6 @@ def register_timestamp_relations():
     ]
     for relation in relations:
         tenzing_timestamp.register_relation(relation)
-
-
-register_timestamp_relations()
 
 
 def register_geometry_relations():
@@ -334,9 +322,6 @@ def register_geometry_relations():
         tenzing_geometry.register_relation(relation)
 
 
-register_geometry_relations()
-
-
 class string_bool_relation:
     _boolean_maps = {'true': True, 'True': True,
                      'false': False, 'False': False,
@@ -359,4 +344,9 @@ def register_bool_relations():
         tenzing_bool.register_relation(relation)
 
 
+register_integer_relations()
+register_float_relations()
+register_string_relations()
+register_timestamp_relations()
 register_bool_relations()
+register_geometry_relations()
