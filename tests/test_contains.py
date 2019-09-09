@@ -31,6 +31,7 @@ _test_suite = [
     pd.Series(['hello', 'world'], name='string_series'),
     pd.Series(['hello', 'world'], dtype='category', name='categorical_string_series'),
     pd.Series(['2017-10-01', '12/05/2017'], name='timestamp_string_series'),
+    pd.Series([u'hello', u'world'], name='string_unicode_series'),
 
     # Bool Series
     pd.Series([True, False], name='bool_series'),
@@ -134,7 +135,7 @@ def test_timedelta_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(['timestamp_string_series', 'string_series', 'geometry_string_series'])
+@make_pytest_parameterization(['timestamp_string_series', 'string_series', 'geometry_string_series', 'string_unicode_series'])
 def test_string_contains(series):
     type = tenzing_string
     assert series in type
