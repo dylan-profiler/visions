@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+import json
 
 from tenzing.core.model_implementations.typesets import tenzing_complete_set
 # from tenzing.core.typesets import infer_type
@@ -11,9 +12,6 @@ import datetime
 import matplotlib.pyplot as plt
 
 
-# In[3]:
-
-
 df = pd.DataFrame({'item_id': [1, 1, 3], 
                    'item_cost': [2.1, 3.5, 4], 
                    'item_name': ['orange', 'orange', 'apple'],
@@ -22,10 +20,10 @@ df = pd.DataFrame({'item_id': [1, 1, 3],
                    'COGS': pd.Series([np.nan, 1.1, 2.1]).astype(str),
                    'is_still_available': [True, False, True],
                    'is_expired': ['True', 'false', 'False'],
+                   'is_person': ['Y', 'N', 'Y'],
+                   'website': ['http://www.google.com', 'http://www.bing.com', 'http://www.duckduckgo.com'],
                    'complex_record': [np.complex(1, 2), np.complex(3,4), np.complex(5, 6)]
                    })
-print(df.dtypes)
-
 
 # In[4]:
 
@@ -33,7 +31,8 @@ print(df.dtypes)
 ts = tenzing_complete_set()
 _ = ts.prep(df)
 
-print(ts.summary_report(df))
+summary = ts.summary_report(df)
+# print(json.dumps(summary, indent=4))
 
 
 # In[4]:
@@ -51,7 +50,10 @@ print(ts.infer_types(df))
 # In[6]:
 
 
-print(ts.cast_to_inferred_types(df).dtypes)
+df_clean = ts.cast_to_inferred_types(df)
+print(df_clean.head())
+
+print(ts.infer_types(df_clean))
 
 
 # In[7]:
