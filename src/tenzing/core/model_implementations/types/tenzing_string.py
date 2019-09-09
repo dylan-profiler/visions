@@ -26,4 +26,7 @@ class tenzing_string(optionMixin, tenzing_model):
         summary = series.agg(['nunique']).to_dict()
         summary['n_records'] = series.shape[0]
         summary['frequencies'] = series.value_counts().to_dict()
+
+        # TODO: add distribution of string lengths
+
         return summary

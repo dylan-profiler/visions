@@ -80,17 +80,21 @@ def register_geometry_relations():
 
 
 class string_bool_relation:
-    # TODO: lowercase
     # TODO: extend with Y/N
-    _boolean_maps = {'true': True, 'True': True,
-                     'false': False, 'False': False,
-                     'TRUE': True, 'FALSE': False}
+    _boolean_maps = {'true': True,
+                     'false': False}
 
+    # _boolean_maps = {'y': True,
+    #                  'n': False}
+    # _boolean_maps = {'yes': True,
+    #                  'no': False}
+
+    # TODO: ensure that series.str.lower() has no side effects
     def string_is_bool(self, series):
-        return series.isin(self._boolean_maps.keys()).all()
+        return series.str.lower().isin(self._boolean_maps.keys()).all()
 
     def map_string_to_bool(self, series):
-        return series.map(self._boolean_maps)
+        return series.str.lower().map(self._boolean_maps)
 
 
 def register_bool_relations():

@@ -1,4 +1,5 @@
 import pandas.api.types as pdt
+import numpy as np
 
 from tenzing.core import tenzing_model
 from tenzing.core.mixins.option_mixin import optionMixin
@@ -27,8 +28,17 @@ class tenzing_integer(optionMixin, tenzing_model):
         return series.astype(int)
 
     def summarization_op(self, series):
-        aggregates = ['nunique', 'mean', 'std', 'max', 'min', 'median']
+        aggregates = ['nunique', 'median', "mean", "std", "var", "min", "max", "kurt", "skew", "sum", "mad"]
         summary = series.agg(aggregates).to_dict()
+
+        quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
+        for percentile, value in series.quantile(quantiles).to_dict().items():
+            summary["quantile_{:d}".format(int(percentile * 100))] = value
+
+        summary["range"] = summary["max"] - summary["min"]
+        summary["iqr"] = summary["quantile_75"] - summary["quantile_25"]
+        summary["cv"] = summary["std"] / summary["mean"] if summary["mean"] else np.NaN
+
         summary['n_records'] = series.shape[0]
 
         summary['n_zeros'] = (series == 0).sum()

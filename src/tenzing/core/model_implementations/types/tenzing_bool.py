@@ -23,11 +23,12 @@ class tenzing_bool(optionMixin, tenzing_model):
 
     def summarization_op(self, series):
         summary = {}
+        # TODO: common summary
         summary['frequencies'] = series.value_counts().to_dict()
+        summary['n_records'] = series.shape[0]
+
         summary['num_True'] = summary['frequencies'].get(True, 0)
         summary['num_False'] = summary['frequencies'].get(False, 0)
-
-        summary['n_records'] = series.shape[0]
 
         summary['perc_True'] = summary['num_True'] / summary['n_records']
         summary['perc_False'] = summary['num_False'] / summary['n_records']

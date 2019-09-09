@@ -20,10 +20,13 @@ class tenzing_categorical(optionMixin, tenzing_model):
         return series.astype('category')
 
     def summarization_op(self, series):
+        # TODO: unique summary
         aggregates = ['nunique']
         summary = series.agg(aggregates).to_dict()
 
+        # TODO: common summary
+        summary['frequencies'] = series.value_counts().to_dict()
+
         summary['category_size'] = len(series.dtype._categories)
         summary['missing_categorical_values'] = True if summary['nunique'] != summary['category_size'] else False
-        summary['frequencies'] = series.value_counts().to_dict()
         return summary

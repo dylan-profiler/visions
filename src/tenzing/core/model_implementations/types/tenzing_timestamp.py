@@ -28,5 +28,6 @@ class tenzing_timestamp(optionMixin, tenzing_model):
         summary['perc_unique'] = summary['nunique'] / summary['n_records']
 
         summary['range'] = summary['max'] - summary['min']
+        # TODO: restrict to histogram calculation
         # summary['image'] = plotting.save_plot_to_str(series.hist())
         return summary
