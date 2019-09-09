@@ -48,6 +48,9 @@ _test_suite = [
     # Datetime Series
     pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)], name='timestamp_series'),
 
+    # Timedelta Series
+    pd.Series([pd.Timedelta(days=i) for i in range(3)], name='timedelta_series'),
+
     # Geometry Series
     pd.Series(['POINT (-92 42)', 'POINT (-92 42.1)', 'POINT (-92 42.2)'], name='geometry_string_series'),
     pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'),
@@ -120,6 +123,12 @@ def test_complex_contains(series):
 @make_pytest_parameterization(['timestamp_series'])
 def test_timestamp_contains(series):
     type = tenzing_timestamp
+    assert series in type
+
+
+@make_pytest_parameterization(['timedelta_series'])
+def test_timedelta_contains(series):
+    type = tenzing_timedelta
     assert series in type
 
 
