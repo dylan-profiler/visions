@@ -78,5 +78,7 @@ class tenzing_complete_set(tenzingTypeset):
         root_types = [tenzing_bool, tenzing_float, tenzing_object,
                       tenzing_complex, tenzing_categorical, tenzing_timestamp,
                       tenzing_integer, tenzing_timedelta]
-        derivative_types = [tenzing_string, tenzing_geometry, tenzing_url, tenzing_path, tenzing_existing_path]
+        derivative_types = [tenzing_string, tenzing_geometry, tenzing_url, tenzing_path,
+                            # tenzing_existing_path
+                            ]
         super().__init__(root_types, derivative_types)
