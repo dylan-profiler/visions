@@ -1,6 +1,7 @@
 import pandas as pd
 import networkx as nx
 import itertools
+import matplotlib.pyplot as plt
 
 
 def build_relation_graph(root_nodes, derivative_nodes):
@@ -53,6 +54,8 @@ def build_relation_graph(root_nodes, derivative_nodes):
     assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
     cycles = list(nx.simple_cycles(relation_graph))
     assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
+
+    plt.title("Data Model")
     return relation_graph
 
 

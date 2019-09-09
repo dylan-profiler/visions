@@ -1,5 +1,4 @@
-import os
-from pathlib import Path
+import pandas as pd
 from urllib.parse import urlparse, ParseResult
 
 import pandas.api.types as pdt
@@ -35,6 +34,9 @@ class tenzing_url(optionMixin, tenzing_model):
         summary['frequencies'] = series.value_counts().to_dict()
         summary['memory_size'] = series.memory_usage(index=True, deep=True),
 
-        # TODO: value counts for url parts
+        keys = ["scheme", "netloc", "path", "query", "fragment"]
+        url_parts = dict(zip(keys, zip(*series)))
+        for name, part in url_parts.items():
+            summary["{}_counts".format(name.lower())] = pd.Series(part).value_counts().to_dict()
 
         return summary

@@ -1,7 +1,5 @@
 numpy
 pandas
 shapely
-jinja2
 networkx
 matplotlib
-seaborn

@@ -38,7 +38,7 @@ summary = ts.summary_report(df)
 # In[4]:
 
 
-print(ts.column_type_map)
+# print(ts.column_type_map)
 
 
 # In[5]:

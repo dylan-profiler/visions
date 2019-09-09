@@ -17,8 +17,6 @@ Full documentation can be found [here](https://tenzing.readthedocs.io/en/latest/
 * pandas
 * numpy
 * networkx
-* jinja2
-* seaborn
 * matplotlib
 
 ### Optional Requirements
@@ -41,3 +39,8 @@ git clone https://github.com/ieaves/tenzing.git
 cd tenzing
 python setup.py install .
 ```
+
+## References
+- The Python data model [[docs](https://docs.python.org/3/reference/datamodel.html)] [[diagram](https://en.wikipedia.org/wiki/Data_type#/media/File:Python_3._The_standard_type_hierarchy.png)]
+- The Numpy data model [[docs](https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html)]
+ - The Pandas data model [[docs](https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes)]
