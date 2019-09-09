@@ -1,10 +1,15 @@
+from pathlib import Path
+from urllib.parse import urlparse
+
 from tenzing.core.model_implementations.types.tenzing_bool import tenzing_bool
 from tenzing.core.model_implementations.types.tenzing_float import tenzing_float
 from tenzing.core.model_implementations.types.tenzing_geometry import tenzing_geometry
-from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
+from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.core.model_implementations.types.tenzing_timestamp import tenzing_timestamp
+from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
 from tenzing.core.models import model_relation
 from tenzing.utils import test_utils
 import logging
@@ -44,8 +49,25 @@ def register_string_relations():
         tenzing_string.register_relation(relation)
 
 
-def register_timestamp_relations():
+def register_url_relations():
+    relations = [
+        model_relation(tenzing_url, tenzing_string,
+                       test_utils.coercion_test(lambda s: urlparse(s)))
+    ]
+    for relation in relations:
+        tenzing_url.register_relation(relation)
 
+
+def register_path_relations():
+    relations = [
+        model_relation(tenzing_path, tenzing_string,
+                       test_utils.coercion_test(lambda s: Path(s)))
+    ]
+    for relation in relations:
+        tenzing_path.register_relation(relation)
+
+
+def register_timestamp_relations():
     relations = [
         model_relation(tenzing_timestamp, tenzing_string,
                        test_utils.coercion_test(lambda s: pd.to_datetime(s))),
@@ -113,3 +135,5 @@ register_string_relations()
 register_timestamp_relations()
 register_bool_relations()
 register_geometry_relations()
+register_url_relations()
+register_path_relations()
