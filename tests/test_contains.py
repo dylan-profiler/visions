@@ -1,3 +1,6 @@
+from pathlib import Path
+from urllib.parse import urlparse
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -30,11 +33,12 @@ _test_suite = [
     pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'),
                wkt.loads('POINT (-92 42.2)')], name='geometry_series'),
 
+    pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')], name='path_series'),
+    pd.Series([urlparse('http://www.cwi.nl:80/%7Eguido/Python.html'), urlparse('https://github.com/pandas-profiling/pandas-profiling')], name='url_series'),
     # TODO: validate these cases
     # pd.Series([True, False, np.nan], name='bool_nan_series'),
     # pd.Series([1, 2, 3], name='Int64_int_series', dtype='Int64'),
 ]
-
 
 def make_pytest_parameterization(true_series):
     def mark_pytest_param(item):
@@ -52,6 +56,18 @@ def test_series(request):
 @make_pytest_parameterization(['int_series', 'int_nan_series'])
 def test_int_contains(series):
     type = tenzing_integer
+    assert series in type
+
+
+@make_pytest_parameterization(['path_series'])
+def test_int_contains(series):
+    type = tenzing_path
+    assert series in type
+
+
+@make_pytest_parameterization(['url_series'])
+def test_int_contains(series):
+    type = tenzing_url
     assert series in type
 
 
