@@ -1,6 +1,3 @@
-from pandas import Series
-
-
 class optionMixin:
     """Mixin adding missing value support to tenzing types
 

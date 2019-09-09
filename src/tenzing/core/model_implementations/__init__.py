@@ -1,4 +1,14 @@
-from tenzing.core.model_implementations.types import (tenzing_float, tenzing_integer, tenzing_bool,
-                                                      tenzing_categorical, tenzing_complex, tenzing_timestamp,
-                                                      tenzing_object, tenzing_string, tenzing_geometry)
+from tenzing.core.model_implementations.types.tenzing_bool import tenzing_bool
+from tenzing.core.model_implementations.types.tenzing_categorical import tenzing_categorical
+from tenzing.core.model_implementations.types.tenzing_complex import tenzing_complex
+from tenzing.core.model_implementations.types.tenzing_float import tenzing_float
+from tenzing.core.model_implementations.types.tenzing_geometry import tenzing_geometry
+from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
+from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
+from tenzing.core.model_implementations.types.tenzing_timestamp import tenzing_timestamp
+from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_timedelta
+from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
+from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
+import tenzing.core.model_implementations.relations
 from tenzing.core.model_implementations.typesets import tenzing_standard

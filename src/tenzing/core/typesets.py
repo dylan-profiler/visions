@@ -1,4 +1,3 @@
-from tenzing.core.summary import summary_report
 import pandas as pd
 import networkx as nx
 import itertools
@@ -45,7 +44,7 @@ def build_relation_graph(root_nodes, derivative_nodes):
     nx.set_edge_attributes(relation_graph, relations)
 
     provided_nodes = set(root_nodes) | set(derivative_nodes)
-    undefined_nodes = set(relation_graph.nodes) - (set(['root']) | provided_nodes)
+    undefined_nodes = set(relation_graph.nodes) - ({'root'} | provided_nodes)
     relation_graph.remove_nodes_from(undefined_nodes)
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
@@ -64,7 +63,9 @@ def traverse_relation_graph(series, G, node='root'):
     return node
 
 
-def get_type_inference_path(base_type, series, G, path=[]):
+def get_type_inference_path(base_type, series, G, path=None):
+    if path is None:
+        path = []
     path.append(base_type)
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]['relationship'].is_relation(series):
@@ -105,7 +106,7 @@ class tenzing_typeset:
         A graph representing the relationships and mappings between each type in the typeset.
 
     """
-    def __init__(self, base_types, derivative_types=[]):
+    def __init__(self, base_types, derivative_types=None):
         """
 
         Parameters
@@ -121,6 +122,8 @@ class tenzing_typeset:
         self
 
         """
+        if derivative_types is None:
+            derivative_types = []
         self.base_types = frozenset(base_types)
         self.derivative_types = frozenset(derivative_types)
         self.types = set(list(self.base_types | self.derivative_types))
@@ -144,7 +147,9 @@ class tenzingTypeset(tenzing_typeset):
         `tenzing_string` is represented by `object` in it's underlying pandas/numpy datatype.
 
     """
-    def __init__(self, base_types, derivative_types=[]):
+    def __init__(self, base_types, derivative_types=None):
+        if derivative_types is None:
+            derivative_types = []
         self.column_summary = {}
         super().__init__(base_types, derivative_types)
 
@@ -160,15 +165,13 @@ class tenzingTypeset(tenzing_typeset):
         return self.column_summary
 
     def general_summary(self, df):
-        summary = {}
-        summary['Number of Observations'] = df.shape[0]
-        summary['Number of Variables'] = df.shape[1]
+        summary = {'n_observations': df.shape[0], 'n_variables': df.shape[1]}
         return summary
 
     def summary_report(self, df):
         general_summary = self.general_summary(df)
         column_summary = self.summarize(df)
-        return summary_report(self.column_type_map, column_summary, general_summary)
+        return self.column_type_map, column_summary, general_summary
 
     def infer_types(self, df):
         return {col: self.infer_series_type(df[col]) for col in df.columns}
