@@ -25,9 +25,6 @@ df = pd.DataFrame({'item_id': [1, 1, 3],
                    'complex_record': [np.complex(1, 2), np.complex(3,4), np.complex(5, 6)]
                    })
 
-# In[4]:
-
-
 ts = tenzing_complete_set()
 _ = ts.prep(df)
 
@@ -53,10 +50,19 @@ print(ts.infer_types(df))
 df_clean = ts.cast_to_inferred_types(df)
 print(df_clean.head())
 
+# TODO: assert
+# {'item_id': tenzing_integer,
+# 'item_cost': tenzing_float,
+# 'item_name': tenzing_string,
+# 'sale_date': tenzing_timestamp,
+# 'store_location': tenzing_geometry,
+# 'COGS': tenzing_float,
+# 'is_still_available': tenzing_bool,
+# 'is_expired': tenzing_bool,
+# 'is_person': tenzing_bool,
+# 'website': tenzing_url,
+# 'complex_record': tenzing_complex}
 print(ts.infer_types(df_clean))
-
-
-# In[7]:
 
 
 nx.draw_kamada_kawai(ts.relation_map, with_labels=True)

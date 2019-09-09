@@ -52,7 +52,7 @@ def register_string_relations():
 def register_url_relations():
     relations = [
         model_relation(tenzing_url, tenzing_string,
-                       test_utils.coercion_test(lambda s: urlparse(s)))
+                       test_utils.coercion_test(lambda s: all(k in ['netloc', 'scheme'] for k in urlparse(s)._asdict())))
     ]
     for relation in relations:
         tenzing_url.register_relation(relation)
