@@ -12,6 +12,8 @@ _test_suite = [
     pd.Series([1, 2, 3], name='int_series'),
     pd.Series([1, 2, 3], name='categorical_int_series', dtype='category'),
     pd.Series([1, 2, np.nan], name='int_nan_series'),
+    pd.Series([1, 2, 3], name='Int64_int_series', dtype='Int64'),
+    pd.Series([1, 2, 3, np.nan], name='Int64_int_nan_series', dtype='Int64'),
 
     pd.Series([1.0, 2.1, 3.0], name='float_series'),
     pd.Series([1.0, 2.5, np.nan], name='float_nan_series'),
@@ -22,10 +24,13 @@ _test_suite = [
     pd.Series(['2017-10-01', '12/05/2017'], name='timestamp_string_series'),
 
     pd.Series([True, False], name='bool_series'),
+    pd.Series([True, False, np.nan], name='bool_nan_series'),
 
     pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan], name='complex_series'),
     pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan], name='categorical_complex_series',
               dtype='category'),
+    pd.Series([complex(0, 0), complex(1, 2), complex(3, -1), np.nan], name='complex_series_py_nan'),
+    pd.Series([complex(0, 0), complex(1, 2), complex(3, -1)], name='complex_series_py'),
 
     pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)], name='timestamp_series'),
 
@@ -35,10 +40,8 @@ _test_suite = [
 
     pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')], name='path_series'),
     pd.Series([urlparse('http://www.cwi.nl:80/%7Eguido/Python.html'), urlparse('https://github.com/pandas-profiling/pandas-profiling')], name='url_series'),
-    # TODO: validate these cases
-    # pd.Series([True, False, np.nan], name='bool_nan_series'),
-    # pd.Series([1, 2, 3], name='Int64_int_series', dtype='Int64'),
 ]
+
 
 def make_pytest_parameterization(true_series):
     def mark_pytest_param(item):
@@ -53,7 +56,7 @@ def test_series(request):
     yield request.param
 
 
-@make_pytest_parameterization(['int_series', 'int_nan_series'])
+@make_pytest_parameterization(['int_series', 'int_nan_series', 'Int64_int_series', 'Int64_int_nan_series'])
 def test_int_contains(series):
     type = tenzing_integer
     assert series in type
@@ -84,13 +87,13 @@ def test_categorical_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(['bool_series'])
+@make_pytest_parameterization(['bool_series', 'bool_nan_series'])
 def test_bool_contains(series):
     type = tenzing_bool
     assert series in type
 
 
-@make_pytest_parameterization(['complex_series'])
+@make_pytest_parameterization(['complex_series', 'complex_series_py_nan', 'complex_series_py'])
 def test_complex_contains(series):
     type = tenzing_complex
     assert series in type
