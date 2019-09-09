@@ -47,6 +47,8 @@ _test_suite = [
 
     # Datetime Series
     pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)], name='timestamp_series'),
+    pd.date_range(start="2013-05-18 12:00:00", periods=2, freq='H',
+                              tz= "Europe/Brussels", name='timestamp_aware_series'),
 
     # Timedelta Series
     pd.Series([pd.Timedelta(days=i) for i in range(3)], name='timedelta_series'),
@@ -120,7 +122,7 @@ def test_complex_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(['timestamp_series'])
+@make_pytest_parameterization(['timestamp_series', 'timestamp_aware_series'])
 def test_timestamp_contains(series):
     type = tenzing_timestamp
     assert series in type

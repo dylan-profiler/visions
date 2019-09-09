@@ -15,7 +15,7 @@ class tenzing_timestamp(optionMixin, tenzing_model):
     True
     """
     def contains_op(self, series):
-        return pdt.is_datetime64_dtype(series)
+        return pdt.is_datetime64_any_dtype(series)
 
     def cast_op(self, series):
         return pd.to_datetime(series)
