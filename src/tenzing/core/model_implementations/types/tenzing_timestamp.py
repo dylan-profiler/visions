@@ -30,4 +30,6 @@ class tenzing_timestamp(optionMixin, tenzing_model):
         summary['range'] = summary['max'] - summary['min']
         # TODO: restrict to histogram calculation
         # summary['image'] = plotting.save_plot_to_str(series.hist())
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+
         return summary

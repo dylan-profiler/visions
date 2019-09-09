@@ -27,5 +27,8 @@ class tenzing_object(optionMixin, tenzing_model):
         except Exception:
             pass
 
+        # TODO: move to common
         summary['n_records'] = series.shape[0]
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+
         return summary

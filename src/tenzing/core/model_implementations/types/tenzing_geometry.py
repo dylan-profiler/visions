@@ -27,7 +27,8 @@ class tenzing_geometry(optionMixin, tenzing_model):
         return pd.Series([wkt.loads(value) for value in series])
 
     def summarization_op(self, series):
-        summary = {}
+        summary = {'n_records': series.shape[0], 'memory_size': (series.memory_usage(index=True, deep=True),)}
+
         try:
             import geopandas as gpd
             # summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())

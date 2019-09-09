@@ -22,5 +22,11 @@ class tenzing_complex(optionMixin, tenzing_model):
     def summarization_op(self, series):
         aggregates = ['mean']
         summary = series.agg(aggregates).to_dict()
-        summary['nunique'] = len(set(series))  # nunique apparently only considers real
+        # TODO: unique
+        summary['n_unique'] = len(set(series))  # nunique apparently only considers real
+
+        # TODO: common
+        summary['n_records'] = series.shape[0]
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+
         return summary

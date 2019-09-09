@@ -26,7 +26,10 @@ class tenzing_categorical(optionMixin, tenzing_model):
 
         # TODO: common summary
         summary['frequencies'] = series.value_counts().to_dict()
+        summary['n_records'] = series.shape[0]
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
 
         summary['category_size'] = len(series.dtype._categories)
         summary['missing_categorical_values'] = True if summary['nunique'] != summary['category_size'] else False
+
         return summary

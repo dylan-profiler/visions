@@ -41,6 +41,7 @@ class tenzing_float(optionMixin, tenzing_model):
 
         # TODO: move to common
         summary['n_records'] = series.shape[0]
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
 
         # TODO: could be a mixin
         summary['n_zeros'] = (series == 0).sum()

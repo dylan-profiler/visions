@@ -39,7 +39,9 @@ class tenzing_integer(optionMixin, tenzing_model):
         summary["iqr"] = summary["quantile_75"] - summary["quantile_25"]
         summary["cv"] = summary["std"] / summary["mean"] if summary["mean"] else np.NaN
 
+        # TODO: move to common
         summary['n_records'] = series.shape[0]
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
 
         summary['n_zeros'] = (series == 0).sum()
         summary['perc_zeros'] = summary['n_zeros'] / summary['n_records']

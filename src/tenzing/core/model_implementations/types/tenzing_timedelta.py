@@ -21,5 +21,6 @@ class tenzing_timedelta(optionMixin, tenzing_model):
         return pd.to_timedelta(series)
 
     def summarization_op(self, series):
-        summary = {}
+        summary = {'n_records': series.shape[0], 'memory_size': (series.memory_usage(index=True, deep=True),)}
+
         return summary

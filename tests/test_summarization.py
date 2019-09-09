@@ -87,7 +87,7 @@ def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
 def test_complex_missing_summary(tenzing_type=tenzing_complex):
     test_series = pd.Series([0 + 0j, 0 + 1j, 1 + 0j, 1 + 1j, np.nan])
     correct_output = {
-        'nunique': 4,
+        'n_unique': 4,
         'mean': 0.5 + 0.5j,
         'na_count': 1,
         'perc_na': 0.2,

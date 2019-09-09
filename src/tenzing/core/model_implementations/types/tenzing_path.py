@@ -32,6 +32,7 @@ class tenzing_path(optionMixin, tenzing_model):
         # TODO: inherit from common base?
         summary['n_records'] = series.shape[0]
         summary['frequencies'] = series.value_counts().to_dict()
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
 
         summary["common_prefix"] = os.path.commonprefix(list(series)) or "No common prefix",
         return summary

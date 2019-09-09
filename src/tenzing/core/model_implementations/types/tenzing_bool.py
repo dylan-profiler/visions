@@ -26,6 +26,7 @@ class tenzing_bool(optionMixin, tenzing_model):
         # TODO: common summary
         summary['frequencies'] = series.value_counts().to_dict()
         summary['n_records'] = series.shape[0]
+        summary['memory_size'] = series.memory_usage(index=True, deep=True),
 
         summary['num_True'] = summary['frequencies'].get(True, 0)
         summary['num_False'] = summary['frequencies'].get(False, 0)
