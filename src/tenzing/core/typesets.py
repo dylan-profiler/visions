@@ -1,4 +1,4 @@
-from tenzing.core.summary import summary_report
+# from tenzing.core.summary import summary_report
 import pandas as pd
 import networkx as nx
 import itertools
@@ -160,9 +160,7 @@ class tenzingTypeset(tenzing_typeset):
         return self.column_summary
 
     def general_summary(self, df):
-        summary = {}
-        summary['Number of Observations'] = df.shape[0]
-        summary['Number of Variables'] = df.shape[1]
+        summary = {'n_observations': df.shape[0], 'n_variables': df.shape[1]}
         return summary
 
     def summary_report(self, df):

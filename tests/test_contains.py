@@ -29,6 +29,10 @@ _test_suite = [
     pd.Series(['POINT (-92 42)', 'POINT (-92 42.1)', 'POINT (-92 42.2)'], name='geometry_string_series'),
     pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'),
                wkt.loads('POINT (-92 42.2)')], name='geometry_series'),
+
+    # TODO: validate these cases
+    # pd.Series([True, False, np.nan], name='bool_nan_series'),
+    # pd.Series([1, 2, 3], name='Int64_int_series', dtype='Int64'),
 ]
 
 
