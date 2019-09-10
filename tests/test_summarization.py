@@ -24,7 +24,7 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
         'min': 0,
         'n_records': 6,
         'n_zeros': 1,
-        'perc_zeros': 1.0 / 5.0,
+        'perc_zeros': 1.0 / 6.0,
         'na_count': 1,
         'perc_na': 1.0 / 6.0,
     }
@@ -36,7 +36,8 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
 def test_float_missing_summary(tenzing_type=tenzing_float):
     test_series = pd.Series([0.0, 1.0, 2.0, 3.0, 4.0, np.nan])
     correct_output = {
-        'nunique': 5,
+        'n_unique': 6,
+        'perc_unique': 1.0,
         'median': 2,
         'mean': 2,
         'std': pytest.approx(1.58113, 0.00001),
