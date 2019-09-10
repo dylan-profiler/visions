@@ -42,5 +42,5 @@ python setup.py install .
 
 ## References
 - The Python data model [[docs](https://docs.python.org/3/reference/datamodel.html)] [[diagram](https://en.wikipedia.org/wiki/Data_type#/media/File:Python_3._The_standard_type_hierarchy.png)]
-- The Numpy data model [[docs](https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html)]
- - The Pandas data model [[docs](https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes)]
+- The Numpy data model [[docs](https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html)] [[diagram](https://docs.scipy.org/doc/numpy-1.13.0/_images/dtype-hierarchy.png)]
+ - The Pandas data model [[docs](https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes)] [[diagram](https://pbpython.com/images/pandas_dtypes.png)]
