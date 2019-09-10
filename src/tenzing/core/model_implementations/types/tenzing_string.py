@@ -3,6 +3,7 @@ import pandas.api.types as pdt
 from tenzing.core import tenzing_model
 from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, baseSummaryMixin
 from tenzing.utils import singleton
+from tenzing.utils.unicodedata2 import script_cat
 
 
 @singleton.singleton_object
@@ -24,6 +25,13 @@ class tenzing_string(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_
 
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-        # TODO: add distribution of string lengths
+
+        # Distribution of length
+        summary["length"] = series.map(lambda x: len(str(x))).value_counts().to_dict()
+
+        # Unicode Scripts and Categories
+        unicode_series = series.apply(lambda sequence: {script_cat(character) for character in sequence})
+        unicode_scripts = {y for x in unicode_series.values for y in x}
+        summary['unicode_scripts'] = unicode_scripts
 
         return summary
