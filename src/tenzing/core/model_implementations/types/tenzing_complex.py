@@ -22,6 +22,10 @@ class tenzing_complex(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 
-        aggregates = ['mean']
+        aggregates = ["mean", "std", "var", "min", "max", "sum"]
+
         summary.update(series.agg(aggregates).to_dict())
+
+        # TODO: cleaner way of doing this
+        summary["scatter_data"] = series.to_numpy()
         return summary
