@@ -28,5 +28,9 @@ class tenzing_path(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_mo
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 
-        summary["common_prefix"] = os.path.commonprefix(list(series)) or "No common prefix",
+        summary["common_prefix"] = os.path.commonprefix(list(series)) or "No common prefix"
+        summary["stem_counts"] = series.map(lambda x: x.stem).value_counts().to_dict()
+        summary["suffix_counts"] = series.map(lambda x: x.suffix).value_counts().to_dict()
+        summary["name_counts"] = series.map(lambda x: x.name).value_counts().to_dict()
+        summary["parent_counts"] = series.map(lambda x: x.parent).value_counts().to_dict()
         return summary
