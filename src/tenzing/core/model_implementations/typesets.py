@@ -68,6 +68,8 @@ class tenzing_complete_set(tenzingTypeset):
     - tenzing_complex
     - tenzing_categorical
     - tenzing_datetime
+    - tenzing_date
+    - tenzing_time
     - tenzing_timedelta
     - tenzing_geometry
     - tenzing_path
@@ -79,6 +81,7 @@ class tenzing_complete_set(tenzingTypeset):
                       tenzing_complex, tenzing_categorical, tenzing_datetime,
                       tenzing_integer, tenzing_timedelta]
         derivative_types = [tenzing_string, tenzing_geometry, tenzing_url, tenzing_path,
+                            tenzing_date, tenzing_time
                             # tenzing_existing_path
                             ]
         super().__init__(root_types, derivative_types)

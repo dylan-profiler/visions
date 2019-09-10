@@ -51,11 +51,13 @@ _test_suite = [
 
     # Datetime Series
     pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)], name='timestamp_series'),
+    pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4), pd.NaT], name='timestamp_series_nat'),
     pd.date_range(start="2013-05-18 12:00:00", periods=2, freq='H',
                               tz= "Europe/Brussels", name='timestamp_aware_series'),
 
     # Timedelta Series
     pd.Series([pd.Timedelta(days=i) for i in range(3)], name='timedelta_series'),
+    pd.Series([pd.Timedelta(days=i) for i in range(3)] + [pd.NaT], name='timedelta_series_nat'),
 
     # Geometry Series
     pd.Series(['POINT (-92 42)', 'POINT (-92 42.1)', 'POINT (-92 42.2)'], name='geometry_string_series'),
@@ -67,6 +69,10 @@ _test_suite = [
 
     # Url Series
     pd.Series([urlparse('http://www.cwi.nl:80/%7Eguido/Python.html'), urlparse('https://github.com/pandas-profiling/pandas-profiling')], name='url_series'),
+
+    # Object Series
+    pd.Series([[1, ''], [2, 'fiets'], [3, 'auto']], name='mixed_list[str,int]'),
+    pd.Series([{'foo': 'baar'}, {'bar': 'foo'}, {'fizz': 'buzz'}], name='mixed_dict'),
 ]
 
 
@@ -127,13 +133,13 @@ def test_complex_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(['timestamp_series', 'timestamp_aware_series'])
-def test_timestamp_contains(series):
-    type = tenzing_timestamp
+@make_pytest_parameterization(['timestamp_series', 'timestamp_aware_series', 'timestamp_series_nat'])
+def test_datetime_contains(series):
+    type = tenzing_datetime
     assert series in type
 
 
-@make_pytest_parameterization(['timedelta_series'])
+@make_pytest_parameterization(['timedelta_series', 'timedelta_series_nat'])
 def test_timedelta_contains(series):
     type = tenzing_timedelta
     assert series in type
@@ -149,4 +155,10 @@ def test_string_contains(series):
 @make_pytest_parameterization(['geometry_series'])
 def test_geometry_contains(series):
     type = tenzing_geometry
+    assert series in type
+
+
+@make_pytest_parameterization(['mixed_list[str,int]', 'mixed_dict'])
+def test_object_contains(series):
+    type = tenzing_object
     assert series in type

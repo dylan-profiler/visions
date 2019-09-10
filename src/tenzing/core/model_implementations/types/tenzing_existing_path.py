@@ -9,7 +9,7 @@ class tenzing_existing_path(tenzing_path):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
-    >>> x in tenzing_path
+    >>> x in tenzing_existing_path
     True
     """
     def contains_op(self, series):

@@ -30,13 +30,16 @@ def build_relation_graph(root_nodes, derivative_nodes):
         I could re-use some of this code but then I end up double performing those
         cast operations
     """
+    generic_name = 'generic'
+
     relation_graph = nx.DiGraph()
-    relation_graph.add_node('root')
+    relation_graph.add_node(generic_name)
+    print(relation_graph.nodes)
     relation_graph.add_nodes_from(root_nodes)
-    relation_graph.add_edges_from(itertools.product(['root'], root_nodes))
+    relation_graph.add_edges_from(itertools.product([generic_name], root_nodes))
     relation_graph.add_nodes_from(derivative_nodes)
-    relation_graph.add_edges_from(node.edge for s_node in root_nodes for to_node, node in s_node.relations.items())
-    relation_graph.add_edges_from(node.edge for s_node in derivative_nodes for to_node, node in s_node.relations.items())
+    relation_graph.add_edges_from([node.edge for s_node in root_nodes for to_node, node in s_node.relations.items()], weight=0)
+    relation_graph.add_edges_from([node.edge for s_node in derivative_nodes for to_node, node in s_node.relations.items()], weight=1)
 
     relations = {node.edge: {'relationship': node} for s_node in root_nodes for to_node, node in s_node.relations.items()}
     nx.set_edge_attributes(relation_graph, relations)
@@ -45,12 +48,13 @@ def build_relation_graph(root_nodes, derivative_nodes):
     nx.set_edge_attributes(relation_graph, relations)
 
     provided_nodes = set(root_nodes) | set(derivative_nodes)
-    undefined_nodes = set(relation_graph.nodes) - ({'root'} | provided_nodes)
+    undefined_nodes = set(relation_graph.nodes) - ({generic_name} | provided_nodes)
     relation_graph.remove_nodes_from(undefined_nodes)
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
+    # TODO: this should be forced by framework...
+    # Relations should be connected...
     orphaned_nodes = [n for n in provided_nodes if n not in set(relation_graph.nodes)]
-
     assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
     cycles = list(nx.simple_cycles(relation_graph))
     assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
@@ -59,7 +63,10 @@ def build_relation_graph(root_nodes, derivative_nodes):
     return relation_graph
 
 
-def traverse_relation_graph(series, G, node='root'):
+def traverse_relation_graph(series, G, node='generic'):
+    """
+    Depth-first search
+    """
     for tenz_type in G.successors(node):
         if series in tenz_type:
             return traverse_relation_graph(series, G, tenz_type)
@@ -130,8 +137,12 @@ class tenzing_typeset:
         self.base_types = frozenset(base_types)
         self.derivative_types = frozenset(derivative_types)
         self.types = set(list(self.base_types | self.derivative_types))
-
         self.relation_map = build_relation_graph(self.base_types, self.derivative_types)
+
+    def plot(self):
+        x = self.relation_map
+        # nx.draw(x, nodelist=['generic'], edgelist=[], node_color=['red'], with_labels=False)
+        nx.draw(x, node_color=['blue']* len(x.nodes), with_labels=True)
 
 
 class tenzingTypeset(tenzing_typeset):
@@ -157,6 +168,7 @@ class tenzingTypeset(tenzing_typeset):
         super().__init__(base_types, derivative_types)
 
     def prep(self, df):
+        # TODO: imporve this (no new attributes outside of __init__)
         self.column_type_map = {col: self._get_column_type(df[col]) for col in df.columns}
         self.is_prepped = True
         return self
@@ -168,13 +180,15 @@ class tenzingTypeset(tenzing_typeset):
         return self.column_summary
 
     def general_summary(self, df):
-        summary = {'n_observations': df.shape[0], 'n_variables': df.shape[1]}
+        summary = {'n_observations': df.shape[0],
+                   'n_variables': df.shape[1],
+                   'memory_size': df.memory_usage(index=True, deep=True).sum()}
         return summary
 
     def summary_report(self, df):
         general_summary = self.general_summary(df)
         column_summary = self.summarize(df)
-        return self.column_type_map, column_summary, general_summary
+        return {'types': self.column_type_map, 'columns': column_summary, 'general': general_summary}
 
     def infer_types(self, df):
         return {col: self.infer_series_type(df[col]) for col in df.columns}

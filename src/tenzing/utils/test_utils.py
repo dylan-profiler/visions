@@ -26,7 +26,7 @@ def option_coercion_evaluator(method):
     def f(series):
         try:
             return method(series)
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, AttributeError):
             return None
     return f
 

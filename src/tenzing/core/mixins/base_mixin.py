@@ -20,13 +20,10 @@ class baseSummaryMixin:
         })
         return summary
 
-
-"""
-    def warnings(summary):
-        messages = []
-        if summary["n_unique"] == 1:
-            messages.append("n_unique:const")
-        if summary["p_unique"] == 1.0:
-            messages.append("n_unique:unique")
-        return messages
-"""
+    # def warnings(self, summary):
+    #     messages = []
+    #     if summary["n_unique"] == 1:
+    #         messages.append("n_unique:const")
+    #     if summary["p_unique"] == 1.0:
+    #         messages.append("n_unique:unique")
+    #     return messages
