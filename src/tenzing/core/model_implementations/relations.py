@@ -52,7 +52,7 @@ def register_string_relations():
 def register_url_relations():
     relations = [
         model_relation(tenzing_url, tenzing_string,
-                       test_utils.coercion_test(lambda s: urlparse(s)))
+                       test_utils.coercion_test(lambda s: all(k in ['netloc', 'scheme'] for k in urlparse(s)._asdict())))
     ]
     for relation in relations:
         tenzing_url.register_relation(relation)
@@ -113,7 +113,7 @@ class string_bool_relation:
 
     # TODO: ensure that series.str.lower() has no side effects
     def string_is_bool(self, series):
-        return series.str.lower().isin(self._boolean_maps.keys()).all()
+        return series.apply(type).eq(str).all() and series.str.lower().isin(self._boolean_maps.keys()).all()
 
     def map_string_to_bool(self, series):
         return series.str.lower().map(self._boolean_maps)

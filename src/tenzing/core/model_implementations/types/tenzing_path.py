@@ -20,8 +20,7 @@ class tenzing_path(optionMixin, tenzing_model):
         if not pdt.is_object_dtype(series):
             return False
 
-        # TODO: only absolute Paths
-        return series.eq(series.apply(Path)).all()
+        return series.eq(series.apply(Path)).all() and series.apply(lambda p: p.is_absolute()).all()
 
     def cast_op(self, series):
         return series.apply(Path)

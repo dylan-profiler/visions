@@ -26,6 +26,7 @@ _test_suite = [
     pd.Series([np.nan, 1.2], name='float_series5'),
     pd.Series([np.nan, 1.1], dtype=np.single, name='float_series6'),
     pd.Series([1.0, 2.0, 3.1], dtype='category', name='categorical_float_series'),
+    pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.0], name='float_with_inf'),
 
     # String Series
     pd.Series(['hello', 'world'], name='string_series'),
@@ -99,7 +100,8 @@ def test_int_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(['float_series', 'float_series2', 'float_series3', 'float_series4', 'float_series5', 'float_series6', 'float_nan_series'])
+@make_pytest_parameterization(['float_series', 'float_series2', 'float_series3', 'float_series4', 'float_series5',
+                               'float_series6', 'float_nan_series', 'float_with_inf'])
 def test_float_contains(series):
     type = tenzing_float
     assert series in type
