@@ -1,6 +1,5 @@
-from functools import singledispatch
 from tenzing.utils import singleton
-from abc import abstractmethod, abstractproperty, ABCMeta
+from abc import abstractmethod
 import pandas as pd
 
 
@@ -116,4 +115,6 @@ class tenzing_model(metaclass=singleton.Singleton):
 
     @abstractmethod
     def summarization_op(self, series):
-        pass
+        # TODO: place baseMixin here?
+        return {}
+

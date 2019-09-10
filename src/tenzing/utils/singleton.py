@@ -29,26 +29,32 @@ class Singleton(ABCMeta):
         else:
             return isinstance(instance.__class__, mcs)
 
-    def wrap_summary(func, bases=[]):
-        """Return a wrapped instance method"""
-
-        @staticmethod
-        def outer(series):
-            summary = {}
-            for base in bases[:-1]:  # last is always the base class
-                summary.update(base.summarization_op(None, series))
-            summary.update(func(None, series))
-
-            return summary
-
-        return outer
-
-    def __new__(cls, name, bases, attrs):
-        """If the class has a 'get_series' or 'summarize' method, wrap it"""
-        if "summarization_op" in attrs:
-            attrs["summarization_op"] = cls.wrap_summary(attrs["summarization_op"], bases)
-
-        return super(Singleton, cls).__new__(cls, name, bases, attrs)
+    # def wrap_summary(func, bases=None):
+    #     """Return a wrapped instance method"""
+    #
+    #     if bases is None:
+    #         bases = []
+    #
+    #     @staticmethod
+    #     def outer(series):
+    #         summary = {}
+    #         for base in bases[:-1]:  # last is always the base class
+    #             print(base)
+    #             summary.update(base.summarization_op(None, series))
+    #         summary.update(func(None, series))
+    #
+    #         return summary
+    #
+    #     return outer
+    #
+    # def __new__(cls, name, bases, attrs):
+    #     """If the class has a 'get_series' or 'summarize' method, wrap it"""
+    #     print(bases)
+    #     if "summarization_op" in attrs:
+    #         print(bases)
+    #         attrs["summarization_op"] = cls.wrap_summary(attrs["summarization_op"], bases)
+    #
+    #     return super(Singleton, cls).__new__(cls, name, bases, attrs)
 
 
 def singleton_object(cls):

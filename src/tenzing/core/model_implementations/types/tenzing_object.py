@@ -1,12 +1,12 @@
 import pandas.api.types as pdt
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins.option_mixin import optionMixin
+from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, baseSummaryMixin
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_object(optionMixin, tenzing_model):
+class tenzing_object(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
     """**Object** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series(['a', 1, np.nan])
@@ -20,15 +20,13 @@ class tenzing_object(optionMixin, tenzing_model):
         return series.astype('object'),
 
     def summarization_op(self, series):
-        summary = {}
-        try:
-            summary['nunique'] = series.nunique()
-            summary['frequencies'] = series.value_counts().to_dict()
-        except Exception:
-            pass
+        summary = super().summarization_op(series)
 
-        # TODO: move to common
-        summary['n_records'] = series.shape[0]
-        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+        # summary = {}
+        # try:
+        #     summary['nunique'] = series.nunique()
+        #     summary['frequencies'] = series.value_counts().to_dict()
+        # except Exception:
+        #     pass
 
         return summary

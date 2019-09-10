@@ -4,12 +4,12 @@ from pathlib import Path
 import pandas.api.types as pdt
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins.option_mixin import optionMixin
+from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, baseSummaryMixin
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_path(optionMixin, tenzing_model):
+class tenzing_path(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
@@ -26,12 +26,7 @@ class tenzing_path(optionMixin, tenzing_model):
         return series.apply(Path)
 
     def summarization_op(self, series):
-        # TODO: inherit from 'unique'
-        summary = series.agg(['nunique']).to_dict()
-        # TODO: inherit from common base?
-        summary['n_records'] = series.shape[0]
-        summary['frequencies'] = series.value_counts().to_dict()
-        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+        summary = super().summarization_op(series)
 
         summary["common_prefix"] = os.path.commonprefix(list(series)) or "No common prefix",
         return summary

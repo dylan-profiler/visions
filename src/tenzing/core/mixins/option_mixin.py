@@ -20,18 +20,36 @@ class optionMixin:
         return result
 
     def get_series(self, series):
+        series = super().get_series(series)
         return series[series.notna()]
 
     def __contains__(self, series):
-        idx = series.isna()
-        notna_series = series[~idx].infer_objects() if idx.any() else series
+        notna_series = self.get_series(series)
         return self.contains_op(notna_series)
 
     def summarization_op(self, series):
-        summary = {}
         idx = series.isna()
+        summary = super().summarization_op(series[~idx])
 
         summary['na_count'] = idx.values.sum()
         summary['perc_na'] = summary['na_count'] / series.shape[0] if series.shape[0] > 0 else 0
-        summary['n_records'] = series.shape[0]
         return summary
+
+    # def summarize(self, series):
+    #     idx = series.isna()
+    #
+    #     summary = {}
+    #
+    #     # Inheritance
+    #     # parent = super()
+    #     # if callable(getattr(parent, 'summarize', None)):
+    #     #     print(self.__class__.__bases__)
+    #     #     print(self.__class__.__mro__)
+    #     #     summary = parent.summarize(series[~idx])
+    #     # else:
+    #
+    #     # summary.update(self.summarization_op(series[~idx]))
+    #
+    #     summary['na_count'] = idx.values.sum()
+    #     summary['perc_na'] = summary['na_count'] / series.shape[0] if series.shape[0] > 0 else 0
+    #     return summary

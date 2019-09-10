@@ -1,4 +1,4 @@
-class uniqueSummaryMixin:
+class zeroSummaryMixin:
     """Mixin adding missing value support to tenzing types
 
     When creating a custom Tenzing type simply inherit from optionMixin to add
@@ -13,12 +13,8 @@ class uniqueSummaryMixin:
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 
-        # try:
-        n_unique = len(set(series.values))
-        # n_unique = series.nunique()
-        summary.update({"n_unique": n_unique, "perc_unique": float(n_unique) / len(series)})
-        # except Exception:
-        #     pass
+        summary['n_zeros'] = (series == 0).sum()
+        summary['perc_zeros'] = summary['n_zeros'] / len(series)
         return summary
 
 

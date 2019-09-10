@@ -16,7 +16,7 @@ def validate_summary_output(trial_output, correct_output):
 def test_integer_missing_summary(tenzing_type=tenzing_integer):
     test_series = pd.Series([0, 1, 2, 3, 4, np.nan])
     correct_output = {
-        'nunique': 5,
+        'n_unique': 5,
         'mean': 2,
         'median': 2,
         'std': pytest.approx(1.58113, 0.00001),
@@ -24,7 +24,7 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
         'min': 0,
         'n_records': 6,
         'n_zeros': 1,
-        'perc_zeros': 1.0 / 6.0,
+        'perc_zeros': 1.0 / 5.0,
         'na_count': 1,
         'perc_na': 1.0 / 6.0,
     }
@@ -36,7 +36,7 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
 def test_float_missing_summary(tenzing_type=tenzing_float):
     test_series = pd.Series([0.0, 1.0, 2.0, 3.0, 4.0, np.nan])
     correct_output = {
-        'n_unique': 6,
+        'n_unique': 5,
         'perc_unique': 1.0,
         'median': 2,
         'mean': 2,
@@ -60,10 +60,10 @@ def test_bool_missing_summary(tenzing_type=tenzing_bool):
         'n_records': 5,
         'na_count': 1,
         'perc_na': 0.2,
-        'num_True': 3,
-        'num_False': 1,
-        'perc_True': 0.75,
-        'perc_False': 0.25
+        # 'num_True': 3,
+        # 'num_False': 1,
+        # 'perc_True': 0.75,
+        # 'perc_False': 0.25
     }
 
     trial_output = tenzing_type.summarize(test_series)
@@ -73,7 +73,7 @@ def test_bool_missing_summary(tenzing_type=tenzing_bool):
 def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
     test_series = pd.Series(pd.Categorical([True, False, np.nan, 'test'], categories=[True, False, 'test', 'missing']))
     correct_output = {
-        'nunique': 3,
+        'n_unique': 3,
         'n_records': 4,
         'na_count': 1,
         'perc_na': 0.25,
@@ -101,7 +101,7 @@ def test_complex_missing_summary(tenzing_type=tenzing_complex):
 def test_timestamp_missing_summary(tenzing_type=tenzing_timestamp):
     test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
     correct_output = {
-        'nunique': 3,
+        'n_unique': 3,
         'max': pd.datetime(2011, 2, 1),
         'min': pd.datetime(2010, 1, 1),
         'n_records': 4,
@@ -118,7 +118,7 @@ def test_timestamp_missing_summary(tenzing_type=tenzing_timestamp):
 def test_object_missing_summary(tenzing_type=tenzing_object):
     test_series = pd.Series([pd.datetime(2010, 1, 1), 'test', 3, np.nan])
     correct_output = {
-        'nunique': 3,
+        'n_unique': 3,
         'frequencies': {'test': 1, 3: 1, pd.datetime(2010, 1, 1): 1},
         'n_records': 4,
         'na_count': 1,

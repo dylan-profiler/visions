@@ -16,6 +16,7 @@ _test_suite = [
     pd.Series([1, 2, 3], name='Int64_int_series', dtype='Int64'),
     pd.Series([1, 2, 3, np.nan], name='Int64_int_nan_series', dtype='Int64'),
     pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name='np_uint32'),
+    pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.0], name='int_with_inf'),
 
     # Float Series
     pd.Series([1.0, 2.1, 3.0], name='float_series'),
@@ -26,7 +27,7 @@ _test_suite = [
     pd.Series([np.nan, 1.2], name='float_series5'),
     pd.Series([np.nan, 1.1], dtype=np.single, name='float_series6'),
     pd.Series([1.0, 2.0, 3.1], dtype='category', name='categorical_float_series'),
-    pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.0], name='float_with_inf'),
+    pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name='float_with_inf'),
 
     # String Series
     pd.Series(['hello', 'world'], name='string_series'),
@@ -82,7 +83,7 @@ def test_series(request):
     yield request.param
 
 
-@make_pytest_parameterization(['int_series', 'int_nan_series', 'Int64_int_series', 'Int64_int_nan_series', 'np_uint32'])
+@make_pytest_parameterization(['int_series', 'int_nan_series', 'Int64_int_series', 'Int64_int_nan_series', 'np_uint32', 'int_with_inf'])
 def test_int_contains(series):
     type = tenzing_integer
     assert series in type

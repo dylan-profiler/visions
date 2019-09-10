@@ -2,12 +2,13 @@ import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core import tenzing_model
+from tenzing.core.mixins import baseSummaryMixin
 from tenzing.core.mixins.option_mixin import optionMixin
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_geometry(optionMixin, tenzing_model):
+class tenzing_geometry(baseSummaryMixin, optionMixin, tenzing_model):
     """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> from shapely import wkt
@@ -27,7 +28,7 @@ class tenzing_geometry(optionMixin, tenzing_model):
         return pd.Series([wkt.loads(value) for value in series])
 
     def summarization_op(self, series):
-        summary = {'n_records': series.shape[0], 'memory_size': (series.memory_usage(index=True, deep=True),)}
+        summary = super().summarization_op(series)
 
         try:
             import geopandas as gpd
