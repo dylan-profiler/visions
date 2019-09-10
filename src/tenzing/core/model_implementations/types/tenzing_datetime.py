@@ -7,11 +7,11 @@ from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_timestamp(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
-    """**Timestamp** implementation of :class:`tenzing.core.models.tenzing_model`.
+class tenzing_datetime(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
+    """**Datetime** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
-    >>> x in tenzing_timestamp
+    >>> x in tenzing_datetime
     True
     """
     def contains_op(self, series):

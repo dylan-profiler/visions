@@ -65,7 +65,7 @@ class tenzing_model(metaclass=singleton.Singleton):
     i.e.
 
     >>> @singleton.singleton_object
-    >>> class tenzing_timestamp(tenzing_model):
+    >>> class tenzing_datetime(tenzing_model):
     >>>     def contains_op(self, series):
     >>>         return pdt.is_datetime64_dtype(series)
     >>>
@@ -73,11 +73,9 @@ class tenzing_model(metaclass=singleton.Singleton):
     >>>         return pd.to_datetime(series)
     >>>
     >>>     def summarization_op(self, series):
-    >>>         aggregates = ['nunique', 'min', 'max']
-    >>>         summary = series.agg(aggregates).to_dict()
-    >>>
-    >>>         summary['n_records'] = series.shape[0]
-    >>>         summary['perc_unique'] = summary['nunique'] / summary['n_records']
+    >>>         summary = super().summarization_op(series)
+    >>>         aggregates = ['min', 'max']
+    >>>         summary.update(series.agg(aggregates).to_dict())
     >>>
     >>>         summary['range'] = summary['max'] - summary['min']
     >>>         return summary

@@ -6,7 +6,7 @@ from tenzing.core.model_implementations.types.tenzing_geometry import tenzing_ge
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
-from tenzing.core.model_implementations.types.tenzing_timestamp import tenzing_timestamp
+from tenzing.core.model_implementations.types.tenzing_datetime import tenzing_datetime
 from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_timedelta
 from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 # from tenzing.core.model_implementations.types.tenzing_existing_path import tenzing_existing_path

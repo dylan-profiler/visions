@@ -8,7 +8,7 @@ from tenzing.core.model_implementations.types.tenzing_object import tenzing_obje
 from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
-from tenzing.core.model_implementations.types.tenzing_timestamp import tenzing_timestamp
+from tenzing.core.model_implementations.types.tenzing_datetime import tenzing_datetime
 from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
 from tenzing.core.models import model_relation
 from tenzing.utils import test_utils
@@ -67,14 +67,14 @@ def register_path_relations():
         tenzing_path.register_relation(relation)
 
 
-def register_timestamp_relations():
+def register_datetime_relations():
     relations = [
-        model_relation(tenzing_timestamp, tenzing_string,
+        model_relation(tenzing_datetime, tenzing_string,
                        test_utils.coercion_test(lambda s: pd.to_datetime(s))),
-        model_relation(tenzing_timestamp, tenzing_object)
+        model_relation(tenzing_datetime, tenzing_object)
     ]
     for relation in relations:
-        tenzing_timestamp.register_relation(relation)
+        tenzing_datetime.register_relation(relation)
 
 
 def register_geometry_relations():
@@ -132,7 +132,7 @@ def register_bool_relations():
 register_integer_relations()
 register_float_relations()
 register_string_relations()
-register_timestamp_relations()
+register_datetime_relations()
 register_bool_relations()
 register_geometry_relations()
 register_url_relations()
