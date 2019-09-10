@@ -4,10 +4,6 @@ class optionMixin:
     When creating a custom Tenzing type simply inherit from optionMixin to add
     automatic support for missing values.
 
-    >>> @singleton.singleton_object
-    >>> class tenzing_timestamp(optionMixin, tenzing_model):
-    >>>     // Implementation
-
     """
     is_option = True
 
@@ -31,9 +27,9 @@ class optionMixin:
         notna_series = series[~idx].infer_objects() if idx.any() else series
         return self.contains_op(notna_series)
 
-    def summarize(self, series):
+    def summarization_op(self, series):
+        summary = {}
         idx = series.isna()
-        summary = self.summarization_op(series[~idx])
 
         summary['na_count'] = idx.values.sum()
         summary['perc_na'] = summary['na_count'] / series.shape[0] if series.shape[0] > 0 else 0

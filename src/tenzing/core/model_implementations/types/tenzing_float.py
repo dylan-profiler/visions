@@ -2,13 +2,13 @@ import pandas.api.types as pdt
 import numpy as np
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins.option_mixin import optionMixin
+from tenzing.core.mixins import optionMixin, uniqueSummaryMixin
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_float(optionMixin, tenzing_model):
+class tenzing_float(optionMixin, uniqueSummaryMixin, tenzing_model):
     """**Float** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
@@ -28,7 +28,7 @@ class tenzing_float(optionMixin, tenzing_model):
         return series.astype(float)
 
     def summarization_op(self, series):
-        aggregates = ['nunique', 'mean', 'std', 'var', 'max', 'min', 'median', 'kurt', 'skew', 'sum', 'mad']
+        aggregates = ['mean', 'std', 'var', 'max', 'min', 'median', 'kurt', 'skew', 'sum', 'mad']
         summary = series.agg(aggregates).to_dict()
 
         quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
