@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 
 from tenzing.core.model_implementations import (tenzing_bool, tenzing_integer, tenzing_float,
-                                                tenzing_categorical, tenzing_complex, tenzing_timestamp,
-                                                tenzing_object, tenzing_string, tenzing_geometry)
+                                                tenzing_categorical, tenzing_complex, tenzing_datetime,
+                                                tenzing_time, tenzing_date, tenzing_object,
+                                                tenzing_string, tenzing_geometry)
 
 
 def validate_summary_output(trial_output, correct_output):
@@ -98,7 +99,7 @@ def test_complex_missing_summary(tenzing_type=tenzing_complex):
     validate_summary_output(trial_output, correct_output)
 
 
-def test_timestamp_missing_summary(tenzing_type=tenzing_timestamp):
+def test_datetime_missing_summary(tenzing_type=tenzing_datetime):
     test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
     correct_output = {
         'n_unique': 3,

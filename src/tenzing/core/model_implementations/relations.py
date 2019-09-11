@@ -54,7 +54,7 @@ def register_url_relations():
         # print(series.name)
         # print(series.head())
         try:
-            return series.apply(urlparse).apply(lambda x: x._asdict()).apply(lambda x: all([k in x for k in ['netloc', 'scheme']])).all()
+            return series.apply(urlparse).apply(lambda x: all((x.netloc, x.scheme))).all()
         except AttributeError:
             return False
 
