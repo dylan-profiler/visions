@@ -115,4 +115,3 @@ class tenzing_model(metaclass=singleton.Singleton):
     def summarization_op(self, series):
         # TODO: place baseMixin here?
         return {}
-

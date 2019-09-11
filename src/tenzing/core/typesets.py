@@ -2,6 +2,7 @@ import pandas as pd
 import networkx as nx
 import itertools
 import matplotlib.pyplot as plt
+from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 
 
 def build_relation_graph(root_nodes, derivative_nodes):
@@ -30,13 +31,12 @@ def build_relation_graph(root_nodes, derivative_nodes):
         I could re-use some of this code but then I end up double performing those
         cast operations
     """
-    generic_name = 'generic'
 
     relation_graph = nx.DiGraph()
-    relation_graph.add_node(generic_name)
+    relation_graph.add_node(tenzing_generic)
     print(relation_graph.nodes)
     relation_graph.add_nodes_from(root_nodes)
-    relation_graph.add_edges_from(itertools.product([generic_name], root_nodes))
+    relation_graph.add_edges_from(itertools.product([tenzing_generic], root_nodes))
     relation_graph.add_nodes_from(derivative_nodes)
     relation_graph.add_edges_from([node.edge for s_node in root_nodes for to_node, node in s_node.relations.items()], weight=0)
     relation_graph.add_edges_from([node.edge for s_node in derivative_nodes for to_node, node in s_node.relations.items()], weight=1)
@@ -48,7 +48,7 @@ def build_relation_graph(root_nodes, derivative_nodes):
     nx.set_edge_attributes(relation_graph, relations)
 
     provided_nodes = set(root_nodes) | set(derivative_nodes)
-    undefined_nodes = set(relation_graph.nodes) - ({generic_name} | provided_nodes)
+    undefined_nodes = set(relation_graph.nodes) - ({tenzing_generic} | provided_nodes)
     relation_graph.remove_nodes_from(undefined_nodes)
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
@@ -63,7 +63,7 @@ def build_relation_graph(root_nodes, derivative_nodes):
     return relation_graph
 
 
-def traverse_relation_graph(series, G, node='generic'):
+def traverse_relation_graph(series, G, node=tenzing_generic):
     """
     Depth-first search
     """
