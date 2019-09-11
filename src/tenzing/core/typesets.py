@@ -54,10 +54,10 @@ def build_relation_graph(root_nodes, derivative_nodes):
 
     # TODO: this should be forced by framework...
     # Relations should be connected...
-    orphaned_nodes = [n for n in provided_nodes if n not in set(relation_graph.nodes)]
-    assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
-    cycles = list(nx.simple_cycles(relation_graph))
-    assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
+    # orphaned_nodes = [n for n in provided_nodes if n not in set(relation_graph.nodes)]
+    # assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
+    # cycles = list(nx.simple_cycles(relation_graph))
+    # assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
 
     plt.title("Data Model")
     return relation_graph
@@ -79,6 +79,7 @@ def get_type_inference_path(base_type, series, G, path=None):
     path.append(base_type)
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]['relationship'].is_relation(series):
+            print('Transform', series.name, 'from', base_type, 'to', tenz_type)
             new_series = G[base_type][tenz_type]['relationship'].transform(series)
             return get_type_inference_path(tenz_type, new_series, G, path)
     return path
@@ -92,6 +93,7 @@ def infer_type(base_type, series, G):
 def cast_to_inferred_type(series, base_type, G):
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]['relationship'].is_relation(series):
+            print('Cast', series.name, 'from', base_type, 'to', tenz_type)
             new_series = G[base_type][tenz_type]['relationship'].transform(series)
             return cast_to_inferred_type(new_series, tenz_type, G)
     return series

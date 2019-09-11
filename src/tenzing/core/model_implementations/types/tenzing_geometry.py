@@ -2,13 +2,13 @@ import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import baseSummaryMixin
 from tenzing.core.mixins.option_mixin import optionMixin
+from tenzing.core.reuse import unique_summary, base_summary
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_geometry(baseSummaryMixin, optionMixin, tenzing_model):
+class tenzing_geometry(optionMixin, tenzing_model):
     """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> from shapely import wkt
@@ -27,6 +27,8 @@ class tenzing_geometry(baseSummaryMixin, optionMixin, tenzing_model):
         from shapely import wkt
         return pd.Series([wkt.loads(value) for value in series])
 
+    @base_summary
+    @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 

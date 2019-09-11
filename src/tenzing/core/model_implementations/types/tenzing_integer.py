@@ -2,12 +2,13 @@ import pandas.api.types as pdt
 import numpy as np
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, zeroSummaryMixin, infMixin, baseSummaryMixin
+from tenzing.core.mixins import optionMixin, infMixin
+from tenzing.core.reuse import unique_summary, base_summary, zero_summary
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_integer(baseSummaryMixin, optionMixin, infMixin, zeroSummaryMixin, uniqueSummaryMixin, tenzing_model):
+class tenzing_integer(optionMixin, infMixin, tenzing_model):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([1, 2, 3, np.nan])
@@ -27,9 +28,11 @@ class tenzing_integer(baseSummaryMixin, optionMixin, infMixin, zeroSummaryMixin,
     def cast_op(self, series):
         return series.astype(int)
 
+    @base_summary
+    @zero_summary
+    @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-
         aggregates = ['median', "mean", "std", "var", "min", "max", "kurt", "skew", "sum", "mad"]
         summary.update(series.agg(aggregates).to_dict())
 

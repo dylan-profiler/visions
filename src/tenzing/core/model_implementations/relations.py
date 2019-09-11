@@ -50,9 +50,16 @@ def register_string_relations():
 
 
 def register_url_relations():
+    def test_url(series):
+        # print(series.name)
+        # print(series.head())
+        try:
+            return series.apply(urlparse).apply(lambda x: x._asdict()).apply(lambda x: all([k in x for k in ['netloc', 'scheme']])).all()
+        except AttributeError:
+            return False
+
     relations = [
-        model_relation(tenzing_url, tenzing_string,
-                       test_utils.coercion_test(lambda s: all(k in ['netloc', 'scheme'] for k in urlparse(s)._asdict())))
+        model_relation(tenzing_url, tenzing_string, test_url)
     ]
     for relation in relations:
         tenzing_url.register_relation(relation)
@@ -61,7 +68,7 @@ def register_url_relations():
 def register_path_relations():
     relations = [
         model_relation(tenzing_path, tenzing_string,
-                       test_utils.coercion_test(lambda s: Path(s)))
+                       lambda s: s.apply(lambda x: Path(x).is_absolute()).all())
     ]
     for relation in relations:
         tenzing_path.register_relation(relation)
@@ -101,25 +108,24 @@ def register_geometry_relations():
         tenzing_geometry.register_relation(relation)
 
 
-class string_bool_relation:
-    # TODO: extend with Y/N
-    _boolean_maps = {'true': True,
-                     'false': False}
-
-    # _boolean_maps = {'y': True,
-    #                  'n': False}
-    # _boolean_maps = {'yes': True,
-    #                  'no': False}
-
-    # TODO: ensure that series.str.lower() has no side effects
-    def string_is_bool(self, series):
-        return series.apply(type).eq(str).all() and series.str.lower().isin(self._boolean_maps.keys()).all()
-
-    def map_string_to_bool(self, series):
-        return series.str.lower().map(self._boolean_maps)
-
-
 def register_bool_relations():
+    class string_bool_relation:
+        # TODO: extend with Y/N
+        _boolean_maps = {'true': True,
+                         'false': False}
+
+        # _boolean_maps = {'y': True,
+        #                  'n': False}
+        # _boolean_maps = {'yes': True,
+        #                  'no': False}
+
+        # TODO: ensure that series.str.lower() has no side effects
+        def string_is_bool(self, series):
+            return series.apply(type).eq(str).all() and series.str.lower().isin(self._boolean_maps.keys()).all()
+
+        def map_string_to_bool(self, series):
+            return series.str.lower().map(self._boolean_maps)
+
     sb_relation = string_bool_relation()
     relations = [
         model_relation(tenzing_bool, tenzing_string,
@@ -136,4 +142,4 @@ register_datetime_relations()
 register_bool_relations()
 register_geometry_relations()
 register_url_relations()
-register_path_relations()
+# register_path_relations()

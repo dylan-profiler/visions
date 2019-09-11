@@ -4,7 +4,7 @@ from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 from tenzing.utils import singleton
 
 
-@singleton.singleton_object
+# @singleton.singleton_object
 class tenzing_existing_path(tenzing_path):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 

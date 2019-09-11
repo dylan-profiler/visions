@@ -1,5 +1,16 @@
 import numpy as np
 
+# def inf(Cls):
+#     """
+#     >>> @inf
+#     >>> class tenzing_integer(tenzing_model):
+#     >>>     pass
+#     """
+#     class NewCls(object):
+#         pass
+#
+#     return NewCls
+
 
 class infMixin:
     """Mixin adding infinite value support to tenzing types
@@ -12,20 +23,10 @@ class infMixin:
     >>>     // Implementation
 
     """
+    # TODO: is this used?
     is_option = True
 
-    def cast(self, series, operation=None):
-        operation = operation if operation is not None else self.cast_op
-
-        idx = series.isinf()
-        if idx.any():
-            result = series.copy()
-            result[~idx] = operation(series[~idx])
-        else:
-            result = operation(series)
-
-        return result
-
+    # Todo: is this even used?
     def get_series(self, series):
         try:
             if np.issubdtype(series.dtype, np.number):
@@ -35,9 +36,15 @@ class infMixin:
         except TypeError:
             return series
 
-    def __contains__(self, series):
+    def cast_op(self, series, operation=None):
+        operation = operation if operation is not None else super().cast_op
         notinf_series = self.get_series(series)
-        return self.contains_op(notinf_series)
+        # TODO: copy?
+        return operation(notinf_series)
+
+    def contains_op(self, series):
+        notinf_series = self.get_series(series)
+        return super().contains_op(notinf_series)
 
     def summarization_op(self, series):
         idx = np.isinf(series)

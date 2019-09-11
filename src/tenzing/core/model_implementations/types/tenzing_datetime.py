@@ -2,12 +2,13 @@ import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, baseSummaryMixin
+from tenzing.core.mixins import optionMixin
+from tenzing.core.reuse import unique_summary, base_summary
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_datetime(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
+class tenzing_datetime(optionMixin, tenzing_model):
     """**Datetime** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
@@ -20,6 +21,8 @@ class tenzing_datetime(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzin
     def cast_op(self, series):
         return pd.to_datetime(series)
 
+    @base_summary
+    @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 

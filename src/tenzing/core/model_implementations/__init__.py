@@ -11,7 +11,7 @@ from tenzing.core.model_implementations.types.tenzing_date import tenzing_date
 from tenzing.core.model_implementations.types.tenzing_time import tenzing_time
 from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_timedelta
 from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
-# from tenzing.core.model_implementations.types.tenzing_existing_path import tenzing_existing_path
+from tenzing.core.model_implementations.types.tenzing_existing_path import tenzing_existing_path
 from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
 import tenzing.core.model_implementations.relations
 from tenzing.core.model_implementations.typesets import tenzing_standard

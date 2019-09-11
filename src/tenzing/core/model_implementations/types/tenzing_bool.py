@@ -1,12 +1,13 @@
 import pandas.api.types as pdt
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import optionMixin, baseSummaryMixin
+from tenzing.core.mixins import optionMixin
+from tenzing.core.reuse import base_summary
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_bool(baseSummaryMixin, optionMixin, tenzing_model):
+class tenzing_bool(optionMixin, tenzing_model):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([True, False, np.nan])
@@ -21,9 +22,9 @@ class tenzing_bool(baseSummaryMixin, optionMixin, tenzing_model):
     def cast_op(self, series):
         return series.astype(bool)
 
+    @base_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-
         # summary['num_True'] = summary['frequencies'].get(True, 0)
         # summary['num_False'] = summary['frequencies'].get(False, 0)
         #

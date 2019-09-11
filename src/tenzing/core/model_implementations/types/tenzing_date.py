@@ -21,7 +21,5 @@ class tenzing_date(tenzing_datetime):
 
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-
         # TODO: specify format
-
         return summary

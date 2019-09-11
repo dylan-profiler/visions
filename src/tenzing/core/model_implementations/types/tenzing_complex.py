@@ -1,12 +1,13 @@
 import pandas.api.types as pdt
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, baseSummaryMixin
+from tenzing.core.mixins import optionMixin
+from tenzing.core.reuse import unique_summary, base_summary, zero_summary
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_complex(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
+class tenzing_complex(optionMixin, tenzing_model):
     """**Complex** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
@@ -19,6 +20,9 @@ class tenzing_complex(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing
     def cast_op(self, series):
         return series.astype('complex')
 
+    @base_summary
+    @unique_summary
+    @zero_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 

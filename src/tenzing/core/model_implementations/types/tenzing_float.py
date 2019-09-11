@@ -2,13 +2,14 @@ import pandas.api.types as pdt
 import numpy as np
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import optionMixin, uniqueSummaryMixin, zeroSummaryMixin, baseSummaryMixin
+from tenzing.core.mixins import optionMixin
+from tenzing.core.reuse import unique_summary, base_summary, zero_summary
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_float(baseSummaryMixin, optionMixin, zeroSummaryMixin, uniqueSummaryMixin, tenzing_model):
+class tenzing_float(optionMixin, tenzing_model):
     """**Float** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
@@ -27,6 +28,9 @@ class tenzing_float(baseSummaryMixin, optionMixin, zeroSummaryMixin, uniqueSumma
     def cast_op(self, series):
         return series.astype(float)
 
+    @base_summary
+    @unique_summary
+    @zero_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 

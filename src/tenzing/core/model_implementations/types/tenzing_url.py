@@ -4,12 +4,13 @@ from urllib.parse import urlparse, ParseResult
 import pandas.api.types as pdt
 
 from tenzing.core import tenzing_model
-from tenzing.core.mixins import uniqueSummaryMixin, optionMixin, baseSummaryMixin
+from tenzing.core.mixins import optionMixin
+from tenzing.core.reuse import unique_summary, base_summary
 from tenzing.utils import singleton
 
 
 @singleton.singleton_object
-class tenzing_url(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_model):
+class tenzing_url(optionMixin, tenzing_model):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> from urllib.parse import urlparse
@@ -24,8 +25,10 @@ class tenzing_url(baseSummaryMixin, optionMixin, uniqueSummaryMixin, tenzing_mod
         return series.apply(lambda x: isinstance(x, ParseResult)).all()
 
     def cast_op(self, series):
-        return series.apply(urlparse)
+        return series.apply(urlparse).apply(lambda x: x._asdict())
 
+    @base_summary
+    @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 

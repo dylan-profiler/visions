@@ -73,6 +73,12 @@ _test_suite = [
     # Object Series
     pd.Series([[1, ''], [2, 'fiets'], [3, 'auto']], name='mixed_list[str,int]'),
     pd.Series([{'foo': 'baar'}, {'bar': 'foo'}, {'fizz': 'buzz'}], name='mixed_dict'),
+
+    # ?
+    pd.Series([None, None, None, None, None], name='none_series'),
+    pd.Series([pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle], name='callable'),
+    pd.Series([pd, pytest, np], name='module'),
+    pd.Series(np.array([1,2,3,4,5], dtype=np.uint32), name='unsigned_int32')
 ]
 
 
