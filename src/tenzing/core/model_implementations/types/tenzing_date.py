@@ -14,8 +14,12 @@ class tenzing_date(tenzing_datetime):
 
     @classmethod
     def contains_op(cls, series):
-        return pdt.is_datetime64_any_dtype(series) and series.eq(
-            series.replace(hour=0, minute=0, second=0)
+        # TODO: https://stackoverflow.com/a/51529633/470433
+        return (
+            pdt.is_datetime64_any_dtype(series)
+            and series.eq(
+                series.copy().apply(lambda x: x.replace(hour=0, minute=0, second=0))
+            ).all()
         )
 
     @classmethod

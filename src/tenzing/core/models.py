@@ -43,6 +43,7 @@ class model_relation:
         self.model = model
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
+        # TODO: should not be optional
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 

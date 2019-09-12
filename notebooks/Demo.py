@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-import json
+from pprint import pprint
 
 import pandas as pd
 import numpy as np
@@ -17,7 +17,7 @@ df = pd.DataFrame(
         "sale_date": pd.to_datetime(
             [
                 datetime.date(2011, 1, 1),
-                datetime.date(2012, 1, 1),
+                datetime.date(2012, 1, 2),
                 datetime.date(2013, 1, 1),
             ]
         ),
@@ -43,32 +43,24 @@ df = pd.DataFrame(
     }
 )
 
-# df = pd.read_csv('https://github.com/johnhagler/tb_viz/raw/4f1839e43e0d81b2f0dfdcac7e4d6b6cf3c4509e/incidence.csv')
-
-
 ts = tenzing_complete_set()
-_ = ts.prep(df)
+ts.prep(df)
+
+print("initial types")
+initial_types = ts.column_type_map
+pprint(initial_types)
 
 summary = ts.summary_report(df)
 
-# TODO: infer types without casting
-print("expected types", ts.infer_types(df))
-
+print("inferred types")
+inferred_types = ts.infer_types(df)
+pprint(inferred_types)
 
 df_clean = ts.cast_to_inferred_types(df)
-print(df_clean.head())
+
+print("inferred types after convert")
+inferred_types_cast = ts.infer_types(df_clean)
+pprint(inferred_types_cast)
 
 # TODO: assert
-# {'item_id': tenzing_integer,
-# 'item_cost': tenzing_float,
-# 'item_name': tenzing_string,
-# 'sale_date': tenzing_timestamp,
-# 'store_location': tenzing_geometry,
-# 'COGS': tenzing_float,
-# 'is_still_available': tenzing_bool,
-# 'is_expired': tenzing_bool,
-# 'is_person': tenzing_bool,
-# 'website': tenzing_url,
-# 'complex_record': tenzing_complex,
-# 'path': tenzing_path}
-# print('expected types after convert', ts.infer_types(df_clean))
+# assert list(inferred_types.values()) == list(inferred_types_cast.values())

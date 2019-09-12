@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pandas.api.types as pdt
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
 
@@ -22,7 +21,7 @@ class tenzing_path(tenzing_object):
             return False
 
         return (
-            series.eq(series.apply(Path)).all()
+            series.apply(lambda x: isinstance(x, Path)).all()
             and series.apply(lambda p: p.is_absolute()).all()
         )
 

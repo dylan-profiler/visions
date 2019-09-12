@@ -26,7 +26,7 @@ class tenzing_url(tenzing_object):
 
     @classmethod
     def cast_op(cls, series, operation=None):
-        return series.apply(urlparse)#.apply(lambda x: x._asdict())
+        return series.apply(urlparse)
 
     @classmethod
     @unique_summary

@@ -21,7 +21,10 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
         elif pdt.is_float_dtype(series):
             # Need this additional check because it's an Option[Int] which in
             # pandas land will result in integers with decimal trailing 0's
-            return series.eq(series.astype(int)).all()
+            try:
+                return series.eq(series.astype(int)).all()
+            except ValueError:
+                return False
         else:
             return False
 

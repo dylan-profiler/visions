@@ -111,7 +111,6 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_path,
             tenzing_date,
             tenzing_time,
-            tenzing_year,
             tenzing_existing_path,
         ]
         super().__init__(root_types, derivative_types)
