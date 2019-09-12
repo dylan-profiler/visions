@@ -1,4 +1,3 @@
-
 """
 test_utils.py
 ====================================
@@ -26,8 +25,9 @@ def option_coercion_evaluator(method):
     def f(series):
         try:
             return method(series)
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, AttributeError):
             return None
+
     return f
 
 
@@ -53,6 +53,7 @@ def coercion_test(method):
     def f(series):
         result = tester(series)
         return True if result is not None else False
+
     return f
 
 
@@ -80,4 +81,5 @@ def coercion_equality_test(method):
     def f(series):
         result = tester(series)
         return False if result is None else series.eq(result).all()
+
     return f

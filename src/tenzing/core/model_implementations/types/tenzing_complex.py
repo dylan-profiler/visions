@@ -1,32 +1,36 @@
 import pandas.api.types as pdt
 
-from tenzing.core import tenzing_model
-from tenzing.core.mixins.option_mixin import optionMixin
-from tenzing.utils import singleton
+from tenzing.core.mixins import optionMixin
+from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.reuse import unique_summary, zero_summary
 
 
-@singleton.singleton_object
-class tenzing_complex(optionMixin, tenzing_model):
+class tenzing_complex(optionMixin, tenzing_generic):
     """**Complex** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
     >>> x in tenzing_complex
     True
     """
-    def contains_op(self, series):
+
+    @classmethod
+    def contains_op(cls, series):
         return pdt.is_complex_dtype(series)
 
-    def cast_op(self, series):
-        return series.astype('complex')
+    @classmethod
+    def cast_op(cls, series, operation=None):
+        return series.astype("complex")
 
-    def summarization_op(self, series):
-        aggregates = ['mean']
-        summary = series.agg(aggregates).to_dict()
-        # TODO: unique
-        summary['n_unique'] = len(set(series))  # nunique apparently only considers real
+    @classmethod
+    @unique_summary
+    @zero_summary
+    def summarization_op(cls, series):
+        summary = super().summarization_op(series)
 
-        # TODO: common
-        summary['n_records'] = series.shape[0]
-        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+        aggregates = ["mean", "std", "var", "min", "max", "sum"]
 
+        summary.update(series.agg(aggregates).to_dict())
+
+        # TODO: cleaner way of doing this
+        summary["scatter_data"] = series.to_numpy()
         return summary
