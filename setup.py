@@ -13,10 +13,7 @@ setup(
     install_requires=[
         "pandas>=0.23.0",
         "numpy>=1.15",
-        "jinja2>=2.7",
         "networkx>=2.2",
-        "seaborn>=0.7.0",
-        "matplotlib>=2.2.4",
     ],
     include_package_data=True,
     extras_require={"geopandas": ["geopandas"], "shapely": ["shapely>=1.6"]},
@@ -28,5 +25,5 @@ setup(
         "pytest-tldr",
         "shapely",
     ],
-    python_requires=">=3.4",
+    python_requires=">=3.5",
 )
