@@ -1,3 +1,6 @@
+from functools import wraps
+
+
 def unique_summary(func):
     """Mixin adding missing value support to tenzing types
 
@@ -6,7 +9,10 @@ def unique_summary(func):
 
     """
 
-    def summarization_op(self, series):
+    @wraps(func)
+    def summarization_op(cls, series):
+        print("unique_summary")
+        series = cls.get_series(series)
         summary = {}
 
         # try:
@@ -17,13 +23,14 @@ def unique_summary(func):
         )
         # except Exception:
         #     pass
+        summary.update(func(cls, series))
         return summary
 
     return summarization_op
 
 
 def unique_warnings(func):
-    def warnings(summary):
+    def warnings(cls, summary):
         messages = []
         if summary["n_unique"] == 1:
             messages.append("n_unique:const")

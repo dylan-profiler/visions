@@ -4,7 +4,6 @@ from urllib.parse import urlparse
 from tenzing.core.model_implementations.types.tenzing_bool import tenzing_bool
 from tenzing.core.model_implementations.types.tenzing_float import tenzing_float
 from tenzing.core.model_implementations.types.tenzing_geometry import tenzing_geometry
-from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
@@ -49,7 +48,7 @@ def register_float_relations():
 
 
 def register_string_relations():
-    relations = [model_relation(tenzing_string, tenzing_object)]
+    relations = []
     for relation in relations:
         tenzing_string.register_relation(relation)
 
@@ -86,8 +85,7 @@ def register_datetime_relations():
             tenzing_datetime,
             tenzing_string,
             test_utils.coercion_test(lambda s: pd.to_datetime(s)),
-        ),
-        model_relation(tenzing_datetime, tenzing_object),
+        )
     ]
     for relation in relations:
         tenzing_datetime.register_relation(relation)
@@ -110,39 +108,34 @@ def register_geometry_relations():
 
         return result
 
-    relations = [
-        model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-        model_relation(
-            tenzing_geometry, tenzing_object, transformer=lambda series: series
-        ),
-    ]
+    relations = [model_relation(tenzing_geometry, tenzing_string, string_is_geometry)]
     for relation in relations:
         tenzing_geometry.register_relation(relation)
 
 
 def register_bool_relations():
     class string_bool_relation:
-        # TODO: extend with Y/N
-        _boolean_maps = {
-            "true": True,
-            "false": False,
-            "y": True,
-            "n": False,
-            "yes": True,
-            "no": False,
-        }
-
-        # _boolean_maps = {'y': True,
-        #                  'n': False}
-        # _boolean_maps = {'yes': True,
-        #                  'no': False}
+        _boolean_maps = [
+            {"true": True, "false": False},
+            {"y": True, "n": False},
+            {"yes": True, "no": False},
+        ]
 
         # TODO: ensure that series.str.lower() has no side effects
         def string_is_bool(self, series):
-            return series.str.lower().isin(self._boolean_maps.keys()).all()
+            return any(
+                [
+                    series.str.lower().isin(boolean_map.keys()).all()
+                    for boolean_map in self._boolean_maps
+                ]
+            )
 
         def map_string_to_bool(self, series):
-            return series.str.lower().map(self._boolean_maps)
+            return (
+                series.str.lower()
+                .copy()
+                .map({k: v for d in self._boolean_maps for k, v in d.items()})
+            )
 
     sb_relation = string_bool_relation()
     relations = [

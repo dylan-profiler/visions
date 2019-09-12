@@ -4,10 +4,8 @@ import numpy as np
 from tenzing.core.mixins import optionMixin, infMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary, zero_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -16,23 +14,30 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(cls, series):
         if pdt.is_integer_dtype(series):
             return True
         elif pdt.is_float_dtype(series):
             # Need this additional check because it's an Option[Int] which in
             # pandas land will result in integers with decimal trailing 0's
-            return series.eq(series.astype(int)).all()
+            try:
+                return series.eq(series.astype(int)).all()
+            except ValueError:
+                return False
         else:
             return False
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(cls, series, operation=None):
         # TODO: split in NaN
-        return series.astype(int)
+        xseries = cls.get_series(series)
+        return xseries.astype(int)
 
-    @zero_summary
+    @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    @zero_summary
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
         aggregates = [
             "median",

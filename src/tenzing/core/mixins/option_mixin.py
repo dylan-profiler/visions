@@ -3,26 +3,27 @@ class optionMixin:
 
     When creating a custom Tenzing type simply inherit from optionMixin to add
     automatic support for missing values.
-
     """
 
-    is_option = True
-
-    def get_series(self, series):
+    @classmethod
+    def get_series(cls, series):
         series = super().get_series(series)
         return series[series.notna()]
 
-    def cast_op(self, series, operation=None):
+    @classmethod
+    def cast_op(cls, series, operation=None):
         operation = operation if operation is not None else super().cast_op
-        notna_series = self.get_series(series)
+        notna_series = cls.get_series(series)
         # TODO: copy?
         return operation(notna_series)
 
-    def contains_op(self, series):
-        notna_series = self.get_series(series)
+    @classmethod
+    def contains_op(cls, series):
+        notna_series = cls.get_series(series)
         return super().contains_op(notna_series)
 
-    def summarization_op(self, series):
+    @classmethod
+    def summarization_op(cls, series):
         idx = series.isna()
         summary = super().summarization_op(series[~idx])
 

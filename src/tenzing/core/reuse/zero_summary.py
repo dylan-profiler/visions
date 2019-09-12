@@ -1,3 +1,6 @@
+from functools import wraps
+
+
 def zero_summary(func):
     """Mixin adding missing value support to tenzing types
 
@@ -6,15 +9,19 @@ def zero_summary(func):
 
     """
 
-    def summarization_op(self, series):
+    @wraps(func)
+    def summarization_op(cls, series):
+        print("zero_summary")
+        series = cls.get_series(series)
         summary = {"n_zeros": (series == 0).sum()}
         summary["perc_zeros"] = summary["n_zeros"] / len(series)
+        summary.update(func(cls, series))
         return summary
 
     return summarization_op
 
 
-def zero_warnings(func):
+def zero_warnings(cls, func):
     def warnings(summary):
         messages = []
         if summary["n_unique"] == 1:

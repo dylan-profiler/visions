@@ -10,14 +10,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
-    install_requires=[
-        "pandas>=0.23.0",
-        "numpy>=1.15",
-        "jinja2>=2.7",
-        "networkx>=2.2",
-        "seaborn>=0.7.0",
-        "matplotlib>=2.2.4",
-    ],
+    install_requires=["pandas>=0.23.0", "numpy>=1.15", "networkx>=2.2"],
     include_package_data=True,
     extras_require={"geopandas": ["geopandas"], "shapely": ["shapely>=1.6"]},
     setup_requires=["pytest-runner"],
@@ -28,5 +21,5 @@ setup(
         "pytest-tldr",
         "shapely",
     ],
-    python_requires=">=3.4",
+    python_requires=">=3.5",
 )

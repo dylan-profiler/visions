@@ -3,13 +3,10 @@ from pathlib import Path
 
 import pandas.api.types as pdt
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_path(tenzing_object):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -18,20 +15,23 @@ class tenzing_path(tenzing_object):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(cls, series):
         if not pdt.is_object_dtype(series):
             return False
 
         return (
-            series.eq(series.apply(Path)).all()
+            series.apply(lambda x: isinstance(x, Path)).all()
             and series.apply(lambda p: p.is_absolute()).all()
         )
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(cls, series, operation=None):
         return series.apply(Path)
 
+    @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         summary["common_prefix"] = (

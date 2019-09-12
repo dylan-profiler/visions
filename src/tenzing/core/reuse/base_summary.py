@@ -1,3 +1,6 @@
+from functools import wraps
+
+
 def base_summary(func):
     """Mixin adding missing value support to tenzing types
 
@@ -6,7 +9,10 @@ def base_summary(func):
 
     """
 
-    def summarization_op(self, series):
+    @wraps(func)
+    def summarization_op(cls, series):
+        print("base_summary")
+        # series = cls.get_series(series)
         summary = {
             "frequencies": series.value_counts().to_dict(),
             "n_records": series.shape[0],
@@ -14,6 +20,7 @@ def base_summary(func):
             "dtype": series.dtype,
             "types": series.map(type).value_counts().to_dict(),
         }
+        summary.update(func(cls, series))
         return summary
 
     return summarization_op

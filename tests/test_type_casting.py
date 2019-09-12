@@ -27,7 +27,7 @@ _test_suite = [
 
 
 def relations_test(source_type, relation_type, test_set=_test_suite):
-    relation = source_type.relations[relation_type]
+    relation = source_type.get_relations()[relation_type]
     for test_series in test_set:
         if test_series in relation_type and relation.is_relation(test_series):
             cast_series = relation.transform(test_series)
@@ -51,24 +51,12 @@ def test_float_string_relations():
     relations_test(tenzing_float, tenzing_string, tests)
 
 
-def test_string_object_relations():
-    relations_test(tenzing_string, tenzing_object)
-
-
 def test_timestamp_string_relations():
     relations_test(tenzing_datetime, tenzing_string)
 
 
-def test_timestamp_object_relations():
-    relations_test(tenzing_datetime, tenzing_object)
-
-
 def test_geometry_string_relations():
     relations_test(tenzing_geometry, tenzing_string)
-
-
-def test_geometry_object_relations():
-    relations_test(tenzing_geometry, tenzing_object)
 
 
 def test_bool_string_relations():

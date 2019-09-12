@@ -42,6 +42,7 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
     }
 
     trial_output = tenzing_type.summarize(test_series)
+    print(trial_output)
     validate_summary_output(trial_output, correct_output)
 
 

@@ -1,8 +1,6 @@
-from tenzing.utils.singleton import singleton_object
-
-from tenzing.utils import singleton
 from abc import abstractmethod
 import pandas as pd
+from tenzing.core.reuse.base_summary import base_summary
 
 
 class model_relation:
@@ -46,6 +44,7 @@ class model_relation:
         self.model = model
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
+        # TODO: should not be optional
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 
@@ -59,7 +58,21 @@ class model_relation:
         return f"({self.friend_model} -> {self.model})"
 
 
-class tenzing_model(metaclass=singleton.Singleton):
+class meta_model(type):
+    def __contains__(cls, series):
+        return cls.contains_op(series)
+
+    def __repr__(cls):
+        return cls.__name__
+
+    # TODO: raise exception on instantiation
+    #     raise Exception("Cannot instantiate a type!")
+
+    # TODO: automatic static ?
+    # https://stackoverflow.com/questions/31953113/purely-static-classes-in-python-use-metaclass-class-decorator-or-something-e
+
+
+class tenzing_model(metaclass=meta_model):
     """Abstract implementation of a tenzing type.
 
     Provides a common API for building custom tenzing datatypes. These can optionally
@@ -67,7 +80,6 @@ class tenzing_model(metaclass=singleton.Singleton):
 
     i.e.
 
-    >>> @singleton.singleton_object
     >>> class tenzing_datetime(tenzing_model):
     >>>     def contains_op(self, series):
     >>>         return pdt.is_datetime64_dtype(series)
@@ -84,40 +96,58 @@ class tenzing_model(metaclass=singleton.Singleton):
     >>>         return summary
     """
 
-    is_option = False
+    _relations = {}
 
-    def __init__(self):
-        self.relations = {}
-
-    def get_series(self, series):
+    @classmethod
+    def get_series(cls, series):
         return series
 
     @classmethod
-    def register_relation(self, relation):
-        assert (
-            relation.friend_model not in self.relations
-        ), "Only one relationship permitted per type"
-        self.relations[relation.friend_model] = relation
+    def __instancecheck__(mcs, instance):
+        if instance.__class__ is mcs:
+            return True
+        else:
+            return isinstance(instance.__class__, mcs)
 
-    def cast(self, series, operation=None):
-        operation = operation if operation is not None else self.cast_op
+    @classmethod
+    def get_relations(cls):
+        # TODO: move to __new__ or so?
+        if not cls.__name__ in cls._relations:
+            cls._relations[cls.__name__] = {}
+
+        return cls._relations[cls.__name__]
+
+    @classmethod
+    def register_relation(cls, relation):
+        if not cls.__name__ in cls._relations:
+            cls._relations[cls.__name__] = {}
+
+        assert (
+            relation.friend_model not in cls._relations[cls.__name__]
+        ), "Only one relationship permitted per type"
+        cls._relations[cls.__name__][relation.friend_model] = relation
+
+    @classmethod
+    def cast(cls, series, operation=None):
+        operation = operation if operation is not None else cls.cast_op
         return operation(series)
 
-    def summarize(self, series):
-        return self.summarization_op(series)
+    @classmethod
+    @base_summary
+    def summarize(cls, series):
+        return cls.summarization_op(series)
 
-    def __contains__(self, series):
-        return self.contains_op(series)
-
+    @classmethod
     @abstractmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         pass
 
+    @classmethod
     @abstractmethod
-    def cast_op(self, series):
+    def cast_op(cls, series):
         pass
 
+    @classmethod
     @abstractmethod
-    def summarization_op(self, series):
-        # TODO: place baseMixin here?
+    def summarization_op(cls, series):
         return {}

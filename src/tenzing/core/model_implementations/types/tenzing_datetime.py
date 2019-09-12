@@ -4,10 +4,8 @@ import pandas as pd
 from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_datetime(optionMixin, tenzing_generic):
     """**Datetime** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -16,14 +14,17 @@ class tenzing_datetime(optionMixin, tenzing_generic):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(cls, series):
         return pdt.is_datetime64_any_dtype(series)
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(cls, series, operation=None):
         return pd.to_datetime(series)
 
+    @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         aggregates = ["min", "max"]
