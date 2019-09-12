@@ -3,3 +3,4 @@ pandas
 shapely
 networkx
 matplotlib
+pygraphviz

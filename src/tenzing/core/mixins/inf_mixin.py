@@ -1,5 +1,16 @@
 import numpy as np
 
+# def inf(Cls):
+#     """
+#     >>> @inf
+#     >>> class tenzing_integer(tenzing_model):
+#     >>>     pass
+#     """
+#     class NewCls(object):
+#         pass
+#
+#     return NewCls
+
 
 class infMixin:
     """Mixin adding infinite value support to tenzing types
@@ -12,33 +23,36 @@ class infMixin:
     >>>     // Implementation
 
     """
+
+    # TODO: is this used?
     is_option = True
 
-    def cast(self, series, operation=None):
-        operation = operation if operation is not None else self.cast_op
-
-        idx = series.isinf()
-        if idx.any():
-            result = series.copy()
-            result[~idx] = operation(series[~idx])
-        else:
-            result = operation(series)
-
-        return result
-
+    # Todo: is this even used?
     def get_series(self, series):
-        return series[~np.isinf(series)]
+        try:
+            if np.issubdtype(series.dtype, np.number):
+                return series[~np.isinf(series)]
+            else:
+                return series
+        except TypeError:
+            return series
 
-    def __contains__(self, series):
-        idx = series.isinf()
-        notinf_series = series[~idx].infer_objects() if idx.any() else series
-        return self.contains_op(notinf_series)
+    def cast_op(self, series, operation=None):
+        operation = operation if operation is not None else super().cast_op
+        notinf_series = self.get_series(series)
+        # TODO: copy?
+        return operation(notinf_series)
 
-    def summarize(self, series):
+    def contains_op(self, series):
+        notinf_series = self.get_series(series)
+        return super().contains_op(notinf_series)
+
+    def summarization_op(self, series):
         idx = np.isinf(series)
-        summary = self.summarization_op(series[~idx])
+        summary = super().summarization_op(series[~idx])
 
-        summary['inf_count'] = idx.values.sum()
-        summary['perc_inf'] = summary['inf_count'] / series.shape[0] if series.shape[0] > 0 else 0
-        # summary['n_records'] = series.shape[0]
+        summary["inf_count"] = idx.values.sum()
+        summary["perc_inf"] = (
+            summary["inf_count"] / series.shape[0] if series.shape[0] > 0 else 0
+        )
         return summary

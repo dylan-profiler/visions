@@ -1,6 +1,7 @@
-from functools import singledispatch
+from tenzing.utils.singleton import singleton_object
+
 from tenzing.utils import singleton
-from abc import abstractmethod, abstractproperty, ABCMeta
+from abc import abstractmethod
 import pandas as pd
 
 
@@ -40,6 +41,7 @@ class model_relation:
         A method to convert a series from type friend_model to type model.
 
     """
+
     def __init__(self, model, friend_model, relationship=None, transformer=None):
         self.model = model
         self.friend_model = friend_model
@@ -54,7 +56,7 @@ class model_relation:
         return self.model.cast(obj, self.transformer)
 
     def __repr__(self):
-        return f'({self.friend_model} -> {self.model})'
+        return f"({self.friend_model} -> {self.model})"
 
 
 class tenzing_model(metaclass=singleton.Singleton):
@@ -66,7 +68,7 @@ class tenzing_model(metaclass=singleton.Singleton):
     i.e.
 
     >>> @singleton.singleton_object
-    >>> class tenzing_timestamp(tenzing_model):
+    >>> class tenzing_datetime(tenzing_model):
     >>>     def contains_op(self, series):
     >>>         return pdt.is_datetime64_dtype(series)
     >>>
@@ -74,11 +76,9 @@ class tenzing_model(metaclass=singleton.Singleton):
     >>>         return pd.to_datetime(series)
     >>>
     >>>     def summarization_op(self, series):
-    >>>         aggregates = ['nunique', 'min', 'max']
-    >>>         summary = series.agg(aggregates).to_dict()
-    >>>
-    >>>         summary['n_records'] = series.shape[0]
-    >>>         summary['perc_unique'] = summary['nunique'] / summary['n_records']
+    >>>         summary = super().summarization_op(series)
+    >>>         aggregates = ['min', 'max']
+    >>>         summary.update(series.agg(aggregates).to_dict())
     >>>
     >>>         summary['range'] = summary['max'] - summary['min']
     >>>         return summary
@@ -92,8 +92,11 @@ class tenzing_model(metaclass=singleton.Singleton):
     def get_series(self, series):
         return series
 
+    @classmethod
     def register_relation(self, relation):
-        assert relation.friend_model not in self.relations, "Only one relationship permitted per type"
+        assert (
+            relation.friend_model not in self.relations
+        ), "Only one relationship permitted per type"
         self.relations[relation.friend_model] = relation
 
     def cast(self, series, operation=None):
@@ -116,4 +119,5 @@ class tenzing_model(metaclass=singleton.Singleton):
 
     @abstractmethod
     def summarization_op(self, series):
-        pass
+        # TODO: place baseMixin here?
+        return {}

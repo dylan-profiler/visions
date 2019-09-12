@@ -3,13 +3,14 @@ from urllib.parse import urlparse, ParseResult
 
 import pandas.api.types as pdt
 
-from tenzing.core import tenzing_model
-from tenzing.core.mixins.option_mixin import optionMixin
+from tenzing.core.mixins import optionMixin
+from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.reuse import unique_summary
 from tenzing.utils import singleton
 
 
-@singleton.singleton_object
-class tenzing_url(optionMixin, tenzing_model):
+# @singleton.singleton_object
+class tenzing_url(tenzing_object):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> from urllib.parse import urlparse
@@ -17,6 +18,7 @@ class tenzing_url(optionMixin, tenzing_model):
     >>> x in tenzing_url
     True
     """
+
     def contains_op(self, series):
         if not pdt.is_object_dtype(series):
             return False
@@ -24,19 +26,17 @@ class tenzing_url(optionMixin, tenzing_model):
         return series.apply(lambda x: isinstance(x, ParseResult)).all()
 
     def cast_op(self, series):
-        return series.apply(urlparse)
+        return series.apply(urlparse).apply(lambda x: x._asdict())
 
+    @unique_summary
     def summarization_op(self, series):
-        # TODO: inherit from 'unique'
-        summary = series.agg(['nunique']).to_dict()
-        # TODO: inherit from common base?
-        summary['n_records'] = series.shape[0]
-        summary['frequencies'] = series.value_counts().to_dict()
-        summary['memory_size'] = series.memory_usage(index=True, deep=True),
+        summary = super().summarization_op(series)
 
         keys = ["scheme", "netloc", "path", "query", "fragment"]
         url_parts = dict(zip(keys, zip(*series)))
         for name, part in url_parts.items():
-            summary["{}_counts".format(name.lower())] = pd.Series(part).value_counts().to_dict()
+            summary["{}_counts".format(name.lower())] = (
+                pd.Series(part).value_counts().to_dict()
+            )
 
         return summary
