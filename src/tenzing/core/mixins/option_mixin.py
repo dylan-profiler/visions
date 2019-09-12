@@ -8,20 +8,24 @@ class optionMixin:
 
     is_option = True
 
+    @classmethod
     def get_series(self, series):
         series = super().get_series(series)
         return series[series.notna()]
 
+    @classmethod
     def cast_op(self, series, operation=None):
         operation = operation if operation is not None else super().cast_op
         notna_series = self.get_series(series)
         # TODO: copy?
         return operation(notna_series)
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(self, series, operation=None):
         notna_series = self.get_series(series)
-        return super().contains_op(notna_series)
+        return super().contains_op(notna_series, operation)
 
+    @classmethod
     def summarization_op(self, series):
         idx = series.isna()
         summary = super().summarization_op(series[~idx])

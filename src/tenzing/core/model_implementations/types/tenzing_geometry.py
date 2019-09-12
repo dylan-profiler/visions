@@ -4,10 +4,8 @@ import pandas as pd
 from tenzing.core.mixins.option_mixin import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_geometry(tenzing_object):
     """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -30,17 +28,20 @@ class tenzing_geometry(tenzing_object):
         geometry.MultiLineString,
     ]
 
+    @classmethod
     def contains_op(self, series):
         return all(
             any(isinstance(obj, geom_type) for geom_type in self.geom_types)
             for obj in series
         )
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(self, series, operation=None):
         from shapely import wkt
 
         return pd.Series([wkt.loads(value) for value in series])
 
+    @classmethod
     @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)

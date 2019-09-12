@@ -3,10 +3,8 @@ import pandas as pd
 
 from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_timedelta(optionMixin, tenzing_generic):
     """**Timedelta** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -15,13 +13,16 @@ class tenzing_timedelta(optionMixin, tenzing_generic):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(cls, series):
         return pdt.is_timedelta64_dtype(series)
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(cls, series, operation=None):
         return pd.to_timedelta(series)
 
-    def summarization_op(self, series):
+    @classmethod
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
         # TODO: statistics
         return summary

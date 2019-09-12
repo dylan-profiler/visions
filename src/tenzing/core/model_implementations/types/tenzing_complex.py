@@ -3,10 +3,8 @@ import pandas.api.types as pdt
 from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary, zero_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_complex(optionMixin, tenzing_generic):
     """**Complex** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -15,12 +13,15 @@ class tenzing_complex(optionMixin, tenzing_generic):
     True
     """
 
+    @classmethod
     def contains_op(self, series):
         return pdt.is_complex_dtype(series)
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(self, series, operation=None):
         return series.astype("complex")
 
+    @classmethod
     @unique_summary
     @zero_summary
     def summarization_op(self, series):

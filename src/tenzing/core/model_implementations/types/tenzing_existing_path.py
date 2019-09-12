@@ -1,10 +1,8 @@
 from pathlib import Path
 
 from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_existing_path(tenzing_path):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -13,15 +11,18 @@ class tenzing_existing_path(tenzing_path):
     True
     """
 
+    @classmethod
     def contains_op(self, series):
         if not super().contains_op(series):
             return False
 
         return series.apply(lambda p: p.exists()).all()
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(self, series, operation=None):
         return super().cast_op(series)
 
+    @classmethod
     def summarization_op(self, series):
         summary = super().summarization_op(series)
         summary["file_sizes"] = series.map(lambda x: x.stat().st_size)

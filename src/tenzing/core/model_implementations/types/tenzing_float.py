@@ -3,12 +3,10 @@ import numpy as np
 
 from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.core.reuse import unique_summary, zero_summary
-from tenzing.core.model_implementations.types import tenzing_integer
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_float(optionMixin, tenzing_generic):
     """**Float** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -17,6 +15,7 @@ class tenzing_float(optionMixin, tenzing_generic):
     True
     """
 
+    @classmethod
     def contains_op(self, series):
         if not pdt.is_float_dtype(series):
             return False
@@ -26,9 +25,11 @@ class tenzing_float(optionMixin, tenzing_generic):
         else:
             return True
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(self, series, operation=None):
         return series.astype(float)
 
+    @classmethod
     @unique_summary
     @zero_summary
     def summarization_op(self, series):

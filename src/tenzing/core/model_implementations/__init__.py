@@ -12,6 +12,7 @@ from tenzing.core.model_implementations.types.tenzing_string import tenzing_stri
 from tenzing.core.model_implementations.types.tenzing_datetime import tenzing_datetime
 from tenzing.core.model_implementations.types.tenzing_date import tenzing_date
 from tenzing.core.model_implementations.types.tenzing_time import tenzing_time
+from tenzing.core.model_implementations.types.tenzing_year import tenzing_year
 from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_timedelta
 from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 from tenzing.core.model_implementations.types.tenzing_existing_path import (

@@ -3,13 +3,10 @@ from urllib.parse import urlparse, ParseResult
 
 import pandas.api.types as pdt
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_url(tenzing_object):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -19,17 +16,21 @@ class tenzing_url(tenzing_object):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(cls, series):
+        # TODO: super()
         if not pdt.is_object_dtype(series):
             return False
 
         return series.apply(lambda x: isinstance(x, ParseResult)).all()
 
-    def cast_op(self, series):
-        return series.apply(urlparse).apply(lambda x: x._asdict())
+    @classmethod
+    def cast_op(cls, series, operation=None):
+        return series.apply(urlparse)#.apply(lambda x: x._asdict())
 
+    @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         keys = ["scheme", "netloc", "path", "query", "fragment"]

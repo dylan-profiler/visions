@@ -4,10 +4,8 @@ import numpy as np
 from tenzing.core.mixins import optionMixin, infMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary, zero_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -16,7 +14,8 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(self, series, operation=None):
         if pdt.is_integer_dtype(series):
             return True
         elif pdt.is_float_dtype(series):
@@ -26,10 +25,13 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
         else:
             return False
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(self, series, operation=None):
         # TODO: split in NaN
-        return series.astype(int)
+        xseries = self.get_series(series)
+        return xseries.astype(int)
 
+    @classmethod
     @zero_summary
     @unique_summary
     def summarization_op(self, series):

@@ -3,10 +3,8 @@ import pandas.api.types as pdt
 from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations import tenzing_generic
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_categorical(optionMixin, tenzing_generic):
     """**Categorical** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -15,12 +13,15 @@ class tenzing_categorical(optionMixin, tenzing_generic):
     True
     """
 
+    @classmethod
     def contains_op(self, series):
         return pdt.is_categorical_dtype(series)
 
+    @classmethod
     def cast_op(self, series):
         return series.astype("category")
 
+    @classmethod
     @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)

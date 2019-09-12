@@ -43,7 +43,7 @@ def build_relation_graph(root_nodes, derivative_nodes):
         [
             node.edge
             for s_node in root_nodes
-            for to_node, node in s_node.relations.items()
+            for to_node, node in s_node.get_relations().items()
         ],
         weight=0,
     )
@@ -51,7 +51,7 @@ def build_relation_graph(root_nodes, derivative_nodes):
         [
             node.edge
             for s_node in derivative_nodes
-            for to_node, node in s_node.relations.items()
+            for to_node, node in s_node.get_relations().items()
         ],
         weight=1,
     )
@@ -59,14 +59,14 @@ def build_relation_graph(root_nodes, derivative_nodes):
     relations = {
         node.edge: {"relationship": node}
         for s_node in root_nodes
-        for to_node, node in s_node.relations.items()
+        for to_node, node in s_node.get_relations().items()
     }
     nx.set_edge_attributes(relation_graph, relations)
 
     relations = {
         node.edge: {"relationship": node}
         for s_node in derivative_nodes
-        for to_node, node in s_node.relations.items()
+        for to_node, node in s_node.get_relations().items()
     }
     nx.set_edge_attributes(relation_graph, relations)
 
@@ -249,7 +249,7 @@ class tenzingTypeset(tenzing_typeset):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_map)
 
-    def plot(self):
+    def write_dot(self):
         import networkx as nx
         import matplotlib.pyplot as plt
 
@@ -260,6 +260,7 @@ class tenzingTypeset(tenzing_typeset):
             # __mro__[:-2] are (tenzing_model and object)
             elems = [str(x.__name__) for x in data_type.__mro__[:-2]]
             # 'mixin hack
+            # TODO: remove mixins based on their import order
             elems = [x for x in elems if "Mixin" not in x]
             nodes = nodes.union(set(elems))
             if len(elems) > 1:
@@ -274,12 +275,6 @@ class tenzingTypeset(tenzing_typeset):
 
         plt.title("Data Model")
 
-        # Drawing
-        elarge = [(u, v) for (u, v, d) in G.edges(data=True) if d["weight"] > 0.5]
-        esmall = [(u, v) for (u, v, d) in G.edges(data=True) if d["weight"] <= 0.5]
-
         G.graph["node"] = {"shape": "box", "color": "red"}
         write_dot(G, "graph_inheritance.dot")
 
-        # plt.axis("off")
-        # plt.show()

@@ -87,7 +87,3 @@ print(df_clean.head())
 # 'website': tenzing_url,
 # 'complex_record': tenzing_complex}
 print(ts.infer_types(df_clean))
-
-ts.plot()
-
-plt.show()

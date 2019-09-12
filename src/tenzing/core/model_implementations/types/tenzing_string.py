@@ -1,13 +1,10 @@
 import pandas.api.types as pdt
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 from tenzing.utils.unicodedata2 import script_cat
 
 
-# @singleton.singleton_object
 class tenzing_string(tenzing_object):
     """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -16,17 +13,21 @@ class tenzing_string(tenzing_object):
     True
     """
 
-    def contains_op(self, series):
+    @classmethod
+    def contains_op(cls, series):
         if not pdt.is_object_dtype(series):
             return False
 
-        return series.eq(series.astype(str)).all()
+        return series.copy().apply(lambda x: type(x) == str).all()
+        # return series.apply(series.astype(str)).all()
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(cls, series, operation=None):
         return series.astype(str)
 
+    @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         # Distribution of length

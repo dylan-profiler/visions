@@ -6,10 +6,8 @@ import pandas.api.types as pdt
 from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
-from tenzing.utils import singleton
 
 
-# @singleton.singleton_object
 class tenzing_path(tenzing_object):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -18,6 +16,7 @@ class tenzing_path(tenzing_object):
     True
     """
 
+    @classmethod
     def contains_op(self, series):
         if not pdt.is_object_dtype(series):
             return False
@@ -27,9 +26,11 @@ class tenzing_path(tenzing_object):
             and series.apply(lambda p: p.is_absolute()).all()
         )
 
-    def cast_op(self, series):
+    @classmethod
+    def cast_op(self, series, operation=None):
         return series.apply(Path)
 
+    @classmethod
     @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
