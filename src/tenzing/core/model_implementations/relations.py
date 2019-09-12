@@ -54,7 +54,7 @@ def register_url_relations():
         # print(series.name)
         # print(series.head())
         try:
-            return series.apply(urlparse).apply(lambda x: x._asdict()).apply(lambda x: all([k in x for k in ['netloc', 'scheme']])).all()
+            return series.apply(urlparse).apply(lambda x: all((x.netloc, x.scheme))).all()
         except AttributeError:
             return False
 
@@ -112,7 +112,11 @@ def register_bool_relations():
     class string_bool_relation:
         # TODO: extend with Y/N
         _boolean_maps = {'true': True,
-                         'false': False}
+                         'false': False,
+                         'y': True,
+                         'n': False,
+                         'yes': True,
+                         'no': False}
 
         # _boolean_maps = {'y': True,
         #                  'n': False}
@@ -121,7 +125,7 @@ def register_bool_relations():
 
         # TODO: ensure that series.str.lower() has no side effects
         def string_is_bool(self, series):
-            return series.apply(type).eq(str).all() and series.str.lower().isin(self._boolean_maps.keys()).all()
+            return series.str.lower().isin(self._boolean_maps.keys()).all()
 
         def map_string_to_bool(self, series):
             return series.str.lower().map(self._boolean_maps)
