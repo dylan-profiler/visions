@@ -3,14 +3,14 @@ from pathlib import Path
 
 import pandas.api.types as pdt
 
-from tenzing.core import tenzing_model
 from tenzing.core.mixins import optionMixin
-from tenzing.core.reuse import unique_summary, base_summary
+from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.reuse import unique_summary
 from tenzing.utils import singleton
 
 
-@singleton.singleton_object
-class tenzing_path(optionMixin, tenzing_model):
+# @singleton.singleton_object
+class tenzing_path(tenzing_object):
     """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
@@ -26,7 +26,6 @@ class tenzing_path(optionMixin, tenzing_model):
     def cast_op(self, series):
         return series.apply(Path)
 
-    @base_summary
     @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)

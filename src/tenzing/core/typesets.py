@@ -2,6 +2,7 @@ import pandas as pd
 import networkx as nx
 import itertools
 import matplotlib.pyplot as plt
+from networkx.drawing.nx_agraph import write_dot
 
 
 def build_relation_graph(root_nodes, derivative_nodes):
@@ -38,13 +39,17 @@ def build_relation_graph(root_nodes, derivative_nodes):
     relation_graph.add_nodes_from(root_nodes)
     relation_graph.add_edges_from(itertools.product([generic_name], root_nodes))
     relation_graph.add_nodes_from(derivative_nodes)
-    relation_graph.add_edges_from([node.edge for s_node in root_nodes for to_node, node in s_node.relations.items()], weight=0)
-    relation_graph.add_edges_from([node.edge for s_node in derivative_nodes for to_node, node in s_node.relations.items()], weight=1)
+    relation_graph.add_edges_from([node.edge for s_node in root_nodes for to_node, node in s_node().relations.items()],
+                                  weight=0)
+    relation_graph.add_edges_from(
+        [node.edge for s_node in derivative_nodes for to_node, node in s_node().relations.items()], weight=1)
 
-    relations = {node.edge: {'relationship': node} for s_node in root_nodes for to_node, node in s_node.relations.items()}
+    relations = {node.edge: {'relationship': node} for s_node in root_nodes for to_node, node in
+                 s_node().relations.items()}
     nx.set_edge_attributes(relation_graph, relations)
 
-    relations = {node.edge: {'relationship': node} for s_node in derivative_nodes for to_node, node in s_node.relations.items()}
+    relations = {node.edge: {'relationship': node} for s_node in derivative_nodes for to_node, node in
+                 s_node().relations.items()}
     nx.set_edge_attributes(relation_graph, relations)
 
     provided_nodes = set(root_nodes) | set(derivative_nodes)
@@ -118,6 +123,7 @@ class tenzing_typeset:
         A graph representing the relationships and mappings between each type in the typeset.
 
     """
+
     def __init__(self, base_types, derivative_types=None):
         """
 
@@ -144,7 +150,7 @@ class tenzing_typeset:
     def plot(self):
         x = self.relation_map
         # nx.draw(x, nodelist=['generic'], edgelist=[], node_color=['red'], with_labels=False)
-        nx.draw(x, node_color=['blue']* len(x.nodes), with_labels=True)
+        nx.draw(x, node_color=['blue'] * len(x.nodes), with_labels=True)
 
 
 class tenzingTypeset(tenzing_typeset):
@@ -163,6 +169,7 @@ class tenzingTypeset(tenzing_typeset):
         `tenzing_string` is represented by `object` in it's underlying pandas/numpy datatype.
 
     """
+
     def __init__(self, base_types, derivative_types=None):
         if derivative_types is None:
             derivative_types = []
@@ -207,3 +214,38 @@ class tenzingTypeset(tenzing_typeset):
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_map)
+
+    def plot(self):
+        import networkx as nx
+        import matplotlib.pyplot as plt
+
+        G = nx.DiGraph()
+
+        nodes = set()
+        for data_type in self.base_types.union(self.derivative_types):
+            # __mro__[:-2] are (tenzing_model and object)
+            elems = [str(x.__name__) for x in data_type.__mro__[:-2]]
+            # 'mixin hack
+            elems = [x for x in elems if 'Mixin' not in x]
+            nodes = nodes.union(set(elems))
+            if len(elems) > 1:
+                for x, y in zip(elems, elems[1:]):
+                    G.add_edge(y, x, weight=1)
+
+        for node in nodes:
+            G.add_node(node)
+
+        # for relation_from, relation_to in self.type_relations:
+        #     G.add_edge(relation_from, relation_to, weight=0)
+
+        plt.title("Data Model")
+
+        # Drawing
+        elarge = [(u, v) for (u, v, d) in G.edges(data=True) if d["weight"] > 0.5]
+        esmall = [(u, v) for (u, v, d) in G.edges(data=True) if d["weight"] <= 0.5]
+
+        G.graph['node'] = {'shape': 'box', 'color': 'red'}
+        write_dot(G, "graph_inheritance.dot")
+
+        # plt.axis("off")
+        # plt.show()

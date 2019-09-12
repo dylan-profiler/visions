@@ -1,3 +1,5 @@
+from tenzing.utils.singleton import singleton_object
+
 from tenzing.utils import singleton
 from abc import abstractmethod
 import pandas as pd
@@ -39,6 +41,7 @@ class model_relation:
         A method to convert a series from type friend_model to type model.
 
     """
+
     def __init__(self, model, friend_model, relationship=None, transformer=None):
         self.model = model
         self.friend_model = friend_model
@@ -115,4 +118,3 @@ class tenzing_model(metaclass=singleton.Singleton):
     def summarization_op(self, series):
         # TODO: place baseMixin here?
         return {}
-

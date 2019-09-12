@@ -1,3 +1,4 @@
+from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.model_implementations.types.tenzing_bool import tenzing_bool
 from tenzing.core.model_implementations.types.tenzing_categorical import tenzing_categorical
 from tenzing.core.model_implementations.types.tenzing_complex import tenzing_complex

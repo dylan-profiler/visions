@@ -24,7 +24,7 @@ def register_integer_relations():
                        test_utils.coercion_test(lambda s: s.astype(int))),
     ]
     for relation in relations:
-        tenzing_integer.register_relation(relation)
+        tenzing_integer.register_relation(tenzing_integer(), relation)
 
 
 def register_float_relations():
@@ -38,7 +38,7 @@ def register_float_relations():
         model_relation(tenzing_float, tenzing_string, test_string_is_float),
     ]
     for relation in relations:
-        tenzing_float.register_relation(relation)
+        tenzing_float.register_relation(tenzing_float(), relation)
 
 
 def register_string_relations():
@@ -46,7 +46,7 @@ def register_string_relations():
         model_relation(tenzing_string, tenzing_object),
     ]
     for relation in relations:
-        tenzing_string.register_relation(relation)
+        tenzing_string.register_relation(tenzing_string(), relation)
 
 
 def register_url_relations():
@@ -62,7 +62,7 @@ def register_url_relations():
         model_relation(tenzing_url, tenzing_string, test_url)
     ]
     for relation in relations:
-        tenzing_url.register_relation(relation)
+        tenzing_url.register_relation(tenzing_url(), relation)
 
 
 def register_path_relations():
@@ -71,7 +71,7 @@ def register_path_relations():
                        lambda s: s.apply(lambda x: Path(x).is_absolute()).all())
     ]
     for relation in relations:
-        tenzing_path.register_relation(relation)
+        tenzing_path.register_relation(tenzing_path(), relation)
 
 
 def register_datetime_relations():
@@ -81,7 +81,7 @@ def register_datetime_relations():
         model_relation(tenzing_datetime, tenzing_object)
     ]
     for relation in relations:
-        tenzing_datetime.register_relation(relation)
+        tenzing_datetime.register_relation(tenzing_datetime(), relation)
 
 
 def register_geometry_relations():
@@ -105,7 +105,7 @@ def register_geometry_relations():
         model_relation(tenzing_geometry, tenzing_object, transformer=lambda series: series)
     ]
     for relation in relations:
-        tenzing_geometry.register_relation(relation)
+        tenzing_geometry.register_relation(tenzing_geometry(), relation)
 
 
 def register_bool_relations():
@@ -132,7 +132,7 @@ def register_bool_relations():
                        sb_relation.string_is_bool, sb_relation.map_string_to_bool)
     ]
     for relation in relations:
-        tenzing_bool.register_relation(relation)
+        tenzing_bool.register_relation(tenzing_bool(), relation)
 
 
 register_integer_relations()

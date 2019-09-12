@@ -1,14 +1,14 @@
 import pandas.api.types as pdt
 import numpy as np
 
-from tenzing.core import tenzing_model
 from tenzing.core.mixins import optionMixin, infMixin
-from tenzing.core.reuse import unique_summary, base_summary, zero_summary
+from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.reuse import unique_summary, zero_summary
 from tenzing.utils import singleton
 
 
-@singleton.singleton_object
-class tenzing_integer(optionMixin, infMixin, tenzing_model):
+# @singleton.singleton_object
+class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([1, 2, 3, np.nan])
@@ -26,9 +26,9 @@ class tenzing_integer(optionMixin, infMixin, tenzing_model):
             return False
 
     def cast_op(self, series):
+        # TODO: split in NaN
         return series.astype(int)
 
-    @base_summary
     @zero_summary
     @unique_summary
     def summarization_op(self, series):
