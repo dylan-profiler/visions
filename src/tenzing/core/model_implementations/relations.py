@@ -139,10 +139,7 @@ def register_bool_relations():
             )
 
         def map_string_to_bool(self, series):
-            new_series = series.str.lower().copy()
-            for boolean_map in self._boolean_maps:
-                new_series = new_series.map(boolean_map)
-            return new_series
+            return series.str.lower().copy().map({k: v for d in self._boolean_maps for k, v in d.items()})
 
     sb_relation = string_bool_relation()
     relations = [

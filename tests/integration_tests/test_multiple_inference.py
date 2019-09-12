@@ -1,4 +1,5 @@
-"""Check if types are remaining the same for multiple inference"""
+#!/usr/bin/env python
+# coding: utf-8
 from pprint import pprint
 
 import pandas as pd
@@ -56,4 +57,9 @@ inferred_types = ts.infer_types(df)
 pprint(inferred_types)
 
 df_clean = ts.cast_to_inferred_types(df)
-print(df_clean.head())
+
+print("inferred types after convert")
+inferred_types_cast = ts.infer_types(df_clean)
+pprint(inferred_types_cast)
+
+assert list(inferred_types.values()) == list(inferred_types_cast.values())
