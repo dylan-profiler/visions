@@ -120,22 +120,16 @@ def register_bool_relations():
             {"y": True, "n": False},
             {"yes": True, "no": False},
         ]
+        _full_boolean_map = {k: v for d in self._boolean_maps for k, v in d.items()}
 
         # TODO: ensure that series.str.lower() has no side effects
         def string_is_bool(self, series):
-            return any(
-                [
-                    series.str.lower().isin(boolean_map.keys()).all()
-                    for boolean_map in self._boolean_maps
-                ]
-            )
+            temp_series = series.str.lower()
+            return any(temp_series.isin(boolean_map.keys()).all()
+                       for boolean_map in self._boolean_maps)
 
         def map_string_to_bool(self, series):
-            return (
-                series.str.lower()
-                .copy()
-                .map({k: v for d in self._boolean_maps for k, v in d.items()})
-            )
+            return series.str.lower().map(_full_boolean_map)
 
     sb_relation = string_bool_relation()
     relations = [
