@@ -2,11 +2,8 @@ import pandas as pd
 import networkx as nx
 import itertools
 import matplotlib.pyplot as plt
-<<<<<<< HEAD
 from networkx.drawing.nx_agraph import write_dot
-=======
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
->>>>>>> 96b4ce43c63c9a730d9bf34a97e6780f7bbd851c
 
 
 def build_relation_graph(root_nodes, derivative_nodes):
