@@ -4,8 +4,7 @@ import numpy as np
 from tenzing.core import tenzing_model
 from tenzing.utils import singleton
 from tenzing.core.mixins import optionMixin
-from tenzing.core.reuse import unique_summary, zero_summary
-from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
+from tenzing.core.reuse import base_summary
 
 
 # @singleton.singleton_object
