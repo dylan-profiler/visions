@@ -98,7 +98,7 @@ def register_geometry_relations():
         """
         from shapely import wkt
 
-        logging.disable()
+        logging.disable(logging.WARNING)
         try:
             result = all(wkt.loads(value) for value in series)
         except Exception:

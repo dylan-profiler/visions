@@ -112,14 +112,14 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     def get_relations(cls):
         # TODO: move to __new__ or so?
-        if not cls.__name__ in cls._relations:
+        if cls.__name__ not in cls._relations:
             cls._relations[cls.__name__] = {}
 
         return cls._relations[cls.__name__]
 
     @classmethod
     def register_relation(cls, relation):
-        if not cls.__name__ in cls._relations:
+        if cls.__name__ not in cls._relations:
             cls._relations[cls.__name__] = {}
 
         assert (
