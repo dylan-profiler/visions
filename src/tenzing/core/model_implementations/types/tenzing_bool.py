@@ -13,7 +13,7 @@ class tenzing_bool(optionMixin, tenzing_generic):
     """
 
     @classmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         if pdt.is_categorical_dtype(series):
             return False
 
@@ -24,7 +24,7 @@ class tenzing_bool(optionMixin, tenzing_generic):
         return series.astype(bool)
 
     @classmethod
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         """Note that frequencies for True/False are in the base summary"""
         summary = super().summarization_op(series)
         return summary

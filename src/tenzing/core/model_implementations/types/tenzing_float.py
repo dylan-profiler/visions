@@ -16,7 +16,7 @@ class tenzing_float(optionMixin, tenzing_generic):
     """
 
     @classmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         if not pdt.is_float_dtype(series):
             return False
         # TODO: are we sure we want this to depend on integer?
@@ -26,13 +26,13 @@ class tenzing_float(optionMixin, tenzing_generic):
             return True
 
     @classmethod
-    def cast_op(self, series, operation=None):
+    def cast_op(cls, series, operation=None):
         return series.astype(float)
 
     @classmethod
     @unique_summary
     @zero_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         # Filter series

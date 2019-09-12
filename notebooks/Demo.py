@@ -2,15 +2,11 @@
 # coding: utf-8
 import json
 
-from tenzing.core.model_implementations.typesets import tenzing_complete_set
-
-# from tenzing.core.typesets import infer_type
-# from tenzing.core.model_implementations import *
 import pandas as pd
 import numpy as np
-import networkx as nx
 import datetime
-import matplotlib.pyplot as plt
+
+from tenzing.core.model_implementations.typesets import tenzing_complete_set
 
 
 df = pd.DataFrame(
@@ -38,11 +34,12 @@ df = pd.DataFrame(
             "http://www.duckduckgo.com",
         ],
         "complex_record": [np.complex(1, 2), np.complex(3, 4), np.complex(5, 6)],
-        "path": [
+        "path_linux": [
             r"/home/user/test.txt",
             r"/home/user/test.bat",
             r"/home/user/test.sh",
-        ]
+        ],
+        "path_win": [r"C:\Users\test.txt", r"C:\Users\test.bat", r"C:\Users\test.sh"],
     }
 )
 
@@ -53,22 +50,9 @@ ts = tenzing_complete_set()
 _ = ts.prep(df)
 
 summary = ts.summary_report(df)
-# print(json.dumps(summary, indent=4))
 
-
-# In[4]:
-
-
-# print(ts.column_type_map)
-
-
-# In[5]:
-
-
-print(ts.infer_types(df))
-
-
-# In[6]:
+# TODO: infer types without casting
+print("expected types", ts.infer_types(df))
 
 
 df_clean = ts.cast_to_inferred_types(df)
@@ -85,5 +69,6 @@ print(df_clean.head())
 # 'is_expired': tenzing_bool,
 # 'is_person': tenzing_bool,
 # 'website': tenzing_url,
-# 'complex_record': tenzing_complex}
-print(ts.infer_types(df_clean))
+# 'complex_record': tenzing_complex,
+# 'path': tenzing_path}
+# print('expected types after convert', ts.infer_types(df_clean))

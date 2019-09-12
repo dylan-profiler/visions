@@ -7,16 +7,11 @@ class infMixin:
     When creating a custom Tenzing type simply inherit from infMixin to add
     automatic support for infinite values.
 
-    >>> @singleton.singleton_object
-    >>> class tenzing_integer(infMixin, tenzing_model):
-    >>>     // Implementation
+    >>> class tenzing_integer(infMixin, tenzing_generic):
+    >>>     # Implementation
 
     """
 
-    # TODO: is this used?
-    # is_option = True
-
-    # Todo: is this even used?
     @classmethod
     def get_series(cls, series):
         try:

@@ -15,7 +15,7 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     """
 
     @classmethod
-    def contains_op(self, series, operation=None):
+    def contains_op(cls, series):
         if pdt.is_integer_dtype(series):
             return True
         elif pdt.is_float_dtype(series):
@@ -26,15 +26,15 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
             return False
 
     @classmethod
-    def cast_op(self, series, operation=None):
+    def cast_op(cls, series, operation=None):
         # TODO: split in NaN
-        xseries = self.get_series(series)
+        xseries = cls.get_series(series)
         return xseries.astype(int)
 
     @classmethod
     @zero_summary
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
         aggregates = [
             "median",

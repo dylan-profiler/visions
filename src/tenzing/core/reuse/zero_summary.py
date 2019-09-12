@@ -6,7 +6,7 @@ def zero_summary(func):
 
     """
 
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = {"n_zeros": (series == 0).sum()}
         summary["perc_zeros"] = summary["n_zeros"] / len(series)
         return summary
@@ -14,7 +14,7 @@ def zero_summary(func):
     return summarization_op
 
 
-def zero_warnings(func):
+def zero_warnings(cls, func):
     def warnings(summary):
         messages = []
         if summary["n_unique"] == 1:

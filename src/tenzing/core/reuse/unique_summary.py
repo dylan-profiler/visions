@@ -6,7 +6,7 @@ def unique_summary(func):
 
     """
 
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = {}
 
         # try:
@@ -23,7 +23,7 @@ def unique_summary(func):
 
 
 def unique_warnings(func):
-    def warnings(summary):
+    def warnings(cls, summary):
         messages = []
         if summary["n_unique"] == 1:
             messages.append("n_unique:const")

@@ -29,21 +29,21 @@ class tenzing_geometry(tenzing_object):
     ]
 
     @classmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         return all(
-            any(isinstance(obj, geom_type) for geom_type in self.geom_types)
+            any(isinstance(obj, geom_type) for geom_type in cls.geom_types)
             for obj in series
         )
 
     @classmethod
-    def cast_op(self, series, operation=None):
+    def cast_op(cls, series, operation=None):
         from shapely import wkt
 
         return pd.Series([wkt.loads(value) for value in series])
 
     @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         try:

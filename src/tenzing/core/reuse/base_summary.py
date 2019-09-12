@@ -6,7 +6,7 @@ def base_summary(func):
 
     """
 
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = {
             "frequencies": series.value_counts().to_dict(),
             "n_records": series.shape[0],

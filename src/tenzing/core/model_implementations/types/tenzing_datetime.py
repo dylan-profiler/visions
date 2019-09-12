@@ -15,11 +15,11 @@ class tenzing_datetime(optionMixin, tenzing_generic):
     """
 
     @classmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         return pdt.is_datetime64_any_dtype(series)
 
     @classmethod
-    def cast_op(self, series, operation=None):
+    def cast_op(cls, series, operation=None):
         return pd.to_datetime(series)
 
     @classmethod

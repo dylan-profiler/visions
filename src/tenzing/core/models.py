@@ -66,6 +66,9 @@ class meta_model(type):
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
 
+    # TODO: automatic static ?
+    # https://stackoverflow.com/questions/31953113/purely-static-classes-in-python-use-metaclass-class-decorator-or-something-e
+
 
 class tenzing_model(metaclass=meta_model):
     """Abstract implementation of a tenzing type.
@@ -91,8 +94,6 @@ class tenzing_model(metaclass=meta_model):
     >>>         return summary
     """
 
-    # TODO: remove?
-    is_option = False
     _relations = {}
 
     @classmethod
@@ -132,10 +133,6 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     def summarize(cls, series):
         return cls.summarization_op(series)
-
-    # def __contains__(self, series):
-    #     print('__contains__')
-    #     return self.contains_op(series)
 
     @classmethod
     @abstractmethod

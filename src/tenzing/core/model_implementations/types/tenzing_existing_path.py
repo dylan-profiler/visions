@@ -12,18 +12,18 @@ class tenzing_existing_path(tenzing_path):
     """
 
     @classmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         if not super().contains_op(series):
             return False
 
         return series.apply(lambda p: p.exists()).all()
 
     @classmethod
-    def cast_op(self, series, operation=None):
+    def cast_op(cls, series, operation=None):
         return super().cast_op(series)
 
     @classmethod
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
         summary["file_sizes"] = series.map(lambda x: x.stat().st_size)
         return summary

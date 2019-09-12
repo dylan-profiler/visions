@@ -17,7 +17,7 @@ class tenzing_path(tenzing_object):
     """
 
     @classmethod
-    def contains_op(self, series):
+    def contains_op(cls, series):
         if not pdt.is_object_dtype(series):
             return False
 
@@ -27,12 +27,12 @@ class tenzing_path(tenzing_object):
         )
 
     @classmethod
-    def cast_op(self, series, operation=None):
+    def cast_op(cls, series, operation=None):
         return series.apply(Path)
 
     @classmethod
     @unique_summary
-    def summarization_op(self, series):
+    def summarization_op(cls, series):
         summary = super().summarization_op(series)
 
         summary["common_prefix"] = (

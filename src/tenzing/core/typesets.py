@@ -277,4 +277,3 @@ class tenzingTypeset(tenzing_typeset):
 
         G.graph["node"] = {"shape": "box", "color": "red"}
         write_dot(G, "graph_inheritance.dot")
-
