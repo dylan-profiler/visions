@@ -8,9 +8,10 @@ def zero_summary(func):
     automatic support for missing values.
 
     """
+
     @wraps(func)
     def summarization_op(cls, series):
-        print('zero_summary')
+        print("zero_summary")
         series = cls.get_series(series)
         summary = {"n_zeros": (series == 0).sum()}
         summary["perc_zeros"] = summary["n_zeros"] / len(series)

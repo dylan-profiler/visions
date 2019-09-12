@@ -85,7 +85,7 @@ def register_datetime_relations():
             tenzing_datetime,
             tenzing_string,
             test_utils.coercion_test(lambda s: pd.to_datetime(s)),
-        ),
+        )
     ]
     for relation in relations:
         tenzing_datetime.register_relation(relation)
@@ -108,9 +108,7 @@ def register_geometry_relations():
 
         return result
 
-    relations = [
-        model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-    ]
+    relations = [model_relation(tenzing_geometry, tenzing_string, string_is_geometry)]
     for relation in relations:
         tenzing_geometry.register_relation(relation)
 
@@ -133,7 +131,11 @@ def register_bool_relations():
             )
 
         def map_string_to_bool(self, series):
-            return series.str.lower().copy().map({k: v for d in self._boolean_maps for k, v in d.items()})
+            return (
+                series.str.lower()
+                .copy()
+                .map({k: v for d in self._boolean_maps for k, v in d.items()})
+            )
 
     sb_relation = string_bool_relation()
     relations = [

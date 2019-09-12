@@ -8,9 +8,10 @@ def unique_summary(func):
     automatic support for missing values.
 
     """
+
     @wraps(func)
     def summarization_op(cls, series):
-        print('unique_summary')
+        print("unique_summary")
         series = cls.get_series(series)
         summary = {}
 

@@ -10,11 +10,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
-    install_requires=[
-        "pandas>=0.23.0",
-        "numpy>=1.15",
-        "networkx>=2.2",
-    ],
+    install_requires=["pandas>=0.23.0", "numpy>=1.15", "networkx>=2.2"],
     include_package_data=True,
     extras_require={"geopandas": ["geopandas"], "shapely": ["shapely>=1.6"]},
     setup_requires=["pytest-runner"],
