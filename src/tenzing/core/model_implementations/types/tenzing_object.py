@@ -14,11 +14,12 @@ class tenzing_object(optionMixin, tenzing_generic):
     >>> x in tenzing_object
     True
     """
+
     def contains_op(self, series):
         return pdt.is_object_dtype(series)
 
     def cast_op(self, series):
-        return series.astype('object'),
+        return series.astype("object")
 
     @base_summary
     @unique_summary

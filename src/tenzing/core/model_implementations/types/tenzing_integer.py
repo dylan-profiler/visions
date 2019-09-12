@@ -15,6 +15,7 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     >>> x in tenzing_integer
     True
     """
+
     def contains_op(self, series):
         if pdt.is_integer_dtype(series):
             return True
@@ -33,7 +34,18 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-        aggregates = ['median', "mean", "std", "var", "min", "max", "kurt", "skew", "sum", "mad"]
+        aggregates = [
+            "median",
+            "mean",
+            "std",
+            "var",
+            "min",
+            "max",
+            "kurt",
+            "skew",
+            "sum",
+            "mad",
+        ]
         summary.update(series.agg(aggregates).to_dict())
 
         quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]

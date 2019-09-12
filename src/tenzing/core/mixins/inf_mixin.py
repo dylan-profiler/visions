@@ -23,6 +23,7 @@ class infMixin:
     >>>     // Implementation
 
     """
+
     # TODO: is this used?
     is_option = True
 
@@ -50,6 +51,8 @@ class infMixin:
         idx = np.isinf(series)
         summary = super().summarization_op(series[~idx])
 
-        summary['inf_count'] = idx.values.sum()
-        summary['perc_inf'] = summary['inf_count'] / series.shape[0] if series.shape[0] > 0 else 0
+        summary["inf_count"] = idx.values.sum()
+        summary["perc_inf"] = (
+            summary["inf_count"] / series.shape[0] if series.shape[0] > 0 else 0
+        )
         return summary

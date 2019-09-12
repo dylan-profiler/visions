@@ -5,16 +5,20 @@ def unique_summary(func):
     automatic support for missing values.
 
     """
+
     def summarization_op(self, series):
         summary = {}
 
         # try:
         n_unique = len(set(series.values))
         # n_unique = series.nunique()
-        summary.update({"n_unique": n_unique, "perc_unique": float(n_unique) / len(series)})
+        summary.update(
+            {"n_unique": n_unique, "perc_unique": float(n_unique) / len(series)}
+        )
         # except Exception:
         #     pass
         return summary
+
     return summarization_op
 
 
@@ -26,4 +30,5 @@ def unique_warnings(func):
         if summary["p_unique"] == 1.0:
             messages.append("n_unique:unique")
         return messages
+
     return warnings

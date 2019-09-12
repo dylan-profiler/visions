@@ -12,6 +12,7 @@ class tenzing_existing_path(tenzing_path):
     >>> x in tenzing_existing_path
     True
     """
+
     def contains_op(self, series):
         if not super().contains_op(series):
             return False
@@ -23,5 +24,5 @@ class tenzing_existing_path(tenzing_path):
 
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-        summary['file_sizes'] = series.map(lambda x: x.stat().st_size)
+        summary["file_sizes"] = series.map(lambda x: x.stat().st_size)
         return summary

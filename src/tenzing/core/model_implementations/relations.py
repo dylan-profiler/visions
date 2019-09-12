@@ -18,70 +18,79 @@ import pandas as pd
 
 def register_integer_relations():
     relations = [
-        model_relation(tenzing_integer, tenzing_float,
-                       test_utils.coercion_equality_test(lambda s: s.astype(int))),
-        model_relation(tenzing_integer, tenzing_string,
-                       test_utils.coercion_test(lambda s: s.astype(int))),
+        model_relation(
+            tenzing_integer,
+            tenzing_float,
+            test_utils.coercion_equality_test(lambda s: s.astype(int)),
+        ),
+        model_relation(
+            tenzing_integer,
+            tenzing_string,
+            test_utils.coercion_test(lambda s: s.astype(int)),
+        ),
     ]
     for relation in relations:
-        tenzing_integer.register_relation(tenzing_integer(), relation)
+        tenzing_integer.register_relation(relation)
 
 
 def register_float_relations():
     def test_string_is_float(series):
-        coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(series)
+        coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(
+            series
+        )
         if coerced_series is None:
             return False
         else:
             return True
-    relations = [
-        model_relation(tenzing_float, tenzing_string, test_string_is_float),
-    ]
+
+    relations = [model_relation(tenzing_float, tenzing_string, test_string_is_float)]
     for relation in relations:
-        tenzing_float.register_relation(tenzing_float(), relation)
+        tenzing_float.register_relation(relation)
 
 
 def register_string_relations():
-    relations = [
-        model_relation(tenzing_string, tenzing_object),
-    ]
+    relations = [model_relation(tenzing_string, tenzing_object)]
     for relation in relations:
-        tenzing_string.register_relation(tenzing_string(), relation)
+        tenzing_string.register_relation(relation)
 
 
 def register_url_relations():
     def test_url(series):
-        # print(series.name)
-        # print(series.head())
         try:
-            return series.apply(urlparse).apply(lambda x: all((x.netloc, x.scheme))).all()
+            return (
+                series.apply(urlparse).apply(lambda x: all((x.netloc, x.scheme))).all()
+            )
         except AttributeError:
             return False
 
-    relations = [
-        model_relation(tenzing_url, tenzing_string, test_url)
-    ]
+    relations = [model_relation(tenzing_url, tenzing_string, test_url)]
     for relation in relations:
-        tenzing_url.register_relation(tenzing_url(), relation)
+        tenzing_url.register_relation(relation)
 
 
 def register_path_relations():
     relations = [
-        model_relation(tenzing_path, tenzing_string,
-                       lambda s: s.apply(lambda x: Path(x).is_absolute()).all())
+        model_relation(
+            tenzing_path,
+            tenzing_string,
+            lambda s: s.apply(lambda x: Path(x).is_absolute()).all(),
+        )
     ]
     for relation in relations:
-        tenzing_path.register_relation(tenzing_path(), relation)
+        tenzing_path.register_relation(relation)
 
 
 def register_datetime_relations():
     relations = [
-        model_relation(tenzing_datetime, tenzing_string,
-                       test_utils.coercion_test(lambda s: pd.to_datetime(s))),
-        model_relation(tenzing_datetime, tenzing_object)
+        model_relation(
+            tenzing_datetime,
+            tenzing_string,
+            test_utils.coercion_test(lambda s: pd.to_datetime(s)),
+        ),
+        model_relation(tenzing_datetime, tenzing_object),
     ]
     for relation in relations:
-        tenzing_datetime.register_relation(tenzing_datetime(), relation)
+        tenzing_datetime.register_relation(relation)
 
 
 def register_geometry_relations():
@@ -90,6 +99,7 @@ def register_geometry_relations():
             Shapely logs failures at a silly severity, just trying to suppress it's output on failures.
         """
         from shapely import wkt
+
         logging.disable()
         try:
             result = all(wkt.loads(value) for value in series)
@@ -102,21 +112,25 @@ def register_geometry_relations():
 
     relations = [
         model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-        model_relation(tenzing_geometry, tenzing_object, transformer=lambda series: series)
+        model_relation(
+            tenzing_geometry, tenzing_object, transformer=lambda series: series
+        ),
     ]
     for relation in relations:
-        tenzing_geometry.register_relation(tenzing_geometry(), relation)
+        tenzing_geometry.register_relation(relation)
 
 
 def register_bool_relations():
     class string_bool_relation:
         # TODO: extend with Y/N
-        _boolean_maps = {'true': True,
-                         'false': False,
-                         'y': True,
-                         'n': False,
-                         'yes': True,
-                         'no': False}
+        _boolean_maps = {
+            "true": True,
+            "false": False,
+            "y": True,
+            "n": False,
+            "yes": True,
+            "no": False,
+        }
 
         # _boolean_maps = {'y': True,
         #                  'n': False}
@@ -132,11 +146,15 @@ def register_bool_relations():
 
     sb_relation = string_bool_relation()
     relations = [
-        model_relation(tenzing_bool, tenzing_string,
-                       sb_relation.string_is_bool, sb_relation.map_string_to_bool)
+        model_relation(
+            tenzing_bool,
+            tenzing_string,
+            sb_relation.string_is_bool,
+            sb_relation.map_string_to_bool,
+        )
     ]
     for relation in relations:
-        tenzing_bool.register_relation(tenzing_bool(), relation)
+        tenzing_bool.register_relation(relation)
 
 
 register_integer_relations()
@@ -146,4 +164,4 @@ register_datetime_relations()
 register_bool_relations()
 register_geometry_relations()
 register_url_relations()
-# register_path_relations()
+register_path_relations()

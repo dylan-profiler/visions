@@ -13,8 +13,11 @@ class tenzing_time(tenzing_datetime):
     >>> x in tenzing_time
     True
     """
+
     def contains_op(self, series):
-        return pdt.is_datetime64_any_dtype(series) and series.eq(series.replace(day=1, month=1, year=1970))
+        return pdt.is_datetime64_any_dtype(series) and series.eq(
+            series.replace(day=1, month=1, year=1970)
+        )
 
     def cast_op(self, series):
         return pd.to_datetime(series)

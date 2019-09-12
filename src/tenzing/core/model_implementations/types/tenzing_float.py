@@ -16,6 +16,7 @@ class tenzing_float(optionMixin, tenzing_generic):
     >>> x in tenzing_float
     True
     """
+
     def contains_op(self, series):
         if not pdt.is_float_dtype(series):
             return False
@@ -36,7 +37,18 @@ class tenzing_float(optionMixin, tenzing_generic):
         # Filter series
         series = super().get_series(series)
 
-        aggregates = ['mean', 'std', 'var', 'max', 'min', 'median', 'kurt', 'skew', 'sum', 'mad']
+        aggregates = [
+            "mean",
+            "std",
+            "var",
+            "max",
+            "min",
+            "median",
+            "kurt",
+            "skew",
+            "sum",
+            "mad",
+        ]
         summary.update(series.agg(aggregates).to_dict())
 
         quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]

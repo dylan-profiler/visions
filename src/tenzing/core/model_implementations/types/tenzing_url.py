@@ -18,6 +18,7 @@ class tenzing_url(tenzing_object):
     >>> x in tenzing_url
     True
     """
+
     def contains_op(self, series):
         if not pdt.is_object_dtype(series):
             return False
@@ -34,6 +35,8 @@ class tenzing_url(tenzing_object):
         keys = ["scheme", "netloc", "path", "query", "fragment"]
         url_parts = dict(zip(keys, zip(*series)))
         for name, part in url_parts.items():
-            summary["{}_counts".format(name.lower())] = pd.Series(part).value_counts().to_dict()
+            summary["{}_counts".format(name.lower())] = (
+                pd.Series(part).value_counts().to_dict()
+            )
 
         return summary

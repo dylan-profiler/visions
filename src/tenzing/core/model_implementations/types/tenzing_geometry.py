@@ -16,15 +16,29 @@ class tenzing_geometry(tenzing_object):
     >>> x in tenzing_geometry
     True
     """
+
     from shapely import geometry
-    geom_types = [geometry.Point, geometry.Polygon, geometry.MultiPolygon, geometry.MultiPoint,
-                  geometry.LineString, geometry.LinearRing, geometry.MultiPoint, geometry.MultiLineString]
+
+    geom_types = [
+        geometry.Point,
+        geometry.Polygon,
+        geometry.MultiPolygon,
+        geometry.MultiPoint,
+        geometry.LineString,
+        geometry.LinearRing,
+        geometry.MultiPoint,
+        geometry.MultiLineString,
+    ]
 
     def contains_op(self, series):
-        return all(any(isinstance(obj, geom_type) for geom_type in self.geom_types) for obj in series)
+        return all(
+            any(isinstance(obj, geom_type) for geom_type in self.geom_types)
+            for obj in series
+        )
 
     def cast_op(self, series):
         from shapely import wkt
+
         return pd.Series([wkt.loads(value) for value in series])
 
     @unique_summary
@@ -33,6 +47,7 @@ class tenzing_geometry(tenzing_object):
 
         try:
             import geopandas as gpd
+
             # summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())
         except ImportError:
             pass

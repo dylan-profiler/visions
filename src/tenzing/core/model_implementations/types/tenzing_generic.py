@@ -1,9 +1,7 @@
-import pandas.api.types as pdt
 import numpy as np
 
 from tenzing.core import tenzing_model
 from tenzing.utils import singleton
-from tenzing.core.mixins import optionMixin
 from tenzing.core.reuse import base_summary
 
 
@@ -15,11 +13,12 @@ class tenzing_generic(tenzing_model):
     >>> x in tenzing_generic
     True
     """
+
     def contains_op(self, series):
         return True
 
     def cast_op(self, series):
-        return series,
+        return series
 
     @base_summary
     def summarization_op(self, series):

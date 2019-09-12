@@ -56,7 +56,7 @@ class model_relation:
         return self.model.cast(obj, self.transformer)
 
     def __repr__(self):
-        return f'({self.friend_model} -> {self.model})'
+        return f"({self.friend_model} -> {self.model})"
 
 
 class tenzing_model(metaclass=singleton.Singleton):
@@ -92,8 +92,11 @@ class tenzing_model(metaclass=singleton.Singleton):
     def get_series(self, series):
         return series
 
+    @classmethod
     def register_relation(self, relation):
-        assert relation.friend_model not in self.relations, "Only one relationship permitted per type"
+        assert (
+            relation.friend_model not in self.relations
+        ), "Only one relationship permitted per type"
         self.relations[relation.friend_model] = relation
 
     def cast(self, series, operation=None):

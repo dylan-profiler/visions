@@ -13,6 +13,7 @@ class tenzing_bool(optionMixin, tenzing_generic):
     >>> x in tenzing_bool
     True
     """
+
     def contains_op(self, series):
         if pdt.is_categorical_dtype(series):
             return False

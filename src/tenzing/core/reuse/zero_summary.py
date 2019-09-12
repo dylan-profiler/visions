@@ -5,11 +5,12 @@ def zero_summary(func):
     automatic support for missing values.
 
     """
+
     def summarization_op(self, series):
-        summary = {}
-        summary['n_zeros'] = (series == 0).sum()
-        summary['perc_zeros'] = summary['n_zeros'] / len(series)
+        summary = {"n_zeros": (series == 0).sum()}
+        summary["perc_zeros"] = summary["n_zeros"] / len(series)
         return summary
+
     return summarization_op
 
 
@@ -21,4 +22,5 @@ def zero_warnings(func):
         if summary["p_unique"] == 1.0:
             messages.append("n_unique:unique")
         return messages
+
     return warnings

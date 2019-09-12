@@ -14,11 +14,12 @@ class tenzing_complex(optionMixin, tenzing_generic):
     >>> x in tenzing_complex
     True
     """
+
     def contains_op(self, series):
         return pdt.is_complex_dtype(series)
 
     def cast_op(self, series):
-        return series.astype('complex')
+        return series.astype("complex")
 
     @unique_summary
     @zero_summary

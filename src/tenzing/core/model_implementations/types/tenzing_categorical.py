@@ -14,15 +14,18 @@ class tenzing_categorical(optionMixin, tenzing_generic):
     >>> x in tenzing_categorical
     True
     """
+
     def contains_op(self, series):
         return pdt.is_categorical_dtype(series)
 
     def cast_op(self, series):
-        return series.astype('category')
+        return series.astype("category")
 
     @unique_summary
     def summarization_op(self, series):
         summary = super().summarization_op(series)
-        summary['category_size'] = len(series.dtype._categories)
-        summary['missing_categorical_values'] = True if summary['n_unique'] != summary['category_size'] else False
+        summary["category_size"] = len(series.dtype._categories)
+        summary["missing_categorical_values"] = (
+            True if summary["n_unique"] != summary["category_size"] else False
+        )
         return summary

@@ -15,6 +15,7 @@ class tenzing_string(tenzing_object):
     >>> x in tenzing_string
     True
     """
+
     def contains_op(self, series):
         if not pdt.is_object_dtype(series):
             return False
@@ -32,8 +33,10 @@ class tenzing_string(tenzing_object):
         summary["length"] = series.map(lambda x: len(str(x))).value_counts().to_dict()
 
         # Unicode Scripts and Categories
-        unicode_series = series.apply(lambda sequence: {script_cat(character) for character in sequence})
+        unicode_series = series.apply(
+            lambda sequence: {script_cat(character) for character in sequence}
+        )
         unicode_scripts = {y for x in unicode_series.values for y in x}
-        summary['unicode_scripts'] = unicode_scripts
+        summary["unicode_scripts"] = unicode_scripts
 
         return summary

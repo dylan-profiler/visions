@@ -15,6 +15,7 @@ class tenzing_datetime(optionMixin, tenzing_generic):
     >>> x in tenzing_datetime
     True
     """
+
     def contains_op(self, series):
         return pdt.is_datetime64_any_dtype(series)
 
@@ -25,10 +26,10 @@ class tenzing_datetime(optionMixin, tenzing_generic):
     def summarization_op(self, series):
         summary = super().summarization_op(series)
 
-        aggregates = ['min', 'max']
+        aggregates = ["min", "max"]
         summary.update(series.agg(aggregates).to_dict())
 
-        summary['range'] = summary['max'] - summary['min']
+        summary["range"] = summary["max"] - summary["min"]
         # TODO: restrict to histogram calculation
         # summary['image'] = plotting.save_plot_to_str(series.hist())
 

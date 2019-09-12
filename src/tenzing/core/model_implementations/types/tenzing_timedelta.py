@@ -14,6 +14,7 @@ class tenzing_timedelta(optionMixin, tenzing_generic):
     >>> x in tenzing_timedelta
     True
     """
+
     def contains_op(self, series):
         return pdt.is_timedelta64_dtype(series)
 
