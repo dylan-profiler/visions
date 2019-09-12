@@ -1,5 +1,6 @@
 from abc import abstractmethod
 import pandas as pd
+from tenzing.core.reuse.base_summary import base_summary
 
 
 class model_relation:
@@ -132,6 +133,7 @@ class tenzing_model(metaclass=meta_model):
         return operation(series)
 
     @classmethod
+    @base_summary
     def summarize(cls, series):
         return cls.summarization_op(series)
 
@@ -148,5 +150,4 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def summarization_op(cls, series):
-        # TODO: place baseMixin here?
         return {}

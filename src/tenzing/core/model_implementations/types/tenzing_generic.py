@@ -1,7 +1,6 @@
 import numpy as np
 
 from tenzing.core import tenzing_model
-from tenzing.core.reuse import base_summary
 
 
 class tenzing_generic(tenzing_model):
@@ -21,7 +20,6 @@ class tenzing_generic(tenzing_model):
         return series
 
     @classmethod
-    @base_summary
     def summarization_op(cls, series):
         summary = super().summarization_op(series)
         return summary

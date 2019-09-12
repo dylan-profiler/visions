@@ -10,6 +10,8 @@ def base_summary(func):
     """
     @wraps(func)
     def summarization_op(cls, series):
+        print('base_summary')
+        # series = cls.get_series(series)
         summary = {
             "frequencies": series.value_counts().to_dict(),
             "n_records": series.shape[0],
