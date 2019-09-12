@@ -35,8 +35,8 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
         return xseries.astype(int)
 
     @classmethod
-    @zero_summary
     @unique_summary
+    @zero_summary
     def summarization_op(cls, series):
         summary = super().summarization_op(series)
         aggregates = [
