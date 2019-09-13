@@ -1,3 +1,4 @@
+from tenzing.core.model_implementations.sub_types import missing
 from tenzing.core.model_implementations.typesets import (
     tenzing_standard,
     tenzing_geometry_set,
@@ -45,6 +46,8 @@ geometry_typeset = tenzing_geometry_set()
 def standard_typeset_test(series, expected_type):
     series_type = traverse_relation_graph(series, standard_typeset.inheritance_graph)
     inferred_type = infer_type(series_type, series, standard_typeset.relation_graph)
+    print(type(inferred_type))
+    print(type(expected_type))
     assert (
         inferred_type is expected_type
     ), f"Inferred type {inferred_type}, expected type {expected_type}"
@@ -59,68 +62,68 @@ def geometry_typeset_test(series, expected_type):
 
 
 def test_int_to_int():
-    standard_typeset_test(int_series, tenzing_integer)
+    standard_typeset_test(int_series, tenzing_integer + missing)
 
 
 def test_string_to_int():
-    standard_typeset_test(int_string_series, tenzing_integer)
+    standard_typeset_test(int_string_series, tenzing_integer + missing)
 
 
 def test_string_with_nan_int():
-    standard_typeset_test(int_string_nan_series, tenzing_integer)
+    standard_typeset_test(int_string_nan_series, tenzing_integer + missing)
 
 
 def test_string_to_bool():
-    standard_typeset_test(bool_string_series, tenzing_bool)
+    standard_typeset_test(bool_string_series, tenzing_bool + missing)
 
 
 def test_object_to_float():
-    standard_typeset_test(float_string_series, tenzing_float)
+    standard_typeset_test(float_string_series, tenzing_float + missing)
 
 
 def test_object_to_object():
-    standard_typeset_test(object_series, tenzing_object)
+    standard_typeset_test(object_series, tenzing_object + missing)
 
 
 def test_object_to_timestamp():
-    standard_typeset_test(timestamp_string_series, tenzing_datetime)
+    standard_typeset_test(timestamp_string_series, tenzing_datetime + missing)
 
 
 def test_float_to_int():
-    standard_typeset_test(int_float_series, tenzing_integer)
+    standard_typeset_test(int_float_series, tenzing_integer + missing)
 
 
 def test_float_to_float():
-    standard_typeset_test(float_series, tenzing_float)
+    standard_typeset_test(float_series, tenzing_float + missing)
 
 
 def test_bool_to_bool():
-    standard_typeset_test(bool_series, tenzing_bool)
+    standard_typeset_test(bool_series, tenzing_bool + missing)
 
 
 def test_timestamp_to_timestamp():
-    standard_typeset_test(timestamp_series, tenzing_datetime)
+    standard_typeset_test(timestamp_series, tenzing_datetime + missing)
 
 
 def test_string_bool_nan_to_bool():
-    standard_typeset_test(string_bool_nan_series, tenzing_bool)
+    standard_typeset_test(string_bool_nan_series, tenzing_bool + missing)
 
 
 def test_string_to_float():
-    standard_typeset_test(float_string_series, tenzing_float)
+    standard_typeset_test(float_string_series, tenzing_float + missing)
 
 
 def test_string_to_string():
-    standard_typeset_test(string_series, tenzing_string)
+    standard_typeset_test(string_series, tenzing_string + missing)
 
 
 def test_string_nan_to_string():
-    standard_typeset_test(string_nan_series, tenzing_string)
+    standard_typeset_test(string_nan_series, tenzing_string + missing)
 
 
 def test_geometry_to_geometry():
-    geometry_typeset_test(geometry_series, tenzing_geometry)
+    geometry_typeset_test(geometry_series, tenzing_geometry + missing)
 
 
 def test_string_to_geometry():
-    geometry_typeset_test(geometry_string_series, tenzing_geometry)
+    geometry_typeset_test(geometry_string_series, tenzing_geometry + missing)

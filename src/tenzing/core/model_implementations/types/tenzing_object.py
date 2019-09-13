@@ -1,11 +1,10 @@
 import pandas.api.types as pdt
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary, base_summary
 
 
-class tenzing_object(optionMixin, tenzing_generic):
+class tenzing_object(tenzing_generic):
     """**Object** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series(['a', 1, np.nan])

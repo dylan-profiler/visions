@@ -1,12 +1,11 @@
 import pandas.api.types as pdt
 import numpy as np
 
-from tenzing.core.mixins import optionMixin, infMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary, zero_summary
 
 
-class tenzing_integer(optionMixin, infMixin, tenzing_generic):
+class tenzing_integer(tenzing_generic):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([1, 2, 3, np.nan])
@@ -45,8 +44,7 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
     @unique_summary
     @zero_summary
     def summarization_op(cls, series):
-        mask = super().get_series_mask(series)
-        summary = super().summarization_op(series[mask])
+        summary = super().summarization_op(series)
         summary = {}
         aggregates = [
             "median",

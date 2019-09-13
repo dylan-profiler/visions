@@ -1,11 +1,10 @@
 import pandas.api.types as pdt
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations import tenzing_generic
 from tenzing.core.reuse import unique_summary
 
 
-class tenzing_categorical(optionMixin, tenzing_generic):
+class tenzing_categorical(tenzing_generic):
     """**Categorical** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([True, False, 1], dtype='category')

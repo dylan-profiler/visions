@@ -1,10 +1,9 @@
 import pandas.api.types as pdt
 
 from tenzing.core.model_implementations import tenzing_generic
-from tenzing.core.mixins import optionMixin
 
 
-class tenzing_bool(optionMixin, tenzing_generic):
+class tenzing_bool(tenzing_generic):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([True, False, np.nan])

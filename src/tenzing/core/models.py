@@ -1,6 +1,7 @@
 from abc import abstractmethod
 import pandas as pd
 import numpy as np
+
 from tenzing.core.reuse.base_summary import base_summary
 
 
@@ -64,7 +65,16 @@ class meta_model(type):
         return cls.contains_op(series)
 
     def __repr__(cls):
-        return cls.__name__
+        return f"{cls.__name__}"
+
+    def __add__(cls, other):
+        from tenzing.core.model_implementations.compound_type import CompoundType
+        from tenzing.core.model_implementations.sub_type import subType
+
+        if not issubclass(other, subType):
+            raise ValueError("Only Sub types can be added to Compound types.")
+        else:
+            return CompoundType(cls, [other])
 
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
@@ -140,7 +150,6 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @base_summary
     def summarize(cls, series):
-        print('tenzing_model.summarize')
         return cls.summarization_op(series)
 
     @classmethod
@@ -156,5 +165,4 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def summarization_op(cls, series):
-        print('tenzing_model.summarization_op')
         return {}

@@ -1,3 +1,4 @@
+from tenzing.core.model_implementations.sub_types import missing, infinite
 from tenzing.core.typesets import tenzingTypeset
 from tenzing.core.model_implementations import *
 
@@ -27,18 +28,18 @@ class tenzing_standard(tenzingTypeset):
     """
 
     def __init__(self):
-        root_types = [
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_complex,
-            tenzing_categorical,
-            tenzing_datetime,
-            tenzing_timedelta,
-            tenzing_integer,
+        types = [
+            tenzing_bool + missing,
+            tenzing_float + missing,
+            tenzing_object + missing,
+            tenzing_complex + missing,
+            tenzing_categorical + missing,
+            tenzing_datetime + missing,
+            tenzing_timedelta + missing,
+            tenzing_integer + missing + infinite,
+            tenzing_string + missing,
         ]
-        derivative_types = [tenzing_string]
-        super().__init__(root_types, derivative_types)
+        super().__init__(types)
 
 
 class tenzing_geometry_set(tenzingTypeset):
@@ -58,18 +59,19 @@ class tenzing_geometry_set(tenzingTypeset):
     """
 
     def __init__(self):
-        root_types = [
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_complex,
-            tenzing_categorical,
-            tenzing_datetime,
-            tenzing_integer,
-            tenzing_timedelta,
+        types = [
+            tenzing_bool + missing,
+            tenzing_float + missing,
+            tenzing_object + missing,
+            tenzing_complex + missing,
+            tenzing_categorical + missing,
+            tenzing_datetime + missing,
+            tenzing_timedelta + missing,
+            tenzing_integer + missing + infinite,
+            tenzing_string + missing,
+            tenzing_geometry + missing,
         ]
-        derivative_types = [tenzing_string, tenzing_geometry]
-        super().__init__(root_types, derivative_types)
+        super().__init__(types)
 
 
 class tenzing_complete_set(tenzingTypeset):
@@ -94,23 +96,21 @@ class tenzing_complete_set(tenzingTypeset):
     """
 
     def __init__(self):
-        root_types = [
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_complex,
-            tenzing_categorical,
-            tenzing_datetime,
-            tenzing_integer,
-            tenzing_timedelta,
+        types = [
+            tenzing_bool + missing,
+            tenzing_float + missing,
+            tenzing_object + missing,
+            tenzing_complex + missing,
+            tenzing_categorical + missing,
+            tenzing_datetime + missing,
+            tenzing_timedelta + missing,
+            tenzing_integer + missing + infinite,
+            tenzing_string + missing,
+            tenzing_geometry + missing,
+            tenzing_url + missing,
+            tenzing_path + missing,
+            tenzing_date + missing,
+            tenzing_time + missing,
+            tenzing_existing_path + missing,
         ]
-        derivative_types = [
-            tenzing_string,
-            tenzing_geometry,
-            tenzing_url,
-            tenzing_path,
-            tenzing_date,
-            tenzing_time,
-            tenzing_existing_path,
-        ]
-        super().__init__(root_types, derivative_types)
+        super().__init__(types)

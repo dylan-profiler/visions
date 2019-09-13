@@ -11,8 +11,6 @@ def unique_summary(func):
 
     @wraps(func)
     def summarization_op(cls, series):
-        print("unique_summary")
-        series = cls.get_series(series)
         summary = {}
 
         # try:

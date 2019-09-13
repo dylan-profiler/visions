@@ -1,7 +1,6 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from tenzing.core.mixins.option_mixin import optionMixin
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
 

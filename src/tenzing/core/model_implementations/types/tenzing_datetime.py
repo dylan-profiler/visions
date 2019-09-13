@@ -1,12 +1,11 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.reuse import unique_summary
 
 
-class tenzing_datetime(optionMixin, tenzing_generic):
+class tenzing_datetime(tenzing_generic):
     """**Datetime** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])

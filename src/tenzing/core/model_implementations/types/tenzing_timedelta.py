@@ -1,11 +1,10 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from tenzing.core.mixins import optionMixin
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 
 
-class tenzing_timedelta(optionMixin, tenzing_generic):
+class tenzing_timedelta(tenzing_generic):
     """**Timedelta** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([pd.Timedelta(days=i) for i in range(3)])

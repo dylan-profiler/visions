@@ -11,8 +11,6 @@ def zero_summary(func):
 
     @wraps(func)
     def summarization_op(cls, series):
-        print("zero_summary")
-        series = cls.get_seriges(series)
         summary = {"n_zeros": (series == 0).sum()}
         summary["perc_zeros"] = summary["n_zeros"] / len(series)
         summary.update(func(cls, series))
