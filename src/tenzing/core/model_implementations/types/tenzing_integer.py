@@ -35,10 +35,19 @@ class tenzing_integer(optionMixin, infMixin, tenzing_generic):
         return xseries.astype(int)
 
     @classmethod
+    def summarize_entry(cls, series):
+        mseries = super().get_series(series)
+        summary = super().summarization_op(series)
+        summary.update(cls.summarization_op(mseries))
+        return summary
+
+    @classmethod
     @unique_summary
     @zero_summary
     def summarization_op(cls, series):
-        summary = super().summarization_op(series)
+        mask = super().get_series_mask(series)
+        summary = super().summarization_op(series[mask])
+        summary = {}
         aggregates = [
             "median",
             "mean",

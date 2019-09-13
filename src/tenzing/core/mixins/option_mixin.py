@@ -5,6 +5,11 @@ class optionMixin:
     automatic support for missing values.
     """
 
+    @staticmethod
+    def get_series_mask(series):
+        mask = series.isna()
+        return super().get_series_mask(series) & (~mask)
+
     @classmethod
     def get_series(cls, series):
         series = super().get_series(series)
@@ -24,6 +29,7 @@ class optionMixin:
 
     @classmethod
     def summarization_op(cls, series):
+        print('option.summarization_op')
         idx = series.isna()
         summary = super().summarization_op(series[~idx])
 

@@ -11,6 +11,10 @@ class infMixin:
     >>>     # Implementation
 
     """
+    @staticmethod
+    def get_series_mask(series):
+        mask = np.isinf(series)
+        return super().get_series_mask(series) & (~mask)
 
     @classmethod
     def get_series(cls, series):
@@ -36,9 +40,10 @@ class infMixin:
 
     @classmethod
     def summarization_op(cls, series):
+        print('inf.summarization_op')
         idx = np.isinf(series)
-        summary = super().summarization_op(series[~idx])
 
+        summary = super().summarization_op(series[~idx])
         summary["inf_count"] = idx.values.sum()
         summary["perc_inf"] = (
             summary["inf_count"] / series.shape[0] if series.shape[0] > 0 else 0

@@ -1,5 +1,6 @@
 from abc import abstractmethod
 import pandas as pd
+import numpy as np
 from tenzing.core.reuse.base_summary import base_summary
 
 
@@ -98,6 +99,10 @@ class tenzing_model(metaclass=meta_model):
 
     _relations = {}
 
+    @staticmethod
+    def get_series_mask(series):
+        return np.ones_like(series, dtype=bool)
+
     @classmethod
     def get_series(cls, series):
         return series
@@ -135,6 +140,7 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @base_summary
     def summarize(cls, series):
+        print('tenzing_model.summarize')
         return cls.summarization_op(series)
 
     @classmethod
@@ -150,4 +156,5 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def summarization_op(cls, series):
+        print('tenzing_model.summarization_op')
         return {}

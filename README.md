@@ -17,7 +17,6 @@ Full documentation can be found [here](https://tenzing.readthedocs.io/en/latest/
 * pandas
 * numpy
 * networkx
-* matplotlib
 
 ### Optional Requirements
 
