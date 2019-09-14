@@ -1,6 +1,4 @@
-from tenzing.core.model_implementations.sub_types import missing
 from tenzing.core.model_implementations.typesets import (
-    tenzing_standard,
     tenzing_geometry_set,
 )
 from tenzing.core.typesets import infer_type, traverse_relation_graph
@@ -46,8 +44,6 @@ geometry_typeset = tenzing_geometry_set()
 def standard_typeset_test(series, expected_type):
     series_type = traverse_relation_graph(series, standard_typeset.inheritance_graph)
     inferred_type = infer_type(series_type, series, standard_typeset.relation_graph)
-    print(type(inferred_type))
-    print(type(expected_type))
     assert (
         inferred_type is expected_type
     ), f"Inferred type {inferred_type}, expected type {expected_type}"
@@ -82,27 +78,27 @@ def test_object_to_float():
 
 
 def test_object_to_object():
-    standard_typeset_test(object_series, tenzing_object + missing)
+    standard_typeset_test(object_series, tenzing_object)
 
 
 def test_object_to_timestamp():
-    standard_typeset_test(timestamp_string_series, tenzing_datetime + missing)
+    standard_typeset_test(timestamp_string_series, tenzing_datetime)
 
 
 def test_float_to_int():
-    standard_typeset_test(int_float_series, tenzing_integer + missing)
+    standard_typeset_test(int_float_series, tenzing_integer)
 
 
 def test_float_to_float():
-    standard_typeset_test(float_series, tenzing_float + missing)
+    standard_typeset_test(float_series, tenzing_float)
 
 
 def test_bool_to_bool():
-    standard_typeset_test(bool_series, tenzing_bool + missing)
+    standard_typeset_test(bool_series, tenzing_bool)
 
 
 def test_timestamp_to_timestamp():
-    standard_typeset_test(timestamp_series, tenzing_datetime + missing)
+    standard_typeset_test(timestamp_series, tenzing_datetime)
 
 
 def test_string_bool_nan_to_bool():
@@ -114,7 +110,7 @@ def test_string_to_float():
 
 
 def test_string_to_string():
-    standard_typeset_test(string_series, tenzing_string + missing)
+    standard_typeset_test(string_series, tenzing_string)
 
 
 def test_string_nan_to_string():

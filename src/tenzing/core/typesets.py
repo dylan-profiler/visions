@@ -158,22 +158,12 @@ class tenzingTypeset(object):
         return traverse_relation_graph(series, self.inheritance_graph)
 
     def get_mro(self, x):
-        """
-        Notes
-        -------
-        Taking the last .__bases__ ignores mixins
-        """
-
         from tenzing.core.model_implementations.compound_type import CompoundType
 
         if isinstance(x, CompoundType):
             x = x.base_type
 
-        mro = [x]
-        last_element = list(x.__bases__)[-1]
-        if last_element.__bases__:
-            mro += self.get_mro(last_element)
-        return mro
+        return x.__mro__
 
     def build_graphs(self):
         """
@@ -187,7 +177,8 @@ class tenzingTypeset(object):
         relation_edges = []
 
         for data_type in self.types:
-            inheritance_relations = self.get_mro(data_type)[:-1]
+            inheritance_relations = self.get_mro(data_type)
+            inheritance_relations = inheritance_relations[:-1]
             # inheritance_relations = {str(cls.__name__): cls for cls in inheritance_relations}
 
             nodes = nodes.union(set(inheritance_relations))
