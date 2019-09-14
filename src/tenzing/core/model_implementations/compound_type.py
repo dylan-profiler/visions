@@ -1,19 +1,29 @@
 import numpy as np
 import pandas as pd
 
-# from tenzing.core.model_implementations.sub_type import subType
-
+from tenzing.core.model_implementations.sub_type import subType
+from tenzing.core.models import model_relation, tenzing_model
 # TODO: Need to reconsider the naming, types should be distinguished from
 # subtype / supertype / w/e they are finally called
+
+
+def masked_relation(compound_type, relation):
+    def relationship(series):
+        return relation.relationship(series[~compound_type.get_mask(series)])
+
+    def transformer(series):
+        mask = ~compound_type.get_mask(series)
+        transformed_series = series.copy()
+        transformed_series[mask] = relation.transformer(series[mask])
+        return transformed_series
+
+    return model_relation(compound_type, relation.friend_model, relationship, transformer)
 
 
 class CompoundType(object):
     def __init__(self, base_type, types=None):
         if types is None:
             types = []
-
-        from tenzing.core.models import tenzing_model
-        from tenzing.core.model_implementations.sub_type import subType
 
         assert type(types) == list
         for typex in types:
@@ -24,6 +34,13 @@ class CompoundType(object):
         if not issubclass(base_type, tenzing_model):
             raise ValueError("The base type should be tenzing model")
         self.base_type = base_type
+        self._construct_relations()
+
+    def _construct_relations(self):
+        self._relations = {}
+        for related_type, relation in self.base_type.get_relations().items():
+            self._relations[related_type] = masked_relation(self, relation)
+        return self
 
     def get_mask(self, series):
         mask = np.zeros_like(series, dtype=bool)
@@ -61,17 +78,15 @@ class CompoundType(object):
             raise ValueError('Pandas series required')
         return self.contains_op(item)
 
-    def __add__(self, other):
-        from tenzing.core.model_implementations.sub_type import subType
+    def get_relations(self):
+        return self._relations
 
+    def __add__(self, other):
         if not issubclass(other, subType):
             raise ValueError("Only Sub types can be added to Compound types.")
         else:
             self.types.append(other)
         return self
 
-    # def __str__(self):
-    #     return f"CompoundType({self.types}, {self.base_type})"
-
-    def __repr__(self):
-        return f"Compound({', '.join([str(i) for i in self.types])})[{self.base_type}]"
+    def __str__(self):
+        return f"CompoundType({', '.join([str(i) for i in self.types])}, {self.base_type})"
