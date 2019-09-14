@@ -256,6 +256,8 @@ def test_timedelta_contains(series):
         "geometry_string_series",
         "string_unicode_series",
         "string_np_unicode_series",
+        "path_series_linux_str",
+        "path_series_windows_str"
     ]
 )
 def test_string_contains(series):
@@ -285,6 +287,10 @@ def test_geometry_contains(series):
         "none_series",
         "callable",
         "module",
+        "path_series_linux",
+        "path_series_linux_str",
+        "path_series_windows",
+        "path_series_windows_str",
     ]
 )
 def test_object_contains(series):
