@@ -24,12 +24,4 @@ class tenzing_object(tenzing_generic):
     @unique_summary
     def summarization_op(cls, series):
         summary = super().summarization_op(series)
-
-        # summary = {}
-        # try:
-        #     summary['nunique'] = series.nunique()
-        #     summary['frequencies'] = series.value_counts().to_dict()
-        # except Exception:
-        #     pass
-
         return summary

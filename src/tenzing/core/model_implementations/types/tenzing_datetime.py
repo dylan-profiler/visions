@@ -15,7 +15,7 @@ class tenzing_datetime(tenzing_generic):
 
     @classmethod
     def contains_op(cls, series):
-        return pdt.is_datetime64_any_dtype(series)
+        return pdt.is_datetime64_any_dtype(series) and not series.hasnans
 
     @classmethod
     def cast_op(cls, series, operation=None):
