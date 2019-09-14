@@ -19,9 +19,12 @@ class tenzing_float(tenzing_generic):
     def contains_op(cls, series):
         if not pdt.is_float_dtype(series):
             return False
+
+        if (~np.isfinite(series)).any():
+            return False
         # TODO: are we sure we want this to depend on integer?
         # I don't like it but I was worried about the integer implementation changing
-        elif series in tenzing_integer or series in tenzing_integer + infinite:
+        elif series in tenzing_integer:
             return False
         else:
             return True
