@@ -10,7 +10,7 @@ class infinite(subType):
 
     @staticmethod
     def contains_op(series):
-        return (~np.isfinite(series)) & series.notnull()
+        return ((~np.isfinite(series)) & series.notnull()).any()
 
     @staticmethod
     def summarization_op(series):

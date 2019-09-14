@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 # from tenzing.core.model_implementations.sub_type import subType
 
@@ -55,7 +56,9 @@ class CompoundType(object):
             summary.update(type.summarization_op(series))
         return summary
 
-    def __contains__(self, item):
+    def __contains__(self, item: pd.Series):
+        if not isinstance(item, pd.Series):
+            raise ValueError('Pandas series required')
         return self.contains_op(item)
 
     def __add__(self, other):
