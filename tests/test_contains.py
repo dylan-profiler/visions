@@ -180,9 +180,6 @@ def test_url_contains(series):
         "float_series2",
         "float_series3",
         "float_series4",
-        "float_series5",
-        "float_series6",
-        "int_nan_series",  # unfortunate side effect of pandas typing
     ]
 )
 def test_float_contains(series):
