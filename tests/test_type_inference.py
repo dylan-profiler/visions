@@ -1,5 +1,6 @@
 from tenzing.core.model_implementations.typesets import (
     tenzing_geometry_set,
+    tenzing_standard
 )
 from tenzing.core.typesets import infer_type, traverse_relation_graph
 from tenzing.core.model_implementations import *
