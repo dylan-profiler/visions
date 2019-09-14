@@ -19,6 +19,7 @@ class tenzing_float(tenzing_generic):
         if not pdt.is_float_dtype(series):
             return False
         # TODO: are we sure we want this to depend on integer?
+        # I don't like it but I was worried about the integer implementation changing
         elif series in tenzing_integer:
             return False
         else:

@@ -19,5 +19,12 @@ from tenzing.core.model_implementations.types.tenzing_existing_path import (
 )
 from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+
+
+from tenzing.core.model_implementations.sub_types import infinite
+from tenzing.core.model_implementations.sub_types import missing
+
+
 import tenzing.core.model_implementations.relations
 from tenzing.core.model_implementations.typesets import tenzing_standard
+from tenzing.core.model_implementations.typesets import tenzing_complete_set

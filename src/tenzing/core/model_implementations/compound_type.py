@@ -22,13 +22,14 @@ class CompoundType(object):
         self.base_type = base_type
 
     def contains_op(self, series):
+        if any(series not in type for type in self.types):
+            return False
+
         mask = np.zeros_like(series, dtype=bool)
         for type in self.types:
             mask |= type.get_mask(series)
-        rest_mask = ~mask
-        subs = all(series[type.get_mask(series)] in type for type in self.types)
-        rest = series[rest_mask] in self.base_type
-        return subs and rest
+
+        return series[~mask] in self.base_type
 
     def __contains__(self, item):
         return self.contains_op(item)
@@ -46,4 +47,4 @@ class CompoundType(object):
     #     return f"CompoundType({self.types}, {self.base_type})"
 
     def __repr__(self):
-        return f"{self.base_type}"
+        return f"Compound({', '.join([str(i) for i in self.types])})[{self.base_type}]"

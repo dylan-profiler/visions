@@ -6,6 +6,10 @@ class missing(subType):
     def get_mask(series):
         return series.isna()
 
+    @staticmethod
+    def contains_op(series):
+        return series.hasnans
+
     # @classmethod
     # def summarization_op(cls, series):
     #     print('option.summarization_op')

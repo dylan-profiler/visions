@@ -8,6 +8,9 @@ class infinite(subType):
     def get_mask(series):
         return np.isinf(series)
 
+    @staticmethod
+    def contains_op(series):
+        return np.isinf(series).any()
     # @classmethod
     # def summarization_op(cls, series):
     #     idx = np.isinf(series)
