@@ -1,5 +1,6 @@
 import pandas.api.types as pdt
 import numpy as np
+from tenzing.core.model_implementations.sub_types.infinite import infinite
 
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
@@ -20,7 +21,7 @@ class tenzing_float(tenzing_generic):
             return False
         # TODO: are we sure we want this to depend on integer?
         # I don't like it but I was worried about the integer implementation changing
-        elif series in tenzing_integer:
+        elif series in tenzing_integer or series in tenzing_integer + infinite:
             return False
         else:
             return True
