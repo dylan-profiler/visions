@@ -14,6 +14,8 @@ from tenzing.core.model_implementations import (
     tenzing_object,
     tenzing_string,
     tenzing_geometry,
+    missing,
+    infinite
 )
 
 
@@ -26,6 +28,7 @@ def validate_summary_output(trial_output, correct_output):
 
 
 def test_integer_missing_summary(tenzing_type=tenzing_integer):
+    tenzing_type += missing
     test_series = pd.Series([0, 1, 2, 3, 4, np.nan])
     correct_output = {
         "n_unique": 5,
@@ -42,7 +45,6 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
     }
 
     trial_output = tenzing_type.summarize(test_series)
-    print(trial_output)
     validate_summary_output(trial_output, correct_output)
 
 

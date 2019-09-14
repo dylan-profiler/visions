@@ -7,6 +7,7 @@ import numpy as np
 from shapely import wkt
 
 from tenzing.core.model_implementations import *
+from tenzing.core.model_implementations.sub_types import missing, infinite
 
 _test_suite = [
     # Int Series
