@@ -224,13 +224,14 @@ def pytest_generate_tests(metafunc):
         argsvalues = []
         for item in _test_suite:
             for type, series_list in _series_map.items():
-                mark = (
-                    pytest.mark.basic()
-                    if (item.name in series_list)
-                    else pytest.mark.xfail()
-                )
+                args = {
+                    'id': f"{item.name} x {type}"
+                }
+                if item.name not in series_list:
+                    args['marks'] = pytest.mark.xfail()
+
                 argsvalues.append(
-                    pytest.param(item, type, marks=mark, id=f"{item.name} x {type}")
+                    pytest.param(item, type, **args)
                 )
 
         metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
