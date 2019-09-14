@@ -36,6 +36,12 @@ _test_suite = [
     pd.Series(
         np.array(["hello", "world"], dtype=np.unicode_), name="string_np_unicode_series"
     ),
+    pd.Series(["1.0", "2.0", np.nan], name='string_num_nan'),
+    pd.Series(["1.0", "45.67", np.nan], name='string_flt_nan'),
+    pd.Series(
+        ["To travel,", "to experience and learn:", "that is to live", np.nan], name='string_str_nan'
+    ),
+    pd.Series(["True", "False", np.nan], name='string_bool_nan'),
     # Bool Series
     pd.Series([True, False], name="bool_series"),
     pd.Series([True, False, np.nan], name="bool_nan_series"),
@@ -262,6 +268,19 @@ def test_string_contains(series):
     assert series in type
 
 
+@make_pytest_parameterization(
+    [
+        "string_num_nan",
+        "string_flt_nan",
+        "string_str_nan",
+        "string_bool_nan"
+    ]
+)
+def test_string_nan_contains(series):
+    type = tenzing_string + missing
+    assert series in type
+
+
 @make_pytest_parameterization(["geometry_series"])
 def test_geometry_contains(series):
     type = tenzing_geometry
@@ -272,22 +291,22 @@ def test_geometry_contains(series):
     [
         "mixed_list[str,int]",
         "mixed_dict",
-        "string_series",
-        "timestamp_string_series",
-        "string_unicode_series",
-        "string_np_unicode_series",
+        # "string_series",
+        # "timestamp_string_series",
+        # "string_unicode_series",
+        # "string_np_unicode_series",
         "bool_nan_series",
-        "geometry_string_series",
+        # "geometry_string_series",
         "geometry_series",
-        "path_series",
+        # "path_series",
         "url_series",
         "none_series",
         "callable",
         "module",
         "path_series_linux",
-        "path_series_linux_str",
+        # "path_series_linux_str",
         "path_series_windows",
-        "path_series_windows_str",
+        # "path_series_windows_str",
     ]
 )
 def test_object_contains(series):

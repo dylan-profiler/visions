@@ -44,7 +44,10 @@ geometry_typeset = tenzing_geometry_set()
 
 def standard_typeset_test(series, expected_type):
     series_type = traverse_relation_graph(series, standard_typeset.inheritance_graph)
+    print(series_type)
     inferred_type = infer_type(series_type, series, standard_typeset.relation_graph)
+    print(inferred_type)
+    print(expected_type)
     assert (
         inferred_type is expected_type
     ), f"Inferred type {inferred_type}, expected type {expected_type}"

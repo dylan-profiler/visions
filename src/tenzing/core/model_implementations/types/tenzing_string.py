@@ -1,11 +1,13 @@
 import pandas.api.types as pdt
 
+from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
 from tenzing.utils.unicodedata2 import script_cat
 
 
-class tenzing_string(tenzing_object):
+# TODO: inherit from object or generic?
+class tenzing_string(tenzing_generic):
     """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series(['a', 'b', np.nan])
@@ -18,8 +20,7 @@ class tenzing_string(tenzing_object):
         if not pdt.is_object_dtype(series):
             return False
 
-        return series.copy().apply(lambda x: type(x) == str).all()
-        # return series.apply(series.astype(str)).all()
+        return not series.empty and series.copy().apply(lambda x: type(x) == str).all()
 
     @classmethod
     def cast_op(cls, series, operation=None):
