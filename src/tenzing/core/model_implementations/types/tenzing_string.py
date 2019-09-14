@@ -1,13 +1,11 @@
 import pandas.api.types as pdt
 
-from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
 from tenzing.core.reuse import unique_summary
 from tenzing.utils.unicodedata2 import script_cat
 
 
-# TODO: inherit from object or generic?
-class tenzing_string(tenzing_generic):
+class tenzing_string(tenzing_object):
     """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series(['a', 'b', np.nan])
@@ -17,6 +15,7 @@ class tenzing_string(tenzing_generic):
 
     @classmethod
     def contains_op(cls, series):
+        # Super?
         if not pdt.is_object_dtype(series):
             return False
 
