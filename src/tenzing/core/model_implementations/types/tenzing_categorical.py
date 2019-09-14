@@ -26,6 +26,6 @@ class tenzing_categorical(tenzing_generic):
         summary = super().summarization_op(series)
         summary["category_size"] = len(series.dtype._categories)
         summary["missing_categorical_values"] = (
-            True if summary["n_unique"] != summary["category_size"] else False
+            True if series.nunique() != summary["category_size"] else False
         )
         return summary

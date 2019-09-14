@@ -98,14 +98,13 @@ def register_geometry_relations():
         """
         from shapely import wkt
 
-        logging.disable(logging.WARNING)
+        logging.disable(logging.ERROR)
         try:
             result = all(wkt.loads(value) for value in series)
         except Exception:
             result = False
         finally:
             logging.disable(logging.NOTSET)
-
         return result
 
     relations = [model_relation(tenzing_geometry, tenzing_string, string_is_geometry)]

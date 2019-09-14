@@ -20,10 +20,7 @@ class tenzing_path(tenzing_object):
         if not pdt.is_object_dtype(series):
             return False
 
-        return (
-            series.apply(lambda x: isinstance(x, Path)).all()
-            and series.apply(lambda p: p.is_absolute()).all()
-        )
+        return series.apply(lambda x: isinstance(x, Path) and x.is_absolute()).all()
 
     @classmethod
     def cast_op(cls, series, operation=None):
@@ -37,6 +34,7 @@ class tenzing_path(tenzing_object):
         summary["common_prefix"] = (
             os.path.commonprefix(list(series)) or "No common prefix"
         )
+        # On add drive, root, anchor?
         summary["stem_counts"] = series.map(lambda x: x.stem).value_counts().to_dict()
         summary["suffix_counts"] = (
             series.map(lambda x: x.suffix).value_counts().to_dict()

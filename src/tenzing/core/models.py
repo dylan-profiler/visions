@@ -148,7 +148,6 @@ class tenzing_model(metaclass=meta_model):
         return operation(series)
 
     @classmethod
-    @base_summary
     def summarize(cls, series):
         return cls.summarization_op(series)
 

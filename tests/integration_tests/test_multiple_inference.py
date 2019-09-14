@@ -63,5 +63,7 @@ inferred_types_cast = ts.infer_types(df_clean)
 pprint(inferred_types_cast)
 
 for key, type in inferred_types.items():
-    assert type == inferred_types_cast[key], f'cast type {inferred_types_cast[key]} \
-                                              does not match inferred type {type} for series {key}'
+    assert (
+        type == inferred_types_cast[key]
+    ), f"cast type {inferred_types_cast[key]} \
+                                              does not match inferred type {type} for series {key}"

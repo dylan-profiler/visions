@@ -1,7 +1,7 @@
 import pandas.api.types as pdt
 
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
-from tenzing.core.reuse import unique_summary, base_summary
+from tenzing.core.reuse import unique_summary
 
 
 class tenzing_object(tenzing_generic):
@@ -21,7 +21,6 @@ class tenzing_object(tenzing_generic):
         return series.astype("object")
 
     @classmethod
-    @base_summary
     @unique_summary
     def summarization_op(cls, series):
         summary = super().summarization_op(series)

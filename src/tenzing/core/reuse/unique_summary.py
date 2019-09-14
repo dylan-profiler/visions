@@ -1,4 +1,5 @@
 from functools import wraps
+import numpy as np
 
 
 def unique_summary(func):
@@ -17,7 +18,12 @@ def unique_summary(func):
         n_unique = len(set(series.values))
         # n_unique = series.nunique()
         summary.update(
-            {"n_unique": n_unique, "perc_unique": float(n_unique) / len(series)}
+            {
+                "n_unique": n_unique,
+                "perc_unique": float(n_unique) / len(series)
+                if len(series) > 0
+                else np.nan,
+            }
         )
         # except Exception:
         #     pass

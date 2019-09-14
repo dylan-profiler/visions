@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import PurePath, PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
 
 import pytest
@@ -91,7 +91,22 @@ _test_suite = [
     ),
     # Path Series
     pd.Series(
-        [Path("/home/user/file.txt"), Path("/home/user/test2.txt")], name="path_series"
+        [PurePosixPath("/home/user/file.txt"), PurePosixPath("/home/user/test2.txt")],
+        name="path_series_linux",
+    ),
+    pd.Series(
+        [r"/home/user/file.txt", r"/home/user/test2.txt"], name="path_series_linux_str"
+    ),
+    pd.Series(
+        [
+            PureWindowsPath("C:\\home\\user\\file.txt"),
+            PureWindowsPath("C:\\home\\user\\test2.txt"),
+        ],
+        name="path_series_windows",
+    ),
+    pd.Series(
+        [r"C:\\home\\user\\file.txt", r"C:\\home\\user\\test2.txt"],
+        name="path_series_windows_str",
     ),
     # Url Series
     pd.Series(
@@ -129,40 +144,25 @@ def test_series(request):
     yield request.param
 
 
-@make_pytest_parameterization(
-    [
-        "int_series",
-        "Int64_int_series",
-        "np_uint32",
-    ]
-)
+@make_pytest_parameterization(["int_series", "Int64_int_series", "np_uint32"])
 def test_int_contains(series):
     type = tenzing_integer
     assert series in type
 
 
-@make_pytest_parameterization(
-    [
-        "int_nan_series",
-        "Int64_int_nan_series",
-    ]
-)
+@make_pytest_parameterization(["int_nan_series", "Int64_int_nan_series"])
 def test_integer_nan_contains(series):
     type = tenzing_integer + missing
     assert series in type
 
 
-@make_pytest_parameterization(
-    [
-        "int_with_inf",
-    ]
-)
+@make_pytest_parameterization(["int_with_inf"])
 def test_integer_inf_contains(series):
     type = tenzing_integer + infinite
     assert series in type
 
 
-@make_pytest_parameterization(["path_series"])
+@make_pytest_parameterization(["path_series_linux", "path_series_windows"])
 def test_path_contains(series):
     type = tenzing_path
     assert series in type
@@ -190,23 +190,13 @@ def test_float_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(
-    [
-        "float_nan_series",
-        "float_series5",
-        "float_series6"
-    ]
-)
+@make_pytest_parameterization(["float_nan_series", "float_series5", "float_series6"])
 def test_float_nan_contains(series):
     type = tenzing_float + missing
     assert series in type
 
 
-@make_pytest_parameterization(
-    [
-        "float_with_inf",
-    ]
-)
+@make_pytest_parameterization(["float_with_inf"])
 def test_float_inf_contains(series):
     type = tenzing_float + infinite
     assert series in type
@@ -225,17 +215,13 @@ def test_categorical_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(
-    ["bool_series", "bool_series2", "bool_series3"]
-)
+@make_pytest_parameterization(["bool_series", "bool_series2", "bool_series3"])
 def test_bool_contains(series):
     type = tenzing_bool
     assert series in type
 
 
-@make_pytest_parameterization(
-    ["bool_nan_series"]
-)
+@make_pytest_parameterization(["bool_nan_series"])
 def test_bool_nan_contains(series):
     type = tenzing_bool + missing
     assert series in type
@@ -298,7 +284,7 @@ def test_geometry_contains(series):
         "url_series",
         "none_series",
         "callable",
-        "module"
+        "module",
     ]
 )
 def test_object_contains(series):
