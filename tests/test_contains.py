@@ -10,7 +10,7 @@ from tenzing.core.model_implementations import *
 from tenzing.core.model_implementations.sub_types import missing, infinite
 
 
-def test_suite():
+def get_series():
     return [
         # Int Series
         pd.Series([1, 2, 3], name="int_series"),
@@ -20,7 +20,6 @@ def test_suite():
         pd.Series([1, 2, 3, np.nan], name="Int64_int_nan_series", dtype="Int64"),
         pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name="np_uint32"),
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.0], name="int_with_inf"),
-
         # Float Series
         pd.Series([1.0, 2.1, 3.0], name="float_series"),
         pd.Series([1.0, 2.5, np.nan], name="float_nan_series"),
@@ -33,18 +32,22 @@ def test_suite():
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
         # String Series
         pd.Series(["hello", "world"], name="string_series"),
-        pd.Series(["hello", "world"], dtype="category", name="categorical_string_series"),
+        pd.Series(
+            ["hello", "world"], dtype="category", name="categorical_string_series"
+        ),
         pd.Series(["2017-10-01", "12/05/2017"], name="timestamp_string_series"),
-        pd.Series([u"hello", u"world"], name="string_unicode_series"),
+        pd.Series(["hello", "world"], name="string_unicode_series"),
         pd.Series(
-            np.array(["hello", "world"], dtype=np.unicode_), name="string_np_unicode_series"
+            np.array(["hello", "world"], dtype=np.unicode_),
+            name="string_np_unicode_series",
         ),
-        pd.Series(["1.0", "2.0", np.nan], name='string_num_nan'),
-        pd.Series(["1.0", "45.67", np.nan], name='string_flt_nan'),
+        pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
+        pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(
-            ["To travel,", "to experience and learn:", "that is to live", np.nan], name='string_str_nan'
+            ["To travel,", "to experience and learn:", "that is to live", np.nan],
+            name="string_str_nan",
         ),
-        pd.Series(["True", "False", np.nan], name='string_bool_nan'),
+        pd.Series(["True", "False", np.nan], name="string_bool_nan"),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, np.nan], name="bool_nan_series"),
@@ -64,7 +67,9 @@ def test_suite():
             [complex(0, 0), complex(1, 2), complex(3, -1), np.nan],
             name="complex_series_py_nan",
         ),
-        pd.Series([complex(0, 0), complex(1, 2), complex(3, -1)], name="complex_series_py"),
+        pd.Series(
+            [complex(0, 0), complex(1, 2), complex(3, -1)], name="complex_series_py"
+        ),
         # Datetime Series
         pd.Series(
             [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)], name="timestamp_series"
@@ -83,7 +88,8 @@ def test_suite():
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),
         pd.Series(
-            [pd.Timedelta(days=i) for i in range(3)] + [pd.NaT], name="timedelta_series_nat"
+            [pd.Timedelta(days=i) for i in range(3)] + [pd.NaT],
+            name="timedelta_series_nat",
         ),
         # Geometry Series
         pd.Series(
@@ -100,11 +106,15 @@ def test_suite():
         ),
         # Path Series
         pd.Series(
-            [PurePosixPath("/home/user/file.txt"), PurePosixPath("/home/user/test2.txt")],
+            [
+                PurePosixPath("/home/user/file.txt"),
+                PurePosixPath("/home/user/test2.txt"),
+            ],
             name="path_series_linux",
         ),
         pd.Series(
-            [r"/home/user/file.txt", r"/home/user/test2.txt"], name="path_series_linux_str"
+            [r"/home/user/file.txt", r"/home/user/test2.txt"],
+            name="path_series_linux_str",
         ),
         pd.Series(
             [
@@ -127,33 +137,53 @@ def test_suite():
         ),
         # Object Series
         pd.Series([[1, ""], [2, "fiets"], [3, "auto"]], name="mixed_list[str,int]"),
-        pd.Series([{"foo": "baar"}, {"bar": "foo"}, {"fizz": "buzz"}], name="mixed_dict"),
+        pd.Series(
+            [{"foo": "baar"}, {"bar": "foo"}, {"fizz": "buzz"}], name="mixed_dict"
+        ),
         # ?
         pd.Series([None, None, None, None, None], name="none_series"),
         pd.Series(
-            [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle], name="callable"
+            [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle],
+            name="callable",
         ),
         pd.Series([pd, pytest, np], name="module"),
     ]
 
 
-def series_map():
+def get_series_map():
     series_map = {
         tenzing_integer: ["int_series", "Int64_int_series", "np_uint32"],
         tenzing_integer + missing: ["int_nan_series", "Int64_int_nan_series"],
         tenzing_integer + infinite: ["int_with_inf"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
-        tenzing_float: ["float_series", "float_series2", "float_series3", "float_series4"],
+        tenzing_float: [
+            "float_series",
+            "float_series2",
+            "float_series3",
+            "float_series4",
+        ],
         tenzing_float + missing: ["float_nan_series", "float_series5", "float_series6"],
         tenzing_float + infinite: ["float_with_inf"],
-        tenzing_categorical: ["categorical_int_series", "categorical_float_series", "categorical_string_series",
-                              "categorical_complex_series"],
+        tenzing_categorical: [
+            "categorical_int_series",
+            "categorical_float_series",
+            "categorical_string_series",
+            "categorical_complex_series",
+        ],
         tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
         tenzing_bool + missing: ["bool_nan_series"],
-        tenzing_complex: ["complex_series", "complex_series_py_nan", "complex_series_py"],
+        tenzing_complex: [
+            "complex_series",
+            "complex_series_py_nan",
+            "complex_series_py",
+        ],
         # TODO: split NaT
-        tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "timestamp_series_nat"],
+        tenzing_datetime: [
+            "timestamp_series",
+            "timestamp_aware_series",
+            "timestamp_series_nat",
+        ],
         tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
         tenzing_string: [
             "timestamp_string_series",
@@ -162,41 +192,48 @@ def series_map():
             "string_unicode_series",
             "string_np_unicode_series",
             "path_series_linux_str",
-            "path_series_windows_str"
+            "path_series_windows_str",
         ],
-        tenzing_string + missing: [
+        tenzing_string
+        + missing: [
             "string_num_nan",
             "string_flt_nan",
             "string_str_nan",
-            "string_bool_nan"
+            "string_bool_nan",
         ],
-        tenzing_geometry: ["geometry_series"]
+        tenzing_geometry: ["geometry_series"],
     }
 
-    series_map[tenzing_object] = [
-                                     "mixed_list[str,int]",
-                                     "mixed_dict",
-                                     "none_series",
-                                     "callable",
-                                     "module",
-                                 ] + series_map[tenzing_string] + series_map[tenzing_geometry] + series_map[
-                                     tenzing_path]
+    series_map[tenzing_object] = (
+        ["mixed_list[str,int]", "mixed_dict", "callable", "module"]
+        + series_map[tenzing_string]
+        + series_map[tenzing_geometry]
+        + series_map[tenzing_path]
+        + series_map[tenzing_url]
+    )
 
+    # TODO: test `none_series`, generic
     return series_map
 
 
 def pytest_generate_tests(metafunc):
-    if metafunc.function.__name__ == 'test_contains':
-        _series_map = series_map()
-        _test_suite = test_suite()
+    if metafunc.function.__name__ == "test_contains":
+        _series_map = get_series_map()
+        _test_suite = get_series()
 
         argsvalues = []
         for item in _test_suite:
             for type, series_list in _series_map.items():
-                mark = pytest.mark.basic() if (item.name in series_list) else pytest.mark.xfail()
-                argsvalues.append(pytest.param(item, type, marks=mark, id=f"{item.name} x {type}"))
+                mark = (
+                    pytest.mark.basic()
+                    if (item.name in series_list)
+                    else pytest.mark.xfail()
+                )
+                argsvalues.append(
+                    pytest.param(item, type, marks=mark, id=f"{item.name} x {type}")
+                )
 
-        metafunc.parametrize(argnames=['series', "type"], argvalues=argsvalues)
+        metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
 
 
 def test_contains(series, type):

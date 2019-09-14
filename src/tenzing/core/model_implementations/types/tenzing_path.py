@@ -20,7 +20,14 @@ class tenzing_path(tenzing_object):
         if not pdt.is_object_dtype(series):
             return False
 
-        return series.apply(lambda x: isinstance(x, PureWindowsPath) and x.is_absolute()).all() or series.apply(lambda x: isinstance(x, PurePosixPath) and x.is_absolute()).all()
+        return (
+            series.apply(
+                lambda x: isinstance(x, PureWindowsPath) and x.is_absolute()
+            ).all()
+            or series.apply(
+                lambda x: isinstance(x, PurePosixPath) and x.is_absolute()
+            ).all()
+        )
 
     @classmethod
     def cast_op(cls, series, operation=None):

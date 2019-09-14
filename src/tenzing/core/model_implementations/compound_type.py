@@ -3,6 +3,7 @@ import pandas as pd
 
 from tenzing.core.model_implementations.sub_type import subType
 from tenzing.core.models import model_relation, tenzing_model
+
 # TODO: Need to reconsider the naming, types should be distinguished from
 # subtype / supertype / w/e they are finally called
 
@@ -17,7 +18,9 @@ def masked_relation(compound_type, relation):
         transformed_series[mask] = relation.transformer(series[mask])
         return transformed_series
 
-    return model_relation(compound_type, relation.friend_model, relationship, transformer)
+    return model_relation(
+        compound_type, relation.friend_model, relationship, transformer
+    )
 
 
 class CompoundType(object):
@@ -75,7 +78,7 @@ class CompoundType(object):
 
     def __contains__(self, item: pd.Series):
         if not isinstance(item, pd.Series):
-            raise ValueError('Pandas series required')
+            raise ValueError("Pandas series required")
         return self.contains_op(item)
 
     def get_relations(self):
@@ -89,4 +92,7 @@ class CompoundType(object):
         return self
 
     def __str__(self):
-        return f"CompoundType({', '.join([str(i) for i in self.types])}, {self.base_type})"
+        return f"{self.base_type} + {' + '.join([str(i) for i in self.types])}"
+
+    def __repr__(self):
+        return f"{self.base_type} + {' + '.join([str(i) for i in self.types])}"

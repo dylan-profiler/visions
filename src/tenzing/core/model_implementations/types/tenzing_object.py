@@ -14,10 +14,7 @@ class tenzing_object(tenzing_generic):
 
     @classmethod
     def contains_op(cls, series):
-        from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
-        # TODO: find better way of excluding subclasses
-        from tenzing.core.model_implementations.types.tenzing_float import tenzing_float
-        return pdt.is_object_dtype(series) and not series in tenzing_string and not series in tenzing_float
+        return pdt.is_object_dtype(series) and not series.hasnans and not series.empty
 
     @classmethod
     def cast_op(cls, series, operation=None):

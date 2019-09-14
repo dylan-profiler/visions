@@ -40,7 +40,11 @@ def test_multiple_inference():
                 r"/home/user/test.bat",
                 r"/home/user/test.sh",
             ],
-            "path_win": [r"C:\Users\test.txt", r"C:\Users\test.bat", r"C:\Users\test.sh"],
+            "path_win": [
+                r"C:\Users\test.txt",
+                r"C:\Users\test.bat",
+                r"C:\Users\test.sh",
+            ],
         }
     )
 

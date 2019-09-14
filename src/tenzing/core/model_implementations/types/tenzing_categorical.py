@@ -28,5 +28,5 @@ class tenzing_categorical(tenzing_generic):
         summary["missing_categorical_values"] = (
             True if series.nunique() != summary["category_size"] else False
         )
-        summary['ordered'] = series.dtype.ordered
+        summary["ordered"] = series.dtype.ordered
         return summary
