@@ -23,3 +23,7 @@ class subType(object, metaclass=SubTypeMeta):
     @staticmethod
     def contains_op(series):
         return True
+
+    @staticmethod
+    def summarization_op(series):
+        return {}
