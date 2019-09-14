@@ -62,11 +62,11 @@ def geometry_typeset_test(series, expected_type):
 
 
 def test_int_to_int():
-    standard_typeset_test(int_series, tenzing_integer + missing)
+    standard_typeset_test(int_series, tenzing_integer)
 
 
 def test_string_to_int():
-    standard_typeset_test(int_string_series, tenzing_integer + missing)
+    standard_typeset_test(int_string_series, tenzing_integer)
 
 
 def test_string_with_nan_int():
@@ -74,7 +74,7 @@ def test_string_with_nan_int():
 
 
 def test_string_to_bool():
-    standard_typeset_test(bool_string_series, tenzing_bool + missing)
+    standard_typeset_test(bool_string_series, tenzing_bool)
 
 
 def test_object_to_float():
@@ -122,8 +122,8 @@ def test_string_nan_to_string():
 
 
 def test_geometry_to_geometry():
-    geometry_typeset_test(geometry_series, tenzing_geometry + missing)
+    geometry_typeset_test(geometry_series, tenzing_geometry)
 
 
 def test_string_to_geometry():
-    geometry_typeset_test(geometry_string_series, tenzing_geometry + missing)
+    geometry_typeset_test(geometry_string_series, tenzing_geometry)

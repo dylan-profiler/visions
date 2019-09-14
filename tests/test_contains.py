@@ -109,7 +109,6 @@ _test_suite = [
         [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle], name="callable"
     ),
     pd.Series([pd, pytest, np], name="module"),
-    pd.Series(np.array([1, 2, 3, 4, 5], dtype=np.uint32), name="unsigned_int32"),
 ]
 
 
@@ -132,11 +131,8 @@ def test_series(request):
 @make_pytest_parameterization(
     [
         "int_series",
-        "int_nan_series",
         "Int64_int_series",
-        "Int64_int_nan_series",
         "np_uint32",
-        "int_with_inf",
     ]
 )
 def test_int_contains(series):
@@ -144,14 +140,35 @@ def test_int_contains(series):
     assert series in type
 
 
+@make_pytest_parameterization(
+    [
+        "int_nan_series",
+        "Int64_int_nan_series",
+    ]
+)
+def test_integer_nan_contains(series):
+    type = tenzing_integer + missing
+    assert series in type
+
+
+@make_pytest_parameterization(
+    [
+        "int_with_inf",
+    ]
+)
+def test_integer_inf_contains(series):
+    type = tenzing_integer + infinite
+    assert series in type
+
+
 @make_pytest_parameterization(["path_series"])
-def test_int_contains(series):
+def test_path_contains(series):
     type = tenzing_path
     assert series in type
 
 
 @make_pytest_parameterization(["url_series"])
-def test_int_contains(series):
+def test_url_contains(series):
     type = tenzing_url
     assert series in type
 
@@ -164,12 +181,33 @@ def test_int_contains(series):
         "float_series4",
         "float_series5",
         "float_series6",
-        "float_nan_series",
-        "float_with_inf",
+        "int_nan_series",  # unfortunate side effect of pandas typing
     ]
 )
 def test_float_contains(series):
     type = tenzing_float
+    assert series in type
+
+
+@make_pytest_parameterization(
+    [
+        "float_nan_series",
+        "float_series5",
+        "float_series6"
+    ]
+)
+def test_float_nan_contains(series):
+    type = tenzing_float + missing
+    assert series in type
+
+
+@make_pytest_parameterization(
+    [
+        "float_with_inf",
+    ]
+)
+def test_float_inf_contains(series):
+    type = tenzing_float + infinite
     assert series in type
 
 
@@ -187,10 +225,18 @@ def test_categorical_contains(series):
 
 
 @make_pytest_parameterization(
-    ["bool_series", "bool_series2", "bool_series3", "bool_nan_series"]
+    ["bool_series", "bool_series2", "bool_series3"]
 )
 def test_bool_contains(series):
     type = tenzing_bool
+    assert series in type
+
+
+@make_pytest_parameterization(
+    ["bool_nan_series"]
+)
+def test_bool_nan_contains(series):
+    type = tenzing_bool + missing
     assert series in type
 
 
@@ -236,7 +282,24 @@ def test_geometry_contains(series):
     assert series in type
 
 
-@make_pytest_parameterization(["mixed_list[str,int]", "mixed_dict"])
+@make_pytest_parameterization(
+    [
+        "mixed_list[str,int]",
+        "mixed_dict",
+        "string_series",
+        "timestamp_string_series",
+        "string_unicode_series",
+        "string_np_unicode_series",
+        "bool_nan_series",
+        "geometry_string_series",
+        "geometry_series",
+        "path_series",
+        "url_series",
+        "none_series",
+        "callable",
+        "module"
+    ]
+)
 def test_object_contains(series):
     type = tenzing_object
     assert series in type
