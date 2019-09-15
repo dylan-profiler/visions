@@ -16,11 +16,9 @@ class tenzing_time(tenzing_datetime):
         if not super().contains_op(series):
             return False
 
-        return (
-            series.eq(
-                series.copy().apply(lambda x: x.replace(day=1, month=1, year=1970))
-            ).all()
-        )
+        return series.eq(
+            series.copy().apply(lambda x: x.replace(day=1, month=1, year=1970))
+        ).all()
 
     @classmethod
     def cast_op(cls, series, operation=None):

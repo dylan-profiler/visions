@@ -117,7 +117,8 @@ class tenzingTypeset(object):
         # ), "typeset hasn't been prepped for your dataset yet. Call .prep(df)"
         self.prep(df)
         summary = {
-            col: summary.summarize_series(df[col], self.column_type_map[col]) for col in df.columns
+            col: summary.summarize_series(df[col], self.column_type_map[col])
+            for col in df.columns
         }
         self.column_summary = summary
         return self.column_summary

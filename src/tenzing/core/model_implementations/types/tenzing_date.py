@@ -17,11 +17,9 @@ class tenzing_date(tenzing_datetime):
         if not super().contains_op(series):
             return False
         # TODO: https://stackoverflow.com/a/51529633/470433
-        return (
-            series.eq(
-                series.copy().apply(lambda x: x.replace(hour=0, minute=0, second=0))
-            ).all()
-        )
+        return series.eq(
+            series.copy().apply(lambda x: x.replace(hour=0, minute=0, second=0))
+        ).all()
 
     @classmethod
     def cast_op(cls, series, operation=None):
