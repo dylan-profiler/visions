@@ -31,17 +31,16 @@ def build_relation_graph(nodes: frozenset) -> nx.DiGraph:
         for s_node in nodes
         for to_node, node in s_node.get_relations().items()
     )
-
+    undefined_nodes = set(relation_graph.nodes) - nodes
+    relation_graph.remove_nodes_from(undefined_nodes)
     check_graph_constraints(relation_graph, nodes)
     return relation_graph
 
 
 def check_graph_constraints(relation_graph, nodes):
-    undefined_nodes = set(relation_graph.nodes) - nodes
-    relation_graph.remove_nodes_from(undefined_nodes)
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
-    orphaned_nodes = [n for n in nodes if n not in set(relation_graph.nodes)]
+    orphaned_nodes = nodes - set(relation_graph.nodes)
     if orphaned_nodes:
         warnings.warn(
             f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes."
