@@ -1,6 +1,6 @@
 
-Tenzing Typesets
-****************
+Typesets
+********
 
 =================
 Abstract Typesets

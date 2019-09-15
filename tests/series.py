@@ -151,7 +151,7 @@ def get_series():
             name="url_series",
         ),
         # Object Series
-        pd.Series([[1, ""], [2, "Ruben"], [3, "Carter"]], name="mixed_list[str,int]"),
+        pd.Series([[1, ""], [2, "Rubin"], [3, "Carter"]], name="mixed_list[str,int]"),
         pd.Series(
             [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
             name="mixed_dict",

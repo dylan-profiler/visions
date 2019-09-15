@@ -1,10 +1,13 @@
 
 Utils
-=============
+=====
 
+.. currentmodule:: tenzing.utils
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   tenzing.utils.unicodedata2
+   monkeypatches
+   test_utils
+   unicodedata2

@@ -1,6 +1,6 @@
 
-Tenzing Summaries
-*****************
+Summaries
+*********
 
 =================
 Series Summaries

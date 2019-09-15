@@ -19,6 +19,8 @@ def text_summary(series: pd.Series) -> dict:
     unicode_series = series.apply(
         lambda sequence: {script_cat(character) for character in sequence}
     )
+    # TODO: add name of category
+    # http://www.unicode.org/reports/tr44/#GC_Values_Table
     unicode_scripts = {y for x in unicode_series.values for y in x}
     summary["unicode_scripts"] = unicode_scripts
 

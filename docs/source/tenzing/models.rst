@@ -1,6 +1,6 @@
 
-Tenzing Types
-*************
+Types
+*****
 
 ==============
 Abstract Types
@@ -12,8 +12,7 @@ Abstract Types
 .. autosummary::
    :toctree: _autosummary
 
-   compound_type
-   relations
+   CompoundType
 
 
 ===============

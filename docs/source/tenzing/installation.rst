@@ -5,38 +5,36 @@ Requirements
 * numpy
 * jinja2
 * networkx
-* seaborn
-* matplotlib
 
 
 Installation
 ============
 
-You can install tenzing from source and from pip
+You can install `package` from source and from pip
 
 Pip
 ---
 
 Installing with pip::
 
-    pip install tenzing
+    pip install `package`
 
 
 Source
 -------------------
 
-To install tenzing from source, clone the repository from `github
-<https://github.com/ieaves/tenzing>`_::
+To install `package` from source, clone the repository from `github
+<https://github.com/dylan-profiling/package>`_::
 
-    git clone https://github.com/ieaves/tenzing.git
-    cd tenzing
+    git clone https://github.com/dylan-profiling/package.git
+    cd package
     python setup.py install .
 
 
 Testing
 -------
 
-Test tenzing with ``pytest``::
+Test `package` with ``pytest``::
 
-    cd tenzing
+    cd package
     pytest
