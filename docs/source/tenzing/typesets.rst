@@ -27,3 +27,4 @@ Concrete Typesets
 
    tenzing_standard
    tenzing_geometry_set
+   tenzing_complete_set

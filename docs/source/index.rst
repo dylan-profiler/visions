@@ -1,6 +1,6 @@
-=======
-Tenzing
-=======
+=========
+`package`
+=========
 
 .. toctree::
    :maxdepth: 3

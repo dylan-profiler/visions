@@ -1777,7 +1777,14 @@ script_data = {
 
 
 def script_cat(chr):
-    """ For the unicode character chr return a tuple (Scriptname, Category). """
+    """ For the unicode character chr return a tuple (Scriptname, Category).
+
+    Args:
+        chr:
+
+    Returns:
+
+    """
     l = 0
     r = len(script_data["idx"]) - 1
     c = ord(chr)

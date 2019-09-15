@@ -7,5 +7,4 @@ Utils
 .. autosummary::
    :toctree: _autosummary
 
-   tenzing.utils.singleton.Singleton
-   tenzing.utils.singleton.singleton_object
+   tenzing.utils.unicodedata2

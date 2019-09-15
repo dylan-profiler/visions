@@ -13,13 +13,13 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("."))
-sys.path.insert(0, os.path.abspath("../src"))
+sys.path.insert(0, os.path.abspath(r"..\..\src"))
+sys.path.insert(0, os.path.abspath(r"..\..\src\tenzing"))
 
 
 # -- Project information -----------------------------------------------------
 
-project = "tenzing"
+project = "package"
 copyright = "2019, Ian Eaves"
 author = "Ian Eaves"
 
@@ -47,6 +47,7 @@ extensions = [
     "sphinx.ext.coverage",
     "sphinx.ext.napoleon",
     "sphinx_autodoc_typehints",
+    "sphinx.ext.viewcode"
 ]
 
 # Add any paths that contain templates here, relative to this directory.

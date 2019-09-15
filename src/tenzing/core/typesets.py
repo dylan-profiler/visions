@@ -6,7 +6,7 @@ from networkx.drawing.nx_agraph import write_dot
 from tenzing.core.model_implementations.compound_type import CompoundType
 
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
-from tenzing.core.summaries.dataframe_summary import dataframe_summary
+from tenzing.core.summaries.frame.dataframe_summary import dataframe_summary
 from tenzing.core.summary import type_summary_ops, Summary
 
 
