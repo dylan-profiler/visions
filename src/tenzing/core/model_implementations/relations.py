@@ -12,7 +12,9 @@ from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_t
 from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
-from tenzing.core.model_implementations.types.tenzing_categorical import tenzing_categorical
+from tenzing.core.model_implementations.types.tenzing_categorical import (
+    tenzing_categorical,
+)
 from tenzing.core.model_implementations.types.tenzing_complex import tenzing_complex
 from tenzing.core.models import model_relation
 from tenzing.utils import test_utils
@@ -50,16 +52,14 @@ def register_float_relations():
 
     relations = [
         model_relation(tenzing_float, tenzing_generic),
-        model_relation(tenzing_float, tenzing_string, test_string_is_float)
+        model_relation(tenzing_float, tenzing_string, test_string_is_float),
     ]
     for relation in relations:
         tenzing_float.register_relation(relation)
 
 
 def register_string_relations():
-    relations = [
-        model_relation(tenzing_string, tenzing_object),
-    ]
+    relations = [model_relation(tenzing_string, tenzing_object)]
     for relation in relations:
         tenzing_string.register_relation(relation)
 
@@ -97,16 +97,14 @@ def register_datetime_relations():
             tenzing_string,
             test_utils.coercion_test(lambda s: pd.to_datetime(s)),
         ),
-        model_relation(tenzing_datetime, tenzing_object)
+        model_relation(tenzing_datetime, tenzing_object),
     ]
     for relation in relations:
         tenzing_datetime.register_relation(relation)
 
 
 def register_timedelta_relations():
-    relations = [
-        model_relation(tenzing_timedelta, tenzing_object),
-    ]
+    relations = [model_relation(tenzing_timedelta, tenzing_object)]
     for relation in relations:
         tenzing_timedelta.register_relation(relation)
 
@@ -129,7 +127,10 @@ def register_geometry_relations():
 
     relations = [
         model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-        model_relation(tenzing_geometry, tenzing_object, transformer=lambda series: series)]
+        model_relation(
+            tenzing_geometry, tenzing_object, transformer=lambda series: series
+        ),
+    ]
     for relation in relations:
         tenzing_geometry.register_relation(relation)
 
@@ -166,7 +167,7 @@ def register_bool_relations():
             tenzing_string,
             sb_relation.string_is_bool,
             sb_relation.map_string_to_bool,
-        )
+        ),
     ]
     for relation in relations:
         tenzing_bool.register_relation(relation)
@@ -174,25 +175,19 @@ def register_bool_relations():
 
 def register_categorical_relations():
     register_type = tenzing_categorical
-    relations = [
-        model_relation(register_type, tenzing_generic)
-    ]
+    relations = [model_relation(register_type, tenzing_generic)]
     for relation in relations:
         register_type.register_relation(relation)
 
 
 def register_complex_relations():
-    relations = [
-        model_relation(tenzing_complex, tenzing_generic)
-    ]
+    relations = [model_relation(tenzing_complex, tenzing_generic)]
     for relation in relations:
         tenzing_complex.register_relation(relation)
 
 
 def register_object_relations():
-    relations = [
-        model_relation(tenzing_object, tenzing_generic)
-    ]
+    relations = [model_relation(tenzing_object, tenzing_generic)]
     for relation in relations:
         tenzing_object.register_relation(relation)
 

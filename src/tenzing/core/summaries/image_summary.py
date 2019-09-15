@@ -118,28 +118,29 @@ def extract_image_information(path: Path):
 
 def image_summary(series):
     image_information = series.apply(extract_image_information)
-    summary = {"n_duplicate_hash": count_duplicate_hashes(image_information)}
-    summary["p_duplicate_hash"] = float(summary["n_duplicate_hash"]) / len(series)
-
-    summary["n_truncated"] = sum(
-        [1 for x in image_information if "truncated" in x and x["truncated"]]
-    )
-    summary["p_truncated"] = float(summary["n_truncated"]) / len(series)
+    summary = {
+        "n_duplicate_hash": count_duplicate_hashes(image_information),
+        "n_truncated": sum(
+            [1 for x in image_information if "truncated" in x and x["truncated"]]
+        ),
+    }
 
     exif_series = extract_exif_series(
         [x["exif"] for x in image_information if "exif" in x]
     )
     summary["exif_keys_counts"] = exif_series["exif_keys"]
 
-    summary["scatter_data"] = pd.Series(
+    image_shapes = pd.Series(
         [x["size"] for x in image_information if "size" in x], name="image_shape"
     )
-    summary["image_shape_counts"] = summary["scatter_data"].value_counts().to_dict()
+    summary["image_shape_counts"] = image_shapes.value_counts().to_dict()
+    summary["p_duplicate_hash"] = float(summary["n_duplicate_hash"]) / len(series)
+    summary["p_truncated"] = float(summary["n_truncated"]) / len(series)
 
     return summary
 
 
-def warnings(summary):
+def image_warnings(summary):
     messages = []
     if summary["n_truncated"] > 0:
         messages.append("n_truncated")

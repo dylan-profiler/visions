@@ -167,4 +167,3 @@ def test_string_missing_summary(tenzing_type=tenzing_string):
     correct_output = {"na_count": 1, "perc_na": 0.25}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
-

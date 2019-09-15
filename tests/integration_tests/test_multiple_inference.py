@@ -55,8 +55,6 @@ def test_multiple_inference():
     initial_types = ts.column_type_map
     pprint(initial_types)
 
-    summary = ts.summary_report(df)
-
     print("inferred types")
     inferred_types = ts.infer_types(df)
     pprint(inferred_types)

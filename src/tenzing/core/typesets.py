@@ -31,10 +31,17 @@ def build_relation_graph(nodes):
 
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
-    relation_graph.add_edges_from(node.edge for s_node in nodes for to_node, node in s_node.get_relations().items())
+    relation_graph.add_edges_from(
+        node.edge
+        for s_node in nodes
+        for to_node, node in s_node.get_relations().items()
+    )
 
-    relations = {node.edge: {'relationship': node}
-                 for s_node in nodes for to_node, node in s_node.get_relations().items()}
+    relations = {
+        node.edge: {"relationship": node}
+        for s_node in nodes
+        for to_node, node in s_node.get_relations().items()
+    }
     nx.set_edge_attributes(relation_graph, relations)
 
     check_graph_constraints(relation_graph, nodes)
@@ -48,9 +55,11 @@ def check_graph_constraints(relation_graph, nodes):
 
     orphaned_nodes = [n for n in nodes if n not in set(relation_graph.nodes)]
 
-    assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
+    assert (
+        not orphaned_nodes
+    ), f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes."
     cycles = list(nx.simple_cycles(relation_graph))
-    assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
+    assert len(cycles) == 0, f"Cyclical relations between types {cycles} detected"
 
     # TODO: this should be forced by framework...
     # Relations should be connected...
@@ -191,14 +200,14 @@ class tenzingTypeset(object):
         )
 
     def infer_series_type(self, series):
-        return infer_type(self.column_type_map[series.name],
-                          series,
-                          self.relation_graph)
+        return infer_type(
+            self.column_type_map[series.name], series, self.relation_graph
+        )
 
     def cast_series_to_inferred_type(self, series):
-        return cast_to_inferred_type(series,
-                                     self.column_type_map[series.name],
-                                     self.relation_graph)
+        return cast_to_inferred_type(
+            series, self.column_type_map[series.name], self.relation_graph
+        )
 
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified

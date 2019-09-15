@@ -1,7 +1,7 @@
 from tenzing.utils.unicodedata2 import script_cat
 
 
-def string_summary(series):
+def text_summary(series):
     # Distribution of length
     summary = {"length": series.map(lambda x: len(str(x))).value_counts().to_dict()}
 

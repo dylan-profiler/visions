@@ -1,6 +1,11 @@
+import numpy as np
+
+
 def zero_summary(series):
     summary = {"n_zeros": (series == 0).sum()}
-    summary["perc_zeros"] = summary["n_zeros"] / len(series)
+    summary["perc_zeros"] = (
+        summary["n_zeros"] / len(series) if len(series) > 0 else np.nan
+    )
     return summary
 
 
