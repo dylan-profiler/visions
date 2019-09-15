@@ -29,6 +29,7 @@ class tenzing_standard(tenzingTypeset):
 
     def __init__(self):
         types = [
+            tenzing_object,
             tenzing_bool + missing,
             tenzing_float + missing,
             tenzing_object + missing,

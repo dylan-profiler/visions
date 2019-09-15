@@ -4,9 +4,52 @@ from networkx.drawing.nx_agraph import write_dot
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
 
 
-def check_graph_constraints(G):
-    cycles = list(nx.simple_cycles(G))
-    assert len(cycles) == 0, f"Cyclical relations between types {cycles} detected"
+def build_relation_graph(nodes):
+    """Constructs a traversible relation graph between tenzing types
+    Builds a type relation graph from a collection of root and derivative nodes. Usually
+    root nodes correspond to the baseline numpy types found in pandas while derivative
+    nodes correspond to subtypes with a defined relation.
+    Parameters
+    ----------
+    root_nodes : List[tenzing_type]
+        A list of tenzing_types considered at the root of the relations graph.
+    derivative_nodes : List[tenzing_type]
+        A list of tenzing_types with defined relations either to the root_nodes or each other.
+    Returns
+    -------
+    networkx DiGraph
+        A directed graph of type relations for the provided nodes.
+    Notes
+    -------
+     So much duplicated code here... got to be a better way. The fundamental issue
+        is that I have to modify the data to check the next step in the graph.
+        I could re-use some of this code but then I end up double performing those
+        cast operations
+    """
+    nodes = set(nodes) | {tenzing_generic}
+
+    relation_graph = nx.DiGraph()
+    relation_graph.add_nodes_from(nodes)
+    relation_graph.add_edges_from(node.edge for s_node in nodes for to_node, node in s_node.get_relations().items())
+
+    relations = {node.edge: {'relationship': node}
+                 for s_node in nodes for to_node, node in s_node.get_relations().items()}
+    nx.set_edge_attributes(relation_graph, relations)
+
+    check_graph_constraints(relation_graph, nodes)
+    return relation_graph
+
+
+def check_graph_constraints(relation_graph, nodes):
+    undefined_nodes = set(relation_graph.nodes) - nodes
+    relation_graph.remove_nodes_from(undefined_nodes)
+    relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
+
+    orphaned_nodes = [n for n in nodes if n not in set(relation_graph.nodes)]
+
+    assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
+    cycles = list(nx.simple_cycles(relation_graph))
+    assert len(cycles) == 0, f'Cyclical relations between types {cycles} detected'
 
     # TODO: this should be forced by framework...
     # Relations should be connected...
@@ -77,9 +120,7 @@ class tenzingTypeset(object):
         # TODO: raise error if types miss parent
         self.types = frozenset(types)
 
-        self.inheritance_graph, self.relation_graph, self.complete_graph = (
-            self.build_graphs()
-        )
+        self.relation_graph = build_relation_graph(self.types)
 
         self.column_summary = {}
 
@@ -144,87 +185,21 @@ class tenzingTypeset(object):
         )
 
     def infer_series_type(self, series):
-        return infer_type(
-            self.column_type_map[series.name], series, self.relation_graph
-        )
+        return infer_type(self.column_type_map[series.name],
+                          series,
+                          self.relation_graph)
 
     def cast_series_to_inferred_type(self, series):
-        return cast_to_inferred_type(
-            series, self.column_type_map[series.name], self.relation_graph
-        )
+        return cast_to_inferred_type(series,
+                                     self.column_type_map[series.name],
+                                     self.relation_graph)
 
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified
-        return traverse_relation_graph(series, self.inheritance_graph)
-
-    def get_mro(self, x):
-        from tenzing.core.model_implementations.compound_type import CompoundType
-
-        if isinstance(x, CompoundType):
-            x = x.base_type
-
-        return x.__mro__
-
-    def build_graphs(self):
-        """
-
-        Notes
-        -------
-        [:-1] drops 'tenzing_model'
-        """
-        nodes = set()
-        inheritance_edges = []
-        relation_edges = []
-
-        for data_type in self.types:
-            inheritance_relations = self.get_mro(data_type)
-            inheritance_relations = inheritance_relations[:-1]
-            # inheritance_relations = {str(cls.__name__): cls for cls in inheritance_relations}
-
-            nodes = nodes.union(set(inheritance_relations))
-            if len(inheritance_relations) > 1:
-                for sub_cls, cls in zip(
-                    list(inheritance_relations), list(inheritance_relations)[1:]
-                ):
-                    inheritance_edges.append((cls, sub_cls))
-
-        # TODO: update for compound
-        # print(nodes, self.types)
-        # assert nodes == set(self.types).union(
-        #     {tenzing_generic}
-        # ), "All subtypes should be in the typeset"
-
-        for node in nodes:
-            for key, relation in node.get_relations().items():
-                cls = relation.friend_model
-                ref_cls = relation.model
-                relation_edges.append((cls, ref_cls, relation))
-
-        # TODO: warn if inheritance has also relations
-
-        inheritance_graph = nx.DiGraph()
-        relation_graph = nx.DiGraph()
-        complete_graph = nx.DiGraph()
-        for node in nodes:
-            inheritance_graph.add_node(node)
-            relation_graph.add_node(node)
-            complete_graph.add_node(node)
-
-        for cls, sub_cls in inheritance_edges:
-            inheritance_graph.add_edge(cls, sub_cls)
-            complete_graph.add_edge(cls, sub_cls)
-
-        for cls, ref_cls, relation in relation_edges:
-            relation_graph.add_edge(cls, ref_cls, relationship=relation)
-            complete_graph.add_edge(cls, ref_cls, style="dashed", relationship=relation)
-
-        return inheritance_graph, relation_graph, complete_graph
+        return traverse_relation_graph(series, self.relation_graph)
 
     def write_dot(self):
-        for G, file_name in [
-            (self.inheritance_graph, "graph_inheritance.dot"),
-            (self.relation_graph, "graph_relations.dot"),
-            (self.complete_graph, "graph_complete.dot"),
-        ]:
-            G.graph["node"] = {"shape": "box", "color": "red"}
-            write_dot(G, file_name)
+        G = self.relation_graph.copy()
+        G.graph["node"] = {"shape": "box", "color": "red"}
+
+        write_dot(G, "graph_relations.dot")

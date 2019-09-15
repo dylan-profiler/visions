@@ -95,4 +95,4 @@ class CompoundType(object):
         return f"{self.base_type} + {' + '.join([str(i) for i in self.types])}"
 
     def __repr__(self):
-        return f"{self.base_type} + {' + '.join([str(i) for i in self.types])}"
+        return str(self)

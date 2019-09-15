@@ -8,7 +8,12 @@ from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
 from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
 from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
 from tenzing.core.model_implementations.types.tenzing_datetime import tenzing_datetime
+from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_timedelta
 from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
+from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.model_implementations.types.tenzing_categorical import tenzing_categorical
+from tenzing.core.model_implementations.types.tenzing_complex import tenzing_complex
 from tenzing.core.models import model_relation
 from tenzing.utils import test_utils
 import logging
@@ -17,6 +22,7 @@ import pandas as pd
 
 def register_integer_relations():
     relations = [
+        model_relation(tenzing_integer, tenzing_generic),
         model_relation(
             tenzing_integer,
             tenzing_float,
@@ -42,13 +48,18 @@ def register_float_relations():
         else:
             return True
 
-    relations = [model_relation(tenzing_float, tenzing_string, test_string_is_float)]
+    relations = [
+        model_relation(tenzing_float, tenzing_generic),
+        model_relation(tenzing_float, tenzing_string, test_string_is_float)
+    ]
     for relation in relations:
         tenzing_float.register_relation(relation)
 
 
 def register_string_relations():
-    relations = []
+    relations = [
+        model_relation(tenzing_string, tenzing_object),
+    ]
     for relation in relations:
         tenzing_string.register_relation(relation)
 
@@ -85,10 +96,19 @@ def register_datetime_relations():
             tenzing_datetime,
             tenzing_string,
             test_utils.coercion_test(lambda s: pd.to_datetime(s)),
-        )
+        ),
+        model_relation(tenzing_datetime, tenzing_object)
     ]
     for relation in relations:
         tenzing_datetime.register_relation(relation)
+
+
+def register_timedelta_relations():
+    relations = [
+        model_relation(tenzing_timedelta, tenzing_object),
+    ]
+    for relation in relations:
+        tenzing_timedelta.register_relation(relation)
 
 
 def register_geometry_relations():
@@ -107,7 +127,9 @@ def register_geometry_relations():
             logging.disable(logging.NOTSET)
         return result
 
-    relations = [model_relation(tenzing_geometry, tenzing_string, string_is_geometry)]
+    relations = [
+        model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
+        model_relation(tenzing_geometry, tenzing_object, transformer=lambda series: series)]
     for relation in relations:
         tenzing_geometry.register_relation(relation)
 
@@ -138,6 +160,7 @@ def register_bool_relations():
 
     sb_relation = string_bool_relation()
     relations = [
+        model_relation(tenzing_bool, tenzing_generic),
         model_relation(
             tenzing_bool,
             tenzing_string,
@@ -149,11 +172,40 @@ def register_bool_relations():
         tenzing_bool.register_relation(relation)
 
 
+def register_categorical_relations():
+    register_type = tenzing_categorical
+    relations = [
+        model_relation(register_type, tenzing_generic)
+    ]
+    for relation in relations:
+        register_type.register_relation(relation)
+
+
+def register_complex_relations():
+    relations = [
+        model_relation(tenzing_complex, tenzing_generic)
+    ]
+    for relation in relations:
+        tenzing_complex.register_relation(relation)
+
+
+def register_object_relations():
+    relations = [
+        model_relation(tenzing_object, tenzing_generic)
+    ]
+    for relation in relations:
+        tenzing_object.register_relation(relation)
+
+
 register_integer_relations()
 register_float_relations()
 register_string_relations()
 register_datetime_relations()
+register_timedelta_relations()
 register_bool_relations()
 register_geometry_relations()
 register_url_relations()
 register_path_relations()
+register_categorical_relations()
+register_complex_relations()
+register_object_relations()
