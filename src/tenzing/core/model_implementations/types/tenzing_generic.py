@@ -17,8 +17,3 @@ class tenzing_generic(tenzing_model):
     @classmethod
     def cast_op(cls, series):
         return series
-
-    @classmethod
-    def summarization_op(cls, series):
-        summary = super().summarization_op(series)
-        return summary

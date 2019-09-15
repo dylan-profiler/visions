@@ -178,12 +178,10 @@ def get_series_map():
             "complex_series_py_nan",
             "complex_series_py",
         ],
-        # TODO: split NaT
-        tenzing_datetime: [
-            "timestamp_series",
-            "timestamp_aware_series",
-            "timestamp_series_nat",
-        ],
+        tenzing_datetime: ["timestamp_series", "timestamp_aware_series"],
+        tenzing_datetime + missing: ["timestamp_series_nat"],
+        tenzing_date: ["timestamp_series"],
+        tenzing_date + missing: ["timestamp_series_nat"],
         tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
         tenzing_string: [
             "timestamp_string_series",
@@ -224,14 +222,11 @@ def pytest_generate_tests(metafunc):
         argsvalues = []
         for item in _test_suite:
             for type, series_list in _series_map.items():
-                mark = (
-                    pytest.mark.basic()
-                    if (item.name in series_list)
-                    else pytest.mark.xfail()
-                )
-                argsvalues.append(
-                    pytest.param(item, type, marks=mark, id=f"{item.name} x {type}")
-                )
+                args = {"id": f"{item.name} x {type}"}
+                if item.name not in series_list:
+                    args["marks"] = pytest.mark.xfail()
+
+                argsvalues.append(pytest.param(item, type, **args))
 
         metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
 

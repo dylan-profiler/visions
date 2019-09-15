@@ -58,24 +58,6 @@ class CompoundType(object):
         mask = self.get_mask(series)
         return series[~mask] in self.base_type
 
-    def base_summary(self, series):
-        summary = {
-            "frequencies": series.value_counts().to_dict(),
-            "n_records": series.shape[0],
-            "memory_size": series.memory_usage(index=True, deep=True),
-            "dtype": series.dtype,
-            "types": series.map(type).value_counts().to_dict(),
-        }
-        return summary
-
-    def summarize(self, series):
-        summary = self.base_summary(series)
-        mask = self.get_mask(series)
-        summary.update(self.base_type.summarize(series[~mask]))
-        for type in self.types:
-            summary.update(type.summarization_op(series))
-        return summary
-
     def __contains__(self, item: pd.Series):
         if not isinstance(item, pd.Series):
             raise ValueError("Pandas series required")

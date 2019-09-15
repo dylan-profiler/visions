@@ -14,14 +14,8 @@ class tenzing_timedelta(tenzing_generic):
 
     @classmethod
     def contains_op(cls, series):
-        return pdt.is_timedelta64_dtype(series)
+        return not series.empty and pdt.is_timedelta64_dtype(series)
 
     @classmethod
     def cast_op(cls, series, operation=None):
         return pd.to_timedelta(series)
-
-    @classmethod
-    def summarization_op(cls, series):
-        summary = super().summarization_op(series)
-        # TODO: statistics
-        return summary

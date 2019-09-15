@@ -16,16 +16,10 @@ class tenzing_bool(tenzing_generic):
         if pdt.is_categorical_dtype(series):
             return False
 
-        return pdt.is_bool_dtype(series) or (
-            not series.empty and series.apply(lambda x: type(x) == bool).all()
+        return not series.empty and (
+            pdt.is_bool_dtype(series) or series.apply(lambda x: type(x) == bool).all()
         )
 
     @classmethod
     def cast_op(cls, series, operation=None):
         return series.astype(bool)
-
-    @classmethod
-    def summarization_op(cls, series):
-        """Note that frequencies for True/False are in the base summary"""
-        summary = super().summarization_op(series)
-        return summary

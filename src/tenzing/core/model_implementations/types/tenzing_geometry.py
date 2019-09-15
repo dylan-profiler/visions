@@ -2,7 +2,6 @@ import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
-from tenzing.core.reuse import unique_summary
 
 
 class tenzing_geometry(tenzing_object):
@@ -29,6 +28,9 @@ class tenzing_geometry(tenzing_object):
 
     @classmethod
     def contains_op(cls, series):
+        if not super().contains_op(series):
+            return False
+
         return all(
             any(isinstance(obj, geom_type) for geom_type in cls.geom_types)
             for obj in series
@@ -40,16 +42,16 @@ class tenzing_geometry(tenzing_object):
 
         return pd.Series([wkt.loads(value) for value in series])
 
-    @classmethod
-    @unique_summary
-    def summarization_op(cls, series):
-        summary = super().summarization_op(series)
-
-        try:
-            import geopandas as gpd
-
-            # summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())
-        except ImportError:
-            pass
-
-        return summary
+    # @classmethod
+    # @unique_summary
+    # def summarization_op(cls, series):
+    #     summary = super().summarization_op(series)
+    #
+    #     try:
+    #         import geopandas as gpd
+    #
+    #         # summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())
+    #     except ImportError:
+    #         pass
+    #
+    #     return summary
