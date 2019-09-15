@@ -41,7 +41,6 @@ release = _GetApiWrapperVersion()
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.githubpages',
     "recommonmark",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
