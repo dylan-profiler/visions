@@ -55,5 +55,6 @@ Concrete Types
    tenzing_time
    tenzing_date
    tenzing_url
+   tenzing_ip
    tenzing_generic
    tenzing_empty

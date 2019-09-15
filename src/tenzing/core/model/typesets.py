@@ -99,6 +99,7 @@ class tenzing_complete_set(tenzingTypeset):
     - tenzing_path
     - tenzing_existing_path
     - tenzing_url
+    - tenzing_ip
 
     """
 
@@ -120,5 +121,6 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_time + missing,
             tenzing_existing_path + missing,
             tenzing_empty + missing,
+            tenzing_ip + missing,
         ]
         super().__init__(types)
