@@ -120,7 +120,6 @@ class tenzing_model(metaclass=meta_model):
 
     @classmethod
     def register_relation(cls, relation):
-        print(cls, relation)
         if cls.__name__ not in cls._relations:
             cls._relations[cls.__name__] = {}
 
