@@ -1,7 +1,12 @@
+import warnings
+
 import pandas as pd
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
+from tenzing.core.model_implementations.compound_type import CompoundType
+
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.summaries.dataframe_summary import dataframe_summary
 from tenzing.core.summary import type_summary_ops, Summary
 
 
@@ -27,7 +32,7 @@ def build_relation_graph(nodes):
         for to_node, node in s_node.get_relations().items()
     )
 
-    # check_graph_constraints(relation_graph, nodes)
+    check_graph_constraints(relation_graph, nodes)
     return relation_graph
 
 
@@ -37,53 +42,43 @@ def check_graph_constraints(relation_graph, nodes):
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
     orphaned_nodes = [n for n in nodes if n not in set(relation_graph.nodes)]
+    if orphaned_nodes:
+        warnings.warn(f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.")
 
-    assert (
-        not orphaned_nodes
-    ), f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes."
     cycles = list(nx.simple_cycles(relation_graph))
-    assert len(cycles) == 0, f"Cyclical relations between types {cycles} detected"
-
-    # TODO: this should be forced by framework...
-    # Relations should be connected...
-    # orphaned_nodes = [n for n in provided_nodes if n not in set(relation_graph.nodes)]
-    # assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
+    if len(cycles) > 0:
+        warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
 def traverse_relation_graph(series, G, node=tenzing_generic):
-    """
-    Depth-first search
-    """
+    match_types = []
     for tenz_type in G.successors(node):
-        if series in tenz_type:  # TODO: generalize check
-            return traverse_relation_graph(series, G, tenz_type)
-    return node
+        if series in tenz_type:
+            match_types.append(tenz_type)
+
+    if len(match_types) == 1:
+        return traverse_relation_graph(series, G, match_types[0])
+    elif len(match_types) > 1:
+        raise ValueError(f'types contains should be mutually exclusive {match_types}')
+    else:
+        return node
 
 
-# TODO: merge two functions
 def get_type_inference_path(base_type, series, G, path=None):
     if path is None:
         path = []
     path.append(base_type)
+
+    # TODO: assert all relationships
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]["relationship"].is_relation(series):
-            # print("Transform", series.name, "from", base_type, "to", tenz_type)
             new_series = G[base_type][tenz_type]["relationship"].transform(series)
             return get_type_inference_path(tenz_type, new_series, G, path)
-    return path
-
-
-def cast_to_inferred_type(series, base_type, G):
-    for tenz_type in G.successors(base_type):
-        if G[base_type][tenz_type]["relationship"].is_relation(series):
-            # print("Cast", series.name, "from", base_type, "to", tenz_type)
-            new_series = G[base_type][tenz_type]["relationship"].transform(series)
-            return cast_to_inferred_type(new_series, tenz_type, G)
-    return series
+    return path, series
 
 
 def infer_type(base_type, series, G):
-    path = get_type_inference_path(base_type, series, G)
+    path, _ = get_type_inference_path(base_type, series, G)
     return path[-1]
 
 
@@ -98,12 +93,9 @@ class tenzingTypeset(object):
     """
 
     def __init__(self, types: list):
-        """
-
-        Args:
-            types:
-        """
-        self.types = frozenset(set(types) | {tenzing_generic})
+        tps = set(types) | {tenzing_generic}
+        # TODO: make compound work with base
+        self.types = frozenset([x.base_type if isinstance(x, CompoundType) else x for x in tps])
         self.relation_graph = build_relation_graph(self.types)
         self.column_summary = {}
 
@@ -112,16 +104,11 @@ class tenzingTypeset(object):
         self.column_type_map = {
             col: self._get_column_type(df[col]) for col in df.columns
         }
-        # self.is_prepped = True
 
     def summarize(self, df):
-
         # TODO: defined over typeset
         summary = Summary(type_summary_ops)
 
-        # assert (
-        #     self.is_prepped
-        # ), "typeset hasn't been prepped for your dataset yet. Call .prep(df)"
         self.prep(df)
         summary = {
             col: summary.summarize_series(df[col], self.column_type_map[col])
@@ -130,15 +117,8 @@ class tenzingTypeset(object):
         self.column_summary = summary
         return self.column_summary
 
-    def general_summary(self, df):
-        return {
-            "n_observations": df.shape[0],
-            "n_variables": df.shape[1],
-            "memory_size": df.memory_usage(index=True, deep=True).sum(),
-        }
-
     def summary_report(self, df):
-        general_summary = self.general_summary(df)
+        general_summary = dataframe_summary(df)
         column_summary = self.summarize(df)
         return {
             "types": self.column_type_map,
@@ -147,7 +127,6 @@ class tenzingTypeset(object):
         }
 
     def infer_types(self, df):
-        # Without prep, makes little sense
         self.prep(df)
         return {col: self.infer_series_type(df[col]) for col in df.columns}
 
@@ -162,9 +141,10 @@ class tenzingTypeset(object):
         )
 
     def cast_series_to_inferred_type(self, series):
-        return cast_to_inferred_type(
-            series, self.column_type_map[series.name], self.relation_graph
+        _, series = get_type_inference_path(
+            self.column_type_map[series.name], series, self.relation_graph
         )
+        return series
 
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified

@@ -5,15 +5,15 @@ class SubTypeMeta(type):
     def __contains__(cls, item):
         return cls.contains_op(item)
 
-    def __repr__(self):
+    def __str__(self):
         return f"{self.__name__}"
+
+    def __repr__(self):
+        return str(self)
 
 
 class subType(object, metaclass=SubTypeMeta):
     """subTypes are composable extensions to types (e.g. NaN and Inf)"""
-
-    def __init__(self):
-        pass
 
     @staticmethod
     @abstractmethod
