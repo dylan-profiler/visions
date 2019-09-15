@@ -1,4 +1,3 @@
-import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core.model_implementations.types.tenzing_datetime import tenzing_datetime

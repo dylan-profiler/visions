@@ -23,4 +23,3 @@ class subType(object, metaclass=SubTypeMeta):
     @staticmethod
     def contains_op(series):
         return True
-

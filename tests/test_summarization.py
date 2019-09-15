@@ -2,21 +2,8 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model_implementations import (
-    tenzing_bool,
-    tenzing_integer,
-    tenzing_float,
-    tenzing_categorical,
-    tenzing_complex,
-    tenzing_datetime,
-    tenzing_time,
-    tenzing_date,
-    tenzing_object,
-    tenzing_string,
-    tenzing_geometry,
-    missing,
-    infinite,
-)
+from tenzing.core.model_implementations.types import *
+from tenzing.core.model_implementations.sub_types import missing, infinite
 from tenzing.core.summary import type_summary_ops, Summary
 
 

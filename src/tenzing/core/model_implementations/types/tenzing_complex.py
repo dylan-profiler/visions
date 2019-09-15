@@ -4,7 +4,6 @@ from tenzing.core.model_implementations.types.tenzing_generic import tenzing_gen
 
 
 class tenzing_complex(tenzing_generic):
-    # unique_summary, zero_summary, complex_summary
     """**Complex** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])

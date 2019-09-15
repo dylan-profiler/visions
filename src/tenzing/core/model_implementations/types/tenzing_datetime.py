@@ -5,7 +5,6 @@ from tenzing.core.model_implementations.types.tenzing_generic import tenzing_gen
 
 
 class tenzing_datetime(tenzing_generic):
-    # unique_summary, datetime_summary
     """**Datetime** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
