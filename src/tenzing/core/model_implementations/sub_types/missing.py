@@ -8,4 +8,5 @@ class missing(subType):
 
     @staticmethod
     def contains_op(series):
+        # TODO: all series should be nans
         return series.hasnans
