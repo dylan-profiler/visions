@@ -70,7 +70,8 @@ def register_path_relations():
             tenzing_path,
             tenzing_string,
             lambda s: s.apply(lambda x: Path(x).is_absolute()).all(),
-        )
+        ),
+        model_relation(tenzing_path, tenzing_object),
     ]
     for relation in relations:
         tenzing_path.register_relation(relation)
@@ -178,6 +179,24 @@ def register_object_relations():
         tenzing_object.register_relation(relation)
 
 
+def register_date_relations():
+    relations = [model_relation(tenzing_date, tenzing_datetime)]
+    for relation in relations:
+        tenzing_date.register_relation(relation)
+
+
+def register_time_relations():
+    relations = [model_relation(tenzing_time, tenzing_datetime)]
+    for relation in relations:
+        tenzing_time.register_relation(relation)
+
+
+def register_existing_path_relations():
+    relations = [model_relation(tenzing_existing_path, tenzing_path)]
+    for relation in relations:
+        tenzing_existing_path.register_relation(relation)
+
+
 register_integer_relations()
 register_float_relations()
 register_string_relations()
@@ -190,3 +209,6 @@ register_path_relations()
 register_categorical_relations()
 register_complex_relations()
 register_object_relations()
+register_date_relations()
+register_time_relations()
+register_existing_path_relations()

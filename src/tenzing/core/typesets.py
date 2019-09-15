@@ -10,41 +10,24 @@ def build_relation_graph(nodes):
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
     nodes correspond to subtypes with a defined relation.
-    Parameters
-    ----------
-    root_nodes : List[tenzing_type]
-        A list of tenzing_types considered at the root of the relations graph.
-    derivative_nodes : List[tenzing_type]
-        A list of tenzing_types with defined relations either to the root_nodes or each other.
-    Returns
-    -------
-    networkx DiGraph
-        A directed graph of type relations for the provided nodes.
-    Notes
-    -------
-     So much duplicated code here... got to be a better way. The fundamental issue
-        is that I have to modify the data to check the next step in the graph.
-        I could re-use some of this code but then I end up double performing those
-        cast operations
-    """
-    nodes = set(nodes) | {tenzing_generic}
 
+    Args:
+        nodes : List[tenzing_type]
+            A list of tenzing_types considered at the root of the relations graph.
+
+    Returns:
+        networkx DiGraph
+            A directed graph of type relations for the provided nodes.
+    """
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
     relation_graph.add_edges_from(
-        node.edge
+        (node.edge[0], node.edge[1], {"relationship": node})
         for s_node in nodes
         for to_node, node in s_node.get_relations().items()
     )
 
-    relations = {
-        node.edge: {"relationship": node}
-        for s_node in nodes
-        for to_node, node in s_node.get_relations().items()
-    }
-    nx.set_edge_attributes(relation_graph, relations)
-
-    check_graph_constraints(relation_graph, nodes)
+    # check_graph_constraints(relation_graph, nodes)
     return relation_graph
 
 
@@ -114,41 +97,15 @@ class tenzingTypeset(object):
         The collection of tenzing types which are derived either from a base_type or themselves
     """
 
-    def __init__(self, types):
+    def __init__(self, types: list):
         """
 
-        Parameters
-        ----------
-        types : List[tenzing_type]
-            The collection of tenzing types at the root of the relations graph
-
-        Returns
-        -------
-        self
-
+        Args:
+            types:
         """
-        # TODO: raise error if types miss parent
-        self.types = frozenset(types)
-
+        self.types = frozenset(set(types) | {tenzing_generic})
         self.relation_graph = build_relation_graph(self.types)
-
         self.column_summary = {}
-
-    """Base class for working with collections of tenzing types on a dataset
-
-    A tenzingTypeset represents a collection of tenzingTypes
-
-    Attributes
-    ----------
-    base_types : list
-        The collection of tenzing types at the root of the relations graph. This will usually be
-        basic pandas types like `int`, `float`, `object`, etc...
-
-    derivative_types: list
-        A List of tenzing types which are derived either from a base_type or themselves. For example,
-        `tenzing_string` is represented by `object` in it's underlying pandas/numpy datatype.
-
-    """
 
     def prep(self, df):
         # TODO: improve this (no new attributes outside of __init__)
