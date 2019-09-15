@@ -17,9 +17,13 @@ from tenzing.core.model_implementations import (
     missing,
     infinite,
 )
+from tenzing.core.summary import type_summary_ops, Summary
 
 
-def validate_summary_output(trial_output, correct_output):
+def validate_summary_output(test_series, tenzing_type, correct_output):
+    summary = Summary(type_summary_ops)
+    trial_output = summary.summarize_series(test_series, tenzing_type)
+
     for metric, result in correct_output.items():
         assert metric in trial_output, f"Metric `{metric}` is missing"
         assert (
@@ -44,8 +48,7 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
         "perc_na": 1.0 / 6.0,
     }
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_float_missing_summary(tenzing_type=tenzing_float):
@@ -66,8 +69,7 @@ def test_float_missing_summary(tenzing_type=tenzing_float):
         "perc_na": 1.0 / 6.0,
     }
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_bool_missing_summary(tenzing_type=tenzing_bool):
@@ -83,8 +85,7 @@ def test_bool_missing_summary(tenzing_type=tenzing_bool):
         # 'perc_False': 0.25
     }
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
@@ -103,8 +104,7 @@ def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
         "missing_categorical_values": True,
     }
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_complex_missing_summary(tenzing_type=tenzing_complex):
@@ -112,8 +112,7 @@ def test_complex_missing_summary(tenzing_type=tenzing_complex):
     test_series = pd.Series([0 + 0j, 0 + 1j, 1 + 0j, 1 + 1j, np.nan])
     correct_output = {"n_unique": 4, "mean": 0.5 + 0.5j, "na_count": 1, "perc_na": 0.2}
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_datetime_missing_summary(tenzing_type=tenzing_datetime):
@@ -137,8 +136,7 @@ def test_datetime_missing_summary(tenzing_type=tenzing_datetime):
         "range": test_series.max() - test_series.min(),
     }
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_object_missing_summary(tenzing_type=tenzing_object):
@@ -152,8 +150,7 @@ def test_object_missing_summary(tenzing_type=tenzing_object):
         "perc_na": 0.25,
     }
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
@@ -161,8 +158,7 @@ def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
     test_series = pd.Series([np.nan])
     correct_output = {"na_count": 1, "perc_na": 1}
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_string_missing_summary(tenzing_type=tenzing_string):
@@ -170,5 +166,5 @@ def test_string_missing_summary(tenzing_type=tenzing_string):
     test_series = pd.Series(["apple", "orange", "bike", np.nan])
     correct_output = {"na_count": 1, "perc_na": 0.25}
 
-    trial_output = tenzing_type.summarize(test_series)
-    validate_summary_output(trial_output, correct_output)
+    validate_summary_output(test_series, tenzing_type, correct_output)
+
