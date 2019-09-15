@@ -2,8 +2,6 @@ from abc import abstractmethod
 import pandas as pd
 import numpy as np
 
-from tenzing.core.reuse.base_summary import base_summary
-
 
 class model_relation:
     """Relationship encoder between implementations of :class:`tenzing.core.models.tenzing_model`
@@ -98,13 +96,6 @@ class tenzing_model(metaclass=meta_model):
     >>>     def cast_op(self, series):
     >>>         return pd.to_datetime(series)
     >>>
-    >>>     def summarization_op(self, series):
-    >>>         summary = super().summarization_op(series)
-    >>>         aggregates = ['min', 'max']
-    >>>         summary.update(series.agg(aggregates).to_dict())
-    >>>
-    >>>         summary['range'] = summary['max'] - summary['min']
-    >>>         return summary
     """
 
     _relations = {}
@@ -148,10 +139,6 @@ class tenzing_model(metaclass=meta_model):
         return operation(series)
 
     @classmethod
-    def summarize(cls, series):
-        return cls.summarization_op(series)
-
-    @classmethod
     @abstractmethod
     def contains_op(cls, series):
         pass
@@ -160,8 +147,3 @@ class tenzing_model(metaclass=meta_model):
     @abstractmethod
     def cast_op(cls, series):
         pass
-
-    @classmethod
-    @abstractmethod
-    def summarization_op(cls, series):
-        return {}

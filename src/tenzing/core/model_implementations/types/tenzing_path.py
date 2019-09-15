@@ -1,10 +1,6 @@
-import os
 from pathlib import Path, PureWindowsPath, PurePosixPath
 
-import pandas.api.types as pdt
-
 from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
-from tenzing.core.reuse import unique_summary
 
 
 class tenzing_path(tenzing_object):
@@ -17,7 +13,7 @@ class tenzing_path(tenzing_object):
 
     @classmethod
     def contains_op(cls, series):
-        if not pdt.is_object_dtype(series):
+        if not super().contains_op(series):
             return False
 
         return (
@@ -32,22 +28,3 @@ class tenzing_path(tenzing_object):
     @classmethod
     def cast_op(cls, series, operation=None):
         return series.apply(Path)
-
-    @classmethod
-    @unique_summary
-    def summarization_op(cls, series):
-        summary = super().summarization_op(series)
-
-        summary["common_prefix"] = (
-            os.path.commonprefix(list(series)) or "No common prefix"
-        )
-        # On add drive, root, anchor?
-        summary["stem_counts"] = series.map(lambda x: x.stem).value_counts().to_dict()
-        summary["suffix_counts"] = (
-            series.map(lambda x: x.suffix).value_counts().to_dict()
-        )
-        summary["name_counts"] = series.map(lambda x: x.name).value_counts().to_dict()
-        summary["parent_counts"] = (
-            series.map(lambda x: x.parent).value_counts().to_dict()
-        )
-        return summary

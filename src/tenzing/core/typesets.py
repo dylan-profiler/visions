@@ -2,6 +2,7 @@ import pandas as pd
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.summary import type_summary_ops, Summary
 
 
 def check_graph_constraints(G):
@@ -107,12 +108,16 @@ class tenzingTypeset(object):
         # self.is_prepped = True
 
     def summarize(self, df):
+
+        # TODO: defined over typeset
+        summary = Summary(type_summary_ops)
+
         # assert (
         #     self.is_prepped
         # ), "typeset hasn't been prepped for your dataset yet. Call .prep(df)"
         self.prep(df)
         summary = {
-            col: self.column_type_map[col].summarize(df[col]) for col in df.columns
+            col: summary.summarize_series(df[col], self.column_type_map[col]) for col in df.columns
         }
         self.column_summary = summary
         return self.column_summary
