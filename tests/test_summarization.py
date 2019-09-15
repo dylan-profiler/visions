@@ -62,15 +62,7 @@ def test_float_missing_summary(tenzing_type=tenzing_float):
 def test_bool_missing_summary(tenzing_type=tenzing_bool):
     tenzing_type += missing
     test_series = pd.Series([True, False, True, True, np.nan])
-    correct_output = {
-        "n_records": 5,
-        "na_count": 1,
-        "perc_na": 0.2,
-        # 'num_True': 3,
-        # 'num_False': 1,
-        # 'perc_True': 0.75,
-        # 'perc_False': 0.25
-    }
+    correct_output = {"n_records": 5, "na_count": 1, "perc_na": 0.2}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 

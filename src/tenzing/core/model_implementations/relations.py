@@ -1,21 +1,7 @@
 from pathlib import Path
 from urllib.parse import urlparse
 
-from tenzing.core.model_implementations.types import (
-    tenzing_integer,
-    tenzing_generic,
-    tenzing_float,
-    tenzing_string,
-    tenzing_object,
-    tenzing_url,
-    tenzing_path,
-    tenzing_datetime,
-    tenzing_timedelta,
-    tenzing_geometry,
-    tenzing_bool,
-    tenzing_categorical,
-    tenzing_complex,
-)
+from tenzing.core.model_implementations.types import *
 from tenzing.core.models import model_relation
 from tenzing.utils import test_utils
 import logging
