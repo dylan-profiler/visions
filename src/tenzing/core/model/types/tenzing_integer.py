@@ -1,5 +1,5 @@
 import pandas.api.types as pdt
-import numpy as np
+import pandas as pd
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
@@ -7,13 +7,13 @@ from tenzing.core.model.types.tenzing_generic import tenzing_generic
 class tenzing_integer(tenzing_generic):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([1, 2, 3, np.nan])
+    >>> x = pd.Series([1, 2, 3])
     >>> x in tenzing_integer
     True
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         if series.empty:
             return False
 
@@ -30,5 +30,5 @@ class tenzing_integer(tenzing_generic):
             return False
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return series.astype(int)

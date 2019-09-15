@@ -1,5 +1,7 @@
 from pathlib import Path, PureWindowsPath, PurePosixPath
 
+import pandas as pd
+
 from tenzing.core.model.types.tenzing_object import tenzing_object
 
 
@@ -12,7 +14,7 @@ class tenzing_path(tenzing_object):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         if not super().contains_op(series):
             return False
 
@@ -26,5 +28,5 @@ class tenzing_path(tenzing_object):
         )
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return series.apply(Path)

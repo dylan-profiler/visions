@@ -51,14 +51,14 @@ class CompoundType(object):
             mask |= type.get_mask(series)
         return mask
 
-    def contains_op(self, series):
+    def contains_op(self, series) -> bool:
         if any(series not in type for type in self.types):
             return False
 
         mask = self.get_mask(series)
         return series[~mask] in self.base_type
 
-    def __contains__(self, item: pd.Series):
+    def __contains__(self, item: pd.Series) -> bool:
         if not isinstance(item, pd.Series):
             raise ValueError("Pandas series required")
         return self.contains_op(item)
@@ -73,8 +73,8 @@ class CompoundType(object):
             self.types.append(other)
         return self
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.base_type} + {' + '.join([str(i) for i in self.types])}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self)

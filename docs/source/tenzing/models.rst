@@ -14,7 +14,20 @@ Abstract Types
 
    compound_type
    relations
-   types.tenzing_generic
+
+
+===============
+Container Types
+===============
+
+.. currentmodule:: tenzing.core.model.sub_types
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+   infinite
+   missing
 
 
 ==============
@@ -43,4 +56,5 @@ Concrete Types
    tenzing_time
    tenzing_date
    tenzing_url
+   tenzing_generic
    tenzing_empty

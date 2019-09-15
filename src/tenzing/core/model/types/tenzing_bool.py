@@ -1,4 +1,5 @@
 import pandas.api.types as pdt
+import pandas as pd
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
@@ -12,7 +13,7 @@ class tenzing_bool(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         if pdt.is_categorical_dtype(series):
             return False
 
@@ -21,5 +22,5 @@ class tenzing_bool(tenzing_generic):
         )
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return series.astype(bool)

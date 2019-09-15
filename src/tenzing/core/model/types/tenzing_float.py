@@ -1,5 +1,6 @@
 import pandas.api.types as pdt
 import numpy as np
+import pandas as pd
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 from tenzing.core.model.types.tenzing_integer import tenzing_integer
@@ -14,7 +15,7 @@ class tenzing_float(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         if series.empty:
             return False
         if not pdt.is_float_dtype(series):
@@ -30,5 +31,5 @@ class tenzing_float(tenzing_generic):
             return True
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> bool:
         return series.astype(float)

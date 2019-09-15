@@ -12,7 +12,7 @@ class tenzing_time(tenzing_datetime):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         if not super().contains_op(series):
             return False
 
@@ -21,5 +21,5 @@ class tenzing_time(tenzing_datetime):
         ).all()
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return pd.to_datetime(series)

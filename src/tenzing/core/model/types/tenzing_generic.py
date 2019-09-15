@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from tenzing.core.models import tenzing_model
 
 
@@ -11,9 +12,9 @@ class tenzing_generic(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         return True
 
     @classmethod
-    def cast_op(cls, series):
+    def cast_op(cls, series: pd.Series) -> pd.Series:
         return series

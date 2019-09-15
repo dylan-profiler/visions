@@ -26,7 +26,7 @@ class tenzing_geometry(tenzing_object):
     ]
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         if not super().contains_op(series):
             return False
 
@@ -36,21 +36,7 @@ class tenzing_geometry(tenzing_object):
         )
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         from shapely import wkt
 
         return pd.Series([wkt.loads(value) for value in series])
-
-    # @classmethod
-    # @unique_summary
-    # def summarization_op(cls, series):
-    #     summary = super().summarization_op(series)
-    #
-    #     try:
-    #         import geopandas as gpd
-    #
-    #         # summary['image'] = plotting.save_plot_to_str(gpd.GeoSeries(series).plot())
-    #     except ImportError:
-    #         pass
-    #
-    #     return summary

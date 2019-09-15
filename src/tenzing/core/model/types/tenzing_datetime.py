@@ -13,7 +13,7 @@ class tenzing_datetime(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         return (
             not series.empty
             and pdt.is_datetime64_any_dtype(series)
@@ -21,5 +21,5 @@ class tenzing_datetime(tenzing_generic):
         )
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return pd.to_datetime(series)

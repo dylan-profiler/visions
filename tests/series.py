@@ -41,7 +41,13 @@ def get_series():
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(
-            ["I was only robbing the register,", "I hope you understand", "One of us had better call up the cops", "In the hot New Jersey night", np.nan],
+            [
+                "I was only robbing the register,",
+                "I hope you understand",
+                "One of us had better call up the cops",
+                "In the hot New Jersey night",
+                np.nan,
+            ],
             name="string_str_nan",
         ),
         pd.Series(["True", "False", np.nan], name="string_bool_nan"),
@@ -147,7 +153,8 @@ def get_series():
         # Object Series
         pd.Series([[1, ""], [2, "Ruben"], [3, "Carter"]], name="mixed_list[str,int]"),
         pd.Series(
-            [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}], name="mixed_dict"
+            [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
+            name="mixed_dict",
         ),
         # ?
         pd.Series([None, None, None, None, None], name="none_series"),

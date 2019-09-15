@@ -11,9 +11,9 @@ class tenzing_empty(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         return series.empty
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return pd.Series([], name=series.name, dtype=series.dtype)

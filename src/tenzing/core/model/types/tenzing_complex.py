@@ -1,4 +1,5 @@
 import pandas.api.types as pdt
+import pandas as pd
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
@@ -12,9 +13,9 @@ class tenzing_complex(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series: pd.Series) -> bool:
         return not series.empty and pdt.is_complex_dtype(series)
 
     @classmethod
-    def cast_op(cls, series, operation=None):
+    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         return series.astype("complex")
