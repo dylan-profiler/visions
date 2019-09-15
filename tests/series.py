@@ -28,25 +28,25 @@ def get_series():
         pd.Series([1.0, 2.0, 3.1], dtype="category", name="categorical_float_series"),
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
         # String Series
-        pd.Series(["hello", "world"], name="string_series"),
+        pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(
-            ["hello", "world"], dtype="category", name="categorical_string_series"
+            ["Georgia", "Sam"], dtype="category", name="categorical_string_series"
         ),
-        pd.Series(["2017-10-01", "12/05/2017"], name="timestamp_string_series"),
-        pd.Series(["hello", "world"], name="string_unicode_series"),
+        pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
+        pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
         pd.Series(
-            np.array(["hello", "world"], dtype=np.unicode_),
+            np.array(["upper", "hall"], dtype=np.unicode_),
             name="string_np_unicode_series",
         ),
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(
-            ["To travel,", "to experience and learn:", "that is to live", np.nan],
+            ["I was only robbing the register,", "I hope you understand", "One of us had better call up the cops", "In the hot New Jersey night", np.nan],
             name="string_str_nan",
         ),
         pd.Series(["True", "False", np.nan], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
-        pd.Series(["1988-09-19", "16/4/1987"], name="string_date"),
+        pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, np.nan], name="bool_nan_series"),
@@ -140,14 +140,14 @@ def get_series():
         pd.Series(
             [
                 urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
-                urlparse("https://github.com/pandas-profiling/pandas-profiling"),
+                urlparse("https://github.com/dylan-profiling/hurricane"),
             ],
             name="url_series",
         ),
         # Object Series
-        pd.Series([[1, ""], [2, "fiets"], [3, "auto"]], name="mixed_list[str,int]"),
+        pd.Series([[1, ""], [2, "Ruben"], [3, "Carter"]], name="mixed_list[str,int]"),
         pd.Series(
-            [{"foo": "baar"}, {"bar": "foo"}, {"fizz": "buzz"}], name="mixed_dict"
+            [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}], name="mixed_dict"
         ),
         # ?
         pd.Series([None, None, None, None, None], name="none_series"),
