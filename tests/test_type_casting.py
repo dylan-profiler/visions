@@ -40,9 +40,13 @@ def pytest_generate_tests(metafunc):
                 # if item.name not in series_list:
                 #     args["marks"] = pytest.mark.xfail()
 
-                argsvalues.append(pytest.param(source_type, relation_type, item, **args))
+                argsvalues.append(
+                    pytest.param(source_type, relation_type, item, **args)
+                )
 
-        metafunc.parametrize(argnames=["source_type", "relation_type", "series"], argvalues=argsvalues)
+        metafunc.parametrize(
+            argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
+        )
 
 
 def test_relations(source_type, relation_type, series):

@@ -48,7 +48,7 @@ def get_series_map():
             "path_series_windows_str",
             "int_str_range",
             "string_date",
-            "textual_float"
+            "textual_float",
         ],
         tenzing_string
         + missing: [
@@ -56,19 +56,25 @@ def get_series_map():
             "string_flt_nan",
             "string_str_nan",
             "string_bool_nan",
-            'textual_float_nan'
+            "textual_float_nan",
         ],
         tenzing_geometry: ["geometry_series"],
-        tenzing_empty: ["empty", "empty_float", "empty_int64","empty_object", "empty_bool"],
-        missing: ['none_series']
+        tenzing_empty: [
+            "empty",
+            "empty_float",
+            "empty_int64",
+            "empty_object",
+            "empty_bool",
+        ],
+        missing: ["none_series"],
     }
 
     series_map[tenzing_object] = (
-            ["mixed_list[str,int]", "mixed_dict", "callable", "module"]
-            + series_map[tenzing_string]
-            + series_map[tenzing_geometry]
-            + series_map[tenzing_path]
-            + series_map[tenzing_url]
+        ["mixed_list[str,int]", "mixed_dict", "callable", "module"]
+        + series_map[tenzing_string]
+        + series_map[tenzing_geometry]
+        + series_map[tenzing_path]
+        + series_map[tenzing_url]
     )
 
     return series_map
