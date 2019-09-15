@@ -44,12 +44,11 @@ class model_relation:
         self.model = model
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
-        # TODO: should not be optional
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 
     def is_relation(self, obj):
-        return self.relationship(self.friend_model.get_series(obj))
+        return self.relationship(obj)
 
     def transform(self, obj):
         return self.model.cast(obj, self.transformer)
@@ -100,13 +99,9 @@ class tenzing_model(metaclass=meta_model):
 
     _relations = {}
 
-    @staticmethod
-    def get_series_mask(series):
-        return np.ones_like(series, dtype=bool)
-
-    @classmethod
-    def get_series(cls, series):
-        return series
+    # @staticmethod
+    # def get_series_mask(series):
+    #     return np.ones_like(series, dtype=bool)
 
     @classmethod
     def __instancecheck__(mcs, instance):

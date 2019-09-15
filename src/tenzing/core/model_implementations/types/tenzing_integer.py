@@ -31,6 +31,4 @@ class tenzing_integer(tenzing_generic):
 
     @classmethod
     def cast_op(cls, series, operation=None):
-        # TODO: split in NaN
-        xseries = cls.get_series(series)
-        return xseries.astype(int)
+        return series.astype(int)

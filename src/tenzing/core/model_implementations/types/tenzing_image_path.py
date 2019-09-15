@@ -18,10 +18,6 @@ class tenzing_image_path(tenzing_existing_path):
     True
     """
 
-    @staticmethod
-    def get_series_mask(series):
-        return super().get_series_mask(series)
-
     @classmethod
     def contains_op(cls, series):
         if not super().contains_op(series):

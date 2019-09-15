@@ -35,7 +35,7 @@ def get_series_map():
         ],
         tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
         tenzing_datetime + missing: ["timestamp_series_nat"],
-        tenzing_date: ["timestamp_series"],
+        tenzing_date: ["timestamp_series", "datetime"],
         tenzing_date + missing: ["timestamp_series_nat"],
         tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
         tenzing_string: [
@@ -66,7 +66,24 @@ def get_series_map():
             "empty_object",
             "empty_bool",
         ],
-        missing: ["none_series"],
+        missing: [
+            "none_series",
+            "int_nan_series",
+            "Int64_int_nan_series",
+            "float_nan_series",
+            "float_series5",
+            "float_series6",
+            "string_num_nan",
+            "string_flt_nan",
+            "string_str_nan",
+            "string_bool_nan",
+            "complex_series",
+            "bool_nan_series",
+            "complex_series_py_nan",
+            "timedelta_series_nat",
+            "timestamp_series_nat",
+            "categorical_complex_series",
+        ],
     }
 
     series_map[tenzing_object] = (
