@@ -1,4 +1,6 @@
-from tenzing.core.model_implementations.sub_types import missing, infinite
+from tenzing.core.model_implementations.types import tenzing_object, tenzing_bool, tenzing_float, tenzing_complex, \
+    tenzing_categorical, tenzing_datetime, tenzing_timedelta, tenzing_integer, tenzing_string, tenzing_geometry, \
+    tenzing_url, tenzing_path, tenzing_date, tenzing_time, tenzing_existing_path
 from tenzing.core.typesets import tenzingTypeset
 from tenzing.core.model_implementations import *
 

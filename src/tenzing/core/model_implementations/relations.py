@@ -1,21 +1,9 @@
 from pathlib import Path
 from urllib.parse import urlparse
 
-from tenzing.core.model_implementations.types.tenzing_bool import tenzing_bool
-from tenzing.core.model_implementations.types.tenzing_float import tenzing_float
-from tenzing.core.model_implementations.types.tenzing_geometry import tenzing_geometry
-from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
-from tenzing.core.model_implementations.types.tenzing_string import tenzing_string
-from tenzing.core.model_implementations.types.tenzing_integer import tenzing_integer
-from tenzing.core.model_implementations.types.tenzing_datetime import tenzing_datetime
-from tenzing.core.model_implementations.types.tenzing_timedelta import tenzing_timedelta
-from tenzing.core.model_implementations.types.tenzing_url import tenzing_url
-from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
-from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
-from tenzing.core.model_implementations.types.tenzing_categorical import (
-    tenzing_categorical,
-)
-from tenzing.core.model_implementations.types.tenzing_complex import tenzing_complex
+from tenzing.core.model_implementations.types import tenzing_integer, tenzing_generic, tenzing_float, tenzing_string, \
+    tenzing_object, tenzing_url, tenzing_path, tenzing_datetime, tenzing_timedelta, tenzing_geometry, tenzing_bool, \
+    tenzing_categorical, tenzing_complex
 from tenzing.core.models import model_relation
 from tenzing.utils import test_utils
 import logging

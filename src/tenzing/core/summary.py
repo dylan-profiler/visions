@@ -3,7 +3,7 @@ from tenzing.core.model_implementations.compound_type import CompoundType
 
 from tenzing.core.model_implementations.sub_types import missing, infinite
 
-from tenzing.core.model_implementations import (
+from tenzing.core.model_implementations.types import (
     tenzing_url,
     tenzing_timedelta,
     tenzing_time,
