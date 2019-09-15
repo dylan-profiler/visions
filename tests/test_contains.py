@@ -33,7 +33,7 @@ def get_series_map():
             "complex_series_py_nan",
             "complex_series_py",
         ],
-        tenzing_datetime: ["timestamp_series", "timestamp_aware_series"],
+        tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
         tenzing_datetime + missing: ["timestamp_series_nat"],
         tenzing_date: ["timestamp_series"],
         tenzing_date + missing: ["timestamp_series_nat"],

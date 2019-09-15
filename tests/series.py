@@ -1,3 +1,4 @@
+import datetime
 from pathlib import PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
 import pandas as pd
@@ -82,6 +83,16 @@ def get_series():
             freq="H",
             tz="Europe/Brussels",
             name="timestamp_aware_series",
+        ),
+        pd.to_datetime(
+            pd.Series(
+                [
+                    datetime.date(2011, 1, 1),
+                    datetime.date(2012, 1, 2),
+                    datetime.date(2013, 1, 1),
+                ],
+                name="datetime",
+            )
         ),
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),

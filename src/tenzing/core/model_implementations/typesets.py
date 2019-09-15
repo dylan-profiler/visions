@@ -113,5 +113,6 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_date + missing,
             tenzing_time + missing,
             tenzing_existing_path + missing,
+            tenzing_empty + missing,
         ]
         super().__init__(types)

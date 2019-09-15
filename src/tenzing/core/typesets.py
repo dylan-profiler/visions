@@ -43,7 +43,9 @@ def check_graph_constraints(relation_graph, nodes):
 
     orphaned_nodes = [n for n in nodes if n not in set(relation_graph.nodes)]
     if orphaned_nodes:
-        warnings.warn(f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.")
+        warnings.warn(
+            f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes."
+        )
 
     cycles = list(nx.simple_cycles(relation_graph))
     if len(cycles) > 0:
@@ -59,7 +61,7 @@ def traverse_relation_graph(series, G, node=tenzing_generic):
     if len(match_types) == 1:
         return traverse_relation_graph(series, G, match_types[0])
     elif len(match_types) > 1:
-        raise ValueError(f'types contains should be mutually exclusive {match_types}')
+        raise ValueError(f"types contains should be mutually exclusive {match_types}")
     else:
         return node
 
@@ -95,7 +97,9 @@ class tenzingTypeset(object):
     def __init__(self, types: list):
         tps = set(types) | {tenzing_generic}
         # TODO: make compound work with base
-        self.types = frozenset([x.base_type if isinstance(x, CompoundType) else x for x in tps])
+        self.types = frozenset(
+            [x.base_type if isinstance(x, CompoundType) else x for x in tps]
+        )
         self.relation_graph = build_relation_graph(self.types)
         self.column_summary = {}
 
