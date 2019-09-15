@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 .idea/
 *.dot
-# _autosummary/
+_autosummary/
 
 # C extensions
 *.so
