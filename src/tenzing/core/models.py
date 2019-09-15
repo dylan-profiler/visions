@@ -1,7 +1,6 @@
 from abc import abstractmethod
 import pandas as pd
 import numpy as np
-from tenzing.core.reuse.base_summary import base_summary
 
 
 class model_relation:
@@ -45,12 +44,11 @@ class model_relation:
         self.model = model
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
-        # TODO: should not be optional
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 
     def is_relation(self, obj):
-        return self.relationship(self.friend_model.get_series(obj))
+        return self.relationship(obj)
 
     def transform(self, obj):
         return self.model.cast(obj, self.transformer)
@@ -64,7 +62,16 @@ class meta_model(type):
         return cls.contains_op(series)
 
     def __repr__(cls):
-        return cls.__name__
+        return f"{cls.__name__}"
+
+    def __add__(cls, other):
+        from tenzing.core.model_implementations.compound_type import CompoundType
+        from tenzing.core.model_implementations.sub_type import subType
+
+        if not issubclass(other, subType):
+            raise ValueError("Only Sub types can be added to Compound types.")
+        else:
+            return CompoundType(cls, [other])
 
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
@@ -88,24 +95,13 @@ class tenzing_model(metaclass=meta_model):
     >>>     def cast_op(self, series):
     >>>         return pd.to_datetime(series)
     >>>
-    >>>     def summarization_op(self, series):
-    >>>         summary = super().summarization_op(series)
-    >>>         aggregates = ['min', 'max']
-    >>>         summary.update(series.agg(aggregates).to_dict())
-    >>>
-    >>>         summary['range'] = summary['max'] - summary['min']
-    >>>         return summary
     """
 
     _relations = {}
 
-    @staticmethod
-    def get_series_mask(series):
-        return np.ones_like(series, dtype=bool)
-
-    @classmethod
-    def get_series(cls, series):
-        return series
+    # @staticmethod
+    # def get_series_mask(series):
+    #     return np.ones_like(series, dtype=bool)
 
     @classmethod
     def __instancecheck__(mcs, instance):
@@ -138,12 +134,6 @@ class tenzing_model(metaclass=meta_model):
         return operation(series)
 
     @classmethod
-    @base_summary
-    def summarize(cls, series):
-        print('tenzing_model.summarize')
-        return cls.summarization_op(series)
-
-    @classmethod
     @abstractmethod
     def contains_op(cls, series):
         pass
@@ -152,9 +142,3 @@ class tenzing_model(metaclass=meta_model):
     @abstractmethod
     def cast_op(cls, series):
         pass
-
-    @classmethod
-    @abstractmethod
-    def summarization_op(cls, series):
-        print('tenzing_model.summarization_op')
-        return {}

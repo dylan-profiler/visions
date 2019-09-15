@@ -1,53 +1,86 @@
+import warnings
+
 import pandas as pd
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
+from tenzing.core.model_implementations.compound_type import CompoundType
+
 from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.summaries.dataframe_summary import dataframe_summary
+from tenzing.core.summary import type_summary_ops, Summary
 
 
-def check_graph_constraints(G):
-    cycles = list(nx.simple_cycles(G))
-    assert len(cycles) == 0, f"Cyclical relations between types {cycles} detected"
+def build_relation_graph(nodes):
+    """Constructs a traversible relation graph between tenzing types
+    Builds a type relation graph from a collection of root and derivative nodes. Usually
+    root nodes correspond to the baseline numpy types found in pandas while derivative
+    nodes correspond to subtypes with a defined relation.
 
-    # TODO: this should be forced by framework...
-    # Relations should be connected...
-    # orphaned_nodes = [n for n in provided_nodes if n not in set(relation_graph.nodes)]
-    # assert not orphaned_nodes, f'{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes.'
+    Args:
+        nodes : List[tenzing_type]
+            A list of tenzing_types considered at the root of the relations graph.
+
+    Returns:
+        networkx DiGraph
+            A directed graph of type relations for the provided nodes.
+    """
+    relation_graph = nx.DiGraph()
+    relation_graph.add_nodes_from(nodes)
+    relation_graph.add_edges_from(
+        (node.edge[0], node.edge[1], {"relationship": node})
+        for s_node in nodes
+        for to_node, node in s_node.get_relations().items()
+    )
+
+    check_graph_constraints(relation_graph, nodes)
+    return relation_graph
+
+
+def check_graph_constraints(relation_graph, nodes):
+    undefined_nodes = set(relation_graph.nodes) - nodes
+    relation_graph.remove_nodes_from(undefined_nodes)
+    relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
+
+    orphaned_nodes = [n for n in nodes if n not in set(relation_graph.nodes)]
+    if orphaned_nodes:
+        warnings.warn(
+            f"{orphaned_nodes} were isolates in the type relation map and consequently orphaned. Please add some mapping to the orphaned nodes."
+        )
+
+    cycles = list(nx.simple_cycles(relation_graph))
+    if len(cycles) > 0:
+        warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
 def traverse_relation_graph(series, G, node=tenzing_generic):
-    """
-    Depth-first search
-    """
+    match_types = []
     for tenz_type in G.successors(node):
-        if series in tenz_type:  # TODO: generalize check
-            return traverse_relation_graph(series, G, tenz_type)
-    return node
+        if series in tenz_type:
+            match_types.append(tenz_type)
+
+    if len(match_types) == 1:
+        return traverse_relation_graph(series, G, match_types[0])
+    elif len(match_types) > 1:
+        raise ValueError(f"types contains should be mutually exclusive {match_types}")
+    else:
+        return node
 
 
-# TODO: merge two functions
 def get_type_inference_path(base_type, series, G, path=None):
     if path is None:
         path = []
     path.append(base_type)
+
+    # TODO: assert all relationships
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]["relationship"].is_relation(series):
-            # print("Transform", series.name, "from", base_type, "to", tenz_type)
             new_series = G[base_type][tenz_type]["relationship"].transform(series)
             return get_type_inference_path(tenz_type, new_series, G, path)
-    return path
-
-
-def cast_to_inferred_type(series, base_type, G):
-    for tenz_type in G.successors(base_type):
-        if G[base_type][tenz_type]["relationship"].is_relation(series):
-            # print("Cast", series.name, "from", base_type, "to", tenz_type)
-            new_series = G[base_type][tenz_type]["relationship"].transform(series)
-            return cast_to_inferred_type(new_series, tenz_type, G)
-    return series
+    return path, series
 
 
 def infer_type(base_type, series, G):
-    path = get_type_inference_path(base_type, series, G)
+    path, _ = get_type_inference_path(base_type, series, G)
     return path[-1]
 
 
@@ -57,90 +90,39 @@ class tenzingTypeset(object):
 
     Attributes
     ----------
-    base_types : frozenset
-        The collection of tenzing types at the root of the relations graph
-
-    derivative_types: frozenset
-        The collection of tenzing types which are derived either from a base_type or themselves
-
     types: frozenset
-        The collection of both base_types and derivative_types
+        The collection of tenzing types which are derived either from a base_type or themselves
     """
 
-    def __init__(self, base_types, derivative_types=None):
-        """
-
-        Parameters
-        ----------
-        base_types : List[tenzing_type]
-            The collection of tenzing types at the root of the relations graph
-
-        derivative_types: List[tenzing_type]
-            The collection of tenzing types which are derived either from a base_type or themselves
-
-        Returns
-        -------
-        self
-
-        """
-        # TODO: raise error if types miss parent
-        if derivative_types is None:
-            derivative_types = []
-
-        # TODO: reconsider value of this distinction
-        self.base_types = frozenset(base_types)
-        self.derivative_types = frozenset(derivative_types)
-        self.types = set(list(self.base_types | self.derivative_types))
-
-        self.inheritance_graph, self.relation_graph, self.complete_graph = (
-            self.build_graphs()
+    def __init__(self, types: list):
+        tps = set(types) | {tenzing_generic}
+        # TODO: make compound work with base
+        self.types = frozenset(
+            [x.base_type if isinstance(x, CompoundType) else x for x in tps]
         )
-
+        self.relation_graph = build_relation_graph(self.types)
         self.column_summary = {}
-
-    """Base class for working with collections of tenzing types on a dataset
-
-    A tenzingTypeset represents a collection of tenzingTypes
-
-    Attributes
-    ----------
-    base_types : list
-        The collection of tenzing types at the root of the relations graph. This will usually be
-        basic pandas types like `int`, `float`, `object`, etc...
-
-    derivative_types: list
-        A List of tenzing types which are derived either from a base_type or themselves. For example,
-        `tenzing_string` is represented by `object` in it's underlying pandas/numpy datatype.
-
-    """
 
     def prep(self, df):
         # TODO: improve this (no new attributes outside of __init__)
         self.column_type_map = {
             col: self._get_column_type(df[col]) for col in df.columns
         }
-        # self.is_prepped = True
 
     def summarize(self, df):
-        # assert (
-        #     self.is_prepped
-        # ), "typeset hasn't been prepped for your dataset yet. Call .prep(df)"
+        # TODO: defined over typeset
+        summary = Summary(type_summary_ops)
+
         self.prep(df)
         summary = {
-            col: self.column_type_map[col].summarize(df[col]) for col in df.columns
+            col: summary.summarize_series(df[col], self.column_type_map[col])
+            for col in df.columns
         }
         self.column_summary = summary
         return self.column_summary
 
-    def general_summary(self, df):
-        return {
-            "n_observations": df.shape[0],
-            "n_variables": df.shape[1],
-            "memory_size": df.memory_usage(index=True, deep=True).sum(),
-        }
-
     def summary_report(self, df):
-        general_summary = self.general_summary(df)
+        general_summary = dataframe_summary(df)
         column_summary = self.summarize(df)
         return {
             "types": self.column_type_map,
@@ -149,7 +131,6 @@ class tenzingTypeset(object):
         }
 
     def infer_types(self, df):
-        # Without prep, makes little sense
         self.prep(df)
         return {col: self.infer_series_type(df[col]) for col in df.columns}
 
@@ -164,83 +145,17 @@ class tenzingTypeset(object):
         )
 
     def cast_series_to_inferred_type(self, series):
-        return cast_to_inferred_type(
-            series, self.column_type_map[series.name], self.relation_graph
+        _, series = get_type_inference_path(
+            self.column_type_map[series.name], series, self.relation_graph
         )
+        return series
 
     def _get_column_type(self, series):
         # walk the relation_map to determine which is most uniquely specified
-        return traverse_relation_graph(series, self.inheritance_graph)
-
-    def get_mro(self, x):
-        """
-        Notes
-        -------
-        Taking the last .__bases__ ignores mixins
-        """
-        mro = [x]
-        last_element = list(x.__bases__)[-1]
-        if last_element.__bases__:
-            mro += self.get_mro(last_element)
-        return mro
-
-    def build_graphs(self):
-        """
-
-        Notes
-        -------
-        [:-1] drops 'tenzing_model'
-        """
-        nodes = set()
-        inheritance_edges = []
-        relation_edges = []
-
-        for data_type in self.types:
-            inheritance_relations = self.get_mro(data_type)[:-1]
-            # inheritance_relations = {str(cls.__name__): cls for cls in inheritance_relations}
-
-            nodes = nodes.union(set(inheritance_relations))
-            if len(inheritance_relations) > 1:
-                for sub_cls, cls in zip(
-                    list(inheritance_relations), list(inheritance_relations)[1:]
-                ):
-                    inheritance_edges.append((cls, sub_cls))
-
-        assert nodes == set(self.types).union(
-            {tenzing_generic}
-        ), "All subtypes should be in the typeset"
-
-        for node in nodes:
-            for key, relation in node.get_relations().items():
-                cls = relation.friend_model
-                ref_cls = relation.model
-                relation_edges.append((cls, ref_cls, relation))
-
-        # TODO: warn if inheritance has also relations
-
-        inheritance_graph = nx.DiGraph()
-        relation_graph = nx.DiGraph()
-        complete_graph = nx.DiGraph()
-        for node in nodes:
-            inheritance_graph.add_node(node)
-            relation_graph.add_node(node)
-            complete_graph.add_node(node)
-
-        for cls, sub_cls in inheritance_edges:
-            inheritance_graph.add_edge(cls, sub_cls)
-            complete_graph.add_edge(cls, sub_cls)
-
-        for cls, ref_cls, relation in relation_edges:
-            relation_graph.add_edge(cls, ref_cls, relationship=relation)
-            complete_graph.add_edge(cls, ref_cls, style="dashed", relationship=relation)
-
-        return inheritance_graph, relation_graph, complete_graph
+        return traverse_relation_graph(series, self.relation_graph)
 
     def write_dot(self):
-        for G, file_name in [
-            (self.inheritance_graph, "graph_inheritance.dot"),
-            (self.relation_graph, "graph_relations.dot"),
-            (self.complete_graph, "graph_complete.dot"),
-        ]:
-            G.graph["node"] = {"shape": "box", "color": "red"}
-            write_dot(G, file_name)
+        G = self.relation_graph.copy()
+        G.graph["node"] = {"shape": "box", "color": "red"}
+
+        write_dot(G, "graph_relations.dot")

@@ -1,11 +1,6 @@
-# import os
 from tenzing.core.model_implementations.typesets import tenzing_complete_set
 
-# os.environ["MODIN_ENGINE"] = "dask"  # Modin will use Dask
-
 import pandas as pd
-
-# import modin.pandas as pd
 
 if __name__ == "__main__":
     df = pd.DataFrame(

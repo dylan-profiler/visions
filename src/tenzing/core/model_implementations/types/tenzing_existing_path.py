@@ -21,9 +21,3 @@ class tenzing_existing_path(tenzing_path):
     @classmethod
     def cast_op(cls, series, operation=None):
         return super().cast_op(series)
-
-    @classmethod
-    def summarization_op(cls, series):
-        summary = super().summarization_op(series)
-        summary["file_sizes"] = series.map(lambda x: x.stat().st_size)
-        return summary
