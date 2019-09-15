@@ -1,6 +1,6 @@
 from pathlib import Path, PureWindowsPath, PurePosixPath
 
-from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.model.types.tenzing_object import tenzing_object
 
 
 class tenzing_path(tenzing_object):

@@ -1,7 +1,17 @@
 import os
 
+import pandas as pd
 
-def path_summary(series):
+
+def path_summary(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
     summary = {
         "common_prefix": (os.path.commonprefix(list(series)) or "No common prefix"),
         "stem_counts": series.map(lambda x: x.stem).value_counts().to_dict(),

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from tenzing.core.model_implementations.sub_type import subType
+from tenzing.core.model.sub_type import subType
 from tenzing.core.models import model_relation, tenzing_model
 
 # TODO: Need to reconsider the naming, types should be distinguished from

@@ -50,26 +50,26 @@ class model_relation:
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 
-    def is_relation(self, obj):
+    def is_relation(self, obj) -> bool:
         return self.relationship(obj)
 
     def transform(self, obj):
         return self.model.cast(obj, self.transformer)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"({self.friend_model} -> {self.model})"
 
 
 class meta_model(type):
-    def __contains__(cls, series):
+    def __contains__(cls, series) -> bool:
         return cls.contains_op(series)
 
-    def __repr__(cls):
+    def __repr__(cls) -> str:
         return f"{cls.__name__}"
 
     def __add__(cls, other):
-        from tenzing.core.model_implementations.compound_type import CompoundType
-        from tenzing.core.model_implementations.sub_type import subType
+        from tenzing.core.model.compound_type import CompoundType
+        from tenzing.core.model.sub_type import subType
 
         if not issubclass(other, subType):
             raise ValueError("Only Sub types can be added to Compound types.")
@@ -102,19 +102,15 @@ class tenzing_model(metaclass=meta_model):
 
     _relations = {}
 
-    # @staticmethod
-    # def get_series_mask(series):
-    #     return np.ones_like(series, dtype=bool)
-
     @classmethod
-    def __instancecheck__(mcs, instance):
+    def __instancecheck__(mcs, instance) -> bool:
         if instance.__class__ is mcs:
             return True
         else:
             return isinstance(instance.__class__, mcs)
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> dict:
         # TODO: move to __new__ or so?
         if cls.__name__ not in cls._relations:
             cls._relations[cls.__name__] = {}
@@ -122,7 +118,7 @@ class tenzing_model(metaclass=meta_model):
         return cls._relations[cls.__name__]
 
     @classmethod
-    def register_relation(cls, relation):
+    def register_relation(cls, relation) -> None:
         if cls.__name__ not in cls._relations:
             cls._relations[cls.__name__] = {}
 
@@ -138,7 +134,7 @@ class tenzing_model(metaclass=meta_model):
 
     @classmethod
     @abstractmethod
-    def contains_op(cls, series):
+    def contains_op(cls, series) -> bool:
         pass
 
     @classmethod

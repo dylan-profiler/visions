@@ -1,6 +1,6 @@
 import pandas.api.types as pdt
 
-from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
 
 class tenzing_object(tenzing_generic):

@@ -3,14 +3,14 @@ import warnings
 import pandas as pd
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
-from tenzing.core.model_implementations.compound_type import CompoundType
+from tenzing.core.model.compound_type import CompoundType
 
-from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.types.tenzing_generic import tenzing_generic
 from tenzing.core.summaries.frame.dataframe_summary import dataframe_summary
 from tenzing.core.summary import type_summary_ops, Summary
 
 
-def build_relation_graph(nodes):
+def build_relation_graph(nodes: frozenset) -> nx.DiGraph:
     """Constructs a traversible relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -101,7 +101,6 @@ class tenzingTypeset(object):
             [x.base_type if isinstance(x, CompoundType) else x for x in tps]
         )
         self.relation_graph = build_relation_graph(self.types)
-        self.column_summary = {}
 
     def prep(self, df):
         # TODO: improve this (no new attributes outside of __init__)
@@ -109,7 +108,7 @@ class tenzingTypeset(object):
             col: self._get_column_type(df[col]) for col in df.columns
         }
 
-    def summarize(self, df):
+    def summarize(self, df: pd.DataFrame) -> dict:
         # TODO: defined over typeset
         summary = Summary(type_summary_ops)
 
@@ -118,10 +117,9 @@ class tenzingTypeset(object):
             col: summary.summarize_series(df[col], self.column_type_map[col])
             for col in df.columns
         }
-        self.column_summary = summary
-        return self.column_summary
+        return summary
 
-    def summary_report(self, df):
+    def summary_report(self, df: pd.DataFrame) -> dict:
         general_summary = dataframe_summary(df)
         column_summary = self.summarize(df)
         return {
@@ -130,31 +128,31 @@ class tenzingTypeset(object):
             "general": general_summary,
         }
 
-    def infer_types(self, df):
+    def infer_types(self, df: pd.DataFrame):
         self.prep(df)
         return {col: self.infer_series_type(df[col]) for col in df.columns}
 
-    def cast_to_inferred_types(self, df):
+    def cast_to_inferred_types(self, df: pd.DataFrame):
         return pd.DataFrame(
             {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
         )
 
-    def infer_series_type(self, series):
+    def infer_series_type(self, series: pd.Series):
         return infer_type(
             self.column_type_map[series.name], series, self.relation_graph
         )
 
-    def cast_series_to_inferred_type(self, series):
+    def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
         _, series = get_type_inference_path(
             self.column_type_map[series.name], series, self.relation_graph
         )
         return series
 
-    def _get_column_type(self, series):
+    def _get_column_type(self, series: pd.Series):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_graph)
 
-    def write_dot(self):
+    def write_dot(self) -> None:
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 

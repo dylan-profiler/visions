@@ -1,7 +1,7 @@
 import pandas as pd
 from urllib.parse import urlparse, ParseResult
 
-from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.model.types.tenzing_object import tenzing_object
 
 
 class tenzing_url(tenzing_object):

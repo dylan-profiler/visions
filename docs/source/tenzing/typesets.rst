@@ -19,12 +19,12 @@ Abstract Typesets
 Concrete Typesets
 =================
 
-.. currentmodule:: tenzing.core.model_implementations.typesets
+.. currentmodule:: tenzing.core.model.typesets
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   tenzing_standard
+   tenzing_standard_set
    tenzing_geometry_set
    tenzing_complete_set

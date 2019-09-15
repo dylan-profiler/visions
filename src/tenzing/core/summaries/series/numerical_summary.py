@@ -1,7 +1,16 @@
 import numpy as np
+import pandas as pd
 
 
-def numerical_summary(series):
+def numerical_summary(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
     aggregates = [
         "mean",
         "std",

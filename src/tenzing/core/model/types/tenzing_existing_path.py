@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from tenzing.core.model_implementations.types.tenzing_path import tenzing_path
+from tenzing.core.model.types.tenzing_path import tenzing_path
 
 
 class tenzing_existing_path(tenzing_path):

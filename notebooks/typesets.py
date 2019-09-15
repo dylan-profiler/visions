@@ -1,4 +1,4 @@
-from tenzing.core.model_implementations.typesets import tenzing_complete_set
+from tenzing.core.model.typesets import tenzing_complete_set
 
 
 tsc = tenzing_complete_set()

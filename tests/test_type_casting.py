@@ -1,6 +1,6 @@
 import pytest
 
-from tenzing.core.model_implementations.types import *
+from tenzing.core.model.types import *
 
 from tests.series import get_series
 

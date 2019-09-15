@@ -1,6 +1,6 @@
 import numpy as np
 
-from tenzing.core.model_implementations.sub_type import subType
+from tenzing.core.model.sub_type import subType
 
 
 class infinite(subType):

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tenzing.core.model_implementations.types.tenzing_object import tenzing_object
+from tenzing.core.model.types.tenzing_object import tenzing_object
 
 
 class tenzing_geometry(tenzing_object):

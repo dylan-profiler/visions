@@ -1,4 +1,4 @@
-from tenzing.core.model_implementations.sub_type import subType
+from tenzing.core.model.sub_type import subType
 
 
 class missing(subType):

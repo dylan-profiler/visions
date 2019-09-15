@@ -2,8 +2,8 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model_implementations.types import *
-from tenzing.core.model_implementations.sub_types import missing, infinite
+from tenzing.core.model.types import *
+from tenzing.core.model.sub_types import missing, infinite
 from tenzing.core.summary import type_summary_ops, Summary
 
 

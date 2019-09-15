@@ -1,7 +1,15 @@
 import pandas as pd
 
 
-def url_summary(series):
+def url_summary(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
     summary = {}
 
     keys = ["scheme", "netloc", "path", "query", "fragment"]

@@ -1,7 +1,7 @@
 import pandas.api.types as pdt
 import numpy as np
 
-from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
 
 class tenzing_integer(tenzing_generic):

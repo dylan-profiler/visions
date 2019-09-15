@@ -1,6 +1,7 @@
 # https://stackoverflow.com/a/9871358/470433
 # https://gist.github.com/anonymous/2204527
 # from unicodedata import *
+from typing import Tuple
 
 script_data = {
     "names": [
@@ -1776,7 +1777,7 @@ script_data = {
 }
 
 
-def script_cat(chr):
+def script_cat(chr) -> Tuple[str, str]:
     """ For the unicode character chr return a tuple (Scriptname, Category).
 
     Args:
@@ -1802,11 +1803,27 @@ def script_cat(chr):
     return "Unknown", "Zzzz"
 
 
-def script(chr):
+def script(chr) -> str:
+    """
+
+    Args:
+        chr:
+
+    Returns:
+
+    """
     a, _ = script_cat(chr)
     return a
 
 
-def category(chr):
+def category(chr) -> str:
+    """
+
+    Args:
+        chr:
+
+    Returns:
+
+    """
     _, a = script_cat(chr)
     return a

@@ -1,7 +1,17 @@
+import pandas as pd
+
 from tenzing.utils.unicodedata2 import script_cat
 
 
-def text_summary(series):
+def text_summary(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
     # Distribution of length
     summary = {"length": series.map(lambda x: len(str(x))).value_counts().to_dict()}
 

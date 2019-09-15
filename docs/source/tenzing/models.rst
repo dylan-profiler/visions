@@ -6,7 +6,7 @@ Tenzing Types
 Abstract Types
 ==============
 
-.. currentmodule:: tenzing.core.model_implementations
+.. currentmodule:: tenzing.core.model
 .. toctree::
 
 .. autosummary::
@@ -14,13 +14,14 @@ Abstract Types
 
    compound_type
    relations
+   types.tenzing_generic
 
 
 ==============
 Concrete Types
 ==============
 
-.. currentmodule:: tenzing.core.model_implementations.types
+.. currentmodule:: tenzing.core.model.types
 .. toctree::
 
 .. autosummary::
@@ -35,3 +36,11 @@ Concrete Types
    tenzing_object
    tenzing_string
    tenzing_geometry
+   tenzing_path
+   tenzing_existing_path
+   tenzing_image_path
+   tenzing_timedelta
+   tenzing_time
+   tenzing_date
+   tenzing_url
+   tenzing_empty

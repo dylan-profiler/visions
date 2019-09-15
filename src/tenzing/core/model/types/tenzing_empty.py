@@ -1,5 +1,5 @@
 import pandas as pd
-from tenzing.core.model_implementations.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
 
 class tenzing_empty(tenzing_generic):

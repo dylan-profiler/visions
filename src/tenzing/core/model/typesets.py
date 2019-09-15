@@ -1,6 +1,6 @@
-from tenzing.core.model_implementations.types import *
+from tenzing.core.model.types import *
 from tenzing.core.typesets import tenzingTypeset
-from tenzing.core.model_implementations import *
+from tenzing.core.model import *
 
 import pandas as pd
 
@@ -12,10 +12,11 @@ def _get_column_names(obj):
         return obj
 
 
-class tenzing_standard(tenzingTypeset):
+class tenzing_standard_set(tenzingTypeset):
     """The standard tenzing typesets
 
     Includes support for the following types:
+
     - tenzing_float
     - tenzing_integer
     - tenzing_bool
@@ -25,6 +26,7 @@ class tenzing_standard(tenzingTypeset):
     - tenzing_categorical
     - tenzing_datetime
     - tenzing_timedelta
+
     """
 
     def __init__(self):
@@ -47,6 +49,7 @@ class tenzing_geometry_set(tenzingTypeset):
     """Standard tenzing typeset with shapely geometry support
 
     Includes support for the following types:
+
     - tenzing_float
     - tenzing_integer
     - tenzing_bool
@@ -57,6 +60,7 @@ class tenzing_geometry_set(tenzingTypeset):
     - tenzing_datetime
     - tenzing_timedelta
     - tenzing_geometry
+
     """
 
     def __init__(self):
@@ -76,9 +80,10 @@ class tenzing_geometry_set(tenzingTypeset):
 
 
 class tenzing_complete_set(tenzingTypeset):
-    """Standard tenzing typeset with all supported types
+    """Complete tenzing typeset with all supported types
 
     Includes support for the following types:
+
     - tenzing_float
     - tenzing_integer
     - tenzing_bool
@@ -94,6 +99,7 @@ class tenzing_complete_set(tenzingTypeset):
     - tenzing_path
     - tenzing_existing_path
     - tenzing_url
+
     """
 
     def __init__(self):

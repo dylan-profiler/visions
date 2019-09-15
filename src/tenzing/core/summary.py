@@ -1,7 +1,7 @@
 import pandas as pd
-from tenzing.core.model_implementations.compound_type import CompoundType
-from tenzing.core.model_implementations.sub_types import missing, infinite
-from tenzing.core.model_implementations.types import *
+from tenzing.core.model.compound_type import CompoundType
+from tenzing.core.model.sub_types import missing, infinite
+from tenzing.core.model.types import *
 from tenzing.core.models import tenzing_model
 from tenzing.core.summaries import *
 

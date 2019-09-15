@@ -71,7 +71,7 @@ from tenzing.core.model_implementations.typesets import tenzing_standard
 df = pd.DataFrame({'a': range(3),
 			         'b': [2 * i for i in range(3)],
 			         'c': ['howdy', 'howdy', 'doody']})
-my_typeset = tenzing_standard()
+my_typeset = tenzing_standard_set()
 my_typeset.types
 -> frozenset({tenzing_bool,
            tenzing_categorical,

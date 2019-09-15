@@ -1,7 +1,16 @@
 import numpy as np
+import pandas as pd
 
 
-def unique_summary(series):
+def unique_summary(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
     summary = {}
 
     # try:
@@ -18,7 +27,15 @@ def unique_summary(series):
     return summary
 
 
-def unique_warnings(summary):
+def unique_warnings(summary: dict) -> list:
+    """
+
+    Args:
+        summary:
+
+    Returns:
+
+    """
     messages = []
     if summary["n_unique"] == 1:
         messages.append("n_unique:const")

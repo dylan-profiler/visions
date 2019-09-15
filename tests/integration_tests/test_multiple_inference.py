@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import datetime
 
-from tenzing.core.model_implementations.typesets import tenzing_complete_set
+from tenzing.core.model.typesets import tenzing_complete_set
 
 
 def test_multiple_inference():

@@ -1,14 +1,17 @@
 from pathlib import Path
+from typing import Union, Tuple
+
 import pandas as pd
 
 import imagehash
 from PIL import Image, ExifTags
 
 
-def is_image_truncated(image):
+def is_image_truncated(image: Image) -> bool:
     """Returns True if the path refers to a truncated image
 
     Args:
+        image:
 
     Returns:
         True if the image is truncated
@@ -20,28 +23,60 @@ def is_image_truncated(image):
         return True
 
 
-def get_image_shape(image):
+def get_image_shape(image: Image) -> Union[None, Tuple[int, int]]:
+    """
+
+    Args:
+        image:
+
+    Returns:
+
+    """
     try:
         return image.size
-    except (OSError, AttributeError) as err:
+    except (OSError, AttributeError):
         return None
 
 
-def hash_image(image):
+def hash_image(image: Image) -> Union[str, None]:
+    """
+
+    Args:
+        image:
+
+    Returns:
+
+    """
     try:
         return str(imagehash.phash(image))
-    except (OSError, AttributeError) as err:
+    except (OSError, AttributeError):
         return None
 
 
-def count_duplicate_hashes(image_descriptions):
+def count_duplicate_hashes(image_descriptions: dict) -> int:
+    """
+
+    Args:
+        image_descriptions:
+
+    Returns:
+
+    """
     counts = pd.Series(
         [x["hash"] for x in image_descriptions if "hash" in x]
     ).value_counts()
     return counts.sum() - len(counts)
 
 
-def extract_exif(image):
+def extract_exif(image: Image) -> dict:
+    """
+
+    Args:
+        image:
+
+    Returns:
+
+    """
     try:
         exif_data = image._getexif()
         if exif_data is not None:
@@ -57,7 +92,15 @@ def extract_exif(image):
     return exif
 
 
-def extract_exif_series(image_exifs):
+def extract_exif_series(image_exifs: dict) -> dict:
+    """
+
+    Args:
+        image_exifs:
+
+    Returns:
+
+    """
     exif_keys = []
     exif_values = {}
 
@@ -86,14 +129,22 @@ def extract_exif_series(image_exifs):
     return series
 
 
-def open_image(path: Path):
+def open_image(path: Path) -> Image:
+    """
+
+    Args:
+        path:
+
+    Returns:
+
+    """
     try:
         return Image.open(path)
     except (OSError, AttributeError) as err:
         return None
 
 
-def extract_image_information(path: Path):
+def extract_image_information(path: Path) -> dict:
     """Extracts all image information per file, as opening files is slow
 
     Args:
@@ -116,7 +167,15 @@ def extract_image_information(path: Path):
     return information
 
 
-def image_summary(series):
+def image_summary(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
     image_information = series.apply(extract_image_information)
     summary = {
         "n_duplicate_hash": count_duplicate_hashes(image_information),
@@ -140,7 +199,15 @@ def image_summary(series):
     return summary
 
 
-def image_warnings(summary):
+def image_warnings(summary: dict) -> list:
+    """
+
+    Args:
+        summary:
+
+    Returns:
+
+    """
     messages = []
     if summary["n_truncated"] > 0:
         messages.append("n_truncated")

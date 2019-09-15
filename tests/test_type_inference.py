@@ -1,9 +1,9 @@
 import pytest
 
-from tenzing.core.model_implementations import missing
-from tenzing.core.model_implementations.typesets import tenzing_complete_set
+from tenzing.core.model import missing
+from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.typesets import infer_type, traverse_relation_graph
-from tenzing.core.model_implementations.types import *
+from tenzing.core.model.types import *
 from tests.series import get_series
 
 

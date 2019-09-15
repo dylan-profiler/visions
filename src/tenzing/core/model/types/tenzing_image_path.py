@@ -1,7 +1,7 @@
 from tenzing.utils.monkeypatches import *
 import imghdr
 
-from tenzing.core.model_implementations.types.tenzing_existing_path import (
+from tenzing.core.model.types.tenzing_existing_path import (
     tenzing_existing_path,
 )
 
