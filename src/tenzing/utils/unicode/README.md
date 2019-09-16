@@ -22,6 +22,18 @@ This module provides an alternative to Python's `unicodedata`, including human-r
 
 _Table 1: presence of properties is denoted by &#9745; (Unicode Character 'BALLOT BOX WITH CHECK' (U+2611))._		
 
+## Usage
+
+```python
+import tangled_up_in_unicode as unicodedata
+```
+
+The package can be installed from pypi:
+
+```
+pip install tangled-up-in-unicode
+```
+
 ## Other features
 
 Some of the features in `unicodedata` are not supported. 
