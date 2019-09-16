@@ -43,12 +43,10 @@ class Summary(object):
 
     def summarize(self, df: pd.DataFrame, types) -> dict:
         frame_summary = self.summarize_frame(df)
-        series_summary = {col: self.summarize_series(df[col], types[col]) for col in df.columns}
-        return {
-            "types": types,
-            "series": series_summary,
-            "frame": frame_summary,
+        series_summary = {
+            col: self.summarize_series(df[col], types[col]) for col in df.columns
         }
+        return {"types": types, "series": series_summary, "frame": frame_summary}
 
 
 type_summary_ops = {

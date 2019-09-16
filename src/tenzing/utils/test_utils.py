@@ -16,6 +16,7 @@ def option_coercion_evaluator(method: Callable) -> Callable:
     Returns:
         The coerced series if the coercion succeeds otherwise None.
     """
+
     def f(series: pd.Series) -> Union[None, bool]:
         try:
             return method(series)

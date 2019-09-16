@@ -150,9 +150,11 @@
            <div itemprop="articleBody">
             
   <h1>Source code for tenzing.core.summaries.series.text_summary</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="k">import</span> <span class="n">category</span>
 
-<span class="kn">from</span> <span class="nn">tenzing.utils.unicodedata2</span> <span class="k">import</span> <span class="n">script_cat</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">tenzing.utils.unicode.unicode_data</span> <span class="k">import</span> <span class="n">script</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">category_alias</span>
 
 
 <div class="viewcode-block" id="text_summary"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.summaries.series.text_summary.html#tenzing.core.summaries.series.text_summary">[docs]</a><span class="k">def</span> <span class="nf">text_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -167,14 +169,28 @@
     <span class="c1"># Distribution of length</span>
     <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span>
 
-    <span class="c1"># Unicode Scripts and Categories</span>
-    <span class="n">unicode_series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">sequence</span><span class="p">:</span> <span class="p">{</span><span class="n">script_cat</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">}</span>
+    <span class="c1"># Unicode Character Summaries (category and script name)</span>
+    <span class="n">category_values</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">sequence</span><span class="p">:</span> <span class="p">{</span><span class="n">category</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">}</span>
     <span class="p">)</span>
-    <span class="c1"># TODO: add name of category</span>
-    <span class="c1"># http://www.unicode.org/reports/tr44/#GC_Values_Table</span>
-    <span class="n">unicode_scripts</span> <span class="o">=</span> <span class="p">{</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unicode_series</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">}</span>
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;unicode_scripts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unicode_scripts</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_short_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">category_values</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">}</span>
+
+    <span class="n">category_long_values</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">sequence</span><span class="p">:</span> <span class="p">{</span><span class="n">category_alias</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">category_long_values</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span>
+    <span class="p">}</span>
+
+    <span class="n">script_values</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">sequence</span><span class="p">:</span> <span class="p">{</span><span class="n">script</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;script_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">script_values</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">}</span>
+
+    <span class="n">block_values</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">sequence</span><span class="p">:</span> <span class="p">{</span><span class="n">block</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">block_values</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">summary</span></div>
 </pre></div>

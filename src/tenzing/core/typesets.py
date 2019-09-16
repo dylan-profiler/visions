@@ -86,8 +86,8 @@ def cast_series_to_inferred_type(base_type, series, G):
 
 def detect_series_container(series, containers):
     series_containers = [container for container in containers if series in container]
-    container = MultiContainer(series_containers) if len(series_containers) > 1 else series_containers[0]
-    return container
+    # container = MultiContainer(series_containers) if len(series_containers) > 1 else series_containers[0]
+    return series_containers
 
 
 # TODO: Should be container...
@@ -137,13 +137,23 @@ class tenzingTypeset(object):
         self.containers = containers
 
     def prep(self, df):
-        self.column_container_map = {col: self.detect_series_container(df[col]) for col in df.columns}
-        self.column_base_type_map = {col: self._get_column_type(df[col]) for col in df.columns}
-        self.column_type_map = {MultiContainer(self.column_container_map[col] + TypeC(self.column_base_type_map[col]))
-                                for col in df.columns}
+        self.column_container_map = {
+            col: self.detect_series_container(df[col]) for col in df.columns
+        }
+        self.column_base_type_map = {
+            col: self._get_column_type(df[col]) for col in df.columns
+        }
+        self.column_type_map = {
+            col: MultiContainer(
+                self.column_container_map[col] + [TypeC(self.column_base_type_map[col])]
+            )
+            for col in df.columns
+        }
 
     def detect_series_container(self, series):
-        self.column_base_type_map[series.name] = detect_series_container(series, self.containers)
+        self.column_base_type_map[series.name] = detect_series_container(
+            series, self.containers
+        )
         return self.column_base_type_map[series.name]
 
     def get_containerized_series(self, series):
@@ -162,14 +172,18 @@ class tenzingTypeset(object):
 
     def infer_series_type(self, series: pd.Series):
         containerized_series = self.get_containerized_series(series)
-        base_type = infer_type(self.column_base_type_map[series.name], containerized_series, self.relation_graph)
+        base_type = infer_type(
+            self.column_base_type_map[series.name],
+            containerized_series,
+            self.relation_graph,
+        )
         return base_type
 
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
         mask = self.column_container_map[series.name].mask(series)
-        series.loc[mask] = cast_series_to_inferred_type(self.column_base_type_map[series.name],
-                                                        series[mask],
-                                                        self.relation_graph)
+        series.loc[mask] = cast_series_to_inferred_type(
+            self.column_base_type_map[series.name], series[mask], self.relation_graph
+        )
         return series
 
     def _get_column_type(self, series: pd.Series):

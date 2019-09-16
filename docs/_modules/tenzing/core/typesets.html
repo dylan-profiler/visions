@@ -238,8 +238,8 @@
 
 <span class="k">def</span> <span class="nf">detect_series_container</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">containers</span><span class="p">):</span>
     <span class="n">series_containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">container</span> <span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">containers</span> <span class="k">if</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">container</span><span class="p">]</span>
-    <span class="n">container</span> <span class="o">=</span> <span class="n">MultiContainer</span><span class="p">(</span><span class="n">series_containers</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">series_containers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">series_containers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">container</span>
+    <span class="c1"># container = MultiContainer(series_containers) if len(series_containers) &gt; 1 else series_containers[0]</span>
+    <span class="k">return</span> <span class="n">series_containers</span>
 
 
 <span class="c1"># TODO: Should be container...</span>
@@ -289,13 +289,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">containers</span> <span class="o">=</span> <span class="n">containers</span></div>
 
     <span class="k">def</span> <span class="nf">prep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_series_container</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_type_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">MultiContainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="n">TypeC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">]))</span>
-                                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_series_container</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_type_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">col</span><span class="p">:</span> <span class="n">MultiContainer</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">TypeC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">])]</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">detect_series_container</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">detect_series_container</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">containers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">detect_series_container</span><span class="p">(</span>
+            <span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">containers</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_containerized_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
@@ -314,14 +324,18 @@
 
     <span class="k">def</span> <span class="nf">infer_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
         <span class="n">containerized_series</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_containerized_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="n">base_type</span> <span class="o">=</span> <span class="n">infer_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">containerized_series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+        <span class="n">base_type</span> <span class="o">=</span> <span class="n">infer_type</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
+            <span class="n">containerized_series</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">base_type</span>
 
     <span class="k">def</span> <span class="nf">cast_series_to_inferred_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="n">series</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">cast_series_to_inferred_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
-                                                        <span class="n">series</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span>
-                                                        <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+        <span class="n">series</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">cast_series_to_inferred_type</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">series</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">series</span>
 
     <span class="k">def</span> <span class="nf">_get_column_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>

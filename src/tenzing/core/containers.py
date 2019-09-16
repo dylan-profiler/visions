@@ -90,7 +90,7 @@ class TypeC(Container):
 
     def mask(self, series):
         # TODO: exclude inf
-        return (series.notnull())
+        return series.notnull()
 
     def contains_op(self, series):
         return series[self.mask(series)] in self.base_type
@@ -163,5 +163,3 @@ generic = Generic()
 infinite = Infinite()
 missing = Missing()
 type = TypeC(tenzing_generic)
-
-

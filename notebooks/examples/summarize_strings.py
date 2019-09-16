@@ -14,7 +14,8 @@ df = pd.DataFrame(
         "specials": ["$", "%^&*(", "!!!~``"],
         "whitespace": ["\t", "\n", " "],
         "jiddisch": ["רעכט צו לינקס", "שאָסיי 61", "פּיצאַ איז אָנגענעם"],
-        "arabic": ["بوب ديلان", "باتي فالنتين", "السيد الدف الرجل"]
+        "arabic": ["بوب ديلان", "باتي فالنتين", "السيد الدف الرجل"],
+        "playing_cards": ["🂶", "🃁", "🂻"],
     }
 )
 
@@ -22,8 +23,9 @@ df = pd.DataFrame(
 ts = tenzing_complete_set()
 _ = ts.prep(df)
 
-x = summary.summarize(df, ts.column_container_map)
+x = summary.summarize(df, ts.column_type_map)
 for key, variable_summary in x["series"].items():
-    print(
-        f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}"
-    )
+    print(key, variable_summary)
+    # print(
+    #     f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}"
+    # )

@@ -242,7 +242,7 @@
 
     <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="c1"># TODO: exclude inf</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">notnull</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">series</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_type</span>
@@ -315,8 +315,6 @@
 <span class="n">infinite</span> <span class="o">=</span> <span class="n">Infinite</span><span class="p">()</span>
 <span class="n">missing</span> <span class="o">=</span> <span class="n">Missing</span><span class="p">()</span>
 <span class="nb">type</span> <span class="o">=</span> <span class="n">TypeC</span><span class="p">(</span><span class="n">tenzing_generic</span><span class="p">)</span>
-
-
 </pre></div>
 
            </div>
