@@ -1,3 +1,4 @@
+from ipaddress import ip_address
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -204,7 +205,14 @@ def register_empty_relations():
 
 
 def register_ip_relations():
-    relations = [model_relation(tenzing_ip, tenzing_object)]
+    relations = [
+        model_relation(tenzing_ip, tenzing_object),
+        model_relation(
+            tenzing_ip,
+            tenzing_string,
+            test_utils.coercion_test(lambda s: s.apply(lambda x: ip_address(x))),
+        ),
+    ]
     for relation in relations:
         tenzing_ip.register_relation(relation)
 

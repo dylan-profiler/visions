@@ -7,9 +7,10 @@ from tenzing.core.model.types.tenzing_generic import tenzing_generic
 class tenzing_integer(tenzing_generic):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([1, 2, 3])
-    >>> x in tenzing_integer
-    True
+    Examples:
+        >>> x = pd.Series([1, 2, 3])
+        >>> x in tenzing_integer
+        True
     """
 
     @classmethod

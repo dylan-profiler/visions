@@ -6,10 +6,11 @@ from tenzing.core.model.types.tenzing_object import tenzing_object
 class tenzing_geometry(tenzing_object):
     """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> from shapely import wkt
-    >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
-    >>> x in tenzing_geometry
-    True
+    Examples:
+        >>> from shapely import wkt
+        >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
+        >>> x in tenzing_geometry
+        True
     """
 
     from shapely import geometry

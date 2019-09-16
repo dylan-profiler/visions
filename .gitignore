@@ -5,6 +5,7 @@ __pycache__/
 .idea/
 *.dot
 docsrc/source/tenzing/_autosummary/
+docsrc/build/
 
 # C extensions
 *.so

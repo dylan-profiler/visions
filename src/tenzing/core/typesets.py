@@ -3,14 +3,13 @@ import warnings
 import pandas as pd
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
-from tenzing.core.model.compound_type import CompoundType
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-from tenzing.core.summaries.frame.dataframe_summary import dataframe_summary
-from tenzing.core.summary import type_summary_ops, Summary
+#from tenzing.core.summaries.frame.dataframe_summary import dataframe_summary
+#from tenzing.core.summary import type_summary_ops, Summary
+from tenzing.core.containers import MultiContainer
 
-
-def build_relation_graph(nodes: frozenset) -> nx.DiGraph:
+def build_relation_graph(nodes: set) -> nx.DiGraph:
     """Constructs a traversible relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -65,9 +64,7 @@ def traverse_relation_graph(series, G, node=tenzing_generic):
         return node
 
 
-def get_type_inference_path(base_type, series, G, path=None):
-    if path is None:
-        path = []
+def get_type_inference_path(base_type, series, G, path=[]):
     path.append(base_type)
 
     # TODO: assert all relationships
@@ -83,6 +80,37 @@ def infer_type(base_type, series, G):
     return path[-1]
 
 
+def cast_series_to_inferred_type(base_type, series, G):
+    _, series = get_type_inference_path(base_type, series, G)
+    return series
+
+
+def detect_series_container(series, containers):
+    series_containers = [container for container in containers if series in container]
+    container = MultiContainer(series_containers) if len(series_containers) > 1 else series_containers[0]
+    return container
+
+
+class Type:
+    def __init__(self, container, base_type):
+        self.container = container
+        self.base_type = base_type
+
+    def contains_op(self, series):
+        if series in self.container:
+            return series in self.base_type
+        else:
+            return False
+
+    def transform(self, series):
+        container_mask = self.container.mask(series)
+        series[container_mask] = self.base_type.cast_op(series[container_mask])
+        return series
+
+    def __repr__(self):
+        return f"{self.container}[{self.base_type}]"
+
+
 class tenzingTypeset(object):
     """
     A collection of tenzing_types with an associated relationship map between them.
@@ -93,66 +121,57 @@ class tenzingTypeset(object):
         The collection of tenzing types which are derived either from a base_type or themselves
     """
 
-    def __init__(self, types: list):
-        tps = set(types) | {tenzing_generic}
-        # TODO: make compound work with base
-        self.types = frozenset(
-            [x.base_type if isinstance(x, CompoundType) else x for x in tps]
-        )
-        self.relation_graph = build_relation_graph(self.types)
+    def __init__(self, containers: list, types: list):
+        self.column_container_map = {}
+        self.column_base_type_map = {}
+        self.column_type_map = {}
+
+        self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
+        self.types = frozenset(self.relation_graph.nodes)
+        self.containers = containers
 
     def prep(self, df):
-        # TODO: improve this (no new attributes outside of __init__)
-        self.column_type_map = {
-            col: self._get_column_type(df[col]) for col in df.columns
-        }
+        self.column_container_map = {col: self.detect_series_container(df[col]) for col in df.columns}
+        self.column_base_type_map = {col: self._get_column_type(df[col]) for col in df.columns}
+        self.column_type_map = {Type(self.column_container_map[col], self.column_base_type_map[col])
+                                for col in df.columns}
 
-    def summarize(self, df: pd.DataFrame) -> dict:
-        # TODO: defined over typeset
-        summary = Summary(type_summary_ops)
+    def detect_series_container(self, series):
+        self.column_base_type_map[series.name] = detect_series_container(series, self.containers)
+        return self.column_base_type_map[series.name]
 
-        self.prep(df)
-        summary = {
-            col: summary.summarize_series(df[col], self.column_type_map[col])
-            for col in df.columns
-        }
-        return summary
-
-    def summary_report(self, df: pd.DataFrame) -> dict:
-        general_summary = dataframe_summary(df)
-        column_summary = self.summarize(df)
-        return {
-            "types": self.column_type_map,
-            "columns": column_summary,
-            "general": general_summary,
-        }
+    def get_containerized_series(self, series):
+        container = self.detect_series_container(series)
+        return container.transform(series)
 
     def infer_types(self, df: pd.DataFrame):
         self.prep(df)
         return {col: self.infer_series_type(df[col]) for col in df.columns}
 
     def cast_to_inferred_types(self, df: pd.DataFrame):
+        self.prep(df)
         return pd.DataFrame(
             {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
         )
 
     def infer_series_type(self, series: pd.Series):
-        return infer_type(
-            self.column_type_map[series.name], series, self.relation_graph
-        )
+        containerized_series = self.get_containerized_series(series)
+        base_type = infer_type(self.column_base_type_map[series.name], containerized_series, self.relation_graph)
+        return base_type
 
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
-        _, series = get_type_inference_path(
-            self.column_type_map[series.name], series, self.relation_graph
-        )
+        mask = self.column_container_map[series.name].mask(series)
+        series.loc[mask] = cast_series_to_inferred_type(self.column_base_type_map[series.name],
+                                                        series[mask],
+                                                        self.relation_graph)
         return series
 
     def _get_column_type(self, series: pd.Series):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_graph)
 
-    def write_dot(self) -> None:
+    def write_dot(self, file_name="graph_relations.dot") -> None:
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
-        write_dot(G, "graph_relations.dot")
+        write_dot(G, file_name)

@@ -7,9 +7,10 @@ from tenzing.core.model.types.tenzing_generic import tenzing_generic
 class tenzing_timedelta(tenzing_generic):
     """**Timedelta** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([pd.Timedelta(days=i) for i in range(3)])
-    >>> x in tenzing_timedelta
-    True
+    Examples:
+        >>> x = pd.Series([pd.Timedelta(days=i) for i in range(3)])
+        >>> x in tenzing_timedelta
+        True
     """
 
     @classmethod

@@ -13,9 +13,10 @@ def path_is_image(p: Path):
 class tenzing_image_path(tenzing_existing_path):
     """**Image Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([Path('/home/user/file.png'), Path('/home/user/test2.jpg')])
-    >>> x in tenzing_image_path
-    True
+    Examples:
+        >>> x = pd.Series([Path('/home/user/file.png'), Path('/home/user/test2.jpg')])
+        >>> x in tenzing_image_path
+        True
     """
 
     @classmethod

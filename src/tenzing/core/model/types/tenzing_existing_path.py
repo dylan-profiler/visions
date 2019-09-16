@@ -7,9 +7,10 @@ from tenzing.core.model.types.tenzing_path import tenzing_path
 class tenzing_existing_path(tenzing_path):
     """**Existing Path** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
-    >>> x in tenzing_existing_path
-    True
+    Examples:
+        >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
+        >>> x in tenzing_existing_path
+        True
     """
 
     @classmethod

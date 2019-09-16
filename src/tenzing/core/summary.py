@@ -1,6 +1,6 @@
 import pandas as pd
-from tenzing.core.model.compound_type import CompoundType
-from tenzing.core.model.sub_types import missing, infinite
+
+from tenzing.core.containers import Container
 from tenzing.core.model.types import *
 from tenzing.core.models import tenzing_model
 from tenzing.core.summaries import *
@@ -13,29 +13,43 @@ class Summary(object):
 
         self.type_summary_ops = type_summary_ops
 
-    def summarize_series(self, series: pd.Series, type: tenzing_model) -> dict:
+    def summarize_frame(self, df: pd.DataFrame):
+        return dataframe_summary(df)
+
+    def summarize_series(self, series: pd.Series, type: Container) -> dict:
         summary = {}
+
+        print(type)
 
         # Basetype
         if tenzing_generic in self.type_summary_ops:
             for op in self.type_summary_ops[tenzing_generic]:
                 summary.update(op(series))
 
-        if not isinstance(type, CompoundType):
-            type = CompoundType(type)
+        # if not isinstance(type, CompoundType):
+        #     type = CompoundType(type)
 
         # Detected type
-        mask = type.get_mask(series)
-        if type.base_type in self.type_summary_ops:
+        mask = type.mask(series)
+        if type in self.type_summary_ops:
             for op in self.type_summary_ops[type.base_type]:
                 summary.update(op(series[~mask]))
 
         # Subtypes
-        for subtype in type.types:
-            if subtype in self.type_summary_ops:
-                for op in self.type_summary_ops[subtype]:
-                    summary.update(op(series))
+        # for subtype in type.types:
+        #     if subtype in self.type_summary_ops:
+        #         for op in self.type_summary_ops[subtype]:
+        #             summary.update(op(series))
         return summary
+
+    def summarize(self, df: pd.DataFrame, types) -> dict:
+        frame_summary = self.summarize_frame(df)
+        series_summary = {col: self.summarize_series(df[col], types[col]) for col in df.columns}
+        return {
+            "types": types,
+            "series": series_summary,
+            "frame": frame_summary,
+        }
 
 
 type_summary_ops = {
@@ -56,6 +70,9 @@ type_summary_ops = {
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-    infinite: [infinite_summary],
-    missing: [missing_summary],
+    # infinite: [infinite_summary],
+    # missing: [missing_summary],
 }
+
+# TODO: add typeset
+summary = Summary(type_summary_ops)

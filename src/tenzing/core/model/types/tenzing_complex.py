@@ -7,9 +7,11 @@ from tenzing.core.model.types.tenzing_generic import tenzing_generic
 class tenzing_complex(tenzing_generic):
     """**Complex** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
-    >>> x in tenzing_complex
-    True
+    Examples:
+        >>> import numpy as np
+        >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
+        >>> x in tenzing_complex
+        True
     """
 
     @classmethod

@@ -7,9 +7,10 @@ from tenzing.core.model.types.tenzing_generic import tenzing_generic
 class tenzing_categorical(tenzing_generic):
     """**Categorical** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([True, False, 1], dtype='category')
-    >>> x in tenzing_categorical
-    True
+    Examples:
+        >>> x = pd.Series([True, False, 1], dtype='category')
+        >>> x in tenzing_categorical
+        True
     """
 
     @classmethod

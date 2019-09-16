@@ -6,9 +6,10 @@ from tenzing.core.model.types.tenzing_object import tenzing_object
 class tenzing_string(tenzing_object):
     """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series(['rubin', 'carter', 'champion'])
-    >>> x in tenzing_string
-    True
+    Examples:
+        >>> x = pd.Series(['rubin', 'carter', 'champion'])
+        >>> x in tenzing_string
+        True
     """
 
     @classmethod

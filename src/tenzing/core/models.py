@@ -19,31 +19,24 @@ class model_relation:
     For example, the series `pd.Series([1.0, 2.0, 3.0])` is encoded as a sequence of
     floats but in reality they are all integers.
 
-    >>> x = pd.Series([1.0, 2.0, 3.0])
-    >>> relation = model_relation(tenzing_integer, tenzing_float)
-    >>> relation.is_relation(x)
-    True
+    Examples:
+        >>> x = pd.Series([1.0, 2.0, 3.0])
+        >>> relation = model_relation(tenzing_integer, tenzing_float)
+        >>> relation.is_relation(x)
+        True
 
-    >>> relation.transform(x)
-    pd.Series([1, 2, 3])
-
-    Parameters
-    ----------
-    model : tenzing_type
-        The type this relation will transform a series into.
-
-    friend_model : tenzing_type
-        The type this relation will transform a series from.
-
-    relationship : func
-        A method to determine if a series of friend_model type can be converted to type model.
-
-    transformer : func
-        A method to convert a series from type friend_model to type model.
-
+        >>> relation.transform(x)
+        pd.Series([1, 2, 3])
     """
 
     def __init__(self, model, friend_model, relationship=None, transformer=None):
+        """
+        Args:
+            model: The type this relation will transform a series into.
+            friend_model: The type this relation will transform a series from.
+            relationship: A method to determine if a series of friend_model type can be converted to type model.
+            transformer: A method to convert a series from type friend_model to type model.
+        """
         self.model = model
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
@@ -67,14 +60,14 @@ class meta_model(type):
     def __repr__(cls) -> str:
         return f"{cls.__name__}"
 
-    def __add__(cls, other):
-        from tenzing.core.model.compound_type import CompoundType
-        from tenzing.core.model.sub_type import subType
-
-        if not issubclass(other, subType):
-            raise ValueError("Only Sub types can be added to Compound types.")
-        else:
-            return CompoundType(cls, [other])
+    # def __add__(cls, other):
+    #     from tenzing.core.model.compound_type import CompoundType
+    #     from tenzing.core.model.sub_type import subType
+    #
+    #     if not issubclass(other, subType):
+    #         raise ValueError("Only Sub types can be added to Compound types.")
+    #     else:
+    #         return CompoundType(cls, [other])
 
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
@@ -89,15 +82,14 @@ class tenzing_model(metaclass=meta_model):
     Provides a common API for building custom tenzing datatypes. These can optionally
     be augmented with mixins from :mod:`tenzing.core.mixins`
 
-    i.e.
-
-    >>> class tenzing_datetime(tenzing_model):
-    >>>     def contains_op(self, series):
-    >>>         return pdt.is_datetime64_dtype(series)
-    >>>
-    >>>     def cast_op(self, series):
-    >>>         return pd.to_datetime(series)
-    >>>
+    Examples:
+        >>> class tenzing_datetime(tenzing_model):
+        >>>     def contains_op(self, series):
+        >>>         return pdt.is_datetime64_dtype(series)
+        >>>
+        >>>     def cast_op(self, series):
+        >>>         return pd.to_datetime(series)
+        >>>
     """
 
     _relations = {}

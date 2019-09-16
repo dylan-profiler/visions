@@ -2,6 +2,8 @@ from tenzing.core.model.typesets import tenzing_complete_set
 
 import pandas as pd
 
+from tenzing.core.summary import summary
+
 df = pd.DataFrame(
     {
         "latin": ["orange", "apple", "pear"],
@@ -20,8 +22,8 @@ df = pd.DataFrame(
 ts = tenzing_complete_set()
 _ = ts.prep(df)
 
-summary = ts.summary_report(df)
-for key, variable_summary in summary["columns"].items():
+x = summary.summarize(df, ts.column_container_map)
+for key, variable_summary in x["series"].items():
     print(
         f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}"
     )

@@ -7,9 +7,11 @@ from tenzing.core.model.types.tenzing_generic import tenzing_generic
 class tenzing_bool(tenzing_generic):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([True, False, np.nan])
-    >>> x in tenzing_bool
-    True
+    Examples:
+        >>> import numpy as np
+        >>> x = pd.Series([True, False, np.nan])
+        >>> x in tenzing_bool
+        True
     """
 
     @classmethod

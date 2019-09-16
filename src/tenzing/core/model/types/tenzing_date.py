@@ -6,9 +6,10 @@ from tenzing.core.model.types.tenzing_datetime import tenzing_datetime
 class tenzing_date(tenzing_datetime):
     """**Date** implementation of :class:`tenzing.core.models.tenzing_model`.
 
-    >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
-    >>> x in tenzing_date
-    True
+    Examples:
+        >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+        >>> x in tenzing_date
+        True
     """
 
     @classmethod
