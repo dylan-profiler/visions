@@ -157,10 +157,9 @@
             
   <div class="section" id="extending">
 <h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
-<p>Each Tenzing type is a singleton object extending the basic <cite>tenzing_model</cite> requiring a unique implementation of three methods:</p>
+<p>Each Tenzing type is a singleton object extending the basic <cite>tenzing_model</cite> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
 <li><p><cite>contains_op</cite>. Checks whether a series is of the type tenzing_type, returns Bool.</p></li>
-<li><p><cite>summarization_op</cite>. Performs a set of summarization procedures unique to this tenzing type and returns their output as a dict.</p></li>
 <li><p><cite>cast_op</cite>. This is going away, needs to be folded into model_relations [TODO]</p></li>
 </ol>
 <p>All tenzing_types can be made into <cite>Option[tenzing_type]</cite> by inheriting from <cite>optionMixin</cite> in <cite>tenzing.core.Mixins</cite>.</p>
