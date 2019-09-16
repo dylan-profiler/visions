@@ -11,6 +11,7 @@ set SOURCEDIR=source
 set BUILDDIR=build
 
 if "%1" == "" goto help
+if "%1" == "github" goto github
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (
@@ -26,6 +27,16 @@ if errorlevel 9009 (
 )
 
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+goto end
+
+:github
+call make html
+rmdir ..\docs\ /s /q
+mkdir ..\docs\
+copy NUL ..\docs\.nojekyll
+robocopy .\build\html ..\docs /E /MOVE
+rmdir .\build /s /q
+rmdir .\source\tenzing\_autosummary /s /q
 goto end
 
 :help

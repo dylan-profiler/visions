@@ -1,5 +1,5 @@
 from tenzing.core.typesets import tenzingTypeset
-from tenzing.core.containers import generic, infinite, missing
+from tenzing.core.containers import generic, infinite, missing, type
 from tenzing.core.model.types import *
 
 import pandas as pd
@@ -42,7 +42,7 @@ class tenzing_standard_set(tenzingTypeset):
             tenzing_integer,
             tenzing_string,
         ]
-        containers = [missing, infinite, generic]
+        containers = [missing, infinite, generic, type]
         super().__init__(containers, types)
 
 
@@ -77,7 +77,7 @@ class tenzing_geometry_set(tenzingTypeset):
             tenzing_string,
             tenzing_geometry,
         ]
-        containers = [missing, infinite, generic]
+        containers = [missing, infinite, generic, type]
         super().__init__(containers, types)
 
 
@@ -125,5 +125,5 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_empty,
             tenzing_ip,
         ]
-        containers = [missing, infinite, generic]
+        containers = [missing, infinite, generic, type]
         super().__init__(containers, types)

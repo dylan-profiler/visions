@@ -99,6 +99,9 @@ class TypeC(Container):
         self.base_type = item
         return self
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}[{self.base_type}]"
+
 
 class Infinite(Container):
     """Allow missing values on type (e.g. np.nan, "NAN")

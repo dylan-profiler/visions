@@ -5,7 +5,7 @@ import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-from tenzing.core.containers import MultiContainer
+from tenzing.core.containers import MultiContainer, TypeC
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
@@ -91,30 +91,30 @@ def detect_series_container(series, containers):
 
 
 # TODO: Should be container...
-class Type:
-    def __init__(self, container, base_type):
-        self.container = container
-        self.base_type = base_type
-
-    def contains_op(self, series):
-        if series in self.container:
-            return series in self.base_type
-        else:
-            return False
-
-    def transform(self, series):
-        container_mask = self.container.mask(series)
-        series[container_mask] = self.base_type.cast_op(series[container_mask])
-        return series
-
-    def __repr__(self) -> str:
-        return f"{self.container}[{self.base_type}]"
-
-    def __contains__(self, series) -> bool:
-        try:
-            return self.contains_op(series)
-        except Exception:
-            return False
+# class Type:
+#     def __init__(self, container, base_type):
+#         self.container = container
+#         self.base_type = base_type
+#
+#     def contains_op(self, series):
+#         if series in self.container:
+#             return series in self.base_type
+#         else:
+#             return False
+#
+#     def transform(self, series):
+#         container_mask = self.container.mask(series)
+#         series[container_mask] = self.base_type.cast_op(series[container_mask])
+#         return series
+#
+#     def __repr__(self) -> str:
+#         return f"{self.container}[{self.base_type}]"
+#
+#     def __contains__(self, series) -> bool:
+#         try:
+#             return self.contains_op(series)
+#         except Exception:
+#             return False
 
 
 class tenzingTypeset(object):
@@ -139,7 +139,7 @@ class tenzingTypeset(object):
     def prep(self, df):
         self.column_container_map = {col: self.detect_series_container(df[col]) for col in df.columns}
         self.column_base_type_map = {col: self._get_column_type(df[col]) for col in df.columns}
-        self.column_type_map = {Type(self.column_container_map[col], self.column_base_type_map[col])
+        self.column_type_map = {MultiContainer(self.column_container_map[col] + TypeC(self.column_base_type_map[col]))
                                 for col in df.columns}
 
     def detect_series_container(self, series):
