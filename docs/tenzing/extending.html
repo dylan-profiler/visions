@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Requirements &mdash; package 0.0.3 documentation</title>
+  <title>Extending &mdash; package 0.0.3 documentation</title>
   
 
   
@@ -34,9 +34,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Understanding Tenzing Types" href="getting_started.html" />
-    <link rel="prev" title="Introduction" href="introduction.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,16 +79,11 @@
             
             
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html#references">References</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#source">Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installation">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Understanding Tenzing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html#typesets">Typesets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
@@ -140,13 +133,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Requirements</li>
+      <li>Extending</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tenzing/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tenzing/extending.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,39 +152,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="requirements">
-<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p>pandas</p></li>
-<li><p>numpy</p></li>
-<li><p>jinja2</p></li>
-<li><p>networkx</p></li>
-</ul>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>You can install <cite>package</cite> from source and from pip</p>
-<div class="section" id="pip">
-<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
-<p>Installing with pip:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pip install `package`
-</pre></div>
-</div>
-</div>
-<div class="section" id="source">
-<h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
-<p>To install <cite>package</cite> from source, clone the repository from <a class="reference external" href="https://github.com/dylan-profiling/package">github</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dylan</span><span class="o">-</span><span class="n">profiling</span><span class="o">/</span><span class="n">package</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">package</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">.</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>Test <cite>package</cite> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">package</span>
-<span class="n">pytest</span>
+  <div class="section" id="extending">
+<h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
+<p>Each Tenzing type is a singleton object extending the basic <cite>tenzing_model</cite> requiring a unique implementation of three methods:</p>
+<ol class="arabic simple">
+<li><p><cite>contains_op</cite>. Checks whether a series is of the type tenzing_type, returns Bool.</p></li>
+<li><p><cite>summarization_op</cite>. Performs a set of summarization procedures unique to this tenzing type and returns their output as a dict.</p></li>
+<li><p><cite>cast_op</cite>. This is going away, needs to be folded into model_relations [TODO]</p></li>
+</ol>
+<p>All tenzing_types can be made into <cite>Option[tenzing_type]</cite> by inheriting from <cite>optionMixin</cite> in <cite>tenzing.core.Mixins</cite>.</p>
+<div class="literal-block-wrapper docutils container" id="custom-type">
+<div class="code-block-caption"><span class="caption-text">custom_type.py</span><a class="headerlink" href="#custom-type" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="kn">import</span> <span class="n">tenzing_model</span>
+
+<span class="k">class</span> <span class="nc">tenzing_timestamp</span><span class="p">(</span><span class="n">tenzing_model</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -202,15 +181,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="getting_started.html" class="btn btn-neutral float-right" title="Understanding Tenzing Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

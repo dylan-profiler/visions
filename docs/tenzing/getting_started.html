@@ -88,7 +88,6 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html#installation">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Understanding Tenzing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#typesets">Typesets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#custom-types">Custom Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">API</a></li>
 </ul>
@@ -265,26 +264,6 @@
        <span class="p">}</span>
  <span class="p">}</span>
 
-</pre></div>
-</div>
-</div>
-<div class="section" id="custom-types">
-<h1>Custom Types<a class="headerlink" href="#custom-types" title="Permalink to this headline">¶</a></h1>
-<p>Each Tenzing type is a singleton object extending the basic <code class="docutils literal notranslate"><span class="pre">tenzing_model</span></code> requiring a unique implementation of three methods:</p>
-<ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">contains_op</span></code>. Checks whether a series is of the type tenzing_type, returns Bool.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">summarization_op</span></code>. Performs a set of summarization procedures unique to this tenzing type and returns their output as a dict.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cast_op</span></code>. This is going away, needs to be folded into model_relations [TODO]</p></li>
-</ol>
-<p>All tenzing_types can be made into <code class="docutils literal notranslate"><span class="pre">Option[tenzing_type]</span></code> by inheriting from <code class="docutils literal notranslate"><span class="pre">optionMixin</span></code> in <code class="docutils literal notranslate"><span class="pre">tenzing.core.Mixins</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="kn">import</span> <span class="n">tenzing_model</span>
-
-<span class="k">class</span> <span class="nc">tenzing_timestamp</span><span class="p">(</span><span class="n">tenzing_model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
