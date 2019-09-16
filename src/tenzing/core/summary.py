@@ -1,8 +1,7 @@
 import pandas as pd
 
-from tenzing.core.containers import Container
+from tenzing.core.containers import Container, Infinite, Missing, TypeC
 from tenzing.core.model.types import *
-from tenzing.core.models import tenzing_model
 from tenzing.core.summaries import *
 
 
@@ -70,9 +69,13 @@ type_summary_ops = {
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-    # infinite: [infinite_summary],
-    # missing: [missing_summary],
+}
+
+container_summary_ops = {
+    Infinite: [infinite_summary],
+    Missing: [missing_summary],
+    TypeC: type_summary_ops,
 }
 
 # TODO: add typeset
-summary = Summary(type_summary_ops)
+summary = Summary(container_summary_ops)

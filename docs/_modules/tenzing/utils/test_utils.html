@@ -153,30 +153,24 @@
             
   <h1>Source code for tenzing.utils.test_utils</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">test_utils.py</span>
-<span class="sd">====================================</span>
 <span class="sd">A selection of testing utilities for tenzing.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="option_coercion_evaluator"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.utils.test_utils.html#tenzing.utils.test_utils.option_coercion_evaluator">[docs]</a><span class="k">def</span> <span class="nf">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+<div class="viewcode-block" id="option_coercion_evaluator"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.utils.test_utils.html#tenzing.utils.test_utils.option_coercion_evaluator">[docs]</a><span class="k">def</span> <span class="nf">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion test evaluator</span>
 
 <span class="sd">    Evaluates a coercion method and optionally returns the coerced series.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    method : func</span>
-<span class="sd">        A method coercing a Series to another type.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        method : A method coercing a Series to another type.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    Option[Series]</span>
+<span class="sd">    Returns:</span>
 <span class="sd">        The coerced series if the coercion succeeds otherwise None.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Returns Option[result] where result is the coercion of a series from method</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
@@ -185,33 +179,29 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
-<div class="viewcode-block" id="coercion_test"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.utils.test_utils.html#tenzing.utils.test_utils.coercion_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_test</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+<div class="viewcode-block" id="coercion_test"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.utils.test_utils.html#tenzing.utils.test_utils.coercion_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion test generator</span>
 
 <span class="sd">    Creates a coercion test based on a provided coercion method.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    method : func</span>
-<span class="sd">        A method coercing a Series to another type.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        method: A method coercing a Series to another type.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    bool</span>
-<span class="sd">        Whether the coercion failed or was succesful.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether the coercion failed or was successful.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Returns True or False if the coercion succeeds</span>
     <span class="n">tester</span> <span class="o">=</span> <span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">tester</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span>
 
     <span class="k">return</span> <span class="n">f</span></div>
 
 
-<div class="viewcode-block" id="coercion_equality_test"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.utils.test_utils.html#tenzing.utils.test_utils.coercion_equality_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_equality_test</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+<div class="viewcode-block" id="coercion_equality_test"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.utils.test_utils.html#tenzing.utils.test_utils.coercion_equality_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_equality_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion equality test generator</span>
 
 <span class="sd">    Creates a coercion test based on a provided coercion method which also enforces</span>
@@ -219,20 +209,15 @@
 <span class="sd">    data type of a series without necessarily changing the data, for example,</span>
 <span class="sd">    when converting an integer to a float.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    method : func</span>
-<span class="sd">        A method coercing a Series to another type.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        method : A method coercing a Series to another type.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    bool</span>
-<span class="sd">        Whether the coercion failed or was succesful.</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether the coercion failed or was successful.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tester</span> <span class="o">=</span> <span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">tester</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">series</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 

@@ -1,0 +1,24 @@
+tenzing.core.containers.Infinite
+================================
+
+.. currentmodule:: tenzing.core.containers
+
+.. autoclass:: Infinite
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Infinite.__init__
+      ~Infinite.contains_op
+      ~Infinite.mask
+   
+   
+
+   
+   
+   

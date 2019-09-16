@@ -5,9 +5,8 @@ import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-#from tenzing.core.summaries.frame.dataframe_summary import dataframe_summary
-#from tenzing.core.summary import type_summary_ops, Summary
 from tenzing.core.containers import MultiContainer
+
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
     """Constructs a traversible relation graph between tenzing types
@@ -91,6 +90,7 @@ def detect_series_container(series, containers):
     return container
 
 
+# TODO: Should be container...
 class Type:
     def __init__(self, container, base_type):
         self.container = container
@@ -107,8 +107,14 @@ class Type:
         series[container_mask] = self.base_type.cast_op(series[container_mask])
         return series
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.container}[{self.base_type}]"
+
+    def __contains__(self, series) -> bool:
+        try:
+            return self.contains_op(series)
+        except Exception:
+            return False
 
 
 class tenzingTypeset(object):

@@ -153,7 +153,7 @@
             
   <h1>Source code for tenzing.core.model.types.tenzing_ip</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">ipaddress</span> <span class="k">import</span> <span class="n">IPv4Address</span><span class="p">,</span> <span class="n">_BaseAddress</span>
+<span class="kn">from</span> <span class="nn">ipaddress</span> <span class="k">import</span> <span class="n">IPv4Address</span><span class="p">,</span> <span class="n">_BaseAddress</span><span class="p">,</span> <span class="n">ip_address</span>
 
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_object</span> <span class="k">import</span> <span class="n">tenzing_object</span>
 
@@ -161,9 +161,10 @@
 <div class="viewcode-block" id="tenzing_ip"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.tenzing_ip.html#tenzing.core.model.types.tenzing_ip">[docs]</a><span class="k">class</span> <span class="nc">tenzing_ip</span><span class="p">(</span><span class="n">tenzing_object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**IP Address** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
 
-<span class="sd">    &gt;&gt;&gt; x = pd.Series([IPv4Address(&#39;127.0.0.1&#39;), IPv4Address(&#39;128.0.1.2&#39;)])</span>
-<span class="sd">    &gt;&gt;&gt; x in tenzing_ip</span>
-<span class="sd">    True</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([IPv4Address(&#39;127.0.0.1&#39;), IPv4Address(&#39;184.168.42.1&#39;)])</span>
+<span class="sd">        &gt;&gt;&gt; x in tenzing_ip</span>
+<span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
@@ -175,7 +176,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">IPv4Address</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ip_address</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

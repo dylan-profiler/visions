@@ -1,6 +1,3 @@
-"""
-File annotation
-"""
 from abc import abstractmethod
 import pandas as pd
 import numpy as np
@@ -60,18 +57,8 @@ class meta_model(type):
     def __repr__(cls) -> str:
         return f"{cls.__name__}"
 
-    # def __add__(cls, other):
-    #     from tenzing.core.model.compound_type import CompoundType
-    #     from tenzing.core.model.sub_type import subType
-    #
-    #     if not issubclass(other, subType):
-    #         raise ValueError("Only Sub types can be added to Compound types.")
-    #     else:
-    #         return CompoundType(cls, [other])
-
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
-
     # TODO: automatic static ?
     # https://stackoverflow.com/questions/31953113/purely-static-classes-in-python-use-metaclass-class-decorator-or-something-e
 

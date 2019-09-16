@@ -160,10 +160,11 @@
 <div class="viewcode-block" id="tenzing_geometry"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.tenzing_geometry.html#tenzing.core.model.types.tenzing_geometry">[docs]</a><span class="k">class</span> <span class="nc">tenzing_geometry</span><span class="p">(</span><span class="n">tenzing_object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
 
-<span class="sd">    &gt;&gt;&gt; from shapely import wkt</span>
-<span class="sd">    &gt;&gt;&gt; x = pd.Series([wkt.loads(&#39;POINT (-92 42)&#39;), wkt.loads(&#39;POINT (-92 42.1)&#39;), wkt.loads(&#39;POINT (-92 42.2)&#39;)]</span>
-<span class="sd">    &gt;&gt;&gt; x in tenzing_geometry</span>
-<span class="sd">    True</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from shapely import wkt</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([wkt.loads(&#39;POINT (-92 42)&#39;), wkt.loads(&#39;POINT (-92 42.1)&#39;), wkt.loads(&#39;POINT (-92 42.2)&#39;)]</span>
+<span class="sd">        &gt;&gt;&gt; x in tenzing_geometry</span>
+<span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">shapely</span> <span class="k">import</span> <span class="n">geometry</span>

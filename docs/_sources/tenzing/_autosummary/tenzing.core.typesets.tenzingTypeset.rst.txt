@@ -16,11 +16,11 @@ tenzing.core.typesets.tenzingTypeset
       ~tenzingTypeset.__init__
       ~tenzingTypeset.cast_series_to_inferred_type
       ~tenzingTypeset.cast_to_inferred_types
+      ~tenzingTypeset.detect_series_container
+      ~tenzingTypeset.get_containerized_series
       ~tenzingTypeset.infer_series_type
       ~tenzingTypeset.infer_types
       ~tenzingTypeset.prep
-      ~tenzingTypeset.summarize
-      ~tenzingTypeset.summary_report
       ~tenzingTypeset.write_dot
    
    

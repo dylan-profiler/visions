@@ -1,28 +1,22 @@
 """
-test_utils.py
-====================================
 A selection of testing utilities for tenzing.
 """
+from typing import Callable, Union
+import pandas as pd
 
 
-def option_coercion_evaluator(method):
+def option_coercion_evaluator(method: Callable) -> Callable:
     """A coercion test evaluator
 
     Evaluates a coercion method and optionally returns the coerced series.
 
-    Parameters
-    ----------
-    method : func
-        A method coercing a Series to another type.
+    Args:
+        method : A method coercing a Series to another type.
 
-    Returns
-    -------
-    Option[Series]
+    Returns:
         The coerced series if the coercion succeeds otherwise None.
-
     """
-    # Returns Option[result] where result is the coercion of a series from method
-    def f(series):
+    def f(series: pd.Series) -> Union[None, bool]:
         try:
             return method(series)
         except (ValueError, TypeError, AttributeError):
@@ -31,33 +25,29 @@ def option_coercion_evaluator(method):
     return f
 
 
-def coercion_test(method):
+def coercion_test(method: Callable) -> Callable:
     """A coercion test generator
 
     Creates a coercion test based on a provided coercion method.
 
-    Parameters
-    ----------
-    method : func
-        A method coercing a Series to another type.
+    Args:
+        method: A method coercing a Series to another type.
 
-    Returns
-    -------
-    bool
-        Whether the coercion failed or was succesful.
+    Returns:
+        Whether the coercion failed or was successful.
 
     """
     # Returns True or False if the coercion succeeds
     tester = option_coercion_evaluator(method)
 
-    def f(series):
+    def f(series: pd.Series) -> bool:
         result = tester(series)
         return True if result is not None else False
 
     return f
 
 
-def coercion_equality_test(method):
+def coercion_equality_test(method: Callable) -> Callable:
     """A coercion equality test generator
 
     Creates a coercion test based on a provided coercion method which also enforces
@@ -65,20 +55,15 @@ def coercion_equality_test(method):
     data type of a series without necessarily changing the data, for example,
     when converting an integer to a float.
 
-    Parameters
-    ----------
-    method : func
-        A method coercing a Series to another type.
+    Args:
+        method : A method coercing a Series to another type.
 
-    Returns
-    -------
-    bool
-        Whether the coercion failed or was succesful.
-
+    Returns:
+        Whether the coercion failed or was successful.
     """
     tester = option_coercion_evaluator(method)
 
-    def f(series):
+    def f(series: pd.Series) -> bool:
         result = tester(series)
         return False if result is None else series.eq(result).all()
 

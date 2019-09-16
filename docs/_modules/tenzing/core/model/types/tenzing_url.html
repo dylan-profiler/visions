@@ -161,10 +161,11 @@
 <div class="viewcode-block" id="tenzing_url"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.tenzing_url.html#tenzing.core.model.types.tenzing_url">[docs]</a><span class="k">class</span> <span class="nc">tenzing_url</span><span class="p">(</span><span class="n">tenzing_object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Url** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
 
-<span class="sd">    &gt;&gt;&gt; from urllib.parse import urlparse</span>
-<span class="sd">    &gt;&gt;&gt; x = pd.Series([urlparse(&#39;http://www.cwi.nl:80/%7Eguido/Python.html&#39;), urlparse(&#39;https://github.com/pandas-profiling/pandas-profiling&#39;)])</span>
-<span class="sd">    &gt;&gt;&gt; x in tenzing_url</span>
-<span class="sd">    True</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from urllib.parse import urlparse</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([urlparse(&#39;http://www.cwi.nl:80/%7Eguido/Python.html&#39;), urlparse(&#39;https://github.com/pandas-profiling/pandas-profiling&#39;)])</span>
+<span class="sd">        &gt;&gt;&gt; x in tenzing_url</span>
+<span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>

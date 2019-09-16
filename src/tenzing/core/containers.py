@@ -2,6 +2,8 @@ from abc import abstractmethod
 import numpy as np
 import pandas as pd
 
+from tenzing.core.model.types import tenzing_generic
+
 
 class ContainerMeta(type):
     def __str__(cls) -> str:
@@ -82,6 +84,22 @@ class Generic(Container):
         return True
 
 
+class TypeC(Container):
+    def __init__(self, base_type):
+        self.base_type = base_type
+
+    def mask(self, series):
+        # TODO: exclude inf
+        return (series.notnull())
+
+    def contains_op(self, series):
+        return series[self.mask(series)] in self.base_type
+
+    def __getitem__(self, item):
+        self.base_type = item
+        return self
+
+
 class Infinite(Container):
     """Allow missing values on type (e.g. np.nan, "NAN")
 
@@ -126,7 +144,7 @@ class Missing(Container):
         Returns:
             ids of the series that are infinite.
         """
-        return series.notna()
+        return series.isna()
 
     def contains_op(self, series: pd.Series, mask=[]) -> bool:
         """Check if the series contains infinite values
@@ -135,11 +153,12 @@ class Missing(Container):
         Returns:
             True if series contains at least one infinite value.
         """
-        return self.mask(series).hasnans
+        return series.hasnans
 
 
 generic = Generic()
 infinite = Infinite()
 missing = Missing()
+type = TypeC(tenzing_generic)
 
 

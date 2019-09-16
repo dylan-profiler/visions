@@ -12,21 +12,22 @@ Abstract Types
 .. autosummary::
    :toctree: _autosummary
 
-   CompoundType
+   relations
 
 
 ===============
 Container Types
 ===============
 
-.. currentmodule:: tenzing.core.model.sub_types
+.. currentmodule:: tenzing.core
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   infinite
-   missing
+   containers.Missing
+   containers.Infinite
+   containers.TypeC
 
 
 ==============
