@@ -4,7 +4,7 @@ This module provides an alternative to Python's `unicodedata`, including human-r
 
 ## Properties
 
-| Property				| `tangledUpInUnicode`			| `unicodedata` 		|
+| Property				| `tangled-up-in-unicode`			| `unicodedata` 		|
 |-----------------------|-------------------------------|-----------------------|
 | Name					| &#9745;						| &#9745;  				|
 | Decimal				| &#9745;						| &#9745;  				|
@@ -38,7 +38,7 @@ pip install tangled-up-in-unicode
 
 Some of the features in `unicodedata` are not supported. 
 
-| Feature				| `tangledUpInUnicode`			| `unicodedata` 		|
+| Feature				| `tangled-up-in-unicode`			| `unicodedata` 		|
 |-----------------------|-------------------------------|-----------------------|
 | lookup	           	| -								| &#9745;  				|
 | normalize           	| -								| &#9745;  				|
