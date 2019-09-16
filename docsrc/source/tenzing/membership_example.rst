@@ -30,7 +30,7 @@ The following example demonstrates the membership of several `tenzing_bool` seri
 Which prints:
 
 
-.. code-block::
+.. code-block:: text
 
     **bool_series**
     True tenzing_bool

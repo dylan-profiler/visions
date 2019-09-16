@@ -34,7 +34,7 @@ The following example demonstrates the summary of several `tenzing_string` types
 
 Which prints:
 
-.. code-block::
+.. code-block:: text
 
     series with name latin contains the unicode values {('Latin', 'L')}
     series with name cyrillic contains the unicode values {('Cyrillic', 'L')}
