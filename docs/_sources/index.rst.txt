@@ -9,6 +9,7 @@
    tenzing/introduction
    tenzing/installation
    tenzing/getting_started.md
+   tenzing/typesets
    tenzing/extending
    examples
    modules

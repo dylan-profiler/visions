@@ -5,6 +5,6 @@ API
 .. toctree::
 
     tenzing/models
-    tenzing/typesets
+    tenzing/api_typesets
     tenzing/summaries
     tenzing/utils
