@@ -148,7 +148,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tenzing/summaries_example.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tenzing/summaries_example.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,7 +163,9 @@
             
   <div class="section" id="summaries-example">
 <h1>Summaries example<a class="headerlink" href="#summaries-example" title="Permalink to this headline">¶</a></h1>
-<p>The following example demonstrates the summary of several <code class="docutils literal notranslate"><span class="pre">tenzing_string</span></code> types.</p>
+<p>The following example demonstrates the summary of several <cite>tenzing_string</cite> types.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">summaries_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tenzing.core.model.typesets</span> <span class="kn">import</span> <span class="n">tenzing_complete_set</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -189,14 +191,15 @@
         <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;series with name {key} contains the unicode values {variable_summary[&#39;unicode_scripts&#39;]}&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 <p>Which prints:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>series with name latin contains the unicode values {(&#39;Latin&#39;, &#39;L&#39;)}
-series with name cyrillic contains the unicode values {(&#39;Cyrillic&#39;, &#39;L&#39;)}
-series with name mixed contains the unicode values {(&#39;Cyrillic&#39;, &#39;L&#39;), (&#39;Latin&#39;, &#39;L&#39;)}
-series with name burmese contains the unicode values {(&#39;Myanmar&#39;, &#39;Mn&#39;), (&#39;Myanmar&#39;, &#39;Lo&#39;), (&#39;Myanmar&#39;, &#39;Mc&#39;)}
-series with name digits contains the unicode values {(&#39;Common&#39;, &#39;Nd&#39;)}
-series with name specials contains the unicode values {(&#39;Common&#39;, &#39;Sc&#39;), (&#39;Common&#39;, &#39;Sm&#39;), (&#39;Common&#39;, &#39;Po&#39;), (&#39;Common&#39;, &#39;Sk&#39;), (&#39;Common&#39;, &#39;Ps&#39;)}
-series with name whitespace contains the unicode values {(&#39;Common&#39;, &#39;Zs&#39;), (&#39;Common&#39;, &#39;Cc&#39;)}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">latin</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Latin&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)}</span>
+<span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">cyrillic</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Cyrillic&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)}</span>
+<span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">mixed</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Cyrillic&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Latin&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)}</span>
+<span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">burmese</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Myanmar&#39;</span><span class="p">,</span> <span class="s1">&#39;Mn&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Myanmar&#39;</span><span class="p">,</span> <span class="s1">&#39;Lo&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Myanmar&#39;</span><span class="p">,</span> <span class="s1">&#39;Mc&#39;</span><span class="p">)}</span>
+<span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">digits</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Nd&#39;</span><span class="p">)}</span>
+<span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">specials</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Sc&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Sm&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Po&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Sk&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Ps&#39;</span><span class="p">)}</span>
+<span class="n">series</span> <span class="k">with</span> <span class="n">name</span> <span class="n">whitespace</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">unicode</span> <span class="n">values</span> <span class="p">{(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Zs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Common&#39;</span><span class="p">,</span> <span class="s1">&#39;Cc&#39;</span><span class="p">)}</span>
 </pre></div>
 </div>
 </div>
