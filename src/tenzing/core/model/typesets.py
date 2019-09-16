@@ -1,5 +1,6 @@
-from tenzing.core.model.types import *
 from tenzing.core.typesets import tenzingTypeset
+from tenzing.core.containers import generic, infinite, missing
+from tenzing.core.model.types import *
 from tenzing.core.model import *
 
 import pandas as pd
@@ -32,17 +33,18 @@ class tenzing_standard_set(tenzingTypeset):
     def __init__(self):
         types = [
             tenzing_object,
-            tenzing_bool + missing,
-            tenzing_float + missing,
-            tenzing_object + missing,
-            tenzing_complex + missing,
-            tenzing_categorical + missing,
-            tenzing_datetime + missing,
-            tenzing_timedelta + missing,
-            tenzing_integer + missing + infinite,
-            tenzing_string + missing,
+            tenzing_bool,
+            tenzing_float,
+            tenzing_object,
+            tenzing_complex,
+            tenzing_categorical,
+            tenzing_datetime,
+            tenzing_timedelta,
+            tenzing_integer,
+            tenzing_string,
         ]
-        super().__init__(types)
+        containers = [missing, infinite, generic]
+        super().__init__(containers, types)
 
 
 class tenzing_geometry_set(tenzingTypeset):
@@ -65,18 +67,19 @@ class tenzing_geometry_set(tenzingTypeset):
 
     def __init__(self):
         types = [
-            tenzing_bool + missing,
-            tenzing_float + missing,
-            tenzing_object + missing,
-            tenzing_complex + missing,
-            tenzing_categorical + missing,
-            tenzing_datetime + missing,
-            tenzing_timedelta + missing,
-            tenzing_integer + missing + infinite,
-            tenzing_string + missing,
-            tenzing_geometry + missing,
+            tenzing_bool,
+            tenzing_float,
+            tenzing_object,
+            tenzing_complex,
+            tenzing_categorical,
+            tenzing_datetime,
+            tenzing_timedelta,
+            tenzing_integer,
+            tenzing_string,
+            tenzing_geometry,
         ]
-        super().__init__(types)
+        containers = [missing, infinite, generic]
+        super().__init__(containers, types)
 
 
 class tenzing_complete_set(tenzingTypeset):
@@ -104,21 +107,22 @@ class tenzing_complete_set(tenzingTypeset):
 
     def __init__(self):
         types = [
-            tenzing_bool + missing,
-            tenzing_float + missing,
-            tenzing_object + missing,
-            tenzing_complex + missing,
-            tenzing_categorical + missing,
-            tenzing_datetime + missing,
-            tenzing_timedelta + missing,
-            tenzing_integer + missing + infinite,
-            tenzing_string + missing,
-            tenzing_geometry + missing,
-            tenzing_url + missing,
-            tenzing_path + missing,
-            tenzing_date + missing,
-            tenzing_time + missing,
-            tenzing_existing_path + missing,
-            tenzing_empty + missing,
+            tenzing_bool,
+            tenzing_float,
+            tenzing_object,
+            tenzing_complex,
+            tenzing_categorical,
+            tenzing_datetime,
+            tenzing_timedelta,
+            tenzing_integer,
+            tenzing_string,
+            tenzing_geometry,
+            tenzing_url,
+            tenzing_path,
+            tenzing_date,
+            tenzing_time,
+            tenzing_existing_path,
+            tenzing_empty,
         ]
-        super().__init__(types)
+        containers = [missing, infinite, generic]
+        super().__init__(containers, types)

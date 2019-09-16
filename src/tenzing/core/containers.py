@@ -13,11 +13,14 @@ class Container(metaclass=ContainerMeta):
         pass
 
     @abstractmethod
-    def contains_op(self, series, mask=[]) -> bool:
+    def contains_op(self, series) -> bool:
         pass
 
     def __contains__(self, series) -> bool:
-        return self.contains_op(series)
+        try:
+            return self.contains_op(series)
+        except Exception:
+            return False
 
     def __add__(self, other):
         if not isinstance(other, Container):
@@ -40,12 +43,20 @@ class MultiContainer(Container):
         return all(series in container for container in self.containers)
 
     def __repr__(self):
-        return f"({', '.join([str(container) for container in self.containers])})"
+        return f"({', '.join([str(container.__class__) for container in self.containers])})"
+
+
+class Generic(Container):
+    def mask(self, series):
+        return np.ones((len(series),), dtype=np.bool)
+
+    def contains_op(self, series):
+        return True
 
 
 class Infinite(Container):
     def mask(self, series):
-        return ~np.isinf(series)
+        return (~np.isfinite(series)) & series.notnull()
 
     def contains_op(self, series, mask=[]):
         return self.mask(series).any()
@@ -57,5 +68,10 @@ class Missing(Container):
 
     def contains_op(self, series, mask=[]):
         return series.hasnans
+
+
+generic = Generic()
+infinite = Infinite()
+missing = Missing()
 
 
