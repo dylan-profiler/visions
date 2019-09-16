@@ -1,0 +1,27 @@
+tenzing.core.model.types.tenzing\_date
+======================================
+
+.. currentmodule:: tenzing.core.model.types
+
+.. autoclass:: tenzing_date
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~tenzing_date.__init__
+      ~tenzing_date.cast
+      ~tenzing_date.cast_op
+      ~tenzing_date.contains_op
+      ~tenzing_date.get_relations
+      ~tenzing_date.register_relation
+   
+   
+
+   
+   
+   

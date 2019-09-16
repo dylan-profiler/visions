@@ -4,14 +4,15 @@ __pycache__/
 *$py.class
 .idea/
 *.dot
-_autosummary/
+docsrc/source/tenzing/_autosummary/
 
 # C extensions
 *.so
 
 # Distribution / packaging
 .Python
-build/
+docs/build/
+docsrc/build/
 develop-eggs/
 dist/
 downloads/

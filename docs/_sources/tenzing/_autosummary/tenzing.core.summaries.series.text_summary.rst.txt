@@ -1,0 +1,6 @@
+tenzing.core.summaries.series.text\_summary
+===========================================
+
+.. currentmodule:: tenzing.core.summaries.series
+
+.. autofunction:: text_summary

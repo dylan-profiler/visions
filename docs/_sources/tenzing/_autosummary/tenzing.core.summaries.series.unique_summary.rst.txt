@@ -1,0 +1,6 @@
+tenzing.core.summaries.series.unique\_summary
+=============================================
+
+.. currentmodule:: tenzing.core.summaries.series
+
+.. autofunction:: unique_summary

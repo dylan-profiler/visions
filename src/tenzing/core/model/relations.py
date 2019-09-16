@@ -203,6 +203,12 @@ def register_empty_relations():
         tenzing_empty.register_relation(relation)
 
 
+def register_ip_relations():
+    relations = [model_relation(tenzing_ip, tenzing_object)]
+    for relation in relations:
+        tenzing_ip.register_relation(relation)
+
+
 register_integer_relations()
 register_float_relations()
 register_string_relations()
@@ -219,3 +225,4 @@ register_date_relations()
 register_time_relations()
 register_existing_path_relations()
 register_empty_relations()
+register_ip_relations()

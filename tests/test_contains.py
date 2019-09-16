@@ -59,6 +59,7 @@ def get_series_map():
             "textual_float_nan",
         ],
         tenzing_geometry: ["geometry_series"],
+        tenzing_ip: ['ip'],
         tenzing_empty: [
             "empty",
             "empty_float",
@@ -92,6 +93,7 @@ def get_series_map():
         + series_map[tenzing_geometry]
         + series_map[tenzing_path]
         + series_map[tenzing_url]
+        + series_map[tenzing_ip]
     )
 
     return series_map

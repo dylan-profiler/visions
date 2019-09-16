@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tenzing.core.typesets.tenzingTypeset &mdash; package 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tenzing.core.typesets.build_relation_graph" href="tenzing.core.typesets.build_relation_graph.html" />
+    <link rel="prev" title="Typesets" href="../typesets.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> package
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html#references">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Understanding Tenzing Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html#typesets">Typesets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html#custom-types">Custom Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../modules.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../models.html">Types</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../typesets.html">Typesets</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../typesets.html#abstract-typesets">Abstract Typesets</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tenzing.core.typesets.tenzingTypeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tenzing.core.typesets.build_relation_graph.html">tenzing.core.typesets.build_relation_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../typesets.html#concrete-typesets">Concrete Typesets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">package</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../modules.html">API</a> &raquo;</li>
+        
+          <li><a href="../typesets.html">Typesets</a> &raquo;</li>
+        
+      <li>tenzing.core.typesets.tenzingTypeset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tenzing/_autosummary/tenzing.core.typesets.tenzingTypeset.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tenzing-core-typesets-tenzingtypeset">
+<h1>tenzing.core.typesets.tenzingTypeset<a class="headerlink" href="#tenzing-core-typesets-tenzingtypeset" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tenzing.core.typesets.tenzingTypeset">
+<em class="property">class </em><code class="sig-prename descclassname">tenzing.core.typesets.</code><code class="sig-name descname">tenzingTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/typesets.html#tenzingTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collection of tenzing_types with an associated relationship map between them.</p>
+<dl class="attribute">
+<dt id="tenzing.core.typesets.tenzingTypeset.types">
+<code class="sig-name descname">types</code><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset.types" title="Permalink to this definition">¶</a></dt>
+<dd><p>The collection of tenzing types which are derived either from a base_type or themselves</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>frozenset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="tenzing.core.typesets.tenzingTypeset.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/typesets.html#tenzingTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tenzing.core.typesets.tenzingTypeset.__init__" title="tenzing.core.typesets.tenzingTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types)</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series_to_inferred_type</span></code>(series)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_types</span></code>(df)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">prep</span></code>(df)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">summarize</span></code>(df)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">summary_report</span></code>(df)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_dot</span></code>()</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tenzing.core.typesets.build_relation_graph.html" class="btn btn-neutral float-right" title="tenzing.core.typesets.build_relation_graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../typesets.html" class="btn btn-neutral float-left" title="Typesets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

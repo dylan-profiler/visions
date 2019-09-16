@@ -1,0 +1,6 @@
+tenzing.core.summaries.series.url\_summary
+==========================================
+
+.. currentmodule:: tenzing.core.summaries.series
+
+.. autofunction:: url_summary

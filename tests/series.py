@@ -1,4 +1,5 @@
 import datetime
+from ipaddress import IPv4Address
 from pathlib import PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
 import pandas as pd
@@ -171,4 +172,6 @@ def get_series():
         pd.Series([], name="empty_int64", dtype="Int64"),
         pd.Series([], name="empty_object", dtype="object"),
         pd.Series([], name="empty_bool", dtype=bool),
+        # IP
+        pd.Series([IPv4Address('127.0.0.1'), IPv4Address('127.0.0.1')], name='ip')
     ]
