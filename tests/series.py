@@ -173,5 +173,5 @@ def get_series():
         pd.Series([], name="empty_object", dtype="object"),
         pd.Series([], name="empty_bool", dtype=bool),
         # IP
-        pd.Series([IPv4Address('127.0.0.1'), IPv4Address('127.0.0.1')], name='ip')
+        pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
     ]

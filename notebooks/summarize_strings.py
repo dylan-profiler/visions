@@ -11,12 +11,17 @@ df = pd.DataFrame(
         "digits": ["01234", "121223", "123123"],
         "specials": ["$", "%^&*(", "!!!~``"],
         "whitespace": ["\t", "\n", " "],
+        "jiddisch": ["רעכט צו לינקס", "שאָסיי 61", "פּיצאַ איז אָנגענעם"],
+        "arabic": ["بوب ديلان", "باتي فالنتين", "السيد الدف الرجل"]
     }
 )
+
 
 ts = tenzing_complete_set()
 _ = ts.prep(df)
 
 summary = ts.summary_report(df)
 for key, variable_summary in summary["columns"].items():
-    print(f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}")
+    print(
+        f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}"
+    )

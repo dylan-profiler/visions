@@ -1,6 +1,3 @@
-# https://stackoverflow.com/a/9871358/470433
-# https://gist.github.com/anonymous/2204527
-# from unicodedata import *
 from typing import Tuple
 
 script_data = {
@@ -109,31 +106,31 @@ script_data = {
         "Takri",
     ],
     "cats": [
-        "Cc",
-        "Zs",
-        "Po",
-        "Sc",
-        "Ps",
-        "Pe",
-        "Sm",
-        "Pd",
-        "Nd",
-        "Sk",
-        "Pc",
-        "So",
-        "Pi",
-        "Cf",
-        "No",
-        "L",
-        "Pf",
-        "Lm",
-        "Mc",
-        "Lo",
-        "Zl",
-        "Zp",
-        "Nl",
-        "Mn",
-        "Me",
+        ("Cc", "Control"),
+        ("Zs", "Space_Separator"),
+        ("Po", "Other_Punctuation"),
+        ("Sc", "Currency_Symbol"),
+        ("Ps", "Open_Punctuation"),
+        ("Pe", "Close_Punctuation"),
+        ("Sm", "Math_Symbol"),
+        ("Pd", "Dash_Punctuation"),
+        ("Nd", "Decimal_Number"),
+        ("Sk", "Modifier_Symbol"),
+        ("Pc", "Connector_Punctuation"),
+        ("So", "Other_Symbol"),
+        ("Pi", "Initial_Punctuation"),
+        ("Cf", "Format"),
+        ("No", "Other_Number"),
+        ("L", "Left_To_Right"),
+        ("Pf", "Final_Punctuation"),
+        ("Lm", "Modifier_Letter"),
+        ("Mc", "Spacing_Mark"),
+        ("Lo", "Other_Letter"),
+        ("Zl", "Line_Separator"),
+        ("Zp", "Paragraph_Separator"),
+        ("Nl", "Letter_Number"),
+        ("Mn", "Nonspacing_Mark"),
+        ("Me", "Enclosing_Mark"),
     ],
     "idx": [
         (0x0, 0x1F, 0, 0),
@@ -1777,7 +1774,7 @@ script_data = {
 }
 
 
-def script_cat(chr) -> Tuple[str, str]:
+def script_cat(chr) -> Tuple[str, Tuple[str, str]]:
     """ For the unicode character chr return a tuple (Scriptname, Category).
 
     Args:
@@ -1800,7 +1797,7 @@ def script_cat(chr) -> Tuple[str, str]:
                 script_data["names"][script_data["idx"][m][2]],
                 script_data["cats"][script_data["idx"][m][3]],
             )
-    return "Unknown", "Zzzz"
+    return "Unknown", ("Zzzz", "Zzzz")
 
 
 def script(chr) -> str:
@@ -1816,7 +1813,7 @@ def script(chr) -> str:
     return a
 
 
-def category(chr) -> str:
+def category(chr) -> Tuple[str, str]:
     """
 
     Args:
