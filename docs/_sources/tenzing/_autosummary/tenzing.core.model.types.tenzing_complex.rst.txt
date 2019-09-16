@@ -1,0 +1,27 @@
+tenzing.core.model.types.tenzing\_complex
+=========================================
+
+.. currentmodule:: tenzing.core.model.types
+
+.. autoclass:: tenzing_complex
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~tenzing_complex.__init__
+      ~tenzing_complex.cast
+      ~tenzing_complex.cast_op
+      ~tenzing_complex.contains_op
+      ~tenzing_complex.get_relations
+      ~tenzing_complex.register_relation
+   
+   
+
+   
+   
+   

@@ -1,0 +1,30 @@
+tenzing.core.model.typesets.tenzing\_geometry\_set
+==================================================
+
+.. currentmodule:: tenzing.core.model.typesets
+
+.. autoclass:: tenzing_geometry_set
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~tenzing_geometry_set.__init__
+      ~tenzing_geometry_set.cast_series_to_inferred_type
+      ~tenzing_geometry_set.cast_to_inferred_types
+      ~tenzing_geometry_set.infer_series_type
+      ~tenzing_geometry_set.infer_types
+      ~tenzing_geometry_set.prep
+      ~tenzing_geometry_set.summarize
+      ~tenzing_geometry_set.summary_report
+      ~tenzing_geometry_set.write_dot
+   
+   
+
+   
+   
+   

@@ -1,0 +1,27 @@
+tenzing.core.model.types.tenzing\_time
+======================================
+
+.. currentmodule:: tenzing.core.model.types
+
+.. autoclass:: tenzing_time
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~tenzing_time.__init__
+      ~tenzing_time.cast
+      ~tenzing_time.cast_op
+      ~tenzing_time.contains_op
+      ~tenzing_time.get_relations
+      ~tenzing_time.register_relation
+   
+   
+
+   
+   
+   

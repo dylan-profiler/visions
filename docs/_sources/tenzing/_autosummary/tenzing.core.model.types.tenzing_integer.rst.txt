@@ -1,0 +1,27 @@
+tenzing.core.model.types.tenzing\_integer
+=========================================
+
+.. currentmodule:: tenzing.core.model.types
+
+.. autoclass:: tenzing_integer
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~tenzing_integer.__init__
+      ~tenzing_integer.cast
+      ~tenzing_integer.cast_op
+      ~tenzing_integer.contains_op
+      ~tenzing_integer.get_relations
+      ~tenzing_integer.register_relation
+   
+   
+
+   
+   
+   

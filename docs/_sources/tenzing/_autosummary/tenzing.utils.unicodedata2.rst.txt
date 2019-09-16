@@ -1,0 +1,5 @@
+tenzing.utils.unicodedata2
+==========================
+
+.. automodule:: tenzing.utils.unicodedata2
+    :members:

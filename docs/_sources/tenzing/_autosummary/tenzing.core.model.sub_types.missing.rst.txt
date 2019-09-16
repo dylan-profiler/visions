@@ -1,0 +1,24 @@
+tenzing.core.model.sub\_types.missing
+=====================================
+
+.. currentmodule:: tenzing.core.model.sub_types
+
+.. autoclass:: missing
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~missing.__init__
+      ~missing.contains_op
+      ~missing.get_mask
+   
+   
+
+   
+   
+   
