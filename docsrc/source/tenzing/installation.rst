@@ -1,12 +1,3 @@
-Requirements
-============
-
-* pandas
-* numpy
-* jinja2
-* networkx
-
-
 Installation
 ============
 
@@ -38,3 +29,10 @@ Test `package` with ``pytest``::
 
     cd package
     pytest
+
+Requirements
+------------
+
+* pandas
+* numpy
+* networkx
