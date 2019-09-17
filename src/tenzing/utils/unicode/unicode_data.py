@@ -138,15 +138,6 @@ def _lookup_proplist(chr, default=None):
     return _lookup(df, "Property", chr, default)
 
 
-def name(chr, default=None):
-    """Returns the name assigned to the character chr as a string. If no name is defined, default is returned, or, if not given, ValueError is raised."""
-    return _lookup_unicodedata("name", chr, default)
-
-
-def category(chr):
-    return _lookup_unicodedata("category", chr, "Zzzz")
-
-
 def _alias(property, short_name):
     df = parse_property_value_aliases()
     df["Property"] = df["Property"].str.strip()
@@ -159,12 +150,18 @@ def _alias(property, short_name):
         return None
 
 
-def category_alias(chr):
-    cat = category(chr)
-    return _alias("gc", cat)
+def name(chr, default=None):
+    """Returns the name assigned to the character chr as a string. If no name is defined, default is returned, or, if not given, ValueError is raised."""
+    return _lookup_unicodedata("name", chr, default)
+
+
+def category(chr):
+    """Returns the general category assigned to the character chr as string."""
+    return _lookup_unicodedata("category", chr, "Zzzz")
 
 
 def bidirectional(chr):
+    """Returns the bidirectional class assigned to the character chr as string. If no such value is defined, an empty string is returned."""
     return _lookup_unicodedata("bidirectional", chr, "")
 
 
@@ -179,39 +176,34 @@ def digit(chr, default=None):
 
 
 def numeric(chr, default=None):
+    """Returns the numeric value assigned to the character chr as float. If no such value is defined, default is returned, or, if not given, ValueError is raised."""
     return _lookup_unicodedata("numeric", chr, default)
 
 
 def east_asian_width(chr, default=None):
+    """Returns the east asian width assigned to the character chr as string."""
     df = parse_east_asian_width()
     return _lookup(df, "East_Asian_Width", chr, default).strip()
 
-
-def east_asian_width_alias(chr, default=None):
-    eaw = east_asian_width(chr, default)
-    return _alias("ea", eaw)
-
-
-def bidirectional_alias(chr):
-    bidi = bidirectional(chr)
-    return _alias("bc", bidi)
-
-
 def combining(chr):
+    """Returns the canonical combining class assigned to the character chr as integer. Returns 0 if no combining class is defined."""
     return _lookup_unicodedata("combining", chr, 0)
 
 
 def mirrored(chr):
+    """Returns the mirrored property assigned to the character chr as integer. Returns 1 if the character has been identified as a “mirrored” character in bidirectional text, 0 otherwise."""
     return _lookup_unicodedata("mirrored", chr, 0)
 
 
 def decomposition(chr):
+    """Returns the character decomposition mapping assigned to the character chr as string. An empty string is returned in case no such mapping is defined."""
     val = _lookup_unicodedata("decomposition", chr, 0)
     if str(val) == "nan":
         val = ""
     return val
 
 
+# Extended functionality
 def block(chr):
     return _lookup_blocks(chr, "Unknown")
 
@@ -222,3 +214,18 @@ def script(chr):
 
 def proplist(chr):
     return _lookup_proplist(chr, "Unknown")
+
+
+def category_alias(chr):
+    cat = category(chr)
+    return _alias("gc", cat)
+
+
+def east_asian_width_alias(chr, default=None):
+    eaw = east_asian_width(chr, default)
+    return _alias("ea", eaw)
+
+
+def bidirectional_alias(chr):
+    bidi = bidirectional(chr)
+    return _alias("bc", bidi)
