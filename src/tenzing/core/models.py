@@ -69,7 +69,7 @@ class meta_model(type):
         Examples:
             >>> type_generic + infinite_generic
         """
-        if not isinstance(other, tenzing_model):
+        if not issubclass(other, tenzing_model):
             raise Exception(f"{other} must be of type Container")
         return MultiModel([self, other])
 
@@ -92,6 +92,10 @@ class meta_model(type):
 class MultiModel(object):
     def __init__(self, models):
         assert len(models) >= 2
+
+        if not all(issubclass(base_type, tenzing_model) for base_type in models):
+            raise Exception("Have to be tenzing_model subclasses")
+
         self.models = models
 
     def mask(self, series):

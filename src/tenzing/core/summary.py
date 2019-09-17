@@ -1,6 +1,8 @@
+from typing import Union
+
 import pandas as pd
 
-from tenzing.core.models import tenzing_model
+from tenzing.core.models import tenzing_model, MultiModel
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
 
@@ -18,15 +20,21 @@ class Summary(object):
     def summarize_frame(self, df: pd.DataFrame):
         return dataframe_summary(df)
 
-    def summarize_series(self, series: pd.Series, current_type: tenzing_model) -> dict:
+    def summarize_series(self, series: pd.Series, summary_type: Union[tenzing_model, MultiModel]) -> dict:
         summary = {}
 
-        for base_type, summary_ops in self.summary_ops.items():
-            if issubclass(current_type, base_type):
-                mask = base_type.mask(series)
-                print(series, mask)
-                for op in summary_ops:
-                    summary.update(op(series[mask]))
+        if isinstance(summary_type, MultiModel):
+            types = summary_type.models
+        else:
+            types = [summary_type]
+
+        for current_type in types:
+            for base_type, summary_ops in self.summary_ops.items():
+                if issubclass(current_type, base_type):
+                    mask = base_type.mask(series)
+                    print(series, mask)
+                    for op in summary_ops:
+                        summary.update(op(series[mask]))
 
         return summary
 
