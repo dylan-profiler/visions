@@ -16,11 +16,7 @@ def unique_summary(series: pd.Series) -> dict:
     # try:
     # n_unique = len(set(series.values))
     n_unique = series.nunique()
-    summary.update(
-        {
-            "n_unique": n_unique,
-        }
-    )
+    summary.update({"n_unique": n_unique})
     # except Exception:
     #     pass
     return summary

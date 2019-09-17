@@ -18,6 +18,7 @@ tenzing.core.model.types.tenzing\_timedelta
       ~tenzing_timedelta.cast_op
       ~tenzing_timedelta.contains_op
       ~tenzing_timedelta.get_relations
+      ~tenzing_timedelta.mask
       ~tenzing_timedelta.register_relation
    
    

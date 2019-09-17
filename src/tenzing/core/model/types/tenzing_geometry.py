@@ -28,7 +28,9 @@ class tenzing_geometry(tenzing_object):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(lambda x: any(isinstance(x, geom_type) for geom_type in cls.geom_types))
+        return series.apply(
+            lambda x: any(isinstance(x, geom_type) for geom_type in cls.geom_types)
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

@@ -7,12 +7,7 @@ from tests.series import get_series
 
 def get_series_map():
     series_map = {
-        tenzing_integer: [
-            "int_series",
-            "Int64_int_series",
-            "np_uint32",
-            "int_range",
-        ],
+        tenzing_integer: ["int_series", "Int64_int_series", "np_uint32", "int_range"],
         tenzing_integer + missing_generic: ["int_nan_series", "Int64_int_nan_series"],
         tenzing_integer + infinite_generic: ["int_with_inf"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
@@ -23,7 +18,8 @@ def get_series_map():
             "float_series3",
             "float_series4",
         ],
-        tenzing_float + missing_generic: ["float_nan_series", "float_series5", "float_series6"],
+        tenzing_float
+        + missing_generic: ["float_nan_series", "float_series5", "float_series6"],
         tenzing_float + infinite_generic: ["float_with_inf"],
         tenzing_categorical: [
             "categorical_int_series",

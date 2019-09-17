@@ -16,9 +16,7 @@ class tenzing_path(tenzing_object):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(
-                lambda x: isinstance(x, PurePath) and x.is_absolute()
-            )
+        return series.apply(lambda x: isinstance(x, PurePath) and x.is_absolute())
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

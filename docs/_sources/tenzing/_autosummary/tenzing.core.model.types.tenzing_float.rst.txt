@@ -18,6 +18,7 @@ tenzing.core.model.types.tenzing\_float
       ~tenzing_float.cast_op
       ~tenzing_float.contains_op
       ~tenzing_float.get_relations
+      ~tenzing_float.mask
       ~tenzing_float.register_relation
    
    

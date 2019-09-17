@@ -20,7 +20,9 @@ class tenzing_datetime(tenzing_generic):
         # if pdt.is_datetime64_any_dtype(series):
         #     return series.apply(lambda _: True)
 
-        return series.apply(lambda x: issubclass(type(x), np.datetime64) or isinstance(x, Timestamp))
+        return series.apply(
+            lambda x: issubclass(type(x), np.datetime64) or isinstance(x, Timestamp)
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

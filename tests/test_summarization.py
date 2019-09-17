@@ -10,7 +10,6 @@ def validate_summary_output(test_series, tenzing_type, correct_output):
     summary = Summary(type_summary_ops)
     trial_output = summary.summarize_series(test_series, tenzing_type)
 
-    print(trial_output)
     for metric, result in correct_output.items():
         assert metric in trial_output, f"Metric `{metric}` is missing"
         assert (
@@ -75,7 +74,9 @@ def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
     tenzing_type += missing_generic
     test_series = pd.Series(
         pd.Categorical(
-            [True, False, np.nan, "test"], categories=[True, False, "test", "missing"], ordered=True
+            [True, False, np.nan, "test"],
+            categories=[True, False, "test", "missing"],
+            ordered=True,
         )
     )
     correct_output = {
@@ -144,9 +145,10 @@ def test_object_missing_summary(tenzing_type=tenzing_object):
 def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
     tenzing_type += missing_generic
     test_series = pd.Series([np.nan])
-    correct_output = {"na_count": 1,
-                      # "perc_na": 1
-                      }
+    correct_output = {
+        "na_count": 1,
+        # "perc_na": 1
+    }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 
@@ -154,11 +156,12 @@ def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
 def test_string_missing_summary(tenzing_type=tenzing_string):
     tenzing_type += missing_generic
     test_series = pd.Series(["apple", "orange", "bike", np.nan])
-    correct_output = {"na_count": 1,
-                      'n_unique': 3,
-                      'n_records': 4,
-                      # "perc_na": 0.25
-                      }
+    correct_output = {
+        "na_count": 1,
+        "n_unique": 3,
+        "n_records": 4,
+        # "perc_na": 0.25
+    }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 

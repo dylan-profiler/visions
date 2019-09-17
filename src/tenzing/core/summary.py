@@ -12,7 +12,9 @@ class Summary(object):
         if summary_ops is None:
             summary_ops = {}
 
-        if not all(issubclass(base_type, tenzing_model) for base_type in summary_ops.keys()):
+        if not all(
+            issubclass(base_type, tenzing_model) for base_type in summary_ops.keys()
+        ):
             raise Exception("Summaries must be mapped on a type!")
 
         self.summary_ops = summary_ops
@@ -20,7 +22,9 @@ class Summary(object):
     def summarize_frame(self, df: pd.DataFrame):
         return dataframe_summary(df)
 
-    def summarize_series(self, series: pd.Series, summary_type: Union[tenzing_model, MultiModel]) -> dict:
+    def summarize_series(
+        self, series: pd.Series, summary_type: Union[tenzing_model, MultiModel]
+    ) -> dict:
         summary = {}
 
         if isinstance(summary_type, MultiModel):
@@ -31,11 +35,17 @@ class Summary(object):
         done = []
         for current_type in types:
             for base_type, summary_ops in self.summary_ops.items():
-                if base_type not in done and issubclass(current_type, base_type) and not isinstance(current_type, tenzing_model):
+                if (
+                    base_type not in done
+                    and issubclass(current_type, base_type)
+                    and not isinstance(current_type, tenzing_model)
+                ):
                     mask = base_type.mask(series)
                     print(series.to_dict(), mask.to_dict())
                     for op in summary_ops:
-                        print(f"summarizing {current_type} though {base_type} via {op.__name__}")
+                        print(
+                            f"summarizing {current_type} though {base_type} via {op.__name__}"
+                        )
                         summary.update(op(series[mask]))
                     done.append(base_type)
 
@@ -69,7 +79,7 @@ type_summary_ops = {
     infinite_generic: [infinite_summary],
     missing_generic: [missing_summary],
     tenzing_generic: [],
-    tenzing_model: [base_summary]
+    tenzing_model: [base_summary],
 }
 
 # TODO: add typeset

@@ -18,6 +18,7 @@ tenzing.core.model.types.tenzing\_geometry
       ~tenzing_geometry.cast_op
       ~tenzing_geometry.contains_op
       ~tenzing_geometry.get_relations
+      ~tenzing_geometry.mask
       ~tenzing_geometry.register_relation
    
    
