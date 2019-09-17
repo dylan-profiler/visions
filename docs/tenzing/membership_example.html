@@ -167,7 +167,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">tenzing.core.containers</span> <span class="kn">import</span> <span class="n">MultiContainer</span><span class="p">,</span> <span class="n">infinite</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="n">missing</span><span class="p">,</span> <span class="nb">type</span>
+<span class="kn">from</span> <span class="nn">tenzing.core.partitioners</span> <span class="kn">import</span> <span class="n">infinite</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="n">missing</span><span class="p">,</span> <span class="nb">type</span>
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_bool</span> <span class="kn">import</span> <span class="n">tenzing_bool</span>
 
 <span class="n">s1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bool_series&quot;</span><span class="p">)</span>
@@ -175,12 +175,12 @@
 <span class="n">s3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;nan_series&quot;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">]:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;**{s.name}**&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">tenzing_bool</span><span class="p">,</span> <span class="s1">&#39;tenzing_bool&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">[</span><span class="n">tenzing_bool</span><span class="p">],</span> <span class="s1">&#39;type[tenzing_bool]&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">missing</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">tenzing_bool</span><span class="p">],</span> <span class="s1">&#39;missing | type[tenzing_bool]&#39;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;**{s.name}**&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">tenzing_bool</span><span class="p">,</span> <span class="s2">&quot;tenzing_bool&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">[</span><span class="n">tenzing_bool</span><span class="p">],</span> <span class="s2">&quot;type[tenzing_bool]&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">,</span> <span class="s2">&quot;missing&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">missing</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">tenzing_bool</span><span class="p">],</span> <span class="s2">&quot;missing | type[tenzing_bool]&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

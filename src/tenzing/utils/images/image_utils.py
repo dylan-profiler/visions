@@ -96,7 +96,9 @@ def extract_exif(image: Image) -> dict:
         exif_data = image._getexif()
         if exif_data is not None:
             exif = {
-                ExifTags.TAGS[k]: decode_byte_exif(v) for k, v in exif_data.items() if k in ExifTags.TAGS
+                ExifTags.TAGS[k]: decode_byte_exif(v)
+                for k, v in exif_data.items()
+                if k in ExifTags.TAGS
             }
         else:
             exif = {}

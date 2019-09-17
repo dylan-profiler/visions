@@ -25,5 +25,3 @@ def unique_summary(series: pd.Series) -> dict:
     # except Exception:
     #     pass
     return summary
-
-

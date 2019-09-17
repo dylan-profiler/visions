@@ -1,7 +1,8 @@
 import pytest
 
 from tenzing.core.model.types import *
-from tenzing.core.model.sub_types import missing, infinite
+
+# from tenzing.core.model.sub_types import missing, infinite
 from tests.series import get_series
 
 

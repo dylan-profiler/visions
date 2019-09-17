@@ -2,7 +2,12 @@ from pathlib import Path
 
 import pandas as pd
 
-from tenzing.utils.images.image_utils import open_image, is_image_truncated, extract_exif, hash_image
+from tenzing.utils.images.image_utils import (
+    open_image,
+    is_image_truncated,
+    extract_exif,
+    hash_image,
+)
 
 
 def count_duplicate_hashes(image_descriptions: dict) -> int:
