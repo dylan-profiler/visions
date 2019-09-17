@@ -11,19 +11,21 @@ Function signature:
 
 `X in Partitioner -> bool`
 
-| Code										| Result |
-|-------------------------------------------|--------|
-|`Series([T, F]) in type[type_bool]`			| True |
-|`Series([T, F]) in type[type_generic]`			| True |
-|`Series([T, F]) in type[type_integer]`			| False |
-|`Series([T, F, nan]) in type[type_bool]`		| False |
-|`Series([T, F, nan]) in missing | type[type_bool]`	| True |
-|`Series([T, F]) in missing | type[type_bool]`		| True |
-|`Series([T, F]) in type_bool`				| Exception |
-|`Series([T, F, np.nan]) in type_bool | missing		| Exception |
-|`Series([np.nan]) in missing_generic`			| Exception |
-|`Series([np.nan]) in missing`				| True |
-|`Series([np.nan]) in missing[missing_generic]`	| True (equivalent to above) |
+==================================================== ==========================
+Code										         Result
+---------------------------------------------------- --------------------------
+`Series([T, F]) in type[type_bool]`			         True
+`Series([T, F]) in type[type_generic]`			     True
+`Series([T, F]) in type[type_integer]`			     False
+`Series([T, F, nan]) in type[type_bool]`		     False
+`Series([T, F, nan]) in missing | type[type_bool]`	 True
+`Series([T, F]) in missing | type[type_bool]`		 True
+`Series([T, F]) in type_bool`				         Exception
+`Series([T, F, np.nan]) in type_bool`                missing
+`Series([np.nan]) in missing_generic`			     Exception
+`Series([np.nan]) in missing`				         True
+`Series([np.nan]) in missing[missing_generic]`	     True (equivalent to above)
+==================================================== ==========================
 
 Get Type
 --------
