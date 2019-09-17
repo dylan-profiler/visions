@@ -3,7 +3,16 @@ from functools import partial
 import pandas as pd
 
 
-def parse_range(x, pos):
+def parse_range(x: str, pos: int) -> int:
+    """ Parse the unicode range to int (base 16)
+
+    Args:
+        x: range value
+        pos: position to extract
+
+    Returns:
+
+    """
     vals = x.split("..")
     if len(vals) == 1:
         vals.append(vals[0])
@@ -130,6 +139,7 @@ def _lookup_proplist(chr, default=None):
 
 
 def name(chr, default=None):
+    """Returns the name assigned to the character chr as a string. If no name is defined, default is returned, or, if not given, ValueError is raised."""
     return _lookup_unicodedata("name", chr, default)
 
 
@@ -159,10 +169,12 @@ def bidirectional(chr):
 
 
 def decimal(chr, default=None):
+    """Returns the decimal value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised."""
     return _lookup_unicodedata("decimal", chr, default)
 
 
 def digit(chr, default=None):
+    """Returns the digit value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised."""
     return _lookup_unicodedata("digit", chr, default)
 
 

@@ -171,6 +171,44 @@
             
   <div class="section" id="module-tenzing.utils.unicode.unicode_data">
 <span id="tenzing-utils-unicode-unicode-data"></span><h1>tenzing.utils.unicode.unicode_data<a class="headerlink" href="#module-tenzing.utils.unicode.unicode_data" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="tenzing.utils.unicode.unicode_data.decimal">
+<code class="sig-prename descclassname">tenzing.utils.unicode.unicode_data.</code><code class="sig-name descname">decimal</code><span class="sig-paren">(</span><em class="sig-param">chr</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/unicode/unicode_data.html#decimal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.unicode.unicode_data.decimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the decimal value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tenzing.utils.unicode.unicode_data.digit">
+<code class="sig-prename descclassname">tenzing.utils.unicode.unicode_data.</code><code class="sig-name descname">digit</code><span class="sig-paren">(</span><em class="sig-param">chr</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/unicode/unicode_data.html#digit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.unicode.unicode_data.digit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the digit value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tenzing.utils.unicode.unicode_data.name">
+<code class="sig-prename descclassname">tenzing.utils.unicode.unicode_data.</code><code class="sig-name descname">name</code><span class="sig-paren">(</span><em class="sig-param">chr</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/unicode/unicode_data.html#name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.unicode.unicode_data.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name assigned to the character chr as a string. If no name is defined, default is returned, or, if not given, ValueError is raised.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tenzing.utils.unicode.unicode_data.parse_range">
+<code class="sig-prename descclassname">tenzing.utils.unicode.unicode_data.</code><code class="sig-name descname">parse_range</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">pos</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/unicode/unicode_data.html#parse_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.unicode.unicode_data.parse_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the unicode range to int (base 16)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – range value</p></li>
+<li><p><strong>pos</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – position to extract</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
