@@ -24,6 +24,7 @@ class tenzing_generic(tenzing_model):
     def contains_op(cls, series: pd.Series) -> bool:
         if not super().contains_op(series):
             return False
+
         return cls.mask(series).all()
 
     @classmethod

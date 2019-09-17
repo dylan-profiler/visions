@@ -51,7 +51,6 @@ class model_relation:
 
 class meta_model(type):
     def __contains__(cls, series: pd.Series) -> bool:
-        print(cls, series)
         return cls.contains_op(series)
 
     # TODO: raise exception on instantiation
