@@ -89,8 +89,8 @@ class meta_model(type):
 
 
 # TODO: see if we can make this without initiazation
-class MultiModel(object):
-    def __init__(self, models):
+class MultiModel(metaclass=meta_model):
+    def __init__(self, models: list):
         assert len(models) >= 2
 
         if not all(issubclass(base_type, tenzing_model) for base_type in models):
@@ -98,17 +98,17 @@ class MultiModel(object):
 
         self.models = models
 
-    def mask(self, series):
+    def mask(self, series: pd.Series):
         mask = self.models[0].mask(series)
         for container in self.models[1:]:
             mask &= container.mask(series)
         return mask
 
-    def contains_op(self, series) -> bool:
-        return all(series in container for container in self.models)
+    def contains_op(self, series: pd.Series) -> bool:
+        return all(series in model for model in self.models)
 
     def __str__(self):
-        return f"({', '.join([str(container.__class__) for container in self.models])})"
+        return f"({', '.join([str(model) for model in self.models])})"
 
     def __repr__(self):
         return str(self)
@@ -131,7 +131,7 @@ class tenzing_model(metaclass=meta_model):
     """
 
     _relations = {}
-    _strict = {}
+    # _strict = {}
 
     @classmethod
     def __instancecheck__(mcs, instance) -> bool:

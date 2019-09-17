@@ -1,6 +1,5 @@
 import pytest
 
-from tenzing.core.model import missing
 from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.typesets import infer_type, traverse_relation_graph
 from tenzing.core.model.types import *
@@ -10,9 +9,9 @@ from tests.series import get_series
 def get_series_map():
     return {
         tenzing_integer: [],
-        tenzing_integer + missing: [],
+        tenzing_integer + missing_generic: [],
         tenzing_bool: [],
-        tenzing_float + missing: [],
+        tenzing_float + missing_generic: [],
     }
 
 
