@@ -166,11 +166,12 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        pass
+        return series.apply(lambda _: True)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
+        print(f"contains_op {cls.__name__}")
+        if not super(cls).contains_op(series):
             return False
 
         return cls.mask(series).all()

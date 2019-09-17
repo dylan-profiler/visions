@@ -30,9 +30,8 @@ class Summary(object):
 
         for current_type in types:
             for base_type, summary_ops in self.summary_ops.items():
-                if issubclass(current_type, base_type):
+                if issubclass(current_type, base_type) and not isinstance(current_type, tenzing_model):
                     mask = base_type.mask(series)
-                    print(series, mask)
                     for op in summary_ops:
                         summary.update(op(series[mask]))
 

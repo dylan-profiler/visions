@@ -15,7 +15,7 @@ def base_summary(series: pd.Series) -> dict:
         "n_records": series.shape[0],
         "memory_size": series.memory_usage(index=True, deep=True),
         "dtype": series.dtype,
-        "types": series.map(type).value_counts().to_dict(),
+        "types": series.map(lambda x: type(x).__name__).value_counts().to_dict(),
     }
 
     return summary

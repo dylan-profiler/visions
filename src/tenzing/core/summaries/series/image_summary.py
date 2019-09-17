@@ -105,7 +105,5 @@ def image_summary(series: pd.Series) -> dict:
         [x["size"] for x in image_information if "size" in x], name="image_shape"
     )
     summary["image_shape_counts"] = image_shapes.value_counts().to_dict()
-    summary["p_duplicate_hash"] = float(summary["n_duplicate_hash"]) / len(series)
-    summary["p_truncated"] = float(summary["n_truncated"]) / len(series)
 
     return summary
