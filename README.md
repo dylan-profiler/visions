@@ -7,10 +7,11 @@
 ## Introduction
 Tenzing provides an extensible suite of tools to support common data analysis operations including
 
-* automated data summarization
 * type inference on unknown data
+* casting data types
+* automated data summarization
 
-Full documentation can be found [here](https://tenzing.readthedocs.io/en/latest/).
+Full documentation can be found [here](https://ieaves.github.io/tenzing/).
 
 ## Requirements
 

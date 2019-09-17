@@ -1,5 +1,0 @@
-tenzing.utils.monkeypatches
-===========================
-
-.. automodule:: tenzing.utils.monkeypatches
-    :members:

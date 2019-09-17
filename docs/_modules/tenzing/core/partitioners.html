@@ -203,6 +203,9 @@
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{cls.__class__.__name__}</span><span class="s2">&quot;</span>
 
@@ -236,6 +239,11 @@
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">True</span>
 
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+        <span class="n">container_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">series</span><span class="p">[</span><span class="n">container_mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_type</span><span class="o">.</span><span class="n">cast_op</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">container_mask</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">series</span>
+
 
 <div class="viewcode-block" id="Type"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.partitioners.Type.html#tenzing.core.partitioners.Type">[docs]</a><span class="k">class</span> <span class="nc">Type</span><span class="p">(</span><span class="n">Partitioner</span><span class="p">):</span>
 <div class="viewcode-block" id="Type.__init__"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.partitioners.Type.html#tenzing.core.partitioners.Type.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_type</span><span class="p">):</span>
@@ -244,6 +252,11 @@
     <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="c1"># TODO: exclude inf</span>
         <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+        <span class="n">container_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">series</span><span class="p">[</span><span class="n">container_mask</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_type</span><span class="o">.</span><span class="n">cast_op</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">container_mask</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">series</span>
 
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">series</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_type</span>

@@ -158,6 +158,8 @@ class tenzingTypeset(object):
 
     def get_containerized_series(self, series):
         container = self.detect_series_container(series)
+        if type(container) == list:
+            container = MultiPartitioner(container)
         return container.transform(series)
 
     def infer_types(self, df: pd.DataFrame):

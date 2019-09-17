@@ -51,6 +51,9 @@ class Partitioner(metaclass=PartitionerMeta):
         except Exception:
             return False
 
+    def __repr__(self):
+        return str(self)
+
     def __str__(cls) -> str:
         return f"{cls.__class__.__name__}"
 
@@ -84,6 +87,11 @@ class Generic(Partitioner):
     def contains_op(self, series):
         return True
 
+    def transform(self, series):
+        container_mask = self.mask(series)
+        series[container_mask] = self.base_type.cast_op(series[container_mask])
+        return series
+
 
 class Type(Partitioner):
     def __init__(self, base_type):
@@ -92,6 +100,11 @@ class Type(Partitioner):
     def mask(self, series):
         # TODO: exclude inf
         return series.notnull()
+
+    def transform(self, series):
+        container_mask = self.mask(series)
+        series[container_mask] = self.base_type.cast_op(series[container_mask])
+        return series
 
     def contains_op(self, series):
         return series[self.mask(series)] in self.base_type

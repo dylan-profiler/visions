@@ -33,8 +33,8 @@ IF "%1" == "install" (
 
 IF "%1%" == "all" (
     make lint
-    make docs
     make install
+    make docs
     make test
     GOTO end
 )

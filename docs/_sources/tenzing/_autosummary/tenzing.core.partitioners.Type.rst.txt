@@ -16,6 +16,7 @@ tenzing.core.partitioners.Type
       ~Type.__init__
       ~Type.contains_op
       ~Type.mask
+      ~Type.transform
    
    
 

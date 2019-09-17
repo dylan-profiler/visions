@@ -1,0 +1,5 @@
+tenzing.utils.monkeypatches.pathlib_patch
+=========================================
+
+.. automodule:: tenzing.utils.monkeypatches.pathlib_patch
+    :members:

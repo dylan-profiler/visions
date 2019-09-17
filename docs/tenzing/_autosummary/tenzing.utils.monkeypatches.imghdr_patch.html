@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tenzing.utils.monkeypatches &mdash; package 0.0.3 documentation</title>
+  <title>tenzing.utils.monkeypatches.imghdr_patch &mdash; package 0.0.3 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tenzing.utils.unicode" href="tenzing.utils.unicode.html" />
-    <link rel="prev" title="tenzing.utils.images" href="tenzing.utils.images.html" /> 
+    <link rel="next" title="tenzing.utils.monkeypatches.pathlib_patch" href="tenzing.utils.monkeypatches.pathlib_patch.html" />
+    <link rel="prev" title="tenzing.utils.images.image_utils" href="tenzing.utils.images.image_utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,10 +93,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_typesets.html">Typesets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.coercion.html">tenzing.utils.coercion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.images.html">tenzing.utils.images</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">tenzing.utils.monkeypatches</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.unicode.html">tenzing.utils.unicode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.coercion.test_utils.html">tenzing.utils.coercion.test_utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.images.image_utils.html">tenzing.utils.images.image_utils</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tenzing.utils.monkeypatches.imghdr_patch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.monkeypatches.pathlib_patch.html">tenzing.utils.monkeypatches.pathlib_patch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.unicode.unicode_data.html">tenzing.utils.unicode.unicode_data</a></li>
 </ul>
 </li>
 </ul>
@@ -150,13 +151,13 @@
         
           <li><a href="../utils.html">Utils</a> &raquo;</li>
         
-      <li>tenzing.utils.monkeypatches</li>
+      <li>tenzing.utils.monkeypatches.imghdr_patch</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/tenzing/_autosummary/tenzing.utils.monkeypatches.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/tenzing/_autosummary/tenzing.utils.monkeypatches.imghdr_patch.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,8 +170,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-tenzing.utils.monkeypatches">
-<span id="tenzing-utils-monkeypatches"></span><h1>tenzing.utils.monkeypatches<a class="headerlink" href="#module-tenzing.utils.monkeypatches" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-tenzing.utils.monkeypatches.imghdr_patch">
+<span id="tenzing-utils-monkeypatches-imghdr-patch"></span><h1>tenzing.utils.monkeypatches.imghdr_patch<a class="headerlink" href="#module-tenzing.utils.monkeypatches.imghdr_patch" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="tenzing.utils.monkeypatches.imghdr_patch.test_jpeg1">
+<code class="sig-prename descclassname">tenzing.utils.monkeypatches.imghdr_patch.</code><code class="sig-name descname">test_jpeg1</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/monkeypatches/imghdr_patch.html#test_jpeg1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.monkeypatches.imghdr_patch.test_jpeg1" title="Permalink to this definition">¶</a></dt>
+<dd><p>JPEG data in JFIF format</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tenzing.utils.monkeypatches.imghdr_patch.test_jpeg2">
+<code class="sig-prename descclassname">tenzing.utils.monkeypatches.imghdr_patch.</code><code class="sig-name descname">test_jpeg2</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/monkeypatches/imghdr_patch.html#test_jpeg2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.monkeypatches.imghdr_patch.test_jpeg2" title="Permalink to this definition">¶</a></dt>
+<dd><p>JPEG with small header</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tenzing.utils.monkeypatches.imghdr_patch.test_jpeg3">
+<code class="sig-prename descclassname">tenzing.utils.monkeypatches.imghdr_patch.</code><code class="sig-name descname">test_jpeg3</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/monkeypatches/imghdr_patch.html#test_jpeg3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.monkeypatches.imghdr_patch.test_jpeg3" title="Permalink to this definition">¶</a></dt>
+<dd><p>JPEG data in JFIF or Exif format</p>
+</dd></dl>
+
 </div>
 
 
@@ -181,10 +200,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tenzing.utils.unicode.html" class="btn btn-neutral float-right" title="tenzing.utils.unicode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tenzing.utils.monkeypatches.pathlib_patch.html" class="btn btn-neutral float-right" title="tenzing.utils.monkeypatches.pathlib_patch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tenzing.utils.images.html" class="btn btn-neutral float-left" title="tenzing.utils.images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tenzing.utils.images.image_utils.html" class="btn btn-neutral float-left" title="tenzing.utils.images.image_utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
