@@ -90,33 +90,6 @@ def detect_series_container(series, containers):
     return series_containers
 
 
-# TODO: Should be container...
-# class Type:
-#     def __init__(self, container, base_type):
-#         self.container = container
-#         self.base_type = base_type
-#
-#     def contains_op(self, series):
-#         if series in self.container:
-#             return series in self.base_type
-#         else:
-#             return False
-#
-#     def transform(self, series):
-#         container_mask = self.container.mask(series)
-#         series[container_mask] = self.base_type.cast_op(series[container_mask])
-#         return series
-#
-#     def __repr__(self) -> str:
-#         return f"{self.container}[{self.base_type}]"
-#
-#     def __contains__(self, series) -> bool:
-#         try:
-#             return self.contains_op(series)
-#         except Exception:
-#             return False
-
-
 class tenzingTypeset(object):
     """
     A collection of tenzing_types with an associated relationship map between them.

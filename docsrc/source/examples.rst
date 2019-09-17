@@ -4,5 +4,6 @@ Examples
 
 .. toctree::
 
-    tenzing/membership_example
-    tenzing/summaries_example
+    tenzing/examples/oneliners
+    tenzing/examples/membership_example
+    tenzing/examples/summaries_example

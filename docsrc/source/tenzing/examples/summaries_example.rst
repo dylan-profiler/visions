@@ -3,7 +3,7 @@ Summaries example
 
 The following example demonstrates the summary of several `tenzing_string` types.
 
-.. literalinclude:: ../../../notebooks/examples/summarize_strings.py
+.. literalinclude:: ../../../../notebooks/examples/summarize_strings.py
     :language: python
     :caption: summaries_example.py
     :name: summaries_example

@@ -91,6 +91,7 @@ class tenzing_complete_set(tenzingTypeset):
     - tenzing_geometry
     - tenzing_path
     - tenzing_existing_path
+    - tenzing_image_path
     - tenzing_url
     - tenzing_ip
 
@@ -113,6 +114,7 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_date,
             tenzing_time,
             tenzing_existing_path,
+            tenzing_image_path,
             tenzing_empty,
             tenzing_ip,
         ]

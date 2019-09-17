@@ -4,7 +4,7 @@ Membership example
 The following example demonstrates the membership of several `tenzing_bool` series.
 
 
-.. literalinclude:: ../../../notebooks/examples/membership_boolean.py
+.. literalinclude:: ../../../../notebooks/examples/membership_boolean.py
     :language: python
     :caption: membership_example.py
     :name: membership_example

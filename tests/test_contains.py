@@ -1,15 +1,20 @@
 import pytest
 
 from tenzing.core.model.types import *
+from tenzing.core.partitioners import missing, type, infinite
 
-# from tenzing.core.model.sub_types import missing, infinite
 from tests.series import get_series
 
 
 def get_series_map():
     series_map = {
-        tenzing_integer: ["int_series", "Int64_int_series", "np_uint32", "int_range"],
-        tenzing_integer + missing: ["int_nan_series", "Int64_int_nan_series"],
+        type[tenzing_integer]: [
+            "int_series",
+            "Int64_int_series",
+            "np_uint32",
+            "int_range",
+        ],
+        type[tenzing_integer] | missing: ["int_nan_series", "Int64_int_nan_series"],
         tenzing_integer + infinite: ["int_with_inf"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
