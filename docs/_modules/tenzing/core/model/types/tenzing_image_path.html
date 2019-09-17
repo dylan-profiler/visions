@@ -150,16 +150,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for tenzing.core.model.types.tenzing_image_path</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">tenzing.utils.monkeypatches</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">imghdr</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_existing_path</span> <span class="k">import</span> <span class="n">tenzing_existing_path</span>
-
-
-<span class="k">def</span> <span class="nf">path_is_image</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">imghdr</span><span class="o">.</span><span class="n">what</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="kn">from</span> <span class="nn">tenzing.utils.images.image_utils</span> <span class="k">import</span> <span class="n">path_is_image</span>
 
 
 <div class="viewcode-block" id="tenzing_image_path"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.tenzing_image_path.html#tenzing.core.model.types.tenzing_image_path">[docs]</a><span class="k">class</span> <span class="nc">tenzing_image_path</span><span class="p">(</span><span class="n">tenzing_existing_path</span><span class="p">):</span>

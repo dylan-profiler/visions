@@ -1,7 +1,7 @@
-tenzing.core.containers.Missing
-===============================
+tenzing.core.partitioners.Missing
+=================================
 
-.. currentmodule:: tenzing.core.containers
+.. currentmodule:: tenzing.core.partitioners
 
 .. autoclass:: Missing
 

@@ -1,56 +1,8 @@
 from pathlib import Path
-from typing import Union, Tuple
 
 import pandas as pd
 
-import imagehash
-from PIL import Image, ExifTags
-
-
-def is_image_truncated(image: Image) -> bool:
-    """Returns True if the path refers to a truncated image
-
-    Args:
-        image:
-
-    Returns:
-        True if the image is truncated
-    """
-    try:
-        image.load()
-        return False
-    except (OSError, AttributeError) as err:
-        return True
-
-
-def get_image_shape(image: Image) -> Union[None, Tuple[int, int]]:
-    """
-
-    Args:
-        image:
-
-    Returns:
-
-    """
-    try:
-        return image.size
-    except (OSError, AttributeError):
-        return None
-
-
-def hash_image(image: Image) -> Union[str, None]:
-    """
-
-    Args:
-        image:
-
-    Returns:
-
-    """
-    try:
-        return str(imagehash.phash(image))
-    except (OSError, AttributeError):
-        return None
+from tenzing.utils.images.image_utils import open_image, is_image_truncated, extract_exif, hash_image
 
 
 def count_duplicate_hashes(image_descriptions: dict) -> int:
@@ -68,31 +20,7 @@ def count_duplicate_hashes(image_descriptions: dict) -> int:
     return counts.sum() - len(counts)
 
 
-def extract_exif(image: Image) -> dict:
-    """
-
-    Args:
-        image:
-
-    Returns:
-
-    """
-    try:
-        exif_data = image._getexif()
-        if exif_data is not None:
-            exif = {
-                ExifTags.TAGS[k]: v for k, v in exif_data.items() if k in ExifTags.TAGS
-            }
-        else:
-            exif = {}
-    except (AttributeError, OSError):
-        # Not all file types (e.g. .gif) have exif information.
-        exif = {}
-
-    return exif
-
-
-def extract_exif_series(image_exifs: dict) -> dict:
+def extract_exif_series(image_exifs: list) -> dict:
     """
 
     Args:
@@ -113,12 +41,6 @@ def extract_exif_series(image_exifs: dict) -> dict:
             if exif_key not in exif_values:
                 exif_values[exif_key] = []
 
-            # Decode byte encodings
-            try:
-                exif_val = exif_val.decode()
-            except (UnicodeDecodeError, AttributeError):
-                pass
-
             exif_values[exif_key].append(exif_val)
 
     series = {"exif_keys": pd.Series(exif_keys).value_counts().to_dict()}
@@ -127,21 +49,6 @@ def extract_exif_series(image_exifs: dict) -> dict:
         series[k] = pd.Series(v).value_counts().to_dict()
 
     return series
-
-
-def open_image(path: Path) -> Image:
-    """
-
-    Args:
-        path:
-
-    Returns:
-
-    """
-    try:
-        return Image.open(path)
-    except (OSError, AttributeError) as err:
-        return None
 
 
 def extract_image_information(path: Path) -> dict:
@@ -197,18 +104,3 @@ def image_summary(series: pd.Series) -> dict:
     summary["p_truncated"] = float(summary["n_truncated"]) / len(series)
 
     return summary
-
-
-def image_warnings(summary: dict) -> list:
-    """
-
-    Args:
-        summary:
-
-    Returns:
-
-    """
-    messages = []
-    if summary["n_truncated"] > 0:
-        messages.append("n_truncated")
-    return messages

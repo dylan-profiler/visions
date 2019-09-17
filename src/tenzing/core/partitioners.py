@@ -5,7 +5,7 @@ import pandas as pd
 from tenzing.core.model.types import tenzing_generic
 
 
-class ContainerMeta(type):
+class PartitionerMeta(type):
     def __str__(cls) -> str:
         return f"{cls.__name__}"
 
@@ -17,9 +17,9 @@ class ContainerMeta(type):
         Examples:
             >>> Generic + Infinite
         """
-        if not isinstance(other, Container):
+        if not isinstance(other, Partitioner):
             raise Exception(f"{other} must be of type Container")
-        return MultiContainer([self, other])
+        return MultiPartitioner([self, other])
 
     def __or__(self, other):
         """
@@ -36,7 +36,7 @@ class ContainerMeta(type):
         return item + self
 
 
-class Container(metaclass=ContainerMeta):
+class Partitioner(metaclass=PartitionerMeta):
     @abstractmethod
     def mask(self, series):
         pass
@@ -55,7 +55,8 @@ class Container(metaclass=ContainerMeta):
         return f"{cls.__class__.__name__}"
 
 
-class MultiContainer(Container):
+# TODO: see if we can make this without initiazation
+class MultiPartitioner(Partitioner):
     def __init__(self, containers):
         assert len(containers) >= 2
         self.containers = containers
@@ -76,7 +77,7 @@ class MultiContainer(Container):
         return str(self)
 
 
-class Generic(Container):
+class Generic(Partitioner):
     def mask(self, series):
         return np.ones((len(series),), dtype=np.bool)
 
@@ -84,7 +85,7 @@ class Generic(Container):
         return True
 
 
-class TypeC(Container):
+class Type(Partitioner):
     def __init__(self, base_type):
         self.base_type = base_type
 
@@ -103,7 +104,7 @@ class TypeC(Container):
         return f"{self.__class__.__name__}[{self.base_type}]"
 
 
-class Infinite(Container):
+class Infinite(Partitioner):
     """Allow missing values on type (e.g. np.nan, "NAN")
 
     Examples:
@@ -131,7 +132,7 @@ class Infinite(Container):
         return self.mask(series).any()
 
 
-class Missing(Container):
+class Missing(Partitioner):
     """Allow infinite values on type (e.g. np.inf)
 
     Examples:
@@ -162,4 +163,4 @@ class Missing(Container):
 generic = Generic()
 infinite = Infinite()
 missing = Missing()
-type = TypeC(tenzing_generic)
+type = Type(tenzing_generic)

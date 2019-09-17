@@ -1,7 +1,7 @@
-tenzing.core.containers.Infinite
-================================
+tenzing.core.partitioners.Infinite
+==================================
 
-.. currentmodule:: tenzing.core.containers
+.. currentmodule:: tenzing.core.partitioners
 
 .. autoclass:: Infinite
 

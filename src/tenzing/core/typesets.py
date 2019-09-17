@@ -5,7 +5,7 @@ import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-from tenzing.core.containers import MultiContainer, TypeC
+from tenzing.core.partitioners import MultiPartitioner, Type
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
@@ -144,8 +144,8 @@ class tenzingTypeset(object):
             col: self._get_column_type(df[col]) for col in df.columns
         }
         self.column_type_map = {
-            col: MultiContainer(
-                self.column_container_map[col] + [TypeC(self.column_base_type_map[col])]
+            col: MultiPartitioner(
+                self.column_container_map[col] + [Type(self.column_base_type_map[col])]
             )
             for col in df.columns
         }

@@ -151,58 +151,10 @@
             
   <h1>Source code for tenzing.core.summaries.series.image_summary</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">import</span> <span class="nn">imagehash</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ExifTags</span>
-
-
-<span class="k">def</span> <span class="nf">is_image_truncated</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Returns True if the path refers to a truncated image</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        image:</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        True if the image is truncated</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-
-
-<span class="k">def</span> <span class="nf">get_image_shape</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        image:</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-
-<span class="k">def</span> <span class="nf">hash_image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        image:</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">imagehash</span><span class="o">.</span><span class="n">phash</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">None</span>
+<span class="kn">from</span> <span class="nn">tenzing.utils.images.image_utils</span> <span class="k">import</span> <span class="n">open_image</span><span class="p">,</span> <span class="n">is_image_truncated</span><span class="p">,</span> <span class="n">extract_exif</span><span class="p">,</span> <span class="n">hash_image</span>
 
 
 <span class="k">def</span> <span class="nf">count_duplicate_hashes</span><span class="p">(</span><span class="n">image_descriptions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -220,31 +172,7 @@
     <span class="k">return</span> <span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">extract_exif</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        image:</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">exif_data</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">_getexif</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">exif_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">exif</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">ExifTags</span><span class="o">.</span><span class="n">TAGS</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">exif_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ExifTags</span><span class="o">.</span><span class="n">TAGS</span>
-            <span class="p">}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">exif</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
-        <span class="c1"># Not all file types (e.g. .gif) have exif information.</span>
-        <span class="n">exif</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">return</span> <span class="n">exif</span>
-
-
-<span class="k">def</span> <span class="nf">extract_exif_series</span><span class="p">(</span><span class="n">image_exifs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">extract_exif_series</span><span class="p">(</span><span class="n">image_exifs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
@@ -265,12 +193,6 @@
             <span class="k">if</span> <span class="n">exif_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exif_values</span><span class="p">:</span>
                 <span class="n">exif_values</span><span class="p">[</span><span class="n">exif_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-            <span class="c1"># Decode byte encodings</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">exif_val</span> <span class="o">=</span> <span class="n">exif_val</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-            <span class="k">except</span> <span class="p">(</span><span class="ne">UnicodeDecodeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
-                <span class="k">pass</span>
-
             <span class="n">exif_values</span><span class="p">[</span><span class="n">exif_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exif_val</span><span class="p">)</span>
 
     <span class="n">series</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;exif_keys&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">exif_keys</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span>
@@ -279,21 +201,6 @@
         <span class="n">series</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">series</span>
-
-
-<span class="k">def</span> <span class="nf">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Image</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        path:</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">def</span> <span class="nf">extract_image_information</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -349,21 +256,6 @@
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;p_truncated&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;n_truncated&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">summary</span></div>
-
-
-<span class="k">def</span> <span class="nf">image_warnings</span><span class="p">(</span><span class="n">summary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        summary:</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;n_truncated&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;n_truncated&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">messages</span>
 </pre></div>
 
            </div>

@@ -179,21 +179,6 @@
     <span class="k">return</span> <span class="n">summary</span></div>
 
 
-<span class="k">def</span> <span class="nf">unique_warnings</span><span class="p">(</span><span class="n">summary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        summary:</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;n_unique&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;n_unique:const&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;p_unique&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
-        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;n_unique:unique&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">messages</span>
 </pre></div>
 
            </div>

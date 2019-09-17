@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tenzing.core.containers.Infinite &mdash; package 0.0.3 documentation</title>
+  <title>tenzing.core.partitioners.Type &mdash; package 0.0.3 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tenzing.core.containers.TypeC" href="tenzing.core.containers.TypeC.html" />
-    <link rel="prev" title="tenzing.core.containers.Missing" href="tenzing.core.containers.Missing.html" /> 
+    <link rel="next" title="tenzing.core.model.types.tenzing_integer" href="tenzing.core.model.types.tenzing_integer.html" />
+    <link rel="prev" title="tenzing.core.partitioners.Infinite" href="tenzing.core.partitioners.Infinite.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,10 +91,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../modules.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../models.html#container-types">Container Types</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.containers.Missing.html">tenzing.core.containers.Missing</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">tenzing.core.containers.Infinite</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.containers.TypeC.html">tenzing.core.containers.TypeC</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../models.html#partitioner-types">Partitioner Types</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="tenzing.core.partitioners.Missing.html">tenzing.core.partitioners.Missing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tenzing.core.partitioners.Infinite.html">tenzing.core.partitioners.Infinite</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tenzing.core.partitioners.Type</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../models.html#concrete-types">Concrete Types</a></li>
@@ -154,13 +154,13 @@
         
           <li><a href="../models.html">Types</a> &raquo;</li>
         
-      <li>tenzing.core.containers.Infinite</li>
+      <li>tenzing.core.partitioners.Type</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/tenzing/_autosummary/tenzing.core.containers.Infinite.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/tenzing/_autosummary/tenzing.core.partitioners.Type.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,21 +173,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tenzing-core-containers-infinite">
-<h1>tenzing.core.containers.Infinite<a class="headerlink" href="#tenzing-core-containers-infinite" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tenzing-core-partitioners-type">
+<h1>tenzing.core.partitioners.Type<a class="headerlink" href="#tenzing-core-partitioners-type" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="tenzing.core.containers.Infinite">
-<em class="property">class </em><code class="sig-prename descclassname">tenzing.core.containers.</code><code class="sig-name descname">Infinite</code><a class="reference internal" href="../../_modules/tenzing/core/containers.html#Infinite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.containers.Infinite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allow missing values on type (e.g. np.nan, “NAN”)</p>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">series</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lost&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">series</span> <span class="ow">in</span> <span class="n">missing</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-<dl class="method">
-<dt id="tenzing.core.containers.Infinite.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tenzing.core.containers.Infinite.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="tenzing.core.partitioners.Type">
+<em class="property">class </em><code class="sig-prename descclassname">tenzing.core.partitioners.</code><code class="sig-name descname">Type</code><span class="sig-paren">(</span><em class="sig-param">base_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/partitioners.html#Type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.partitioners.Type" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="tenzing.core.partitioners.Type.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">base_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/partitioners.html#Type.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.partitioners.Type.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -198,14 +191,14 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tenzing.core.containers.Infinite.__init__" title="tenzing.core.containers.Infinite.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tenzing.core.partitioners.Type.__init__" title="tenzing.core.partitioners.Type.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(base_type)</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains_op</span></code>(series[, mask])</p></td>
-<td><p>Check if the series contains missing values :type series: <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> :param series: Series to check</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains_op</span></code>(series)</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask</span></code>(series)</p></td>
-<td><p>Get the ids containing missing values :type series: <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> :param series: Series to mask</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -221,10 +214,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tenzing.core.containers.TypeC.html" class="btn btn-neutral float-right" title="tenzing.core.containers.TypeC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tenzing.core.model.types.tenzing_integer.html" class="btn btn-neutral float-right" title="tenzing.core.model.types.tenzing_integer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tenzing.core.containers.Missing.html" class="btn btn-neutral float-left" title="tenzing.core.containers.Missing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tenzing.core.partitioners.Infinite.html" class="btn btn-neutral float-left" title="tenzing.core.partitioners.Infinite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

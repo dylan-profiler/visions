@@ -15,9 +15,9 @@ Abstract Types
    relations
 
 
-===============
-Container Types
-===============
+=================
+Partitioner Types
+=================
 
 .. currentmodule:: tenzing.core
 .. toctree::
@@ -25,9 +25,9 @@ Container Types
 .. autosummary::
    :toctree: _autosummary
 
-   containers.Missing
-   containers.Infinite
-   containers.TypeC
+   partitioners.Missing
+   partitioners.Infinite
+   partitioners.Type
 
 
 ==============

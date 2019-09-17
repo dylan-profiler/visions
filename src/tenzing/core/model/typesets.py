@@ -1,15 +1,6 @@
 from tenzing.core.typesets import tenzingTypeset
-from tenzing.core.containers import generic, infinite, missing, type
+from tenzing.core.partitioners import generic, infinite, missing, type
 from tenzing.core.model.types import *
-
-import pandas as pd
-
-
-def _get_column_names(obj):
-    if isinstance(obj, pd.DataFrame):
-        return obj.columns.values.tolist()
-    elif isinstance(obj, list):
-        return obj
 
 
 class tenzing_standard_set(tenzingTypeset):

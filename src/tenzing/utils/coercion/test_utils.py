@@ -11,7 +11,7 @@ def option_coercion_evaluator(method: Callable) -> Callable:
     Evaluates a coercion method and optionally returns the coerced series.
 
     Args:
-        method : A method coercing a Series to another type.
+        method: A method coercing a Series to another type.
 
     Returns:
         The coerced series if the coercion succeeds otherwise None.
@@ -57,7 +57,7 @@ def coercion_equality_test(method: Callable) -> Callable:
     when converting an integer to a float.
 
     Args:
-        method : A method coercing a Series to another type.
+        method: A method coercing a Series to another type.
 
     Returns:
         Whether the coercion failed or was successful.

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tenzing.core.containers import Container, Infinite, Missing, TypeC
+from tenzing.core.partitioners import Partitioner, Infinite, Missing, Type
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
 
@@ -15,7 +15,7 @@ class Summary(object):
     def summarize_frame(self, df: pd.DataFrame):
         return dataframe_summary(df)
 
-    def summarize_series(self, series: pd.Series, type: Container) -> dict:
+    def summarize_series(self, series: pd.Series, type: Partitioner) -> dict:
         summary = {}
 
         print(type)
@@ -72,7 +72,7 @@ type_summary_ops = {
 container_summary_ops = {
     Infinite: [infinite_summary],
     Missing: [missing_summary],
-    TypeC: type_summary_ops,
+    Type: type_summary_ops,
 }
 
 # TODO: add typeset

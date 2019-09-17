@@ -157,7 +157,7 @@
 <span class="kn">from</span> <span class="nn">networkx.drawing.nx_agraph</span> <span class="k">import</span> <span class="n">write_dot</span>
 
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_generic</span> <span class="k">import</span> <span class="n">tenzing_generic</span>
-<span class="kn">from</span> <span class="nn">tenzing.core.containers</span> <span class="k">import</span> <span class="n">MultiContainer</span><span class="p">,</span> <span class="n">TypeC</span>
+<span class="kn">from</span> <span class="nn">tenzing.core.partitioners</span> <span class="k">import</span> <span class="n">MultiPartitioner</span><span class="p">,</span> <span class="n">Type</span>
 
 
 <div class="viewcode-block" id="build_relation_graph"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.build_relation_graph.html#tenzing.core.typesets.build_relation_graph">[docs]</a><span class="k">def</span> <span class="nf">build_relation_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">:</span>
@@ -296,8 +296,8 @@
             <span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_type_map</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">col</span><span class="p">:</span> <span class="n">MultiContainer</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">TypeC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">])]</span>
+            <span class="n">col</span><span class="p">:</span> <span class="n">MultiPartitioner</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">Type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">])]</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
         <span class="p">}</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tenzing.utils.test_utils &mdash; package 0.0.3 documentation</title>
+  <title>tenzing.utils.unicode &mdash; package 0.0.3 documentation</title>
   
 
   
@@ -92,8 +92,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_typesets.html">Typesets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.coercion.html">tenzing.utils.coercion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tenzing.utils.images.html">tenzing.utils.images</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tenzing.utils.monkeypatches.html">tenzing.utils.monkeypatches</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">tenzing.utils.test_utils</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tenzing.utils.unicode</a></li>
 </ul>
 </li>
 </ul>
@@ -147,13 +149,13 @@
         
           <li><a href="../utils.html">Utils</a> &raquo;</li>
         
-      <li>tenzing.utils.test_utils</li>
+      <li>tenzing.utils.unicode</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/tenzing/_autosummary/tenzing.utils.test_utils.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/tenzing/_autosummary/tenzing.utils.unicode.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -166,66 +168,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-tenzing.utils.test_utils">
-<span id="tenzing-utils-test-utils"></span><h1>tenzing.utils.test_utils<a class="headerlink" href="#module-tenzing.utils.test_utils" title="Permalink to this headline">¶</a></h1>
-<p>A selection of testing utilities for tenzing.</p>
-<dl class="function">
-<dt id="tenzing.utils.test_utils.coercion_equality_test">
-<code class="sig-prename descclassname">tenzing.utils.test_utils.</code><code class="sig-name descname">coercion_equality_test</code><span class="sig-paren">(</span><em class="sig-param">method</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/test_utils.html#coercion_equality_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.test_utils.coercion_equality_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>A coercion equality test generator</p>
-<p>Creates a coercion test based on a provided coercion method which also enforces
-equality constraints on the output. This is useful when you want to change the
-data type of a series without necessarily changing the data, for example,
-when converting an integer to a float.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>method</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – A method coercing a Series to another type.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Whether the coercion failed or was successful.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="tenzing.utils.test_utils.coercion_test">
-<code class="sig-prename descclassname">tenzing.utils.test_utils.</code><code class="sig-name descname">coercion_test</code><span class="sig-paren">(</span><em class="sig-param">method</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/test_utils.html#coercion_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.test_utils.coercion_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>A coercion test generator</p>
-<p>Creates a coercion test based on a provided coercion method.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>method</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – A method coercing a Series to another type.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Whether the coercion failed or was successful.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="tenzing.utils.test_utils.option_coercion_evaluator">
-<code class="sig-prename descclassname">tenzing.utils.test_utils.</code><code class="sig-name descname">option_coercion_evaluator</code><span class="sig-paren">(</span><em class="sig-param">method</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/utils/test_utils.html#option_coercion_evaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.utils.test_utils.option_coercion_evaluator" title="Permalink to this definition">¶</a></dt>
-<dd><p>A coercion test evaluator</p>
-<p>Evaluates a coercion method and optionally returns the coerced series.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>method</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – A method coercing a Series to another type.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The coerced series if the coercion succeeds otherwise None.</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="module-tenzing.utils.unicode">
+<span id="tenzing-utils-unicode"></span><h1>tenzing.utils.unicode<a class="headerlink" href="#module-tenzing.utils.unicode" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

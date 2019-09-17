@@ -8,6 +8,7 @@ Utils
 .. autosummary::
    :toctree: _autosummary
 
+   coercion
+   images
    monkeypatches
-   test_utils
-   unicodedata2
+   unicode

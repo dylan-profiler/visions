@@ -23,7 +23,7 @@ The following example demonstrates the membership of several `tenzing_bool` seri
         print(s in tenzing_bool, 'tenzing_bool')
         print(s in type[tenzing_bool], 'type[tenzing_bool]')
         print(s in missing, 'missing')
-        print(s in MultiContainer([missing, type[tenzing_bool]]), '(missing, type[tenzing_bool])')
+        print(s in missing | type[tenzing_bool], 'missing | type[tenzing_bool]')
         print('')
 
 
@@ -36,16 +36,16 @@ Which prints:
     True tenzing_bool
     True type[tenzing_bool]
     False missing
-    False (missing)[type[tenzing_bool])
+    False missing | type[tenzing_bool]
 
     **bool_nan_series**
     False tenzing_bool
     True type[tenzing_bool]
     True missing
-    True (missing)[type[tenzing_bool])
+    True missing | type[tenzing_bool]
 
     **nan_series**
     False tenzing_bool
     False type[tenzing_bool]
     True missing
-    False (missing)[type[tenzing_bool])
+    False missing | type[tenzing_bool]

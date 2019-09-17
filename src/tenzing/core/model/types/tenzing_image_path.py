@@ -1,13 +1,7 @@
-from tenzing.utils.monkeypatches import *
-import imghdr
-
 import pandas as pd
 
 from tenzing.core.model.types.tenzing_existing_path import tenzing_existing_path
-
-
-def path_is_image(p: Path):
-    return imghdr.what(p) is not None
+from tenzing.utils.images.image_utils import path_is_image
 
 
 class tenzing_image_path(tenzing_existing_path):

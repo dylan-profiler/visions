@@ -151,17 +151,8 @@
             
   <h1>Source code for tenzing.core.model.typesets</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">tenzing.core.typesets</span> <span class="k">import</span> <span class="n">tenzingTypeset</span>
-<span class="kn">from</span> <span class="nn">tenzing.core.containers</span> <span class="k">import</span> <span class="n">generic</span><span class="p">,</span> <span class="n">infinite</span><span class="p">,</span> <span class="n">missing</span><span class="p">,</span> <span class="nb">type</span>
+<span class="kn">from</span> <span class="nn">tenzing.core.partitioners</span> <span class="k">import</span> <span class="n">generic</span><span class="p">,</span> <span class="n">infinite</span><span class="p">,</span> <span class="n">missing</span><span class="p">,</span> <span class="nb">type</span>
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-
-<span class="k">def</span> <span class="nf">_get_column_names</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span>
 
 
 <div class="viewcode-block" id="tenzing_standard_set"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.core.model.typesets.tenzing_standard_set.html#tenzing.core.model.typesets.tenzing_standard_set">[docs]</a><span class="k">class</span> <span class="nc">tenzing_standard_set</span><span class="p">(</span><span class="n">tenzingTypeset</span><span class="p">):</span>

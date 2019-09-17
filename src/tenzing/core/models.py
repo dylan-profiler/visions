@@ -1,6 +1,5 @@
 from abc import abstractmethod
 import pandas as pd
-import numpy as np
 
 
 class model_relation:

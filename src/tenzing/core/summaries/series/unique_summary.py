@@ -27,18 +27,3 @@ def unique_summary(series: pd.Series) -> dict:
     return summary
 
 
-def unique_warnings(summary: dict) -> list:
-    """
-
-    Args:
-        summary:
-
-    Returns:
-
-    """
-    messages = []
-    if summary["n_unique"] == 1:
-        messages.append("n_unique:const")
-    if summary["p_unique"] == 1.0:
-        messages.append("n_unique:unique")
-    return messages

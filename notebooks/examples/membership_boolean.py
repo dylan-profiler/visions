@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from tenzing.core.containers import MultiContainer, infinite, generic, missing, type
+from tenzing.core.partitioners import MultiContainer, infinite, generic, missing, type
 from tenzing.core.model.types.tenzing_bool import tenzing_bool
 
 s1 = pd.Series([True, False], name="bool_series")

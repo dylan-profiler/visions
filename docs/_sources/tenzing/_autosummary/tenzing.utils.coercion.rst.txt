@@ -1,0 +1,5 @@
+tenzing.utils.coercion
+======================
+
+.. automodule:: tenzing.utils.coercion
+    :members:
