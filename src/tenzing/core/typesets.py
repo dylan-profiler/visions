@@ -5,7 +5,7 @@ import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-from tenzing.core.partitioners import MultiPartitioner, Type
+from tenzing.core.models import MultiModel
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
@@ -99,10 +99,8 @@ class tenzingTypeset(object):
     """
     A collection of tenzing_types with an associated relationship map between them.
 
-    Attributes
-    ----------
-    types: frozenset
-        The collection of tenzing types which are derived either from a base_type or themselves
+    Attributes:
+        types: The collection of tenzing types which are derived either from a base_type or themselves
     """
 
     def __init__(self, containers: list, types: list):
@@ -122,8 +120,8 @@ class tenzingTypeset(object):
             col: self._get_column_type(df[col]) for col in df.columns
         }
         self.column_type_map = {
-            col: MultiPartitioner(
-                self.column_container_map[col] + [Type(self.column_base_type_map[col])]
+            col: MultiModel(
+                self.column_container_map[col] + [self.column_base_type_map[col]]
             )
             for col in df.columns
         }
@@ -137,7 +135,7 @@ class tenzingTypeset(object):
     def get_containerized_series(self, series):
         container = self.detect_series_container(series)
         if type(container) == list:
-            container = MultiPartitioner(container)
+            container = MultiModel(container)
         return container.transform(series)
 
     def infer_types(self, df: pd.DataFrame):

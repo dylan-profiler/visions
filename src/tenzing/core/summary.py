@@ -1,44 +1,33 @@
 import pandas as pd
 
-from tenzing.core.partitioners import Partitioner, Infinite, Missing, Type
+from tenzing.core.models import tenzing_model
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
 
 
 class Summary(object):
-    def __init__(self, type_summary_ops):
-        if type_summary_ops is None:
-            type_summary_ops = {}
+    def __init__(self, summary_ops):
+        if summary_ops is None:
+            summary_ops = {}
 
-        self.type_summary_ops = type_summary_ops
+        if not all(issubclass(base_type, tenzing_model) for base_type in summary_ops.keys()):
+            raise Exception("Summaries must be mapped on a type!")
+
+        self.summary_ops = summary_ops
 
     def summarize_frame(self, df: pd.DataFrame):
         return dataframe_summary(df)
 
-    def summarize_series(self, series: pd.Series, type: Partitioner) -> dict:
+    def summarize_series(self, series: pd.Series, current_type: tenzing_model) -> dict:
         summary = {}
 
-        print(type)
+        for base_type, summary_ops in self.summary_ops.items():
+            if issubclass(current_type, base_type):
+                mask = base_type.mask(series)
+                print(series, mask)
+                for op in summary_ops:
+                    summary.update(op(series[mask]))
 
-        # Basetype
-        if tenzing_generic in self.type_summary_ops:
-            for op in self.type_summary_ops[tenzing_generic]:
-                summary.update(op(series))
-
-        # if not isinstance(type, CompoundType):
-        #     type = CompoundType(type)
-
-        # Detected type
-        mask = type.mask(series)
-        if type in self.type_summary_ops:
-            for op in self.type_summary_ops[type.base_type]:
-                summary.update(op(series[~mask]))
-
-        # Subtypes
-        # for subtype in type.types:
-        #     if subtype in self.type_summary_ops:
-        #         for op in self.type_summary_ops[subtype]:
-        #             summary.update(op(series))
         return summary
 
     def summarize(self, df: pd.DataFrame, types) -> dict:
@@ -50,7 +39,6 @@ class Summary(object):
 
 
 type_summary_ops = {
-    tenzing_generic: [base_summary],
     tenzing_bool: [],
     tenzing_categorical: [category_summary, unique_summary],
     tenzing_complex: [complex_summary, unique_summary],
@@ -67,13 +55,11 @@ type_summary_ops = {
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-}
-
-container_summary_ops = {
-    Infinite: [infinite_summary],
-    Missing: [missing_summary],
-    Type: type_summary_ops,
+    infinite_generic: [infinite_summary],
+    missing_generic: [missing_summary],
+    tenzing_generic: [],
+    tenzing_model: [base_summary]
 }
 
 # TODO: add typeset
-summary = Summary(container_summary_ops)
+summary = Summary(type_summary_ops)

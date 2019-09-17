@@ -50,16 +50,64 @@ class model_relation:
 
 
 class meta_model(type):
-    def __contains__(cls, series) -> bool:
+    def __contains__(cls, series: pd.Series) -> bool:
         return cls.contains_op(series)
-
-    def __repr__(cls) -> str:
-        return f"{cls.__name__}"
 
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
     # TODO: automatic static ?
     # https://stackoverflow.com/questions/31953113/purely-static-classes-in-python-use-metaclass-class-decorator-or-something-e
+
+    def __str__(cls) -> str:
+        return f"{cls.__name__}"
+
+    def __repr__(cls) -> str:
+        return str(cls)
+
+    def __add__(self, other):
+        """
+        Examples:
+            >>> type_generic + infinite_generic
+        """
+        if not isinstance(other, tenzing_model):
+            raise Exception(f"{other} must be of type Container")
+        return MultiModel([self, other])
+
+    def __or__(self, other):
+        """
+        Examples:
+            >>> type_generic | infinite_generic
+        """
+        return self + other
+
+    def __getitem__(self, item):
+        """
+        Examples:
+            >>> missing_generic[type_generic]
+        """
+        return item + self
+
+
+# TODO: see if we can make this without initiazation
+class MultiModel(object):
+    def __init__(self, models):
+        assert len(models) >= 2
+        self.models = models
+
+    def mask(self, series):
+        mask = self.models[0].mask(series)
+        for container in self.models[1:]:
+            mask &= container.mask(series)
+        return mask
+
+    def contains_op(self, series) -> bool:
+        return all(series in container for container in self.models)
+
+    def __str__(self):
+        return f"({', '.join([str(container.__class__) for container in self.models])})"
+
+    def __repr__(self):
+        return str(self)
 
 
 class tenzing_model(metaclass=meta_model):
@@ -79,6 +127,7 @@ class tenzing_model(metaclass=meta_model):
     """
 
     _relations = {}
+    _strict = {}
 
     @classmethod
     def __instancecheck__(mcs, instance) -> bool:
@@ -106,16 +155,23 @@ class tenzing_model(metaclass=meta_model):
         cls._relations[cls.__name__][relation.friend_model] = relation
 
     @classmethod
-    def cast(cls, series, operation=None):
+    def cast(cls, series: pd.Series, operation=None):
         operation = operation if operation is not None else cls.cast_op
         return operation(series)
 
     @classmethod
     @abstractmethod
-    def contains_op(cls, series) -> bool:
+    def mask(cls, series: pd.Series) -> pd.Series:
         pass
 
     @classmethod
+    def contains_op(cls, series: pd.Series) -> bool:
+        if not super().contains_op(series):
+            return False
+
+        return cls.mask(series).all()
+
+    @classmethod
     @abstractmethod
-    def cast_op(cls, series):
+    def cast_op(cls, series: pd.Series) -> pd.Series:
         pass

@@ -27,14 +27,8 @@ class tenzing_geometry(tenzing_object):
     ]
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-
-        return all(
-            any(isinstance(obj, geom_type) for geom_type in cls.geom_types)
-            for obj in series
-        )
+    def mask(cls, series: pd.Series) -> pd.Series:
+        return series.apply(lambda x: any(isinstance(x, geom_type) for geom_type in cls.geom_types))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

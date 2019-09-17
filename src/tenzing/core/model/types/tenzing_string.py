@@ -13,11 +13,8 @@ class tenzing_string(tenzing_object):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-
-        return series.copy().apply(lambda x: type(x) == str).all()
+    def mask(cls, series: pd.Series) -> pd.Series:
+        return series.copy().apply(lambda x: type(x) == str)
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

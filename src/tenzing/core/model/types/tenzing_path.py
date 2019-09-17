@@ -1,4 +1,4 @@
-from pathlib import Path, PureWindowsPath, PurePosixPath
+from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
 
 import pandas as pd
 
@@ -15,19 +15,11 @@ class tenzing_path(tenzing_object):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-
-        return (
-            series.apply(
-                lambda x: isinstance(x, PureWindowsPath) and x.is_absolute()
-            ).all()
-            or series.apply(
-                lambda x: isinstance(x, PurePosixPath) and x.is_absolute()
-            ).all()
-        )
+    def mask(cls, series: pd.Series) -> pd.Series:
+        return series.apply(
+                lambda x: isinstance(x, PurePath) and x.is_absolute()
+            )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(Path)
+        return series.apply(PurePath)

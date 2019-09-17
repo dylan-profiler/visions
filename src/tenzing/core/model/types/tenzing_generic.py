@@ -13,8 +13,12 @@ class tenzing_generic(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return True
+    def mask(cls, series: pd.Series) -> pd.Series:
+        # TODO: exclude inf
+        # if (~np.isfinite(series)).any():
+        #     return False
+        # TODO: series.empty == strict
+        return series.notna()
 
     @classmethod
     def cast_op(cls, series: pd.Series) -> pd.Series:
