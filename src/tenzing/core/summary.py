@@ -28,12 +28,16 @@ class Summary(object):
         else:
             types = [summary_type]
 
+        done = []
         for current_type in types:
             for base_type, summary_ops in self.summary_ops.items():
-                if issubclass(current_type, base_type) and not isinstance(current_type, tenzing_model):
+                if base_type not in done and issubclass(current_type, base_type) and not isinstance(current_type, tenzing_model):
                     mask = base_type.mask(series)
+                    print(series.to_dict(), mask.to_dict())
                     for op in summary_ops:
+                        print(f"summarizing {current_type} though {base_type} via {op.__name__}")
                         summary.update(op(series[mask]))
+                    done.append(base_type)
 
         return summary
 

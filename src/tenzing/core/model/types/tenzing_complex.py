@@ -17,7 +17,11 @@ class tenzing_complex(tenzing_generic):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(lambda x: issubclass(type(x), np.complexfloating))
+        if pdt.is_complex_dtype(series):
+            return series.apply(lambda _: True)
+        else:
+            return series.apply(lambda _: False)
+        # return series.apply(lambda x: issubclass(type(x), np.complex_))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

@@ -15,7 +15,7 @@ class tenzing_integer(tenzing_generic):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        if not pdt.is_integer_dtype(series):
+        if pdt.is_integer_dtype(series):
             return series.apply(lambda _: True)
 
         # TODO: this is a coercion, move to relations

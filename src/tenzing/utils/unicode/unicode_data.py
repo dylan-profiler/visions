@@ -23,7 +23,7 @@ def parse_range(x: str, pos: int) -> int:
 
 def _parse(file_name, names):
     df = pd.read_csv(
-        file_name, sep=";", comment="#", names=names, skipinitialspace=True
+        Path(__file__).parent / file_name, sep=";", comment="#", names=names, skipinitialspace=True
     )
     if "range" in names:
         df["start"] = df["range"].apply(partial(parse_range, pos=0))

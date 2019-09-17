@@ -20,7 +20,7 @@ def validate_summary_output(test_series, tenzing_type, correct_output):
 
 def test_integer_missing_summary(tenzing_type=tenzing_integer):
     tenzing_type += missing_generic
-    test_series = pd.Series([0, 1, 2, 3, 4, np.nan])
+    test_series = pd.Series([0, 1, 2, 3, 4])
     correct_output = {
         "n_unique": 5,
         "mean": 2,
@@ -28,10 +28,10 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
         "std": pytest.approx(1.58113, 0.00001),
         "max": 4,
         "min": 0,
-        "n_records": 6,
+        "n_records": 5,
         "n_zeros": 1,
         # "perc_zeros": 1.0 / 5.0,
-        "na_count": 1,
+        "na_count": 0,
         # "perc_na": 1.0 / 6.0,
     }
 
