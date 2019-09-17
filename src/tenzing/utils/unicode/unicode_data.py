@@ -95,7 +95,28 @@ def parse_east_asian_width():
     return _parse("data/EastAsianWidth.txt", ["range", "East_Asian_Width"])
 
 
-def _lookup(df, col, chr, default=None):
+def _lookup(dataset, col, chr, default=None):
+    if dataset == "Scripts":
+        df = parse_scripts()
+    elif dataset == "UnicodeData":
+        df = parse_unicode_data()
+    elif dataset == "Blocks":
+        df = parse_blocks()
+    elif dataset == "EastAsianWidth":
+        df = parse_east_asian_width()
+    elif dataset == "NameAliases":
+        df = parse_name_aliases()
+    elif dataset == "ScriptExtension":
+        df = parse_script_extension()
+    elif dataset == "PropList":
+        df = parse_proplist()
+    elif dataset == "PropertyValueAliases":
+        df = parse_property_value_aliases()
+    elif dataset == "DerivedCoreProperties":
+        df = parse_derived_core_properties()
+    else:
+        raise ValueError("Dataset not available")
+
     idx = ord(chr)
     try:
         if "idx" in df.columns:
@@ -118,26 +139,6 @@ def _lookup(df, col, chr, default=None):
             return default
 
 
-def _lookup_unicodedata(col, chr, default=None):
-    df = parse_unicode_data()
-    return _lookup(df, col, chr, default)
-
-
-def _lookup_blocks(chr, default=None):
-    df = parse_blocks()
-    return _lookup(df, "Block", chr, default)
-
-
-def _lookup_scripts(chr, default=None):
-    df = parse_scripts()
-    return _lookup(df, "Script", chr, default)
-
-
-def _lookup_proplist(chr, default=None):
-    df = parse_proplist()
-    return _lookup(df, "Property", chr, default)
-
-
 def _alias(property, short_name):
     df = parse_property_value_aliases()
     df["Property"] = df["Property"].str.strip()
@@ -152,52 +153,52 @@ def _alias(property, short_name):
 
 def name(chr, default=None):
     """Returns the name assigned to the character chr as a string. If no name is defined, default is returned, or, if not given, ValueError is raised."""
-    return _lookup_unicodedata("name", chr, default)
+    return _lookup("UnicodeData", "name", chr, default)
 
 
 def category(chr):
     """Returns the general category assigned to the character chr as string."""
-    return _lookup_unicodedata("category", chr, "Zzzz")
+    return _lookup("UnicodeData", "category", chr, "Zzzz")
 
 
 def bidirectional(chr):
     """Returns the bidirectional class assigned to the character chr as string. If no such value is defined, an empty string is returned."""
-    return _lookup_unicodedata("bidirectional", chr, "")
+    return _lookup("UnicodeData", "bidirectional", chr, "")
 
 
 def decimal(chr, default=None):
     """Returns the decimal value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised."""
-    return _lookup_unicodedata("decimal", chr, default)
+    return _lookup("UnicodeData", "decimal", chr, default)
 
 
 def digit(chr, default=None):
     """Returns the digit value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised."""
-    return _lookup_unicodedata("digit", chr, default)
+    return _lookup("UnicodeData", "digit", chr, default)
 
 
 def numeric(chr, default=None):
     """Returns the numeric value assigned to the character chr as float. If no such value is defined, default is returned, or, if not given, ValueError is raised."""
-    return _lookup_unicodedata("numeric", chr, default)
+    return _lookup("UnicodeData", "numeric", chr, default)
 
 
 def east_asian_width(chr, default=None):
     """Returns the east asian width assigned to the character chr as string."""
-    df = parse_east_asian_width()
-    return _lookup(df, "East_Asian_Width", chr, default).strip()
+    return _lookup("EastAsianWidth", "East_Asian_Width", chr, default).strip()
+
 
 def combining(chr):
     """Returns the canonical combining class assigned to the character chr as integer. Returns 0 if no combining class is defined."""
-    return _lookup_unicodedata("combining", chr, 0)
+    return _lookup("UnicodeData", "combining", chr, 0)
 
 
 def mirrored(chr):
     """Returns the mirrored property assigned to the character chr as integer. Returns 1 if the character has been identified as a “mirrored” character in bidirectional text, 0 otherwise."""
-    return _lookup_unicodedata("mirrored", chr, 0)
+    return _lookup("UnicodeData", "mirrored", chr, 0)
 
 
 def decomposition(chr):
     """Returns the character decomposition mapping assigned to the character chr as string. An empty string is returned in case no such mapping is defined."""
-    val = _lookup_unicodedata("decomposition", chr, 0)
+    val = _lookup("UnicodeData", "decomposition", chr, 0)
     if str(val) == "nan":
         val = ""
     return val
@@ -205,15 +206,15 @@ def decomposition(chr):
 
 # Extended functionality
 def block(chr):
-    return _lookup_blocks(chr, "Unknown")
+    return _lookup("Blocks", "Block", chr, "Unknown")
 
 
 def script(chr):
-    return _lookup_scripts(chr, "Unknown")
+    return _lookup("Scripts", "Script", chr, "Unknown")
 
 
 def proplist(chr):
-    return _lookup_proplist(chr, "Unknown")
+    return _lookup("PropList", "Property", chr, "Unknown")
 
 
 def category_alias(chr):

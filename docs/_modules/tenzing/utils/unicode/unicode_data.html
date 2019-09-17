@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tenzing.utils.unicode.unicode_data &mdash; package 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> package
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tenzing/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tenzing/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tenzing/getting_started.html">Understanding Tenzing Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tenzing/typesets.html">Typesets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tenzing/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">package</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>tenzing.utils.unicode.unicode_data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for tenzing.utils.unicode.unicode_data</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="parse_range"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.parse_range">[docs]</a><span class="k">def</span> <span class="nf">parse_range</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Parse the unicode range to int (base 16)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: range value</span>
+<span class="sd">        pos: position to extract</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">vals</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span></div>
+
+
+<span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skipinitialspace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;range&quot;</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">parse_range</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">parse_range</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="s2">&quot;idx&quot;</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">parse_unicode_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span>
+        <span class="s2">&quot;data/UnicodeData.txt&quot;</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;idx&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;combining&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bidirectional&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;decomposition&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;decimal&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;digit&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mirrored&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Unicode 1.0 Name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;10646 comment field&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;uppercase&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lowercase&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;titlecase&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">parse_blocks</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/Blocks.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Block&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_property_value_aliases</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span>
+        <span class="s2">&quot;data/PropertyValueAliases.txt&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">,</span> <span class="s2">&quot;Short_Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Long_Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Alternative1&quot;</span><span class="p">,</span> <span class="s2">&quot;Alternative2&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">parse_proplist</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/PropList.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Property&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_derived_core_properties</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/DerivedCoreProperties.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Derived_Property&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_line_break</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/LineBreak.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Line_Break&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_scripts</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/Scripts.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Script&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_script_extension</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/ScriptExtension.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Script_Extension&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_name_aliases</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/NameAliases.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">,</span> <span class="s2">&quot;Alias&quot;</span><span class="p">,</span> <span class="s2">&quot;Type&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">parse_east_asian_width</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/EastAsianWidth.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;East_Asian_Width&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">_lookup</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;Scripts&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_scripts</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;UnicodeData&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_unicode_data</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;Blocks&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_blocks</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;EastAsianWidth&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_east_asian_width</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;NameAliases&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_name_aliases</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;ScriptExtension&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_script_extension</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;PropList&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_proplist</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;PropertyValueAliases&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_property_value_aliases</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;DerivedCoreProperties&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_derived_core_properties</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset not available&quot;</span><span class="p">)</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="nb">chr</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;idx&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">idx</span> <span class="o">==</span> <span class="n">idx</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="s2">&quot;start&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s2">&quot;end&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">idx</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;=</span> <span class="n">idx</span><span class="p">)][</span><span class="n">col</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;DataFrame misses &quot;idx&quot; or &quot;start&quot; and &quot;end&quot; columns.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Character not found.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default</span>
+
+
+<span class="k">def</span> <span class="nf">_alias</span><span class="p">(</span><span class="nb">property</span><span class="p">,</span> <span class="n">short_name</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">parse_property_value_aliases</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Short_Name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Short_Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">property</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Short_Name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">short_name</span><span class="p">)][</span>
+            <span class="s2">&quot;Long_Name&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="name"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.name">[docs]</a><span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the name assigned to the character chr as a string. If no name is defined, default is returned, or, if not given, ValueError is raised.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="category"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.category">[docs]</a><span class="k">def</span> <span class="nf">category</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the general category assigned to the character chr as string.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="s2">&quot;Zzzz&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bidirectional"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.bidirectional">[docs]</a><span class="k">def</span> <span class="nf">bidirectional</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the bidirectional class assigned to the character chr as string. If no such value is defined, an empty string is returned.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;bidirectional&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="decimal"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.decimal">[docs]</a><span class="k">def</span> <span class="nf">decimal</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the decimal value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;decimal&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="digit"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.digit">[docs]</a><span class="k">def</span> <span class="nf">digit</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the digit value assigned to the character chr as integer. If no such value is defined, default is returned, or, if not given, ValueError is raised.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;digit&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="numeric"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.numeric">[docs]</a><span class="k">def</span> <span class="nf">numeric</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the numeric value assigned to the character chr as float. If no such value is defined, default is returned, or, if not given, ValueError is raised.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="east_asian_width"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.east_asian_width">[docs]</a><span class="k">def</span> <span class="nf">east_asian_width</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the east asian width assigned to the character chr as string.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;EastAsianWidth&quot;</span><span class="p">,</span> <span class="s2">&quot;East_Asian_Width&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="combining"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.combining">[docs]</a><span class="k">def</span> <span class="nf">combining</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the canonical combining class assigned to the character chr as integer. Returns 0 if no combining class is defined.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;combining&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mirrored"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.mirrored">[docs]</a><span class="k">def</span> <span class="nf">mirrored</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the mirrored property assigned to the character chr as integer. Returns 1 if the character has been identified as a “mirrored” character in bidirectional text, 0 otherwise.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;mirrored&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="decomposition"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.utils.unicode.unicode_data.html#tenzing.utils.unicode.unicode_data.decomposition">[docs]</a><span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the character decomposition mapping assigned to the character chr as string. An empty string is returned in case no such mapping is defined.&quot;&quot;&quot;</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;UnicodeData&quot;</span><span class="p">,</span> <span class="s2">&quot;decomposition&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">val</span></div>
+
+
+<span class="c1"># Extended functionality</span>
+<span class="k">def</span> <span class="nf">block</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;Blocks&quot;</span><span class="p">,</span> <span class="s2">&quot;Block&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">script</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;Scripts&quot;</span><span class="p">,</span> <span class="s2">&quot;Script&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">proplist</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_lookup</span><span class="p">(</span><span class="s2">&quot;PropList&quot;</span><span class="p">,</span> <span class="s2">&quot;Property&quot;</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">category_alias</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">category</span><span class="p">(</span><span class="nb">chr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_alias</span><span class="p">(</span><span class="s2">&quot;gc&quot;</span><span class="p">,</span> <span class="n">cat</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">east_asian_width_alias</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">eaw</span> <span class="o">=</span> <span class="n">east_asian_width</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_alias</span><span class="p">(</span><span class="s2">&quot;ea&quot;</span><span class="p">,</span> <span class="n">eaw</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">bidirectional_alias</span><span class="p">(</span><span class="nb">chr</span><span class="p">):</span>
+    <span class="n">bidi</span> <span class="o">=</span> <span class="n">bidirectional</span><span class="p">(</span><span class="nb">chr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_alias</span><span class="p">(</span><span class="s2">&quot;bc&quot;</span><span class="p">,</span> <span class="n">bidi</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
