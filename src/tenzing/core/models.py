@@ -170,10 +170,6 @@ class tenzing_model(metaclass=meta_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        print(f"contains_op {cls.__name__}")
-        if not super(cls).contains_op(series):
-            return False
-
         return cls.mask(series).all()
 
     @classmethod

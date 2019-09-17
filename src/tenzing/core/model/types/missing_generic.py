@@ -18,6 +18,12 @@ class missing_generic(tenzing_model):
         return series.isna()
 
     @classmethod
+    def contains_op(cls, series: pd.Series) -> bool:
+        if not super().contains_op(series):
+            return False
+        return cls.mask(series).all()
+
+    @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         series.loc[:] = np.nan
         return series

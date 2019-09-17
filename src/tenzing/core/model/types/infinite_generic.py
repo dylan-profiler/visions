@@ -18,6 +18,12 @@ class infinite_generic(tenzing_model):
         return (~np.isfinite(series)) & series.notnull()
 
     @classmethod
+    def contains_op(cls, series: pd.Series) -> bool:
+        if not super().contains_op(series):
+            return False
+        return cls.mask(series).all()
+
+    @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         series.loc[:] = np.inf
         return series

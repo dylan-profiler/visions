@@ -1,21 +1,20 @@
 import pytest
 
 from tenzing.core.model.types import *
-from tenzing.core.partitioners import missing, type, infinite
 
 from tests.series import get_series
 
 
 def get_series_map():
     series_map = {
-        type[tenzing_integer]: [
+        tenzing_integer: [
             "int_series",
             "Int64_int_series",
             "np_uint32",
             "int_range",
         ],
-        type[tenzing_integer] | missing: ["int_nan_series", "Int64_int_nan_series"],
-        tenzing_integer + infinite: ["int_with_inf"],
+        tenzing_integer + missing_generic: ["int_nan_series", "Int64_int_nan_series"],
+        tenzing_integer + infinite_generic: ["int_with_inf"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
         tenzing_float: [
@@ -24,8 +23,8 @@ def get_series_map():
             "float_series3",
             "float_series4",
         ],
-        tenzing_float + missing: ["float_nan_series", "float_series5", "float_series6"],
-        tenzing_float + infinite: ["float_with_inf"],
+        tenzing_float + missing_generic: ["float_nan_series", "float_series5", "float_series6"],
+        tenzing_float + infinite_generic: ["float_with_inf"],
         tenzing_categorical: [
             "categorical_int_series",
             "categorical_float_series",
@@ -33,16 +32,16 @@ def get_series_map():
             "categorical_complex_series",
         ],
         tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
-        tenzing_bool + missing: ["bool_nan_series"],
+        tenzing_bool + missing_generic: ["bool_nan_series"],
         tenzing_complex: [
             "complex_series",
             "complex_series_py_nan",
             "complex_series_py",
         ],
         tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
-        tenzing_datetime + missing: ["timestamp_series_nat"],
+        tenzing_datetime + missing_generic: ["timestamp_series_nat"],
         tenzing_date: ["timestamp_series", "datetime"],
-        tenzing_date + missing: ["timestamp_series_nat"],
+        tenzing_date + missing_generic: ["timestamp_series_nat"],
         tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
         tenzing_string: [
             "timestamp_string_series",
@@ -57,7 +56,7 @@ def get_series_map():
             "textual_float",
         ],
         tenzing_string
-        + missing: [
+        + missing_generic: [
             "string_num_nan",
             "string_flt_nan",
             "string_str_nan",
@@ -66,14 +65,14 @@ def get_series_map():
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
-        tenzing_empty: [
-            "empty",
-            "empty_float",
-            "empty_int64",
-            "empty_object",
-            "empty_bool",
-        ],
-        missing: [
+        # tenzing_empty: [
+        #     "empty",
+        #     "empty_float",
+        #     "empty_int64",
+        #     "empty_object",
+        #     "empty_bool",
+        # ],
+        missing_generic: [
             "none_series",
             "int_nan_series",
             "Int64_int_nan_series",

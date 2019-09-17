@@ -20,11 +20,6 @@ class tenzing_float(tenzing_generic):
         if not pdt.is_float_dtype(series):
             return series.apply(lambda _: False)
 
-        # TODO: are we sure we want this to depend on integer?
-        # I don't like it but I was worried about the integer implementation changing
-        if series in tenzing_integer:
-            return series.apply(lambda _: False)
-
         return series.apply(lambda _: True)
 
     @classmethod
