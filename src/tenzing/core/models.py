@@ -35,7 +35,7 @@ class model_relation:
         """
         self.model = model
         self.friend_model = friend_model
-        self.edge = (self.friend_model, self.model)
+        self.conversion = relationship is not None or transformer is not None
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 

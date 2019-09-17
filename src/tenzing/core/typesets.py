@@ -22,10 +22,15 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
         networkx DiGraph
             A directed graph of type relations for the provided nodes.
     """
+    style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
     relation_graph.add_edges_from(
-        (node.edge[0], node.edge[1], {"relationship": node})
+        (
+            node.friend_model,
+            node.model,
+            {"relationship": node, "style": style_map[node.conversion]},
+        )
         for s_node in nodes
         for to_node, node in s_node.get_relations().items()
     )

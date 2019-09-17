@@ -174,10 +174,15 @@
 <span class="sd">        networkx DiGraph</span>
 <span class="sd">            A directed graph of type relations for the provided nodes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">style_map</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="p">:</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">}</span>
     <span class="n">relation_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
     <span class="n">relation_graph</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
     <span class="n">relation_graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node</span><span class="o">.</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">{</span><span class="s2">&quot;relationship&quot;</span><span class="p">:</span> <span class="n">node</span><span class="p">})</span>
+        <span class="p">(</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">friend_model</span><span class="p">,</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;relationship&quot;</span><span class="p">:</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="n">style_map</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">conversion</span><span class="p">]},</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">s_node</span> <span class="ow">in</span> <span class="n">nodes</span>
         <span class="k">for</span> <span class="n">to_node</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">s_node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">)</span>
