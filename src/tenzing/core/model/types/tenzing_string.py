@@ -16,6 +16,10 @@ class tenzing_string(tenzing_object):
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
         super_mask = super().mask(series)
+
+        if not super_mask.any():
+            return super_mask
+
         if pdt.is_categorical_dtype(series[super_mask]):
             mask = series[super_mask].apply(lambda _: False)
         else:

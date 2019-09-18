@@ -17,6 +17,10 @@ class tenzing_url(tenzing_object):
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
         super_mask = super().mask(series)
+
+        if not super_mask.any():
+            return super_mask
+
         return super_mask & series[super_mask].apply(lambda x: isinstance(x, ParseResult))
 
     @classmethod
