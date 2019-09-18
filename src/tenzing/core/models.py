@@ -51,6 +51,8 @@ class model_relation:
 
 class meta_model(type):
     def __contains__(cls, series: pd.Series) -> bool:
+        if series.empty:
+            return False
         return cls.contains_op(series)
 
     # TODO: raise exception on instantiation
@@ -88,7 +90,6 @@ class meta_model(type):
     #     return item + self
 
 
-# TODO: see if we can make this without initiazation
 class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
         assert len(models) >= 2
@@ -99,6 +100,8 @@ class MultiModel(metaclass=meta_model):
         self.models = models
 
     def __contains__(self, series: pd.Series):
+        if series.empty:
+            return False
         return self.contains_op(series)
 
     def mask(self, series: pd.Series):

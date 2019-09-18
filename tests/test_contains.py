@@ -1,5 +1,6 @@
 import pytest
 
+from tenzing.core import tenzing_model
 from tenzing.core.model.types import *
 
 from tests.series import get_series
@@ -91,7 +92,11 @@ def get_series_map():
 
     # TODO: Series with missing and Inf values
 
-    # TODO: empty series
+    # Empty series
+    all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
+    for key, values in series_map.items():
+        all += values
+    series_map[tenzing_model] = list(set(all))
 
     return series_map
 
