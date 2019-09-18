@@ -112,7 +112,13 @@ class MultiModel(metaclass=meta_model):
         if not self.mask(series).all():
             return False
 
-        return all(series[model.mask(series)] in model for model in self.models)
+        # TODO: logic for strict and empty
+        contains = []
+        for model in self.models:
+            mask = model.mask(series)
+            if mask.any():
+                contains.append(series[model.mask(series)] in model)
+        return all(contains)
 
     def __str__(self):
         return f"({', '.join([str(model) for model in self.models])})"
