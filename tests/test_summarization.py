@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -9,6 +11,7 @@ from tenzing.core.summary import type_summary_ops, Summary
 def validate_summary_output(test_series, tenzing_type, correct_output):
     summary = Summary(type_summary_ops)
     trial_output = summary.summarize_series(test_series, tenzing_type)
+    print(trial_output)
 
     for metric, result in correct_output.items():
         assert metric in trial_output, f"Metric `{metric}` is missing"
@@ -169,6 +172,27 @@ def test_string_missing_summary(tenzing_type=tenzing_string):
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
+
+
+def test_string_summary(tenzing_type=tenzing_string):
+    test_series = pd.Series(["http://ru.nl", "http://ru.nl", "http://nl.ru"])
+    correct_output = {
+        "n_unique": 2,
+        "n_records": 3,
+    }
+
+    validate_summary_output(test_series, tenzing_type, correct_output)
+
+
+def test_url_summary(tenzing_type=tenzing_url):
+    test_series = pd.Series([urlparse("http://ru.nl"), urlparse("http://ru.nl"), urlparse("http://nl.ru")])
+    correct_output = {
+        "n_unique": 2,
+        "n_records": 3,
+    }
+
+    validate_summary_output(test_series, tenzing_type, correct_output)
+
 
 
 def test_empty_summary():
