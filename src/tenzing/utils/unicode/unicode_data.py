@@ -21,7 +21,12 @@ def parse_range(x: str, pos: int) -> int:
     return vals[pos]
 
 
-def _parse(file_name, names):
+def _parse(set_name):
+    file_name = f"data/{set_name}.txt"
+
+    mapping = parse_mapping()
+    names = mapping[set_name]
+
     df = pd.read_csv(
         Path(__file__).parent / file_name,
         sep=";",
@@ -38,90 +43,41 @@ def _parse(file_name, names):
     return df
 
 
-def parse_unicode_data():
-    return _parse(
-        "data/UnicodeData.txt",
-        [
-            "idx",
-            "name",
-            "category",
-            "combining",
-            "bidirectional",
-            "decomposition",
-            "decimal",
-            "digit",
-            "numeric",
-            "mirrored",
-            "Unicode 1.0 Name",
-            "10646 comment field",
-            "uppercase",
-            "lowercase",
-            "titlecase",
-        ],
-    )
-
-
-def parse_blocks():
-    return _parse("data/Blocks.txt", ["range", "Block"])
-
-
-def parse_property_value_aliases():
-    return _parse(
-        "data/PropertyValueAliases.txt",
-        ["Property", "Short_Name", "Long_Name", "Alternative1", "Alternative2"],
-    )
-
-
-def parse_proplist():
-    return _parse("data/PropList.txt", ["range", "Property"])
-
-
-def parse_derived_core_properties():
-    return _parse("data/DerivedCoreProperties.txt", ["range", "Derived_Property"])
-
-
-def parse_line_break():
-    return _parse("data/LineBreak.txt", ["range", "Line_Break"])
-
-
-def parse_scripts():
-    return _parse("data/Scripts.txt", ["range", "Script"])
-
-
-def parse_script_extension():
-    return _parse("data/ScriptExtension.txt", ["range", "Script_Extension"])
-
-
-def parse_name_aliases():
-    return _parse("data/NameAliases.txt", ["idx", "Alias", "Type"])
-
-
-def parse_east_asian_width():
-    return _parse("data/EastAsianWidth.txt", ["range", "East_Asian_Width"])
+def parse_mapping():
+    mapping = {
+        "PropList": ["range", "Property"],
+        "DerivedCoreProperties": ["range", "Derived_Property"],
+        "Blocks": ["range", "Block"],
+        "PropertyValueAliases": ["Property", "Short_Name", "Long_Name", "Alternative1", "Alternative2"],
+        "LineBreak": ["range", "Line_Break"],
+        "Scripts": ["range", "Script"],
+        "ScriptExtension": ["range", "Script_Extension"],
+        "NameAliases": ["idx", "Alias", "Type"],
+        "EastAsianWidth": ["range", "East_Asian_Width"],
+        "UnicodeData":
+              [
+                  "idx",
+                  "name",
+                  "category",
+                  "combining",
+                  "bidirectional",
+                  "decomposition",
+                  "decimal",
+                  "digit",
+                  "numeric",
+                  "mirrored",
+                  "Unicode 1.0 Name",
+                  "10646 comment field",
+                  "uppercase",
+                  "lowercase",
+                  "titlecase",
+              ],
+    }
+    return mapping
 
 
 def _lookup(dataset, col, chr, default=None):
-    if dataset == "Scripts":
-        df = parse_scripts()
-    elif dataset == "UnicodeData":
-        df = parse_unicode_data()
-    elif dataset == "Blocks":
-        df = parse_blocks()
-    elif dataset == "EastAsianWidth":
-        df = parse_east_asian_width()
-    elif dataset == "NameAliases":
-        df = parse_name_aliases()
-    elif dataset == "ScriptExtension":
-        df = parse_script_extension()
-    elif dataset == "PropList":
-        df = parse_proplist()
-    elif dataset == "PropertyValueAliases":
-        df = parse_property_value_aliases()
-    elif dataset == "DerivedCoreProperties":
-        df = parse_derived_core_properties()
-    else:
-        raise ValueError("Dataset not available")
-
+    df = _parse(dataset)
     idx = ord(chr)
     try:
         if "idx" in df.columns:
@@ -145,7 +101,7 @@ def _lookup(dataset, col, chr, default=None):
 
 
 def _alias(property, short_name):
-    df = parse_property_value_aliases()
+    df = _parse("PropertyValueAliases")
     df["Property"] = df["Property"].str.strip()
     df["Short_Name"] = df["Short_Name"].str.strip()
     try:
