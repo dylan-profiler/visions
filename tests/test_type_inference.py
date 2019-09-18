@@ -32,7 +32,7 @@ def pytest_generate_tests(metafunc):
                 argsvalues.append(pytest.param(item, type, **args))
 
         metafunc.parametrize(argnames=["series", "expected_type"], argvalues=argsvalues)
-    if metafunc.function.__name__ == "test_consistency":
+    if metafunc.function.__name__ in ["test_consistency", "test_traversal_mutex"]:
         argsvalues = []
         for series in _test_suite:
             args = {"id": f"{series.name}"}
@@ -53,3 +53,22 @@ def test_inference(series, expected_type):
 def test_consistency(series):
     typeset = tenzing_complete_set()
     assert series in typeset.get_type_series(series)
+
+
+def _traverse_relation_graph(series, G, node=tenzing_generic):
+    match_types = []
+    for tenz_type in G.successors(node):
+        if series in tenz_type:
+            match_types.append(tenz_type)
+
+    assert len(match_types) < 2, f"types contains should be mutually exclusive {match_types}"
+    if len(match_types) == 1:
+        return _traverse_relation_graph(series, G, match_types[0])
+    else:
+        return node
+
+
+def test_traversal_mutex(series):
+    typeset = tenzing_complete_set()
+    G = typeset.relation_graph
+    _traverse_relation_graph(series, typeset.relation_graph)

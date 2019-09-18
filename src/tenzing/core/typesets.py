@@ -56,17 +56,10 @@ def check_graph_constraints(relation_graph, nodes):
 
 
 def traverse_relation_graph(series, G, node=tenzing_generic):
-    match_types = []
+    # DFS
     for tenz_type in G.successors(node):
         if series in tenz_type:
-            match_types.append(tenz_type)
-
-    if len(match_types) == 1:
-        return traverse_relation_graph(series, G, match_types[0])
-    elif len(match_types) > 1:
-        raise ValueError(f"types contains should be mutually exclusive {match_types}")
-    else:
-        return node
+            return tenz_type
 
 
 def get_type_inference_path(base_type, series, G, path=[]):
