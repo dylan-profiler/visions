@@ -18,6 +18,10 @@ class tenzing_complex(tenzing_generic):
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
         super_mask = super().mask(series)
+
+        if not super_mask.any():
+            return super_mask
+
         if pdt.is_complex_dtype(series):
             mask = series[super_mask].apply(lambda _: True)
         else:

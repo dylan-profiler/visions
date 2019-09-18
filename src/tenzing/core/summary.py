@@ -41,11 +41,7 @@ class Summary(object):
                     and not isinstance(current_type, tenzing_model)
                 ):
                     mask = base_type.mask(series)
-                    print(series.to_dict(), mask.to_dict())
                     for op in summary_ops:
-                        print(
-                            f"summarizing {current_type} though {base_type} via {op.__name__}"
-                        )
                         summary.update(op(series[mask]))
                     done.append(base_type)
 
@@ -62,7 +58,7 @@ class Summary(object):
 type_summary_ops = {
     tenzing_bool: [],
     tenzing_categorical: [category_summary, unique_summary],
-    tenzing_complex: [complex_summary, unique_summary],
+    tenzing_complex: [complex_summary, unique_summary_complex],
     tenzing_datetime: [datetime_summary, unique_summary],
     tenzing_date: [],
     tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
