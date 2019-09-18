@@ -84,12 +84,14 @@ def get_series():
             [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4), pd.NaT],
             name="timestamp_series_nat",
         ),
-        pd.date_range(
-            start="2013-05-18 12:00:00",
-            periods=2,
-            freq="H",
-            tz="Europe/Brussels",
-            name="timestamp_aware_series",
+        pd.Series(
+            pd.date_range(
+                start="2013-05-18 12:00:00",
+                periods=2,
+                freq="H",
+                tz="Europe/Brussels",
+                name="timestamp_aware_series",
+            ),
         ),
         pd.to_datetime(
             pd.Series(
