@@ -41,6 +41,7 @@ def get_series_map():
             "int_str_range",
             "string_date",
             "textual_float",
+            "textual_float_nan"
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
@@ -82,7 +83,6 @@ def get_series_map():
         "string_flt_nan",
         "string_str_nan",
         "string_bool_nan",
-        "textual_float_nan"
     ] + series_map[missing_generic]
 
     # Series with inf values
