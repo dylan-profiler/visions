@@ -72,10 +72,11 @@ def test_consistency(series):
     typeset = tenzing_complete_set()
     if typeset.get_type_series(series, convert=True) != typeset.get_type_series(series):
         converted_series = typeset.convert_series(series)
-        assert not converted_series.eq(series).all()
+        assert not ((converted_series.eq(series) ^ (converted_series.isna() & series.isna())).all())
     else:
         converted_series = typeset.convert_series(series)
-        assert converted_series.eq(series).all()
+        # Missing values fix
+        assert (converted_series.eq(series) ^ (converted_series.isna() & series.isna())).all()
 
 
 def test_side_effects(series):

@@ -29,9 +29,7 @@ def test_integer_missing_summary(tenzing_type=tenzing_integer):
         "min": 0,
         "n_records": 5,
         "n_zeros": 1,
-        # "perc_zeros": 1.0 / 5.0,
         "na_count": 0,
-        # "perc_na": 1.0 / 6.0,
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
@@ -42,7 +40,6 @@ def test_float_missing_summary(tenzing_type=tenzing_float):
     test_series = pd.Series([0.0, 1.0, 2.0, 3.0, 4.0, np.nan])
     correct_output = {
         "n_unique": 5,
-        # "perc_unique": 1.0,
         "median": 2,
         "mean": 2,
         "std": pytest.approx(1.58113, 0.00001),
@@ -50,9 +47,7 @@ def test_float_missing_summary(tenzing_type=tenzing_float):
         "min": 0,
         "n_records": 6,
         "n_zeros": 1,
-        # "perc_zeros": 1 / 5.0,
         "na_count": 1,
-        # "perc_na": 1.0 / 6.0,
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
@@ -64,7 +59,6 @@ def test_bool_missing_summary(tenzing_type=tenzing_bool):
     correct_output = {
         "n_records": 5,
         "na_count": 1,
-        # "perc_na": 0.2
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
@@ -83,7 +77,6 @@ def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
         "n_unique": 3,
         "n_records": 4,
         "na_count": 1,
-        # "perc_na": 0.25,
         "category_size": 4,
         "missing_categorical_values": True,
     }
@@ -98,7 +91,7 @@ def test_complex_missing_summary(tenzing_type=tenzing_complex):
         "n_unique": 4,
         "mean": 0.5 + 0.5j,
         "na_count": 1,
-        # "perc_na": 0.2
+        'n_records': 5
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
@@ -119,9 +112,7 @@ def test_datetime_missing_summary(tenzing_type=tenzing_datetime):
         "max": pd.datetime(2011, 2, 1),
         "min": pd.datetime(2010, 1, 1),
         "n_records": 4,
-        # "perc_unique": 1,
         "na_count": 1,
-        # "perc_na": 0.25,
         "range": test_series.max() - test_series.min(),
     }
 
@@ -136,7 +127,6 @@ def test_object_missing_summary(tenzing_type=tenzing_object):
         "frequencies": {"test": 1, 3: 1, pd.datetime(2010, 1, 1): 1},
         "n_records": 4,
         "na_count": 1,
-        # "perc_na": 0.25,
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
@@ -147,7 +137,7 @@ def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
     test_series = pd.Series([np.nan])
     correct_output = {
         "na_count": 1,
-        # "perc_na": 1
+        'n_records': 1,
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
@@ -160,7 +150,6 @@ def test_string_missing_summary(tenzing_type=tenzing_string):
         "na_count": 1,
         "n_unique": 3,
         "n_records": 4,
-        # "perc_na": 0.25
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
