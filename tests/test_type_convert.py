@@ -1,3 +1,4 @@
+import os
 import warnings
 
 import pytest
@@ -9,17 +10,30 @@ from tests.series import get_series
 
 
 def get_series_map():
-    return [
+    series_map = [
         # Model type, Relation type
         (tenzing_integer, tenzing_float, []),
-        (tenzing_integer, tenzing_string, ['string_num', 'int_str_range']),
-        (tenzing_float, tenzing_string, ['string_flt', 'string_num_nan', 'string_flt', 'string_flt_nan', 'textual_float']),
-        (tenzing_datetime, tenzing_string, ['timestamp_string_series', 'string_bool_nan']),
-        (tenzing_geometry, tenzing_string, ['geometry_string_series']),
-        (tenzing_bool, tenzing_string, ['string_bool_nan']),
-        (tenzing_ip, tenzing_string, ['ip_str']),
-        (tenzing_path, tenzing_string, ['path_series_linux_str', 'path_series_windows_str']),
-        (tenzing_url, tenzing_string, ['str_url']),
+        (tenzing_integer, tenzing_string, ["string_num", "int_str_range"]),
+        (
+            tenzing_float,
+            tenzing_string,
+            [
+                "string_flt",
+                "string_num_nan",
+                "string_flt",
+                "string_flt_nan",
+                "textual_float",
+            ],
+        ),
+        (
+            tenzing_datetime,
+            tenzing_string,
+            ["timestamp_string_series", 'string_date'],
+        ),
+        (tenzing_geometry, tenzing_string, ["geometry_string_series"]),
+        (tenzing_bool, tenzing_string, ["string_bool_nan"]),
+        (tenzing_ip, tenzing_string, ["ip_str"]),
+        (tenzing_url, tenzing_string, ["str_url"]),
         # Inheritance
         # (tenzing_ip, tenzing_object),
         # (tenzing_image_path, tenzing_existing_path),
@@ -38,6 +52,25 @@ def get_series_map():
         # (tenzing_datetime, tenzing_object),
     ]
 
+    if os.name == 'nt':
+        series_map.append((
+            tenzing_path,
+            tenzing_string,
+            [
+                "path_series_windows_str"
+            ],
+        ))
+    else:
+        series_map.append((
+            tenzing_path,
+            tenzing_string,
+            [
+                "path_series_linux_str"
+            ],
+        ))
+
+    return series_map
+
 
 # TODO: check that all relations are tested
 
@@ -53,7 +86,7 @@ def pytest_generate_tests(metafunc):
                 if item in relation_type:
                     args = {"id": f"{item.name}: {relation_type} -> {source_type}"}
                     if item.name not in series_list:
-                        args['marks'] = pytest.mark.xfail(raises=ValueError)
+                        args["marks"] = pytest.mark.xfail(raises=ValueError)
 
                     argsvalues.append(
                         pytest.param(source_type, relation_type, item, **args)
@@ -62,7 +95,11 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
         )
-    if metafunc.function.__name__ in ["test_consistency", "test_side_effects", "test_multiple_inference"]:
+    if metafunc.function.__name__ in [
+        "test_consistency",
+        "test_side_effects",
+        "test_multiple_inference",
+    ]:
         argsvalues = []
         for series in _test_suite:
             args = {"id": f"{series.name}"}
@@ -76,21 +113,27 @@ def test_relations(source_type, relation_type, series):
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (
-            cast_series in source_type
+                cast_series in source_type
         ), f"Relationship {relation} cast {series.values} to {cast_series.values} "
     else:
-        raise ValueError('No relation.')
+        raise ValueError("No relation.")
 
 
 def test_consistency(series):
     typeset = tenzing_complete_set()
     if typeset.get_type_series(series, convert=True) != typeset.get_type_series(series):
         converted_series = typeset.convert_series(series)
-        assert not ((converted_series.eq(series) ^ (converted_series.isna() & series.isna())).all())
+        assert not (
+            (
+                    converted_series.eq(series) ^ (converted_series.isna() & series.isna())
+            ).all()
+        )
     else:
         converted_series = typeset.convert_series(series)
         # Missing values fix
-        assert (converted_series.eq(series) ^ (converted_series.isna() & series.isna())).all()
+        assert (
+                converted_series.eq(series) ^ (converted_series.isna() & series.isna())
+        ).all()
 
 
 def test_side_effects(series):
@@ -117,7 +160,9 @@ def test_multiple_inference(series):
 
     initial_type_after_convert = ts.get_type_series(series_convert.copy())
 
-    inferred_type_after_convert = ts.get_type_series(series_convert.copy(), convert=True)
+    inferred_type_after_convert = ts.get_type_series(
+        series_convert.copy(), convert=True
+    )
 
     series_convert2 = ts.convert_series(series_convert.copy())
 

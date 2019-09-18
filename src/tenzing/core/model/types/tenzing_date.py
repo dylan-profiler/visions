@@ -20,7 +20,9 @@ class tenzing_date(tenzing_datetime):
             return super_mask
 
         return super_mask & series[super_mask].eq(
-            series[super_mask].copy().apply(lambda x: x.replace(hour=0, minute=0, second=0))
+            series[super_mask]
+            .copy()
+            .apply(lambda x: x.replace(hour=0, minute=0, second=0))
         )
 
     @classmethod

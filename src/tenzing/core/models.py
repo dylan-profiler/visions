@@ -72,7 +72,9 @@ class meta_model(type):
             >>> type_generic + infinite_generic
         """
         if not issubclass(other, tenzing_model):
-            raise Exception(f"{other} must be sunblcass of type tenzing_model, but is of type {type(other)}")
+            raise Exception(
+                f"{other} must be sunblcass of type tenzing_model, but is of type {type(other)}"
+            )
         return MultiModel([self, other])
 
     # def __or__(self, other):

@@ -21,7 +21,9 @@ class tenzing_path(tenzing_object):
         if not super_mask.any():
             return super_mask
 
-        return super_mask & series[super_mask].apply(lambda x: isinstance(x, PurePath) and x.is_absolute())
+        return super_mask & series[super_mask].apply(
+            lambda x: isinstance(x, PurePath) and x.is_absolute()
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

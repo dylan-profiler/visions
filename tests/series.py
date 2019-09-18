@@ -44,7 +44,7 @@ def get_series():
             name="string_np_unicode_series",
         ),
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
-        pd.Series(["1.0", "2.0", "3.0"], name='string_num'),
+        pd.Series(["1.0", "2.0", "3.0"], name="string_num"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
         pd.Series(
@@ -60,7 +60,13 @@ def get_series():
         pd.Series(["True", "False", np.nan], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
         pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
-        pd.Series(['http://www.cwi.nl:80/%7Eguido/Python.html', 'https://github.com/pandas-profiling/pandas-profiling'], name='str_url'),
+        pd.Series(
+            [
+                "http://www.cwi.nl:80/%7Eguido/Python.html",
+                "https://github.com/pandas-profiling/pandas-profiling",
+            ],
+            name="str_url",
+        ),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, np.nan], name="bool_nan_series"),
@@ -72,7 +78,12 @@ def get_series():
             name="complex_series",
         ),
         pd.Series(
-            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.complex(np.nan, np.nan)],
+            [
+                np.complex(0, 0),
+                np.complex(1, 2),
+                np.complex(3, -1),
+                np.complex(np.nan, np.nan),
+            ],
             name="complex_series_nan",
         ),
         pd.Series(
@@ -106,7 +117,7 @@ def get_series():
                 freq="H",
                 tz="Europe/Brussels",
                 name="timestamp_aware_series",
-            ),
+            )
         ),
         pd.to_datetime(
             pd.Series(

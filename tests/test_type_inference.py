@@ -61,7 +61,9 @@ def _traverse_relation_graph(series, G, node=tenzing_generic):
         if series in tenz_type:
             match_types.append(tenz_type)
 
-    assert len(match_types) < 2, f"types contains should be mutually exclusive {match_types}"
+    assert (
+        len(match_types) < 2
+    ), f"types contains should be mutually exclusive {match_types}"
     if len(match_types) == 1:
         return _traverse_relation_graph(series, G, match_types[0])
     else:

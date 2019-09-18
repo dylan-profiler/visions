@@ -181,7 +181,10 @@ def register_object_relations():
 
 
 def register_date_relations():
-    relations = [model_relation(tenzing_date, tenzing_datetime)]
+    relations = [
+        model_relation(tenzing_date, tenzing_datetime),
+        model_relation(tenzing_date, tenzing_string)
+    ]
     for relation in relations:
         tenzing_date.register_relation(relation)
 

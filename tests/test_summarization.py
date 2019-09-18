@@ -11,7 +11,6 @@ from tenzing.core.summary import type_summary_ops, Summary
 def validate_summary_output(test_series, tenzing_type, correct_output):
     summary = Summary(type_summary_ops)
     trial_output = summary.summarize_series(test_series, tenzing_type)
-    print(trial_output)
 
     for metric, result in correct_output.items():
         assert metric in trial_output, f"Metric `{metric}` is missing"
@@ -75,10 +74,7 @@ def test_float_missing_summary(tenzing_type=tenzing_float):
 def test_bool_missing_summary(tenzing_type=tenzing_bool):
     tenzing_type += missing_generic
     test_series = pd.Series([True, False, True, True, np.nan])
-    correct_output = {
-        "n_records": 5,
-        "na_count": 1,
-    }
+    correct_output = {"n_records": 5, "na_count": 1}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 
@@ -106,12 +102,7 @@ def test_categorical_missing_summary(tenzing_type=tenzing_categorical):
 def test_complex_missing_summary(tenzing_type=tenzing_complex):
     tenzing_type += missing_generic
     test_series = pd.Series([0 + 0j, 0 + 1j, 1 + 0j, 1 + 1j, np.nan])
-    correct_output = {
-        "n_unique": 4,
-        "mean": 0.5 + 0.5j,
-        "na_count": 1,
-        'n_records': 5
-    }
+    correct_output = {"n_unique": 4, "mean": 0.5 + 0.5j, "na_count": 1, "n_records": 5}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 
@@ -154,10 +145,7 @@ def test_object_missing_summary(tenzing_type=tenzing_object):
 def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
     tenzing_type += missing_generic
     test_series = pd.Series([np.nan])
-    correct_output = {
-        "na_count": 1,
-        'n_records': 1,
-    }
+    correct_output = {"na_count": 1, "n_records": 1}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 
@@ -165,34 +153,33 @@ def test_geometry_missing_summary(tenzing_type=tenzing_geometry):
 def test_string_missing_summary(tenzing_type=tenzing_string):
     tenzing_type += missing_generic
     test_series = pd.Series(["apple", "orange", "bike", np.nan])
-    correct_output = {
-        "na_count": 1,
-        "n_unique": 3,
-        "n_records": 4,
-    }
+    correct_output = {"na_count": 1, "n_unique": 3, "n_records": 4}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_string_summary(tenzing_type=tenzing_string):
     test_series = pd.Series(["http://ru.nl", "http://ru.nl", "http://nl.ru"])
-    correct_output = {
-        "n_unique": 2,
-        "n_records": 3,
-    }
+    correct_output = {"n_unique": 2, "n_records": 3}
 
     validate_summary_output(test_series, tenzing_type, correct_output)
 
 
 def test_url_summary(tenzing_type=tenzing_url):
-    test_series = pd.Series([urlparse("http://ru.nl"), urlparse("http://ru.nl"), urlparse("http://nl.ru")])
+    test_series = pd.Series(
+        [urlparse("http://ru.nl"), urlparse("http://ru.nl"), urlparse("http://nl.ru")]
+    )
     correct_output = {
-        "n_unique": 2,
         "n_records": 3,
+        "n_unique": 2,
+        "scheme_counts": {"http": 3},
+        "netloc_counts": {"ru.nl": 2, "nl.ru": 1},
+        "path_counts": {"": 3},
+        "query_counts": {"": 3},
+        "fragment_counts": {"": 3},
     }
 
     validate_summary_output(test_series, tenzing_type, correct_output)
-
 
 
 def test_empty_summary():

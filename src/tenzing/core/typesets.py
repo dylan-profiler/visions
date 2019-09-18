@@ -87,7 +87,11 @@ def cast_series_to_inferred_type(base_type, series, G):
 
 def detect_series_container(series, containers):
     series_containers = [container for container in containers if series in container]
-    container = MultiModel(series_containers) if len(series_containers) > 1 else series_containers[0]
+    container = (
+        MultiModel(series_containers)
+        if len(series_containers) > 1
+        else series_containers[0]
+    )
     return container
 
 
@@ -114,7 +118,10 @@ class tenzingTypeset(object):
 
         # print(self.column_container_map[series.name])
         # print(self.column_base_type_map[series.name])
-        self.column_type_map[series.name] = self.column_container_map[series.name] + self.column_base_type_map[series.name]
+        self.column_type_map[series.name] = (
+            self.column_container_map[series.name]
+            + self.column_base_type_map[series.name]
+        )
 
     # New API
     def get_type_series(
@@ -154,9 +161,7 @@ class tenzingTypeset(object):
         self.prep_series(series)
         # containerized_series = self.get_containerized_series(series)
         base_type = infer_type(
-            self.column_base_type_map[series.name],
-            series,
-            self.relation_graph,
+            self.column_base_type_map[series.name], series, self.relation_graph
         )
         return base_type
 

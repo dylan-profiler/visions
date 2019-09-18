@@ -4,6 +4,7 @@ from tenzing.core.models import tenzing_model
 
 import pandas.api.types as pdt
 
+
 class tenzing_generic(tenzing_model):
     """**Generic** implementation of :class:`tenzing.core.models.tenzing_model`.
 
@@ -19,7 +20,7 @@ class tenzing_generic(tenzing_model):
 
         mask = series[super_mask].notna()
         if pdt.is_float_dtype(series[super_mask]):
-            mask &= (np.isfinite(series[super_mask]))
+            mask &= np.isfinite(series[super_mask])
         # TODO: series.empty == strict
         return super_mask & mask
 

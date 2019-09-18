@@ -19,7 +19,9 @@ class tenzing_ip(tenzing_object):
         if not super_mask.any():
             return super_mask
 
-        return super_mask & series[super_mask].apply(lambda x: isinstance(x, _BaseAddress))
+        return super_mask & series[super_mask].apply(
+            lambda x: isinstance(x, _BaseAddress)
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

@@ -16,7 +16,9 @@ class tenzing_time(tenzing_datetime):
     def mask(cls, series: pd.Series) -> pd.Series:
         super_mask = super().mask(series)
         return super_mask & series[super_mask].eq(
-            series[super_mask].copy().apply(lambda x: x.replace(day=1, month=1, year=1970))
+            series[super_mask]
+            .copy()
+            .apply(lambda x: x.replace(day=1, month=1, year=1970))
         )
 
     @classmethod
