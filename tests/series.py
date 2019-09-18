@@ -65,11 +65,19 @@ def get_series():
         pd.Series(np.array([1, 0, 0, 1], dtype=np.bool), name="bool_series3"),
         # Complex Series
         pd.Series(
-            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
+            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1)],
             name="complex_series",
         ),
         pd.Series(
+            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.complex(np.nan, np.nan)],
+            name="complex_series_nan",
+        ),
+        pd.Series(
             [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
+            name="complex_series_nan_2",
+        ),
+        pd.Series(
+            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1)],
             name="categorical_complex_series",
             dtype="category",
         ),

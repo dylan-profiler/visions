@@ -73,7 +73,7 @@ def get_series_map():
     series_map[tenzing_date + missing_generic] = series_map[tenzing_date] + ["timestamp_series_nat"] + series_map[missing_generic]
     series_map[tenzing_datetime + missing_generic] = series_map[tenzing_datetime] + ["timestamp_series_nat"] + series_map[missing_generic]
     series_map[tenzing_timedelta + missing_generic] = series_map[tenzing_timedelta] + ["timedelta_series_nat"] + series_map[missing_generic]
-    series_map[tenzing_complex + missing_generic] = series_map[tenzing_complex] + ["complex_series_py_nan"] + series_map[missing_generic]
+    series_map[tenzing_complex + missing_generic] = series_map[tenzing_complex] + ["complex_series_py_nan", "complex_series_nan_2", "complex_series_nan"] + series_map[missing_generic]
     series_map[tenzing_bool + missing_generic] = series_map[tenzing_bool] + ["bool_nan_series"] + series_map[missing_generic]
     series_map[tenzing_float + missing_generic] = series_map[tenzing_float] + ["float_nan_series", "float_series5", "float_series6"] + series_map[missing_generic]
     series_map[tenzing_integer + missing_generic] = series_map[tenzing_integer] + ["int_nan_series", "Int64_int_nan_series"] + series_map[missing_generic]
