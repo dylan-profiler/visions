@@ -148,11 +148,9 @@ class tenzingTypeset(object):
     #     return container.transform(series)
 
     def infer_types(self, df: pd.DataFrame):
-        # self.prep(df)
         return {col: self.infer_series_type(df[col]) for col in df.columns}
 
     def cast_to_inferred_types(self, df: pd.DataFrame):
-        # self.prep(df)
         return pd.DataFrame(
             {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
         )

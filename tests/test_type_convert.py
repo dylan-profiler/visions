@@ -48,7 +48,7 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
         )
-    if metafunc.function.__name__ in ["test_consistency", "test_side_effects"]:
+    if metafunc.function.__name__ in ["test_consistency", "test_side_effects", "test_multiple_inference"]:
         argsvalues = []
         for series in _test_suite:
             args = {"id": f"{series.name}"}
@@ -87,3 +87,25 @@ def test_side_effects(series):
     typeset.convert_series(series)
 
     assert series.eq(reference).all()
+
+
+def test_multiple_inference(series):
+    """
+    Notes:
+        Copy to prevent possible side effects only for testing.
+    """
+    ts = tenzing_complete_set()
+
+    inferred_type = ts.get_type_series(series, convert=True)
+
+    series_convert = ts.convert_series(series.copy())
+
+    initial_type_after_convert = ts.get_type_series(series_convert.copy())
+
+    inferred_type_after_convert = ts.get_type_series(series_convert.copy(), convert=True)
+
+    series_convert2 = ts.convert_series(series_convert.copy())
+
+    assert inferred_type == initial_type_after_convert
+    assert initial_type_after_convert == inferred_type_after_convert
+    assert series_convert.eq(series_convert2).all()
