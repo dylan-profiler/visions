@@ -15,7 +15,7 @@ class infinite_generic(tenzing_model):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return (~np.isfinite(series)) & series.notnull()
+        return series.apply(lambda x: type(x) == float and np.isinf(x))#notnull() & (~np.isfinite(series))
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

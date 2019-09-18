@@ -69,29 +69,29 @@ class meta_model(type):
         Examples:
             >>> type_generic + infinite_generic
         """
-        if not issubclass(other, tenzing_model):
+        if not issubclass(type(other), tenzing_model):
             raise Exception(f"{other} must be of type Container")
         return MultiModel([self, other])
 
-    def __or__(self, other):
-        """
-        Examples:
-            >>> type_generic | infinite_generic
-        """
-        return self + other
-
-    def __getitem__(self, item):
-        """
-        Examples:
-            >>> missing_generic[type_generic]
-        """
-        return item + self
+    # def __or__(self, other):
+    #     """
+    #     Examples:
+    #         >>> type_generic | infinite_generic
+    #     """
+    #     return self + other
+    #
+    # def __getitem__(self, item):
+    #     """
+    #     Examples:
+    #         >>> missing_generic[type_generic]
+    #     """
+    #     return item + self
 
 
 # TODO: see if we can make this without initiazation
 class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
-        assert len(models) >= 2
+        # assert len(models) >= 2
 
         if not all(issubclass(base_type, tenzing_model) for base_type in models):
             raise Exception("Have to be tenzing_model subclasses")

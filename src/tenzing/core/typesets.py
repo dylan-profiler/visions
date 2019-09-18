@@ -92,8 +92,8 @@ def cast_series_to_inferred_type(base_type, series, G):
 
 def detect_series_container(series, containers):
     series_containers = [container for container in containers if series in container]
-    # container = MultiContainer(series_containers) if len(series_containers) > 1 else series_containers[0]
-    return series_containers
+    container = MultiModel(series_containers) if len(series_containers) > 1 else series_containers[0]
+    return container
 
 
 class tenzingTypeset(object):
@@ -113,19 +113,24 @@ class tenzingTypeset(object):
         self.types = frozenset(self.relation_graph.nodes)
         self.containers = containers
 
-    def prep(self, df):
-        self.column_container_map = {
-            col: self.detect_series_container(df[col]) for col in df.columns
-        }
-        self.column_base_type_map = {
-            col: self._get_column_type(df[col]) for col in df.columns
-        }
-        self.column_type_map = {
-            col: MultiModel(
-                self.column_container_map[col] + [self.column_base_type_map[col]]
-            )
-            for col in df.columns
-        }
+    def prep_series(self, series: pd.Series):
+        self.column_container_map[series.name] = self.detect_series_container(series)
+        self.column_base_type_map[series.name] = self.get_type_series(series)
+        self.column_type_map[series.name] = MultiModel(self.column_container_map[series.name] + [self.column_base_type_map[series.name]])
+
+    # def prep(self, df):
+    #     self.column_container_map = {
+    #         col: self.detect_series_container(df[col]) for col in df.columns
+    #     }
+    #     self.column_base_type_map = {
+    #         col: self._get_column_type(df[col]) for col in df.columns
+    #     }
+    #     self.column_type_map = {
+    #         col: MultiModel(
+    #             self.column_container_map[col] + [self.column_base_type_map[col]]
+    #         )
+    #         for col in df.columns
+    #     }
 
     # New API
     def get_type_series(
@@ -146,32 +151,35 @@ class tenzingTypeset(object):
         )
         return self.column_base_type_map[series.name]
 
-    def get_containerized_series(self, series):
-        container = self.detect_series_container(series)
-        if type(container) == list:
-            container = MultiModel(container)
-        return container.transform(series)
+    # def get_containerized_series(self, series):
+    #     container = self.detect_series_container(series)
+    #     if type(container) == list:
+    #         print(container)
+    #         container = MultiModel(container)
+    #     return container.transform(series)
 
     def infer_types(self, df: pd.DataFrame):
-        self.prep(df)
+        # self.prep(df)
         return {col: self.infer_series_type(df[col]) for col in df.columns}
 
     def cast_to_inferred_types(self, df: pd.DataFrame):
-        self.prep(df)
+        # self.prep(df)
         return pd.DataFrame(
             {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
         )
 
     def infer_series_type(self, series: pd.Series):
-        containerized_series = self.get_containerized_series(series)
+        self.prep_series(series)
+        # containerized_series = self.get_containerized_series(series)
         base_type = infer_type(
             self.column_base_type_map[series.name],
-            containerized_series,
+            series,
             self.relation_graph,
         )
         return base_type
 
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
+        self.prep_series(series)
         mask = self.column_container_map[series.name].mask(series)
         series.loc[mask] = cast_series_to_inferred_type(
             self.column_base_type_map[series.name], series[mask], self.relation_graph
