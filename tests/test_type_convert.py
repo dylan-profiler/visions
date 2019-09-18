@@ -48,7 +48,7 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
         )
-    if metafunc.function.__name__ == "test_consistency":
+    if metafunc.function.__name__ in ["test_consistency", "test_side_effects"]:
         argsvalues = []
         for series in _test_suite:
             args = {"id": f"{series.name}"}
@@ -70,8 +70,20 @@ def test_relations(source_type, relation_type, series):
 
 def test_consistency(series):
     typeset = tenzing_complete_set()
-    print(typeset.get_type_series(series, convert=True))
     if typeset.get_type_series(series, convert=True) != typeset.get_type_series(series):
-        assert typeset.convert_series(series) != series
+        converted_series = typeset.convert_series(series)
+        assert not converted_series.eq(series).all()
     else:
-        assert typeset.convert_series(series) == series
+        converted_series = typeset.convert_series(series)
+        assert converted_series.eq(series).all()
+
+
+def test_side_effects(series):
+    reference = series.copy()
+
+    typeset = tenzing_complete_set()
+    typeset.get_type_series(series)
+    typeset.get_type_series(series, convert=True)
+    typeset.convert_series(series)
+
+    assert series.eq(reference).all()

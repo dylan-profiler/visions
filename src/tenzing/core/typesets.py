@@ -116,21 +116,10 @@ class tenzingTypeset(object):
     def prep_series(self, series: pd.Series):
         self.column_container_map[series.name] = self.detect_series_container(series)
         self.column_base_type_map[series.name] = self.get_type_series(series)
-        self.column_type_map[series.name] = MultiModel(self.column_container_map[series.name] + [self.column_base_type_map[series.name]])
 
-    # def prep(self, df):
-    #     self.column_container_map = {
-    #         col: self.detect_series_container(df[col]) for col in df.columns
-    #     }
-    #     self.column_base_type_map = {
-    #         col: self._get_column_type(df[col]) for col in df.columns
-    #     }
-    #     self.column_type_map = {
-    #         col: MultiModel(
-    #             self.column_container_map[col] + [self.column_base_type_map[col]]
-    #         )
-    #         for col in df.columns
-    #     }
+        # print(self.column_container_map[series.name])
+        # print(self.column_base_type_map[series.name])
+        self.column_type_map[series.name] = self.column_container_map[series.name] + self.column_base_type_map[series.name]
 
     # New API
     def get_type_series(
@@ -179,6 +168,7 @@ class tenzingTypeset(object):
         return base_type
 
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
+        # TODO: copy if needed!
         self.prep_series(series)
         mask = self.column_container_map[series.name].mask(series)
         series.loc[mask] = cast_series_to_inferred_type(
