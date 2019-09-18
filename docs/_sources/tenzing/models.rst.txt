@@ -13,7 +13,7 @@ Abstract Types
    :toctree: _autosummary
 
    relations
-mak
+
 
 ==============
 Concrete Types

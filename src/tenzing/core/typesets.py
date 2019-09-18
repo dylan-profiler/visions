@@ -1,11 +1,12 @@
 import warnings
+from typing import Union
 
 import pandas as pd
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-from tenzing.core.models import MultiModel
+from tenzing.core.models import MultiModel, tenzing_model
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
@@ -126,6 +127,19 @@ class tenzingTypeset(object):
             for col in df.columns
         }
 
+    # New API
+    def get_type_series(
+        self, series: pd.Series, convert=False
+    ) -> Union[tenzing_model, MultiModel]:
+        if convert:
+            return self.infer_series_type(series)
+        else:
+            return self._get_column_type(series)
+
+    def convert_series(self, series: pd.Series) -> pd.Series:
+        return self.cast_series_to_inferred_type(series)
+
+    # Old API
     def detect_series_container(self, series):
         self.column_base_type_map[series.name] = detect_series_container(
             series, self.containers

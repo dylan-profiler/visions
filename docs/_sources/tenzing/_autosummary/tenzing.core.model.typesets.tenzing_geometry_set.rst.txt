@@ -16,8 +16,10 @@ tenzing.core.model.typesets.tenzing\_geometry\_set
       ~tenzing_geometry_set.__init__
       ~tenzing_geometry_set.cast_series_to_inferred_type
       ~tenzing_geometry_set.cast_to_inferred_types
+      ~tenzing_geometry_set.convert_series
       ~tenzing_geometry_set.detect_series_container
       ~tenzing_geometry_set.get_containerized_series
+      ~tenzing_geometry_set.get_type_series
       ~tenzing_geometry_set.infer_series_type
       ~tenzing_geometry_set.infer_types
       ~tenzing_geometry_set.prep

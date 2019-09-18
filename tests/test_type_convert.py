@@ -1,5 +1,6 @@
 import pytest
 
+from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.types import *
 
 from tests.series import get_series
@@ -27,9 +28,9 @@ def get_series_map():
 
 
 def pytest_generate_tests(metafunc):
+    _test_suite = get_series()
     if metafunc.function.__name__ == "test_relations":
         _series_map = get_series_map()
-        _test_suite = get_series()
 
         # all_series_included(_test_suite, _series_map)
 
@@ -47,6 +48,13 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
         )
+    if metafunc.function.__name__ == "test_consistency":
+        argsvalues = []
+        for series in _test_suite:
+            args = {"id": f"{series.name}"}
+            argsvalues.append(pytest.param(series, **args))
+
+        metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
 
 
 def test_relations(source_type, relation_type, series):
@@ -58,3 +66,11 @@ def test_relations(source_type, relation_type, series):
         ), f"Relationship {relation} cast {series.values} to {cast_series.values} "
     else:
         pass
+
+
+def test_consistency(series):
+    typeset = tenzing_complete_set()
+    if typeset.get_type_series(series, convert=True) != typeset.get_type_series(series):
+        assert typeset.convert_series(series) != series
+    else:
+        assert typeset.convert_series(series) == series

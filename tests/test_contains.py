@@ -18,7 +18,8 @@ def get_series_map():
             "float_series3",
             "float_series4",
         ],
-        tenzing_float + missing_generic: ["float_nan_series", "float_series5", "float_series6"],
+        tenzing_float
+        + missing_generic: ["float_nan_series", "float_series5", "float_series6"],
         tenzing_float + infinite_generic: ["float_with_inf"],
         tenzing_categorical: [
             "categorical_int_series",

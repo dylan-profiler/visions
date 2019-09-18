@@ -16,9 +16,9 @@ def get_series_map():
 
 
 def pytest_generate_tests(metafunc):
+    _test_suite = get_series()
     if metafunc.function.__name__ == "test_inference":
         _series_map = get_series_map()
-        _test_suite = get_series()
 
         # all_series_included(_test_suite, _series_map)
 
@@ -32,6 +32,13 @@ def pytest_generate_tests(metafunc):
                 argsvalues.append(pytest.param(item, type, **args))
 
         metafunc.parametrize(argnames=["series", "expected_type"], argvalues=argsvalues)
+    if metafunc.function.__name__ == "test_consistency":
+        argsvalues = []
+        for series in _test_suite:
+            args = {"id": f"{series.name}"}
+            argsvalues.append(pytest.param(series, **args))
+
+        metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
 
 
 def test_inference(series, expected_type):
@@ -41,3 +48,8 @@ def test_inference(series, expected_type):
     assert (
         inferred_type is expected_type
     ), f"Inferred type {inferred_type}, expected type {expected_type}"
+
+
+def test_consistency(series):
+    typeset = tenzing_complete_set()
+    assert series in typeset.get_type_series(series)
