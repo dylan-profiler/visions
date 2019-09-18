@@ -105,7 +105,7 @@ class MultiModel(metaclass=meta_model):
         return self.contains_op(series)
 
     def mask(self, series: pd.Series):
-        mask = series.apply(lambda _: False)
+        mask = pd.Series([False] * len(series))
         for container in self.models:
             mask ^= container.mask(series)
         return mask
