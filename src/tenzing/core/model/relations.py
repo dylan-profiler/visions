@@ -204,12 +204,6 @@ def register_image_path_relations():
         tenzing_image_path.register_relation(relation)
 
 
-# def register_empty_relations():
-#     relations = [model_relation(tenzing_empty, tenzing_generic)]
-#     for relation in relations:
-#         tenzing_empty.register_relation(relation)
-
-
 def register_ip_relations():
     relations = [
         model_relation(tenzing_ip, tenzing_object),
@@ -239,5 +233,4 @@ register_date_relations()
 register_time_relations()
 register_existing_path_relations()
 register_image_path_relations()
-# register_empty_relations()
 register_ip_relations()

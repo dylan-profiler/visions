@@ -1,3 +1,5 @@
+import warnings
+
 import pytest
 
 from tenzing.core.model import tenzing_complete_set
@@ -8,23 +10,36 @@ from tests.series import get_series
 
 def get_series_map():
     return [
+        # Model type, Relation type
         (tenzing_integer, tenzing_float, []),
-        (tenzing_integer, tenzing_string, []),
-        (tenzing_float, tenzing_string, []),
-        (tenzing_datetime, tenzing_string, []),
-        (tenzing_geometry, tenzing_string, []),
-        (tenzing_bool, tenzing_string, []),
+        (tenzing_integer, tenzing_string, ['string_num', 'int_str_range']),
+        (tenzing_float, tenzing_string, ['string_flt', 'string_num_nan', 'string_flt', 'string_flt_nan', 'textual_float']),
+        (tenzing_datetime, tenzing_string, ['timestamp_string_series', 'string_bool_nan']),
+        (tenzing_geometry, tenzing_string, ['geometry_string_series']),
+        (tenzing_bool, tenzing_string, ['string_bool_nan']),
+        (tenzing_ip, tenzing_string, ['ip_str']),
+        (tenzing_path, tenzing_string, ['path_series_linux_str', 'path_series_windows_str']),
+        (tenzing_url, tenzing_string, ['str_url']),
+        # Inheritance
+        # (tenzing_ip, tenzing_object),
+        # (tenzing_image_path, tenzing_existing_path),
+        # (tenzing_existing_path, tenzing_path),
+        # (tenzing_path, tenzing_object),
+        # (tenzing_time, tenzing_datetime),
+        # (tenzing_date, tenzing_datetime),
+        # (tenzing_object, tenzing_generic),
+        # (tenzing_complex, tenzing_generic),
+        # (tenzing_categorical, tenzing_generic),
+        # (tenzing_bool, tenzing_generic),
+        # (tenzing_geometry, tenzing_generic),
+        # # TODO: no object, non?
+        # (tenzing_timedelta, tenzing_object),
+        # # TODO: no object, non?
+        # (tenzing_datetime, tenzing_object),
     ]
 
 
-# TODO: check that all series are tested
 # TODO: check that all relations are tested
-# def all_series_included(series_list, series_map):
-#     """Check that all names are indeed used"""
-#     used_names = set([name for names in series_map.values() for name in names])
-#     names = set([series.name for series in series_list])
-#     if not names == used_names:
-#         raise ValueError(f"Not all series are used {names ^ used_names}")
 
 
 def pytest_generate_tests(metafunc):
@@ -32,18 +47,17 @@ def pytest_generate_tests(metafunc):
     if metafunc.function.__name__ == "test_relations":
         _series_map = get_series_map()
 
-        # all_series_included(_test_suite, _series_map)
-
         argsvalues = []
         for item in _test_suite:
             for source_type, relation_type, series_list in _series_map:
-                args = {"id": f"{item.name} x {source_type} x {relation_type}"}
-                # if item.name not in series_list:
-                #     args["marks"] = pytest.mark.xfail()
+                if item in relation_type:
+                    args = {"id": f"{item.name}: {relation_type} -> {source_type}"}
+                    if item.name not in series_list:
+                        args['marks'] = pytest.mark.xfail(raises=ValueError)
 
-                argsvalues.append(
-                    pytest.param(source_type, relation_type, item, **args)
-                )
+                    argsvalues.append(
+                        pytest.param(source_type, relation_type, item, **args)
+                    )
 
         metafunc.parametrize(
             argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
@@ -59,13 +73,13 @@ def pytest_generate_tests(metafunc):
 
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
-    if series in relation_type and relation.is_relation(series):
+    if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (
             cast_series in source_type
         ), f"Relationship {relation} cast {series.values} to {cast_series.values} "
     else:
-        pass
+        raise ValueError('No relation.')
 
 
 def test_consistency(series):

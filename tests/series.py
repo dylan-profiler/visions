@@ -21,7 +21,7 @@ def get_series():
         # Float Series
         pd.Series([1.0, 2.1, 3.0], name="float_series"),
         pd.Series([1.0, 2.5, np.nan], name="float_nan_series"),
-        pd.Series([1.1, 2, 3, 4], name="float_series2"),
+        pd.Series([1.0, 2.0, 3.0, 4.0], name="float_series2"),
         pd.Series(np.array([1.2, 2, 3, 4], dtype=np.float), name="float_series3"),
         pd.Series([1, 2, 3.05, 4], dtype=float, name="float_series4"),
         pd.Series([np.nan, 1.2], name="float_series5"),
@@ -44,7 +44,9 @@ def get_series():
             name="string_np_unicode_series",
         ),
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
+        pd.Series(["1.0", "2.0", "3.0"], name='string_num'),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
+        pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
         pd.Series(
             [
                 "I was only robbing the register,",
@@ -58,6 +60,7 @@ def get_series():
         pd.Series(["True", "False", np.nan], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
         pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
+        pd.Series(['http://www.cwi.nl:80/%7Eguido/Python.html', 'https://github.com/pandas-profiling/pandas-profiling'], name='str_url'),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, np.nan], name="bool_nan_series"),
@@ -186,4 +189,5 @@ def get_series():
         pd.Series([], name="empty_bool", dtype=bool),
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
     ]
