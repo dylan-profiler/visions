@@ -52,7 +52,7 @@ class model_relation:
 class meta_model(type):
     def __contains__(cls, series: pd.Series) -> bool:
         if series.empty:
-            return False
+            return cls == tenzing_model
         return cls.contains_op(series)
 
     # TODO: raise exception on instantiation
