@@ -28,6 +28,10 @@ def get_series():
         pd.Series([np.nan, 1.1], dtype=np.single, name="float_series6"),
         pd.Series([1.0, 2.0, 3.1], dtype="category", name="categorical_float_series"),
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
+        pd.Series([np.inf, np.NINF, np.Infinity, np.PINF], name="inf_series"),
+        # Nan Series
+        pd.Series([np.nan], name="nan_series"),
+        pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(
@@ -159,8 +163,6 @@ def get_series():
             [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
             name="mixed_dict",
         ),
-        # ?
-        pd.Series([None, None, None, None, None], name="none_series"),
         pd.Series(
             [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle],
             name="callable",

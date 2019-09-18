@@ -8,8 +8,6 @@ from tests.series import get_series
 def get_series_map():
     series_map = {
         tenzing_integer: ["int_series", "Int64_int_series", "np_uint32", "int_range"],
-        tenzing_integer + missing_generic: ["int_nan_series", "Int64_int_nan_series"],
-        tenzing_integer + infinite_generic: ["int_with_inf"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
         tenzing_float: [
@@ -18,9 +16,6 @@ def get_series_map():
             "float_series3",
             "float_series4",
         ],
-        tenzing_float
-        + missing_generic: ["float_nan_series", "float_series5", "float_series6"],
-        tenzing_float + infinite_generic: ["float_with_inf"],
         tenzing_categorical: [
             "categorical_int_series",
             "categorical_float_series",
@@ -28,17 +23,14 @@ def get_series_map():
             "categorical_complex_series",
         ],
         tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
-        tenzing_bool + missing_generic: ["bool_nan_series"],
         tenzing_complex: [
             "complex_series",
             "complex_series_py_nan",
             "complex_series_py",
         ],
         tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
-        tenzing_datetime + missing_generic: ["timestamp_series_nat"],
         tenzing_date: ["timestamp_series", "datetime"],
-        tenzing_date + missing_generic: ["timestamp_series_nat"],
-        tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
+        tenzing_timedelta: ["timedelta_series"],
         tenzing_string: [
             "timestamp_string_series",
             "string_series",
@@ -51,14 +43,6 @@ def get_series_map():
             "string_date",
             "textual_float",
         ],
-        tenzing_string
-        + missing_generic: [
-            "string_num_nan",
-            "string_flt_nan",
-            "string_str_nan",
-            "string_bool_nan",
-            "textual_float_nan",
-        ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
         # tenzing_empty: [
@@ -69,23 +53,12 @@ def get_series_map():
         #     "empty_bool",
         # ],
         missing_generic: [
-            "none_series",
-            "int_nan_series",
-            "Int64_int_nan_series",
-            "float_nan_series",
-            "float_series5",
-            "float_series6",
-            "string_num_nan",
-            "string_flt_nan",
-            "string_str_nan",
-            "string_bool_nan",
-            "complex_series",
-            "bool_nan_series",
-            "complex_series_py_nan",
-            "timedelta_series_nat",
-            "timestamp_series_nat",
-            "categorical_complex_series",
+            "nan_series",
+            "nan_series_2",
         ],
+        infinite_generic: [
+            "inf_series"
+        ]
     }
 
     series_map[tenzing_object] = (
@@ -96,6 +69,22 @@ def get_series_map():
         + series_map[tenzing_url]
         + series_map[tenzing_ip]
     )
+
+    series_map[tenzing_date + missing_generic] = series_map[tenzing_date] + ["timestamp_series_nat"] + series_map[missing_generic]
+    series_map[tenzing_datetime + missing_generic] = series_map[tenzing_datetime] + ["timestamp_series_nat"] + series_map[missing_generic]
+    series_map[tenzing_timedelta + missing_generic] = series_map[tenzing_timedelta] + ["timedelta_series_nat"] + series_map[missing_generic]
+    series_map[tenzing_bool + missing_generic] = series_map[tenzing_bool] + ["bool_nan_series"] + series_map[missing_generic]
+    series_map[tenzing_float + missing_generic] = series_map[tenzing_float] + ["float_nan_series", "float_series5", "float_series6"] + series_map[missing_generic]
+    series_map[tenzing_float + infinite_generic] = series_map[tenzing_float] + ["float_with_inf"] + series_map[missing_generic] + series_map[infinite_generic]
+    series_map[tenzing_integer + missing_generic] = series_map[tenzing_integer] + ["int_nan_series", "Int64_int_nan_series"] + series_map[missing_generic]
+    series_map[tenzing_integer + infinite_generic] = series_map[tenzing_integer] + ["int_with_inf"] + series_map[infinite_generic]
+    series_map[tenzing_string + missing_generic] = series_map[tenzing_string] + [
+        "string_num_nan",
+        "string_flt_nan",
+        "string_str_nan",
+        "string_bool_nan",
+        "textual_float_nan"
+    ] + series_map[missing_generic]
 
     return series_map
 

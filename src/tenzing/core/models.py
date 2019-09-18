@@ -69,8 +69,8 @@ class meta_model(type):
         Examples:
             >>> type_generic + infinite_generic
         """
-        if not issubclass(type(other), tenzing_model):
-            raise Exception(f"{other} must be of type Container")
+        if not issubclass(other, tenzing_model):
+            raise Exception(f"{other} must be sunblcass of type tenzing_model, but is of type {type(other)}")
         return MultiModel([self, other])
 
     # def __or__(self, other):
@@ -91,21 +91,28 @@ class meta_model(type):
 # TODO: see if we can make this without initiazation
 class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
-        # assert len(models) >= 2
+        assert len(models) >= 2
 
         if not all(issubclass(base_type, tenzing_model) for base_type in models):
             raise Exception("Have to be tenzing_model subclasses")
 
         self.models = models
 
+    def __contains__(self, series: pd.Series):
+        return self.contains_op(series)
+
     def mask(self, series: pd.Series):
-        mask = self.models[0].mask(series)
-        for container in self.models[1:]:
-            mask &= container.mask(series)
+        mask = series.apply(lambda _: False)
+        for container in self.models:
+            mask ^= container.mask(series)
         return mask
 
     def contains_op(self, series: pd.Series) -> bool:
-        return all(series in model for model in self.models)
+        # Assert valid partitioning
+        if not self.mask(series).all():
+            return False
+
+        return all(series[model.mask(series)] in model for model in self.models)
 
     def __str__(self):
         return f"({', '.join([str(model) for model in self.models])})"

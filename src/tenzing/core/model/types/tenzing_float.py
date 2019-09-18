@@ -20,7 +20,7 @@ class tenzing_float(tenzing_generic):
         if not pdt.is_float_dtype(series):
             return series.apply(lambda _: False)
 
-        return series.apply(lambda _: True)
+        return series.notna() & (np.isfinite(series))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> bool:
