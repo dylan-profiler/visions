@@ -1,6 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
+from pandas._libs.tslibs.timedeltas import Timedelta
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
@@ -16,10 +17,8 @@ class tenzing_timedelta(tenzing_generic):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        print(series)
-        print(series.apply(lambda x: type(x)))
         super_mask = super().mask(series)
-        return super_mask & series[super_mask].apply(lambda x: issubclass(type(x), np.timedelta64))
+        return super_mask & series[super_mask].apply(lambda x: issubclass(type(x), np.timedelta64) or isinstance(x, Timedelta))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
