@@ -70,5 +70,4 @@ def _traverse_relation_graph(series, G, node=tenzing_generic):
 
 def test_traversal_mutex(series):
     typeset = tenzing_complete_set()
-    G = typeset.relation_graph
     _traverse_relation_graph(series, typeset.relation_graph)

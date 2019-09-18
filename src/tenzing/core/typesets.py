@@ -1,5 +1,5 @@
 import warnings
-from typing import Union
+from typing import Union, Type
 
 import pandas as pd
 import networkx as nx
@@ -55,11 +55,13 @@ def check_graph_constraints(relation_graph, nodes):
         warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
-def traverse_relation_graph(series, G, node=tenzing_generic):
+def traverse_relation_graph(series, G, node=tenzing_generic) -> Type[tenzing_model]:
     # DFS
     for tenz_type in G.successors(node):
         if series in tenz_type:
             return tenz_type
+
+    return node
 
 
 def get_type_inference_path(base_type, series, G, path=[]):

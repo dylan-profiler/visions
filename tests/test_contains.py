@@ -8,12 +8,11 @@ from tests.series import get_series
 
 def get_series_map():
     series_map = {
-        tenzing_integer: ["int_series", "Int64_int_series", "np_uint32", "int_range"],
+        tenzing_integer: ["int_series", "Int64_int_series", "np_uint32", "int_range", "float_series2"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
         tenzing_float: [
             "float_series",
-            "float_series2",
             "float_series3",
             "float_series4",
         ],
