@@ -179,7 +179,7 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(lambda _: True)
+        return series.apply(lambda _: True).fillna(True)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

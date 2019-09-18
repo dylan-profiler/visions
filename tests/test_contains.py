@@ -116,7 +116,7 @@ def pytest_generate_tests(metafunc):
             for type, series_list in _series_map.items():
                 args = {"id": f"{item.name} x {type}"}
                 if item.name not in series_list:
-                    args["marks"] = pytest.mark.xfail()
+                    args["marks"] = pytest.mark.xfail(raises=AssertionError)
 
                 argsvalues.append(pytest.param(item, type, **args))
 
