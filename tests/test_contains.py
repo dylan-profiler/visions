@@ -42,7 +42,11 @@ def get_series_map():
             "int_str_range",
             "string_date",
             "textual_float",
-            "textual_float_nan"
+            "textual_float_nan",
+            "ip_str",
+            "string_flt",
+            "string_num",
+            "str_url"
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
