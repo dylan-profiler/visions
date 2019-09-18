@@ -86,8 +86,12 @@ def get_series_map():
     ] + series_map[missing_generic]
 
     # Series with inf values
-    series_map[tenzing_float + infinite_generic] = series_map[tenzing_float] + ["float_with_inf"] + series_map[missing_generic] + series_map[infinite_generic]
+    series_map[tenzing_float + infinite_generic] = series_map[tenzing_float] + ["float_with_inf"] + series_map[infinite_generic]
     series_map[tenzing_integer + infinite_generic] = series_map[tenzing_integer] + ["int_with_inf"] + series_map[infinite_generic]
+
+    # TODO: Series with missing and Inf values
+
+    # TODO: empty series
 
     return series_map
 
