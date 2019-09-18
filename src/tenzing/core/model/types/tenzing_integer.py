@@ -16,15 +16,19 @@ class tenzing_integer(tenzing_generic):
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
         super_mask = super().mask(series)
+        # TODO: first apply super mask, then check rest
+        series = series[super_mask]
 
         if pdt.is_integer_dtype(series):
-            return super_mask
+            mask = series.apply(lambda _: True)
 
         # Note: this is required to support series with np.inf (as their representation is float)
-        if pdt.is_float_dtype(series):
-            return super_mask & series.eq(series.astype(int))
+        elif pdt.is_float_dtype(series):
+            mask = series.eq(series.astype(int))
+        else:
+            mask = series.apply(lambda _: False)
 
-        return series.apply(lambda _: False)
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

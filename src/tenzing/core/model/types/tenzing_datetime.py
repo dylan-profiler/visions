@@ -17,12 +17,13 @@ class tenzing_datetime(tenzing_generic):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
         # if pdt.is_datetime64_any_dtype(series):
         #     return series.apply(lambda _: True)
         # else:
         #     return series.apply(lambda _: False)
 
-        return series.apply(
+        return super_mask & series[super_mask].apply(
             lambda x: issubclass(type(x), np.datetime64) or isinstance(x, Timestamp)
         )
 

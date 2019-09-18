@@ -15,10 +15,12 @@ class tenzing_string(tenzing_object):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        if pdt.is_categorical_dtype(series):
-            return series.apply(lambda _: False)
-
-        return series.copy().apply(lambda x: type(x) == str)
+        super_mask = super().mask(series)
+        if pdt.is_categorical_dtype(series[super_mask]):
+            mask = series[super_mask].apply(lambda _: False)
+        else:
+            mask = series[super_mask].copy().apply(lambda x: type(x) == str)
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

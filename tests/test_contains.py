@@ -25,7 +25,6 @@ def get_series_map():
         tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
         tenzing_complex: [
             "complex_series",
-            "complex_series_py_nan",
             "complex_series_py",
         ],
         tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
@@ -70,14 +69,14 @@ def get_series_map():
         + series_map[tenzing_ip]
     )
 
+    # Series with missing values
     series_map[tenzing_date + missing_generic] = series_map[tenzing_date] + ["timestamp_series_nat"] + series_map[missing_generic]
     series_map[tenzing_datetime + missing_generic] = series_map[tenzing_datetime] + ["timestamp_series_nat"] + series_map[missing_generic]
     series_map[tenzing_timedelta + missing_generic] = series_map[tenzing_timedelta] + ["timedelta_series_nat"] + series_map[missing_generic]
+    series_map[tenzing_complex + missing_generic] = series_map[tenzing_complex] + ["complex_series_py_nan"] + series_map[missing_generic]
     series_map[tenzing_bool + missing_generic] = series_map[tenzing_bool] + ["bool_nan_series"] + series_map[missing_generic]
     series_map[tenzing_float + missing_generic] = series_map[tenzing_float] + ["float_nan_series", "float_series5", "float_series6"] + series_map[missing_generic]
-    series_map[tenzing_float + infinite_generic] = series_map[tenzing_float] + ["float_with_inf"] + series_map[missing_generic] + series_map[infinite_generic]
     series_map[tenzing_integer + missing_generic] = series_map[tenzing_integer] + ["int_nan_series", "Int64_int_nan_series"] + series_map[missing_generic]
-    series_map[tenzing_integer + infinite_generic] = series_map[tenzing_integer] + ["int_with_inf"] + series_map[infinite_generic]
     series_map[tenzing_string + missing_generic] = series_map[tenzing_string] + [
         "string_num_nan",
         "string_flt_nan",
@@ -85,6 +84,10 @@ def get_series_map():
         "string_bool_nan",
         "textual_float_nan"
     ] + series_map[missing_generic]
+
+    # Series with inf values
+    series_map[tenzing_float + infinite_generic] = series_map[tenzing_float] + ["float_with_inf"] + series_map[missing_generic] + series_map[infinite_generic]
+    series_map[tenzing_integer + infinite_generic] = series_map[tenzing_integer] + ["int_with_inf"] + series_map[infinite_generic]
 
     return series_map
 

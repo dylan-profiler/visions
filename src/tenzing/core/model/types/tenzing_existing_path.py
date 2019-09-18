@@ -15,7 +15,8 @@ class tenzing_existing_path(tenzing_path):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(lambda p: isinstance(p, Path) and p.exists())
+        super_mask = super().mask(series)
+        return super_mask & series[super_mask].apply(lambda p: isinstance(p, Path) and p.exists())
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

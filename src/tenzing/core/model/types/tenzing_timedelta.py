@@ -16,7 +16,10 @@ class tenzing_timedelta(tenzing_generic):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(lambda x: issubclass(type(x), np.timedelta64))
+        print(series)
+        print(series.apply(lambda x: type(x)))
+        super_mask = super().mask(series)
+        return super_mask & series[super_mask].apply(lambda x: issubclass(type(x), np.timedelta64))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

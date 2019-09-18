@@ -17,10 +17,15 @@ class tenzing_float(tenzing_generic):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
         if not pdt.is_float_dtype(series):
-            return series.apply(lambda _: False)
+            mask = series[super_mask].apply(lambda _: False)
+        elif series in tenzing_integer:
+            mask = series[super_mask].apply(lambda _: False)
+        else:
+            mask = series[super_mask].apply(lambda _: True)
 
-        return series.notna() & (np.isfinite(series))
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> bool:

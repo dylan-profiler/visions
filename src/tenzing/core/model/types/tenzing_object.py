@@ -19,10 +19,11 @@ class tenzing_object(tenzing_generic):
     def mask(cls, series: pd.Series) -> pd.Series:
         super_mask = super().mask(series)
         # TODO: mask super()?
-        if pdt.is_object_dtype(series):
-            return super_mask & series.apply(lambda _: True)
+        if pdt.is_object_dtype(series[super_mask]):
+            mask = series[super_mask].apply(lambda _: True)
         else:
-            return super_mask & series.apply(lambda _: False)
+            mask = series[super_mask].apply(lambda _: False)
+        return super_mask & mask
         # return series.apply(lambda x: issubclass(type(x), np.object_))
 
     @classmethod

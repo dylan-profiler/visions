@@ -15,13 +15,8 @@ class missing_generic(tenzing_model):
 
     @classmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.isna()
-
-    @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-        return cls.mask(series).all()
+        super_mask = super().mask(series)
+        return super_mask & series[super_mask].isna()
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
