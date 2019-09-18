@@ -68,7 +68,7 @@ type_summary_ops = {
     tenzing_integer: [numerical_summary, zero_summary, unique_summary],
     tenzing_object: [unique_summary],
     tenzing_path: [path_summary, text_summary],
-    tenzing_string: [text_summary],
+    tenzing_string: [text_summary, unique_summary],
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
