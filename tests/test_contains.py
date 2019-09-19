@@ -152,6 +152,9 @@ def pytest_generate_tests(metafunc):
                 argsvalues.append(pytest.param(item, type, **args))
 
         metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
+    if metafunc.function.__name__ == "test_mask":
+        pass
+
 
 
 def test_contains(series, type):
