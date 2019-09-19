@@ -105,7 +105,11 @@ def test_relations(source_type, relation_type, series):
 
 def test_consistency(series):
     typeset = tenzing_complete_set()
-    if typeset.get_type_series(series, convert=True) != typeset.get_type_series(series):
+    initial_type = typeset.get_type_series(series)
+    print(initial_type)
+    converted_type = typeset.get_type_series(series, convert=True)
+    print(converted_type)
+    if initial_type != converted_type:
         converted_series = typeset.convert_series(series)
         assert not (
             (

@@ -58,7 +58,7 @@ def traverse_relation_graph(series, G, node=tenzing_model) -> Type[tenzing_model
     # DFS
     for tenz_type in G.successors(node):
         if series in tenz_type:
-            return tenz_type
+            return traverse_relation_graph(series, G, tenz_type)
 
     return node
 
