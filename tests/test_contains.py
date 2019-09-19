@@ -1,6 +1,7 @@
 import pytest
 
 from tenzing.core import tenzing_model
+from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.types import *
 
 from tests.series import get_series
@@ -136,9 +137,9 @@ def all_series_included(series_list, series_map):
 
 
 def pytest_generate_tests(metafunc):
+    _test_suite = get_series()
     if metafunc.function.__name__ == "test_contains":
         _series_map = get_series_map()
-        _test_suite = get_series()
 
         all_series_included(_test_suite, _series_map)
 
@@ -153,8 +154,17 @@ def pytest_generate_tests(metafunc):
 
         metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
     if metafunc.function.__name__ == "test_mask":
-        pass
+        argsvalues = []
+        typeset = tenzing_complete_set()
+        for item in _test_suite:
+            type = typeset.get_type_series(item)
+            ancestors = typeset._get_ancestors(type)
+            ancestors.add(type)
+            for type in ancestors:
+                args = {"id": f"{item.name} x {type}"}
+                argsvalues.append(pytest.param(item, type, **args))
 
+        metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
 
 
 def test_contains(series, type):
@@ -163,4 +173,5 @@ def test_contains(series, type):
 
 
 def test_mask(series, type):
-    pass
+    mask = type.mask(series)
+    assert not mask.isna().any()

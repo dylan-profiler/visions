@@ -105,10 +105,10 @@ def test_relations(source_type, relation_type, series):
 
 def test_consistency(series):
     typeset = tenzing_complete_set()
+
     initial_type = typeset.get_type_series(series)
-    print(initial_type)
     converted_type = typeset.get_type_series(series, convert=True)
-    print(converted_type)
+
     if initial_type != converted_type:
         converted_series = typeset.convert_series(series)
         assert not (
@@ -118,7 +118,6 @@ def test_consistency(series):
         )
     else:
         converted_series = typeset.convert_series(series)
-        # Missing values fix
         assert (
             converted_series.eq(series) ^ (converted_series.isna() & series.isna())
         ).all()

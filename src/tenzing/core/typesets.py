@@ -168,6 +168,10 @@ class tenzingTypeset(object):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_graph)
 
+    def _get_ancestors(self, node):
+        # For testing purposes
+        return nx.ancestors(self.relation_graph.copy(), node)
+
     def output(self, file_name) -> None:
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
