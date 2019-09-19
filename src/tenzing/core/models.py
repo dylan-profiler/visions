@@ -97,28 +97,35 @@ class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
         assert len(models) >= 2
 
-        if not all(issubclass(base_type, tenzing_model) for base_type in models):
-            raise Exception("Have to be tenzing_model subclasses")
-        if len(set(models)) != len(models):
-            raise Exception("Duplicate types not allowed")
-
-        self.models = models
+        self.models = []
+        for model in models:
+            self.add_model(model)
 
     def __contains__(self, series: pd.Series):
         if series.empty:
             return False
         return self.contains_op(series)
 
+    def add_model(self, model):
+        if not issubclass(model, tenzing_model):
+            raise Exception(
+                f"{model} must be subclass of type tenzing_model, but is of type {type(model)}"
+            )
+        if model in self.models:
+            raise Exception("Duplicate types not allowed")
+
+        for m in self.models:
+            if issubclass(model, m):
+                raise Exception(f"Added model {m} is not allowed to be a subclass of another model ({model}).")
+
+        self.models.append(model)
+
     def __add__(self, other):
         """
         Examples:
             >>> self + infinite_generic
         """
-        if not issubclass(other, tenzing_model):
-            raise Exception(
-                f"{other} must be sublcass of type tenzing_model, but is of type {type(other)}"
-            )
-        self.models.append(other)
+        self.add_model(other)
         return self
 
     def mask(self, series: pd.Series):
