@@ -136,8 +136,10 @@ def test_side_effects(series):
     typeset.get_type_series(series, convert=True)
     typeset.convert_series(series)
 
-    # TODO: work with NaNs
-    assert series.eq(reference).all()
+    # Check if NaN mask is equal
+    assert series.notna().eq(reference.notna()).all()
+    # Check if NonNaN values are equal
+    assert series[series.notna()].eq(reference[reference.notna()]).all()
 
 
 @pytest.mark.run(order=12)
