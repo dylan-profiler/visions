@@ -15,21 +15,6 @@ Abstract Types
    relations
 
 
-=================
-Partitioner Types
-=================
-
-.. currentmodule:: tenzing.core
-.. toctree::
-
-.. autosummary::
-   :toctree: _autosummary
-
-   partitioners.Missing
-   partitioners.Infinite
-   partitioners.Type
-
-
 ==============
 Concrete Types
 ==============

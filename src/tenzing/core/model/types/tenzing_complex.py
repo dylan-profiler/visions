@@ -1,5 +1,6 @@
 import pandas.api.types as pdt
 import pandas as pd
+import numpy as np
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
@@ -15,8 +16,19 @@ class tenzing_complex(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return not series.empty and pdt.is_complex_dtype(series)
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
+
+        if not super_mask.any():
+            return super_mask
+
+        if pdt.is_complex_dtype(series):
+            mask = series[super_mask].apply(lambda _: True)
+        else:
+            mask = series[super_mask].apply(lambda _: False)
+
+        return super_mask & mask
+        # return series.apply(lambda x: issubclass(type(x), np.complex_))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

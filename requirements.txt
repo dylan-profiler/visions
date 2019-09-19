@@ -1,5 +1,0 @@
-numpy
-pandas
-shapely
-networkx
-pygraphviz

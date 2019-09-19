@@ -16,20 +16,16 @@ class tenzing_float(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if series.empty:
-            return False
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
         if not pdt.is_float_dtype(series):
-            return False
-
-        if (~np.isfinite(series)).any():
-            return False
-        # TODO: are we sure we want this to depend on integer?
-        # I don't like it but I was worried about the integer implementation changing
+            mask = series[super_mask].apply(lambda _: False)
         elif series in tenzing_integer:
-            return False
+            mask = series[super_mask].apply(lambda _: False)
         else:
-            return True
+            mask = series[super_mask].apply(lambda _: True)
+
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> bool:

@@ -15,13 +15,18 @@ class tenzing_bool(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if pdt.is_categorical_dtype(series):
-            return False
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
 
-        return not series.empty and (
-            pdt.is_bool_dtype(series) or series.apply(lambda x: type(x) == bool).all()
-        )
+        # TODO: fix
+        if pdt.is_categorical_dtype(series[super_mask]):
+            mask = pd.Series([False] * len(series), name=series.name)
+        elif pdt.is_bool_dtype(series[super_mask]):
+            mask = pd.Series([True] * len(series[super_mask]), name=series.name)
+        else:
+            mask = series[super_mask].apply(lambda x: type(x) == bool)
+
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

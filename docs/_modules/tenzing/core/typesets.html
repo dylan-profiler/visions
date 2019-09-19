@@ -151,13 +151,14 @@
             
   <h1>Source code for tenzing.core.typesets</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">networkx.drawing.nx_agraph</span> <span class="k">import</span> <span class="n">write_dot</span>
 
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_generic</span> <span class="k">import</span> <span class="n">tenzing_generic</span>
-<span class="kn">from</span> <span class="nn">tenzing.core.partitioners</span> <span class="k">import</span> <span class="n">MultiPartitioner</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="k">import</span> <span class="n">MultiModel</span><span class="p">,</span> <span class="n">tenzing_model</span>
 
 
 <div class="viewcode-block" id="build_relation_graph"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.build_relation_graph.html#tenzing.core.typesets.build_relation_graph">[docs]</a><span class="k">def</span> <span class="nf">build_relation_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">:</span>
@@ -251,10 +252,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of tenzing_types with an associated relationship map between them.</span>
 
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    types: frozenset</span>
-<span class="sd">        The collection of tenzing types which are derived either from a base_type or themselves</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        types: The collection of tenzing types which are derived either from a base_type or themselves</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="tenzingTypeset.__init__"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.tenzingTypeset.html#tenzing.core.typesets.tenzingTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">containers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
@@ -274,12 +273,25 @@
             <span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_type_map</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">col</span><span class="p">:</span> <span class="n">MultiPartitioner</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">Type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">])]</span>
+            <span class="n">col</span><span class="p">:</span> <span class="n">MultiModel</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">]]</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
         <span class="p">}</span>
 
+    <span class="c1"># New API</span>
+    <span class="k">def</span> <span class="nf">get_type_series</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">,</span> <span class="n">MultiModel</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">convert</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">infer_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">convert_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series_to_inferred_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+    <span class="c1"># Old API</span>
     <span class="k">def</span> <span class="nf">detect_series_container</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">detect_series_container</span><span class="p">(</span>
             <span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">containers</span>
@@ -289,7 +301,7 @@
     <span class="k">def</span> <span class="nf">get_containerized_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_series_container</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">container</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">container</span> <span class="o">=</span> <span class="n">MultiPartitioner</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+            <span class="n">container</span> <span class="o">=</span> <span class="n">MultiModel</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">infer_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>

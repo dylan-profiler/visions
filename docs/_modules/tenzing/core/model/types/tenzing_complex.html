@@ -152,6 +152,7 @@
   <h1>Source code for tenzing.core.model.types.tenzing_complex</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_generic</span> <span class="k">import</span> <span class="n">tenzing_generic</span>
 
@@ -167,8 +168,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="n">series</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_complex_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_complex_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># return series.apply(lambda x: issubclass(type(x), np.complex_))</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>

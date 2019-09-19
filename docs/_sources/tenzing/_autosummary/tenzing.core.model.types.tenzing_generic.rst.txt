@@ -18,6 +18,7 @@ tenzing.core.model.types.tenzing\_generic
       ~tenzing_generic.cast_op
       ~tenzing_generic.contains_op
       ~tenzing_generic.get_relations
+      ~tenzing_generic.mask
       ~tenzing_generic.register_relation
    
    

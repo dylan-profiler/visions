@@ -1,5 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
+import numpy as np
+from pandas._libs.tslibs.timestamps import Timestamp
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 
@@ -14,11 +16,15 @@ class tenzing_datetime(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return (
-            not series.empty
-            and pdt.is_datetime64_any_dtype(series)
-            and not series.hasnans
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
+        # if pdt.is_datetime64_any_dtype(series):
+        #     return series.apply(lambda _: True)
+        # else:
+        #     return series.apply(lambda _: False)
+
+        return super_mask & series[super_mask].apply(
+            lambda x: issubclass(type(x), np.datetime64) or isinstance(x, Timestamp)
         )
 
     @classmethod

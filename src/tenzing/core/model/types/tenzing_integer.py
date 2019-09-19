@@ -14,22 +14,25 @@ class tenzing_integer(tenzing_generic):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if series.empty:
-            return False
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
+        # TODO: first apply super mask, then check rest
+        series = series[super_mask]
 
-        if pdt.is_integer_dtype(series) and not series.hasnans:
-            return True
+        if pdt.is_integer_dtype(series):
+            mask = pd.Series([True] * len(series), name=series.name, index=series.index)
+
+        # Note: this is required to support series with np.inf (as their representation is float)
         elif pdt.is_float_dtype(series):
-            # Need this additional check because it's an Option[Int] which in
-            # pandas land will result in integers with decimal trailing 0's
-            try:
-                return series.eq(series.astype(int)).all()
-            except ValueError:
-                return False
+            mask = series.eq(series.astype(int))
         else:
-            return False
+            mask = pd.Series(
+                [False] * len(series), name=series.name, index=series.index
+            )
+
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
+        # return series.astype(float).astype(int)
         return series.astype(int)

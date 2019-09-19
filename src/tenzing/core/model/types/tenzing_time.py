@@ -13,13 +13,13 @@ class tenzing_time(tenzing_datetime):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-
-        return series.eq(
-            series.copy().apply(lambda x: x.replace(day=1, month=1, year=1970))
-        ).all()
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
+        return super_mask & series[super_mask].eq(
+            series[super_mask]
+            .copy()
+            .apply(lambda x: x.replace(day=1, month=1, year=1970))
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

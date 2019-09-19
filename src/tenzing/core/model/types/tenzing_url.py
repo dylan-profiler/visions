@@ -15,12 +15,18 @@ class tenzing_url(tenzing_object):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
 
-        return series.apply(lambda x: isinstance(x, ParseResult)).all()
+        if not super_mask.any():
+            return super_mask
+
+        return super_mask & series[super_mask].apply(
+            lambda x: isinstance(x, ParseResult)
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(urlparse)
+        return series.apply(
+            lambda x: urlparse(x) if not isinstance(x, ParseResult) else x
+        )

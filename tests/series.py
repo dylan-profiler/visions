@@ -21,13 +21,17 @@ def get_series():
         # Float Series
         pd.Series([1.0, 2.1, 3.0], name="float_series"),
         pd.Series([1.0, 2.5, np.nan], name="float_nan_series"),
-        pd.Series([1.1, 2, 3, 4], name="float_series2"),
+        pd.Series([1.0, 2.0, 3.0, 4.0], name="float_series2"),
         pd.Series(np.array([1.2, 2, 3, 4], dtype=np.float), name="float_series3"),
         pd.Series([1, 2, 3.05, 4], dtype=float, name="float_series4"),
         pd.Series([np.nan, 1.2], name="float_series5"),
         pd.Series([np.nan, 1.1], dtype=np.single, name="float_series6"),
         pd.Series([1.0, 2.0, 3.1], dtype="category", name="categorical_float_series"),
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
+        pd.Series([np.inf, np.NINF, np.Infinity, np.PINF], name="inf_series"),
+        # Nan Series
+        pd.Series([np.nan], name="nan_series"),
+        pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(
@@ -40,7 +44,9 @@ def get_series():
             name="string_np_unicode_series",
         ),
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
+        pd.Series(["1.0", "2.0", "3.0"], name="string_num"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
+        pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
         pd.Series(
             [
                 "I was only robbing the register,",
@@ -54,6 +60,13 @@ def get_series():
         pd.Series(["True", "False", np.nan], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
         pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
+        pd.Series(
+            [
+                "http://www.cwi.nl:80/%7Eguido/Python.html",
+                "https://github.com/pandas-profiling/pandas-profiling",
+            ],
+            name="str_url",
+        ),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, np.nan], name="bool_nan_series"),
@@ -61,11 +74,24 @@ def get_series():
         pd.Series(np.array([1, 0, 0, 1], dtype=np.bool), name="bool_series3"),
         # Complex Series
         pd.Series(
-            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
+            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1)],
             name="complex_series",
         ),
         pd.Series(
+            [
+                np.complex(0, 0),
+                np.complex(1, 2),
+                np.complex(3, -1),
+                np.complex(np.nan, np.nan),
+            ],
+            name="complex_series_nan",
+        ),
+        pd.Series(
             [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
+            name="complex_series_nan_2",
+        ),
+        pd.Series(
+            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1)],
             name="categorical_complex_series",
             dtype="category",
         ),
@@ -78,18 +104,25 @@ def get_series():
         ),
         # Datetime Series
         pd.Series(
-            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)], name="timestamp_series"
+            [pd.datetime(2017, 3, 5, 12, 2), pd.datetime(2019, 12, 4)],
+            name="timestamp_series",
+        ),
+        pd.Series(
+            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4, 3, 2, 0), pd.NaT],
+            name="timestamp_series_nat",
         ),
         pd.Series(
             [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4), pd.NaT],
-            name="timestamp_series_nat",
+            name="date_series_nat",
         ),
-        pd.date_range(
-            start="2013-05-18 12:00:00",
-            periods=2,
-            freq="H",
-            tz="Europe/Brussels",
-            name="timestamp_aware_series",
+        pd.Series(
+            pd.date_range(
+                start="2013-05-18 12:00:00",
+                periods=2,
+                freq="H",
+                tz="Europe/Brussels",
+                name="timestamp_aware_series",
+            )
         ),
         pd.to_datetime(
             pd.Series(
@@ -157,8 +190,6 @@ def get_series():
             [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
             name="mixed_dict",
         ),
-        # ?
-        pd.Series([None, None, None, None, None], name="none_series"),
         pd.Series(
             [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle],
             name="callable",
@@ -174,4 +205,5 @@ def get_series():
         pd.Series([], name="empty_bool", dtype=bool),
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
     ]

@@ -16,8 +16,10 @@ tenzing.core.model.typesets.tenzing\_standard\_set
       ~tenzing_standard_set.__init__
       ~tenzing_standard_set.cast_series_to_inferred_type
       ~tenzing_standard_set.cast_to_inferred_types
+      ~tenzing_standard_set.convert_series
       ~tenzing_standard_set.detect_series_container
       ~tenzing_standard_set.get_containerized_series
+      ~tenzing_standard_set.get_type_series
       ~tenzing_standard_set.infer_series_type
       ~tenzing_standard_set.infer_types
       ~tenzing_standard_set.prep

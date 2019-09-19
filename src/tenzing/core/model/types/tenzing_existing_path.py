@@ -14,11 +14,11 @@ class tenzing_existing_path(tenzing_path):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-
-        return series.apply(lambda p: p.exists()).all()
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
+        return super_mask & series[super_mask].apply(
+            lambda p: isinstance(p, Path) and p.exists()
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

@@ -166,21 +166,15 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_integer_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_integer_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">series</span><span class="o">.</span><span class="n">hasnans</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_float_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-            <span class="c1"># Need this additional check because it&#39;s an Option[Int] which in</span>
-            <span class="c1"># pandas land will result in integers with decimal trailing 0&#39;s</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+        <span class="c1"># TODO: this is a coercion, move to relations</span>
+        <span class="c1"># if pdt.is_float_dtype(series):</span>
+        <span class="c1">#     return series.eq(series.astype(int))</span>
+
+        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>

@@ -14,11 +14,9 @@ class tenzing_image_path(tenzing_existing_path):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
-
-        return series.apply(lambda p: path_is_image(p)).all()
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
+        return super_mask & series[super_mask].apply(lambda p: path_is_image(p))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

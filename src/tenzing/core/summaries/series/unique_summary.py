@@ -12,16 +12,23 @@ def unique_summary(series: pd.Series) -> dict:
 
     """
     summary = {}
+    summary.update({"n_unique": series.nunique()})
+    return summary
 
-    # try:
+
+def unique_summary_complex(series: pd.Series) -> dict:
+    """
+
+    Args:
+        series:
+
+    Returns:
+
+    """
+    summary = {}
+    # Until complex bug is fixed:
+    # https://github.com/pandas-dev/pandas/issues/17927
+    # https://github.com/pandas-dev/pandas/pull/27599
     n_unique = len(set(series.values))
-    # n_unique = series.nunique()
-    summary.update(
-        {
-            "n_unique": n_unique,
-            "perc_unique": float(n_unique) / len(series) if len(series) > 0 else np.nan,
-        }
-    )
-    # except Exception:
-    #     pass
+    summary.update({"n_unique": n_unique})
     return summary

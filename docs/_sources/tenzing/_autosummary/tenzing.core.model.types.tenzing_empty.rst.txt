@@ -1,27 +1,5 @@
-tenzing.core.model.types.tenzing\_empty
-=======================================
+tenzing.core.model.types.tenzing_empty
+======================================
 
-.. currentmodule:: tenzing.core.model.types
-
-.. autoclass:: tenzing_empty
-
-   
-   .. automethod:: __init__
-
-   
-   .. rubric:: Methods
-
-   .. autosummary::
-   
-      ~tenzing_empty.__init__
-      ~tenzing_empty.cast
-      ~tenzing_empty.cast_op
-      ~tenzing_empty.contains_op
-      ~tenzing_empty.get_relations
-      ~tenzing_empty.register_relation
-   
-   
-
-   
-   
-   
+.. automodule:: tenzing.core.model.types.tenzing_empty
+    :members:

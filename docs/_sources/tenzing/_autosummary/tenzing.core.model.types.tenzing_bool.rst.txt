@@ -18,6 +18,7 @@ tenzing.core.model.types.tenzing\_bool
       ~tenzing_bool.cast_op
       ~tenzing_bool.contains_op
       ~tenzing_bool.get_relations
+      ~tenzing_bool.mask
       ~tenzing_bool.register_relation
    
    

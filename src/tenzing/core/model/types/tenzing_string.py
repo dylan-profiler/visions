@@ -1,4 +1,5 @@
 import pandas as pd
+import pandas.api.types as pdt
 
 from tenzing.core.model.types.tenzing_object import tenzing_object
 
@@ -13,11 +14,17 @@ class tenzing_string(tenzing_object):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if not super().contains_op(series):
-            return False
+    def mask(cls, series: pd.Series) -> pd.Series:
+        super_mask = super().mask(series)
 
-        return series.copy().apply(lambda x: type(x) == str).all()
+        if not super_mask.any():
+            return super_mask
+
+        if pdt.is_categorical_dtype(series[super_mask]):
+            mask = series[super_mask].apply(lambda _: False)
+        else:
+            mask = series[super_mask].copy().apply(lambda x: type(x) == str)
+        return super_mask & mask
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
