@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_string
       ~tenzing_string.cast
       ~tenzing_string.cast_op
       ~tenzing_string.contains_op
+      ~tenzing_string.get_models
       ~tenzing_string.get_relations
       ~tenzing_string.mask
       ~tenzing_string.register_relation

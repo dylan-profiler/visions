@@ -175,7 +175,7 @@
 <h1>tenzing.core.typesets.tenzingTypeset<a class="headerlink" href="#tenzing-core-typesets-tenzingtypeset" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="tenzing.core.typesets.tenzingTypeset">
-<em class="property">class </em><code class="sig-prename descclassname">tenzing.core.typesets.</code><code class="sig-name descname">tenzingTypeset</code><span class="sig-paren">(</span><em class="sig-param">containers</em>, <em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/typesets.html#tenzingTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tenzing.core.typesets.</code><code class="sig-name descname">tenzingTypeset</code><span class="sig-paren">(</span><em class="sig-param">partitioners</em>, <em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/typesets.html#tenzingTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of tenzing_types with an associated relationship map between them.</p>
 <dl class="attribute">
 <dt id="tenzing.core.typesets.tenzingTypeset.types">
@@ -185,7 +185,7 @@
 
 <dl class="method">
 <dt id="tenzing.core.typesets.tenzingTypeset.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">containers</em>, <em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/typesets.html#tenzingTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">partitioners</em>, <em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tenzing/core/typesets.html#tenzingTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tenzing.core.typesets.tenzingTypeset.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -196,19 +196,8 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tenzing.core.typesets.tenzingTypeset.__init__" title="tenzing.core.typesets.tenzingTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(containers, types)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tenzing.core.typesets.tenzingTypeset.__init__" title="tenzing.core.typesets.tenzingTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(partitioners, types)</p></td>
 <td><p>Initialize self.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series_to_inferred_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
-<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_series</span></code>(series)</p></td>
 <td><p><dl class="field-list simple">
@@ -218,36 +207,32 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_series_container</span></code>(series)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_containerized_series</span></code>(series)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_type_series</span></code>(series[, convert])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_partition_types</span></code>(series[, convert])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tenzing_model</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">MultiModel</span></code>]</p>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tenzing_model</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">MultiModel</span></code>]</p>
 </dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_type_series</span></code>(series[, convert])</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tenzing_model</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">MultiModel</span></code>]</p>
+</dd>
+</dl>
+</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_types</span></code>(df)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">prep</span></code>(df)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_dot</span></code>([file_name])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code>(file_name)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>

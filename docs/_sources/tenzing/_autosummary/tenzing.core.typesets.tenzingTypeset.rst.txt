@@ -14,16 +14,11 @@ tenzing.core.typesets.tenzingTypeset
    .. autosummary::
    
       ~tenzingTypeset.__init__
-      ~tenzingTypeset.cast_series_to_inferred_type
-      ~tenzingTypeset.cast_to_inferred_types
       ~tenzingTypeset.convert_series
-      ~tenzingTypeset.detect_series_container
-      ~tenzingTypeset.get_containerized_series
+      ~tenzingTypeset.get_partition_types
       ~tenzingTypeset.get_type_series
-      ~tenzingTypeset.infer_series_type
-      ~tenzingTypeset.infer_types
-      ~tenzingTypeset.prep
-      ~tenzingTypeset.write_dot
+      ~tenzingTypeset.output
+      ~tenzingTypeset.plot_graph
    
    
 

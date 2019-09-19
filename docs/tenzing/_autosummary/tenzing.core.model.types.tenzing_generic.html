@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tenzing.core.model.types.tenzing_empty" href="tenzing.core.model.types.tenzing_empty.html" />
-    <link rel="prev" title="tenzing.core.model.types.tenzing_ip" href="tenzing.core.model.types.tenzing_ip.html" /> 
+    <link rel="next" title="tenzing.core.model.types.missing_generic" href="tenzing.core.model.types.missing_generic.html" />
+    <link rel="prev" title="tenzing.core.model.relations" href="tenzing.core.model.relations.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,28 +91,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../modules.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../models.html#concrete-types">Concrete Types</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_integer.html">tenzing.core.model.types.tenzing_integer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_float.html">tenzing.core.model.types.tenzing_float</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_bool.html">tenzing.core.model.types.tenzing_bool</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_categorical.html">tenzing.core.model.types.tenzing_categorical</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_complex.html">tenzing.core.model.types.tenzing_complex</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_datetime.html">tenzing.core.model.types.tenzing_datetime</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_object.html">tenzing.core.model.types.tenzing_object</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_string.html">tenzing.core.model.types.tenzing_string</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_geometry.html">tenzing.core.model.types.tenzing_geometry</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_path.html">tenzing.core.model.types.tenzing_path</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_existing_path.html">tenzing.core.model.types.tenzing_existing_path</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_image_path.html">tenzing.core.model.types.tenzing_image_path</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_timedelta.html">tenzing.core.model.types.tenzing_timedelta</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_time.html">tenzing.core.model.types.tenzing_time</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_date.html">tenzing.core.model.types.tenzing_date</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_url.html">tenzing.core.model.types.tenzing_url</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_ip.html">tenzing.core.model.types.tenzing_ip</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../models.html#generic-types">Generic Types</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">tenzing.core.model.types.tenzing_generic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_empty.html">tenzing.core.model.types.tenzing_empty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.missing_generic.html">tenzing.core.model.types.missing_generic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.infinite_generic.html">tenzing.core.model.types.infinite_generic</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html#concrete-types">Concrete Types</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api_typesets.html">Typesets</a></li>
@@ -235,7 +220,15 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_relations</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_models</span></code>()</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_relations</span></code>()</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
@@ -243,7 +236,7 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask</span></code>(series)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask</span></code>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -251,7 +244,7 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_relation</span></code>(relation)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_relation</span></code>(relation)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -273,10 +266,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tenzing.core.model.types.tenzing_empty.html" class="btn btn-neutral float-right" title="tenzing.core.model.types.tenzing_empty" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tenzing.core.model.types.missing_generic.html" class="btn btn-neutral float-right" title="tenzing.core.model.types.missing_generic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tenzing.core.model.types.tenzing_ip.html" class="btn btn-neutral float-left" title="tenzing.core.model.types.tenzing_ip" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tenzing.core.model.relations.html" class="btn btn-neutral float-left" title="tenzing.core.model.relations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

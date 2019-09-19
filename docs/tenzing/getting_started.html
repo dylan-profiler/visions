@@ -84,7 +84,12 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Understanding Tenzing Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Understanding Tenzing Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inference">Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#membership">Membership</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summarize">Summarize</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="typesets.html">Typesets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extending.html">Extending</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
@@ -162,13 +167,29 @@
 <span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>We can do a couple of things with this, first we can check if <code class="docutils literal notranslate"><span class="pre">test_series</span></code> is a <code class="docutils literal notranslate"><span class="pre">tenzing_timestamp</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_series</span> <span class="ow">in</span> <span class="n">tenzing_timestamp</span>
-<span class="o">-&gt;</span> <span class="bp">True</span>
+<div class="section" id="inference">
+<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
+<p>Inference returns the narrowest possible type</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="go">tenzing_datetime + missing</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="membership">
+<h2>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h2>
+<p>We can do a couple of things with this, first we can check if <code class="docutils literal notranslate"><span class="pre">test_series</span></code> is a <code class="docutils literal notranslate"><span class="pre">tenzing_timestamp</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="ow">in</span> <span class="n">tenzing_datetime</span> <span class="o">+</span> <span class="n">missing</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="ow">in</span> <span class="n">tenzing_datetime</span>
+<span class="go">-&gt; False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="summarize">
+<h2>Summarize<a class="headerlink" href="#summarize" title="Permalink to this headline">¶</a></h2>
 <p>We can also get a summary unique to the tenzing_type of the data</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tenzing_timestamp</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">summarize</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">tenzing_datetime</span> <span class="o">+</span> <span class="n">missing</span><span class="p">)</span>
 <span class="o">-&gt;</span> <span class="p">{</span>
 	 <span class="s1">&#39;nunique&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
  	 <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2010-01-01 00:00:00&#39;</span><span class="p">),</span>
@@ -183,7 +204,7 @@
 </div>
 <p>If we had instead applied a summarization operation to a categorical series we would get</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">]))</span>
-<span class="n">tenzing_categorical</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="n">summarize</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">tenzing_categorical</span><span class="p">)</span>
 <span class="o">-&gt;</span> <span class="p">{</span>
     <span class="s1">&#39;nunique&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="s1">&#39;n_records&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
@@ -207,6 +228,7 @@
 <li><p>tenzing_string</p></li>
 <li><p>tenzing_geometry (these are shapely geometries)</p></li>
 </ul>
+</div>
 </div>
 
 

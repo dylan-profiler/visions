@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_image\_path
       ~tenzing_image_path.cast
       ~tenzing_image_path.cast_op
       ~tenzing_image_path.contains_op
+      ~tenzing_image_path.get_models
       ~tenzing_image_path.get_relations
       ~tenzing_image_path.mask
       ~tenzing_image_path.register_relation

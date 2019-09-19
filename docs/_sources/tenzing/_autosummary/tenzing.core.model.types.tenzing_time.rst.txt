@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_time
       ~tenzing_time.cast
       ~tenzing_time.cast_op
       ~tenzing_time.contains_op
+      ~tenzing_time.get_models
       ~tenzing_time.get_relations
       ~tenzing_time.mask
       ~tenzing_time.register_relation

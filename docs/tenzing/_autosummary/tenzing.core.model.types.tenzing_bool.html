@@ -91,6 +91,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../modules.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html#generic-types">Generic Types</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../models.html#concrete-types">Concrete Types</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_integer.html">tenzing.core.model.types.tenzing_integer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_float.html">tenzing.core.model.types.tenzing_float</a></li>
@@ -109,8 +110,6 @@
 <li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_date.html">tenzing.core.model.types.tenzing_date</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_url.html">tenzing.core.model.types.tenzing_url</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_ip.html">tenzing.core.model.types.tenzing_ip</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_generic.html">tenzing.core.model.types.tenzing_generic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tenzing.core.model.types.tenzing_empty.html">tenzing.core.model.types.tenzing_empty</a></li>
 </ul>
 </li>
 </ul>
@@ -236,7 +235,15 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_relations</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_models</span></code>()</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_relations</span></code>()</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
@@ -244,7 +251,7 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask</span></code>(series)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask</span></code>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -252,7 +259,7 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_relation</span></code>(relation)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_relation</span></code>(relation)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>

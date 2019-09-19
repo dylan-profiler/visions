@@ -154,6 +154,8 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="k">import</span> <span class="n">tenzing_model</span>
 
+<span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
+
 
 <div class="viewcode-block" id="tenzing_generic"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.tenzing_generic.html#tenzing.core.model.types.tenzing_generic">[docs]</a><span class="k">class</span> <span class="nc">tenzing_generic</span><span class="p">(</span><span class="n">tenzing_model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Generic** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
@@ -166,18 +168,13 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="c1"># TODO: exclude inf</span>
-        <span class="c1"># if (~np.isfinite(series)).any():</span>
-        <span class="c1">#     return False</span>
+        <span class="n">super_mask</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_float_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]):</span>
+            <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">])</span>
         <span class="c1"># TODO: series.empty == strict</span>
-        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">contains_op</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">super_mask</span> <span class="o">&amp;</span> <span class="n">mask</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>

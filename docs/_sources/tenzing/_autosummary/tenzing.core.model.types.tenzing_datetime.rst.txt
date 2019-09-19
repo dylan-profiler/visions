@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_datetime
       ~tenzing_datetime.cast
       ~tenzing_datetime.cast_op
       ~tenzing_datetime.contains_op
+      ~tenzing_datetime.get_models
       ~tenzing_datetime.get_relations
       ~tenzing_datetime.mask
       ~tenzing_datetime.register_relation
