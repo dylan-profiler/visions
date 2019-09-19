@@ -20,13 +20,13 @@ class tenzing_integer(tenzing_generic):
         series = series[super_mask]
 
         if pdt.is_integer_dtype(series):
-            mask = series.apply(lambda _: True)
+            mask = pd.Series([True] * len(series), name=series.name)
 
         # Note: this is required to support series with np.inf (as their representation is float)
         elif pdt.is_float_dtype(series):
             mask = series.eq(series.astype(int))
         else:
-            mask = series.apply(lambda _: False)
+            mask = pd.Series([False] * len(series), name=series.name)
 
         return super_mask & mask
 

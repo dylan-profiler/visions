@@ -20,9 +20,9 @@ class tenzing_bool(tenzing_generic):
 
         # TODO: fix
         if pdt.is_categorical_dtype(series[super_mask]):
-            mask = series.apply(lambda _: False)
+            mask = pd.Series([False] * len(series), name=series.name)
         elif pdt.is_bool_dtype(series[super_mask]):
-            mask = series[super_mask].apply(lambda _: True)
+            mask = pd.Series([True] * len(series[super_mask]), name=series.name)
         else:
             mask = series[super_mask].apply(lambda x: type(x) == bool)
 

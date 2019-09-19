@@ -107,7 +107,7 @@ class MultiModel(metaclass=meta_model):
         return self.contains_op(series)
 
     def mask(self, series: pd.Series):
-        mask = pd.Series([False] * len(series))
+        mask = pd.Series([False] * len(series), name=series.name)
         for container in self.models:
             mask ^= container.mask(series)
         return mask
@@ -184,7 +184,7 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return series.apply(lambda _: True).fillna(True)
+        return pd.Series([True] * len(series))
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
