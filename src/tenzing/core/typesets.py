@@ -107,10 +107,11 @@ class tenzingTypeset(object):
             partitioner for partitioner in self.partitioners if series in partitioner
         ]
         if len(partitioners) == 0:
-            partitioners = [tenzing_model]
-
-        # Sum = tenzing_integer + missing_generic
-        return sum(partitioners)
+            return tenzing_model
+        elif len(partitioners) == 1:
+            return partitioners[0]
+        else:
+            return sum(partitioners)
 
     def prep_series(self, series: pd.Series):
         # Detect partitioners
