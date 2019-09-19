@@ -97,23 +97,24 @@ class tenzingTypeset(object):
     def __init__(self, partitioners: list, types: list):
         self.partitioners = partitioners
 
-        self.column_partitioner_map = {}
-        self.column_base_type_map = {}
-        self.column_type_map = {}
+        self.converted_series_type_cache = {}
 
         self.relation_graph = build_relation_graph(set(types))
         self.types = frozenset(self.relation_graph.nodes)
 
-    def get_partition_types(self, series: pd.Series):
-        parts = []
+    def get_partition_types(self, series: pd.Series, convert=False) -> Union[Type[tenzing_model], MultiModel]:
         if series.empty:
             return tenzing_model
 
+        parts = []
         for partitioner in self.partitioners:
             mask = partitioner.mask(series)
             if mask.any():
                 new_series = series[mask]
-                node = traverse_relation_graph(new_series, self.relation_graph, partitioner)
+                if convert:
+                    node = infer_type(partitioner, new_series, self.relation_graph)
+                else:
+                    node = traverse_relation_graph(new_series, self.relation_graph, partitioner)
                 parts.append(node)
 
         if len(parts) == 0:
@@ -124,33 +125,29 @@ class tenzingTypeset(object):
     # New API
     def get_type_series(
         self, series: pd.Series, convert=False
-    ) -> Union[tenzing_model, MultiModel]:
+    ) -> Union[Type[tenzing_model], MultiModel]:
+        series_type = self.get_partition_types(series, convert)
         if convert:
-            return self.infer_series_type(series)
-        else:
-            return self.get_partition_types(series)
+            self.converted_series_type_cache[series.name] = series_type
+        return series_type
 
     def convert_series(self, series: pd.Series) -> pd.Series:
-        return self.cast_series_to_inferred_type(series)
+        if series.name not in self.converted_series_type_cache:
+            self.get_type_series(series, convert=True)
 
-    def infer_series_type(self, series: pd.Series):
-        # containerized_series = self.get_containerized_series(series)
-        base_type = infer_type(
-            self.column_base_type_map[series.name], series, self.relation_graph
-        )
-        return base_type
+        series_type = self.converted_series_type_cache[series.name]
+        if isinstance(series_type, MultiModel):
+            cast = series_type.models
+        else:
+            cast = [series_type]
 
-    def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
-        # TODO: copy if needed!
-        mask = self.column_partitioner_map[series.name].mask(series)
-        series.loc[mask] = cast_series_to_inferred_type(
-            self.column_base_type_map[series.name], series[mask], self.relation_graph
-        )
+        # For each partition...
+        for mdl in cast:
+            mask = mdl.mask(series)
+            series.loc[mask] = cast_series_to_inferred_type(
+                series_type, series[mask], self.relation_graph
+            )
         return series
-
-    # def _get_column_type(self, series: pd.Series):
-    #     # walk the relation_map to determine which is most uniquely specified
-    #     return traverse_relation_graph(series, self.relation_graph)
 
     def _get_ancestors(self, node):
         if isinstance(node, MultiModel):
