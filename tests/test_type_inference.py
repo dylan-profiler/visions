@@ -104,6 +104,7 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(argnames=["series", "expected_type", "typeset"], argvalues=argsvalues)
 
 
+@pytest.mark.run(order=4)
 def test_consistency(series):
     typeset = tenzing_complete_set()
     assert series in typeset.get_type_series(series)
@@ -124,11 +125,13 @@ def _traverse_relation_graph(series, G, node=tenzing_generic):
         return node
 
 
+@pytest.mark.run(order=13)
 def test_traversal_mutex(series):
     typeset = tenzing_complete_set()
     _traverse_relation_graph(series, typeset.relation_graph)
 
 
+@pytest.mark.run(order=6)
 def test_inference(series, expected_type, typeset):
     infered_type = typeset.get_type_series(series)
     print(f"{infered_type} == {expected_type}")

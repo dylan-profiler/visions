@@ -92,6 +92,7 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
 
 
+@pytest.mark.run(order=9)
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
     if relation.is_relation(series):
@@ -103,6 +104,7 @@ def test_relations(source_type, relation_type, series):
         raise ValueError("No relation.")
 
 
+@pytest.mark.run(order=10)
 def test_consistency(series):
     typeset = tenzing_complete_set()
 
@@ -123,6 +125,7 @@ def test_consistency(series):
         ).all()
 
 
+@pytest.mark.run(order=11)
 def test_side_effects(series):
     reference = series.copy()
 
@@ -135,6 +138,7 @@ def test_side_effects(series):
     assert series.eq(reference).all()
 
 
+@pytest.mark.run(order=12)
 def test_multiple_inference(series):
     """
     Notes:

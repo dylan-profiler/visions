@@ -167,10 +167,12 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
 
 
+@pytest.mark.run(order=7)
 def test_contains(series, type):
     assert series in type
 
 
+@pytest.mark.run(order=8)
 def test_mask(series, type):
     mask = type.mask(series)
     assert not mask.isna().any()

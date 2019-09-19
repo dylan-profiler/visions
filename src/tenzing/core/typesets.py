@@ -1,4 +1,6 @@
+import operator
 import warnings
+from functools import reduce
 from typing import Union, Type
 
 import pandas as pd
@@ -52,19 +54,21 @@ def check_graph_constraints(relation_graph, nodes):
         warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
+# Infer type without conversion
 def traverse_relation_graph(series, G, node=tenzing_model) -> Type[tenzing_model]:
     # DFS
     for tenz_type in G.successors(node):
+        # TODO: speed gain by not considering "dashed"
         if series in tenz_type:
             return traverse_relation_graph(series, G, tenz_type)
 
     return node
 
 
+# Infer type with conversion
 def get_type_inference_path(base_type, series, G, path=[]):
     path.append(base_type)
 
-    # TODO: assert all relationships
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]["relationship"].is_relation(series):
             new_series = G[base_type][tenz_type]["relationship"].transform(series)
@@ -100,30 +104,22 @@ class tenzingTypeset(object):
         self.relation_graph = build_relation_graph(set(types))
         self.types = frozenset(self.relation_graph.nodes)
 
-    def _detect_series_partitioners(self, series):
-        partitioners = [
-            partitioner for partitioner in self.partitioners if series in partitioner
-        ]
-        if len(partitioners) == 0:
+    def get_partition_types(self, series: pd.Series):
+        parts = []
+        if series.empty:
             return tenzing_model
-        elif len(partitioners) == 1:
-            return partitioners[0]
+
+        for partitioner in self.partitioners:
+            mask = partitioner.mask(series)
+            if mask.any():
+                new_series = series[mask]
+                node = traverse_relation_graph(new_series, self.relation_graph, partitioner)
+                parts.append(node)
+
+        if len(parts) == 0:
+            return tenzing_model
         else:
-            return sum(partitioners)
-
-    def prep_series(self, series: pd.Series):
-        # Detect partitioners
-        self.column_partitioner_map[series.name] = self._detect_series_partitioners(
-            series
-        )
-
-        # TODO: For each partitioner, traverse, not only for one..
-        self.column_base_type_map[series.name] = self.get_type_series(series)
-
-        self.column_type_map[series.name] = (
-            self.column_partitioner_map[series.name]
-            + self.column_base_type_map[series.name]
-        )
+            return reduce(operator.add, parts)
 
     # New API
     def get_type_series(
@@ -132,21 +128,12 @@ class tenzingTypeset(object):
         if convert:
             return self.infer_series_type(series)
         else:
-            return self._get_column_type(series)
+            return self.get_partition_types(series)
 
     def convert_series(self, series: pd.Series) -> pd.Series:
         return self.cast_series_to_inferred_type(series)
 
-    # def infer_types(self, df: pd.DataFrame):
-    #     return {col: self.infer_series_type(df[col]) for col in df.columns}
-
-    # def cast_to_inferred_types(self, df: pd.DataFrame):
-    #     return pd.DataFrame(
-    #         {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
-    #     )
-
     def infer_series_type(self, series: pd.Series):
-        self.prep_series(series)
         # containerized_series = self.get_containerized_series(series)
         base_type = infer_type(
             self.column_base_type_map[series.name], series, self.relation_graph
@@ -155,20 +142,21 @@ class tenzingTypeset(object):
 
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
         # TODO: copy if needed!
-        self.prep_series(series)
         mask = self.column_partitioner_map[series.name].mask(series)
         series.loc[mask] = cast_series_to_inferred_type(
             self.column_base_type_map[series.name], series[mask], self.relation_graph
         )
         return series
 
-    def _get_column_type(self, series: pd.Series):
-        # walk the relation_map to determine which is most uniquely specified
-        return traverse_relation_graph(series, self.relation_graph)
+    # def _get_column_type(self, series: pd.Series):
+    #     # walk the relation_map to determine which is most uniquely specified
+    #     return traverse_relation_graph(series, self.relation_graph)
 
     def _get_ancestors(self, node):
-        # For testing purposes
-        return nx.ancestors(self.relation_graph.copy(), node)
+        if isinstance(node, MultiModel):
+            return {mdl for x in node.models for mdl in nx.ancestors(self.relation_graph, x)}
+        else:
+            return nx.ancestors(self.relation_graph, node)
 
     def output(self, file_name) -> None:
         G = self.relation_graph.copy()

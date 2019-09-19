@@ -75,7 +75,7 @@ class meta_model(type):
             raise Exception(
                 f"{other} must be sublcass of type tenzing_model, but is of type {type(other)}"
             )
-        return MultiModel([self, other])
+        return MultiModel(models=[self, other])
 
     # def __or__(self, other):
     #     """
@@ -112,7 +112,7 @@ class MultiModel(metaclass=meta_model):
                 f"{model} must be subclass of type tenzing_model, but is of type {type(model)}"
             )
         if model in self.models:
-            raise Exception("Duplicate types not allowed")
+            raise Exception(f"Duplicate types not allowed ({model} already in {self.models})")
 
         for m in self.models:
             if issubclass(model, m):
@@ -205,7 +205,7 @@ class tenzing_model(metaclass=meta_model):
     @classmethod
     @abstractmethod
     def mask(cls, series: pd.Series) -> pd.Series:
-        return pd.Series([True] * len(series))
+        return pd.Series([True] * len(series), name=series.name, index=series.index)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
