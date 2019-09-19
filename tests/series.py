@@ -111,6 +111,10 @@ def get_series():
             name="timestamp_series_nat",
         ),
         pd.Series(
+            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4), pd.NaT],
+            name="date_series_nat",
+        ),
+        pd.Series(
             pd.date_range(
                 start="2013-05-18 12:00:00",
                 periods=2,

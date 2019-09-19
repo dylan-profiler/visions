@@ -108,18 +108,20 @@ def test_relations(source_type, relation_type, series):
 def test_consistency(series):
     typeset = tenzing_complete_set()
 
-    initial_type = typeset.get_type_series(series)
-    converted_type = typeset.get_type_series(series, convert=True)
+    initial_type = typeset.get_type_series(series.copy(deep=True))
+    converted_type = typeset.get_type_series(series.copy(deep=True), convert=True)
 
     if initial_type != converted_type:
-        converted_series = typeset.convert_series(series)
+        converted_series = typeset.convert_series(series.copy(deep=True))
+        print(f"OG {series.to_dict()}")
+        print(f"Converted {converted_series.to_dict()}")
         assert not (
             (
                 converted_series.eq(series) ^ (converted_series.isna() & series.isna())
             ).all()
         )
     else:
-        converted_series = typeset.convert_series(series)
+        converted_series = typeset.convert_series(series.copy(deep=True))
         assert (
             converted_series.eq(series) ^ (converted_series.isna() & series.isna())
         ).all()

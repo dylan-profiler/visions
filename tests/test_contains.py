@@ -28,7 +28,7 @@ def get_series_map():
         tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
         tenzing_complex: ["complex_series", "complex_series_py"],
         tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
-        tenzing_date: ["timestamp_series", "datetime"],
+        tenzing_date: ["datetime"],
         tenzing_timedelta: ["timedelta_series"],
         tenzing_string: [
             "timestamp_string_series",
@@ -66,12 +66,12 @@ def get_series_map():
     # Series with missing values
     series_map[tenzing_date + missing_generic] = (
         # series_map[tenzing_date]
-        ["timestamp_series_nat"]
+        ["date_series_nat"]
         # + series_map[missing_generic]
     )
     series_map[tenzing_datetime + missing_generic] = (
         # series_map[tenzing_datetime]
-        ["timestamp_series_nat"]
+        ["timestamp_series_nat", "date_series_nat"]
         # + series_map[missing_generic]
     )
     series_map[tenzing_timedelta + missing_generic] = (

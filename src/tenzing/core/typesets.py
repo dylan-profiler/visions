@@ -97,7 +97,9 @@ class tenzingTypeset(object):
     def __init__(self, partitioners: list, types: list):
         self.partitioners = partitioners
 
+        # Inference caches
         self.converted_series_type_cache = {}
+        self.series_type_cache = {}
 
         self.relation_graph = build_relation_graph(set(types))
         self.types = frozenset(self.relation_graph.nodes)
@@ -129,24 +131,36 @@ class tenzingTypeset(object):
         series_type = self.get_partition_types(series, convert)
         if convert:
             self.converted_series_type_cache[series.name] = series_type
+        else:
+            self.series_type_cache[series.name] = series_type
         return series_type
 
     def convert_series(self, series: pd.Series) -> pd.Series:
+        # TODO: document that this has Side effects!
+        if series.name not in self.series_type_cache:
+            self.get_type_series(series)
         if series.name not in self.converted_series_type_cache:
-            self.get_type_series(series, convert=True)
+            self.get_type_series(series, True)
 
-        series_type = self.converted_series_type_cache[series.name]
+        series_type = self.series_type_cache[series.name]
         if isinstance(series_type, MultiModel):
-            cast = series_type.models
+            cast_from = series_type.models
         else:
-            cast = [series_type]
+            cast_from = [series_type]
+
+        convert_type = self.converted_series_type_cache[series.name]
+        if isinstance(convert_type, MultiModel):
+            cast_to = convert_type.models
+        else:
+            cast_to = [convert_type]
 
         # For each partition...
-        for mdl in cast:
-            mask = mdl.mask(series)
-            series.loc[mask] = cast_series_to_inferred_type(
-                series_type, series[mask], self.relation_graph
+        for type_from, type_to in zip(cast_from, cast_to):
+            mask = type_from.mask(series)
+            res = cast_series_to_inferred_type(
+                type_from, series[mask], self.relation_graph
             )
+            series.loc[mask] = res
         return series
 
     def _get_ancestors(self, node):

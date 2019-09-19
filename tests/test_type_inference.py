@@ -78,6 +78,7 @@ def get_series_type_map():
         "empty_int64": tenzing_model,
         "ip": tenzing_ip,
         "ip_str": tenzing_string,
+        "date_series_nat": tenzing_date + missing_generic
     }
 
 
