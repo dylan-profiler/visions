@@ -98,7 +98,7 @@ class tenzingTypeset(object):
         self.column_base_type_map = {}
         self.column_type_map = {}
 
-        self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
+        self.relation_graph = build_relation_graph(set(types))
         self.types = frozenset(self.relation_graph.nodes)
 
     def _detect_series_partitioners(self, series):
