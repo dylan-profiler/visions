@@ -185,3 +185,18 @@ class tenzingTypeset(object):
         G.graph["node"] = {"shape": "box", "color": "red"}
 
         write_dot(G, file_name)
+
+    def plot_graph(self, dpi=600) -> None:
+        import tempfile
+        import matplotlib.image as mpimg
+        import matplotlib.pyplot as plt
+
+        G = self.relation_graph.copy()
+        G.graph["node"] = {"shape": "box", "color": "red"}
+        with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
+            p = nx.drawing.nx_pydot.to_pydot(G)
+            p.write_png(temp_file.name)
+            img = mpimg.imread(temp_file.name)
+            plt.figure(dpi=dpi)
+            plt.imshow(img)
+            plt.axis('off')
