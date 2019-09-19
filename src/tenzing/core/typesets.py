@@ -71,6 +71,7 @@ def get_type_inference_path(base_type, series, G, path=[]):
 
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]["relationship"].is_relation(series):
+            print(f"cast {base_type} to {tenz_type}")
             new_series = G[base_type][tenz_type]["relationship"].transform(series)
             return get_type_inference_path(tenz_type, new_series, G, path)
     return path, series
@@ -98,8 +99,8 @@ class tenzingTypeset(object):
         self.partitioners = partitioners
 
         # Inference caches
-        self.converted_series_type_cache = {}
-        self.series_type_cache = {}
+        # self.converted_series_type_cache = {}
+        # self.series_type_cache = {}
 
         self.relation_graph = build_relation_graph(set(types))
         self.types = frozenset(self.relation_graph.nodes)
@@ -129,26 +130,31 @@ class tenzingTypeset(object):
         self, series: pd.Series, convert=False
     ) -> Union[Type[tenzing_model], MultiModel]:
         series_type = self.get_partition_types(series, convert)
-        if convert:
-            self.converted_series_type_cache[series.name] = series_type
-        else:
-            self.series_type_cache[series.name] = series_type
+        # if convert:
+        #     self.converted_series_type_cache[series.name] = series_type
+        # else:
+        #     self.series_type_cache[series.name] = series_type
         return series_type
 
     def convert_series(self, series: pd.Series) -> pd.Series:
         # TODO: document that this has Side effects!
-        if series.name not in self.series_type_cache:
-            self.get_type_series(series)
-        if series.name not in self.converted_series_type_cache:
-            self.get_type_series(series, True)
+        # if series.name not in self.series_type_cache:
+        series_type = self.get_type_series(series)
+        # if series.name not in self.converted_series_type_cache:
+        convert_type = self.get_type_series(series, True)
 
-        series_type = self.series_type_cache[series.name]
+        print(f"from {series_type} to {convert_type}")
+        if series_type == convert_type:
+            print('same')
+            return series
+
+        # series_type = self.series_type_cache[series.name]
         if isinstance(series_type, MultiModel):
             cast_from = series_type.models
         else:
             cast_from = [series_type]
 
-        convert_type = self.converted_series_type_cache[series.name]
+        # convert_type = self.converted_series_type_cache[series.name]
         if isinstance(convert_type, MultiModel):
             cast_to = convert_type.models
         else:

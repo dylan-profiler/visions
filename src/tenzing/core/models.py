@@ -77,27 +77,13 @@ class meta_model(type):
             )
         return MultiModel(models=[self, other])
 
-    # def __or__(self, other):
-    #     """
-    #     Examples:
-    #         >>> type_generic | infinite_generic
-    #     """
-    #     return self + other
-    #
-    # def __getitem__(self, item):
-    #     """
-    #     Examples:
-    #         >>> missing_generic[type_generic]
-    #     """
-    #     return item + self
-
 
 # TODO: rename to partitioner
 class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
         assert len(models) >= 2
 
-        self.models = []
+        self.models = set()
         for model in models:
             self.add_model(model)
 
@@ -118,7 +104,7 @@ class MultiModel(metaclass=meta_model):
             if issubclass(model, m):
                 raise Exception(f"Added model {m} is not allowed to be a subclass of another model ({model}).")
 
-        self.models.append(model)
+        self.models.add(model)
 
     def __add__(self, other):
         """
@@ -127,6 +113,15 @@ class MultiModel(metaclass=meta_model):
         """
         self.add_model(other)
         return self
+
+    def __eq__(self, other):
+        if not isinstance(other, MultiModel):
+            return False
+
+        return self.models == other.models
+
+    def __hash__(self):
+        return hash(self.__str__())
 
     def mask(self, series: pd.Series):
         mask = pd.Series([False] * len(series), name=series.name)

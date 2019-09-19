@@ -53,6 +53,7 @@ def register_string_relations():
 
 
 def register_url_relations():
+    # TODO: change into coercion test
     def test_url(series):
         try:
             return (
