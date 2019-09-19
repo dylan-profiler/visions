@@ -30,13 +30,9 @@ def register_integer_relations():
 
 def register_float_relations():
     def test_string_is_float(series):
-        coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(
-            series
-        )
-        if coerced_series is None:
-            return False
-        else:
-            return True
+        int_test = test_utils.coercion_test(tenzing_integer.cast_op)
+        float_test = test_utils.coercion_test(tenzing_float.cast_op)
+        return not int_test(series) and float_test(series)
 
     relations = [
         model_relation(tenzing_float, tenzing_generic),

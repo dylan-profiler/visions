@@ -105,7 +105,9 @@ class tenzingTypeset(object):
         self.relation_graph = build_relation_graph(set(types))
         self.types = frozenset(self.relation_graph.nodes)
 
-    def get_partition_types(self, series: pd.Series, convert=False) -> Union[Type[tenzing_model], MultiModel]:
+    def get_partition_types(
+        self, series: pd.Series, convert=False
+    ) -> Union[Type[tenzing_model], MultiModel]:
         if series.empty:
             return tenzing_model
 
@@ -117,7 +119,9 @@ class tenzingTypeset(object):
                 if convert:
                     node = infer_type(partitioner, new_series, self.relation_graph)
                 else:
-                    node = traverse_relation_graph(new_series, self.relation_graph, partitioner)
+                    node = traverse_relation_graph(
+                        new_series, self.relation_graph, partitioner
+                    )
                 parts.append(node)
 
         if len(parts) == 0:
@@ -145,7 +149,7 @@ class tenzingTypeset(object):
 
         print(f"from {series_type} to {convert_type}")
         if series_type == convert_type:
-            print('same')
+            print("same")
             return series
 
         # series_type = self.series_type_cache[series.name]
@@ -171,7 +175,9 @@ class tenzingTypeset(object):
 
     def _get_ancestors(self, node):
         if isinstance(node, MultiModel):
-            return {mdl for x in node.models for mdl in nx.ancestors(self.relation_graph, x)}
+            return {
+                mdl for x in node.models for mdl in nx.ancestors(self.relation_graph, x)
+            }
         else:
             return nx.ancestors(self.relation_graph, node)
 

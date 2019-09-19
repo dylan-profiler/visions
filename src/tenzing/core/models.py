@@ -98,11 +98,15 @@ class MultiModel(metaclass=meta_model):
                 f"{model} must be subclass of type tenzing_model, but is of type {type(model)}"
             )
         if model in self.models:
-            raise Exception(f"Duplicate types not allowed ({model} already in {self.models})")
+            raise Exception(
+                f"Duplicate types not allowed ({model} already in {self.models})"
+            )
 
         for m in self.models:
             if issubclass(model, m):
-                raise Exception(f"Added model {m} is not allowed to be a subclass of another model ({model}).")
+                raise Exception(
+                    f"Added model {m} is not allowed to be a subclass of another model ({model})."
+                )
 
         self.models.add(model)
 

@@ -2,11 +2,16 @@
 import pytest
 
 from tenzing.core.model import tenzing_complete_set
-from tenzing.core.model.types import tenzing_float, tenzing_integer, missing_generic, tenzing_generic
+from tenzing.core.model.types import (
+    tenzing_float,
+    tenzing_integer,
+    missing_generic,
+    tenzing_generic,
+)
 from tenzing.core.models import MultiModel
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope="class")
 def typeset():
     return tenzing_complete_set()
 

@@ -30,22 +30,6 @@ def get_series_map():
         (tenzing_bool, tenzing_string, ["string_bool_nan"]),
         (tenzing_ip, tenzing_string, ["ip_str"]),
         (tenzing_url, tenzing_string, ["str_url"]),
-        # Inheritance
-        # (tenzing_ip, tenzing_object),
-        # (tenzing_image_path, tenzing_existing_path),
-        # (tenzing_existing_path, tenzing_path),
-        # (tenzing_path, tenzing_object),
-        # (tenzing_time, tenzing_datetime),
-        # (tenzing_date, tenzing_datetime),
-        # (tenzing_object, tenzing_generic),
-        # (tenzing_complex, tenzing_generic),
-        # (tenzing_categorical, tenzing_generic),
-        # (tenzing_bool, tenzing_generic),
-        # (tenzing_geometry, tenzing_generic),
-        # # TODO: no object, non?
-        # (tenzing_timedelta, tenzing_object),
-        # # TODO: no object, non?
-        # (tenzing_datetime, tenzing_object),
     ]
 
     if os.name == "nt":
@@ -164,4 +148,8 @@ def test_multiple_inference(series):
     assert inferred_type == initial_type_after_convert
     assert initial_type_after_convert == inferred_type_after_convert
     assert series_convert.isna().eq(series_convert2.isna()).all()
-    assert series_convert[series_convert.notna()].eq(series_convert2[series_convert2.notna()]).all()
+    assert (
+        series_convert[series_convert.notna()]
+        .eq(series_convert2[series_convert2.notna()])
+        .all()
+    )

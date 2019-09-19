@@ -16,7 +16,6 @@ class tenzing_geometry(tenzing_object):
         True
     """
 
-
     geom_types = [
         geometry.Point,
         geometry.Polygon,
@@ -41,4 +40,9 @@ class tenzing_geometry(tenzing_object):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.Series([wkt.loads(value) if not issubclass(type(value), BaseGeometry) else value for value in series])
+        return pd.Series(
+            [
+                wkt.loads(value) if not issubclass(type(value), BaseGeometry) else value
+                for value in series
+            ]
+        )

@@ -9,7 +9,7 @@ from tenzing.core.model.types import *
 from tenzing.core.summary import type_summary_ops, Summary
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope="class")
 def summary():
     return Summary(type_summary_ops, tenzing_complete_set())
 
