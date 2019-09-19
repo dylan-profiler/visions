@@ -149,7 +149,6 @@ class tenzing_model(metaclass=meta_model):
     """
 
     _relations = {}
-    # _strict = {}
 
     @classmethod
     def __instancecheck__(mcs, instance) -> bool:

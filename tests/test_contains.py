@@ -94,9 +94,9 @@ def get_series_map():
         # + series_map[missing_generic]
     )
     series_map[tenzing_integer + missing_generic] = (
-        series_map[tenzing_integer]
-        + ["int_nan_series", "Int64_int_nan_series"]
-        + series_map[missing_generic]
+        # series_map[tenzing_integer]
+        ["int_nan_series", "Int64_int_nan_series"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_string + missing_generic] = (
         # series_map[tenzing_string]
@@ -155,6 +155,7 @@ def pytest_generate_tests(metafunc):
 
 
 def test_contains(series, type):
+    print(f"{series.to_dict()} in {type}")
     assert series in type
 
 
