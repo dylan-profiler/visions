@@ -1,13 +1,11 @@
 import warnings
-from pathlib import Path
-from typing import Union, Type
 
 import pandas as pd
 import networkx as nx
+from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
-from tenzing.core.models import MultiModel, tenzing_model
-from tenzing.utils.graph import output_graph
+from tenzing.core.partitioners import MultiPartitioner, Type
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
@@ -17,10 +15,12 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     nodes correspond to subtypes with a defined relation.
 
     Args:
-        nodes:  A list of tenzing_types considered at the root of the relations graph.
+        nodes : List[tenzing_type]
+            A list of tenzing_types considered at the root of the relations graph.
 
     Returns:
-        A directed graph of type relations for the provided nodes.
+        networkx DiGraph
+            A directed graph of type relations for the provided nodes.
     """
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -54,13 +54,18 @@ def check_graph_constraints(relation_graph, nodes):
         warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
-def traverse_relation_graph(series, G, node=tenzing_model) -> Type[tenzing_model]:
-    # DFS
+def traverse_relation_graph(series, G, node=tenzing_generic):
+    match_types = []
     for tenz_type in G.successors(node):
         if series in tenz_type:
-            return traverse_relation_graph(series, G, tenz_type)
+            match_types.append(tenz_type)
 
-    return node
+    if len(match_types) == 1:
+        return traverse_relation_graph(series, G, match_types[0])
+    elif len(match_types) > 1:
+        raise ValueError(f"types contains should be mutually exclusive {match_types}")
+    else:
+        return node
 
 
 def get_type_inference_path(base_type, series, G, path=[]):
@@ -84,81 +89,78 @@ def cast_series_to_inferred_type(base_type, series, G):
     return series
 
 
+def detect_series_container(series, containers):
+    series_containers = [container for container in containers if series in container]
+    # container = MultiContainer(series_containers) if len(series_containers) > 1 else series_containers[0]
+    return series_containers
+
+
 class tenzingTypeset(object):
     """
     A collection of tenzing_types with an associated relationship map between them.
 
-    Attributes:
-        types: The collection of tenzing types which are derived either from a base_type or themselves
+    Attributes
+    ----------
+    types: frozenset
+        The collection of tenzing types which are derived either from a base_type or themselves
     """
 
-    def __init__(self, partitioners: list, types: list):
-        self.partitioners = partitioners
-
-        self.column_partitioner_map = {}
+    def __init__(self, containers: list, types: list):
+        self.column_container_map = {}
         self.column_base_type_map = {}
         self.column_type_map = {}
 
-        self.relation_graph = build_relation_graph(set(types))
+        self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
         self.types = frozenset(self.relation_graph.nodes)
+        self.containers = containers
 
-    def _detect_series_partitioners(self, series):
-        partitioners = [
-            partitioner for partitioner in self.partitioners if series in partitioner
-        ]
-        if len(partitioners) == 0:
-            return tenzing_model
-        elif len(partitioners) == 1:
-            return partitioners[0]
-        else:
-            return sum(partitioners)
+    def prep(self, df):
+        self.column_container_map = {
+            col: self.detect_series_container(df[col]) for col in df.columns
+        }
+        self.column_base_type_map = {
+            col: self._get_column_type(df[col]) for col in df.columns
+        }
+        self.column_type_map = {
+            col: MultiPartitioner(
+                self.column_container_map[col] + [Type(self.column_base_type_map[col])]
+            )
+            for col in df.columns
+        }
 
-    def prep_series(self, series: pd.Series):
-        # Detect partitioners
-        self.column_partitioner_map[series.name] = self._detect_series_partitioners(
-            series
+    def detect_series_container(self, series):
+        self.column_base_type_map[series.name] = detect_series_container(
+            series, self.containers
         )
+        return self.column_base_type_map[series.name]
 
-        # TODO: For each partitioner, traverse, not only for one..
-        self.column_base_type_map[series.name] = self.get_type_series(series)
+    def get_containerized_series(self, series):
+        container = self.detect_series_container(series)
+        if type(container) == list:
+            container = MultiPartitioner(container)
+        return container.transform(series)
 
-        self.column_type_map[series.name] = (
-            self.column_partitioner_map[series.name]
-            + self.column_base_type_map[series.name]
+    def infer_types(self, df: pd.DataFrame):
+        self.prep(df)
+        return {col: self.infer_series_type(df[col]) for col in df.columns}
+
+    def cast_to_inferred_types(self, df: pd.DataFrame):
+        self.prep(df)
+        return pd.DataFrame(
+            {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
         )
-
-    # New API
-    def get_type_series(
-        self, series: pd.Series, convert=False
-    ) -> Union[tenzing_model, MultiModel]:
-        if convert:
-            return self.infer_series_type(series)
-        else:
-            return self._get_column_type(series)
-
-    def convert_series(self, series: pd.Series) -> pd.Series:
-        return self.cast_series_to_inferred_type(series)
-
-    # def infer_types(self, df: pd.DataFrame):
-    #     return {col: self.infer_series_type(df[col]) for col in df.columns}
-
-    # def cast_to_inferred_types(self, df: pd.DataFrame):
-    #     return pd.DataFrame(
-    #         {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
-    #     )
 
     def infer_series_type(self, series: pd.Series):
-        self.prep_series(series)
-        # containerized_series = self.get_containerized_series(series)
+        containerized_series = self.get_containerized_series(series)
         base_type = infer_type(
-            self.column_base_type_map[series.name], series, self.relation_graph
+            self.column_base_type_map[series.name],
+            containerized_series,
+            self.relation_graph,
         )
         return base_type
 
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
-        # TODO: copy if needed!
-        self.prep_series(series)
-        mask = self.column_partitioner_map[series.name].mask(series)
+        mask = self.column_container_map[series.name].mask(series)
         series.loc[mask] = cast_series_to_inferred_type(
             self.column_base_type_map[series.name], series[mask], self.relation_graph
         )
@@ -168,12 +170,21 @@ class tenzingTypeset(object):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_graph)
 
-    def _get_ancestors(self, node):
-        # For testing purposes
-        return nx.ancestors(self.relation_graph.copy(), node)
-
-    def output(self, file_name) -> None:
+    def write_dot(self, file_name="graph_relations.dot") -> None:
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
-        output_graph(G, file_name)
+        write_dot(G, file_name)
+
+    def plot_graph(self, dpi=800):
+        import matplotlib.pyplot as plt
+        import matplotlib.image as mpimg
+
+        G = typeset.relation_graph.copy()
+        G.graph["node"] = {"shape": "box", "color": "red"}
+        with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
+            p = nx.drawing.nx_pydot.to_pydot(G)
+            p.write_png(temp_file.name)
+            img = mpimg.imread(temp_file.name)
+            plt.figure(dpi=dpi)
+            plt.imshow(img)
