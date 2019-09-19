@@ -13,32 +13,17 @@ Tenzing provides an extensible suite of tools to support common data analysis op
 
 Full documentation can be found [here](https://ieaves.github.io/tenzing/).
 
-## Requirements
-
-* pandas
-* numpy
-* networkx
-
-### Optional Requirements
-
-* shapely
-* geopandas
-
 ## Installation
 
-You can install tenzing from source and from pip
+You can install tenzing via pip:
 
 ```
 pip install tenzing
 ```
 
-or from source,
+Alternatives and more details can be found in the Full documentation can be found in the [documentation](https://ieaves.github.io/tenzing/).
 
-```
-git clone https://github.com/ieaves/tenzing.git
-cd tenzing
-python setup.py install .
-```
+
 
 ## References
 - The Python data model [[docs](https://docs.python.org/3/reference/datamodel.html)] [[diagram](https://en.wikipedia.org/wiki/Data_type#/media/File:Python_3._The_standard_type_hierarchy.png)]

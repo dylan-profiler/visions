@@ -36,3 +36,4 @@ Requirements
 * pandas
 * numpy
 * networkx
+* TODO: optional requirements
