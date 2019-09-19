@@ -73,7 +73,7 @@ class meta_model(type):
         """
         if not issubclass(other, tenzing_model):
             raise Exception(
-                f"{other} must be sunblcass of type tenzing_model, but is of type {type(other)}"
+                f"{other} must be sublcass of type tenzing_model, but is of type {type(other)}"
             )
         return MultiModel([self, other])
 
@@ -92,6 +92,7 @@ class meta_model(type):
     #     return item + self
 
 
+# TODO: rename to partitioner
 class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
         assert len(models) >= 2

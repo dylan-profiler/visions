@@ -1,6 +1,0 @@
-numpy
-pandas
-shapely
-networkx
-pygraphviz
-imagehash

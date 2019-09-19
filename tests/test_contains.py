@@ -156,3 +156,7 @@ def pytest_generate_tests(metafunc):
 
 def test_contains(series, type):
     assert series in type
+
+
+def test_mask(series, type):
+    pass

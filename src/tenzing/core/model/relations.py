@@ -3,12 +3,13 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from tenzing.core.model.types import *
-from tenzing.core.models import model_relation
+from tenzing.core.models import model_relation, tenzing_model
 from tenzing.utils import test_utils
 import logging
 import pandas as pd
 
 
+# TODO: X.register_relation(X, Y) -> one X can be removed...
 def register_integer_relations():
     relations = [
         model_relation(tenzing_integer, tenzing_generic),
@@ -60,7 +61,10 @@ def register_url_relations():
         except AttributeError:
             return False
 
-    relations = [model_relation(tenzing_url, tenzing_string, test_url)]
+    relations = [
+        model_relation(tenzing_url, tenzing_string, test_url),
+        model_relation(tenzing_url, tenzing_object)
+    ]
     for relation in relations:
         tenzing_url.register_relation(relation)
 
@@ -116,7 +120,7 @@ def register_geometry_relations():
     relations = [
         model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
         model_relation(
-            tenzing_geometry, tenzing_object, transformer=lambda series: series
+            tenzing_geometry, tenzing_object
         ),
     ]
     for relation in relations:
@@ -237,3 +241,12 @@ register_time_relations()
 register_existing_path_relations()
 register_image_path_relations()
 register_ip_relations()
+
+
+def register_generic_relations():
+    tenzing_generic.register_relation(model_relation(tenzing_generic, tenzing_model))
+    missing_generic.register_relation(model_relation(missing_generic, tenzing_model))
+    infinite_generic.register_relation(model_relation(infinite_generic, tenzing_model))
+
+
+register_generic_relations()

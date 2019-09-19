@@ -3,6 +3,23 @@ from os.path import basename, splitext
 from glob import glob
 from setuptools import find_packages
 
+install_requires = [
+    'numpy',
+    'pandas',
+    'networkx'
+]
+
+extras_requires = {
+    'type_geometry': ['shapely', 'geopandas'],
+    'type_image_path': ['imagehash'],
+    'network_plot': ['pydot', 'pygraphviz'],
+    'dev_docs': ['recommonmark', 'sphinx_rtd_theme', 'sphinx-autodoc-typehints']
+ }
+
+test_requires = [
+    'pytest'
+]
+
 setup(
     name="tenzing",
     version="0.0.3",
@@ -10,16 +27,9 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
-    install_requires=["pandas>=0.23.0", "numpy>=1.15", "networkx>=2.2"],
+    install_requires=install_requires,
     include_package_data=True,
-    extras_require={"geopandas": ["geopandas"], "shapely": ["shapely>=1.6"]},
-    setup_requires=["pytest-runner"],
-    tests_require=[
-        "pytest",
-        "pytest-rerunfailures",
-        "pytest-sugar",
-        "pytest-tldr",
-        "shapely",
-    ],
+    extras_require=extras_requires,
+    tests_require=test_requires,
     python_requires=">=3.5",
 )

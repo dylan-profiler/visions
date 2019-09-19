@@ -1,9 +1,9 @@
 import warnings
+from pathlib import Path
 from typing import Union, Type
 
 import pandas as pd
 import networkx as nx
-from networkx.drawing.nx_agraph import write_dot
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 from tenzing.core.models import MultiModel, tenzing_model
@@ -16,12 +16,10 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     nodes correspond to subtypes with a defined relation.
 
     Args:
-        nodes : List[tenzing_type]
-            A list of tenzing_types considered at the root of the relations graph.
+        nodes:  A list of tenzing_types considered at the root of the relations graph.
 
     Returns:
-        networkx DiGraph
-            A directed graph of type relations for the provided nodes.
+        A directed graph of type relations for the provided nodes.
     """
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -55,7 +53,7 @@ def check_graph_constraints(relation_graph, nodes):
         warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
-def traverse_relation_graph(series, G, node=tenzing_generic) -> Type[tenzing_model]:
+def traverse_relation_graph(series, G, node=tenzing_model) -> Type[tenzing_model]:
     # DFS
     for tenz_type in G.successors(node):
         if series in tenz_type:
@@ -85,18 +83,6 @@ def cast_series_to_inferred_type(base_type, series, G):
     return series
 
 
-def detect_series_container(series, containers):
-    series_containers = [container for container in containers if series in container]
-    if len(series_containers) > 1:
-        container = MultiModel(series_containers)
-    elif len(series_containers) == 1:
-        container = series_containers[0]
-    else:
-        container = tenzing_model
-
-    return container
-
-
 class tenzingTypeset(object):
     """
     A collection of tenzing_types with an associated relationship map between them.
@@ -105,23 +91,33 @@ class tenzingTypeset(object):
         types: The collection of tenzing types which are derived either from a base_type or themselves
     """
 
-    def __init__(self, containers: list, types: list):
-        self.column_container_map = {}
+    def __init__(self, partitioners: list, types: list):
+        self.partitioners = partitioners
+
+        self.column_partitioner_map = {}
         self.column_base_type_map = {}
         self.column_type_map = {}
 
         self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
         self.types = frozenset(self.relation_graph.nodes)
-        self.containers = containers
+
+    def _detect_series_partitioners(self, series):
+        partitioners = [partitioner for partitioner in self.partitioners if series in partitioner]
+        if len(partitioners) == 0:
+            partitioners = [tenzing_model]
+
+        # Sum = tenzing_integer + missing_generic
+        return sum(partitioners)
 
     def prep_series(self, series: pd.Series):
-        self.column_container_map[series.name] = self.detect_series_container(series)
+        # Detect partitioners
+        self.column_partitioner_map[series.name] = self._detect_series_partitioners(series)
+
+        # TODO: For each partitioner, traverse, not only for one..
         self.column_base_type_map[series.name] = self.get_type_series(series)
 
-        # print(self.column_container_map[series.name])
-        # print(self.column_base_type_map[series.name])
         self.column_type_map[series.name] = (
-            self.column_container_map[series.name]
+            self.column_partitioner_map[series.name]
             + self.column_base_type_map[series.name]
         )
 
@@ -137,27 +133,13 @@ class tenzingTypeset(object):
     def convert_series(self, series: pd.Series) -> pd.Series:
         return self.cast_series_to_inferred_type(series)
 
-    # Old API
-    def detect_series_container(self, series):
-        self.column_base_type_map[series.name] = detect_series_container(
-            series, self.containers
-        )
-        return self.column_base_type_map[series.name]
+    # def infer_types(self, df: pd.DataFrame):
+    #     return {col: self.infer_series_type(df[col]) for col in df.columns}
 
-    # def get_containerized_series(self, series):
-    #     container = self.detect_series_container(series)
-    #     if type(container) == list:
-    #         print(container)
-    #         container = MultiModel(container)
-    #     return container.transform(series)
-
-    def infer_types(self, df: pd.DataFrame):
-        return {col: self.infer_series_type(df[col]) for col in df.columns}
-
-    def cast_to_inferred_types(self, df: pd.DataFrame):
-        return pd.DataFrame(
-            {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
-        )
+    # def cast_to_inferred_types(self, df: pd.DataFrame):
+    #     return pd.DataFrame(
+    #         {col: self.cast_series_to_inferred_type(df[col]) for col in df.columns}
+    #     )
 
     def infer_series_type(self, series: pd.Series):
         self.prep_series(series)
@@ -170,7 +152,7 @@ class tenzingTypeset(object):
     def cast_series_to_inferred_type(self, series: pd.Series) -> pd.Series:
         # TODO: copy if needed!
         self.prep_series(series)
-        mask = self.column_container_map[series.name].mask(series)
+        mask = self.column_partitioner_map[series.name].mask(series)
         series.loc[mask] = cast_series_to_inferred_type(
             self.column_base_type_map[series.name], series[mask], self.relation_graph
         )
@@ -180,23 +162,19 @@ class tenzingTypeset(object):
         # walk the relation_map to determine which is most uniquely specified
         return traverse_relation_graph(series, self.relation_graph)
 
-    def write_dot(self, file_name="graph_relations.dot") -> None:
+    def output(self, file_name) -> None:
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
-        write_dot(G, file_name)
+        p = nx.drawing.nx_pydot.to_pydot(G)
+        if not isinstance(file_name, Path):
+            file_name = Path(file_name)
 
-    def plot_graph(self, dpi=600) -> None:
-        import tempfile
-        import matplotlib.image as mpimg
-        import matplotlib.pyplot as plt
-
-        G = self.relation_graph.copy()
-        G.graph["node"] = {"shape": "box", "color": "red"}
-        with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
-            p = nx.drawing.nx_pydot.to_pydot(G)
-            p.write_png(temp_file.name)
-            img = mpimg.imread(temp_file.name)
-            plt.figure(dpi=dpi)
-            plt.imshow(img)
-            plt.axis('off')
+        if file_name.suffix == '.svg':
+            p.write_svg(file_name)
+        elif file_name.suffix == '.png':
+            p.write_png(file_name)
+        elif file_name.suffix == '.dot':
+            p.write_dot(file_name)
+        else:
+            raise ValueError('Extension should be .dot, .svg or .png')
