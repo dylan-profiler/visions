@@ -14,16 +14,11 @@ tenzing.core.model.typesets.tenzing\_complete\_set
    .. autosummary::
    
       ~tenzing_complete_set.__init__
-      ~tenzing_complete_set.cast_series_to_inferred_type
-      ~tenzing_complete_set.cast_to_inferred_types
       ~tenzing_complete_set.convert_series
-      ~tenzing_complete_set.detect_series_container
-      ~tenzing_complete_set.get_containerized_series
+      ~tenzing_complete_set.get_partition_types
       ~tenzing_complete_set.get_type_series
-      ~tenzing_complete_set.infer_series_type
-      ~tenzing_complete_set.infer_types
-      ~tenzing_complete_set.prep
-      ~tenzing_complete_set.write_dot
+      ~tenzing_complete_set.output
+      ~tenzing_complete_set.plot_graph
    
    
 

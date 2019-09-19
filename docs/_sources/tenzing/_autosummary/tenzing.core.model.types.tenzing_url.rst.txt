@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_url
       ~tenzing_url.cast
       ~tenzing_url.cast_op
       ~tenzing_url.contains_op
+      ~tenzing_url.get_models
       ~tenzing_url.get_relations
       ~tenzing_url.mask
       ~tenzing_url.register_relation

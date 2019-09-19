@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_existing\_path
       ~tenzing_existing_path.cast
       ~tenzing_existing_path.cast_op
       ~tenzing_existing_path.contains_op
+      ~tenzing_existing_path.get_models
       ~tenzing_existing_path.get_relations
       ~tenzing_existing_path.mask
       ~tenzing_existing_path.register_relation

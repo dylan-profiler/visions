@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tenzing.core.model.types.tenzing_geometry &mdash; package 0.0.3 documentation</title>
+  <title>tenzing.core.model.types.missing_generic &mdash; package 0.0.3 documentation</title>
   
 
   
@@ -134,7 +134,7 @@
         
           <li><a href="../../../../index.html">Module code</a> &raquo;</li>
         
-      <li>tenzing.core.model.types.tenzing_geometry</li>
+      <li>tenzing.core.model.types.missing_generic</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,55 +149,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for tenzing.core.model.types.tenzing_geometry</h1><div class="highlight"><pre>
+  <h1>Source code for tenzing.core.model.types.missing_generic</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry.base</span> <span class="k">import</span> <span class="n">BaseGeometry</span>
-<span class="kn">from</span> <span class="nn">shapely</span> <span class="k">import</span> <span class="n">wkt</span>
-<span class="kn">from</span> <span class="nn">shapely</span> <span class="k">import</span> <span class="n">geometry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_object</span> <span class="k">import</span> <span class="n">tenzing_object</span>
+<span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="k">import</span> <span class="n">tenzing_model</span>
 
 
-<div class="viewcode-block" id="tenzing_geometry"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.tenzing_geometry.html#tenzing.core.model.types.tenzing_geometry">[docs]</a><span class="k">class</span> <span class="nc">tenzing_geometry</span><span class="p">(</span><span class="n">tenzing_object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
+<div class="viewcode-block" id="missing_generic"><a class="viewcode-back" href="../../../../../tenzing/_autosummary/tenzing.core.model.types.missing_generic.html#tenzing.core.model.types.missing_generic">[docs]</a><span class="k">class</span> <span class="nc">missing_generic</span><span class="p">(</span><span class="n">tenzing_model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;**Empty series** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from shapely import wkt</span>
-<span class="sd">        &gt;&gt;&gt; x = pd.Series([wkt.loads(&#39;POINT (-92 42)&#39;), wkt.loads(&#39;POINT (-92 42.1)&#39;), wkt.loads(&#39;POINT (-92 42.2)&#39;)]</span>
-<span class="sd">        &gt;&gt;&gt; x in tenzing_geometry</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([np.nan])</span>
+<span class="sd">        &gt;&gt;&gt; x in missing_generic</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">geom_types</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">Point</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">Polygon</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">MultiPolygon</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">MultiPoint</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">LineString</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">LinearRing</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">MultiPoint</span><span class="p">,</span>
-        <span class="n">geometry</span><span class="o">.</span><span class="n">MultiLineString</span><span class="p">,</span>
-    <span class="p">]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
         <span class="n">super_mask</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">super_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">super_mask</span>
-
-        <span class="k">return</span> <span class="n">super_mask</span> <span class="o">&amp;</span> <span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">geom_type</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom_type</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">geom_types</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">super_mask</span> <span class="o">&amp;</span> <span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="n">wkt</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">BaseGeometry</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span>
-                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">series</span>
-            <span class="p">]</span>
-        <span class="p">)</span></div>
+        <span class="n">series</span><span class="o">.</span><span class="n">loc</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">return</span> <span class="n">series</span></div>
 </pre></div>
 
            </div>

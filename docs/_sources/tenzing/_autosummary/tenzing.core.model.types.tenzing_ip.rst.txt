@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_ip
       ~tenzing_ip.cast
       ~tenzing_ip.cast_op
       ~tenzing_ip.contains_op
+      ~tenzing_ip.get_models
       ~tenzing_ip.get_relations
       ~tenzing_ip.mask
       ~tenzing_ip.register_relation

@@ -150,15 +150,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for tenzing.core.typesets</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span>
+<span></span><span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">from</span> <span class="nn">networkx.drawing.nx_agraph</span> <span class="k">import</span> <span class="n">write_dot</span>
 
-<span class="kn">from</span> <span class="nn">tenzing.core.model.types.tenzing_generic</span> <span class="k">import</span> <span class="n">tenzing_generic</span>
 <span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="k">import</span> <span class="n">MultiModel</span><span class="p">,</span> <span class="n">tenzing_model</span>
+<span class="kn">from</span> <span class="nn">tenzing.utils.graph</span> <span class="k">import</span> <span class="n">output_graph</span>
 
 
 <div class="viewcode-block" id="build_relation_graph"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.build_relation_graph.html#tenzing.core.typesets.build_relation_graph">[docs]</a><span class="k">def</span> <span class="nf">build_relation_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">:</span>
@@ -168,12 +169,10 @@
 <span class="sd">    nodes correspond to subtypes with a defined relation.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        nodes : List[tenzing_type]</span>
-<span class="sd">            A list of tenzing_types considered at the root of the relations graph.</span>
+<span class="sd">        nodes:  A list of tenzing_types considered at the root of the relations graph.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        networkx DiGraph</span>
-<span class="sd">            A directed graph of type relations for the provided nodes.</span>
+<span class="sd">        A directed graph of type relations for the provided nodes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">style_map</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="p">:</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">}</span>
     <span class="n">relation_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
@@ -193,7 +192,7 @@
     <span class="k">return</span> <span class="n">relation_graph</span></div>
 
 
-<span class="k">def</span> <span class="nf">check_graph_constraints</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">check_graph_constraints</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">relation_graph</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">isolates</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">)))</span>
 
     <span class="n">orphaned_nodes</span> <span class="o">=</span> <span class="n">nodes</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
@@ -207,45 +206,48 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Cyclical relations between types </span><span class="si">{cycles}</span><span class="s2"> detected&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">traverse_relation_graph</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">tenzing_generic</span><span class="p">):</span>
-    <span class="n">match_types</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Infer type without conversion</span>
+<span class="k">def</span> <span class="nf">traverse_relation_graph</span><span class="p">(</span>
+    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">]</span> <span class="o">=</span> <span class="n">tenzing_model</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">]:</span>
+    <span class="c1"># DFS</span>
     <span class="k">for</span> <span class="n">tenz_type</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="c1"># TODO: speed gain by not considering &quot;dashed&quot;</span>
         <span class="k">if</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">tenz_type</span><span class="p">:</span>
-            <span class="n">match_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tenz_type</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">traverse_relation_graph</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">tenz_type</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">match_types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">traverse_relation_graph</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">match_types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">match_types</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;types contains should be mutually exclusive </span><span class="si">{match_types}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="n">node</span>
 
 
-<span class="k">def</span> <span class="nf">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="p">[]):</span>
+<span class="c1"># Infer type with conversion</span>
+<span class="k">def</span> <span class="nf">get_type_inference_path</span><span class="p">(</span>
+    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">]],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+
     <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_type</span><span class="p">)</span>
 
-    <span class="c1"># TODO: assert all relationships</span>
     <span class="k">for</span> <span class="n">tenz_type</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">base_type</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">G</span><span class="p">[</span><span class="n">base_type</span><span class="p">][</span><span class="n">tenz_type</span><span class="p">][</span><span class="s2">&quot;relationship&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_relation</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+            <span class="c1"># print(f&quot;cast {base_type} to {tenz_type}&quot;)</span>
             <span class="n">new_series</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">base_type</span><span class="p">][</span><span class="n">tenz_type</span><span class="p">][</span><span class="s2">&quot;relationship&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">tenz_type</span><span class="p">,</span> <span class="n">new_series</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">series</span>
 
 
-<span class="k">def</span> <span class="nf">infer_type</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">infer_type</span><span class="p">(</span>
+    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">]:</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">cast_series_to_inferred_type</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cast_series_to_inferred_type</span><span class="p">(</span>
+    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">series</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">series</span>
-
-
-<span class="k">def</span> <span class="nf">detect_series_container</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">containers</span><span class="p">):</span>
-    <span class="n">series_containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">container</span> <span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">containers</span> <span class="k">if</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">container</span><span class="p">]</span>
-    <span class="c1"># container = MultiContainer(series_containers) if len(series_containers) &gt; 1 else series_containers[0]</span>
-    <span class="k">return</span> <span class="n">series_containers</span>
 
 
 <div class="viewcode-block" id="tenzingTypeset"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.tenzingTypeset.html#tenzing.core.typesets.tenzingTypeset">[docs]</a><span class="k">class</span> <span class="nc">tenzingTypeset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -256,89 +258,90 @@
 <span class="sd">        types: The collection of tenzing types which are derived either from a base_type or themselves</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="tenzingTypeset.__init__"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.tenzingTypeset.html#tenzing.core.typesets.tenzingTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">containers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_type_map</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="viewcode-block" id="tenzingTypeset.__init__"><a class="viewcode-back" href="../../../tenzing/_autosummary/tenzing.core.typesets.tenzingTypeset.html#tenzing.core.typesets.tenzingTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partitioners</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partitioners</span> <span class="o">=</span> <span class="n">partitioners</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span> <span class="o">=</span> <span class="n">build_relation_graph</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">|</span> <span class="p">{</span><span class="n">tenzing_generic</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">containers</span> <span class="o">=</span> <span class="n">containers</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span> <span class="o">=</span> <span class="n">build_relation_graph</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">prep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_series_container</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-        <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-        <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_type_map</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">col</span><span class="p">:</span> <span class="n">MultiModel</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">col</span><span class="p">]]</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-        <span class="p">}</span>
+    <span class="k">def</span> <span class="nf">get_partition_types</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">],</span> <span class="n">MultiModel</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tenzing_model</span>
+
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">partitioner</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">partitioners</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">partitioner</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="n">new_series</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">convert</span><span class="p">:</span>
+                    <span class="n">node</span> <span class="o">=</span> <span class="n">infer_type</span><span class="p">(</span><span class="n">partitioner</span><span class="p">,</span> <span class="n">new_series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">node</span> <span class="o">=</span> <span class="n">traverse_relation_graph</span><span class="p">(</span>
+                        <span class="n">new_series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="n">partitioner</span>
+                    <span class="p">)</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tenzing_model</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="n">parts</span><span class="p">)</span>
 
     <span class="c1"># New API</span>
     <span class="k">def</span> <span class="nf">get_type_series</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">,</span> <span class="n">MultiModel</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">convert</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">infer_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">],</span> <span class="n">MultiModel</span><span class="p">]:</span>
+        <span class="n">series_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_partition_types</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">convert</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">series_type</span>
 
     <span class="k">def</span> <span class="nf">convert_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series_to_inferred_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="c1"># TODO: document that this has Side effects!</span>
+        <span class="n">series_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">convert_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type_series</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-    <span class="c1"># Old API</span>
-    <span class="k">def</span> <span class="nf">detect_series_container</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">detect_series_container</span><span class="p">(</span>
-            <span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">containers</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">series_type</span> <span class="o">==</span> <span class="n">convert_type</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">series</span>
 
-    <span class="k">def</span> <span class="nf">get_containerized_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_series_container</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">container</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">container</span> <span class="o">=</span> <span class="n">MultiModel</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">cast_from</span> <span class="o">=</span> <span class="n">series_type</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">infer_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">infer_series_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+        <span class="n">cast_to</span> <span class="o">=</span> <span class="n">convert_type</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">cast_to_inferred_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-            <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series_to_inferred_type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">infer_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-        <span class="n">containerized_series</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_containerized_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="n">base_type</span> <span class="o">=</span> <span class="n">infer_type</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
-            <span class="n">containerized_series</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">base_type</span>
-
-    <span class="k">def</span> <span class="nf">cast_series_to_inferred_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_container_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="n">series</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">cast_series_to_inferred_type</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">column_base_type_map</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">series</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span>
-        <span class="p">)</span>
+        <span class="c1"># For each partition...</span>
+        <span class="k">for</span> <span class="n">type_from</span><span class="p">,</span> <span class="n">type_to</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cast_from</span><span class="p">,</span> <span class="n">cast_to</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">type_from</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">cast_series_to_inferred_type</span><span class="p">(</span>
+                <span class="n">type_from</span><span class="p">,</span> <span class="n">series</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span>
+            <span class="p">)</span>
+            <span class="n">series</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
         <span class="k">return</span> <span class="n">series</span>
 
-    <span class="k">def</span> <span class="nf">_get_column_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-        <span class="c1"># walk the relation_map to determine which is most uniquely specified</span>
-        <span class="k">return</span> <span class="n">traverse_relation_graph</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_get_ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">tenzing_model</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">mdl</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">mdl</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">ancestors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">write_dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;graph_relations.dot&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
 
-        <span class="n">write_dot</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span></div>
+        <span class="n">output_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
+        <span class="kn">import</span> <span class="nn">tempfile</span>
+
+        <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">drawing</span><span class="o">.</span><span class="n">nx_pydot</span><span class="o">.</span><span class="n">to_pydot</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">write_png</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

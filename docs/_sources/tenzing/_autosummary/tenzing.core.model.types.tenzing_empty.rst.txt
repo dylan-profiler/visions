@@ -1,5 +1,0 @@
-tenzing.core.model.types.tenzing_empty
-======================================
-
-.. automodule:: tenzing.core.model.types.tenzing_empty
-    :members:

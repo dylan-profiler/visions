@@ -150,7 +150,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for tenzing.core.model.typesets</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">tenzing.core.typesets</span> <span class="k">import</span> <span class="n">tenzingTypeset</span>
+<span></span><span class="kn">from</span> <span class="nn">tenzing.core</span> <span class="k">import</span> <span class="n">tenzing_model</span>
+<span class="kn">from</span> <span class="nn">tenzing.core.typesets</span> <span class="k">import</span> <span class="n">tenzingTypeset</span>
 <span class="kn">from</span> <span class="nn">tenzing.core.model.types</span> <span class="k">import</span> <span class="o">*</span>
 
 
@@ -183,9 +184,13 @@
             <span class="n">tenzing_timedelta</span><span class="p">,</span>
             <span class="n">tenzing_integer</span><span class="p">,</span>
             <span class="n">tenzing_string</span><span class="p">,</span>
+            <span class="n">missing_generic</span><span class="p">,</span>
+            <span class="n">infinite_generic</span><span class="p">,</span>
+            <span class="n">tenzing_generic</span><span class="p">,</span>
+            <span class="n">tenzing_model</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_generic</span><span class="p">,</span> <span class="n">infinite_generic</span><span class="p">,</span> <span class="n">tenzing_generic</span><span class="p">]</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">containers</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div></div>
+        <span class="n">partitioners</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_generic</span><span class="p">,</span> <span class="n">infinite_generic</span><span class="p">,</span> <span class="n">tenzing_generic</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">partitioners</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="tenzing_geometry_set"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.core.model.typesets.tenzing_geometry_set.html#tenzing.core.model.typesets.tenzing_geometry_set">[docs]</a><span class="k">class</span> <span class="nc">tenzing_geometry_set</span><span class="p">(</span><span class="n">tenzingTypeset</span><span class="p">):</span>
@@ -218,10 +223,13 @@
             <span class="n">tenzing_integer</span><span class="p">,</span>
             <span class="n">tenzing_string</span><span class="p">,</span>
             <span class="n">tenzing_geometry</span><span class="p">,</span>
+            <span class="n">missing_generic</span><span class="p">,</span>
+            <span class="n">infinite_generic</span><span class="p">,</span>
+            <span class="n">tenzing_generic</span><span class="p">,</span>
+            <span class="n">tenzing_model</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="c1"># TODO: add generic... (e.g. for empty)</span>
-        <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_generic</span><span class="p">,</span> <span class="n">infinite_generic</span><span class="p">,</span> <span class="n">tenzing_generic</span><span class="p">]</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">containers</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div></div>
+        <span class="n">partitioners</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_generic</span><span class="p">,</span> <span class="n">infinite_generic</span><span class="p">,</span> <span class="n">tenzing_generic</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">partitioners</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="tenzing_complete_set"><a class="viewcode-back" href="../../../../tenzing/_autosummary/tenzing.core.model.typesets.tenzing_complete_set.html#tenzing.core.model.typesets.tenzing_complete_set">[docs]</a><span class="k">class</span> <span class="nc">tenzing_complete_set</span><span class="p">(</span><span class="n">tenzingTypeset</span><span class="p">):</span>
@@ -268,9 +276,13 @@
             <span class="n">tenzing_existing_path</span><span class="p">,</span>
             <span class="n">tenzing_image_path</span><span class="p">,</span>
             <span class="n">tenzing_ip</span><span class="p">,</span>
+            <span class="n">missing_generic</span><span class="p">,</span>
+            <span class="n">infinite_generic</span><span class="p">,</span>
+            <span class="n">tenzing_generic</span><span class="p">,</span>
+            <span class="n">tenzing_model</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_generic</span><span class="p">,</span> <span class="n">infinite_generic</span><span class="p">,</span> <span class="n">tenzing_generic</span><span class="p">]</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">containers</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div></div>
+        <span class="n">partitioners</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_generic</span><span class="p">,</span> <span class="n">infinite_generic</span><span class="p">,</span> <span class="n">tenzing_generic</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">partitioners</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

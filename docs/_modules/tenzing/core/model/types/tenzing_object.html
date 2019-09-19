@@ -169,10 +169,13 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_object_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">super_mask</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_object_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">super_mask</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">super_mask</span> <span class="o">&amp;</span> <span class="n">mask</span>
         <span class="c1"># return series.apply(lambda x: issubclass(type(x), np.object_))</span>
 
     <span class="nd">@classmethod</span>

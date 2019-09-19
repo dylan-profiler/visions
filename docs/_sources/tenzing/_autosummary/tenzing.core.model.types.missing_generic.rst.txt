@@ -1,0 +1,29 @@
+tenzing.core.model.types.missing\_generic
+=========================================
+
+.. currentmodule:: tenzing.core.model.types
+
+.. autoclass:: missing_generic
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~missing_generic.__init__
+      ~missing_generic.cast
+      ~missing_generic.cast_op
+      ~missing_generic.contains_op
+      ~missing_generic.get_models
+      ~missing_generic.get_relations
+      ~missing_generic.mask
+      ~missing_generic.register_relation
+   
+   
+
+   
+   
+   

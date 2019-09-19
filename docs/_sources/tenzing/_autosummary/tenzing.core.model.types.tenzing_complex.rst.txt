@@ -17,6 +17,7 @@ tenzing.core.model.types.tenzing\_complex
       ~tenzing_complex.cast
       ~tenzing_complex.cast_op
       ~tenzing_complex.contains_op
+      ~tenzing_complex.get_models
       ~tenzing_complex.get_relations
       ~tenzing_complex.mask
       ~tenzing_complex.register_relation

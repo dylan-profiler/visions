@@ -173,7 +173,12 @@
     <span class="k">return</span> <span class="n">vals</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span></div>
 
 
-<span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="n">set_name</span><span class="p">):</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;data/</span><span class="si">{set_name}</span><span class="s2">.txt&quot;</span>
+
+    <span class="n">mapping</span> <span class="o">=</span> <span class="n">parse_mapping</span><span class="p">()</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">set_name</span><span class="p">]</span>
+
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">,</span>
         <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span>
@@ -190,10 +195,24 @@
     <span class="k">return</span> <span class="n">df</span>
 
 
-<span class="k">def</span> <span class="nf">parse_unicode_data</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span>
-        <span class="s2">&quot;data/UnicodeData.txt&quot;</span><span class="p">,</span>
-        <span class="p">[</span>
+<span class="k">def</span> <span class="nf">parse_mapping</span><span class="p">():</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PropList&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Property&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;DerivedCoreProperties&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Derived_Property&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;Blocks&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Block&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;PropertyValueAliases&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Property&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Short_Name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Long_Name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Alternative1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Alternative2&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;LineBreak&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Line_Break&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;Scripts&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Script&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ScriptExtension&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Script_Extension&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;NameAliases&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">,</span> <span class="s2">&quot;Alias&quot;</span><span class="p">,</span> <span class="s2">&quot;Type&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;EastAsianWidth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;East_Asian_Width&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;UnicodeData&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="s2">&quot;idx&quot;</span><span class="p">,</span>
             <span class="s2">&quot;name&quot;</span><span class="p">,</span>
             <span class="s2">&quot;category&quot;</span><span class="p">,</span>
@@ -210,70 +229,12 @@
             <span class="s2">&quot;lowercase&quot;</span><span class="p">,</span>
             <span class="s2">&quot;titlecase&quot;</span><span class="p">,</span>
         <span class="p">],</span>
-    <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">parse_blocks</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/Blocks.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Block&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_property_value_aliases</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span>
-        <span class="s2">&quot;data/PropertyValueAliases.txt&quot;</span><span class="p">,</span>
-        <span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">,</span> <span class="s2">&quot;Short_Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Long_Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Alternative1&quot;</span><span class="p">,</span> <span class="s2">&quot;Alternative2&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">parse_proplist</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/PropList.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Property&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_derived_core_properties</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/DerivedCoreProperties.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Derived_Property&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_line_break</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/LineBreak.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Line_Break&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_scripts</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/Scripts.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Script&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_script_extension</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/ScriptExtension.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;Script_Extension&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_name_aliases</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/NameAliases.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">,</span> <span class="s2">&quot;Alias&quot;</span><span class="p">,</span> <span class="s2">&quot;Type&quot;</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">parse_east_asian_width</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;data/EastAsianWidth.txt&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;East_Asian_Width&quot;</span><span class="p">])</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">mapping</span>
 
 
 <span class="k">def</span> <span class="nf">_lookup</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;Scripts&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_scripts</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;UnicodeData&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_unicode_data</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;Blocks&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_blocks</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;EastAsianWidth&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_east_asian_width</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;NameAliases&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_name_aliases</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;ScriptExtension&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_script_extension</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;PropList&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_proplist</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;PropertyValueAliases&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_property_value_aliases</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;DerivedCoreProperties&quot;</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_derived_core_properties</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset not available&quot;</span><span class="p">)</span>
-
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_parse</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="nb">chr</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;idx&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -297,7 +258,7 @@
 
 
 <span class="k">def</span> <span class="nf">_alias</span><span class="p">(</span><span class="nb">property</span><span class="p">,</span> <span class="n">short_name</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">parse_property_value_aliases</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_parse</span><span class="p">(</span><span class="s2">&quot;PropertyValueAliases&quot;</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Property&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Short_Name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Short_Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
