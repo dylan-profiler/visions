@@ -130,4 +130,6 @@ def test_traversal_mutex(series):
 
 
 def test_inference(series, expected_type, typeset):
-    assert typeset.get_type_series(series) == expected_type
+    infered_type = typeset.get_type_series(series)
+    print(f"{infered_type} == {expected_type}")
+    assert infered_type == expected_type

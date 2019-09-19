@@ -173,6 +173,7 @@ class tenzing_model(metaclass=meta_model):
 
     @classmethod
     def __instancecheck__(mcs, instance) -> bool:
+        print(mcs, instance.__class__)
         if instance.__class__ is mcs:
             return True
         else:

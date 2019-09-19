@@ -89,14 +89,14 @@ def register_datetime_relations():
             tenzing_string,
             test_utils.coercion_test(lambda s: pd.to_datetime(s)),
         ),
-        model_relation(tenzing_datetime, tenzing_object),
+        model_relation(tenzing_datetime, tenzing_generic),
     ]
     for relation in relations:
         tenzing_datetime.register_relation(relation)
 
 
 def register_timedelta_relations():
-    relations = [model_relation(tenzing_timedelta, tenzing_object)]
+    relations = [model_relation(tenzing_timedelta, tenzing_generic)]
     for relation in relations:
         tenzing_timedelta.register_relation(relation)
 
