@@ -131,6 +131,7 @@ def test_side_effects(series):
     typeset.get_type_series(series, convert=True)
     typeset.convert_series(series)
 
+    # TODO: work with NaNs
     assert series.eq(reference).all()
 
 
