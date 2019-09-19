@@ -155,4 +155,5 @@ def test_multiple_inference(series):
 
     assert inferred_type == initial_type_after_convert
     assert initial_type_after_convert == inferred_type_after_convert
-    assert series_convert.eq(series_convert2).all()
+    assert series_convert.isna().eq(series_convert2.isna()).all()
+    assert series_convert[series_convert.notna()].eq(series_convert2[series_convert2.notna()]).all()
