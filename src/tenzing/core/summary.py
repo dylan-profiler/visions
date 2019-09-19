@@ -11,6 +11,12 @@ from tenzing.utils.graph import output_graph
 
 class Summary(object):
     def __init__(self, summary_ops, typeset):
+        """
+
+        Args:
+            summary_ops:
+            typeset:
+        """
         self.typeset = typeset
         if summary_ops is None:
             summary_ops = {}
@@ -23,11 +29,28 @@ class Summary(object):
         self.summary_ops = summary_ops
 
     def summarize_frame(self, df: pd.DataFrame):
+        """
+
+        Args:
+            df:
+
+        Returns:
+
+        """
         return dataframe_summary(df)
 
     def summarize_series(
         self, series: pd.Series, summary_type: Union[tenzing_model, MultiModel]
     ) -> dict:
+        """
+
+        Args:
+            series:
+            summary_type:
+
+        Returns:
+
+        """
         summary = {}
 
         types = summary_type.get_models()
@@ -48,6 +71,15 @@ class Summary(object):
         return summary
 
     def summarize(self, df: pd.DataFrame, types) -> dict:
+        """
+
+        Args:
+            df:
+            types:
+
+        Returns:
+
+        """
         frame_summary = self.summarize_frame(df)
         series_summary = {
             col: self.summarize_series(df[col], types[col]) for col in df.columns
@@ -55,6 +87,15 @@ class Summary(object):
         return {"types": types, "series": series_summary, "frame": frame_summary}
 
     def plot(self, file_name, type_specific=None):
+        """
+
+        Args:
+            file_name:
+            type_specific:
+
+        Returns:
+
+        """
         G = self.typeset.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
@@ -69,20 +110,12 @@ class Summary(object):
 
         included_nodes = G.nodes
         if type_specific is not None:
-            import networkx as nx
-
-            leave_types = type_specific.get_models()
-
-            leave = set()
-            for type_s in leave_types:
-                leave = leave.union(nx.ancestors(G, type_s))
-                leave.add(type_s)
+            leave = typeset._get_ancestors(type_specific)
 
             included_nodes = leave
             G.remove_nodes_from(G.nodes - leave)
 
         G.add_node("summary", shape="note")
-        # G.graph["summary"] = {"shape": "note"}
         for base_type, summary_ops in self.summary_ops.items():
             if len(summary_ops) > 0 and base_type in included_nodes:
                 G.add_edge(

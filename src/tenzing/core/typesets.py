@@ -55,8 +55,19 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
 
 
 # Infer type without conversion
-def traverse_relation_graph(series: pd.Series, G: nx.DiGraph, node: Type[tenzing_model] = tenzing_model) -> Type[tenzing_model]:
-    # DFS
+def traverse_relation_graph(
+    series: pd.Series, G: nx.DiGraph, node: Type[tenzing_model] = tenzing_model
+) -> Type[tenzing_model]:
+    """Depth First Search traversal. There should be at most one successor that contains the series.
+
+    Args:
+        series: the Series to check
+        G: the Graph to traverse
+        node: the current node
+
+    Returns:
+        The most specialist node matching the series.
+    """
     for tenz_type in G.successors(node):
         # TODO: speed gain by not considering "dashed"
         if series in tenz_type:
@@ -66,7 +77,20 @@ def traverse_relation_graph(series: pd.Series, G: nx.DiGraph, node: Type[tenzing
 
 
 # Infer type with conversion
-def get_type_inference_path(base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph, path=None) -> Tuple[List[Type[tenzing_model]], pd.Series]:
+def get_type_inference_path(
+    base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph, path=None
+) -> Tuple[List[Type[tenzing_model]], pd.Series]:
+    """
+
+    Args:
+        base_type:
+        series:
+        G:
+        path:
+
+    Returns:
+
+    """
     if path is None:
         path = []
 
@@ -80,12 +104,37 @@ def get_type_inference_path(base_type: Type[tenzing_model], series: pd.Series, G
     return path, series
 
 
-def infer_type(base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph) -> Type[tenzing_model]:
+def infer_type(
+    base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph
+) -> Type[tenzing_model]:
+    """
+
+    Args:
+        base_type:
+        series:
+        G:
+
+    Returns:
+
+    """
+    # TODO: path is never used...
     path, _ = get_type_inference_path(base_type, series, G)
     return path[-1]
 
 
-def cast_series_to_inferred_type(base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph) -> pd.Series:
+def cast_series_to_inferred_type(
+    base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph
+) -> pd.Series:
+    """
+
+    Args:
+        base_type:
+        series:
+        G:
+
+    Returns:
+
+    """
     _, series = get_type_inference_path(base_type, series, G)
     return series
 
@@ -96,9 +145,17 @@ class tenzingTypeset(object):
 
     Attributes:
         types: The collection of tenzing types which are derived either from a base_type or themselves
+        partitioners: ...
+        relation_graph: ...
     """
 
     def __init__(self, partitioners: list, types: list):
+        """
+
+        Args:
+            partitioners:
+            types:
+        """
         self.partitioners = partitioners
 
         self.relation_graph = build_relation_graph(set(types))
@@ -107,6 +164,15 @@ class tenzingTypeset(object):
     def get_partition_types(
         self, series: pd.Series, convert=False
     ) -> Union[Type[tenzing_model], MultiModel]:
+        """
+
+        Args:
+            series:
+            convert:
+
+        Returns:
+
+        """
         if series.empty:
             return tenzing_model
 
@@ -132,10 +198,27 @@ class tenzingTypeset(object):
     def get_type_series(
         self, series: pd.Series, convert=False
     ) -> Union[Type[tenzing_model], MultiModel]:
+        """
+
+        Args:
+            series:
+            convert:
+
+        Returns:
+
+        """
         series_type = self.get_partition_types(series, convert)
         return series_type
 
     def convert_series(self, series: pd.Series) -> pd.Series:
+        """
+
+        Args:
+            series:
+
+        Returns:
+
+        """
         # TODO: document that this has Side effects!
         series_type = self.get_type_series(series)
         convert_type = self.get_type_series(series, True)
@@ -157,17 +240,43 @@ class tenzingTypeset(object):
         return series
 
     def _get_ancestors(self, node: Type[tenzing_model]) -> set:
+        """
+
+        Args:
+            node:
+
+        Returns:
+
+        """
         return {
-            mdl for x in node.get_models() for mdl in nx.ancestors(self.relation_graph, x)
+            mdl
+            for x in node.get_models()
+            for mdl in nx.ancestors(self.relation_graph, x)
         }
 
     def output(self, file_name) -> None:
+        """
+
+        Args:
+            file_name:
+
+        Returns:
+
+        """
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
         output_graph(G, file_name)
 
     def plot_graph(self, dpi=800):
+        """
+
+        Args:
+            dpi:
+
+        Returns:
+
+        """
         import matplotlib.pyplot as plt
         import matplotlib.image as mpimg
         import tempfile
