@@ -62,7 +62,13 @@ class Summary(object):
         G.graph["node"] = {"shape": "box", "color": "red"}
 
         # Drop dashed relations
-        G.remove_edges_from([(start, end) for start, end, attributes in G.edges(data=True) if attributes['style'] == 'dashed'])
+        G.remove_edges_from(
+            [
+                (start, end)
+                for start, end, attributes in G.edges(data=True)
+                if attributes["style"] == "dashed"
+            ]
+        )
 
         included_nodes = G.nodes
         if type_specific is not None:
@@ -82,11 +88,15 @@ class Summary(object):
             included_nodes = leave
             G.remove_nodes_from(G.nodes - leave)
 
-        G.add_node('summary', shape='note')
+        G.add_node("summary", shape="note")
         # G.graph["summary"] = {"shape": "note"}
         for base_type, summary_ops in self.summary_ops.items():
             if len(summary_ops) > 0 and base_type in included_nodes:
-                G.add_edge(str(base_type), 'summary', label="\n".join([str(op.__name__) for op in summary_ops]))
+                G.add_edge(
+                    str(base_type),
+                    "summary",
+                    label="\n".join([str(op.__name__) for op in summary_ops]),
+                )
 
         output_graph(G, file_name)
 
@@ -94,24 +104,29 @@ class Summary(object):
 type_summary_ops = {
     tenzing_bool: [],
     tenzing_categorical: [category_summary, unique_summary],
-    tenzing_complex: [complex_summary, unique_summary_complex],
+    tenzing_complex: [infinite_summary, complex_summary, unique_summary_complex],
     tenzing_datetime: [datetime_summary, unique_summary],
     tenzing_date: [],
     tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
-    tenzing_float: [numerical_summary, zero_summary, unique_summary],
+    tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
     tenzing_geometry: [],
     tenzing_image_path: [],
-    tenzing_integer: [numerical_summary, zero_summary, unique_summary],
+    tenzing_integer: [
+        infinite_summary,
+        numerical_summary,
+        zero_summary,
+        unique_summary,
+    ],
     tenzing_object: [unique_summary],
     tenzing_path: [path_summary, text_summary],
     tenzing_string: [text_summary, unique_summary],
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-    infinite_generic: [infinite_summary],
-    missing_generic: [missing_summary],
+    infinite_generic: [],
+    missing_generic: [],
     tenzing_generic: [],
-    tenzing_model: [base_summary],
+    tenzing_model: [base_summary, missing_summary],
 }
 
 # TODO: add typeset

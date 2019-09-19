@@ -25,11 +25,7 @@ def get_series_map():
                 "textual_float",
             ],
         ),
-        (
-            tenzing_datetime,
-            tenzing_string,
-            ["timestamp_string_series", 'string_date'],
-        ),
+        (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
         (tenzing_geometry, tenzing_string, ["geometry_string_series"]),
         (tenzing_bool, tenzing_string, ["string_bool_nan"]),
         (tenzing_ip, tenzing_string, ["ip_str"]),
@@ -52,22 +48,10 @@ def get_series_map():
         # (tenzing_datetime, tenzing_object),
     ]
 
-    if os.name == 'nt':
-        series_map.append((
-            tenzing_path,
-            tenzing_string,
-            [
-                "path_series_windows_str"
-            ],
-        ))
+    if os.name == "nt":
+        series_map.append((tenzing_path, tenzing_string, ["path_series_windows_str"]))
     else:
-        series_map.append((
-            tenzing_path,
-            tenzing_string,
-            [
-                "path_series_linux_str"
-            ],
-        ))
+        series_map.append((tenzing_path, tenzing_string, ["path_series_linux_str"]))
 
     return series_map
 
@@ -113,7 +97,7 @@ def test_relations(source_type, relation_type, series):
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (
-                cast_series in source_type
+            cast_series in source_type
         ), f"Relationship {relation} cast {series.values} to {cast_series.values} "
     else:
         raise ValueError("No relation.")
@@ -125,14 +109,14 @@ def test_consistency(series):
         converted_series = typeset.convert_series(series)
         assert not (
             (
-                    converted_series.eq(series) ^ (converted_series.isna() & series.isna())
+                converted_series.eq(series) ^ (converted_series.isna() & series.isna())
             ).all()
         )
     else:
         converted_series = typeset.convert_series(series)
         # Missing values fix
         assert (
-                converted_series.eq(series) ^ (converted_series.isna() & series.isna())
+            converted_series.eq(series) ^ (converted_series.isna() & series.isna())
         ).all()
 
 

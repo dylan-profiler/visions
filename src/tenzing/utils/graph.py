@@ -7,11 +7,11 @@ def output_graph(G, file_name):
     if not isinstance(file_name, Path):
         file_name = Path(file_name)
 
-    if file_name.suffix == '.svg':
+    if file_name.suffix == ".svg":
         p.write_svg(file_name)
-    elif file_name.suffix == '.png':
+    elif file_name.suffix == ".png":
         p.write_png(file_name)
-    elif file_name.suffix == '.dot':
+    elif file_name.suffix == ".dot":
         p.write_dot(file_name)
     else:
-        raise ValueError('Extension should be .dot, .svg or .png')
+        raise ValueError("Extension should be .dot, .svg or .png")

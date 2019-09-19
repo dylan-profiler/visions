@@ -63,7 +63,7 @@ def register_url_relations():
 
     relations = [
         model_relation(tenzing_url, tenzing_string, test_url),
-        model_relation(tenzing_url, tenzing_object)
+        model_relation(tenzing_url, tenzing_object),
     ]
     for relation in relations:
         tenzing_url.register_relation(relation)
@@ -119,9 +119,7 @@ def register_geometry_relations():
 
     relations = [
         model_relation(tenzing_geometry, tenzing_string, string_is_geometry),
-        model_relation(
-            tenzing_geometry, tenzing_object
-        ),
+        model_relation(tenzing_geometry, tenzing_object),
     ]
     for relation in relations:
         tenzing_geometry.register_relation(relation)
@@ -187,7 +185,7 @@ def register_object_relations():
 def register_date_relations():
     relations = [
         model_relation(tenzing_date, tenzing_datetime),
-        model_relation(tenzing_date, tenzing_string)
+        model_relation(tenzing_date, tenzing_string),
     ]
     for relation in relations:
         tenzing_date.register_relation(relation)

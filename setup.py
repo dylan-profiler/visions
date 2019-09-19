@@ -3,22 +3,16 @@ from os.path import basename, splitext
 from glob import glob
 from setuptools import find_packages
 
-install_requires = [
-    'numpy',
-    'pandas',
-    'networkx'
-]
+install_requires = ["numpy", "pandas", "networkx"]
 
 extras_requires = {
-    'type_geometry': ['shapely', 'geopandas'],
-    'type_image_path': ['imagehash'],
-    'network_plot': ['pydot', 'pygraphviz'],
-    'dev_docs': ['recommonmark', 'sphinx_rtd_theme', 'sphinx-autodoc-typehints']
- }
+    "type_geometry": ["shapely", "geopandas"],
+    "type_image_path": ["imagehash"],
+    "network_plot": ["pydot", "pygraphviz"],
+    "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
+}
 
-test_requires = [
-    'pytest'
-]
+test_requires = ["pytest"]
 
 setup(
     name="tenzing",

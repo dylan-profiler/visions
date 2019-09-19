@@ -9,17 +9,31 @@ from tenzing.core.model_implementations import tenzing_timestamp
 test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
 ```
 
+### Inference
+Inference returns the narrowest possible type
+
+```python
+>>> get_type(test_series)
+tenzing_datetime + missing
+```
+
+### Membership
 We can do a couple of things with this, first we can check if `test_series` is a `tenzing_timestamp`
 
 ```python
-test_series in tenzing_timestamp
--> True
+>>> test_series in tenzing_datetime + missing
+True
+
+>>> test_series in tenzing_datetime
+-> False
 ```
 
+
+### Summarize
 We can also get a summary unique to the tenzing_type of the data
 
 ```python
-tenzing_timestamp.summarize(test_series)
+summarize(test_series, tenzing_datetime + missing)
 -> {
 	 'nunique': 3,
  	 'min': Timestamp('2010-01-01 00:00:00'),
@@ -36,7 +50,7 @@ If we had instead applied a summarization operation to a categorical series we w
 
 ```python
 test_series = pd.Series(pd.Categorical([True, False, np.nan, 'test'], categories=[True, False, 'test', 'missing']))
-tenzing_categorical.summarize(test_series)
+summarize(test_series, tenzing_categorical)
 -> {
     'nunique': 3,
     'n_records': 4,

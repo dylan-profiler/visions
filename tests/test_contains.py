@@ -48,13 +48,6 @@ def get_series_map():
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
-        # tenzing_empty: [
-        #     "empty",
-        #     "empty_float",
-        #     "empty_int64",
-        #     "empty_object",
-        #     "empty_bool",
-        # ],
         missing_generic: ["nan_series", "nan_series_2"],
         infinite_generic: ["inf_series"],
     }
@@ -67,35 +60,38 @@ def get_series_map():
         + series_map[tenzing_url]
         + series_map[tenzing_ip]
     )
+    # TODO: add inheritance (e.g. existing_path includes path)
 
     # Series with missing values
     series_map[tenzing_date + missing_generic] = (
-        series_map[tenzing_date]
-        + ["timestamp_series_nat"]
-        + series_map[missing_generic]
+        # series_map[tenzing_date]
+        ["timestamp_series_nat"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_datetime + missing_generic] = (
-        series_map[tenzing_datetime]
-        + ["timestamp_series_nat"]
-        + series_map[missing_generic]
+        # series_map[tenzing_datetime]
+        ["timestamp_series_nat"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_timedelta + missing_generic] = (
-        series_map[tenzing_timedelta]
-        + ["timedelta_series_nat"]
-        + series_map[missing_generic]
+        # series_map[tenzing_timedelta]
+        ["timedelta_series_nat"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_complex + missing_generic] = (
-        series_map[tenzing_complex]
-        + ["complex_series_py_nan", "complex_series_nan_2", "complex_series_nan"]
-        + series_map[missing_generic]
+        # series_map[tenzing_complex]
+        ["complex_series_py_nan", "complex_series_nan_2", "complex_series_nan"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_bool + missing_generic] = (
-        series_map[tenzing_bool] + ["bool_nan_series"] + series_map[missing_generic]
+        # series_map[tenzing_bool] +
+        ["bool_nan_series"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_float + missing_generic] = (
-        series_map[tenzing_float]
-        + ["float_nan_series", "float_series5", "float_series6"]
-        + series_map[missing_generic]
+        # series_map[tenzing_float]
+        ["float_nan_series", "float_series5", "float_series6"]
+        # + series_map[missing_generic]
     )
     series_map[tenzing_integer + missing_generic] = (
         series_map[tenzing_integer]
@@ -103,17 +99,21 @@ def get_series_map():
         + series_map[missing_generic]
     )
     series_map[tenzing_string + missing_generic] = (
-        series_map[tenzing_string]
-        + ["string_num_nan", "string_flt_nan", "string_str_nan", "string_bool_nan"]
-        + series_map[missing_generic]
+        # series_map[tenzing_string]
+        ["string_num_nan", "string_flt_nan", "string_str_nan", "string_bool_nan"]
+        # + series_map[missing_generic]
     )
 
     # Series with inf values
     series_map[tenzing_float + infinite_generic] = (
-        series_map[tenzing_float] + ["float_with_inf"] + series_map[infinite_generic]
+        # series_map[tenzing_float] +
+        ["float_with_inf"]
+        # + series_map[infinite_generic]
     )
     series_map[tenzing_integer + infinite_generic] = (
-        series_map[tenzing_integer] + ["int_with_inf"] + series_map[infinite_generic]
+        # series_map[tenzing_integer] +
+        ["int_with_inf"]
+        # + series_map[infinite_generic]
     )
 
     # TODO: Series with missing and Inf values

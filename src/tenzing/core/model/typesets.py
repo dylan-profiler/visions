@@ -35,7 +35,7 @@ class tenzing_standard_set(tenzingTypeset):
             missing_generic,
             infinite_generic,
             tenzing_generic,
-            tenzing_model
+            tenzing_model,
         ]
         partitioners = [missing_generic, infinite_generic, tenzing_generic]
         super().__init__(partitioners, types)
@@ -74,7 +74,7 @@ class tenzing_geometry_set(tenzingTypeset):
             missing_generic,
             infinite_generic,
             tenzing_generic,
-            tenzing_model
+            tenzing_model,
         ]
         partitioners = [missing_generic, infinite_generic, tenzing_generic]
         super().__init__(partitioners, types)
@@ -127,7 +127,7 @@ class tenzing_complete_set(tenzingTypeset):
             missing_generic,
             infinite_generic,
             tenzing_generic,
-            tenzing_model
+            tenzing_model,
         ]
         partitioners = [missing_generic, infinite_generic, tenzing_generic]
         super().__init__(partitioners, types)

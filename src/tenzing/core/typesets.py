@@ -103,7 +103,9 @@ class tenzingTypeset(object):
         self.types = frozenset(self.relation_graph.nodes)
 
     def _detect_series_partitioners(self, series):
-        partitioners = [partitioner for partitioner in self.partitioners if series in partitioner]
+        partitioners = [
+            partitioner for partitioner in self.partitioners if series in partitioner
+        ]
         if len(partitioners) == 0:
             partitioners = [tenzing_model]
 
@@ -112,7 +114,9 @@ class tenzingTypeset(object):
 
     def prep_series(self, series: pd.Series):
         # Detect partitioners
-        self.column_partitioner_map[series.name] = self._detect_series_partitioners(series)
+        self.column_partitioner_map[series.name] = self._detect_series_partitioners(
+            series
+        )
 
         # TODO: For each partitioner, traverse, not only for one..
         self.column_base_type_map[series.name] = self.get_type_series(series)
