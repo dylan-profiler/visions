@@ -134,7 +134,6 @@ def test_side_effects(series):
     typeset = tenzing_complete_set()
     typeset.get_type_series(series)
     typeset.get_type_series(series, convert=True)
-    typeset.convert_series(series)
 
     # Check if NaN mask is equal
     assert series.notna().eq(reference.notna()).all()

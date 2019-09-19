@@ -27,4 +27,4 @@ class tenzing_url(tenzing_object):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(urlparse)
+        return series.apply(lambda x: urlparse(x) if not isinstance(x, ParseResult) else x)

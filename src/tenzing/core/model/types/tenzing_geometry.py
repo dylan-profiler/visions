@@ -1,4 +1,7 @@
 import pandas as pd
+from shapely.geometry.base import BaseGeometry
+from shapely import wkt
+from shapely import geometry
 
 from tenzing.core.model.types.tenzing_object import tenzing_object
 
@@ -13,7 +16,6 @@ class tenzing_geometry(tenzing_object):
         True
     """
 
-    from shapely import geometry
 
     geom_types = [
         geometry.Point,
@@ -39,6 +41,4 @@ class tenzing_geometry(tenzing_object):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        from shapely import wkt
-
-        return pd.Series([wkt.loads(value) for value in series])
+        return pd.Series([wkt.loads(value) if not issubclass(type(value), BaseGeometry) else value for value in series])
