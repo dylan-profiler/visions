@@ -7,6 +7,7 @@ import networkx as nx
 
 from tenzing.core.model.types.tenzing_generic import tenzing_generic
 from tenzing.core.models import MultiModel, tenzing_model
+from tenzing.utils.graph import output_graph
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
@@ -166,15 +167,4 @@ class tenzingTypeset(object):
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
-        p = nx.drawing.nx_pydot.to_pydot(G)
-        if not isinstance(file_name, Path):
-            file_name = Path(file_name)
-
-        if file_name.suffix == '.svg':
-            p.write_svg(file_name)
-        elif file_name.suffix == '.png':
-            p.write_png(file_name)
-        elif file_name.suffix == '.dot':
-            p.write_dot(file_name)
-        else:
-            raise ValueError('Extension should be .dot, .svg or .png')
+        output_graph(G, file_name)

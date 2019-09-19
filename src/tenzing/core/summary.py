@@ -2,13 +2,16 @@ from typing import Union
 
 import pandas as pd
 
+from tenzing.core.model import tenzing_complete_set
 from tenzing.core.models import tenzing_model, MultiModel
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
+from tenzing.utils.graph import output_graph
 
 
 class Summary(object):
-    def __init__(self, summary_ops):
+    def __init__(self, summary_ops, typeset):
+        self.typeset = typeset
         if summary_ops is None:
             summary_ops = {}
 
@@ -54,6 +57,39 @@ class Summary(object):
         }
         return {"types": types, "series": series_summary, "frame": frame_summary}
 
+    def plot(self, file_name, type_specific=None):
+        G = self.typeset.relation_graph.copy()
+        G.graph["node"] = {"shape": "box", "color": "red"}
+
+        # Drop dashed relations
+        G.remove_edges_from([(start, end) for start, end, attributes in G.edges(data=True) if attributes['style'] == 'dashed'])
+
+        included_nodes = G.nodes
+        if type_specific is not None:
+            import networkx as nx
+
+            # TODO: move this logic to MultiModel / type (e.g. type_specific.models)
+            if isinstance(type_specific, MultiModel):
+                leave_types = type_specific.models
+            else:
+                leave_types = [type_specific]
+
+            leave = set()
+            for type_s in leave_types:
+                leave = leave.union(nx.ancestors(G, type_s))
+                leave.add(type_s)
+
+            included_nodes = leave
+            G.remove_nodes_from(G.nodes - leave)
+
+        G.add_node('summary', shape='note')
+        # G.graph["summary"] = {"shape": "note"}
+        for base_type, summary_ops in self.summary_ops.items():
+            if len(summary_ops) > 0 and base_type in included_nodes:
+                G.add_edge(str(base_type), 'summary', label="\n".join([str(op.__name__) for op in summary_ops]))
+
+        output_graph(G, file_name)
+
 
 type_summary_ops = {
     tenzing_bool: [],
@@ -79,4 +115,5 @@ type_summary_ops = {
 }
 
 # TODO: add typeset
-summary = Summary(type_summary_ops)
+typeset = tenzing_complete_set()
+summary = Summary(type_summary_ops, typeset)
