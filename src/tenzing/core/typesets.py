@@ -87,11 +87,13 @@ def cast_series_to_inferred_type(base_type, series, G):
 
 def detect_series_container(series, containers):
     series_containers = [container for container in containers if series in container]
-    container = (
-        MultiModel(series_containers)
-        if len(series_containers) > 1
-        else series_containers[0]
-    )
+    if len(series_containers) > 1:
+        container = MultiModel(series_containers)
+    elif len(series_containers) == 1:
+        container = series_containers[0]
+    else:
+        container = tenzing_model
+
     return container
 
 
