@@ -168,7 +168,6 @@ def pytest_generate_tests(metafunc):
 
 
 def test_contains(series, type):
-    print(f"{series.to_dict()} in {type}")
     assert series in type
 
 
