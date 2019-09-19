@@ -30,10 +30,7 @@ class Summary(object):
     ) -> dict:
         summary = {}
 
-        if isinstance(summary_type, MultiModel):
-            types = summary_type.models
-        else:
-            types = [summary_type]
+        types = summary_type.get_models()
 
         done = []
         for current_type in types:
@@ -74,11 +71,7 @@ class Summary(object):
         if type_specific is not None:
             import networkx as nx
 
-            # TODO: move this logic to MultiModel / type (e.g. type_specific.models)
-            if isinstance(type_specific, MultiModel):
-                leave_types = type_specific.models
-            else:
-                leave_types = [type_specific]
+            leave_types = type_specific.get_models()
 
             leave = set()
             for type_s in leave_types:

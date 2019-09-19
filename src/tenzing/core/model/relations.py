@@ -49,17 +49,15 @@ def register_string_relations():
 
 
 def register_url_relations():
-    # TODO: change into coercion test
     def test_url(series):
-        try:
-            return (
-                series.apply(urlparse).apply(lambda x: all((x.netloc, x.scheme))).all()
-            )
-        except AttributeError:
-            return False
+        result = series.apply(urlparse).apply(lambda x: all((x.netloc, x.scheme))).all()
+        if not result:
+            return None
+        else:
+            return result
 
     relations = [
-        model_relation(tenzing_url, tenzing_string, test_url),
+        model_relation(tenzing_url, tenzing_string, test_utils.coercion_test(test_url)),
         model_relation(tenzing_url, tenzing_object),
     ]
     for relation in relations:
@@ -99,16 +97,18 @@ def register_timedelta_relations():
 
 
 def register_geometry_relations():
+    # TODO: replace with test_utils
     def string_is_geometry(series):
         """
             Shapely logs failures at a silly severity, just trying to suppress it's output on failures.
         """
         from shapely import wkt
+        from shapely.errors import WKTReadingError
 
         logging.disable(logging.ERROR)
         try:
             result = all(wkt.loads(value) for value in series)
-        except Exception:
+        except WKTReadingError:
             result = False
         finally:
             logging.disable(logging.NOTSET)
@@ -135,7 +135,6 @@ def register_bool_relations():
                 k: v for d in self._boolean_maps for k, v in d.items()
             }
 
-        # TODO: ensure that series.str.lower() has no side effects
         def string_is_bool(self, series):
             temp_series = series.str.lower()
             return any(

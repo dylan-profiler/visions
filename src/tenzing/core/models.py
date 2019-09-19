@@ -39,10 +39,10 @@ class model_relation:
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
 
-    def is_relation(self, obj) -> bool:
+    def is_relation(self, obj: pd.Series) -> bool:
         return self.relationship(obj)
 
-    def transform(self, obj):
+    def transform(self, obj: pd.Series) -> pd.Series:
         return self.model.cast(obj, self.transformer)
 
     def __repr__(self) -> str:
@@ -57,8 +57,6 @@ class meta_model(type):
 
     # TODO: raise exception on instantiation
     #     raise Exception("Cannot instantiate a type!")
-    # TODO: automatic static ?
-    # https://stackoverflow.com/questions/31953113/purely-static-classes-in-python-use-metaclass-class-decorator-or-something-e
 
     def __str__(cls) -> str:
         return f"{cls.__name__}"
@@ -78,7 +76,7 @@ class meta_model(type):
         return MultiModel(models=[self, other])
 
 
-# TODO: rename to partitioner
+# TODO: rename
 class MultiModel(metaclass=meta_model):
     def __init__(self, models: list):
         assert len(models) >= 2
@@ -87,12 +85,15 @@ class MultiModel(metaclass=meta_model):
         for model in models:
             self.add_model(model)
 
-    def __contains__(self, series: pd.Series):
+    def get_models(self) -> set:
+        return self.models
+
+    def __contains__(self, series: pd.Series) -> bool:
         if series.empty:
             return False
         return self.contains_op(series)
 
-    def add_model(self, model):
+    def add_model(self, model) -> None:
         if not issubclass(model, tenzing_model):
             raise Exception(
                 f"{model} must be subclass of type tenzing_model, but is of type {type(model)}"
@@ -124,7 +125,7 @@ class MultiModel(metaclass=meta_model):
 
         return self.models == other.models
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(self.__str__())
 
     def mask(self, series: pd.Series):
@@ -145,10 +146,10 @@ class MultiModel(metaclass=meta_model):
 
         return True
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"({', '.join([str(model) for model in self.models])})"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self)
 
 
@@ -170,6 +171,7 @@ class tenzing_model(metaclass=meta_model):
 
     _relations = {}
 
+    # TODO: is this even used?
     @classmethod
     def __instancecheck__(mcs, instance) -> bool:
         print(mcs, instance.__class__)
@@ -179,8 +181,12 @@ class tenzing_model(metaclass=meta_model):
             return isinstance(instance.__class__, mcs)
 
     @classmethod
+    def get_models(cls) -> set:
+        return {cls}
+
+    @classmethod
     def get_relations(cls) -> dict:
-        # TODO: move to __new__ or so?
+        # TODO: move to abstract class (__new__)?
         if cls.__name__ not in cls._relations:
             cls._relations[cls.__name__] = {}
 
