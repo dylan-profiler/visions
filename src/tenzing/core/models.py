@@ -120,11 +120,8 @@ class MultiModel(metaclass=meta_model):
 
         for model in self.models:
             mask = model.mask(series)
-            if not mask.any():
+            if not mask.any() or not series[model.mask(series)] in model:
                 return False
-            else:
-                if not series[model.mask(series)] in model:
-                    return False
 
         return True
 
