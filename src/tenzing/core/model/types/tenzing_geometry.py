@@ -12,7 +12,7 @@ class tenzing_geometry(tenzing_model):
     """
 
     from shapely import geometry
-    from shapely.geometry import BaseGeometry
+    from shapely.geometry.base import BaseGeometry
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

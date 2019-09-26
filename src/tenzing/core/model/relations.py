@@ -207,8 +207,7 @@ def register_existing_path_relations():
 
 def register_image_path_relations():
     relations = [model_relation(tenzing_image_path, tenzing_existing_path, inferential=False)]
-    for relation in relations:
-        tenzing_image_path.register_relation(relation)
+    return relations
 
 
 def register_ip_relations():
@@ -216,24 +215,30 @@ def register_ip_relations():
                  model_relation(tenzing_ip,
                                 tenzing_string,
                                 test_utils.coercion_test(lambda s: s.apply(ip_address)))]
+    return relations
+
+
+# Register relations
+relations = [
+    register_integer_relations(),
+    register_float_relations(),
+    register_string_relations(),
+    register_datetime_relations(),
+    register_timedelta_relations(),
+    register_bool_relations(),
+    register_geometry_relations(),
+    register_url_relations(),
+    register_path_relations(),
+    register_categorical_relations(),
+    register_complex_relations(),
+    register_object_relations(),
+    register_date_relations(),
+    register_time_relations(),
+    register_existing_path_relations(),
+    register_ip_relations(),
+    register_image_path_relations(),
+]
+
+if __name__ == "__main__":
     for relation in relations:
-        tenzing_ip.register_relation(relation)
-
-
-register_integer_relations()
-register_float_relations()
-register_string_relations()
-register_datetime_relations()
-register_timedelta_relations()
-register_bool_relations()
-register_geometry_relations()
-register_url_relations()
-register_path_relations()
-register_categorical_relations()
-register_complex_relations()
-register_object_relations()
-register_date_relations()
-register_time_relations()
-register_existing_path_relations()
-register_ip_relations()
-register_image_path_relations()
+        relation.model.register_relation(relation)
