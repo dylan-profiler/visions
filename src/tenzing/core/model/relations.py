@@ -1,3 +1,4 @@
+from ipaddress import ip_address
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -211,8 +212,17 @@ def register_existing_path_relations():
         tenzing_existing_path.register_relation(relation)
 
 
+def register_image_path_relations():
+    relations = [model_relation(tenzing_image_path, tenzing_existing_path, inferential=False)]
+    for relation in relations:
+        tenzing_image_path.register_relation(relation)
+
+
 def register_ip_relations():
-    relations = [model_relation(tenzing_ip, tenzing_object, inferential=False)]
+    relations = [model_relation(tenzing_ip, tenzing_object, inferential=False),
+                 model_relation(tenzing_ip,
+                                tenzing_string,
+                                test_utils.coercion_test(lambda s: s.apply(ip_address)))]
     for relation in relations:
         tenzing_ip.register_relation(relation)
 
@@ -233,3 +243,4 @@ register_date_relations()
 register_time_relations()
 register_existing_path_relations()
 register_ip_relations()
+register_image_path_relations()
