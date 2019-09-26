@@ -1,11 +1,12 @@
 import pandas as pd
-from ipaddress import IPv4Address, _BaseAddress, ip_address
+from ipaddress import _BaseAddress, ip_address
 
 from tenzing.core.models import tenzing_model
 
 
 class tenzing_ip(tenzing_model):
     """**IP Address** (v4 and v6) implementation of :class:`tenzing.core.models.tenzing_model`.
+    >>> from ipaddress import IPv4Address
     >>> x = pd.Series([IPv4Address('127.0.0.1'), IPv4Address('128.0.1.2')])
     >>> x in tenzing_ip
     True

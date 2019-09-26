@@ -1,7 +1,5 @@
 import pandas.api.types as pdt
 import pandas as pd
-import numpy as np
-from pandas._libs.tslibs.timedeltas import Timedelta
 
 from tenzing.core.models import tenzing_model
 
