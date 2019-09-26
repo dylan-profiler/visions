@@ -12,24 +12,11 @@ class tenzing_geometry(tenzing_model):
     """
 
     from shapely import geometry
-
-    geom_types = [
-        geometry.Point,
-        geometry.Polygon,
-        geometry.MultiPolygon,
-        geometry.MultiPoint,
-        geometry.LineString,
-        geometry.LinearRing,
-        geometry.MultiPoint,
-        geometry.MultiLineString,
-    ]
+    from shapely.geometry import BaseGeometry
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(
-            any(isinstance(obj, geom_type) for geom_type in cls.geom_types)
-            for obj in series
-        )
+        return series.apply(lambda x: issubclass(type(x), BaseGeometry)).all()
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
