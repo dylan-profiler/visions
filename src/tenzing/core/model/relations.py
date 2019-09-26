@@ -47,7 +47,7 @@ def register_float_relations():
 
 
 def register_string_relations():
-    relations = [model_relation(tenzing_string, tenzing_object)]
+    relations = [model_relation(tenzing_string, tenzing_object, inferential=False)]
     for relation in relations:
         tenzing_string.register_relation(relation)
 
