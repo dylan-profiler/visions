@@ -1,5 +1,4 @@
 import pandas.api.types as pdt
-from pandas._libs.tslibs.timestamps import Timestamp
 import pandas as pd
 import numpy as np
 from tenzing.core.models import tenzing_model
@@ -14,9 +13,7 @@ class tenzing_datetime(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(
-            lambda x: issubclass(type(x), np.datetime64) or isinstance(x, Timestamp)
-        ).all()
+        return pdt.is_datetime64_any_dtype(series)
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

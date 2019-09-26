@@ -1,4 +1,4 @@
-
+import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core.models import tenzing_model
@@ -14,9 +14,13 @@ class tenzing_time(tenzing_model):
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         # Substantially better scaling
-        return all((series.dt.day.eq(1).all(),
-                    series.dt.month.eq(1).all(),
-                    series.dt.year.eq(1970).all()))
+        return pdt.is_datetime64_any_dtype(series) and all(
+            (
+                series.dt.day.eq(1).all(),
+                series.dt.month.eq(1).all(),
+                series.dt.year.eq(1970).all(),
+            )
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

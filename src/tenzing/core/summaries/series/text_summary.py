@@ -1,8 +1,9 @@
+from collections import Counter
 from unicodedata import category
 
 import pandas as pd
 
-from tenzing.utils.unicode.unicode_data import script, block, category_alias
+from tangled_up_in_unicode import script, block, category_alias, block_alias
 
 
 def text_summary(series: pd.Series) -> dict:
@@ -18,26 +19,18 @@ def text_summary(series: pd.Series) -> dict:
     summary = {"length": series.map(lambda x: len(str(x))).value_counts().to_dict()}
 
     # Unicode Character Summaries (category and script name)
-    category_values = series.apply(
-        lambda sequence: {category(character) for character in sequence}
-    )
-    summary["category_short_values"] = {y for x in category_values.values for y in x}
+    character_counts = dict(Counter(series.str.cat()))
 
-    category_long_values = series.apply(
-        lambda sequence: {category_alias(character) for character in sequence}
-    )
-    summary["category_alias_values"] = {
-        y for x in category_long_values.values for y in x
+    summary["category_short_values"] = {
+        key: category(key) for key in character_counts.keys()
     }
-
-    script_values = series.apply(
-        lambda sequence: {script(character) for character in sequence}
-    )
-    summary["script_values"] = {y for x in script_values.values for y in x}
-
-    block_values = series.apply(
-        lambda sequence: {block(character) for character in sequence}
-    )
-    summary["block_values"] = {y for x in block_values.values for y in x}
+    summary["category_alias_values"] = {
+        key: category_alias(key) for key in character_counts.keys()
+    }
+    summary["script_values"] = {key: script(key) for key in character_counts.keys()}
+    summary["block_values"] = {key: block(key) for key in character_counts.keys()}
+    summary["block_alias_values"] = {
+        key: block_alias(key) for key in character_counts.keys()
+    }
 
     return summary
