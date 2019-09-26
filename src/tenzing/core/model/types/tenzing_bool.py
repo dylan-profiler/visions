@@ -6,7 +6,7 @@ from tenzing.core.models import tenzing_model
 
 class tenzing_bool(tenzing_model):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
-    >>> x = pd.Series([True, False, np.nan])
+    >>> x = pd.Series([True, False])
     >>> x in tenzing_bool
     True
     """

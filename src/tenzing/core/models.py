@@ -25,7 +25,9 @@ class model_relation:
         pd.Series([1, 2, 3])
     """
 
-    def __init__(self, model, friend_model, relationship=None, transformer=None, inferential=None):
+    def __init__(
+        self, model, friend_model, relationship=None, transformer=None, inferential=None
+    ):
         """
         Args:
             model: The type this relation will transform a series into.

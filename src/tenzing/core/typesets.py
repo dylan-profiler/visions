@@ -28,10 +28,7 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
     relation_graph.add_edges_from(
-        (
-            *node.edge,
-            {"relationship": node, "style": style_map[node.inferential]},
-        )
+        (*node.edge, {"relationship": node, "style": style_map[node.inferential]})
         for s_node in nodes
         for to_node, node in s_node.get_relations().items()
     )
@@ -137,8 +134,14 @@ def cast_series_to_inferred_type(
 
 
 def get_series_partitioner(series, partitioners):
-    series_partitioners = [partitioner for partitioner in partitioners if series in partitioner]
-    partitioner = MultiPartitioner(series_partitioners) if len(series_partitioners) > 1 else series_partitioners[0]
+    series_partitioners = [
+        partitioner for partitioner in partitioners if series in partitioner
+    ]
+    partitioner = (
+        MultiPartitioner(series_partitioners)
+        if len(series_partitioners) > 1
+        else series_partitioners[0]
+    )
     return partitioner
 
 
@@ -187,7 +190,9 @@ class tenzingTypeset(object):
         self.types = frozenset(self.relation_graph.nodes)
 
     def prep(self, df):
-        self.column_type_map = {column: self.get_series_type(df[column]) for column in df.columns}
+        self.column_type_map = {
+            column: self.get_series_type(df[column]) for column in df.columns
+        }
 
     def get_series_type(self, series: pd.Series) -> Type[TenzingType]:
         """
@@ -228,9 +233,11 @@ class tenzingTypeset(object):
         Returns:
 
         """
-        return {mdl
-                for x in node.get_models()
-                for mdl in nx.ancestors(self.relation_graph, x)}
+        return {
+            mdl
+            for x in node.get_models()
+            for mdl in nx.ancestors(self.relation_graph, x)
+        }
 
     def output_graph(self, file_name) -> None:
         """
