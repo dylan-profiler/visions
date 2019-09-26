@@ -29,8 +29,7 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     relation_graph.add_nodes_from(nodes)
     relation_graph.add_edges_from(
         (
-            node.friend_model,
-            node.model,
+            *node.edge,
             {"relationship": node, "style": style_map[node.inferential]},
         )
         for s_node in nodes

@@ -14,7 +14,7 @@ class tenzing_existing_path(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(lambda p: p.exists()).all()
+        return series.apply(lambda p: isinstance(p, Path) and p.exists()).all()
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
