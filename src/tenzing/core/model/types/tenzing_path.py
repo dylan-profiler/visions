@@ -1,4 +1,4 @@
-from pathlib import Path, PureWindowsPath, PurePosixPath
+from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
 
 import pandas as pd
 
@@ -29,4 +29,4 @@ class tenzing_path(tenzing_model):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(Path)
+        return series.apply(PurePath)
