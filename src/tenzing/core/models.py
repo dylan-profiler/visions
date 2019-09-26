@@ -38,7 +38,7 @@ class model_relation:
         self.edge = (self.friend_model, self.model)
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer
-        self.inferential = None
+        self.inferential = inferential
 
     def is_relation(self, obj: pd.Series) -> bool:
         return self.relationship(obj)
