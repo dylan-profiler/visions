@@ -53,9 +53,10 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
 
 
 # Infer type without conversion
-def traverse_relation_graph(
-    series: pd.Series, G: nx.DiGraph, node: Type[tenzing_model] = tenzing_generic
-) -> Type[tenzing_model]:
+def traverse_relation_graph(series: pd.Series,
+                            G: nx.DiGraph,
+                            node: Type[tenzing_model] = tenzing_generic
+                            ) -> Type[tenzing_model]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
     Args:
@@ -76,7 +77,7 @@ def traverse_relation_graph(
 
 # Infer type with conversion
 def get_type_inference_path(
-    base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph, path=[]
+    base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph, path=None
 ) -> Tuple[List[Type[tenzing_model]], pd.Series]:
     """
 
@@ -89,6 +90,8 @@ def get_type_inference_path(
     Returns:
 
     """
+    if path is None:
+        pasth = []
     path.append(base_type)
 
     for tenz_type in G.successors(base_type):
