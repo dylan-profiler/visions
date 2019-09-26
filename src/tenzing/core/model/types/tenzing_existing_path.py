@@ -17,4 +17,4 @@ class tenzing_existing_path(tenzing_model):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return super().cast_op(series)
+        return series.apply(Path)

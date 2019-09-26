@@ -3,7 +3,7 @@ from typing import Union
 import pandas as pd
 
 from tenzing.core.model import tenzing_complete_set
-from tenzing.core.models import tenzing_model, MultiModel
+from tenzing.core.models import tenzing_model
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
 from tenzing.utils.graph import output_graph
@@ -40,7 +40,7 @@ class Summary(object):
         return dataframe_summary(df)
 
     def summarize_series(
-        self, series: pd.Series, summary_type: Union[tenzing_model, MultiModel]
+        self, series: pd.Series, summary_type: tenzing_model
     ) -> dict:
         """
 
@@ -149,8 +149,6 @@ type_summary_ops = {
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-    infinite_generic: [],
-    missing_generic: [],
     tenzing_generic: [],
     tenzing_model: [base_summary, missing_summary],
 }

@@ -1,3 +1,5 @@
+import warnings
+
 import pytest
 
 from tenzing.core import tenzing_model
@@ -133,7 +135,7 @@ def all_series_included(series_list, series_map):
     used_names = set([name for names in series_map.values() for name in names])
     names = set([series.name for series in series_list])
     if not names == used_names:
-        raise ValueError(f"Not all series are used {names ^ used_names}")
+        warnings.warn(f"Not all series are used {names ^ used_names}")
 
 
 def pytest_generate_tests(metafunc):
@@ -157,7 +159,7 @@ def pytest_generate_tests(metafunc):
         argsvalues = []
         typeset = tenzing_complete_set()
         for item in _test_suite:
-            type = typeset.get_type_series(item)
+            type = typeset.get_series_type(item)
             ancestors = typeset._get_ancestors(type)
             ancestors.add(type)
             for type in ancestors:

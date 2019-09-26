@@ -1,7 +1,5 @@
-import operator
 import warnings
-from functools import reduce
-from typing import Union, Type, Tuple, List
+from typing import Type, Tuple, List
 
 import pandas as pd
 import networkx as nx
@@ -13,7 +11,7 @@ from tenzing.core.model.types import tenzing_generic
 
 
 def build_relation_graph(nodes: set) -> nx.DiGraph:
-    """Constructs a traversible relation graph between tenzing types
+    """Constructs a traversable relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
     nodes correspond to subtypes with a defined relation.
@@ -91,7 +89,7 @@ def get_type_inference_path(
 
     """
     if path is None:
-        pasth = []
+        path = []
     path.append(base_type)
 
     for tenz_type in G.successors(base_type):
@@ -197,7 +195,7 @@ class tenzingTypeset(object):
             column: self.get_series_type(df[column]) for column in df.columns
         }
 
-    def get_series_type(self, series: pd.Series) -> Type[TenzingType]:
+    def get_series_type(self, series: pd.Series) -> TenzingType:
         """
         """
         partitioner = get_series_partitioner(series, self.partitioners)
