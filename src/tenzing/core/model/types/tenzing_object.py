@@ -1,30 +1,19 @@
 import pandas.api.types as pdt
 import pandas as pd
-import numpy as np
 
-from tenzing.core.model.types.tenzing_generic import tenzing_generic
+from tenzing.core.models import tenzing_model
 
 
-class tenzing_object(tenzing_generic):
+class tenzing_object(tenzing_model):
     """**Object** implementation of :class:`tenzing.core.models.tenzing_model`.
-
-    Examples:
-        >>> import numpy as np
-        >>> x = pd.Series(['a', 1, np.nan])
-        >>> x in tenzing_object
-        True
+    >>> x = pd.Series(['a', 1, np.nan])
+    >>> x in tenzing_object
+    True
     """
 
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
-
-        if pdt.is_object_dtype(series[super_mask]):
-            mask = series[super_mask].apply(lambda _: True).fillna(True)
-        else:
-            mask = series[super_mask].apply(lambda _: False).fillna(False)
-        return super_mask & mask
-        # return series.apply(lambda x: issubclass(type(x), np.object_))
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_object_dtype(series) and not series.hasnans
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

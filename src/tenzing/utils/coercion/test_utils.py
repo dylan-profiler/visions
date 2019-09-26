@@ -11,13 +11,13 @@ def option_coercion_evaluator(method: Callable) -> Callable:
     Evaluates a coercion method and optionally returns the coerced series.
 
     Args:
-        method: A method coercing a Series to another type.
+        method: A method coercing a Series to another Series.
 
     Returns:
         The coerced series if the coercion succeeds otherwise None.
     """
 
-    def f(series: pd.Series) -> Union[None, bool]:
+    def f(series: pd.Series) -> Union[None, pd.Series]:
         try:
             return method(series)
         except (ValueError, TypeError, AttributeError):
