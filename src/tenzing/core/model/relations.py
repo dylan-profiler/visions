@@ -96,6 +96,7 @@ def register_datetime_relations():
             inferential=True
         ),
         model_relation(tenzing_datetime, tenzing_object, inferential=False),
+        model_relation(tenzing_datetime, tenzing_generic, inferential=False)
     ]
     for relation in relations:
         tenzing_datetime.register_relation(relation)

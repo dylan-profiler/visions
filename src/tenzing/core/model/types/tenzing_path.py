@@ -14,18 +14,7 @@ class tenzing_path(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        path_types = [PurePosixPath, PureWindowsPath]
-        for path_type in path_types:
-            is_path_type = series.apply(lambda x: isinstance(x, path_type)).all()
-            if is_path_type:
-                break
-
-        if not is_path_type:
-            return False
-        elif series.apply(lambda x: x.is_absolute()).all():
-            return True
-        else:
-            return False
+        return series.apply(lambda x: isinstance(x, PurePath) and x.is_absolute()).all()
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
