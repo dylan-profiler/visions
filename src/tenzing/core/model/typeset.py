@@ -4,8 +4,7 @@ from typing import Type, Tuple, List
 import pandas as pd
 import networkx as nx
 
-from tenzing.core.partitioners import MultiPartitioner
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
 
@@ -134,37 +133,25 @@ def cast_series_to_inferred_type(
     return series
 
 
-def get_series_partitioner(series, partitioners):
-    series_partitioners = [
-        partitioner for partitioner in partitioners if series in partitioner
-    ]
-    partitioner = (
-        MultiPartitioner(series_partitioners)
-        if len(series_partitioners) > 1
-        else series_partitioners[0]
-    )
-    return partitioner
-
-
-class TenzingType:
-    def __init__(self, partitioner, base_type):
-        self.partitioner = partitioner
-        self.base_type = base_type
-
-    def contains_op(self, series):
-        if series in self.partitioner:
-            return series in self.base_type
-        else:
-            return False
-
-    def transform(self, series):
-        series = series.copy()
-        partitioner_mask = self.partitioner.mask(series)
-        series.loc[partitioner_mask] = self.base_type.cast_op(series[partitioner_mask])
-        return series
-
-    def __repr__(self):
-        return f"{str(self.partitioner)}[{self.base_type}]"
+# class TenzingType:
+#     def __init__(self, partitioner, base_type):
+#         self.partitioner = partitioner
+#         self.base_type = base_type
+#
+#     def contains_op(self, series):
+#         if series in self.partitioner:
+#             return series in self.base_type
+#         else:
+#             return False
+#
+#     def transform(self, series):
+#         series = series.copy()
+#         partitioner_mask = self.partitioner.mask(series)
+#         series.loc[partitioner_mask] = self.base_type.cast_op(series[partitioner_mask])
+#         return series
+#
+#     def __repr__(self):
+#         return f"{str(self.partitioner)}[{self.base_type}]"
 
 
 class tenzingTypeset(object):
@@ -177,15 +164,14 @@ class tenzingTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, partitioners: list, types: list):
+    def __init__(self, types: list):
         """
 
         Args:
-            partitioners:
             types:
         """
         self.column_type_map = {}
-        self.partitioners = set(partitioners)
+        # self.partitioners = set(partitioners)
 
         self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
         self.types = frozenset(self.relation_graph.nodes)
@@ -195,19 +181,21 @@ class tenzingTypeset(object):
             column: self.get_series_type(df[column]) for column in df.columns
         }
 
-    def get_series_type(self, series: pd.Series) -> TenzingType:
+    def get_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         """
         """
-        partitioner = get_series_partitioner(series, self.partitioners)
-        series = partitioner.partition(series)
+        # partitioner = get_series_partitioner(series, self.partitioners)
+        # series = partitioner.partition(series)
         base_type = traverse_relation_graph(series, self.relation_graph)
-        return TenzingType(partitioner, base_type)
+        # return TenzingType(partitioner, base_type)
+        return base_type
 
-    def infer_series_type(self, series: pd.Series) -> TenzingType:
+    def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         col_type = self.column_type_map[series.name]
-        series = col_type.partitioner.partition(series)
+        # series = col_type.partitioner.partition(series)
         inferred_base_type = infer_type(col_type.base_type, series, self.relation_graph)
-        return TenzingType(col_type.partitioner, inferred_base_type)
+        # return TenzingType(col_type.partitioner, inferred_base_type)
+        return inferred_base_type
 
     def cast_series(self, series: pd.Series) -> pd.Series:
         """

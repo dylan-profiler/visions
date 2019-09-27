@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 
 
 # https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/

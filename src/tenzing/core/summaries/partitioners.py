@@ -46,7 +46,9 @@ class MultiPartitioner(Partitioner):
             mask &= partitioner.mask(series)
         return mask
 
-    def contains_op(self, series, mask=[]) -> bool:
+    def contains_op(self, series, mask=None) -> bool:
+        if mask is None:
+            mask = []
         return all(series in partitioner for partitioner in self.partitioners)
 
     def __repr__(self):
@@ -69,7 +71,9 @@ class Infinite(Partitioner):
     def mask(self, series):
         return (~np.isfinite(series)) & series.notnull()
 
-    def contains_op(self, series, mask=[]):
+    def contains_op(self, series, mask=None):
+        if mask is None:
+            mask = []
         return self.mask(series).any()
 
 
@@ -77,10 +81,24 @@ class Missing(Partitioner):
     def mask(self, series):
         return series.notna()
 
-    def contains_op(self, series, mask=[]):
+    def contains_op(self, series, mask=None):
+        if mask is None:
+            mask = []
         return series.hasnans
 
 
 generic = Generic()
 infinite = Infinite()
 missing = Missing()
+
+
+def get_series_partitioner(series, partitioners):
+    series_partitioners = [
+        partitioner for partitioner in partitioners if series in partitioner
+    ]
+    partitioner = (
+        MultiPartitioner(series_partitioners)
+        if len(series_partitioners) > 1
+        else series_partitioners[0]
+    )
+    return partitioner

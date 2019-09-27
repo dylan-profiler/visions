@@ -1,9 +1,7 @@
-from typing import Union
-
 import pandas as pd
 
 from tenzing.core.model import tenzing_complete_set
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
 from tenzing.utils.graph import output_graph

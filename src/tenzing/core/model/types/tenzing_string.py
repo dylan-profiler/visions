@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 
 
 class tenzing_string(tenzing_model):

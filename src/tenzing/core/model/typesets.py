@@ -1,7 +1,5 @@
-from tenzing.core import tenzing_model
-from tenzing.core.typesets import tenzingTypeset
+from tenzing.core.model.typeset import tenzingTypeset
 from tenzing.core.model.types import *
-from tenzing.core.partitioners import missing, generic, infinite
 
 
 class tenzing_standard_set(tenzingTypeset):
@@ -34,8 +32,7 @@ class tenzing_standard_set(tenzingTypeset):
             tenzing_integer,
             tenzing_string,
         ]
-        partitioners = [missing, infinite, generic]
-        super().__init__(partitioners, types)
+        super().__init__(types)
 
 
 class tenzing_geometry_set(tenzingTypeset):
@@ -69,8 +66,7 @@ class tenzing_geometry_set(tenzingTypeset):
             tenzing_string,
             tenzing_geometry,
         ]
-        partitioners = [missing, infinite, generic]
-        super().__init__(partitioners, types)
+        super().__init__(types)
 
 
 class tenzing_complete_set(tenzingTypeset):
@@ -117,5 +113,4 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_existing_path,
             tenzing_ip,
         ]
-        partitioners = [missing, infinite, generic]
-        super().__init__(partitioners, types)
+        super().__init__(types)
