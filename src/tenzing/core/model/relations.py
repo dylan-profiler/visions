@@ -239,6 +239,11 @@ relations = [
     register_image_path_relations(),
 ]
 
-if __name__ == "__main__":
-    for relation in relations:
+for relation_list in relations:
+    for relation in relation_list:
         relation.model.register_relation(relation)
+
+if __name__ == "__main__":
+    for relation_list in relations:
+        for relation in relation_list:
+            relation.model.register_relation(relation)
