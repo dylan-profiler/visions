@@ -1,48 +1,26 @@
 import pandas as pd
-from shapely.geometry.base import BaseGeometry
-from shapely import wkt
-from shapely import geometry
 
-from tenzing.core.model.types.tenzing_object import tenzing_object
+from tenzing.core.model.models import tenzing_model
 
 
-class tenzing_geometry(tenzing_object):
+# https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
+class tenzing_geometry(tenzing_model):
     """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
-
-    Examples:
-        >>> from shapely import wkt
-        >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
-        >>> x in tenzing_geometry
-        True
+    >>> from shapely import wkt
+    >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
+    >>> x in tenzing_geometry
+    True
     """
 
-    geom_types = [
-        geometry.Point,
-        geometry.Polygon,
-        geometry.MultiPolygon,
-        geometry.MultiPoint,
-        geometry.LineString,
-        geometry.LinearRing,
-        geometry.MultiPoint,
-        geometry.MultiLineString,
-    ]
-
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
-
-        if not super_mask.any():
-            return super_mask
-
-        return super_mask & series[super_mask].apply(
-            lambda x: any(isinstance(x, geom_type) for geom_type in cls.geom_types)
-        )
+    def contains_op(cls, series: pd.Series) -> bool:
+        from shapely.geometry.base import BaseGeometry
+        return series.apply(lambda x: issubclass(type(x), BaseGeometry)).all()
+        # The below raises `TypeError: data type "geometry" not understood`
+        # return series.dtype == 'geometry'
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.Series(
-            [
-                wkt.loads(value) if not issubclass(type(value), BaseGeometry) else value
-                for value in series
-            ]
-        )
+        from shapely import wkt
+
+        return pd.Series([wkt.loads(value) for value in series])

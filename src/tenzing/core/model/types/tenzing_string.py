@@ -1,30 +1,18 @@
 import pandas as pd
-import pandas.api.types as pdt
 
-from tenzing.core.model.types.tenzing_object import tenzing_object
+from tenzing.core.model.models import tenzing_model
 
 
-class tenzing_string(tenzing_object):
+class tenzing_string(tenzing_model):
     """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
-
-    Examples:
-        >>> x = pd.Series(['rubin', 'carter', 'champion'])
-        >>> x in tenzing_string
-        True
+    >>> x = pd.Series(['rubin', 'carter', 'champion'])
+    >>> x in tenzing_string
+    True
     """
 
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
-
-        if not super_mask.any():
-            return super_mask
-
-        if pdt.is_categorical_dtype(series[super_mask]):
-            mask = series[super_mask].apply(lambda _: False)
-        else:
-            mask = series[super_mask].copy().apply(lambda x: type(x) == str)
-        return super_mask & mask
+    def contains_op(cls, series: pd.Series) -> bool:
+        return series.map(type).eq(str).all()
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

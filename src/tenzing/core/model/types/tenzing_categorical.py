@@ -1,26 +1,19 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from tenzing.core.model.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.models import tenzing_model
 
 
-class tenzing_categorical(tenzing_generic):
+class tenzing_categorical(tenzing_model):
     """**Categorical** implementation of :class:`tenzing.core.models.tenzing_model`.
-
-    Examples:
-        >>> x = pd.Series([True, False, 1], dtype='category')
-        >>> x in tenzing_categorical
-        True
+    >>> x = pd.Series([True, False, 1], dtype='category')
+    >>> x in tenzing_categorical
+    True
     """
 
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
-        if pdt.is_categorical_dtype(series):
-            mask = series[super_mask].apply(lambda _: True)
-        else:
-            mask = series[super_mask].apply(lambda _: False)
-        return super_mask & mask
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_categorical_dtype(series)
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

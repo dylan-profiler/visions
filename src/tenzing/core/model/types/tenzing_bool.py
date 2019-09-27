@@ -1,32 +1,24 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from tenzing.core.model.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.models import tenzing_model
 
 
-class tenzing_bool(tenzing_generic):
+class tenzing_bool(tenzing_model):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
-
-    Examples:
-        >>> import numpy as np
-        >>> x = pd.Series([True, False, np.nan])
-        >>> x in tenzing_bool
-        True
+    >>> x = pd.Series([True, False])
+    >>> x in tenzing_bool
+    True
     """
 
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
+    def contains_op(cls, series: pd.Series) -> bool:
+        if pdt.is_categorical_dtype(series):
+            return False
+        elif pdt.is_object_dtype(series):
+            series = series.astype('bool')
 
-        # TODO: fix
-        if pdt.is_categorical_dtype(series[super_mask]):
-            mask = pd.Series([False] * len(series), name=series.name)
-        elif pdt.is_bool_dtype(series[super_mask]):
-            mask = pd.Series([True] * len(series[super_mask]), name=series.name)
-        else:
-            mask = series[super_mask].apply(lambda x: type(x) == bool)
-
-        return super_mask & mask
+        return pdt.is_bool_dtype(series)
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

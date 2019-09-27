@@ -1,10 +1,10 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from tenzing.core.model.types.tenzing_generic import tenzing_generic
+from tenzing.core.model.models import tenzing_model
 
 
-class tenzing_integer(tenzing_generic):
+class tenzing_integer(tenzing_model):
     """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     Examples:
@@ -14,25 +14,19 @@ class tenzing_integer(tenzing_generic):
     """
 
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
-        # TODO: first apply super mask, then check rest
-        series = series[super_mask]
-
-        if pdt.is_integer_dtype(series):
-            mask = pd.Series([True] * len(series), name=series.name, index=series.index)
-
-        # Note: this is required to support series with np.inf (as their representation is float)
+    def contains_op(cls, series: pd.Series) -> bool:
+        if pdt.is_integer_dtype(series) and not series.hasnans:
+            return True
         elif pdt.is_float_dtype(series):
-            mask = series.eq(series.astype(int))
+            # Need this additional check because it's an Option[Int] which in
+            # pandas land will result in integers with decimal trailing 0's
+            try:
+                return series.eq(series.astype(int)).all()
+            except ValueError:
+                return False
         else:
-            mask = pd.Series(
-                [False] * len(series), name=series.name, index=series.index
-            )
-
-        return super_mask & mask
+            return False
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        # return series.astype(float).astype(int)
         return series.astype(int)

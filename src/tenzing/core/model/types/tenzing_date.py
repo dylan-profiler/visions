@@ -1,28 +1,24 @@
 import pandas as pd
+import pandas.api.types as pdt
 
-from tenzing.core.model.types.tenzing_datetime import tenzing_datetime
+from tenzing.core.model.models import tenzing_model
 
 
-class tenzing_date(tenzing_datetime):
+class tenzing_date(tenzing_model):
     """**Date** implementation of :class:`tenzing.core.models.tenzing_model`.
-
-    Examples:
-        >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
-        >>> x in tenzing_date
-        True
+    >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+    >>> x in tenzing_date
+    True
     """
 
     @classmethod
-    def mask(cls, series: pd.Series) -> pd.Series:
-        super_mask = super().mask(series)
-        # TODO: https://stackoverflow.com/a/51529633/470433
-        if not super_mask.any():
-            return super_mask
-
-        return super_mask & series[super_mask].eq(
-            series[super_mask]
-            .copy()
-            .apply(lambda x: x.replace(hour=0, minute=0, second=0))
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_datetime64_any_dtype(series) and all(
+            (
+                series.dt.hour.eq(0).all(),
+                series.dt.minute.eq(0).all(),
+                series.dt.second.eq(0).all(),
+            )
         )
 
     @classmethod
