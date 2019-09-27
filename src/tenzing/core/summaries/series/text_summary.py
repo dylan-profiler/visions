@@ -3,7 +3,7 @@ from unicodedata import category
 
 import pandas as pd
 
-from tangled_up_in_unicode import script, block, category_alias, block_alias
+# from tangled_up_in_unicode import script, block, category_alias, block_alias
 
 
 def text_summary(series: pd.Series) -> dict:

@@ -1,7 +1,7 @@
 import pandas as pd
 from ipaddress import _BaseAddress, ip_address
 
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 
 
 class tenzing_ip(tenzing_model):

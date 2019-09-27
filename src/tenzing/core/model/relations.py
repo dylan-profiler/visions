@@ -3,7 +3,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from tenzing.core.model.types import *
-from tenzing.core.model_relation import model_relation
+from tenzing.core.model.model_relation import model_relation
 from tenzing.utils import test_utils
 import logging
 import pandas as pd

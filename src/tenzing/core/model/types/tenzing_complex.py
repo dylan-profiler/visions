@@ -2,7 +2,7 @@ import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
 
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 
 
 class tenzing_complex(tenzing_model):

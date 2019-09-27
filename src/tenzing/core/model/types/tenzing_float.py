@@ -2,7 +2,7 @@ import pandas.api.types as pdt
 import numpy as np
 import pandas as pd
 
-from tenzing.core.models import tenzing_model
+from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.types.tenzing_integer import tenzing_integer
 
 
