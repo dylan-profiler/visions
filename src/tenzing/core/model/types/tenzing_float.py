@@ -15,18 +15,7 @@ class tenzing_float(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        if not pdt.is_float_dtype(series):
-            return False
-
-        # TODO: What edge case does this handle? This logic could be made clearer
-        if not np.isfinite(series).all():
-            return False
-        # TODO: are we sure we want this to depend on integer?
-        # I don't like it but I was worried about the integer implementation changing
-        elif series in tenzing_integer:
-            return False
-        else:
-            return True
+        return pdt.is_float_dtype(series) and series not in tenzing_integer
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> bool:
