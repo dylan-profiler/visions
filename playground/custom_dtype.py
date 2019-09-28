@@ -1,4 +1,10 @@
+from urllib.parse import urlparse
 
+import pandas as pd
+
+from tenzing.core.model.dtypes.url_dtype import UrlType
+
+# UrlType
 
 
 s = pd.Series(['http://www.google.com', 'http://www.ru.nl'] * 100, dtype="Url")

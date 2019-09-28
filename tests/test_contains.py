@@ -2,8 +2,8 @@ import warnings
 
 import pytest
 
-from tenzing.core import tenzing_model
-from tenzing.core.model import tenzing_complete_set
+from tenzing.core.model import tenzing_model
+from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.model.types import *
 
 from tests.series import get_series
@@ -51,8 +51,6 @@ def get_series_map():
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
-        # missing_generic: ["nan_series", "nan_series_2"],
-        # infinite_generic: ["inf_series"],
     }
 
     series_map[tenzing_object] = (
@@ -155,18 +153,6 @@ def pytest_generate_tests(metafunc):
                 argsvalues.append(pytest.param(item, type, **args))
 
         metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
-    if metafunc.function.__name__ == "test_mask":
-        argsvalues = []
-        typeset = tenzing_complete_set()
-        for item in _test_suite:
-            type = typeset.get_series_type(item)
-            ancestors = typeset._get_ancestors(type)
-            ancestors.add(type)
-            for type in ancestors:
-                args = {"id": f"{item.name} x {type}"}
-                argsvalues.append(pytest.param(item, type, **args))
-
-        metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
 
 
 @pytest.mark.run(order=7)
@@ -174,7 +160,3 @@ def test_contains(series, type):
     assert series in type
 
 
-@pytest.mark.run(order=8)
-def test_mask(series, type):
-    mask = type.mask(series)
-    assert not mask.isna().any()

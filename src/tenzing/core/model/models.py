@@ -1,15 +1,12 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABCMeta
 import pandas as pd
 
 
-class meta_model(type):
+class meta_model(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
         if series.empty:
             return cls == tenzing_model
         return cls.contains_op(series)
-
-    # TODO: raise exception on instantiation
-    #     raise Exception("Cannot instantiate a type!")
 
     def __str__(cls) -> str:
         return f"{cls.__name__}"
@@ -44,10 +41,6 @@ class tenzing_model(metaclass=meta_model):
             return True
         else:
             return isinstance(instance.__class__, mcs)
-
-    @classmethod
-    def get_models(cls) -> set:
-        return {cls}
 
     @classmethod
     def get_relations(cls) -> dict:

@@ -136,6 +136,7 @@ def register_geometry_relations():
 
 
 def register_bool_relations():
+    # Nullable bool: Object - > Bool
     class string_bool_relation:
         _boolean_maps = [
             {"true": True, "false": False},
@@ -238,10 +239,6 @@ relations = [
     register_ip_relations(),
     register_image_path_relations(),
 ]
-
-for relation_list in relations:
-    for relation in relation_list:
-        relation.model.register_relation(relation)
 
 if __name__ == "__main__":
     for relation_list in relations:

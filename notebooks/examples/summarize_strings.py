@@ -2,7 +2,7 @@ from tenzing.core.model.typesets import tenzing_complete_set
 
 import pandas as pd
 
-from tenzing.core.summary import summary
+from tenzing.core.summaries.summary import summary
 
 df = pd.DataFrame(
     {

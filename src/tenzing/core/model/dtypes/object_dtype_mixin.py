@@ -1,4 +1,5 @@
 import operator
+import sys
 
 import numpy as np
 
@@ -46,6 +47,7 @@ class ObjectArrayMixin(ExtensionArray):
 
     @property
     def nbytes(self):
+        return sys.getsizeof(self)
         # TODO: check https://stackoverflow.com/questions/11784329/python-memory-usage-of-numpy-arrays
         return self._itemsize * len(self)
 

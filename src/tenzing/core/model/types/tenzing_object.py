@@ -13,7 +13,7 @@ class tenzing_object(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_object_dtype(series) and not series.hasnans
+        return pdt.is_object_dtype(series)
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
