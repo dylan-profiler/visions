@@ -193,7 +193,7 @@ class tenzingTypeset(object):
     def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         col_type = self.column_type_map[series.name]
         # series = col_type.partitioner.partition(series)
-        inferred_base_type = infer_type(col_type.base_type, series, self.relation_graph)
+        inferred_base_type = infer_type(col_type, series, self.relation_graph)
         # return TenzingType(col_type.partitioner, inferred_base_type)
         return inferred_base_type
 
@@ -207,7 +207,7 @@ class tenzingTypeset(object):
 
         """
         series_type = self.infer_series_type(series)
-        return series_type.transform(series)
+        return series_type.cast(series)
 
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
         self.prep(df)
