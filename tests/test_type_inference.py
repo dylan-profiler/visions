@@ -1,6 +1,6 @@
 import pytest
 
-from tenzing.core import tenzing_model
+from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.model.types import *
 from tests.series import get_series
@@ -25,9 +25,9 @@ def get_series_type_map():
         "float_series6": tenzing_float,
         "categorical_float_series": tenzing_categorical,
         "float_with_inf": tenzing_float,
-        # "inf_series": infinite_generic,
-        # "nan_series": missing_generic,
-        # "nan_series_2": missing_generic,
+        "inf_series": tenzing_float,
+        "nan_series": tenzing_float,
+        "nan_series_2": tenzing_float,
         "string_series": tenzing_string,
         "categorical_string_series": tenzing_categorical,
         "timestamp_string_series": tenzing_string,
