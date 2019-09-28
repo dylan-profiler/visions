@@ -1,5 +1,4 @@
 from collections import Counter
-from unicodedata import category
 
 import pandas as pd
 
@@ -21,16 +20,16 @@ def text_summary(series: pd.Series) -> dict:
     # Unicode Character Summaries (category and script name)
     character_counts = dict(Counter(series.str.cat()))
 
-    summary["category_short_values"] = {
-        key: category(key) for key in character_counts.keys()
-    }
-    summary["category_alias_values"] = {
-        key: category_alias(key) for key in character_counts.keys()
-    }
-    summary["script_values"] = {key: script(key) for key in character_counts.keys()}
-    summary["block_values"] = {key: block(key) for key in character_counts.keys()}
-    summary["block_alias_values"] = {
-        key: block_alias(key) for key in character_counts.keys()
-    }
+    # summary["category_short_values"] = {
+    #     key: category(key) for key in character_counts.keys()
+    # }
+    # summary["category_alias_values"] = {
+    #     key: category_alias(key) for key in character_counts.keys()
+    # }
+    # summary["script_values"] = {key: script(key) for key in character_counts.keys()}
+    # summary["block_values"] = {key: block(key) for key in character_counts.keys()}
+    # summary["block_alias_values"] = {
+    #     key: block_alias(key) for key in character_counts.keys()
+    # }
 
     return summary

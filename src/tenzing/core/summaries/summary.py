@@ -51,20 +51,16 @@ class Summary(object):
         """
         summary = {}
 
-        types = summary_type.get_models()
-
         done = []
-        for current_type in types:
-            for base_type, summary_ops in self.summary_ops.items():
-                if (
-                    base_type not in done
-                    and issubclass(current_type, base_type)
-                    and not isinstance(current_type, tenzing_model)
-                ):
-                    mask = base_type.mask(series)
-                    for op in summary_ops:
-                        summary.update(op(series[mask]))
-                    done.append(base_type)
+        for base_type, summary_ops in self.summary_ops.items():
+            if (
+                base_type not in done
+                and issubclass(summary_type, base_type)
+                and not isinstance(summary_type, tenzing_model)
+            ):
+                for op in summary_ops:
+                    summary.update(op(series))
+                done.append(base_type)
 
         return summary
 
