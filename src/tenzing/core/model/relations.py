@@ -34,10 +34,7 @@ def register_float_relations():
         coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(
             series
         )
-        if coerced_series is None:
-            return False
-        else:
-            return True
+        return coerced_series is not None
 
     relations = [
         model_relation(tenzing_float, tenzing_generic, inferential=False),

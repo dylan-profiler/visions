@@ -14,9 +14,10 @@ class Bool(Int8Dtype):
     # TODO: make sure True,False,np.nan, nothing else
 
 
-series = pd.Series([complex(0, 1), np.nan], dtype=complex)
+series = pd.Series([True, False, np.nan])
 print(series)
 print(series.dtype)
+print(pd.to_numeric(series).astype('Bool'))
 
 # Types have the most compact representation. All types are nullable.
 
