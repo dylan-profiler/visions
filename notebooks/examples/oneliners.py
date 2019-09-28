@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+from tenzing.core.model import tenzing_model
 from tenzing.core.model.types import (
     tenzing_bool,
     tenzing_generic,
