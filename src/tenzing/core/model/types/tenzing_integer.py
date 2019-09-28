@@ -15,7 +15,7 @@ class tenzing_integer(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        if pdt.is_integer_dtype(series) and not series.hasnans:
+        if pdt.is_integer_dtype(series):
             return True
         elif pdt.is_float_dtype(series):
             # Need this additional check because it's an Option[Int] which in
