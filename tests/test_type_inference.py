@@ -53,6 +53,7 @@ def _traverse_relation_graph(series, G, node=tenzing_generic):
         return node
 
 
+# What does this test? It doesn't explcitly invoke the actual traversal code.
 @pytest.mark.run(order=13)
 def test_traversal_mutex(series):
     _traverse_relation_graph(series, typeset.relation_graph)

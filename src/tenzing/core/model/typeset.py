@@ -191,10 +191,8 @@ class tenzingTypeset(object):
         return base_type
 
     def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
-        col_type = self.column_type_map[series.name]
-        # series = col_type.partitioner.partition(series)
+        col_type = self.column_type_map.get(series.name, tenzing_generic)
         inferred_base_type = infer_type(col_type, series, self.relation_graph)
-        # return TenzingType(col_type.partitioner, inferred_base_type)
         return inferred_base_type
 
     def cast_series(self, series: pd.Series) -> pd.Series:
@@ -206,8 +204,10 @@ class tenzingTypeset(object):
         Returns:
 
         """
-        series_type = self.infer_series_type(series)
-        return series_type.cast(series)
+        series_type = self.get_series_type(series)
+        # I know this looks convoluted, but don't change it. There is no guarantee
+        # the cast on a type will apply to any series
+        return cast_series_to_inferred_type(series_type, series, self.relation_graph)
 
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
         self.prep(df)
@@ -263,3 +263,6 @@ class tenzingTypeset(object):
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
             plt.imshow(img)
+
+    def __repr__(self):
+        return self.__class__.__name__

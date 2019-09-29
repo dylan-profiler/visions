@@ -63,7 +63,7 @@ def register_url_relations():
 
     relations = [
         model_relation(tenzing_url, tenzing_string, test_url, inferential=True),
-        model_relation(tenzing_url, tenzing_object, inferential=False),
+        model_relation(tenzing_url, tenzing_object, transformer=lambda s: s, inferential=False),
     ]
     return relations
 
@@ -97,7 +97,9 @@ def register_datetime_relations():
 
 
 def register_timedelta_relations():
-    relations = [model_relation(tenzing_timedelta, tenzing_object, inferential=False)]
+    relations = [model_relation(tenzing_timedelta, tenzing_object, inferential=False),
+                 model_relation(tenzing_timedelta, tenzing_generic, inferential=False),
+                 ]
     return relations
 
 

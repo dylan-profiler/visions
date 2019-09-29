@@ -14,13 +14,13 @@ class tenzing_time(tenzing_model):
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         # Substantially better scaling
-        return pdt.is_datetime64_any_dtype(series) and all(
-            (
-                series.dt.day.eq(1).all(),
-                series.dt.month.eq(1).all(),
-                series.dt.year.eq(1970).all(),
-            )
-        )
+        if not pdt.is_datetime64_any_dtype(series):
+            return False
+
+        temp_series = series.dropna()
+        return all((temp_series.dt.day.eq(1).all(),
+                    temp_series.dt.month.eq(1).all(),
+                    temp_series.dt.year.eq(1970).all()))
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
