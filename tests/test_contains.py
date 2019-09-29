@@ -30,8 +30,8 @@ def get_series_map():
         ],
         tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
         tenzing_complex: ["complex_series", "complex_series_py"],
-        tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "date"],
-        tenzing_date: ["date"],
+        tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
+        tenzing_date: ["datetime"],
         tenzing_timedelta: ["timedelta_series"],
         tenzing_string: [
             "timestamp_string_series",

@@ -21,7 +21,8 @@ def register_integer_relations():
         model_relation(
             tenzing_integer,
             tenzing_string,
-            test_utils.coercion_test(lambda s: s.astype(int)),
+            test_utils.coercion_test(lambda s: s.astype(float).astype('Int64')),
+            lambda s: s.astype(float).astype('Int64'),
             inferential=True,
         ),
     ]
@@ -34,7 +35,7 @@ def register_float_relations():
         coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(
             series
         )
-        return coerced_series is not None
+        return coerced_series is not None and coerced_series in tenzing_float
 
     relations = [
         model_relation(tenzing_float, tenzing_generic, inferential=False),
