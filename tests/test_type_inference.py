@@ -3,83 +3,10 @@ import pytest
 from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.model.types import *
-from tests.series import get_series
+from tests.series import get_series, infer_series_type_map, get_series_type_map
 
 
-def get_series_type_map():
-    return {
-        "int_series": tenzing_integer,
-        "categorical_int_series": tenzing_categorical,
-        "int_nan_series": tenzing_integer,
-        "Int64_int_series": tenzing_integer,
-        "Int64_int_nan_series": tenzing_integer,
-        "np_uint32": tenzing_integer,
-        "int_with_inf": tenzing_float,
-        "int_range": tenzing_integer,
-        "float_series": tenzing_float,
-        "float_nan_series": tenzing_float,
-        "float_series2": tenzing_integer,
-        "float_series3": tenzing_float,
-        "float_series4": tenzing_float,
-        "float_series5": tenzing_float,
-        "float_series6": tenzing_float,
-        "categorical_float_series": tenzing_categorical,
-        "float_with_inf": tenzing_float,
-        "inf_series": tenzing_float,
-        "nan_series": tenzing_float,
-        "nan_series_2": tenzing_float,
-        "string_series": tenzing_string,
-        "categorical_string_series": tenzing_categorical,
-        "timestamp_string_series": tenzing_string,
-        "string_unicode_series": tenzing_string,
-        "string_np_unicode_series": tenzing_string,
-        "string_num_nan": tenzing_string,
-        "string_num": tenzing_string,
-        "string_flt_nan": tenzing_string,
-        "string_flt": tenzing_string,
-        "string_str_nan": tenzing_string,
-        "string_bool_nan": tenzing_string,
-        "int_str_range": tenzing_string,
-        "string_date": tenzing_string,
-        "str_url": tenzing_string,
-        "bool_series": tenzing_bool,
-        "bool_nan_series": tenzing_bool,
-        "bool_series2": tenzing_bool,
-        "bool_series3": tenzing_bool,
-        "complex_series": tenzing_complex,
-        "complex_series_nan": tenzing_complex,
-        "complex_series_nan_2": tenzing_complex,
-        "complex_series_py_nan": tenzing_complex,
-        "complex_series_py": tenzing_complex,
-        "categorical_complex_series": tenzing_categorical,
-        "timestamp_series": tenzing_datetime,
-        "timestamp_series_nat": tenzing_datetime,
-        "timestamp_aware_series": tenzing_datetime,
-        "datetime": tenzing_date,
-        "timedelta_series": tenzing_timedelta,
-        "timedelta_series_nat": tenzing_timedelta,
-        "geometry_string_series": tenzing_string,
-        "geometry_series": tenzing_geometry,
-        "path_series_linux": tenzing_path,
-        "path_series_linux_str": tenzing_string,
-        "path_series_windows": tenzing_path,
-        "path_series_windows_str": tenzing_string,
-        "url_series": tenzing_url,
-        "mixed_list[str,int]": tenzing_object,
-        "mixed_dict": tenzing_object,
-        "callable": tenzing_object,
-        "module": tenzing_object,
-        "textual_float": tenzing_string,
-        "textual_float_nan": tenzing_string,
-        "empty": tenzing_model,
-        "empty_object": tenzing_model,
-        "empty_float": tenzing_model,
-        "empty_bool": tenzing_model,
-        "empty_int64": tenzing_model,
-        "ip": tenzing_ip,
-        "ip_str": tenzing_string,
-        "date_series_nat": tenzing_date,
-    }
+typeset = tenzing_complete_set()
 
 
 def pytest_generate_tests(metafunc):
@@ -93,15 +20,14 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
     if metafunc.function.__name__ == "test_inference":
         argsvalues = []
-        series_type_map = get_series_type_map()
-        typeset = tenzing_complete_set()
+        inferred_series_type_map = infer_series_type_map()
         for series in _test_suite:
-            series_type = series_type_map[series.name]
-            for type in typeset.types:
-                args = {"id": f"{series.name} x {type}"}
-                if type != series_type:
+            expected_type = inferred_series_type_map[series.name]
+            for test_type in typeset.types:
+                args = {"id": f"{series.name} x {test_type} expected {test_type==expected_type}"}
+                if test_type != expected_type:
                     args["marks"] = pytest.mark.xfail(raises=AssertionError)
-                argsvalues.append(pytest.param(series, type, typeset, **args))
+                argsvalues.append(pytest.param(series, test_type, typeset, **args))
         metafunc.parametrize(
             argnames=["series", "expected_type", "typeset"], argvalues=argsvalues
         )
@@ -109,7 +35,6 @@ def pytest_generate_tests(metafunc):
 
 @pytest.mark.run(order=4)
 def test_consistency(series):
-    typeset = tenzing_complete_set()
     assert series in typeset.get_series_type(series)
 
 
@@ -130,12 +55,10 @@ def _traverse_relation_graph(series, G, node=tenzing_generic):
 
 @pytest.mark.run(order=13)
 def test_traversal_mutex(series):
-    typeset = tenzing_complete_set()
     _traverse_relation_graph(series, typeset.relation_graph)
 
 
 @pytest.mark.run(order=6)
 def test_inference(series, expected_type, typeset):
-    infered_type = typeset.get_type_series(series)
-    print(f"{infered_type} == {expected_type}")
+    infered_type = typeset.infer_series_type(series)
     assert infered_type == expected_type
