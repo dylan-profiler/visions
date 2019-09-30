@@ -13,7 +13,7 @@ def get_series_map():
     series_map = [
         # Model type, Relation type
         (tenzing_integer, tenzing_float, []),
-        (tenzing_integer, tenzing_string, ["string_num", "int_str_range"]),
+        (tenzing_integer, tenzing_string, ["string_num", "int_str_range", "string_num_nan"]),
         (
             tenzing_float,
             tenzing_string,
@@ -23,6 +23,7 @@ def get_series_map():
                 "string_flt",
                 "string_flt_nan",
                 "textual_float",
+                "textual_float_nan"
             ],
         ),
         (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
@@ -30,10 +31,8 @@ def get_series_map():
         (tenzing_bool, tenzing_string, ["string_bool_nan"]),
         (tenzing_ip, tenzing_string, ["ip_str"]),
         (tenzing_url, tenzing_string, ["str_url"]),
+        (tenzing_path, tenzing_string, ["path_series_windows_str", "path_series_linux_str"])
     ]
-
-    series_map.append((tenzing_path, tenzing_string, ["path_series_windows_str"]))
-    series_map.append((tenzing_path, tenzing_string, ["path_series_linux_str"]))
 
     return series_map
 
