@@ -1,24 +1,24 @@
 import pandas as pd
 import numpy as np
-from pandas import Int8Dtype
+
+from src.tenzing.core.model.dtypes.bool_fix.boolean import BoolDtype
 
 
-@pd.api.extensions.register_extension_dtype
-class Bool(Int8Dtype):
-    name = "Bool"
-
-    # @property
-    # def type(self):
-    #     return str
-    # TODO: overload dtype Int8 name...
-    # TODO: make sure True,False,np.nan, nothing else
-
-
-series = pd.Series([True, False, np.nan])
+series = pd.Series([1, 0, np.nan], dtype="Int8")
 print(series)
 print(series.dtype)
-print(pd.to_numeric(series).astype("Bool"))
+s2 = series.astype("Bool")
+print(s2)
+print(s2.dtype)
 
+series = pd.Series([True, False])
+print(series.astype("Bool"))
+
+series = pd.Series([1, 2, 3, np.nan], dtype="Int8")
+try:
+    print(series.astype('Bool'))
+except TypeError:
+    print('Nice')
 # Types have the most compact representation. All types are nullable.
 
 # Bool
