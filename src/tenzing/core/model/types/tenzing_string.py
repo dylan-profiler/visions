@@ -14,7 +14,7 @@ class tenzing_string(tenzing_model):
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         # TODO: without the object check this passes string categories... is there a better way?
-        return pdt.is_object_dtype(series) & series.map(type).eq(str).all()
+        return pdt.is_object_dtype(series) & series[series.notna()].map(type).eq(str).all()
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
