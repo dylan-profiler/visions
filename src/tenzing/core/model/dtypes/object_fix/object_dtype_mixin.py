@@ -23,7 +23,7 @@ class ObjectArrayMixin(ExtensionArray):
     @property
     def shape(self):
         """The shape of the 1D array"""
-        return len(self.data),
+        return (len(self.data),)
 
     def __len__(self):
         return len(self.data)
@@ -47,12 +47,13 @@ class ObjectArrayMixin(ExtensionArray):
 
     @property
     def nbytes(self):
-        return sys.getsizeof(self)
+        # return sys.getsizeof(self)
         # TODO: check https://stackoverflow.com/questions/11784329/python-memory-usage-of-numpy-arrays
-        return self._itemsize * len(self)
+        # TODO: add overhead of this class
+        return self.data.nbytes
 
     def _formatting_values(self):
-        return np.array(self._format_values(), dtype='object')
+        return np.array(self._format_values(), dtype="object")
 
     def copy(self, deep=False):
         return type(self)(self.data.copy())
@@ -64,7 +65,7 @@ class ObjectArrayMixin(ExtensionArray):
     def tolist(self):
         return self.data.tolist()
 
-    def argsort(self, axis=-1, kind='quicksort', order=None):
+    def argsort(self, axis=-1, kind="quicksort", order=None):
         return self.data.argsort()
 
     def unique(self):
@@ -92,3 +93,8 @@ class ObjectArrayMixin(ExtensionArray):
         new = cls([])
         new.data = data
         return new
+
+    @classmethod
+    def __repr__(cls):
+        formatted = cls._format_values()
+        return f"{cls.__class__.__name__}({repr(formatted)})"

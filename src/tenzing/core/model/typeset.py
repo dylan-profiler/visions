@@ -50,10 +50,9 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
 
 
 # Infer type without conversion
-def traverse_relation_graph(series: pd.Series,
-                            G: nx.DiGraph,
-                            node: Type[tenzing_model] = tenzing_generic
-                            ) -> Type[tenzing_model]:
+def traverse_relation_graph(
+    series: pd.Series, G: nx.DiGraph, node: Type[tenzing_model] = tenzing_generic
+) -> Type[tenzing_model]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
     Args:

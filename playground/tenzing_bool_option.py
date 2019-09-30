@@ -12,8 +12,8 @@ class tenzing_bool_option(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.dtype == 'Bool'
+        return series.dtype == "Bool"
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype('Bool')
+        return series.astype("Bool")

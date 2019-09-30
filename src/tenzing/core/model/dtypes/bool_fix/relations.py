@@ -1,7 +1,12 @@
 import pandas as pd
 
 from tenzing.core.model import model_relation
-from tenzing.core.model.types import tenzing_bool, tenzing_string, tenzing_generic, tenzing_object
+from tenzing.core.model.types import (
+    tenzing_bool,
+    tenzing_string,
+    tenzing_generic,
+    tenzing_object,
+)
 from tenzing.utils.coercion import test_utils
 
 
@@ -43,8 +48,10 @@ def register_bool_relations():
         model_relation(
             tenzing_bool,
             tenzing_object,
-            test_utils.coercion_equality_test(lambda s: pd.to_numeric(s).astype('Bool')),
-            inferential=True
-        )
+            test_utils.coercion_equality_test(
+                lambda s: pd.to_numeric(s).astype("Bool")
+            ),
+            inferential=True,
+        ),
     ]
     return relations

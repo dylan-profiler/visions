@@ -18,9 +18,13 @@ class tenzing_time(tenzing_model):
             return False
 
         temp_series = series.dropna()
-        return all((temp_series.dt.day.eq(1).all(),
-                    temp_series.dt.month.eq(1).all(),
-                    temp_series.dt.year.eq(1970).all()))
+        return all(
+            (
+                temp_series.dt.day.eq(1).all(),
+                temp_series.dt.month.eq(1).all(),
+                temp_series.dt.year.eq(1970).all(),
+            )
+        )
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:

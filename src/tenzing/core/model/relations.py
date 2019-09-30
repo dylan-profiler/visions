@@ -21,8 +21,8 @@ def register_integer_relations():
         model_relation(
             tenzing_integer,
             tenzing_string,
-            test_utils.coercion_test(lambda s: s.astype(float).astype('Int64')),
-            lambda s: s.astype(float).astype('Int64'),
+            test_utils.coercion_test(lambda s: s.astype(float).astype("Int64")),
+            lambda s: s.astype(float).astype("Int64"),
             inferential=True,
         ),
     ]
@@ -64,7 +64,9 @@ def register_url_relations():
 
     relations = [
         model_relation(tenzing_url, tenzing_string, test_url, inferential=True),
-        model_relation(tenzing_url, tenzing_object, transformer=lambda s: s, inferential=False),
+        model_relation(
+            tenzing_url, tenzing_object, transformer=lambda s: s, inferential=False
+        ),
     ]
     return relations
 
@@ -98,9 +100,10 @@ def register_datetime_relations():
 
 
 def register_timedelta_relations():
-    relations = [model_relation(tenzing_timedelta, tenzing_object, inferential=False),
-                 model_relation(tenzing_timedelta, tenzing_generic, inferential=False),
-                 ]
+    relations = [
+        model_relation(tenzing_timedelta, tenzing_object, inferential=False),
+        model_relation(tenzing_timedelta, tenzing_generic, inferential=False),
+    ]
     return relations
 
 
@@ -207,15 +210,21 @@ def register_existing_path_relations():
 
 
 def register_image_path_relations():
-    relations = [model_relation(tenzing_image_path, tenzing_existing_path, inferential=False)]
+    relations = [
+        model_relation(tenzing_image_path, tenzing_existing_path, inferential=False)
+    ]
     return relations
 
 
 def register_ip_relations():
-    relations = [model_relation(tenzing_ip, tenzing_object, inferential=False),
-                 model_relation(tenzing_ip,
-                                tenzing_string,
-                                test_utils.coercion_test(lambda s: s.apply(ip_address)))]
+    relations = [
+        model_relation(tenzing_ip, tenzing_object, inferential=False),
+        model_relation(
+            tenzing_ip,
+            tenzing_string,
+            test_utils.coercion_test(lambda s: s.apply(ip_address)),
+        ),
+    ]
     return relations
 
 

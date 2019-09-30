@@ -17,7 +17,7 @@ class Bool(Int8Dtype):
 series = pd.Series([True, False, np.nan])
 print(series)
 print(series.dtype)
-print(pd.to_numeric(series).astype('Bool'))
+print(pd.to_numeric(series).astype("Bool"))
 
 # Types have the most compact representation. All types are nullable.
 
@@ -29,4 +29,3 @@ print(pd.to_numeric(series).astype('Bool'))
 # IntN when NaN
 # int when int
 # Float when inf
-

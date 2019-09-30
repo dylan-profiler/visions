@@ -37,9 +37,7 @@ class Summary(object):
         """
         return dataframe_summary(df)
 
-    def summarize_series(
-        self, series: pd.Series, summary_type: tenzing_model
-    ) -> dict:
+    def summarize_series(self, series: pd.Series, summary_type: tenzing_model) -> dict:
         """
 
         Args:

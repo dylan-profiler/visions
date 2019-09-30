@@ -1,9 +1,8 @@
 import pytest
 
-from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.model.types import *
-from tests.series import get_series, infer_series_type_map, get_series_type_map
+from tests.series import get_series, infer_series_type_map
 
 
 typeset = tenzing_complete_set()
@@ -24,7 +23,9 @@ def pytest_generate_tests(metafunc):
         for series in _test_suite:
             expected_type = inferred_series_type_map[series.name]
             for test_type in typeset.types:
-                args = {"id": f"{series.name} x {test_type} expected {test_type==expected_type}"}
+                args = {
+                    "id": f"{series.name} x {test_type} expected {test_type==expected_type}"
+                }
                 if test_type != expected_type:
                     args["marks"] = pytest.mark.xfail(raises=AssertionError)
                 argsvalues.append(pytest.param(series, test_type, typeset, **args))
@@ -53,7 +54,7 @@ def _traverse_relation_graph(series, G, node=tenzing_generic):
         return node
 
 
-# What does this test? It doesn't explcitly invoke the actual traversal code.
+# What does this test? It doesn't explicitly invoke the actual traversal code.
 @pytest.mark.run(order=13)
 def test_traversal_mutex(series):
     _traverse_relation_graph(series, typeset.relation_graph)

@@ -29,4 +29,4 @@ class tenzing_integer(tenzing_model):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype('Int64')
+        return series.astype("Int64")

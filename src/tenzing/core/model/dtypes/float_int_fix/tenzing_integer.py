@@ -22,4 +22,4 @@ class tenzing_integer(tenzing_model):
         try:
             return series.astype(int)
         except ValueError:
-            return series.astype('Int64')
+            return series.astype("Int64")

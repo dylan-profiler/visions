@@ -1,9 +1,6 @@
 from pathlib import Path
 
-from tenzing.core.model.types import (
-    tenzing_integer,
-    tenzing_existing_path,
-)
+from tenzing.core.model.types import tenzing_integer, tenzing_existing_path
 from tenzing.core.summaries.summary import summary
 
 

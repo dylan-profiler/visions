@@ -1,9 +1,5 @@
-import warnings
-
 import pytest
 
-from tenzing.core.model import tenzing_model
-from tenzing.core.model.typesets import tenzing_complete_set
 from tenzing.core.model.types import *
 
 from tests.series import get_series
@@ -17,22 +13,51 @@ def get_series_map():
             "np_uint32",
             "int_range",
             "float_series2",
-            "Int64_int_nan_series"
+            "Int64_int_nan_series",
         ],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
-        tenzing_float: ["float_series", "float_series3", "float_series4"],
+        tenzing_float: [
+            "float_series",
+            "float_series3",
+            "float_series4",
+            "inf_series",
+            "nan_series",
+            "float_nan_series",
+            "float_series5",
+            "int_nan_series",
+            "nan_series_2",
+            "int_with_inf",
+            "float_with_inf",
+            "float_series6",
+        ],
         tenzing_categorical: [
             "categorical_int_series",
             "categorical_float_series",
             "categorical_string_series",
             "categorical_complex_series",
         ],
-        tenzing_bool: ["bool_series", "bool_series2", "bool_series3"],
-        tenzing_complex: ["complex_series", "complex_series_py"],
-        tenzing_datetime: ["timestamp_series", "timestamp_aware_series", "datetime"],
-        tenzing_date: ["datetime"],
-        tenzing_timedelta: ["timedelta_series"],
+        tenzing_bool: [
+            "bool_series",
+            "bool_series2",
+            "bool_series3",
+            "bool_nan_series",
+        ],
+        tenzing_complex: [
+            "complex_series",
+            "complex_series_py",
+            "complex_series_nan",
+            "complex_series_py_nan",
+            "complex_series_nan_2",
+        ],
+        tenzing_datetime: [
+            "timestamp_series",
+            "timestamp_aware_series",
+            "datetime",
+            "timestamp_series_nat",
+        ],
+        tenzing_date: ["datetime", "date_series_nat"],
+        tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
         tenzing_string: [
             "timestamp_string_series",
             "string_series",
@@ -49,6 +74,10 @@ def get_series_map():
             "string_flt",
             "string_num",
             "str_url",
+            "string_str_nan",
+            "string_num_nan",
+            "string_bool_nan",
+            "string_flt_nan",
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
@@ -79,7 +108,7 @@ def all_series_included(series_list, series_map):
     used_names = set([name for names in series_map.values() for name in names])
     names = set([series.name for series in series_list])
     if not names == used_names:
-        warnings.warn(f"Not all series are used {names ^ used_names}")
+        raise ValueError(f"Not all series are used {names ^ used_names}")
 
 
 def pytest_generate_tests(metafunc):

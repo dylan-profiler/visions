@@ -3,7 +3,7 @@ from os.path import basename, splitext
 from glob import glob
 from setuptools import find_packages
 
-install_requires = ["numpy", "pandas", "networkx"]
+install_requires = ["numpy", "pandas==0.25.1", "networkx"]
 
 extras_requires = {
     "type_geometry": ["shapely", "geopandas"],
@@ -12,7 +12,7 @@ extras_requires = {
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
 
-test_requires = ["pytest", "pytest-ordering"]
+test_requires = ["pytest==5.2.0", "pytest-ordering"]
 
 setup(
     name="tenzing",

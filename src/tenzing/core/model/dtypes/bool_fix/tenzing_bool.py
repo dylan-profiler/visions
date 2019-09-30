@@ -15,11 +15,11 @@ class tenzing_boolean(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_bool_dtype(series) or series.dtype == 'Bool'
+        return pdt.is_bool_dtype(series) or series.dtype == "Bool"
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
         try:
             return series.astype(bool)
         except ValueError:
-            return pd.to_numeric(series).astype('Bool')
+            return pd.to_numeric(series).astype("Bool")

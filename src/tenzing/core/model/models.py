@@ -5,7 +5,9 @@ import pandas as pd
 class meta_model(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
         if series.empty:
-            return cls == tenzing_model
+            from tenzing.core.model.types.tenzing_generic import tenzing_generic
+
+            return cls == tenzing_generic
         return cls.contains_op(series)
 
     def __str__(cls) -> str:

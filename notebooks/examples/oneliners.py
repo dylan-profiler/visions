@@ -19,6 +19,4 @@ print(pd.Series([True, False, np.nan]) in tenzing_bool)  # True
 
 print(pd.Series([0, 1, 2, 3, np.nan], dtype="Int64") in tenzing_integer)  # False
 print(pd.Series([0, 1, 2, 3], dtype=int) in tenzing_integer)  # True
-print(
-    pd.Series([0, 1, 2, 3], dtype="Int64") in tenzing_integer
-)  # True
+print(pd.Series([0, 1, 2, 3], dtype="Int64") in tenzing_integer)  # True
