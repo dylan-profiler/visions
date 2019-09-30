@@ -1,5 +1,5 @@
 from ipaddress import ip_address
-from pathlib import Path
+from pathlib import Path, PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
 
 from tenzing.core.model.types import *
@@ -74,7 +74,13 @@ def register_url_relations():
 def register_path_relations():
     def string_is_path(series):
         try:
-            return series.map(lambda x: Path(x).is_absolute()).all()
+            s = series.copy().apply(PureWindowsPath)
+            if not s.apply(lambda x: x.is_absolute()).all():
+                return (
+                    series.apply(PurePosixPath).apply(lambda x: x.is_absolute()).all()
+                )
+            else:
+                return True
         except Exception:
             return False
 

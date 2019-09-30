@@ -32,10 +32,8 @@ def get_series_map():
         (tenzing_url, tenzing_string, ["str_url"]),
     ]
 
-    if os.name == "nt":
-        series_map.append((tenzing_path, tenzing_string, ["path_series_windows_str"]))
-    else:
-        series_map.append((tenzing_path, tenzing_string, ["path_series_linux_str"]))
+    series_map.append((tenzing_path, tenzing_string, ["path_series_windows_str"]))
+    series_map.append((tenzing_path, tenzing_string, ["path_series_linux_str"]))
 
     return series_map
 

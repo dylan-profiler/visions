@@ -55,7 +55,7 @@ def get_series_map():
             "timestamp_aware_series",
             "datetime",
             "timestamp_series_nat",
-            "date_series_nat"
+            "date_series_nat",
         ],
         tenzing_date: ["datetime", "date_series_nat"],
         tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],

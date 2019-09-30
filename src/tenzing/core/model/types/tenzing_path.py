@@ -18,4 +18,8 @@ class tenzing_path(tenzing_model):
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(PurePath)
+        s = series.copy().apply(PureWindowsPath)
+        if not s.apply(lambda x: x.is_absolute()).all():
+            return series.apply(PurePosixPath)
+        else:
+            return s
