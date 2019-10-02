@@ -234,6 +234,13 @@ def register_ip_relations():
     return relations
 
 
+def register_ordinal_relations():
+    relations = [
+        model_relation(tenzing_ordinal, tenzing_categorical, inferential=False),
+    ]
+    return relations
+
+
 # Register relations
 relations = [
     register_integer_relations(),
@@ -246,6 +253,7 @@ relations = [
     register_url_relations(),
     register_path_relations(),
     register_categorical_relations(),
+    register_ordinal_relations(),
     register_complex_relations(),
     register_object_relations(),
     register_date_relations(),
