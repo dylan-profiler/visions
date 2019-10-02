@@ -161,7 +161,10 @@ class tenzingTypeset(object):
     def get_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         """
         """
-        base_type = traverse_relation_graph(series, self.relation_graph)
+        if series.name in self.column_type_map:
+            base_type = self.column_type_map[series.name]
+        else:
+            base_type = traverse_relation_graph(series, self.relation_graph)
         return base_type
 
     def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
