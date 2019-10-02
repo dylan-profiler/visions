@@ -1,10 +1,11 @@
-from ipaddress import ip_address
-from pathlib import Path, PureWindowsPath, PurePosixPath
-from urllib.parse import urlparse
-
 from tenzing.core.model.types import *
 from tenzing.core.model.model_relation import model_relation
 from tenzing.utils import test_utils
+
+from ipaddress import ip_address
+from pathlib import Path, PureWindowsPath, PurePosixPath
+from urllib.parse import urlparse
+import numpy as np
 import logging
 import pandas as pd
 
@@ -25,6 +26,13 @@ def register_integer_relations():
             lambda s: s.astype(float).astype("Int64"),
             inferential=True,
         ),
+        model_relation(
+            tenzing_float,
+            tenzing_complex,
+            lambda s: all(np.imag(s.values) == 0),
+            lambda s: s.astype(float),
+            inferential=True
+        )
     ]
 
     return relations
