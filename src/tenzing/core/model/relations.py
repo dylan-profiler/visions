@@ -124,7 +124,7 @@ def register_geometry_relations():
         logging.disable(logging.ERROR)
         try:
             result = all(wkt.loads(value) for value in series)
-        except WKTReadingError:
+        except (WKTReadingError, AttributeError) as e:
             result = False
         finally:
             logging.disable(logging.NOTSET)
