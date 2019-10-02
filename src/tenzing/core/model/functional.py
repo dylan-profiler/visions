@@ -1,4 +1,4 @@
-from tenzing.core.model.typeset impor tenzingTypeset
+from tenzing.core.model.typeset import tenzingTypeset
 import pandas as pd
 
 
