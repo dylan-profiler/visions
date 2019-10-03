@@ -4,6 +4,8 @@ from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
+from tenzing.core.summaries.frame.dataframe_series_summary import dataframe_series_summary
+from tenzing.core.summaries.frame.dataframe_type_summary import dataframe_type_summary
 from tenzing.utils.graph import output_graph
 
 
@@ -26,16 +28,18 @@ class Summary(object):
 
         self.summary_ops = summary_ops
 
-    def summarize_frame(self, df: pd.DataFrame):
-        """
+    def summarize_frame(self, df: pd.DataFrame, series_summary: dict, series_types: dict):
+        """Summarize a DataFrame based on the DataFrame object and the summaries of individual series
 
         Args:
-            df:
+            df: the DataFrame object
+            series_summary: mapping from column name to the individual summaries
+            series_types: mapping from column name to the series' type
 
         Returns:
-
+            A summary of the DataFrame
         """
-        return dataframe_summary(df)
+        return {**dataframe_summary(df), **dataframe_type_summary(series_types), **dataframe_series_summary(series_summary)}
 
     def summarize_series(self, series: pd.Series, summary_type: tenzing_model) -> dict:
         """
@@ -62,7 +66,7 @@ class Summary(object):
 
         return summary
 
-    def summarize(self, df: pd.DataFrame, types) -> dict:
+    def summarize(self, df: pd.DataFrame, types: dict) -> dict:
         """
 
         Args:
@@ -72,10 +76,10 @@ class Summary(object):
         Returns:
 
         """
-        frame_summary = self.summarize_frame(df)
         series_summary = {
             col: self.summarize_series(df[col], types[col]) for col in df.columns
         }
+        frame_summary = self.summarize_frame(df, series_summary, types)
         return {"types": types, "series": series_summary, "frame": frame_summary}
 
     def plot(self, file_name, type_specific=None):

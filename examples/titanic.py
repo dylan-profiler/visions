@@ -23,3 +23,5 @@ print(cast_types)
 summaries = summary.summarize(cast_df, cast_types)
 for key, variable_summary in summaries["series"].items():
     print(key, variable_summary)
+
+print(summaries['frame'])
