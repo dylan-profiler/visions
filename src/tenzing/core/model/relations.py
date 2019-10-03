@@ -89,7 +89,7 @@ def register_path_relations():
                 )
             else:
                 return True
-        except Exception:
+        except TypeError:
             return False
 
     relations = [
