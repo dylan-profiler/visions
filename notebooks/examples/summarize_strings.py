@@ -21,7 +21,7 @@ df = pd.DataFrame(
 
 
 ts = tenzing_complete_set()
-_ = ts.prep(df)
+ts.prep(df)
 
 x = summary.summarize(df, ts.column_type_map)
 for key, variable_summary in x["series"].items():

@@ -8,7 +8,7 @@ class tenzing_boolean(tenzing_model):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
 
     Examples:
-        >>> x = pd.Series([True, False])
+        >>> x = pd.Series([True, False, None])
         >>> x in tenzing_boolean
         True
     """

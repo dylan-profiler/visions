@@ -41,7 +41,7 @@ def get_series_map():
             "bool_series",
             "bool_series2",
             "bool_series3",
-            "bool_nan_series",
+            # "nullable_bool_series",
         ],
         tenzing_complex: [
             "complex_series",
@@ -85,7 +85,7 @@ def get_series_map():
     }
 
     series_map[tenzing_object] = (
-        ["mixed_list[str,int]", "mixed_dict", "callable", "module"]
+        ["mixed_list[str,int]", "mixed_dict", "callable", "module", "bool_nan_series"]
         + series_map[tenzing_string]
         + series_map[tenzing_geometry]
         + series_map[tenzing_path]

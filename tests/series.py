@@ -72,6 +72,7 @@ def get_series():
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, np.nan], name="bool_nan_series"),
+        # pd.Series([True, False, np.nan], name='nullable_bool_series', dtype='Bool'),
         pd.Series([True, False, False, True], dtype=bool, name="bool_series2"),
         pd.Series(np.array([1, 0, 0, 1], dtype=np.bool), name="bool_series3"),
         # Complex Series
@@ -249,6 +250,7 @@ def get_series_type_map():
         "str_url": tenzing_string,
         "bool_series": tenzing_bool,
         "bool_nan_series": tenzing_object,
+        # "nullable_bool_series": tenzing_bool,
         "bool_series2": tenzing_bool,
         "bool_series3": tenzing_bool,
         "complex_series": tenzing_complex,
@@ -325,6 +327,7 @@ def infer_series_type_map():
         "str_url": tenzing_url,
         "bool_series": tenzing_bool,
         "bool_nan_series": tenzing_bool,
+        # "nullable_bool_series": tenzing_bool,
         "bool_series2": tenzing_bool,
         "bool_series3": tenzing_bool,
         "complex_series": tenzing_complex,

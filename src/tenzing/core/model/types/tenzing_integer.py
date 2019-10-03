@@ -22,7 +22,7 @@ class tenzing_integer(tenzing_model):
             # pandas land will result in integers with decimal trailing 0's
             try:
                 return series.eq(series.astype(int)).all()
-            except ValueError:
+            except (ValueError, TypeError):
                 return False
         else:
             return False
