@@ -1,10 +1,11 @@
-from ipaddress import ip_address
-from pathlib import Path, PureWindowsPath, PurePosixPath
-from urllib.parse import urlparse
-
 from tenzing.core.model.types import *
 from tenzing.core.model.model_relation import model_relation
 from tenzing.utils import test_utils
+
+from ipaddress import ip_address
+from pathlib import Path, PureWindowsPath, PurePosixPath
+from urllib.parse import urlparse
+import numpy as np
 import logging
 import pandas as pd
 
@@ -25,6 +26,13 @@ def register_integer_relations():
             lambda s: s.astype(float).astype("Int64"),
             inferential=True,
         ),
+        model_relation(
+            tenzing_float,
+            tenzing_complex,
+            lambda s: all(np.imag(s.values) == 0),
+            lambda s: s.astype(float),
+            inferential=True
+        )
     ]
 
     return relations
@@ -124,7 +132,7 @@ def register_geometry_relations():
         logging.disable(logging.ERROR)
         try:
             result = all(wkt.loads(value) for value in series)
-        except WKTReadingError:
+        except (WKTReadingError, AttributeError) as e:
             result = False
         finally:
             logging.disable(logging.NOTSET)
@@ -234,6 +242,13 @@ def register_ip_relations():
     return relations
 
 
+def register_ordinal_relations():
+    relations = [
+        model_relation(tenzing_ordinal, tenzing_categorical, inferential=False),
+    ]
+    return relations
+
+
 # Register relations
 relations = [
     register_integer_relations(),
@@ -246,6 +261,7 @@ relations = [
     register_url_relations(),
     register_path_relations(),
     register_categorical_relations(),
+    register_ordinal_relations(),
     register_complex_relations(),
     register_object_relations(),
     register_date_relations(),

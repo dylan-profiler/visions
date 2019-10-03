@@ -132,27 +132,6 @@ def cast_series_to_inferred_type(
     return series
 
 
-# class TenzingType:
-#     def __init__(self, partitioner, base_type):
-#         self.partitioner = partitioner
-#         self.base_type = base_type
-#
-#     def contains_op(self, series):
-#         if series in self.partitioner:
-#             return series in self.base_type
-#         else:
-#             return False
-#
-#     def transform(self, series):
-#         series = series.copy()
-#         partitioner_mask = self.partitioner.mask(series)
-#         series.loc[partitioner_mask] = self.base_type.cast_op(series[partitioner_mask])
-#         return series
-#
-#     def __repr__(self):
-#         return f"{str(self.partitioner)}[{self.base_type}]"
-
-
 class tenzingTypeset(object):
     """
     A collection of tenzing_types with an associated relationship map between them.
@@ -170,12 +149,11 @@ class tenzingTypeset(object):
             types:
         """
         self.column_type_map = {}
-        # self.partitioners = set(partitioners)
 
         self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
         self.types = frozenset(self.relation_graph.nodes)
 
-    def prep(self, df):
+    def cache(self, df):
         self.column_type_map = {
             column: self.get_series_type(df[column]) for column in df.columns
         }
@@ -183,10 +161,10 @@ class tenzingTypeset(object):
     def get_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         """
         """
-        # partitioner = get_series_partitioner(series, self.partitioners)
-        # series = partitioner.partition(series)
-        base_type = traverse_relation_graph(series, self.relation_graph)
-        # return TenzingType(partitioner, base_type)
+        if series.name in self.column_type_map:
+            base_type = self.column_type_map[series.name]
+        else:
+            base_type = traverse_relation_graph(series, self.relation_graph)
         return base_type
 
     def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
@@ -209,7 +187,6 @@ class tenzingTypeset(object):
         return cast_series_to_inferred_type(series_type, series, self.relation_graph)
 
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
-        self.prep(df)
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
 
     def _get_ancestors(self, node: Type[tenzing_model]) -> set:
@@ -262,6 +239,15 @@ class tenzingTypeset(object):
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
             plt.imshow(img)
+
+    def __add__(self, other):
+        if issubclass(other.__class__, tenzingTypeset):
+            other_types = set(other.types)
+        elif issubclass(other, tenzing_model):
+            other_types = set([other])
+        else:
+            raise NotImplementedError(f'Typeset addition not implemented for type {type(other)}')
+        return tenzingTypeset(self.types | other_types)
 
     def __repr__(self):
         return self.__class__.__name__
