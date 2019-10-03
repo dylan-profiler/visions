@@ -5,7 +5,7 @@ import pandas as pd
 import networkx as nx
 
 from tenzing.core.model.models import tenzing_model
-from tenzing.core.model.relations import relations
+from tenzing.core.model.relations import register_relations
 from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
 
@@ -151,7 +151,7 @@ class tenzingTypeset(object):
         self.column_type_map = {}
 
         self._relations = []
-        for relation_list in relations:
+        for relation_list in register_relations():
             for relation in relation_list:
                 self.register_relation(relation)
 
