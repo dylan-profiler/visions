@@ -10,6 +10,7 @@ file_name = r"C:\Users\Cees Closed\Downloads\Open_Data_RDW__Gekentekende_voertui
 # Load dataset
 df = pd.read_csv(
     file_name,
+    nrows=1000
 )
 
 # Type
