@@ -142,7 +142,7 @@ class tenzingTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, types: list):
+    def __init__(self, types: set):
         """
 
         Args:
@@ -244,7 +244,7 @@ class tenzingTypeset(object):
         if issubclass(other.__class__, tenzingTypeset):
             other_types = set(other.types)
         elif issubclass(other, tenzing_model):
-            other_types = set([other])
+            other_types = {other}
         else:
             raise NotImplementedError(f'Typeset addition not implemented for type {type(other)}')
         return tenzingTypeset(self.types | other_types)
