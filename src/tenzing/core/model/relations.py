@@ -270,7 +270,3 @@ relations = [
     register_ip_relations(),
     register_image_path_relations(),
 ]
-
-for relation_list in relations:
-    for relation in relation_list:
-        relation.model.register_relation(relation)

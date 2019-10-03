@@ -5,11 +5,12 @@ import pandas as pd
 import networkx as nx
 
 from tenzing.core.model.models import tenzing_model
+from tenzing.core.model.relations import relations
 from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
 
 
-def build_relation_graph(nodes: set) -> nx.DiGraph:
+def build_relation_graph(nodes: set, relations: list) -> nx.DiGraph:
     """Constructs a traversable relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -17,6 +18,7 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
 
     Args:
         nodes:  A list of tenzing_types considered at the root of the relations graph.
+        relations: A list of relations from type to types
 
     Returns:
         A directed graph of type relations for the provided nodes.
@@ -24,11 +26,10 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     style_map = {True: "dashed", False: "solid", None: "dotted"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
-    relation_graph.add_edges_from(
-        (*node.edge, {"relationship": node, "style": style_map[node.inferential]})
-        for s_node in nodes
-        for to_node, node in s_node.get_relations().items()
-    )
+    for relation in relations:
+        relation_graph.add_edge(
+            relation.friend_model, relation.model, relationship=relation, style=style_map[relation.inferential]
+        )
     undefined_nodes = set(relation_graph.nodes) - nodes
     relation_graph.remove_nodes_from(undefined_nodes)
     check_graph_constraints(relation_graph, nodes)
@@ -138,7 +139,6 @@ class tenzingTypeset(object):
 
     Attributes:
         types: The collection of tenzing types which are derived either from a base_type or themselves
-        partitioners: ...
         relation_graph: ...
     """
 
@@ -150,8 +150,19 @@ class tenzingTypeset(object):
         """
         self.column_type_map = {}
 
-        self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
+        self._relations = []
+        for relation_list in relations:
+            for relation in relation_list:
+                self.register_relation(relation)
+
+        self.relation_graph = build_relation_graph(set(types) | {tenzing_generic}, self._relations)
         self.types = frozenset(self.relation_graph.nodes)
+
+    def register_relation(self, relation):
+        assert (
+            relation not in self._relations
+        ), "Only one relationship permitted per type"
+        self._relations.append(relation)
 
     def cache(self, df):
         self.column_type_map = {
