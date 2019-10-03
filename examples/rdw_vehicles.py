@@ -12,6 +12,7 @@ df = pd.read_csv(
     file_name,
     nrows=10000
 )
+print(df.info())
 
 # Type
 typeset = tenzing_complete_set()
