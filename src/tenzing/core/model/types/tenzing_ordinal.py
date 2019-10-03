@@ -14,7 +14,7 @@ class tenzing_ordinal(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_categorical_dtype(series) & series.cat.ordered
+        return pdt.is_categorical_dtype(series) and series.cat.ordered
 
     @classmethod
     def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
