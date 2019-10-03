@@ -12,6 +12,6 @@ from tenzing.core.summaries.series.zero_summary import zero_summary
 from tenzing.core.summaries.series.base_summary import base_summary
 from tenzing.core.summaries.series.category_summary import category_summary
 from tenzing.core.summaries.series.complex_summary import complex_summary
-from tenzing.core.summaries.series.datetime_summary import datetime_summary
+from tenzing.core.summaries.series.range_summary import range_summary
 from tenzing.core.summaries.series.numerical_summary import numerical_summary
 from tenzing.core.summaries.series.image_summary import image_summary
