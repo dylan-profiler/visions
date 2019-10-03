@@ -23,5 +23,8 @@ for name, tsc in [
     # Write graph to dot
     tsc.output_graph(typesets_dir / f"{name}.dot")
 
-    # Plot the graph
+    # Plot the graph (svg)
     tsc.output_graph(typesets_dir / f"{name}.svg")
+
+    # Plot the graph (png)
+    tsc.output_graph(typesets_dir / f"{name}.png")
