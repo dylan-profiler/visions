@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tenzing.core.model import tenzing_complete_set
+from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
 from tenzing.core.summaries.summary import summary
 
 # Load dataset
@@ -9,18 +9,17 @@ df = pd.read_csv(
 )
 
 # Type
-x = tenzing_complete_set()
-y = tenzing_complete_set()
-x.prep(df)
+typeset = tenzing_complete_set()
 
 # Type inference
-tdf = x.cast_to_inferred_types(df)
+inferred_types = type_inference(df, typeset)
+print(inferred_types)
 
-print(x.column_type_map)
-y.prep(tdf)
-print(y.column_type_map)
+# Type cast
+cast_df, cast_types = type_cast(df, typeset)
+print(cast_types)
 
 # Summarization
-x = summary.summarize(df, x.column_type_map)
-for key, variable_summary in x["series"].items():
+summaries = summary.summarize(cast_df, cast_types)
+for key, variable_summary in summaries["series"].items():
     print(key, variable_summary)

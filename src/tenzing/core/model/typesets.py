@@ -101,6 +101,7 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_object,
             tenzing_complex,
             tenzing_categorical,
+            tenzing_ordinal,
             tenzing_datetime,
             tenzing_timedelta,
             tenzing_integer,

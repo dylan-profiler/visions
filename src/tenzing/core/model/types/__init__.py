@@ -16,3 +16,4 @@ from tenzing.core.model.types.tenzing_image_path import tenzing_image_path
 from tenzing.core.model.types.tenzing_existing_path import tenzing_existing_path
 from tenzing.core.model.types.tenzing_url import tenzing_url
 from tenzing.core.model.types.tenzing_ip import tenzing_ip
+from tenzing.core.model.types.tenzing_ordinal import tenzing_ordinal
