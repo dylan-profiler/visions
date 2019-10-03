@@ -142,8 +142,7 @@ type_summary_ops = {
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-    tenzing_generic: [],
-    tenzing_model: [base_summary, missing_summary],
+    tenzing_generic: [base_summary, missing_summary],
 }
 
 # TODO: add typeset
