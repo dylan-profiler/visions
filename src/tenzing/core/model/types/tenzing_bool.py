@@ -1,12 +1,8 @@
-from collections import namedtuple
-
 import pandas.api.types as pdt
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
-
-
-relation_conf = namedtuple('relation_conf', ['inferential', 'map'], defaults=[None])
 
 
 class tenzing_bool(tenzing_model):
@@ -17,7 +13,7 @@ class tenzing_bool(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls):
+    def register_relations(cls) -> dict:
         from tenzing.core.model.types import tenzing_generic, tenzing_string
 
         return {

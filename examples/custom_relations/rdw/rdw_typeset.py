@@ -4,9 +4,7 @@ from tenzing.core.model.typeset import tenzingTypeset
 
 
 class rdw_typeset(tenzingTypeset):
-    """Typeset used in the RDW dataset
-
-    """
+    """Typeset used in the RDW dataset"""
 
     def __init__(self):
         types = {

@@ -169,11 +169,11 @@ def register_bool_relations():
     return relations
 
 
-def register_categorical_relations():
-    relations = [
-        model_relation(tenzing_categorical, tenzing_generic, inferential=False)
-    ]
-    return relations
+# def register_categorical_relations():
+#     relations = [
+#         model_relation(tenzing_categorical, tenzing_generic, inferential=False)
+#     ]
+#     return relations
 
 
 def register_complex_relations():
