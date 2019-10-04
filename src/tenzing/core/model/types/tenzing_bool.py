@@ -21,9 +21,14 @@ class tenzing_bool(tenzing_model):
             tenzing_generic: relation_conf(inferential=False),
             # TODO: store mapping somewhere (for alteration and DRY)
             # TODO: ensure that series.str.lower() has no side effects
-            tenzing_string: relation_conf(inferential=True,
-                                          relationship=lambda s: coercion_map_test([{"true": True, "false": False},{"y": True, "n": False},{"yes": True, "no": False}])(s.str.lower()),
-                                          transformer=lambda s: coercion_map([{"true": True, "false": False},{"y": True, "n": False},{"yes": True, "no": False}])(s.str.lower()),
+            tenzing_string: relation_conf(
+                inferential=True,
+                relationship=lambda s: coercion_map_test(
+                    [{"true": True, "false": False}, {"y": True, "n": False},
+                     {"yes": True, "no": False}])(s.str.lower()),
+                transformer=lambda s: coercion_map(
+                    [{"true": True, "false": False}, {"y": True, "n": False},
+                     {"yes": True, "no": False}])(s.str.lower()),
             )
         }
         return relations
