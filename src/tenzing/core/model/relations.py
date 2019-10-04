@@ -9,6 +9,8 @@ import numpy as np
 import logging
 import pandas as pd
 
+from tenzing.utils.coercion.test_utils import coercion_map_test, coercion_map
+
 
 def register_integer_relations():
     relations = [
@@ -153,38 +155,14 @@ def register_geometry_relations():
 
 
 def register_bool_relations():
-    # Nullable bool: Object - > Bool
-    class string_bool_relation:
-        _boolean_maps = [
-            {"true": True, "false": False},
-            {"y": True, "n": False},
-            {"yes": True, "no": False},
-        ]
-
-        def __init__(self):
-            self._full_boolean_map = {
-                k: v for d in self._boolean_maps for k, v in d.items()
-            }
-
-        # TODO: ensure that series.str.lower() has no side effects
-        def string_is_bool(self, series):
-            temp_series = series.str.lower()
-            return any(
-                temp_series.isin(boolean_map.keys()).all()
-                for boolean_map in self._boolean_maps
-            )
-
-        def map_string_to_bool(self, series):
-            return series.str.lower().map(self._full_boolean_map)
-
-    sb_relation = string_bool_relation()
     relations = [
         model_relation(tenzing_bool, tenzing_generic, inferential=False),
         model_relation(
             tenzing_bool,
             tenzing_string,
-            sb_relation.string_is_bool,
-            sb_relation.map_string_to_bool,
+            # TODO: ensure that series.str.lower() has no side effects
+            lambda s: coercion_map_test(tenzing_bool.relations[tenzing_string]['map'])(s.str.lower()),
+            lambda s: coercion_map(tenzing_bool.relations[tenzing_string]['map'])(s.str.lower()),
             inferential=True,
         ),
     ]

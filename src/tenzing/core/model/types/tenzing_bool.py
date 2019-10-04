@@ -1,7 +1,12 @@
+from collections import namedtuple
+
 import pandas.api.types as pdt
 import pandas as pd
 
 from tenzing.core.model.models import tenzing_model
+
+
+relation_conf = namedtuple('relation_conf', ['inferential', 'map'], defaults=[None])
 
 
 class tenzing_bool(tenzing_model):
@@ -10,6 +15,20 @@ class tenzing_bool(tenzing_model):
     >>> x in tenzing_bool
     True
     """
+
+    @classmethod
+    def register_relations(cls):
+        from tenzing.core.model.types import tenzing_generic, tenzing_string
+
+        return {
+            tenzing_generic: relation_conf(inferential=False),
+            tenzing_string: relation_conf(inferential=True, map=[
+                    {"true": True, "false": False},
+                    {"y": True, "n": False},
+                    {"yes": True, "no": False}
+                ]
+            )
+        }
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
