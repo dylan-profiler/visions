@@ -20,7 +20,7 @@ class tenzing_standard_set(tenzingTypeset):
     """
 
     def __init__(self):
-        types = [
+        types = {
             tenzing_object,
             tenzing_bool,
             tenzing_float,
@@ -31,7 +31,7 @@ class tenzing_standard_set(tenzingTypeset):
             tenzing_timedelta,
             tenzing_integer,
             tenzing_string,
-        ]
+        }
         super().__init__(types)
 
 
@@ -54,7 +54,7 @@ class tenzing_geometry_set(tenzingTypeset):
     """
 
     def __init__(self):
-        types = [
+        types = {
             tenzing_bool,
             tenzing_float,
             tenzing_object,
@@ -65,7 +65,7 @@ class tenzing_geometry_set(tenzingTypeset):
             tenzing_integer,
             tenzing_string,
             tenzing_geometry,
-        ]
+        }
         super().__init__(types)
 
 
@@ -95,7 +95,7 @@ class tenzing_complete_set(tenzingTypeset):
     """
 
     def __init__(self):
-        types = [
+        types = {
             tenzing_bool,
             tenzing_float,
             tenzing_object,
@@ -113,5 +113,5 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_time,
             tenzing_existing_path,
             tenzing_ip,
-        ]
+        }
         super().__init__(types)
