@@ -1,6 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
 
 
@@ -10,6 +11,15 @@ class tenzing_object(tenzing_model):
     >>> x in tenzing_object
     True
     """
+
+    @classmethod
+    def register_relations(cls):
+        from tenzing.core.model.types import tenzing_generic
+
+        relations = {
+            tenzing_generic: relation_conf(inferential=False)
+        }
+        return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

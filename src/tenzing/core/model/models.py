@@ -20,52 +20,47 @@ class meta_model(ABCMeta):
 class tenzing_model(metaclass=meta_model):
     """Abstract implementation of a tenzing type.
 
-    Provides a common API for building custom tenzing datatypes. These can optionally
-    be augmented with mixins from :mod:`tenzing.core.mixins`
-
-    Examples:
-        >>> class tenzing_datetime(tenzing_model):
-        >>>     def contains_op(self, series):
-        >>>         return pdt.is_datetime64_dtype(series)
-        >>>
-        >>>     def cast_op(self, series):
-        >>>         return pd.to_datetime(series)
-        >>>
+    Provides a common API for building custom tenzing datatypes.
     """
 
-    _relations = {}
+    # _relations = {}
+    #
+    # # TODO: is this even used?
+    # @classmethod
+    # def __instancecheck__(mcs, instance) -> bool:
+    #     print(mcs, instance.__class__)
+    #     if instance.__class__ is mcs:
+    #         return True
+    #     else:
+    #         return isinstance(instance.__class__, mcs)
 
-    # TODO: is this even used?
-    @classmethod
-    def __instancecheck__(mcs, instance) -> bool:
-        print(mcs, instance.__class__)
-        if instance.__class__ is mcs:
-            return True
-        else:
-            return isinstance(instance.__class__, mcs)
+    # @classmethod
+    # def get_relations(cls) -> dict:
+    #     # TODO: move to __new__ or so?
+    #     if cls.__name__ not in cls._relations:
+    #         cls._relations[cls.__name__] = {}
+    #
+    #     return cls._relations[cls.__name__]
 
-    @classmethod
-    def get_relations(cls) -> dict:
-        # TODO: move to __new__ or so?
-        if cls.__name__ not in cls._relations:
-            cls._relations[cls.__name__] = {}
-
-        return cls._relations[cls.__name__]
-
-    @classmethod
-    def register_relation(cls, relation) -> None:
-        if cls.__name__ not in cls._relations:
-            cls._relations[cls.__name__] = {}
-
-        assert (
-            relation.friend_model not in cls._relations[cls.__name__]
-        ), "Only one relationship permitted per type"
-        cls._relations[cls.__name__][relation.friend_model] = relation
+    # @classmethod
+    # def register_relation(cls, relation) -> None:
+    #     if cls.__name__ not in cls._relations:
+    #         cls._relations[cls.__name__] = {}
+    #
+    #     assert (
+    #         relation.friend_model not in cls._relations[cls.__name__]
+    #     ), "Only one relationship permitted per type"
+    #     cls._relations[cls.__name__][relation.friend_model] = relation
 
     @classmethod
     def cast(cls, series: pd.Series, operation=None):
         operation = operation if operation is not None else cls.cast_op
         return operation(series)
+
+    @classmethod
+    @abstractmethod
+    def get_relations(cls) -> dict:
+        raise NotImplementedError
 
     @classmethod
     @abstractmethod

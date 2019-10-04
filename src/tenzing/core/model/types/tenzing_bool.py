@@ -3,6 +3,7 @@ import pandas as pd
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+from tenzing.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
 class tenzing_bool(tenzing_model):
@@ -16,15 +17,16 @@ class tenzing_bool(tenzing_model):
     def register_relations(cls) -> dict:
         from tenzing.core.model.types import tenzing_generic, tenzing_string
 
-        return {
+        relations = {
             tenzing_generic: relation_conf(inferential=False),
-            tenzing_string: relation_conf(inferential=True, map=[
-                    {"true": True, "false": False},
-                    {"y": True, "n": False},
-                    {"yes": True, "no": False}
-                ]
+            # TODO: store mapping somewhere (for alteration and DRY)
+            # TODO: ensure that series.str.lower() has no side effects
+            tenzing_string: relation_conf(inferential=True,
+                                          relationship=lambda s: coercion_map_test([{"true": True, "false": False},{"y": True, "n": False},{"yes": True, "no": False}])(s.str.lower()),
+                                          transformer=lambda s: coercion_map([{"true": True, "false": False},{"y": True, "n": False},{"yes": True, "no": False}])(s.str.lower()),
             )
         }
+        return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

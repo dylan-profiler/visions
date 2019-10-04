@@ -2,8 +2,17 @@ import pandas.api.types as pdt
 import numpy as np
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.types.tenzing_integer import tenzing_integer
+from tenzing.utils.coercion import test_utils
+
+
+def test_string_is_float(series):
+    coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(
+        series
+    )
+    return coerced_series is not None and coerced_series in tenzing_float
 
 
 class tenzing_float(tenzing_model):
@@ -12,6 +21,17 @@ class tenzing_float(tenzing_model):
     >>> x in tenzing_float
     True
     """
+
+    @classmethod
+    def register_relations(cls):
+        from tenzing.core.model.types import tenzing_generic, tenzing_string
+
+        relations = {
+            tenzing_generic: relation_conf(inferential=False),
+            tenzing_string: relation_conf(relationship=test_string_is_float, inferential=True),
+        }
+
+        return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
