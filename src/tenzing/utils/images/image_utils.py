@@ -6,7 +6,7 @@ from tenzing.utils.monkeypatches.imghdr_patch import *
 import imghdr
 
 
-def open_image(path: Path) -> Optional[Image]:
+def open_image(path: Path) -> Optional[Image.Image]:
     """
 
     Args:
