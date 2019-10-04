@@ -1,11 +1,14 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Custom
 .idea/
 *.dot
 docsrc/source/tenzing/_autosummary/
 docsrc/build/
+plots/*/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
 # C extensions
 *.so

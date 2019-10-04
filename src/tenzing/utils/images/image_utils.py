@@ -1,12 +1,12 @@
 from pathlib import Path
-from typing import Union, Tuple
+from typing import Tuple, Optional, Union
 import imagehash
 from PIL import Image, ExifTags
 from tenzing.utils.monkeypatches.imghdr_patch import *
 import imghdr
 
 
-def open_image(path: Path) -> Image:
+def open_image(path: Path) -> Optional[Image]:
     """
 
     Args:
@@ -17,7 +17,7 @@ def open_image(path: Path) -> Image:
     """
     try:
         return Image.open(path)
-    except (OSError, AttributeError) as err:
+    except (OSError, AttributeError):
         return None
 
 
@@ -37,7 +37,7 @@ def is_image_truncated(image: Image) -> bool:
         return True
 
 
-def get_image_shape(image: Image) -> Union[None, Tuple[int, int]]:
+def get_image_shape(image: Image) -> Optional[Tuple[int, int]]:
     """
 
     Args:
@@ -52,7 +52,7 @@ def get_image_shape(image: Image) -> Union[None, Tuple[int, int]]:
         return None
 
 
-def hash_image(image: Image) -> Union[str, None]:
+def hash_image(image: Image) -> Optional[str]:
     """
 
     Args:
@@ -67,7 +67,7 @@ def hash_image(image: Image) -> Union[str, None]:
         return None
 
 
-def decode_byte_exif(exif_val):
+def decode_byte_exif(exif_val: Union[str, bytes]) -> str:
     """Decode byte encodings
 
     Args:
@@ -77,10 +77,9 @@ def decode_byte_exif(exif_val):
 
     """
     try:
-        exif_val = exif_val.decode()
+        return exif_val.decode()
     except (UnicodeDecodeError, AttributeError):
-        pass
-    return exif_val
+        return exif_val
 
 
 def extract_exif(image: Image) -> dict:
@@ -109,5 +108,5 @@ def extract_exif(image: Image) -> dict:
     return exif
 
 
-def path_is_image(p: Path):
+def path_is_image(p: Path) -> bool:
     return imghdr.what(p) is not None

@@ -200,21 +200,6 @@ class tenzingTypeset(object):
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
 
-    def _get_ancestors(self, node: Type[tenzing_model]) -> set:
-        """
-
-        Args:
-            node:
-
-        Returns:
-
-        """
-        return {
-            mdl
-            for x in node.get_models()
-            for mdl in nx.ancestors(self.relation_graph, x)
-        }
-
     def output_graph(self, file_name) -> None:
         """
 
