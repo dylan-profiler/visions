@@ -21,7 +21,10 @@ for name, tsc in [
     ("typeset_standard", tenzing_standard_set()),
 ]:
     # Write graph to dot
-    tsc.output(typesets_dir / f"{name}.dot")
+    tsc.output_graph(typesets_dir / f"{name}.dot")
 
-    # Plot the graph
-    tsc.output(typesets_dir / f"{name}.svg")
+    # Plot the graph (svg)
+    tsc.output_graph(typesets_dir / f"{name}.svg")
+
+    # Plot the graph (png)
+    tsc.output_graph(typesets_dir / f"{name}.png")

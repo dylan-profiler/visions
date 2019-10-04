@@ -1,4 +1,5 @@
 import pandas as pd
+import networkx as nx
 
 from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.models import tenzing_model
@@ -106,7 +107,7 @@ class Summary(object):
 
         included_nodes = G.nodes
         if type_specific is not None:
-            leave = typeset._get_ancestors(type_specific)
+            leave = nx.ancestors(G, type_specific)
 
             included_nodes = leave
             G.remove_nodes_from(G.nodes - leave)
@@ -127,7 +128,7 @@ type_summary_ops = {
     tenzing_bool: [],
     tenzing_categorical: [category_summary, unique_summary],
     tenzing_complex: [infinite_summary, complex_summary, unique_summary_complex],
-    tenzing_datetime: [datetime_summary, unique_summary],
+    tenzing_datetime: [range_summary, unique_summary],
     tenzing_date: [],
     tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
     tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
@@ -145,8 +146,7 @@ type_summary_ops = {
     tenzing_time: [],
     tenzing_timedelta: [],
     tenzing_url: [url_summary, unique_summary],
-    tenzing_generic: [],
-    tenzing_model: [base_summary, missing_summary],
+    tenzing_generic: [base_summary, missing_summary],
 }
 
 # TODO: add typeset

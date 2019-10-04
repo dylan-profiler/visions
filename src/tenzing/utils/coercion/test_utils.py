@@ -1,7 +1,7 @@
 """
 A selection of testing utilities for tenzing.
 """
-from typing import Callable, Union
+from typing import Callable, Optional
 import pandas as pd
 
 
@@ -17,7 +17,7 @@ def option_coercion_evaluator(method: Callable) -> Callable:
         The coerced series if the coercion succeeds otherwise None.
     """
 
-    def f(series: pd.Series) -> Union[None, pd.Series]:
+    def f(series: pd.Series) -> Optional[pd.Series]:
         try:
             return method(series)
         except (ValueError, TypeError, AttributeError):

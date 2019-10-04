@@ -10,6 +10,21 @@ df = pd.read_csv(
     "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
 )
 
+start = df.memory_usage(deep=True).sum()
+
+df['Survived'] = df['Survived'].astype(bool)
+df['Fare'] = df['Fare'].astype(np.float16)
+df['Age'] = df['Age'].astype(np.float16)
+df['SibSp'] = df['SibSp'].astype(np.uint8)
+df['Parch'] = df['Parch'].astype(np.uint8)
+df['Parch'] = df['Parch'].astype(np.uint8)
+df['PassengerId'] = df['PassengerId'].astype(np.uint8)
+df['Pclass'] = pd.Categorical(df['Pclass'], categories=sorted(df['Pclass'].unique()), ordered=True)
+
+end = df.memory_usage(deep=True).sum()
+
+print(f"Initial {start} bytes reduced to {end} bytes. Difference {start - end} bytes. Reduction of {(start-end) / start:.0%}")
+
 # Type
 typeset = tenzing_complete_set()
 
@@ -22,11 +37,10 @@ cast_df, cast_types = type_cast(df, typeset)
 print(cast_types)
 
 # Summarization
-summaries = summary.summarize(cast_df, cast_types)
-for key, variable_summary in summaries["series"].items():
-    print(key, variable_summary)
+# summaries = summary.summarize(cast_df, cast_types)
+# for key, variable_summary in summaries["series"].items():
+#     print(key, variable_summary)
 
-print(summaries['frame'])
 
 from tenzing.core.model.types import tenzing_float, tenzing_integer, tenzing_categorical, tenzing_string, \
     tenzing_ordinal

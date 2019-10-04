@@ -142,7 +142,7 @@ class tenzingTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, types: list):
+    def __init__(self, types: set):
         """
 
         Args:
@@ -151,7 +151,7 @@ class tenzingTypeset(object):
         self.column_type_map = {}
 
         self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
-        self.types = frozenset(self.relation_graph.nodes)
+        self.types = set(self.relation_graph.nodes)
 
     def cache(self, df):
         self.column_type_map = {
@@ -188,21 +188,6 @@ class tenzingTypeset(object):
 
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
-
-    def _get_ancestors(self, node: Type[tenzing_model]) -> set:
-        """
-
-        Args:
-            node:
-
-        Returns:
-
-        """
-        return {
-            mdl
-            for x in node.get_models()
-            for mdl in nx.ancestors(self.relation_graph, x)
-        }
 
     def output_graph(self, file_name) -> None:
         """
@@ -244,7 +229,7 @@ class tenzingTypeset(object):
         if issubclass(other.__class__, tenzingTypeset):
             other_types = set(other.types)
         elif issubclass(other, tenzing_model):
-            other_types = set([other])
+            other_types = {other}
         else:
             raise NotImplementedError(f'Typeset addition not implemented for type {type(other)}')
         return tenzingTypeset(self.types | other_types)
