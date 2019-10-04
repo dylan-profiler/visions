@@ -3,7 +3,7 @@ from tenzing.core.model.model_relation import model_relation
 from tenzing.utils import test_utils
 
 from ipaddress import ip_address
-from pathlib import Path, PureWindowsPath, PurePosixPath
+from pathlib import PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
 import numpy as np
 import logging
@@ -89,7 +89,7 @@ def register_path_relations():
                 )
             else:
                 return True
-        except Exception:
+        except TypeError:
             return False
 
     relations = [
