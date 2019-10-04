@@ -3,7 +3,7 @@ from collections import namedtuple
 import pandas as pd
 
 
-relation_conf = namedtuple('relation_conf', ('inferential', 'relationship', 'transformer', 'map'), defaults=(None, None, None))
+relation_conf = namedtuple('relation_conf', ('inferential', 'relationship', 'transformer'), defaults=(None, None))
 
 
 class model_relation:
