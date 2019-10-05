@@ -9,7 +9,7 @@ from tenzing.core.model.models import tenzing_model
 def string_is_path(series):
     try:
         s = to_path(series.copy())
-        return s.all()
+        return s.apply(lambda x: x.is_absolute()).all()
     except TypeError:
         return False
 

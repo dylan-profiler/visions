@@ -3,6 +3,7 @@ import pandas as pd
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+from tenzing.core.model.types import tenzing_string
 
 
 class tenzing_categorical(tenzing_model):
@@ -18,6 +19,8 @@ class tenzing_categorical(tenzing_model):
 
         return {
             tenzing_generic: relation_conf(inferential=False),
+            # TODO: contrib
+            # tenzing_string: relation_conf(inferential=True, relationship=lambda s: s, transformer=lambda s: s)
         }
 
     @classmethod

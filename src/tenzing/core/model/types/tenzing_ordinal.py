@@ -9,11 +9,13 @@ def check_consecutive(l):
     return sorted(l) == list(range(min(l), max(l) + 1))
 
 
+# TODO: move to contrib
 def is_ordinal_int(s):
-    unique_values = s.unique()
+    unique_values = list(s.unique())
     return check_consecutive(unique_values) and 2 < len(unique_values) < 10 and 1 in unique_values
 
 
+# TODO: move to contrib
 def is_ordinal_str(s):
     unique_values = s.str.lower().unique()
     return 'a' in unique_values and check_consecutive(list(map(ord, unique_values)))

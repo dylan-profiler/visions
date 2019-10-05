@@ -3,6 +3,7 @@ import pandas as pd
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+from tenzing.core.model.types import tenzing_integer
 from tenzing.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
@@ -25,6 +26,9 @@ class tenzing_bool(tenzing_model):
             tenzing_generic: relation_conf(inferential=False),
             # TODO: store mapping somewhere (for alteration and DRY)
             # TODO: ensure that series.str.lower() has no side effects
+            # TODO: contrib:
+            #             {"j": True, "n": False},
+            #             {"ja": True, "nee": False},
             tenzing_string: relation_conf(
                 inferential=True,
                 relationship=lambda s: coercion_map_test(
@@ -33,6 +37,11 @@ class tenzing_bool(tenzing_model):
                 transformer=lambda s: to_bool(coercion_map(
                     [{"true": True, "false": False}, {"y": True, "n": False},
                      {"yes": True, "no": False}])(s.str.lower())),
+            ),
+            tenzing_integer: relation_conf(
+                inferential=True,
+                relationship=lambda s: set(s.unique()) == {0, 1},
+                transformer=to_bool,
             )
         }
         return relations

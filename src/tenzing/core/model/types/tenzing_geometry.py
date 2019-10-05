@@ -51,4 +51,11 @@ class tenzing_geometry(tenzing_model):
 
         return series.apply(lambda x: issubclass(type(x), BaseGeometry)).all()
         # The below raises `TypeError: data type "geometry" not understood`
+        # import geopandas
+        # from geopandas import array
+        # from geopandas.array import GeometryDtype
         # return series.dtype == 'geometry'
+
+        # TODO: alternative
+        # import geopandas
+        # return geopandas.GeoSeries(series.values)

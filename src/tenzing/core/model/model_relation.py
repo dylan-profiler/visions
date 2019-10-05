@@ -1,7 +1,9 @@
 from collections import namedtuple
+from typing import Callable, Optional, Type
 
 import pandas as pd
 
+from tenzing.core.model import tenzing_model
 
 relation_conf = namedtuple('relation_conf', ('inferential', 'relationship', 'transformer'), defaults=(None, None))
 
@@ -31,7 +33,11 @@ class model_relation:
     """
 
     def __init__(
-        self, model, friend_model, inferential, relationship=None, transformer=None
+            self, model: Type[tenzing_model],
+            friend_model: Type[tenzing_model],
+            inferential: bool,
+            relationship: Optional[Callable] = None,
+            transformer: Optional[Callable] = None
     ):
         """
         Args:

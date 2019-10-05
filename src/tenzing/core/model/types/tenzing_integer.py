@@ -1,6 +1,5 @@
 import pandas.api.types as pdt
 import pandas as pd
-import numpy as np
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
@@ -49,4 +48,4 @@ class tenzing_integer(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_integer_dtype(series)
+        return pdt.is_signed_integer_dtype(series)
