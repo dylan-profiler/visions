@@ -42,7 +42,6 @@ class model_relation:
         """
         self.model = model
         self.friend_model = friend_model
-        self.edge = (self.friend_model, self.model)
         self.relationship = relationship if relationship else self.model.__contains__
         self.transformer = transformer if transformer else self.model.cast_op
         self.inferential = inferential
@@ -56,5 +55,5 @@ class model_relation:
     def __repr__(self) -> str:
         return f"({self.friend_model} -> {self.model})"
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return isinstance(other, model_relation) and str(self) == str(other)
