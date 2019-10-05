@@ -12,7 +12,14 @@ extras_requires = {
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
 
-test_requires = ["pytest==5.2.0", "pytest-ordering"]
+test_requires = [
+    "pytest==5.2.0",
+    "pytest-ordering",
+    "pytest-rerunfailures",
+    "pytest-sugar",
+    "pytest-tldr",
+    "pytest-runner"
+]
 
 setup(
     name="tenzing",
