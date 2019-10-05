@@ -25,7 +25,7 @@ class Summary(object):
         if not all(
             issubclass(base_type, tenzing_model) for base_type in summary_ops.keys()
         ):
-            raise Exception("Summaries must be mapped on a type!")
+            raise TypeError("Summaries must be mapped on a type!")
 
         self.summary_ops = summary_ops
 
@@ -56,11 +56,12 @@ class Summary(object):
 
         done = []
         for base_type, summary_ops in self.summary_ops.items():
+            print(f"base type = {base_type}")
             if (
                 base_type not in done
-                and issubclass(summary_type, base_type)
-                and not isinstance(summary_type, tenzing_model)
+                and nx.has_path(self.typeset.relation_graph, base_type, summary_type)
             ):
+                print("recognized")
                 for op in summary_ops:
                     summary.update(op(series))
                 done.append(base_type)
@@ -133,7 +134,7 @@ type_summary_ops = {
     tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
     tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
     tenzing_geometry: [],
-    tenzing_image_path: [],
+    # tenzing_image_path: [],
     tenzing_integer: [
         infinite_summary,
         numerical_summary,

@@ -2,7 +2,7 @@ from collections import Counter
 
 import pandas as pd
 
-from tangled_up_in_unicode import script, block, category_alias, block_alias, category
+from tangled_up_in_unicode import *
 
 
 def text_summary(series: pd.Series) -> dict:

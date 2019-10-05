@@ -150,6 +150,7 @@ class tenzingTypeset(object):
         """
         self.column_type_map = {}
 
+        # TODO: have two graphs, one with cast, one without
         self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
         self.types = set(self.relation_graph.nodes)
 
