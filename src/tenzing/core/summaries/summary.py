@@ -54,16 +54,7 @@ class Summary(object):
         """
         summary = {}
 
-        G = self.typeset.relation_graph.copy()
-
-        # Drop dashed relations
-        G.remove_edges_from(
-            [
-                (start, end)
-                for start, end, attributes in G.edges(data=True)
-                if attributes["style"] == "dashed"
-            ]
-        )
+        G = self.typeset.base_graph.copy()
 
         done = []
         for base_type, summary_ops in self.summary_ops.items():
@@ -103,17 +94,8 @@ class Summary(object):
         Returns:
 
         """
-        G = self.typeset.relation_graph.copy()
+        G = self.typeset.base_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
-
-        # Drop dashed relations
-        G.remove_edges_from(
-            [
-                (start, end)
-                for start, end, attributes in G.edges(data=True)
-                if attributes["style"] == "dashed"
-            ]
-        )
 
         included_nodes = G.nodes
         if type_specific is not None:

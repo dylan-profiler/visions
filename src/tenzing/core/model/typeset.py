@@ -10,7 +10,7 @@ from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
 
 
-def build_relation_graph(nodes: set, relations: dict) -> nx.DiGraph:
+def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
     """Constructs a traversable relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -23,22 +23,30 @@ def build_relation_graph(nodes: set, relations: dict) -> nx.DiGraph:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
-    style_map = {True: "dashed", False: "solid", None: "dotted"}
+    style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
+
+    noninferential_edges = []
 
     for model, relation in relations.items():
         for friend_model, config in relation.items():
             relation_graph.add_edge(
-                friend_model, model, relationship=model_relation(model, friend_model, **config._asdict()), style=style_map[config.inferential]
+                friend_model,
+                model,
+                relationship=model_relation(model, friend_model, **config._asdict()),
+                style=style_map[config.inferential]
             )
+
+            if not config.inferential:
+                noninferential_edges.append((friend_model, model))
 
     # TODO: raise error
     undefined_nodes = set(relation_graph.nodes) - nodes
     relation_graph.remove_nodes_from(undefined_nodes)
 
     check_graph_constraints(relation_graph, nodes)
-    return relation_graph
+    return relation_graph, relation_graph.edge_subgraph(noninferential_edges).copy()
 
 
 def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
@@ -55,7 +63,6 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
         warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
-# Infer type without conversion
 def traverse_relation_graph(
     series: pd.Series, G: nx.DiGraph, node: Type[tenzing_model] = tenzing_generic
 ) -> Type[tenzing_model]:
@@ -70,7 +77,6 @@ def traverse_relation_graph(
         The most specialist node matching the series.
     """
     for tenz_type in G.successors(node):
-        # TODO: speed gain by not considering "dashed"
         if series in tenz_type:
             return traverse_relation_graph(series, G, tenz_type)
 
@@ -159,8 +165,7 @@ class tenzingTypeset(object):
         for node in types:
             self.relations[node] = node.get_relations()
 
-        # TODO: have two graphs, one with cast, one without
-        self.relation_graph = build_relation_graph(types | {tenzing_generic}, self.relations)
+        self.relation_graph, self.base_graph = build_relation_graph(types | {tenzing_generic}, self.relations)
         self.types = set(self.relation_graph.nodes)
 
     def cache(self, df):
