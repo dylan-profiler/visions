@@ -9,7 +9,7 @@ from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
 
 
-def build_relation_graph(nodes: set) -> nx.DiGraph:
+def build_relation_graph(nodes: set, relations: dict) -> nx.DiGraph:
     """Constructs a traversable relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -17,6 +17,7 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
 
     Args:
         nodes:  A list of tenzing_types considered at the root of the relations graph.
+        relations: A list of relations from type to types
 
     Returns:
         A directed graph of type relations for the provided nodes.
@@ -24,13 +25,17 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     style_map = {True: "dashed", False: "solid", None: "dotted"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
-    relation_graph.add_edges_from(
-        (*node.edge, {"relationship": node, "style": style_map[node.inferential]})
-        for s_node in nodes
-        for to_node, node in s_node.get_relations().items()
-    )
+
+    for model, relation in relations.items():
+        for friend_model, config in relation.items():
+            relation_graph.add_edge(
+                friend_model, model, relationship=config.relationship, style=style_map[config.inferential]
+            )
+
+    # TODO: raise error
     undefined_nodes = set(relation_graph.nodes) - nodes
     relation_graph.remove_nodes_from(undefined_nodes)
+
     check_graph_constraints(relation_graph, nodes)
     return relation_graph
 
@@ -138,7 +143,6 @@ class tenzingTypeset(object):
 
     Attributes:
         types: The collection of tenzing types which are derived either from a base_type or themselves
-        partitioners: ...
         relation_graph: ...
     """
 
@@ -154,8 +158,10 @@ class tenzingTypeset(object):
         for node in types:
             self.relations[node] = node.register_relations()
 
-        self.relation_graph = build_relation_graph(types | {tenzing_generic})
+        # TODO: have two graphs, one with cast, one without
+        self.relation_graph = build_relation_graph(types | {tenzing_generic}, self.relations)
         self.types = set(self.relation_graph.nodes)
+
 
     def cache(self, df):
         self.column_type_map = {
@@ -192,21 +198,6 @@ class tenzingTypeset(object):
 
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
-
-    def _get_ancestors(self, node: Type[tenzing_model]) -> set:
-        """
-
-        Args:
-            node:
-
-        Returns:
-
-        """
-        return {
-            mdl
-            for x in node.get_models()
-            for mdl in nx.ancestors(self.relation_graph, x)
-        }
 
     def output_graph(self, file_name) -> None:
         """

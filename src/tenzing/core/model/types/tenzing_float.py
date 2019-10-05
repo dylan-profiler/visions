@@ -24,11 +24,16 @@ class tenzing_float(tenzing_model):
 
     @classmethod
     def register_relations(cls):
-        from tenzing.core.model.types import tenzing_generic, tenzing_string
+        from tenzing.core.model.types import tenzing_generic, tenzing_string, tenzing_complex
 
         relations = {
             tenzing_generic: relation_conf(inferential=False),
             tenzing_string: relation_conf(relationship=test_string_is_float, inferential=True),
+            tenzing_complex: relation_conf(
+                relationship=lambda s: all(np.imag(s.values) == 0),
+                transformer=lambda s: s.astype(float),
+                inferential=True
+            )
         }
 
         return relations

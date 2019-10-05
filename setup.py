@@ -3,20 +3,27 @@ from os.path import basename, splitext
 from glob import glob
 from setuptools import find_packages
 
-install_requires = ["numpy", "pandas==0.25.1", "networkx"]
+install_requires = ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3"]
 
 extras_requires = {
     "type_geometry": ["shapely", "geopandas"],
-    "type_image_path": ["imagehash"],
+    "type_image_path": ["imagehash", "PIL"],
     "network_plot": ["pydot", "pygraphviz"],
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
 
-test_requires = ["pytest==5.2.0", "pytest-ordering"]
+test_requires = [
+    "pytest==5.2.0",
+    "pytest-ordering",
+    "pytest-rerunfailures",
+    "pytest-sugar",
+    "pytest-tldr",
+    "pytest-runner"
+]
 
 setup(
     name="tenzing",
-    version="0.0.3",
+    version="0.0.4",
     description="Tenzing",
     packages=find_packages("src"),
     package_dir={"": "src"},

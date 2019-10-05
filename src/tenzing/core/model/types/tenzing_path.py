@@ -15,7 +15,7 @@ def string_is_path(series):
             )
         else:
             return True
-    except Exception:
+    except TypeError:
         return False
 
 
