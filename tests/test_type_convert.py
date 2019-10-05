@@ -77,7 +77,7 @@ def pytest_generate_tests(metafunc):
 @pytest.mark.run(order=9)
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
-    relation = model_relation(source_type, relation_type, relation.relationship, relation.transformer, relation.inferential)
+    relation = model_relation(source_type, relation_type, **relation._asdict())
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (

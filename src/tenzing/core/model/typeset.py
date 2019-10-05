@@ -4,7 +4,7 @@ from typing import Type, Tuple, List
 import pandas as pd
 import networkx as nx
 
-from tenzing.core.model import model_relation
+from tenzing.core.model.model_relation import model_relation
 from tenzing.core.model.models import tenzing_model
 from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
@@ -30,7 +30,7 @@ def build_relation_graph(nodes: set, relations: dict) -> nx.DiGraph:
     for model, relation in relations.items():
         for friend_model, config in relation.items():
             relation_graph.add_edge(
-                friend_model, model, relationship=model_relation(model, friend_model, config.relationship, config.transformer, config.inferential), style=style_map[config.inferential]
+                friend_model, model, relationship=model_relation(model, friend_model, **config._asdict()), style=style_map[config.inferential]
             )
 
     # TODO: raise error
@@ -157,7 +157,7 @@ class tenzingTypeset(object):
 
         self.relations = {}
         for node in types:
-            self.relations[node] = node.register_relations()
+            self.relations[node] = node.get_relations()
 
         # TODO: have two graphs, one with cast, one without
         self.relation_graph = build_relation_graph(types | {tenzing_generic}, self.relations)
