@@ -10,9 +10,11 @@ def get_series_map():
         tenzing_integer: [
             "int_series",
             "Int64_int_series",
-            "np_uint32",
             "int_range",
             "Int64_int_nan_series",
+        ],
+        tenzing_count: [
+            "np_uint32",
         ],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],

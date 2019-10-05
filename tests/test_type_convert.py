@@ -6,36 +6,7 @@ import pytest
 from tenzing.core.model import tenzing_complete_set, model_relation
 from tenzing.core.model.types import *
 
-from tests.series import get_series
-
-
-def get_series_map():
-    series_map = [
-        # Model type, Relation type
-        (tenzing_integer, tenzing_float, []),
-        (tenzing_integer, tenzing_string, ["string_num", "int_str_range", "string_num_nan"]),
-        (
-            tenzing_float,
-            tenzing_string,
-            [
-                "string_flt",
-                "string_num_nan",
-                "string_flt",
-                "string_flt_nan",
-                "textual_float",
-                "textual_float_nan"
-            ],
-        ),
-        (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
-        (tenzing_geometry, tenzing_string, ["geometry_string_series"]),
-        (tenzing_bool, tenzing_string, ["string_bool_nan"]),
-        (tenzing_ip, tenzing_string, ["ip_str"]),
-        (tenzing_url, tenzing_string, ["str_url"]),
-        (tenzing_path, tenzing_string, ["path_series_windows_str", "path_series_linux_str"]),
-        # (tenzing_bool, tenzing_object, ["bool_nan_series"])
-    ]
-
-    return series_map
+from tests.series import get_series, get_convert_map
 
 
 # TODO: check that all relations are tested
@@ -44,7 +15,7 @@ def get_series_map():
 def pytest_generate_tests(metafunc):
     _test_suite = get_series()
     if metafunc.function.__name__ == "test_relations":
-        _series_map = get_series_map()
+        _series_map = get_convert_map()
 
         argsvalues = []
         for item in _test_suite:
@@ -96,9 +67,9 @@ def test_consistency(series):
 
     if initial_type != converted_type:
         converted_series = typeset.cast_series(series.copy(deep=True))
-        print(f"OG {series.to_dict()}")
-        print(f"Converted {converted_series.to_dict()}")
-        assert not (
+        print(f"OG {series.to_dict()}, {series.dtype}")
+        print(f"Converted {converted_series.to_dict()}, {converted_series.dtype}")
+        assert series.dtype != converted_series.dtype or not (
             (
                 converted_series.eq(series) ^ (converted_series.isna() & series.isna())
             ).all()

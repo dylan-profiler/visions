@@ -3,8 +3,6 @@ from typing import Callable, Optional, Type
 
 import pandas as pd
 
-from tenzing.core.model import tenzing_model
-
 relation_conf = namedtuple('relation_conf', ('inferential', 'relationship', 'transformer'), defaults=(None, None))
 
 
@@ -33,8 +31,9 @@ class model_relation:
     """
 
     def __init__(
-            self, model: Type[tenzing_model],
-            friend_model: Type[tenzing_model],
+            self,
+            model,
+            friend_model,
             inferential: bool,
             relationship: Optional[Callable] = None,
             transformer: Optional[Callable] = None

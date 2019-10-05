@@ -364,3 +364,32 @@ def infer_series_type_map():
         "ip_str": tenzing_ip,
         "date_series_nat": tenzing_date,
     }
+
+
+def get_convert_map():
+    series_map = [
+        # Model type, Relation type
+        (tenzing_integer, tenzing_float, []),
+        (tenzing_integer, tenzing_string, ["string_num", "int_str_range", "string_num_nan"]),
+        (
+            tenzing_float,
+            tenzing_string,
+            [
+                "string_flt",
+                "string_num_nan",
+                "string_flt",
+                "string_flt_nan",
+                "textual_float",
+                "textual_float_nan"
+            ],
+        ),
+        (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
+        (tenzing_geometry, tenzing_string, ["geometry_string_series"]),
+        (tenzing_bool, tenzing_string, ["string_bool_nan"]),
+        (tenzing_ip, tenzing_string, ["ip_str"]),
+        (tenzing_url, tenzing_string, ["str_url"]),
+        (tenzing_path, tenzing_string, ["path_series_windows_str", "path_series_linux_str"]),
+        # (tenzing_bool, tenzing_object, ["bool_nan_series"])
+    ]
+
+    return series_map

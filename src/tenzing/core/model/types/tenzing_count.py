@@ -7,6 +7,7 @@ from tenzing.core.model.models import tenzing_model
 
 
 def is_unsigned_int(series: pd.Series):
+    # TODO: add coercion
     return series.ge(0).all()
 
 
@@ -22,12 +23,15 @@ class tenzing_count(tenzing_model):
         from tenzing.core.model.types import tenzing_integer, tenzing_generic
 
         relations = {
+            # TODO: or inferential=False for integer?
             tenzing_generic: relation_conf(inferential=False),
-            tenzing_integer: relation_conf(
-                inferential=True,
-                relationship=is_unsigned_int,
-                transformer=lambda s: s.astype(np.uint64)
-            ),
+
+            # TODO: move to contrib
+            # tenzing_integer: relation_conf(
+            #     inferential=True,
+            #     relationship=is_unsigned_int,
+            #     transformer=lambda s: s.astype(np.uint64)
+            # ),
         }
         return relations
 

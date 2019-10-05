@@ -38,16 +38,18 @@ class tenzing_ordinal(tenzing_model):
 
         relations = {
             tenzing_categorical: relation_conf(inferential=False),
-            tenzing_integer: relation_conf(
-                inferential=True,
-                relationship=is_ordinal_int,
-                transformer=to_ordinal
-            ),
-            tenzing_string: relation_conf(
-                inferential=True,
-                relationship=is_ordinal_str,
-                transformer=to_ordinal
-            ),
+            # TODO: move to contrib
+            # tenzing_integer: relation_conf(
+            #     inferential=True,
+            #     relationship=is_ordinal_int,
+            #     transformer=to_ordinal
+            # ),
+            # TODO: move to contrib
+            # tenzing_string: relation_conf(
+            #     inferential=True,
+            #     relationship=is_ordinal_str,
+            #     transformer=to_ordinal
+            # ),
         }
         return relations
 
