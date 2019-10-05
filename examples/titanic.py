@@ -26,6 +26,7 @@ summaries = summary.summarize(cast_df, cast_types)
 for key, variable_summary in summaries["series"].items():
     print(key, variable_summary)
 
+print(summaries['frame'])
 
 from tenzing.core.model.types import tenzing_float, tenzing_integer, tenzing_categorical, tenzing_string, \
     tenzing_ordinal

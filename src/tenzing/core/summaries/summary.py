@@ -5,6 +5,8 @@ from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
+from tenzing.core.summaries.frame.dataframe_series_summary import dataframe_series_summary
+from tenzing.core.summaries.frame.dataframe_type_summary import dataframe_type_summary
 from tenzing.utils.graph import output_graph
 
 
@@ -23,20 +25,22 @@ class Summary(object):
         if not all(
             issubclass(base_type, tenzing_model) for base_type in summary_ops.keys()
         ):
-            raise Exception("Summaries must be mapped on a type!")
+            raise TypeError("Summaries must be mapped on a type!")
 
         self.summary_ops = summary_ops
 
-    def summarize_frame(self, df: pd.DataFrame):
-        """
+    def summarize_frame(self, df: pd.DataFrame, series_summary: dict, series_types: dict):
+        """Summarize a DataFrame based on the DataFrame object and the summaries of individual series
 
         Args:
-            df:
+            df: the DataFrame object
+            series_summary: mapping from column name to the individual summaries
+            series_types: mapping from column name to the series' type
 
         Returns:
-
+            A summary of the DataFrame
         """
-        return dataframe_summary(df)
+        return {**dataframe_summary(df), **dataframe_type_summary(series_types), **dataframe_series_summary(series_summary)}
 
     def summarize_series(self, series: pd.Series, summary_type: tenzing_model) -> dict:
         """
@@ -50,12 +54,22 @@ class Summary(object):
         """
         summary = {}
 
+        G = self.typeset.relation_graph.copy()
+
+        # Drop dashed relations
+        G.remove_edges_from(
+            [
+                (start, end)
+                for start, end, attributes in G.edges(data=True)
+                if attributes["style"] == "dashed"
+            ]
+        )
+
         done = []
         for base_type, summary_ops in self.summary_ops.items():
             if (
                 base_type not in done
-                and issubclass(summary_type, base_type)
-                and not isinstance(summary_type, tenzing_model)
+                and nx.has_path(G, base_type, summary_type)
             ):
                 for op in summary_ops:
                     summary.update(op(series))
@@ -63,7 +77,7 @@ class Summary(object):
 
         return summary
 
-    def summarize(self, df: pd.DataFrame, types) -> dict:
+    def summarize(self, df: pd.DataFrame, types: dict) -> dict:
         """
 
         Args:
@@ -73,10 +87,10 @@ class Summary(object):
         Returns:
 
         """
-        frame_summary = self.summarize_frame(df)
         series_summary = {
             col: self.summarize_series(df[col], types[col]) for col in df.columns
         }
+        frame_summary = self.summarize_frame(df, series_summary, types)
         return {"types": types, "series": series_summary, "frame": frame_summary}
 
     def plot(self, file_name, type_specific=None):
@@ -129,7 +143,7 @@ type_summary_ops = {
     tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
     tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
     tenzing_geometry: [],
-    tenzing_image_path: [],
+    # tenzing_image_path: [],
     tenzing_integer: [
         infinite_summary,
         numerical_summary,

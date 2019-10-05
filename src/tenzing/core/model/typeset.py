@@ -16,7 +16,7 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
     nodes correspond to subtypes with a defined relation.
 
     Args:
-        nodes:  A list of tenzing_types considered at the root of the relations graph.
+        nodes: A list of tenzing_types considered at the root of the relations graph.
 
     Returns:
         A directed graph of type relations for the provided nodes.
@@ -29,8 +29,11 @@ def build_relation_graph(nodes: set) -> nx.DiGraph:
         for s_node in nodes
         for to_node, node in s_node.get_relations().items()
     )
+
+    # TODO: raise error
     undefined_nodes = set(relation_graph.nodes) - nodes
     relation_graph.remove_nodes_from(undefined_nodes)
+
     check_graph_constraints(relation_graph, nodes)
     return relation_graph
 
@@ -150,6 +153,7 @@ class tenzingTypeset(object):
         """
         self.column_type_map = {}
 
+        # TODO: have two graphs, one with cast, one without
         self.relation_graph = build_relation_graph(set(types) | {tenzing_generic})
         self.types = set(self.relation_graph.nodes)
 

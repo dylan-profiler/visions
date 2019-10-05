@@ -3,7 +3,7 @@ from os.path import basename, splitext
 from glob import glob
 from setuptools import find_packages
 
-install_requires = ["numpy", "pandas==0.25.1", "networkx"]
+install_requires = ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.1"]
 
 extras_requires = {
     "type_geometry": ["shapely", "geopandas"],
