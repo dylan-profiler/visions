@@ -24,11 +24,6 @@ class tenzing_model(metaclass=meta_model):
     """
 
     @classmethod
-    def cast(cls, series: pd.Series, operation=None):
-        operation = operation if operation is not None else cls.cast_op
-        return operation(series)
-
-    @classmethod
     @abstractmethod
     def get_relations(cls) -> dict:
         raise NotImplementedError

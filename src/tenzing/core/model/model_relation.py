@@ -44,14 +44,14 @@ class model_relation:
         self.friend_model = friend_model
         self.edge = (self.friend_model, self.model)
         self.relationship = relationship if relationship else self.model.__contains__
-        self.transformer = transformer
+        self.transformer = transformer if transformer else self.model.cast_op
         self.inferential = inferential
 
-    def is_relation(self, obj: pd.Series) -> bool:
-        return self.relationship(obj)
+    def is_relation(self, series: pd.Series) -> bool:
+        return self.relationship(series)
 
-    def transform(self, obj: pd.Series) -> pd.Series:
-        return self.model.cast(obj, self.transformer)
+    def transform(self, series: pd.Series) -> pd.Series:
+        return self.transformer(series)
 
     def __repr__(self) -> str:
         return f"({self.friend_model} -> {self.model})"
