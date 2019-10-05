@@ -25,7 +25,6 @@ class tenzing_count(tenzing_model):
         relations = {
             # TODO: or inferential=False for integer?
             tenzing_generic: relation_conf(inferential=False),
-
             # TODO: move to contrib
             # tenzing_integer: relation_conf(
             #     inferential=True,

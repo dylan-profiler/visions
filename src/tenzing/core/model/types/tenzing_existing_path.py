@@ -16,9 +16,7 @@ class tenzing_existing_path(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_path
 
-        relations = {
-            tenzing_path: relation_conf(inferential=False)
-        }
+        relations = {tenzing_path: relation_conf(inferential=False)}
         return relations
 
     @classmethod

@@ -6,8 +6,8 @@ from tenzing.core.summaries.summary import CompleteSummary
 
 # Load dataset
 df = pd.read_csv(
-    'https://github.com/codebrainz/color-names/raw/master/output/colors.csv',
-    names=['Code', 'Name', 'Hex', 'R', 'G', 'B']
+    "https://github.com/codebrainz/color-names/raw/master/output/colors.csv",
+    names=["Code", "Name", "Hex", "R", "G", "B"],
 )
 
 # Type

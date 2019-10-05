@@ -3,7 +3,11 @@ from typing import Callable, Optional, Type
 
 import pandas as pd
 
-relation_conf = namedtuple('relation_conf', ('inferential', 'relationship', 'transformer'), defaults=(None, None))
+relation_conf = namedtuple(
+    "relation_conf",
+    ("inferential", "relationship", "transformer"),
+    defaults=(None, None),
+)
 
 
 class model_relation:
@@ -31,12 +35,12 @@ class model_relation:
     """
 
     def __init__(
-            self,
-            model,
-            friend_model,
-            inferential: bool,
-            relationship: Optional[Callable] = None,
-            transformer: Optional[Callable] = None
+        self,
+        model,
+        friend_model,
+        inferential: bool,
+        relationship: Optional[Callable] = None,
+        transformer: Optional[Callable] = None,
     ):
         """
         Args:
@@ -50,12 +54,16 @@ class model_relation:
         self.inferential = inferential
         if inferential:
             if transformer is None or relationship is None:
-                raise ValueError("Inferential relations should have transformer and relations")
+                raise ValueError(
+                    "Inferential relations should have transformer and relations"
+                )
             self.relationship = relationship
             self.transformer = transformer
         else:
             if transformer is not None or relationship is not None:
-                raise ValueError("noninferential relations may not have transformer or relations")
+                raise ValueError(
+                    "noninferential relations may not have transformer or relations"
+                )
 
             self.relationship = self.model.__contains__
             self.transformer = lambda s: s

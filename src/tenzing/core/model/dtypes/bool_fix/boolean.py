@@ -196,7 +196,9 @@ def coerce_to_array(values, dtype, mask=None, copy=False):
     elif is_bool_dtype(values) and is_integer_dtype(dtype):
         values = np.array(values, dtype=int, copy=copy)
 
-    elif not (is_integer_dtype(values) or is_float_dtype(values) or is_bool_dtype(values)):
+    elif not (
+        is_integer_dtype(values) or is_float_dtype(values) or is_bool_dtype(values)
+    ):
         raise TypeError(
             "{} cannot be converted to an IntegerDtype".format(values.dtype)
         )
@@ -301,7 +303,11 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
         return _dtypes[str(self._data.dtype)]
 
     def __init__(self, values, mask, copy=False):
-        if not (isinstance(values, np.ndarray) and is_integer_dtype(values.dtype) or is_bool_dtype(values.dtype)):
+        if not (
+            isinstance(values, np.ndarray)
+            and is_integer_dtype(values.dtype)
+            or is_bool_dtype(values.dtype)
+        ):
             raise TypeError(
                 "values should be integer numpy array. Use "
                 "the 'integer_array' function instead"
@@ -772,6 +778,4 @@ BoolDtype = register_extension_dtype(
     )
 )
 
-_dtypes = {
-    "bool": BoolDtype()
-}
+_dtypes = {"bool": BoolDtype()}

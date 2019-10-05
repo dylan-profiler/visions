@@ -19,9 +19,7 @@ class tenzing_image_path(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_existing_path
 
-        relations = {
-            tenzing_existing_path: relation_conf(inferential=False)
-        }
+        relations = {tenzing_existing_path: relation_conf(inferential=False)}
         return relations
 
     @classmethod

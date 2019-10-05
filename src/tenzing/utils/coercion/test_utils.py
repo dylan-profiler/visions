@@ -91,13 +91,15 @@ def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable:
     """
 
     if type(mapping) == list:
+
         def f(series: pd.Series) -> bool:
-            return any(
-                series.isin(single_map.keys()).all() for single_map in mapping
-            )
+            return any(series.isin(single_map.keys()).all() for single_map in mapping)
+
     elif type(mapping) == dict:
+
         def f(series: pd.Series) -> bool:
             return series.isin(mapping.keys()).all()
+
     else:
         raise ValueError("Mapping should be dict or list of dicts")
     return f
@@ -113,9 +115,7 @@ def coercion_map(mapping: Union[List[Dict], Dict]) -> Callable:
         A callable that maps the series.
     """
     if type(mapping) == list:
-        mapping = {
-            k: v for d in mapping for k, v in d.items()
-        }
+        mapping = {k: v for d in mapping for k, v in d.items()}
 
     elif type(mapping) != dict:
         raise ValueError("Mapping should be dict or list of dicts")

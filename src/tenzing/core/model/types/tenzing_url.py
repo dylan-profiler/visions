@@ -7,9 +7,7 @@ from tenzing.core.model.models import tenzing_model
 
 def test_url(series):
     try:
-        return (
-            to_url(series).apply(lambda x: all((x.netloc, x.scheme))).all()
-        )
+        return to_url(series).apply(lambda x: all((x.netloc, x.scheme))).all()
     except AttributeError:
         return False
 
@@ -31,13 +29,18 @@ class tenzing_url(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_string
         from tenzing.core.model.types import tenzing_object
+
         relations = {
             # TODO: replace test_url with coercion test
-            tenzing_string: relation_conf(relationship=test_url, transformer=to_url, inferential=True),
+            tenzing_string: relation_conf(
+                relationship=test_url, transformer=to_url, inferential=True
+            ),
             tenzing_object: relation_conf(inferential=False),
         }
         return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(lambda x: isinstance(x, ParseResult) and all((x.netloc, x.scheme))).all()
+        return series.apply(
+            lambda x: isinstance(x, ParseResult) and all((x.netloc, x.scheme))
+        ).all()

@@ -5,7 +5,9 @@ from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.models import tenzing_model
 from tenzing.core.model.types import *
 from tenzing.core.summaries import *
-from tenzing.core.summaries.frame.dataframe_series_summary import dataframe_series_summary
+from tenzing.core.summaries.frame.dataframe_series_summary import (
+    dataframe_series_summary,
+)
 from tenzing.core.summaries.frame.dataframe_type_summary import dataframe_type_summary
 from tenzing.utils.graph import output_graph
 
@@ -29,7 +31,9 @@ class Summary(object):
 
         self.summary_ops = summary_ops
 
-    def summarize_frame(self, df: pd.DataFrame, series_summary: dict, series_types: dict):
+    def summarize_frame(
+        self, df: pd.DataFrame, series_summary: dict, series_types: dict
+    ):
         """Summarize a DataFrame based on the DataFrame object and the summaries of individual series
 
         Args:
@@ -40,7 +44,11 @@ class Summary(object):
         Returns:
             A summary of the DataFrame
         """
-        return {**dataframe_summary(df), **dataframe_type_summary(series_types), **dataframe_series_summary(series_summary)}
+        return {
+            **dataframe_summary(df),
+            **dataframe_type_summary(series_types),
+            **dataframe_series_summary(series_summary),
+        }
 
     def summarize_series(self, series: pd.Series, summary_type: tenzing_model) -> dict:
         """
@@ -58,10 +66,7 @@ class Summary(object):
 
         done = []
         for base_type, summary_ops in self.summary_ops.items():
-            if (
-                base_type not in done
-                and nx.has_path(G, base_type, summary_type)
-            ):
+            if base_type not in done and nx.has_path(G, base_type, summary_type):
                 for op in summary_ops:
                     summary.update(op(series))
                 done.append(base_type)
@@ -121,11 +126,20 @@ class CompleteSummary(Summary):
         type_summary_ops = {
             tenzing_bool: [],
             tenzing_categorical: [category_summary, unique_summary],
-            tenzing_complex: [infinite_summary, complex_summary, unique_summary_complex],
+            tenzing_complex: [
+                infinite_summary,
+                complex_summary,
+                unique_summary_complex,
+            ],
             tenzing_datetime: [range_summary, unique_summary],
             tenzing_date: [],
             tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
-            tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
+            tenzing_float: [
+                infinite_summary,
+                numerical_summary,
+                zero_summary,
+                unique_summary,
+            ],
             tenzing_geometry: [],
             tenzing_image_path: [],
             tenzing_integer: [
@@ -143,4 +157,3 @@ class CompleteSummary(Summary):
             tenzing_generic: [base_summary, missing_summary],
         }
         super().__init__(type_summary_ops, tenzing_complete_set())
-

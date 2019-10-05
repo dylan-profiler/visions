@@ -16,9 +16,9 @@ print(series.astype("Bool"))
 
 series = pd.Series([1, 2, 3, np.nan], dtype="Int8")
 try:
-    print(series.astype('Bool'))
+    print(series.astype("Bool"))
 except TypeError:
-    print('Nice')
+    print("Nice")
 # Types have the most compact representation. All types are nullable.
 
 # Bool

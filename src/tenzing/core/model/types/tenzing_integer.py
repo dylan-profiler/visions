@@ -6,15 +6,15 @@ from tenzing.core.model.models import tenzing_model
 from tenzing.utils.coercion import test_utils
 
 
-def string_to_int(series: pd.Series) -> pd.Series:
-    return to_int(series.astype(float))
-
-
 def to_int(series: pd.Series) -> pd.Series:
     try:
         return series.astype(int)
     except ValueError:
         return series.astype("Int64")
+
+
+def float_is_int(series: pd.Series) -> bool:
+    return series.apply(lambda v: v.is_integer()).any() and series.apply(lambda v: v.is_integer() or v != v).all()
 
 
 class tenzing_integer(tenzing_model):
@@ -28,18 +28,22 @@ class tenzing_integer(tenzing_model):
 
     @classmethod
     def get_relations(cls):
-        from tenzing.core.model.types import tenzing_string, tenzing_generic, tenzing_float
+        from tenzing.core.model.types import (
+            tenzing_string,
+            tenzing_generic,
+            tenzing_float,
+        )
 
         relations = {
             tenzing_generic: relation_conf(inferential=False),
             tenzing_float: relation_conf(
-                relationship=test_utils.coercion_equality_test(to_int),
+                relationship=float_is_int,
                 transformer=to_int,
                 inferential=True,
             ),
             tenzing_string: relation_conf(
-                relationship=test_utils.coercion_test(string_to_int),
-                transformer=string_to_int,
+                relationship=test_utils.coercion_test(to_int),
+                transformer=to_int,
                 inferential=True,
             ),
         }

@@ -1,6 +1,3 @@
-import os
-import warnings
-
 import pytest
 
 from tenzing.core.model import tenzing_complete_set, model_relation
@@ -49,6 +46,8 @@ def pytest_generate_tests(metafunc):
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
     relation = model_relation(source_type, relation_type, **relation._asdict())
+    print(f"source {source_type}.contains_op")
+    print(series)
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (
@@ -69,7 +68,7 @@ def test_consistency(series):
         converted_series = typeset.cast_series(series.copy(deep=True))
         print(f"OG {series.to_dict()}, {series.dtype}")
         print(f"Converted {converted_series.to_dict()}, {converted_series.dtype}")
-        assert series.dtype != converted_series.dtype or not (
+        assert series.dtype.kind != converted_series.dtype.kind or not (
             (
                 converted_series.eq(series) ^ (converted_series.isna() & series.isna())
             ).all()

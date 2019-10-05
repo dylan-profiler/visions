@@ -16,9 +16,7 @@ class tenzing_time(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_datetime
 
-        relations = {
-            tenzing_datetime: relation_conf(inferential=False)
-        }
+        relations = {tenzing_datetime: relation_conf(inferential=False)}
         return relations
 
     @classmethod

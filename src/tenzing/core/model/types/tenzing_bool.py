@@ -32,17 +32,27 @@ class tenzing_bool(tenzing_model):
             tenzing_string: relation_conf(
                 inferential=True,
                 relationship=lambda s: coercion_map_test(
-                    [{"true": True, "false": False}, {"y": True, "n": False},
-                     {"yes": True, "no": False}])(s.str.lower()),
-                transformer=lambda s: to_bool(coercion_map(
-                    [{"true": True, "false": False}, {"y": True, "n": False},
-                     {"yes": True, "no": False}])(s.str.lower())),
+                    [
+                        {"true": True, "false": False},
+                        {"y": True, "n": False},
+                        {"yes": True, "no": False},
+                    ]
+                )(s.str.lower()),
+                transformer=lambda s: to_bool(
+                    coercion_map(
+                        [
+                            {"true": True, "false": False},
+                            {"y": True, "n": False},
+                            {"yes": True, "no": False},
+                        ]
+                    )(s.str.lower())
+                ),
             ),
             tenzing_integer: relation_conf(
                 inferential=True,
                 relationship=lambda s: set(s.unique()) == {0, 1},
                 transformer=to_bool,
-            )
+            ),
         }
         return relations
 

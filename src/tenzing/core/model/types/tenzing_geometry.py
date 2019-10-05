@@ -40,7 +40,11 @@ class tenzing_geometry(tenzing_model):
         from tenzing.core.model.types import tenzing_string, tenzing_object
 
         relations = {
-            tenzing_string: relation_conf(relationship=string_is_geometry, transformer=to_geometry, inferential=True),
+            tenzing_string: relation_conf(
+                relationship=string_is_geometry,
+                transformer=to_geometry,
+                inferential=True,
+            ),
             tenzing_object: relation_conf(inferential=False),
         }
         return relations

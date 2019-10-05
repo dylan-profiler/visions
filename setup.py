@@ -6,8 +6,11 @@ from setuptools import find_packages
 type_geometry_requires = ["shapely", "geopandas==0.6.0"]
 type_image_path_requires = ["imagehash", "PIL"]
 
-install_requires = ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3"] + \
-                   type_geometry_requires + type_image_path_requires
+install_requires = (
+    ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3"]
+    + type_geometry_requires
+    + type_image_path_requires
+)
 
 extras_requires = {
     "type_geometry": type_geometry_requires,
@@ -22,7 +25,7 @@ test_requires = [
     "pytest-rerunfailures",
     "pytest-sugar",
     "pytest-tldr",
-    "pytest-runner"
+    "pytest-runner",
 ]
 
 setup(

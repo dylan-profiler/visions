@@ -8,7 +8,9 @@ def summarize_frame(df: pd.DataFrame, summarizer: Summary):
     return summarizer.summarize_frame(df)
 
 
-def summarize_series(series: pd.Series, series_type: tenzing_model, summarizer: Summary):
+def summarize_series(
+    series: pd.Series, series_type: tenzing_model, summarizer: Summary
+):
     return summarizer.summarize_series(series, series_type)
 
 

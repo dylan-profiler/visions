@@ -8,10 +8,7 @@ from tenzing.core.summaries.summary import CompleteSummary
 file_name = r"C:\Users\Cees Closed\Downloads\Open_Data_RDW__Gekentekende_voertuigen.csv"
 
 # Load dataset
-df = pd.read_csv(
-    file_name,
-    nrows=10000
-)
+df = pd.read_csv(file_name, nrows=10000)
 print(df.info())
 
 # Type

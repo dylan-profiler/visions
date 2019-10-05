@@ -16,12 +16,9 @@ class tenzing_object(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_generic
 
-        relations = {
-            tenzing_generic: relation_conf(inferential=False)
-        }
+        relations = {tenzing_generic: relation_conf(inferential=False)}
         return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         return pdt.is_object_dtype(series)
-

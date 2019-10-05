@@ -20,8 +20,14 @@ def get_series():
         pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name="np_uint32"),
         # Categorical
         pd.Series([1, 2, 3], name="categorical_int_series", dtype="category"),
-        pd.Series(pd.Categorical(['A', 'B', 'C', 'C', 'B', 'A'], categories=['A', 'B', 'C'], ordered=False),
-                  name='categorical_char'),
+        pd.Series(
+            pd.Categorical(
+                ["A", "B", "C", "C", "B", "A"],
+                categories=["A", "B", "C"],
+                ordered=False,
+            ),
+            name="categorical_char",
+        ),
         pd.Series([1.0, 2.0, 3.1], dtype="category", name="categorical_float_series"),
         pd.Series(
             ["Georgia", "Sam"], dtype="category", name="categorical_string_series"
@@ -32,7 +38,12 @@ def get_series():
             dtype="category",
         ),
         # Ordinal
-        pd.Series(pd.Categorical(['A', 'B', 'C', 'C', 'B', 'A'], categories=['A', 'B', 'C'], ordered=True), name='ordinal'),
+        pd.Series(
+            pd.Categorical(
+                ["A", "B", "C", "C", "B", "A"], categories=["A", "B", "C"], ordered=True
+            ),
+            name="ordinal",
+        ),
         # Float Series
         pd.Series([1.0, 2.1, 3.0], name="float_series"),
         pd.Series([1.0, 2.5, np.nan], name="float_nan_series"),
@@ -225,9 +236,7 @@ def get_contains_map():
             "int_range",
             "Int64_int_nan_series",
         ],
-        tenzing_count: [
-            "np_uint32",
-        ],
+        tenzing_count: ["np_uint32"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
         tenzing_url: ["url_series"],
         tenzing_float: [
@@ -249,8 +258,8 @@ def get_contains_map():
             "categorical_float_series",
             "categorical_string_series",
             "categorical_complex_series",
-            'categorical_char',
-            'ordinal'
+            "categorical_char",
+            "ordinal",
         ],
         tenzing_bool: [
             "bool_series",
@@ -297,7 +306,7 @@ def get_contains_map():
         ],
         tenzing_geometry: ["geometry_series"],
         tenzing_ip: ["ip"],
-        tenzing_ordinal: ['ordinal']
+        tenzing_ordinal: ["ordinal"],
     }
 
     series_map[tenzing_object] = (
@@ -394,25 +403,31 @@ def infer_series_type_map():
         "ip_str": tenzing_ip,
         "date_series_nat": tenzing_date,
         "categorical_char": tenzing_categorical,
-        'ordinal': tenzing_ordinal,
+        "ordinal": tenzing_ordinal,
     }
 
 
 def get_convert_map():
+    # Conversions in one single step
     series_map = [
         # Model type, Relation type
-        (tenzing_integer, tenzing_float, []),
-        (tenzing_integer, tenzing_string, ["string_num", "int_str_range", "string_num_nan"]),
+        (tenzing_integer, tenzing_float, ["int_nan_series", "float_series2"]),
+        (
+            tenzing_integer,
+            tenzing_string,
+            ["int_str_range"],
+        ),
         (
             tenzing_float,
             tenzing_string,
             [
                 "string_flt",
                 "string_num_nan",
-                "string_flt",
+                "string_num",
                 "string_flt_nan",
                 "textual_float",
-                "textual_float_nan"
+                "textual_float_nan",
+                "int_str_range",
             ],
         ),
         (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
@@ -420,7 +435,11 @@ def get_convert_map():
         (tenzing_bool, tenzing_string, ["string_bool_nan"]),
         (tenzing_ip, tenzing_string, ["ip_str"]),
         (tenzing_url, tenzing_string, ["str_url"]),
-        (tenzing_path, tenzing_string, ["path_series_windows_str", "path_series_linux_str"]),
+        (
+            tenzing_path,
+            tenzing_string,
+            ["path_series_windows_str", "path_series_linux_str"],
+        ),
         # (tenzing_bool, tenzing_object, ["bool_nan_series"])
     ]
 

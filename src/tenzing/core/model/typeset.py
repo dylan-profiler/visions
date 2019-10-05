@@ -35,7 +35,7 @@ def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.Di
                 friend_model,
                 model,
                 relationship=model_relation(model, friend_model, **config._asdict()),
-                style=style_map[config.inferential]
+                style=style_map[config.inferential],
             )
 
             if not config.inferential:
@@ -103,6 +103,8 @@ def get_type_inference_path(
     path.append(base_type)
 
     for tenz_type in G.successors(base_type):
+        print(f"from {base_type} to {tenz_type}")
+        print(series)
         if G[base_type][tenz_type]["relationship"].is_relation(series):
             new_series = G[base_type][tenz_type]["relationship"].transform(series)
             return get_type_inference_path(tenz_type, new_series, G, path)
@@ -124,6 +126,7 @@ def infer_type(
     """
     # TODO: path is never used...
     path, _ = get_type_inference_path(base_type, series, G)
+    print(path)
     return path[-1]
 
 
@@ -165,7 +168,9 @@ class tenzingTypeset(object):
         for node in types:
             self.relations[node] = node.get_relations()
 
-        self.relation_graph, self.base_graph = build_relation_graph(types | {tenzing_generic}, self.relations)
+        self.relation_graph, self.base_graph = build_relation_graph(
+            types | {tenzing_generic}, self.relations
+        )
         self.types = set(self.relation_graph.nodes)
 
     # def cache(self, df):
@@ -247,7 +252,9 @@ class tenzingTypeset(object):
         elif issubclass(other, tenzing_model):
             other_types = {other}
         else:
-            raise NotImplementedError(f'Typeset addition not implemented for type {type(other)}')
+            raise NotImplementedError(
+                f"Typeset addition not implemented for type {type(other)}"
+            )
         return tenzingTypeset(self.types | other_types)
 
     def __repr__(self):

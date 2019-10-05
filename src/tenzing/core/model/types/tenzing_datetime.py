@@ -27,7 +27,7 @@ class tenzing_datetime(tenzing_model):
             tenzing_string: relation_conf(
                 relationship=test_utils.coercion_test(lambda s: pd.to_datetime(s)),
                 transformer=to_datetime,
-                inferential=True
+                inferential=True,
             ),
             # TODO: make sure that exception is raised before 1970-1-1 00:00:00
             # TODO: make contrib

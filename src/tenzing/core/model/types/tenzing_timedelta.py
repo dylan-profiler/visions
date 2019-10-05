@@ -16,9 +16,7 @@ class tenzing_timedelta(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_generic
 
-        relations = {
-            tenzing_generic: relation_conf(inferential=False)
-        }
+        relations = {tenzing_generic: relation_conf(inferential=False)}
         return relations
 
     @classmethod

@@ -16,9 +16,7 @@ class tenzing_string(tenzing_model):
     def get_relations(cls):
         from tenzing.core.model.types import tenzing_object
 
-        relations = {
-            tenzing_object: relation_conf(inferential=False)
-        }
+        relations = {tenzing_object: relation_conf(inferential=False)}
         return relations
 
     @classmethod

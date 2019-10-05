@@ -8,9 +8,7 @@ from tenzing.core.summaries.summary import CompleteSummary
 file_name = r"C:\Users\Cees Closed\Downloads\Open_Data_Parkeren__SPECIFICATIES_PARKEERGEBIED.csv"
 
 # Load dataset
-df = pd.read_csv(
-    file_name
-)
+df = pd.read_csv(file_name)
 
 # Type
 typeset = tenzing_complete_set()

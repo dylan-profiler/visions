@@ -31,11 +31,13 @@ class tenzing_path(tenzing_model):
 
     @classmethod
     def get_relations(cls):
-        from tenzing.core.model.types import tenzing_object,tenzing_string
+        from tenzing.core.model.types import tenzing_object, tenzing_string
 
         relations = {
             tenzing_object: relation_conf(inferential=False),
-            tenzing_string: relation_conf(inferential=True, relationship=string_is_path, transformer=to_path)
+            tenzing_string: relation_conf(
+                inferential=True, relationship=string_is_path, transformer=to_path
+            ),
         }
         return relations
 
