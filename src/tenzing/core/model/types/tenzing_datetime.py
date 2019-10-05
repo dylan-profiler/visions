@@ -16,7 +16,7 @@ class tenzing_datetime(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls):
+    def get_relations(cls):
         from tenzing.core.model.types import tenzing_generic
 
         relations = {

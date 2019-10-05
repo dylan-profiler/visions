@@ -30,7 +30,7 @@ class tenzing_geometry(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls):
+    def get_relations(cls):
         from tenzing.core.model.types import tenzing_string, tenzing_object
 
         relations = {

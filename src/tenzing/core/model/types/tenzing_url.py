@@ -15,7 +15,7 @@ class tenzing_url(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls):
+    def get_relations(cls):
         def test_url(series):
             try:
                 return (
@@ -28,7 +28,7 @@ class tenzing_url(tenzing_model):
         from tenzing.core.model.types import tenzing_object
         relations = {
             # TODO: replace test_url with coerce url.cast + url.contains
-            tenzing_string: relation_conf(relation=test_url, inferential=True),
+            tenzing_string: relation_conf(relationship=test_url, inferential=True),
             tenzing_object: relation_conf(inferential=False),
         }
         return relations

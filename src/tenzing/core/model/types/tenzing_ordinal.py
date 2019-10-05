@@ -27,7 +27,7 @@ class tenzing_ordinal(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls):
+    def get_relations(cls):
         from tenzing.core.model.types import tenzing_categorical, tenzing_string, tenzing_integer
 
         relations = {

@@ -14,7 +14,7 @@ class tenzing_bool(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls) -> dict:
+    def get_relations(cls) -> dict:
         from tenzing.core.model.types import tenzing_generic, tenzing_string
 
         relations = {

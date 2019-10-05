@@ -13,7 +13,7 @@ class tenzing_categorical(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls) -> dict:
+    def get_relations(cls) -> dict:
         from tenzing.core.model.types import tenzing_generic
 
         return {

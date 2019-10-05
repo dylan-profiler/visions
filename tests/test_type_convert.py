@@ -3,7 +3,7 @@ import warnings
 
 import pytest
 
-from tenzing.core.model import tenzing_complete_set
+from tenzing.core.model import tenzing_complete_set, model_relation
 from tenzing.core.model.types import *
 
 from tests.series import get_series
@@ -77,6 +77,7 @@ def pytest_generate_tests(metafunc):
 @pytest.mark.run(order=9)
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
+    relation = model_relation(source_type, relation_type, relation.relationship, relation.transformer, relation.inferential)
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (

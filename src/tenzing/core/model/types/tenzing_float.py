@@ -9,7 +9,7 @@ from tenzing.utils.coercion import test_utils
 
 
 def test_string_is_float(series):
-    coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast)(
+    coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast_op)(
         series
     )
     return coerced_series is not None and coerced_series in tenzing_float
@@ -23,7 +23,7 @@ class tenzing_float(tenzing_model):
     """
 
     @classmethod
-    def register_relations(cls):
+    def get_relations(cls):
         from tenzing.core.model.types import tenzing_generic, tenzing_string, tenzing_complex
 
         relations = {
