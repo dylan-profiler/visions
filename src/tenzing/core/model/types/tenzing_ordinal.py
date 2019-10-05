@@ -19,6 +19,10 @@ def is_ordinal_str(s):
     return 'a' in unique_values and check_consecutive(list(map(ord, unique_values)))
 
 
+def to_ordinal(series: pd.Series) -> pd.Series:
+    return pd.Series(pd.Categorical(series, categories=sorted(series.unique()), ordered=True))
+
+
 class tenzing_ordinal(tenzing_model):
     """**Ordinal** implementation of :class:`tenzing.core.models.tenzing_model`.
     >>> x = pd.Series([1, 2, 3, 1, 1], dtype='category')
@@ -32,15 +36,19 @@ class tenzing_ordinal(tenzing_model):
 
         relations = {
             tenzing_categorical: relation_conf(inferential=False),
-            tenzing_integer: relation_conf(inferential=True, relationship=is_ordinal_int),
-            tenzing_string: relation_conf(inferential=True, relationship=is_ordinal_str),
+            tenzing_integer: relation_conf(
+                inferential=True,
+                relationship=is_ordinal_int,
+                transformer=to_ordinal
+            ),
+            tenzing_string: relation_conf(
+                inferential=True,
+                relationship=is_ordinal_str,
+                transformer=to_ordinal
+            ),
         }
         return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         return pdt.is_categorical_dtype(series) and series.cat.ordered
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.Series(pd.Categorical(series, categories=sorted(series.unique()), ordered=True))

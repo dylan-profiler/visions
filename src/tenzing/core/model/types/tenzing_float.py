@@ -9,10 +9,14 @@ from tenzing.utils.coercion import test_utils
 
 
 def test_string_is_float(series):
-    coerced_series = test_utils.option_coercion_evaluator(tenzing_float.cast_op)(
+    coerced_series = test_utils.option_coercion_evaluator(to_float)(
         series
     )
     return coerced_series is not None and coerced_series in tenzing_float
+
+
+def to_float(series: pd.Series) -> bool:
+    return series.astype(float)
 
 
 class tenzing_float(tenzing_model):
@@ -28,10 +32,14 @@ class tenzing_float(tenzing_model):
 
         relations = {
             tenzing_generic: relation_conf(inferential=False),
-            tenzing_string: relation_conf(relationship=test_string_is_float, inferential=True),
+            tenzing_string: relation_conf(
+                relationship=test_string_is_float,
+                transformer=to_float,
+                inferential=True
+            ),
             tenzing_complex: relation_conf(
                 relationship=lambda s: all(np.imag(s.values) == 0),
-                transformer=lambda s: s.astype(float),
+                transformer=to_float,
                 inferential=True
             )
         }
@@ -40,8 +48,4 @@ class tenzing_float(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_float_dtype(series) and series not in tenzing_integer
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> bool:
-        return series.astype(float)
+        return pdt.is_float_dtype(series)

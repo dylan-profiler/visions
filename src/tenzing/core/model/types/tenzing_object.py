@@ -25,6 +25,3 @@ class tenzing_object(tenzing_model):
     def contains_op(cls, series: pd.Series) -> bool:
         return pdt.is_object_dtype(series)
 
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype("object")

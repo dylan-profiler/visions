@@ -24,6 +24,3 @@ class tenzing_categorical(tenzing_model):
     def contains_op(cls, series: pd.Series) -> bool:
         return pdt.is_categorical_dtype(series)
 
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype("category")

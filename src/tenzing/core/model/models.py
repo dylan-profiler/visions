@@ -32,8 +32,3 @@ class tenzing_model(metaclass=meta_model):
     @abstractmethod
     def contains_op(cls, series: pd.Series) -> bool:
         raise NotImplementedError
-
-    @classmethod
-    @abstractmethod
-    def cast_op(cls, series: pd.Series) -> pd.Series:
-        raise NotImplementedError

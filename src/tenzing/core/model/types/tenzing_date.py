@@ -34,7 +34,3 @@ class tenzing_date(tenzing_model):
                 temp_series.dt.second.eq(0).all(),
             ]
         )
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.to_datetime(series)

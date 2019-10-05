@@ -6,6 +6,10 @@ from tenzing.core.model.models import tenzing_model
 from tenzing.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
+def to_bool(series: pd.Series) -> pd.Series:
+    return series.astype(bool)
+
+
 class tenzing_bool(tenzing_model):
     """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
     >>> x = pd.Series([True, False])
@@ -26,9 +30,9 @@ class tenzing_bool(tenzing_model):
                 relationship=lambda s: coercion_map_test(
                     [{"true": True, "false": False}, {"y": True, "n": False},
                      {"yes": True, "no": False}])(s.str.lower()),
-                transformer=lambda s: coercion_map(
+                transformer=lambda s: to_bool(coercion_map(
                     [{"true": True, "false": False}, {"y": True, "n": False},
-                     {"yes": True, "no": False}])(s.str.lower()),
+                     {"yes": True, "no": False}])(s.str.lower())),
             )
         }
         return relations
@@ -39,7 +43,3 @@ class tenzing_bool(tenzing_model):
             return False
 
         return pdt.is_bool_dtype(series)
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype(bool)

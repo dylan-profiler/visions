@@ -27,7 +27,3 @@ class tenzing_string(tenzing_model):
         return (
             pdt.is_object_dtype(series) & series[series.notna()].map(type).eq(str).all()
         )
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype(str)

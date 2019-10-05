@@ -8,15 +8,18 @@ from tenzing.core.model.models import tenzing_model
 
 def string_is_path(series):
     try:
-        s = series.copy().apply(PureWindowsPath)
-        if not s.apply(lambda x: x.is_absolute()).all():
-            return (
-                series.apply(PurePosixPath).apply(lambda x: x.is_absolute()).all()
-            )
-        else:
-            return True
+        s = to_path(series.copy())
+        return s.all()
     except TypeError:
         return False
+
+
+def to_path(series: pd.Series) -> pd.Series:
+    s = series.copy().apply(PureWindowsPath)
+    if not s.apply(lambda x: x.is_absolute()).all():
+        return series.apply(PurePosixPath)
+    else:
+        return s
 
 
 class tenzing_path(tenzing_model):
@@ -32,18 +35,10 @@ class tenzing_path(tenzing_model):
 
         relations = {
             tenzing_object: relation_conf(inferential=False),
-            tenzing_string: relation_conf(inferential=True, relationship=string_is_path)
+            tenzing_string: relation_conf(inferential=True, relationship=string_is_path, transformer=to_path)
         }
         return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         return series.apply(lambda x: isinstance(x, PurePath) and x.is_absolute()).all()
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        s = series.copy().apply(PureWindowsPath)
-        if not s.apply(lambda x: x.is_absolute()).all():
-            return series.apply(PurePosixPath)
-        else:
-            return s

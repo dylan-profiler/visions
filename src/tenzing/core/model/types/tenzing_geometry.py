@@ -20,6 +20,12 @@ def string_is_geometry(series):
     return result
 
 
+def to_geometry(series: pd.Series) -> pd.Series:
+    from shapely import wkt
+
+    return pd.Series([wkt.loads(value) for value in series])
+
+
 # https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
 class tenzing_geometry(tenzing_model):
     """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
@@ -34,7 +40,7 @@ class tenzing_geometry(tenzing_model):
         from tenzing.core.model.types import tenzing_string, tenzing_object
 
         relations = {
-            tenzing_string: relation_conf(relationship=string_is_geometry, inferential=True),
+            tenzing_string: relation_conf(relationship=string_is_geometry, transformer=to_geometry, inferential=True),
             tenzing_object: relation_conf(inferential=False),
         }
         return relations
@@ -46,9 +52,3 @@ class tenzing_geometry(tenzing_model):
         return series.apply(lambda x: issubclass(type(x), BaseGeometry)).all()
         # The below raises `TypeError: data type "geometry" not understood`
         # return series.dtype == 'geometry'
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        from shapely import wkt
-
-        return pd.Series([wkt.loads(value) for value in series])

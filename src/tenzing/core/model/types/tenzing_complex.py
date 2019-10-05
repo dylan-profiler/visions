@@ -35,6 +35,3 @@ class tenzing_complex(tenzing_model):
     def contains_op(cls, series: pd.Series) -> bool:
         return pdt.is_complex_dtype(series)
 
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype("complex")

@@ -24,7 +24,3 @@ class tenzing_timedelta(tenzing_model):
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         return pdt.is_timedelta64_dtype(series)
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.to_timedelta(series)

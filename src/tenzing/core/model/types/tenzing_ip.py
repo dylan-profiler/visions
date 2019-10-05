@@ -6,6 +6,10 @@ from tenzing.core.model.models import tenzing_model
 from tenzing.utils.coercion import test_utils
 
 
+def to_ip(series: pd.Series) -> pd.Series:
+    return series.apply(ip_address)
+
+
 class tenzing_ip(tenzing_model):
     """**IP Address** (v4 and v6) implementation of :class:`tenzing.core.models.tenzing_model`.
     >>> from ipaddress import IPv4Address
@@ -20,14 +24,14 @@ class tenzing_ip(tenzing_model):
 
         relations = {
             tenzing_object: relation_conf(inferential=False),
-            tenzing_string: relation_conf(inferential=True, relationship=test_utils.coercion_test(lambda s: s.apply(ip_address))),
+            tenzing_string: relation_conf(
+                inferential=True,
+                relationship=test_utils.coercion_test(to_ip),
+                transformer=to_ip,
+            ),
         }
         return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         return series.apply(lambda x: isinstance(x, _BaseAddress)).all()
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(ip_address)

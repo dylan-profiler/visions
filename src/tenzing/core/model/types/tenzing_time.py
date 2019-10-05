@@ -35,7 +35,3 @@ class tenzing_time(tenzing_model):
                 temp_series.dt.year.eq(1970).all(),
             )
         )
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.to_datetime(series)

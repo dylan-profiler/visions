@@ -29,7 +29,3 @@ class tenzing_image_path(tenzing_model):
         return series.apply(
             lambda p: isinstance(p, Path) and p.exists() and imghdr.what(p) is not None
         ).all()
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(Path)
