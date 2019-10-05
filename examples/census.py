@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
-from tenzing.core.summaries.summary import summary
+from tenzing.core.summaries.summary import CompleteSummary
 
 if __name__ == "__main__":
     file_name = Path("census_train.csv")
@@ -43,6 +43,7 @@ if __name__ == "__main__":
     print(cast_types)
 
     # Summarization
+    summary = CompleteSummary()
     summaries = summary.summarize(cast_df, cast_types)
     for key, variable_summary in summaries["series"].items():
         print(key, variable_summary)

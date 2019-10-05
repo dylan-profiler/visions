@@ -133,32 +133,33 @@ class Summary(object):
 
         output_graph(G, file_name)
 
+        
+        
+class CompleteSummary(Summary):
+    def __init__(self):
+        type_summary_ops = {
+            tenzing_bool: [],
+            tenzing_categorical: [category_summary, unique_summary],
+            tenzing_complex: [infinite_summary, complex_summary, unique_summary_complex],
+            tenzing_datetime: [datetime_summary, unique_summary],
+            tenzing_date: [],
+            tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
+            tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
+            tenzing_geometry: [],
+            tenzing_image_path: [],
+            tenzing_integer: [
+                infinite_summary,
+                numerical_summary,
+                zero_summary,
+                unique_summary,
+            ],
+            tenzing_object: [unique_summary],
+            tenzing_path: [path_summary, text_summary],
+            tenzing_string: [text_summary, unique_summary],
+            tenzing_time: [],
+            tenzing_timedelta: [],
+            tenzing_url: [url_summary, unique_summary],
+            tenzing_generic: [base_summary, missing_summary],
+        }
+        super().__init__(type_summary_ops, tenzing_complete_set())
 
-type_summary_ops = {
-    tenzing_bool: [],
-    tenzing_categorical: [category_summary, unique_summary],
-    tenzing_complex: [infinite_summary, complex_summary, unique_summary_complex],
-    tenzing_datetime: [range_summary, unique_summary],
-    tenzing_date: [],
-    tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
-    tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
-    tenzing_geometry: [],
-    # tenzing_image_path: [],
-    tenzing_integer: [
-        infinite_summary,
-        numerical_summary,
-        zero_summary,
-        unique_summary,
-    ],
-    tenzing_object: [unique_summary],
-    tenzing_path: [path_summary, text_summary],
-    tenzing_string: [text_summary, unique_summary],
-    tenzing_time: [],
-    tenzing_timedelta: [],
-    tenzing_url: [url_summary, unique_summary],
-    tenzing_generic: [base_summary, missing_summary],
-}
-
-# TODO: add typeset
-typeset = tenzing_complete_set()
-summary = Summary(type_summary_ops, typeset)

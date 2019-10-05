@@ -50,3 +50,6 @@ class model_relation:
 
     def __repr__(self) -> str:
         return f"({self.friend_model} -> {self.model})"
+
+    def __eq__(self, other):
+        return isinstance(other, model_relation) and str(self) == str(other)
