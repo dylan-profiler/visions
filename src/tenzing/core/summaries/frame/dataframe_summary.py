@@ -1,10 +1,6 @@
 import pandas as pd
 
 
-# TODO: add `n_cells_missing`
-# TODO: add `p_cells_missing`
-# TODO: add `n_vars_with_missing`
-# TODO: add `type frequencies`
 def dataframe_summary(df: pd.DataFrame) -> dict:
     """Summarization for a DataFrame
 

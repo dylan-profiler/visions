@@ -3,7 +3,7 @@ from os.path import basename, splitext
 from glob import glob
 from setuptools import find_packages
 
-install_requires = ["numpy", "pandas==0.25.1", "networkx"]
+install_requires = ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3"]
 
 extras_requires = {
     "type_geometry": ["shapely", "geopandas"],
@@ -16,7 +16,7 @@ test_requires = ["pytest==5.2.0", "pytest-ordering"]
 
 setup(
     name="tenzing",
-    version="0.0.3",
+    version="0.0.4",
     description="Tenzing",
     packages=find_packages("src"),
     package_dir={"": "src"},

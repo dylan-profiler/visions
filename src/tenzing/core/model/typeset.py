@@ -26,12 +26,16 @@ def build_relation_graph(nodes: set, relations: list) -> nx.DiGraph:
     style_map = {True: "dashed", False: "solid", None: "dotted"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
+
     for relation in relations:
         relation_graph.add_edge(
             relation.friend_model, relation.model, relationship=relation, style=style_map[relation.inferential]
         )
+
+    # TODO: raise error
     undefined_nodes = set(relation_graph.nodes) - nodes
     relation_graph.remove_nodes_from(undefined_nodes)
+
     check_graph_constraints(relation_graph, nodes)
     return relation_graph
 
@@ -155,6 +159,7 @@ class tenzingTypeset(object):
             for relation in relation_list:
                 self.register_relation(relation)
 
+        # TODO: have two graphs, one with cast, one without
         self.relation_graph = build_relation_graph(types | {tenzing_generic}, self._relations)
         self.types = frozenset(self.relation_graph.nodes)
 
