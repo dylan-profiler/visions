@@ -24,12 +24,12 @@ def text_summary(series: pd.Series) -> dict:
         key: category(key) for key in character_counts.keys()
     }
     summary["category_alias_values"] = {
-        key: category_alias(key) for key in character_counts.keys()
+        key: category_long(key) for key in character_counts.keys()
     }
     summary["script_values"] = {key: script(key) for key in character_counts.keys()}
     summary["block_values"] = {key: block(key) for key in character_counts.keys()}
     summary["block_alias_values"] = {
-        key: block_alias(key) for key in character_counts.keys()
+        key: block_abbr(key) for key in character_counts.keys()
     }
 
     return summary

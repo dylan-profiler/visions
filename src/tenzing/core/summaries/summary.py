@@ -54,12 +54,23 @@ class Summary(object):
         """
         summary = {}
 
+        G = self.typeset.relation_graph.copy()
+
+        # Drop dashed relations
+        G.remove_edges_from(
+            [
+                (start, end)
+                for start, end, attributes in G.edges(data=True)
+                if attributes["style"] == "dashed"
+            ]
+        )
+
         done = []
         for base_type, summary_ops in self.summary_ops.items():
             print(f"base type = {base_type}")
             if (
                 base_type not in done
-                and nx.has_path(self.typeset.relation_graph, base_type, summary_type)
+                and nx.has_path(G, base_type, summary_type)
             ):
                 print("recognized")
                 for op in summary_ops:
