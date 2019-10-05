@@ -168,22 +168,23 @@ class tenzingTypeset(object):
         self.relation_graph, self.base_graph = build_relation_graph(types | {tenzing_generic}, self.relations)
         self.types = set(self.relation_graph.nodes)
 
-    def cache(self, df):
-        self.column_type_map = {
-            column: self.get_series_type(df[column]) for column in df.columns
-        }
+    # def cache(self, df):
+    #     self.column_type_map = {
+    #         column: self.get_series_type(df[column]) for column in df.columns
+    #     }
 
     def get_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         """
         """
-        if series.name in self.column_type_map:
-            base_type = self.column_type_map[series.name]
-        else:
-            base_type = traverse_relation_graph(series, self.relation_graph)
+        # if series.name in self.column_type_map:
+        #     base_type = self.column_type_map[series.name]
+        # else:
+        base_type = traverse_relation_graph(series, self.base_graph)
         return base_type
 
     def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
-        col_type = self.column_type_map.get(series.name, tenzing_generic)
+        # col_type = self.column_type_map.get(series.name, tenzing_generic)
+        col_type = self.get_series_type(series)
         inferred_base_type = infer_type(col_type, series, self.relation_graph)
         return inferred_base_type
 
