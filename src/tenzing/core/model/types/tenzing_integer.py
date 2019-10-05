@@ -13,7 +13,7 @@ def string_to_int(series: pd.Series) -> pd.Series:
 def to_int(series: pd.Series) -> pd.Series:
     try:
         return series.astype(int)
-    except TypeError:
+    except ValueError:
         return series.astype("Int64")
 
 
