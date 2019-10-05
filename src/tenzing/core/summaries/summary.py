@@ -127,7 +127,7 @@ class CompleteSummary(Summary):
             tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
             tenzing_float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
             tenzing_geometry: [],
-            # tenzing_image_path: [],
+            tenzing_image_path: [],
             tenzing_integer: [
                 infinite_summary,
                 numerical_summary,

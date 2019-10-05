@@ -39,7 +39,4 @@ class tenzing_bool(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        if pdt.is_categorical_dtype(series):
-            return False
-
-        return pdt.is_bool_dtype(series)
+        return not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series)

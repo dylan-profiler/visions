@@ -14,10 +14,10 @@ class tenzing_string(tenzing_model):
 
     @classmethod
     def get_relations(cls):
-        from tenzing.core.model.types import tenzing_generic
+        from tenzing.core.model.types import tenzing_object
 
         relations = {
-            tenzing_generic: relation_conf(inferential=False)
+            tenzing_object: relation_conf(inferential=False)
         }
         return relations
 

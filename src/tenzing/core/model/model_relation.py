@@ -31,7 +31,7 @@ class model_relation:
     """
 
     def __init__(
-        self, model, friend_model, relationship=None, transformer=None, inferential=None
+        self, model, friend_model, inferential, relationship=None, transformer=None
     ):
         """
         Args:
@@ -42,9 +42,18 @@ class model_relation:
         """
         self.model = model
         self.friend_model = friend_model
-        self.relationship = relationship if relationship else self.model.__contains__
-        self.transformer = transformer if transformer else self.model.cast_op
         self.inferential = inferential
+        if inferential:
+            if transformer is None or relationship is None:
+                raise ValueError("Inferential relations should have transformer and relations")
+            self.relationship = relationship
+            self.transformer = transformer
+        else:
+            if transformer is not None or relationship is not None:
+                raise ValueError("noninferential relations may not have transformer or relations")
+
+            self.relationship = self.model.__contains__
+            self.transformer = lambda s: s
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)
