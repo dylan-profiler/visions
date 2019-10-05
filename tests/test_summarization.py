@@ -4,14 +4,13 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model import tenzing_complete_set
 from tenzing.core.model.types import *
-from tenzing.core.summaries.summary import type_summary_ops, Summary
+from tenzing.core.summaries.summary import CompleteSummary
 
 
 @pytest.fixture(scope="class")
 def summary():
-    return Summary(type_summary_ops, tenzing_complete_set())
+    return CompleteSummary()
 
 
 def validate_summary_output(test_series, tenzing_type, correct_output, summary):
