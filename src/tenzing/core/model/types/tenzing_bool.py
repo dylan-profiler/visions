@@ -21,6 +21,11 @@ class tenzing_bool(tenzing_model):
     def get_relations(cls) -> dict:
         from tenzing.core.model.types import tenzing_generic, tenzing_string, tenzing_integer
 
+        coercions = [
+            {"true": True, "false": False},
+            {"y": True, "n": False},
+            {"yes": True, "no": False},
+        ]
         relations = {
             tenzing_generic: relation_conf(inferential=False),
             # TODO: store mapping somewhere (for alteration and DRY)
@@ -30,26 +35,12 @@ class tenzing_bool(tenzing_model):
             #             {"ja": True, "nee": False},
             tenzing_string: relation_conf(
                 inferential=True,
-                relationship=lambda s: coercion_map_test(
-                    [
-                        {"true": True, "false": False},
-                        {"y": True, "n": False},
-                        {"yes": True, "no": False},
-                    ]
-                )(s.str.lower()),
-                transformer=lambda s: to_bool(
-                    coercion_map(
-                        [
-                            {"true": True, "false": False},
-                            {"y": True, "n": False},
-                            {"yes": True, "no": False},
-                        ]
-                    )(s.str.lower())
-                ),
+                relationship=lambda s: coercion_map_test(coercions)(s.str.lower()),
+                transformer=lambda s: to_bool(coercion_map(coercions)(s.str.lower())),
             ),
             tenzing_integer: relation_conf(
                 inferential=True,
-                relationship=lambda s: set(s.unique()) == {0, 1},
+                relationship=lambda s: s.isin({0, 1}).all(),
                 transformer=to_bool,
             ),
         }
