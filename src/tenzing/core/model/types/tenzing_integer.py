@@ -1,7 +1,20 @@
 import pandas.api.types as pdt
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+from tenzing.utils.coercion import test_utils
+
+
+def to_int(series: pd.Series) -> pd.Series:
+    try:
+        return series.astype(int)
+    except ValueError:
+        return series.astype("Int64")
+
+
+def float_is_int(series: pd.Series) -> bool:
+    return series.apply(lambda v: v.is_integer()).any() and series.apply(lambda v: v.is_integer() or v != v).all()
 
 
 class tenzing_integer(tenzing_model):
@@ -14,19 +27,29 @@ class tenzing_integer(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        if pdt.is_integer_dtype(series):
-            return True
-        elif pdt.is_float_dtype(series):
-            # Need this additional check because it's an Option[Int] which in
-            # pandas land will result in integers with decimal trailing 0's
-            try:
-                return series.eq(series.astype(int)).all()
-            except (ValueError, TypeError):
-                return False
-        else:
-            return False
+    def get_relations(cls):
+        from tenzing.core.model.types import (
+            tenzing_string,
+            tenzing_generic,
+            tenzing_float,
+        )
+
+        relations = {
+            tenzing_generic: relation_conf(inferential=False),
+            tenzing_float: relation_conf(
+                relationship=float_is_int,
+                transformer=to_int,
+                inferential=True,
+            ),
+            tenzing_string: relation_conf(
+                relationship=test_utils.coercion_test(to_int),
+                transformer=to_int,
+                inferential=True,
+            ),
+        }
+
+        return relations
 
     @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype("Int64")
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_signed_integer_dtype(series)

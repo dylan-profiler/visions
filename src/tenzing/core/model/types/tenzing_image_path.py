@@ -1,3 +1,4 @@
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.utils.monkeypatches import *
 import imghdr
 from pathlib import Path
@@ -15,11 +16,14 @@ class tenzing_image_path(tenzing_model):
     """
 
     @classmethod
+    def get_relations(cls):
+        from tenzing.core.model.types import tenzing_existing_path
+
+        relations = {tenzing_existing_path: relation_conf(inferential=False)}
+        return relations
+
+    @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         return series.apply(
             lambda p: isinstance(p, Path) and p.exists() and imghdr.what(p) is not None
         ).all()
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(Path)

@@ -105,6 +105,7 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_datetime,
             tenzing_timedelta,
             tenzing_integer,
+            tenzing_count,
             tenzing_string,
             tenzing_geometry,
             tenzing_url,
@@ -112,6 +113,7 @@ class tenzing_complete_set(tenzingTypeset):
             tenzing_date,
             tenzing_time,
             tenzing_existing_path,
+            tenzing_image_path,
             tenzing_ip,
         }
         super().__init__(types)

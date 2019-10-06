@@ -1,50 +1,38 @@
-import os
-import warnings
-
 import pytest
 
-from tenzing.core.model import tenzing_complete_set
+from tenzing.core.model import tenzing_complete_set, model_relation
 from tenzing.core.model.types import *
 
-from tests.series import get_series
+from tests.series import get_series, get_convert_map
 
 
-def get_series_map():
-    series_map = [
-        # Model type, Relation type
-        (tenzing_integer, tenzing_float, []),
-        (tenzing_integer, tenzing_string, ["string_num", "int_str_range", "string_num_nan"]),
-        (
-            tenzing_float,
-            tenzing_string,
-            [
-                "string_flt",
-                "string_num_nan",
-                "string_flt",
-                "string_flt_nan",
-                "textual_float",
-                "textual_float_nan"
-            ],
-        ),
-        (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
-        (tenzing_geometry, tenzing_string, ["geometry_string_series"]),
-        (tenzing_bool, tenzing_string, ["string_bool_nan"]),
-        (tenzing_ip, tenzing_string, ["ip_str"]),
-        (tenzing_url, tenzing_string, ["str_url"]),
-        (tenzing_path, tenzing_string, ["path_series_windows_str", "path_series_linux_str"]),
-        # (tenzing_bool, tenzing_object, ["bool_nan_series"])
-    ]
+def all_relations_tested(series_map):
+    typeset = tenzing_complete_set()
 
-    return series_map
+    # Convert data structure for mapping
+    series_map_lookup = {}
+    for map_to_type, map_from_type, items in series_map:
+        try:
+            series_map_lookup[map_to_type][map_from_type] = items
+        except KeyError:
+            series_map_lookup[map_to_type] = {map_from_type: items}
 
+    missing_relations = set()
+    for to_type, from_types in typeset.relations.items():
+        for from_type, config in from_types.items():
+            if config.inferential and (to_type not in series_map_lookup or from_type not in series_map_lookup[to_type] or len(series_map_lookup[to_type][from_type]) == 0):
+                missing_relations.add(f"{from_type} -> {to_type}")
 
-# TODO: check that all relations are tested
+    if len(missing_relations) > 0:
+        raise ValueError(f"Not all inferential relations are tested {missing_relations}")
 
 
 def pytest_generate_tests(metafunc):
     _test_suite = get_series()
     if metafunc.function.__name__ == "test_relations":
-        _series_map = get_series_map()
+        _series_map = get_convert_map()
+
+        all_relations_tested(_series_map)
 
         argsvalues = []
         for item in _test_suite:
@@ -77,6 +65,9 @@ def pytest_generate_tests(metafunc):
 @pytest.mark.run(order=9)
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
+    relation = model_relation(source_type, relation_type, **relation._asdict())
+    print(f"source {source_type}.contains_op")
+    print(series)
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (
@@ -95,9 +86,9 @@ def test_consistency(series):
 
     if initial_type != converted_type:
         converted_series = typeset.cast_series(series.copy(deep=True))
-        print(f"OG {series.to_dict()}")
-        print(f"Converted {converted_series.to_dict()}")
-        assert not (
+        print(f"OG {series.to_dict()}, {series.dtype}")
+        print(f"Converted {converted_series.to_dict()}, {converted_series.dtype}")
+        assert series.dtype.kind != converted_series.dtype.kind or not (
             (
                 converted_series.eq(series) ^ (converted_series.isna() & series.isna())
             ).all()
@@ -133,16 +124,16 @@ def test_multiple_inference(series):
 
     inferred_type = ts.infer_series_type(series)
 
-    series_convert = ts.cast_series(series.copy())
+    series_convert = ts.cast_series(series.copy(deep=True))
 
-    initial_type_after_convert = ts.get_series_type(series_convert.copy())
-
-    inferred_type_after_convert = ts.get_series_type(series_convert.copy())
-
-    series_convert2 = ts.cast_series(series_convert.copy())
-
+    initial_type_after_convert = ts.get_series_type(series_convert.copy(deep=True))
     assert inferred_type == initial_type_after_convert
+
+    series_convert2 = ts.cast_series(series_convert.copy(deep=True))
+
+    inferred_type_after_convert = ts.get_series_type(series_convert2.copy(deep=True))
     assert initial_type_after_convert == inferred_type_after_convert
+
     assert series_convert.isna().eq(series_convert2.isna()).all()
     assert (
         series_convert[series_convert.notna()]

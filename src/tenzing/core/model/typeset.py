@@ -4,13 +4,13 @@ from typing import Type, Tuple, List
 import pandas as pd
 import networkx as nx
 
+from tenzing.core.model.model_relation import model_relation
 from tenzing.core.model.models import tenzing_model
-from tenzing.core.model.relations import register_relations
 from tenzing.utils.graph import output_graph
 from tenzing.core.model.types import tenzing_generic
 
 
-def build_relation_graph(nodes: set, relations: list) -> nx.DiGraph:
+def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
     """Constructs a traversable relation graph between tenzing types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -23,24 +23,34 @@ def build_relation_graph(nodes: set, relations: list) -> nx.DiGraph:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
-    style_map = {True: "dashed", False: "solid", None: "dotted"}
+    style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)
 
-    for relation in relations:
-        relation_graph.add_edge(
-            relation.friend_model, relation.model, relationship=relation, style=style_map[relation.inferential]
-        )
+    noninferential_edges = []
 
-    # TODO: raise error
-    undefined_nodes = set(relation_graph.nodes) - nodes
-    relation_graph.remove_nodes_from(undefined_nodes)
+    for model, relation in relations.items():
+        for friend_model, config in relation.items():
+            relation_graph.add_edge(
+                friend_model,
+                model,
+                relationship=model_relation(model, friend_model, **config._asdict()),
+                style=style_map[config.inferential],
+            )
+
+            if not config.inferential:
+                noninferential_edges.append((friend_model, model))
 
     check_graph_constraints(relation_graph, nodes)
-    return relation_graph
+    return relation_graph, relation_graph.edge_subgraph(noninferential_edges)
 
 
 def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
+    undefined_nodes = set(relation_graph.nodes) - nodes
+    if len(undefined_nodes) > 0:
+        warnings.warn(f"undefined node {undefined_nodes}")
+        relation_graph.remove_nodes_from(undefined_nodes)
+
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
     orphaned_nodes = nodes - set(relation_graph.nodes)
@@ -54,7 +64,6 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
         warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
-# Infer type without conversion
 def traverse_relation_graph(
     series: pd.Series, G: nx.DiGraph, node: Type[tenzing_model] = tenzing_generic
 ) -> Type[tenzing_model]:
@@ -69,7 +78,6 @@ def traverse_relation_graph(
         The most specialist node matching the series.
     """
     for tenz_type in G.successors(node):
-        # TODO: speed gain by not considering "dashed"
         if series in tenz_type:
             return traverse_relation_graph(series, G, tenz_type)
 
@@ -91,9 +99,10 @@ def get_type_inference_path(
     Returns:
 
     """
-    if path is None:
-        path = []
-    path.append(base_type)
+    try:
+        path.append(base_type)
+    except:
+        path = [base_type]
 
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]["relationship"].is_relation(series):
@@ -146,45 +155,44 @@ class tenzingTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, types: set):
+    def __init__(self, types: set, build=True):
         """
 
         Args:
             types:
         """
-        self.column_type_map = {}
+        # self.column_type_map = {}
 
-        self._relations = []
-        for relation_list in register_relations():
-            for relation in relation_list:
-                self.register_relation(relation)
+        self.relations = {}
+        for node in types:
+            self.relations[node] = node.get_relations()
+        self._types = types
+        if build:
+            self._build_graph()
 
-        # TODO: have two graphs, one with cast, one without
-        self.relation_graph = build_relation_graph(types | {tenzing_generic}, self._relations)
-        self.types = frozenset(self.relation_graph.nodes)
+    def _build_graph(self):
+        self.relation_graph, self.base_graph = build_relation_graph(
+            self._types | {tenzing_generic}, self.relations
+        )
+        self.types = set(self.relation_graph.nodes)
 
-    def register_relation(self, relation):
-        assert (
-            relation not in self._relations
-        ), "Only one relationship permitted per type"
-        self._relations.append(relation)
-
-    def cache(self, df):
-        self.column_type_map = {
-            column: self.get_series_type(df[column]) for column in df.columns
-        }
+    # def cache(self, df):
+    #     self.column_type_map = {
+    #         column: self.get_series_type(df[column]) for column in df.columns
+    #     }
 
     def get_series_type(self, series: pd.Series) -> Type[tenzing_model]:
         """
         """
-        if series.name in self.column_type_map:
-            base_type = self.column_type_map[series.name]
-        else:
-            base_type = traverse_relation_graph(series, self.relation_graph)
+        # if series.name in self.column_type_map:
+        #     base_type = self.column_type_map[series.name]
+        # else:
+        base_type = traverse_relation_graph(series, self.base_graph)
         return base_type
 
     def infer_series_type(self, series: pd.Series) -> Type[tenzing_model]:
-        col_type = self.column_type_map.get(series.name, tenzing_generic)
+        # col_type = self.column_type_map.get(series.name, tenzing_generic)
+        col_type = self.get_series_type(series)
         inferred_base_type = infer_type(col_type, series, self.relation_graph)
         return inferred_base_type
 
@@ -247,7 +255,9 @@ class tenzingTypeset(object):
         elif issubclass(other, tenzing_model):
             other_types = {other}
         else:
-            raise NotImplementedError(f'Typeset addition not implemented for type {type(other)}')
+            raise NotImplementedError(
+                f"Typeset addition not implemented for type {type(other)}"
+            )
         return tenzingTypeset(self.types | other_types)
 
     def __repr__(self):

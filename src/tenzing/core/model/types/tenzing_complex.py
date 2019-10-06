@@ -2,6 +2,7 @@ import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
 
 
@@ -22,9 +23,12 @@ class tenzing_complex(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_complex_dtype(series)
+    def get_relations(cls):
+        from tenzing.core.model.types import tenzing_generic
+
+        relations = {tenzing_generic: relation_conf(inferential=False)}
+        return relations
 
     @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype("complex")
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_complex_dtype(series)

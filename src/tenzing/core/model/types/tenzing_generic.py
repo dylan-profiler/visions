@@ -11,9 +11,9 @@ class tenzing_generic(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return True
+    def get_relations(cls) -> dict:
+        return {}
 
     @classmethod
-    def cast_op(cls, series: pd.Series) -> pd.Series:
-        return series
+    def contains_op(cls, series: pd.Series) -> bool:
+        return True

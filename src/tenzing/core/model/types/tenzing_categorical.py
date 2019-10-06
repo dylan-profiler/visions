@@ -1,7 +1,9 @@
 import pandas.api.types as pdt
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+from tenzing.core.model.types import tenzing_string
 
 
 class tenzing_categorical(tenzing_model):
@@ -12,9 +14,13 @@ class tenzing_categorical(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_categorical_dtype(series)
+    def get_relations(cls) -> dict:
+        from tenzing.core.model.types import tenzing_generic
+
+        return {
+            tenzing_generic: relation_conf(inferential=False),
+        }
 
     @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.astype("category")
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_categorical_dtype(series)

@@ -26,39 +26,44 @@ summaries = summary.summarize(cast_df, cast_types)
 for key, variable_summary in summaries["series"].items():
     print(key, variable_summary)
 
-print(summaries['frame'])
+print(summaries["frame"])
 
-from tenzing.core.model.types import tenzing_float, tenzing_integer, tenzing_categorical, tenzing_string, \
-    tenzing_ordinal
+from tenzing.core.model.types import (
+    tenzing_float,
+    tenzing_integer,
+    tenzing_categorical,
+    tenzing_string,
+    tenzing_ordinal,
+)
 
 # These are the "raw" data types as we load them
 before_cast = {
-    'Age': tenzing_float,
-    'Cabin': tenzing_string,
-    'Embarked': tenzing_string,
-    'Fare': tenzing_float,
-    'Name': tenzing_string,
-    'Parch': tenzing_integer,
-    'SibSp': tenzing_integer,
-    'PassengerId': tenzing_integer,
-    'Pclass': tenzing_integer,
-    'Sex': tenzing_string,
-    'Survived': tenzing_integer,
-    'Ticket': tenzing_string,
+    "Age": tenzing_float,
+    "Cabin": tenzing_string,
+    "Embarked": tenzing_string,
+    "Fare": tenzing_float,
+    "Name": tenzing_string,
+    "Parch": tenzing_integer,
+    "SibSp": tenzing_integer,
+    "PassengerId": tenzing_integer,
+    "Pclass": tenzing_integer,
+    "Sex": tenzing_string,
+    "Survived": tenzing_integer,
+    "Ticket": tenzing_string,
 }
 
 # These are the types that are inferred
 after_cast = {
-    'Age': tenzing_float,
-    'Cabin': tenzing_categorical,
-    'Embarked': tenzing_categorical,
-    'Fare': tenzing_float,
-    'Name': tenzing_string, # Unique
-    'Parch': tenzing_integer, # Count
-    'SibSp': tenzing_integer, # Count
-    'PassengerId': tenzing_integer,
-    'Pclass': tenzing_ordinal,
-    'Sex': tenzing_categorical,
-    'Survived': tenzing_boolean,
-    'Ticket': tenzing_categorical,
+    "Age": tenzing_float,
+    "Cabin": tenzing_categorical,
+    "Embarked": tenzing_categorical,
+    "Fare": tenzing_float,
+    "Name": tenzing_string,  # Unique
+    "Parch": tenzing_integer,  # Count
+    "SibSp": tenzing_integer,  # Count
+    "PassengerId": tenzing_integer,
+    "Pclass": tenzing_ordinal,
+    "Sex": tenzing_categorical,
+    "Survived": tenzing_boolean,
+    "Ticket": tenzing_categorical,
 }

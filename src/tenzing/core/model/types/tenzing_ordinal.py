@@ -1,8 +1,14 @@
 import pandas.api.types as pdt
 import pandas as pd
-import numpy as np
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+
+
+def to_ordinal(series: pd.Series) -> pd.Series:
+    return pd.Series(
+        pd.Categorical(series, categories=sorted(series.unique()), ordered=True)
+    )
 
 
 class tenzing_ordinal(tenzing_model):
@@ -13,9 +19,14 @@ class tenzing_ordinal(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_categorical_dtype(series) and series.cat.ordered
+    def get_relations(cls):
+        from tenzing.core.model.types import tenzing_categorical
+
+        relations = {
+            tenzing_categorical: relation_conf(inferential=False),
+        }
+        return relations
 
     @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.Categorical(series, ordered=True)
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_categorical_dtype(series) and series.cat.ordered

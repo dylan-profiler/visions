@@ -1,7 +1,8 @@
 from typing import Tuple
 
-from tenzing.core.model.typeset import tenzingTypeset
 import pandas as pd
+
+from tenzing.core.model.typeset import tenzingTypeset
 
 
 def type_cast(df: pd.DataFrame, typeset: tenzingTypeset) -> Tuple[pd.DataFrame, dict]:
@@ -16,7 +17,7 @@ def type_cast(df: pd.DataFrame, typeset: tenzingTypeset) -> Tuple[pd.DataFrame, 
         A tuple of the casted DataFrame and the types to which the columns were cast
     """
     cast_df = typeset.cast_to_inferred_types(df)
-    cast_types = {column: typeset.get_series_type(df[column]) for column in df.columns}
+    cast_types = {column: typeset.get_series_type(cast_df[column]) for column in cast_df.columns}
     return cast_df, cast_types
 
 
@@ -30,5 +31,7 @@ def type_inference(df: pd.DataFrame, typeset: tenzingTypeset) -> dict:
     Returns:
         A dictionary with a mapping from column name to type
     """
-    inferred_types = {column: typeset.infer_series_type(df[column]) for column in df.columns}
+    inferred_types = {
+        column: typeset.infer_series_type(df[column]) for column in df.columns
+    }
     return inferred_types

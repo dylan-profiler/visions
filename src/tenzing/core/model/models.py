@@ -20,40 +20,15 @@ class meta_model(ABCMeta):
 class tenzing_model(metaclass=meta_model):
     """Abstract implementation of a tenzing type.
 
-    Provides a common API for building custom tenzing datatypes. These can optionally
-    be augmented with mixins from :mod:`tenzing.core.mixins`
-
-    Examples:
-        >>> class tenzing_datetime(tenzing_model):
-        >>>     def contains_op(self, series):
-        >>>         return pdt.is_datetime64_dtype(series)
-        >>>
-        >>>     def cast_op(self, series):
-        >>>         return pd.to_datetime(series)
-        >>>
+    Provides a common API for building custom tenzing datatypes.
     """
-
-    # # TODO: is this even used?
-    # @classmethod
-    # def __instancecheck__(mcs, instance) -> bool:
-    #     print(mcs, instance.__class__)
-    #     if instance.__class__ is mcs:
-    #         return True
-    #     else:
-    #         return isinstance(instance.__class__, mcs)
-    #
-
-    @classmethod
-    def cast(cls, series: pd.Series, operation=None):
-        operation = operation if operation is not None else cls.cast_op
-        return operation(series)
 
     @classmethod
     @abstractmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def get_relations(cls) -> dict:
         raise NotImplementedError
 
     @classmethod
     @abstractmethod
-    def cast_op(cls, series: pd.Series) -> pd.Series:
+    def contains_op(cls, series: pd.Series) -> bool:
         raise NotImplementedError

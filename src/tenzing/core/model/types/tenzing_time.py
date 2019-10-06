@@ -1,6 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
 
 
@@ -10,6 +11,13 @@ class tenzing_time(tenzing_model):
     >>> x in tenzing_time
     True
     """
+
+    @classmethod
+    def get_relations(cls):
+        from tenzing.core.model.types import tenzing_datetime
+
+        relations = {tenzing_datetime: relation_conf(inferential=False)}
+        return relations
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
@@ -25,7 +33,3 @@ class tenzing_time(tenzing_model):
                 temp_series.dt.year.eq(1970).all(),
             )
         )
-
-    @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return pd.to_datetime(series)

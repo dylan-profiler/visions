@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
 
 
@@ -12,9 +13,12 @@ class tenzing_existing_path(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(lambda p: isinstance(p, Path) and p.exists()).all()
+    def get_relations(cls):
+        from tenzing.core.model.types import tenzing_path
+
+        relations = {tenzing_path: relation_conf(inferential=False)}
+        return relations
 
     @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(Path)
+    def contains_op(cls, series: pd.Series) -> bool:
+        return series.apply(lambda p: isinstance(p, Path) and p.exists()).all()

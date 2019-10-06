@@ -1,7 +1,13 @@
 import pandas as pd
 from ipaddress import _BaseAddress, ip_address
 
+from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
+from tenzing.utils.coercion import test_utils
+
+
+def to_ip(series: pd.Series) -> pd.Series:
+    return series.apply(ip_address)
 
 
 class tenzing_ip(tenzing_model):
@@ -13,9 +19,19 @@ class tenzing_ip(tenzing_model):
     """
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(lambda x: isinstance(x, _BaseAddress)).all()
+    def get_relations(cls):
+        from tenzing.core.model.types import tenzing_object, tenzing_string
+
+        relations = {
+            tenzing_object: relation_conf(inferential=False),
+            tenzing_string: relation_conf(
+                inferential=True,
+                relationship=test_utils.coercion_test(to_ip),
+                transformer=to_ip,
+            ),
+        }
+        return relations
 
     @classmethod
-    def cast_op(cls, series: pd.Series, operation=None) -> pd.Series:
-        return series.apply(ip_address)
+    def contains_op(cls, series: pd.Series) -> bool:
+        return series.apply(lambda x: isinstance(x, _BaseAddress)).all()

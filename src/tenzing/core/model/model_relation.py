@@ -1,4 +1,13 @@
+from collections import namedtuple
+from typing import Callable, Optional, Type
+
 import pandas as pd
+
+relation_conf = namedtuple(
+    "relation_conf",
+    ("inferential", "relationship", "transformer"),
+    defaults=(None, None),
+)
 
 
 class model_relation:
@@ -26,7 +35,12 @@ class model_relation:
     """
 
     def __init__(
-        self, model, friend_model, relationship=None, transformer=None, inferential=None
+        self,
+        model,
+        friend_model,
+        inferential: bool,
+        relationship: Optional[Callable] = None,
+        transformer: Optional[Callable] = None,
     ):
         """
         Args:
@@ -37,19 +51,31 @@ class model_relation:
         """
         self.model = model
         self.friend_model = friend_model
-        self.edge = (self.friend_model, self.model)
-        self.relationship = relationship if relationship else self.model.__contains__
-        self.transformer = transformer
         self.inferential = inferential
+        if inferential:
+            if transformer is None or relationship is None:
+                raise ValueError(
+                    "Inferential relations should have transformer and relations"
+                )
+            self.relationship = relationship
+            self.transformer = transformer
+        else:
+            if transformer is not None or relationship is not None:
+                raise ValueError(
+                    "noninferential relations may not have transformer or relations"
+                )
 
-    def is_relation(self, obj: pd.Series) -> bool:
-        return self.relationship(obj)
+            self.relationship = self.model.__contains__
+            self.transformer = lambda s: s
 
-    def transform(self, obj: pd.Series) -> pd.Series:
-        return self.model.cast(obj, self.transformer)
+    def is_relation(self, series: pd.Series) -> bool:
+        return self.relationship(series)
+
+    def transform(self, series: pd.Series) -> pd.Series:
+        return self.transformer(series)
 
     def __repr__(self) -> str:
         return f"({self.friend_model} -> {self.model})"
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return isinstance(other, model_relation) and str(self) == str(other)
