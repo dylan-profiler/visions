@@ -1,17 +1,19 @@
 import pandas as pd
 
-from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
+from examples.custom_relations.rdw.rdw_typeset import rdw_typeset
+from tenzing.core.model import type_cast, type_inference
 from tenzing.core.summaries.summary import CompleteSummary
 
 
 # file_name = "https://opendata.rdw.nl/api/views/m9d7-ebf2/rows.csv?accessType=DOWNLOAD"
-file_name = r"C:\Users\Cees Closed\Downloads\Open_Data_Parkeren__SPECIFICATIES_PARKEERGEBIED.csv"
+file_name = r"C:\Users\Cees Closed\Downloads\Open_Data_RDW__Gekentekende_voertuigen.csv"
 
 # Load dataset
-df = pd.read_csv(file_name)
+df = pd.read_csv(file_name, nrows=10000)
 
 # Type
-typeset = tenzing_complete_set()
+typeset = rdw_typeset()
+typeset.output_graph(f"rdw_typeset.svg")
 
 # Type inference
 inferred_types = type_inference(df, typeset)
@@ -19,10 +21,10 @@ print(inferred_types)
 
 # Type cast
 cast_df, cast_types = type_cast(df, typeset)
-print(cast_types)
+# print(cast_types)
 
 # Summarization
 summary = CompleteSummary()
 summaries = summary.summarize(cast_df, cast_types)
-for key, variable_summary in summaries["series"].items():
-    print(key, variable_summary)
+# for key, variable_summary in summaries["series"].items():
+#     print(key, variable_summary)

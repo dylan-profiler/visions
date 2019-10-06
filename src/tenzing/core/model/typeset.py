@@ -155,7 +155,7 @@ class tenzingTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, types: set):
+    def __init__(self, types: set, build=True):
         """
 
         Args:
@@ -166,9 +166,13 @@ class tenzingTypeset(object):
         self.relations = {}
         for node in types:
             self.relations[node] = node.get_relations()
+        self._types = types
+        if build:
+            self._build_graph()
 
+    def _build_graph(self):
         self.relation_graph, self.base_graph = build_relation_graph(
-            types | {tenzing_generic}, self.relations
+            self._types | {tenzing_generic}, self.relations
         )
         self.types = set(self.relation_graph.nodes)
 
