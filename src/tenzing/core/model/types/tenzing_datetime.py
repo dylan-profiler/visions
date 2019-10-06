@@ -3,7 +3,7 @@ import pandas as pd
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
-from tenzing.core.model.types import tenzing_string, tenzing_integer
+from tenzing.core.model.types import tenzing_string
 from tenzing.utils.coercion import test_utils
 
 
@@ -25,17 +25,10 @@ class tenzing_datetime(tenzing_model):
         relations = {
             tenzing_generic: relation_conf(inferential=False),
             tenzing_string: relation_conf(
-                relationship=test_utils.coercion_test(lambda s: pd.to_datetime(s)),
+                relationship=test_utils.coercion_test(to_datetime),
                 transformer=to_datetime,
                 inferential=True,
             ),
-            # TODO: make sure that exception is raised before 1970-1-1 00:00:00
-            # TODO: make contrib
-            # tenzing_integer: relation_conf(
-            #     inferential=True,
-            #     relationship=test_utils.coercion_test(lambda s: pd.to_datetime(s.astype(str))),
-            #     transformer=to_datetime,
-            # )
         }
         return relations
 

@@ -1,8 +1,7 @@
 import pandas as pd
 
 
-# TODO: rename to reflect contents of summary and promote reuse
-def complex_summary(series: pd.Series) -> dict:
+def numerical_basic_summary(series: pd.Series) -> dict:
     """Summary with basic aggregates
 
     Args:

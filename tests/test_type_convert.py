@@ -6,13 +6,33 @@ from tenzing.core.model.types import *
 from tests.series import get_series, get_convert_map
 
 
-# TODO: check that all relations are tested
+def all_relations_tested(series_map):
+    typeset = tenzing_complete_set()
+
+    # Convert data structure for mapping
+    series_map_lookup = {}
+    for map_to_type, map_from_type, items in series_map:
+        try:
+            series_map_lookup[map_to_type][map_from_type] = items
+        except KeyError:
+            series_map_lookup[map_to_type] = {map_from_type: items}
+
+    missing_relations = set()
+    for to_type, from_types in typeset.relations.items():
+        for from_type, config in from_types.items():
+            if config.inferential and (to_type not in series_map_lookup or from_type not in series_map_lookup[to_type] or len(series_map_lookup[to_type][from_type]) == 0):
+                missing_relations.add(f"{from_type} -> {to_type}")
+
+    if len(missing_relations) > 0:
+        raise ValueError(f"Not all inferential relations are tested {missing_relations}")
 
 
 def pytest_generate_tests(metafunc):
     _test_suite = get_series()
     if metafunc.function.__name__ == "test_relations":
         _series_map = get_convert_map()
+
+        all_relations_tested(_series_map)
 
         argsvalues = []
         for item in _test_suite:

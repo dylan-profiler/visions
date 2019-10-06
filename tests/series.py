@@ -16,6 +16,7 @@ def get_series():
         pd.Series(range(10), name="int_range"),
         pd.Series([1, 2, 3], name="Int64_int_series", dtype="Int64"),
         pd.Series([1, 2, 3, np.nan], name="Int64_int_nan_series", dtype="Int64"),
+        pd.Series([1,0,0,1,0,1,1,1,1,0,0,0,0], name="int_series_boolean"),
         # Count
         pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name="np_uint32"),
         # Categorical
@@ -133,6 +134,15 @@ def get_series():
         pd.Series(
             [complex(0, 0), complex(1, 2), complex(3, -1)], name="complex_series_py"
         ),
+        pd.Series(
+            [
+                np.complex(0, 0),
+                np.complex(1, 0),
+                np.complex(3, 0),
+                np.complex(-1, 0),
+            ],
+            name="complex_series_float",
+        ),
         # Datetime Series
         pd.Series(
             [pd.datetime(2017, 3, 5, 12, 2), pd.datetime(2019, 12, 4)],
@@ -235,6 +245,7 @@ def get_contains_map():
             "Int64_int_series",
             "int_range",
             "Int64_int_nan_series",
+            "int_series_boolean",
         ],
         tenzing_count: ["np_uint32"],
         tenzing_path: ["path_series_linux", "path_series_windows"],
@@ -273,6 +284,7 @@ def get_contains_map():
             "complex_series_nan",
             "complex_series_py_nan",
             "complex_series_nan_2",
+            "complex_series_float"
         ],
         tenzing_datetime: [
             "timestamp_series",
@@ -318,8 +330,6 @@ def get_contains_map():
         + series_map[tenzing_ip]
     )
 
-    # TODO: Series with missing and Inf values
-
     # Empty series
     all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
     for key, values in series_map.items():
@@ -340,11 +350,13 @@ def infer_series_type_map():
         "int_range": tenzing_integer,
         "float_series": tenzing_float,
         "float_nan_series": tenzing_float,
+        "int_series_boolean": tenzing_bool,
         "float_series2": tenzing_integer,
         "float_series3": tenzing_float,
         "float_series4": tenzing_float,
         "float_series5": tenzing_float,
         "float_series6": tenzing_float,
+        "complex_series_float": tenzing_integer,
         "categorical_float_series": tenzing_categorical,
         "float_with_inf": tenzing_float,
         "inf_series": tenzing_float,
@@ -440,6 +452,8 @@ def get_convert_map():
             tenzing_string,
             ["path_series_windows_str", "path_series_linux_str"],
         ),
+        (tenzing_float, tenzing_complex, ["complex_series_float"]),
+        (tenzing_bool, tenzing_integer, ["int_series_boolean"]),
         # (tenzing_bool, tenzing_object, ["bool_nan_series"])
     ]
 

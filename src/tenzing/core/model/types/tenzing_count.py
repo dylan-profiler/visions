@@ -1,14 +1,8 @@
 import pandas.api.types as pdt
 import pandas as pd
-import numpy as np
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
-
-
-def is_unsigned_int(series: pd.Series):
-    # TODO: add coercion
-    return series.ge(0).all()
 
 
 class tenzing_count(tenzing_model):
@@ -25,12 +19,6 @@ class tenzing_count(tenzing_model):
         relations = {
             # TODO: or inferential=False for integer?
             tenzing_generic: relation_conf(inferential=False),
-            # TODO: move to contrib
-            # tenzing_integer: relation_conf(
-            #     inferential=True,
-            #     relationship=is_unsigned_int,
-            #     transformer=lambda s: s.astype(np.uint64)
-            # ),
         }
         return relations
 

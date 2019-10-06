@@ -19,8 +19,6 @@ class tenzing_categorical(tenzing_model):
 
         return {
             tenzing_generic: relation_conf(inferential=False),
-            # TODO: contrib
-            # tenzing_string: relation_conf(inferential=True, relationship=lambda s: s, transformer=lambda s: s)
         }
 
     @classmethod

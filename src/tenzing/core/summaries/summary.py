@@ -128,7 +128,7 @@ class CompleteSummary(Summary):
             tenzing_categorical: [category_summary, unique_summary],
             tenzing_complex: [
                 infinite_summary,
-                complex_summary,
+                numerical_basic_summary,
                 unique_summary_complex,
             ],
             tenzing_datetime: [range_summary, unique_summary],
