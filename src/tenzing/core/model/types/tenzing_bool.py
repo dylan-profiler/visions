@@ -3,7 +3,6 @@ import pandas as pd
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
-from tenzing.core.model.types import tenzing_integer
 from tenzing.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
@@ -20,7 +19,7 @@ class tenzing_bool(tenzing_model):
 
     @classmethod
     def get_relations(cls) -> dict:
-        from tenzing.core.model.types import tenzing_generic, tenzing_string
+        from tenzing.core.model.types import tenzing_generic, tenzing_string, tenzing_integer
 
         relations = {
             tenzing_generic: relation_conf(inferential=False),

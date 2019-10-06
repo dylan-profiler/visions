@@ -41,15 +41,16 @@ def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.Di
             if not config.inferential:
                 noninferential_edges.append((friend_model, model))
 
-    # TODO: raise error
-    undefined_nodes = set(relation_graph.nodes) - nodes
-    relation_graph.remove_nodes_from(undefined_nodes)
-
     check_graph_constraints(relation_graph, nodes)
-    return relation_graph, relation_graph.edge_subgraph(noninferential_edges).copy()
+    return relation_graph, relation_graph.edge_subgraph(noninferential_edges)
 
 
 def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
+    undefined_nodes = set(relation_graph.nodes) - nodes
+    if len(undefined_nodes) > 0:
+        warnings.warn(f"undefined node {undefined_nodes}")
+        relation_graph.remove_nodes_from(undefined_nodes)
+
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
     orphaned_nodes = nodes - set(relation_graph.nodes)
@@ -98,13 +99,12 @@ def get_type_inference_path(
     Returns:
 
     """
-    if path is None:
-        path = []
-    path.append(base_type)
+    try:
+        path.append(base_type)
+    except:
+        path = [base_type]
 
     for tenz_type in G.successors(base_type):
-        print(f"from {base_type} to {tenz_type}")
-        print(series)
         if G[base_type][tenz_type]["relationship"].is_relation(series):
             new_series = G[base_type][tenz_type]["relationship"].transform(series)
             return get_type_inference_path(tenz_type, new_series, G, path)
@@ -126,7 +126,6 @@ def infer_type(
     """
     # TODO: path is never used...
     path, _ = get_type_inference_path(base_type, series, G)
-    print(path)
     return path[-1]
 
 
@@ -162,7 +161,7 @@ class tenzingTypeset(object):
         Args:
             types:
         """
-        self.column_type_map = {}
+        # self.column_type_map = {}
 
         self.relations = {}
         for node in types:

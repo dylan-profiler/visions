@@ -27,8 +27,7 @@ class tenzing_url(tenzing_model):
 
     @classmethod
     def get_relations(cls):
-        from tenzing.core.model.types import tenzing_string
-        from tenzing.core.model.types import tenzing_object
+        from tenzing.core.model.types import tenzing_string, tenzing_object
 
         relations = {
             # TODO: replace test_url with coercion test

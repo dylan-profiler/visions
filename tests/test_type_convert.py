@@ -104,16 +104,16 @@ def test_multiple_inference(series):
 
     inferred_type = ts.infer_series_type(series)
 
-    series_convert = ts.cast_series(series.copy())
+    series_convert = ts.cast_series(series.copy(deep=True))
 
-    initial_type_after_convert = ts.get_series_type(series_convert.copy())
-
-    inferred_type_after_convert = ts.get_series_type(series_convert.copy())
-
-    series_convert2 = ts.cast_series(series_convert.copy())
-
+    initial_type_after_convert = ts.get_series_type(series_convert.copy(deep=True))
     assert inferred_type == initial_type_after_convert
+
+    series_convert2 = ts.cast_series(series_convert.copy(deep=True))
+
+    inferred_type_after_convert = ts.get_series_type(series_convert2.copy(deep=True))
     assert initial_type_after_convert == inferred_type_after_convert
+
     assert series_convert.isna().eq(series_convert2.isna()).all()
     assert (
         series_convert[series_convert.notna()]

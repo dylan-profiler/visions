@@ -17,7 +17,7 @@ def type_cast(df: pd.DataFrame, typeset: tenzingTypeset) -> Tuple[pd.DataFrame, 
         A tuple of the casted DataFrame and the types to which the columns were cast
     """
     cast_df = typeset.cast_to_inferred_types(df)
-    cast_types = {column: typeset.get_series_type(df[column]) for column in df.columns}
+    cast_types = {column: typeset.get_series_type(cast_df[column]) for column in cast_df.columns}
     return cast_df, cast_types
 
 
