@@ -1,6 +1,0 @@
-tenzing.core.summaries.series.complex\_summary
-==============================================
-
-.. currentmodule:: tenzing.core.summaries.series
-
-.. autofunction:: complex_summary

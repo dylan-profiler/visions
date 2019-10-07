@@ -1,6 +1,0 @@
-tenzing.core.summaries.frame.dataframe\_summary
-===============================================
-
-.. currentmodule:: tenzing.core.summaries.frame
-
-.. autofunction:: dataframe_summary

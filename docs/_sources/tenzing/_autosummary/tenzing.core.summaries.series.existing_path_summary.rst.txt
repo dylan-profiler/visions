@@ -1,6 +1,0 @@
-tenzing.core.summaries.series.existing\_path\_summary
-=====================================================
-
-.. currentmodule:: tenzing.core.summaries.series
-
-.. autofunction:: existing_path_summary

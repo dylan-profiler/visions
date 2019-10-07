@@ -1,6 +1,0 @@
-tenzing.core.summaries.series.zero\_summary
-===========================================
-
-.. currentmodule:: tenzing.core.summaries.series
-
-.. autofunction:: zero_summary

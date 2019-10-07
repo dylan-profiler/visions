@@ -14,14 +14,14 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(r"..\..\src"))
-sys.path.insert(0, os.path.abspath(r"..\..\src\tenzing"))
+sys.path.insert(0, os.path.abspath(r"..\..\src\visions"))
 
 
 # -- Project information -----------------------------------------------------
 
 project = "package"
-copyright = "2019, Ian Eaves"
-author = "Ian Eaves"
+copyright = "2019, TODO"
+author = "TODO"
 
 # The full version, including alpha/beta/rc tags
 
@@ -29,7 +29,7 @@ author = "Ian Eaves"
 def _GetApiWrapperVersion():
     import pkg_resources
 
-    return pkg_resources.get_distribution("tenzing").version
+    return pkg_resources.get_distribution("visions").version
 
 
 release = _GetApiWrapperVersion()

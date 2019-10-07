@@ -1,5 +1,0 @@
-tenzing.utils.unicode.unicode_data
-==================================
-
-.. automodule:: tenzing.utils.unicode.unicode_data
-    :members:

@@ -1,6 +1,0 @@
-tenzing.core.summaries.series.category\_summary
-===============================================
-
-.. currentmodule:: tenzing.core.summaries.series
-
-.. autofunction:: category_summary

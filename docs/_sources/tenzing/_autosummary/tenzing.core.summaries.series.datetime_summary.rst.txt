@@ -1,6 +1,0 @@
-tenzing.core.summaries.series.datetime\_summary
-===============================================
-
-.. currentmodule:: tenzing.core.summaries.series
-
-.. autofunction:: datetime_summary

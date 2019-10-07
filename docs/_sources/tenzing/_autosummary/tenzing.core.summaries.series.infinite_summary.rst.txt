@@ -1,6 +1,0 @@
-tenzing.core.summaries.series.infinite\_summary
-===============================================
-
-.. currentmodule:: tenzing.core.summaries.series
-
-.. autofunction:: infinite_summary

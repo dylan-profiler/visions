@@ -1,5 +1,0 @@
-tenzing.core.model.relations
-============================
-
-.. automodule:: tenzing.core.model.relations
-    :members:

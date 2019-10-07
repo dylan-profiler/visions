@@ -6,11 +6,11 @@
    :maxdepth: 3
    :caption: Table of Contents:
 
-   tenzing/introduction
-   tenzing/installation
-   tenzing/getting_started.md
-   tenzing/typesets
-   tenzing/extending
+   visions/introduction
+   visions/installation
+   visions/getting_started.md
+   visions/typesets
+   visions/extending
    examples
    modules
 

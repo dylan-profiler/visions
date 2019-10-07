@@ -4,7 +4,7 @@ from glob import glob
 from setuptools import find_packages
 
 type_geometry_requires = ["shapely", "geopandas==0.6.0"]
-type_image_path_requires = ["imagehash", "PIL"]
+type_image_path_requires = ["imagehash", "Pillow"]
 
 install_requires = (
     ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3"]

@@ -36,7 +36,7 @@ mkdir ..\docs\
 copy NUL ..\docs\.nojekyll
 robocopy .\build\html ..\docs /E /MOVE
 rmdir .\build /s /q
-rmdir .\source\tenzing\_autosummary /s /q
+rmdir .\source\visions\_autosummary /s /q
 goto end
 
 :help

@@ -1,5 +1,0 @@
-tenzing.utils.coercion.test_utils
-=================================
-
-.. automodule:: tenzing.utils.coercion.test_utils
-    :members:

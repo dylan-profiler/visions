@@ -1,5 +1,0 @@
-tenzing.utils.monkeypatches.imghdr_patch
-========================================
-
-.. automodule:: tenzing.utils.monkeypatches.imghdr_patch
-    :members:
