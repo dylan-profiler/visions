@@ -1,0 +1,24 @@
+visions.core.model.types.tenzing\_object
+========================================
+
+.. currentmodule:: visions.core.model.types
+
+.. autoclass:: tenzing_object
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~tenzing_object.__init__
+      ~tenzing_object.contains_op
+      ~tenzing_object.get_relations
+   
+   
+
+   
+   
+   
