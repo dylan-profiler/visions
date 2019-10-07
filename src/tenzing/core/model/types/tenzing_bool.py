@@ -4,15 +4,16 @@ import numpy as np
 
 from tenzing.core.model.model_relation import relation_conf
 from tenzing.core.model.models import tenzing_model
-from tenzing.utils.coercion import test_utils
 from tenzing.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
 def to_bool(series: pd.Series) -> pd.Series:
-    try:
+    if series.isin({True, False}).all():
         return series.astype(bool)
-    except ValueError:
-        return pd.to_numeric(series).astype("Bool")
+    elif series.isin({True, False, None, np.nan}).all():
+        return series.astype("Bool")
+    else:
+        raise ValueError(f"Values not supported {series.unique()}")
 
 
 class tenzing_bool(tenzing_model):
@@ -51,7 +52,7 @@ class tenzing_bool(tenzing_model):
             ),
             tenzing_object: relation_conf(
                 inferential=True,
-                relationship=test_utils.coercion_equality_test(to_bool),
+                relationship=lambda s: s.apply(type).apply(lambda v: v in [type(None), bool]).all(),
                 transformer=to_bool,
             ),
         }

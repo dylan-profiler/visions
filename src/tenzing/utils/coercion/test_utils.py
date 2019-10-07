@@ -20,7 +20,7 @@ def option_coercion_evaluator(method: Callable) -> Callable:
     def f(series: pd.Series) -> Optional[pd.Series]:
         try:
             return method(series)
-        except (ValueError, TypeError, AttributeError):
+        except (ValueError, TypeError, AttributeError, SystemError):
             return None
 
     return f
@@ -93,10 +93,10 @@ def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable:
     if type(mapping) == list:
         def f(series: pd.Series) -> bool:
             # TODO: None value
-            return any(series.isin(single_map.keys()).all() for single_map in mapping)
+            return any(series.isin(list(single_map.keys()) + [None]).all() for single_map in mapping)
     elif type(mapping) == dict:
         def f(series: pd.Series) -> bool:
-            return series.isin(mapping.keys()).all()
+            return series.isin(list(mapping.keys()) + [None]).all()
     else:
         raise ValueError("Mapping should be dict or list of dicts")
     return f

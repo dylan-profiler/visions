@@ -66,8 +66,6 @@ def pytest_generate_tests(metafunc):
 def test_relations(source_type, relation_type, series):
     relation = source_type.get_relations()[relation_type]
     relation = model_relation(source_type, relation_type, **relation._asdict())
-    print(f"source {source_type}.contains_op")
-    print(series)
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (

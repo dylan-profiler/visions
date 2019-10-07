@@ -1,28 +1,34 @@
-# Tenzing
+# Visions
 
 <p align="center">
-<img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201505/tenzing_650_051115023506.jpg" width="200"/>
+    <img src="http://res.publicdomainfiles.com/pdf_view/91/13944090013588.png" width="200"/>
 </p>
 
-## Introduction
-Tenzing provides an extensible suite of tools to support common data analysis operations including
+> And these visions of data types, they kept us up past the dawn
+
+## Why
+
+
+## What
+`Visions` provides an extensible suite of tools to support common data analysis operations including
 
 * type inference on unknown data
 * casting data types
 * automated data summarization
 
+## How
+
 Full documentation can be found [here](https://ieaves.github.io/tenzing/).
 
 ## Installation
 
-You can install tenzing via pip:
+You can install `visions` via pip:
 
 ```
-pip install tenzing
+pip install visions
 ```
 
 Alternatives and more details can be found in the Full documentation can be found in the [documentation](https://ieaves.github.io/tenzing/).
-
 
 
 ## References
