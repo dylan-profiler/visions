@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model import tenzing_model
-from tenzing.core.model.types import (
+from visions.core.model import tenzing_model
+from visions.core.model.types import (
     tenzing_bool,
     tenzing_generic,
     tenzing_integer,

@@ -1,7 +1,7 @@
 import pytest
 
-from tenzing.core.model import tenzing_complete_set, model_relation
-from tenzing.core.model.types import *
+from visions.core.model import tenzing_complete_set, model_relation
+from visions.core.model.types import *
 
 from tests.series import get_series, get_convert_map
 
@@ -20,11 +20,17 @@ def all_relations_tested(series_map):
     missing_relations = set()
     for to_type, from_types in typeset.relations.items():
         for from_type, config in from_types.items():
-            if config.inferential and (to_type not in series_map_lookup or from_type not in series_map_lookup[to_type] or len(series_map_lookup[to_type][from_type]) == 0):
+            if config.inferential and (
+                to_type not in series_map_lookup
+                or from_type not in series_map_lookup[to_type]
+                or len(series_map_lookup[to_type][from_type]) == 0
+            ):
                 missing_relations.add(f"{from_type} -> {to_type}")
 
     if len(missing_relations) > 0:
-        raise ValueError(f"Not all inferential relations are tested {missing_relations}")
+        raise ValueError(
+            f"Not all inferential relations are tested {missing_relations}"
+        )
 
 
 def pytest_generate_tests(metafunc):

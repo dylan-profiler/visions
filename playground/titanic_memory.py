@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
-from tenzing.core.model.dtypes.bool_fix.tenzing_bool import tenzing_boolean
-from tenzing.core.summaries.summary import summary
+from visions.core.model import tenzing_complete_set, type_cast, type_inference
+from visions.core.model.dtypes.bool_fix.tenzing_bool import tenzing_boolean
+from visions.core.summaries.summary import summary
 
 # Load dataset
 df = pd.read_csv(
@@ -46,7 +46,7 @@ print(cast_types)
 #     print(key, variable_summary)
 
 
-from tenzing.core.model.types import (
+from visions.core.model.types import (
     tenzing_float,
     tenzing_integer,
     tenzing_categorical,

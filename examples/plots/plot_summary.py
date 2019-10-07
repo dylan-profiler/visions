@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from tenzing.core.model.types import tenzing_integer, tenzing_existing_path
-from tenzing.core.summaries.summary import CompleteSummary
+from visions.core.model.types import tenzing_integer, tenzing_existing_path
+from visions.core.summaries.summary import CompleteSummary
 
 
 summaries_dir = Path("summaries/")

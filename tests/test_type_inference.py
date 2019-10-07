@@ -1,7 +1,7 @@
 import pytest
 
-from tenzing.core.model.typesets import tenzing_complete_set
-from tenzing.core.model.types import *
+from visions.core.model.typesets import tenzing_complete_set
+from visions.core.model.types import *
 from tests.series import get_series, infer_series_type_map
 
 

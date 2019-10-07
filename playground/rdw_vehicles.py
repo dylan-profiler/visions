@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
-from tenzing.core.summaries.summary import summary
+from visions.core.model import tenzing_complete_set, type_cast, type_inference
+from visions.core.summaries.summary import summary
 
 
 # file_name = "https://opendata.rdw.nl/api/views/m9d7-ebf2/rows.csv?accessType=DOWNLOAD"

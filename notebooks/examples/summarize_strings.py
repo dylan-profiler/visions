@@ -1,8 +1,8 @@
-from tenzing.core.model.typesets import tenzing_complete_set
+from visions.core.model.typesets import tenzing_complete_set
 
 import pandas as pd
 
-from tenzing.core.summaries.summary import summary
+from visions.core.summaries.summary import summary
 
 df = pd.DataFrame(
     {

@@ -1,6 +1,6 @@
 import datetime
 
-from tenzing.core.model import tenzing_complete_set
+from visions.core.model import tenzing_complete_set
 import pandas as pd
 import numpy as np
 

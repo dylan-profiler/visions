@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 from shapely import wkt
 
-from tenzing.core.model.types import *
+from visions.core.model.types import *
 
 
 def get_series():
@@ -16,7 +16,7 @@ def get_series():
         pd.Series(range(10), name="int_range"),
         pd.Series([1, 2, 3], name="Int64_int_series", dtype="Int64"),
         pd.Series([1, 2, 3, np.nan], name="Int64_int_nan_series", dtype="Int64"),
-        pd.Series([1,0,0,1,0,1,1,1,1,0,0,0,0], name="int_series_boolean"),
+        pd.Series([1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0], name="int_series_boolean"),
         # Count
         pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name="np_uint32"),
         # Categorical
@@ -106,7 +106,7 @@ def get_series():
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, None], name="bool_nan_series"),
-        pd.Series([True, False, None], name='nullable_bool_series', dtype='Bool'),
+        pd.Series([True, False, None], name="nullable_bool_series", dtype="Bool"),
         pd.Series([True, False, False, True], dtype=bool, name="bool_series2"),
         pd.Series(np.array([1, 0, 0, 1], dtype=np.bool), name="bool_series3"),
         # Complex Series
@@ -135,12 +135,7 @@ def get_series():
             [complex(0, 0), complex(1, 2), complex(3, -1)], name="complex_series_py"
         ),
         pd.Series(
-            [
-                np.complex(0, 0),
-                np.complex(1, 0),
-                np.complex(3, 0),
-                np.complex(-1, 0),
-            ],
+            [np.complex(0, 0), np.complex(1, 0), np.complex(3, 0), np.complex(-1, 0)],
             name="complex_series_float",
         ),
         # Datetime Series
@@ -284,7 +279,7 @@ def get_contains_map():
             "complex_series_nan",
             "complex_series_py_nan",
             "complex_series_nan_2",
-            "complex_series_float"
+            "complex_series_float",
         ],
         tenzing_datetime: [
             "timestamp_series",
@@ -424,11 +419,7 @@ def get_convert_map():
     series_map = [
         # Model type, Relation type
         (tenzing_integer, tenzing_float, ["int_nan_series", "float_series2"]),
-        (
-            tenzing_integer,
-            tenzing_string,
-            ["int_str_range"],
-        ),
+        (tenzing_integer, tenzing_string, ["int_str_range"]),
         (
             tenzing_float,
             tenzing_string,

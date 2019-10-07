@@ -1,8 +1,8 @@
 import pandas as pd
 
-from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
-from tenzing.core.summaries.summary import CompleteSummary
-from tenzing.core.model.dtypes.bool_fix.tenzing_bool import tenzing_boolean
+from visions.core.model import tenzing_complete_set, type_cast, type_inference
+from visions.core.summaries.summary import CompleteSummary
+from visions.core.model.dtypes.bool_fix.tenzing_bool import tenzing_boolean
 
 # Load dataset
 df = pd.read_csv(
@@ -28,7 +28,7 @@ for key, variable_summary in summaries["series"].items():
 
 print(summaries["frame"])
 
-from tenzing.core.model.types import (
+from visions.core.model.types import (
     tenzing_float,
     tenzing_integer,
     tenzing_categorical,

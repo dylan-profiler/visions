@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from tenzing.core.model import tenzing_complete_set, type_cast, type_inference
-from tenzing.core.summaries.summary import CompleteSummary
+from visions.core.model import tenzing_complete_set, type_cast, type_inference
+from visions.core.summaries.summary import CompleteSummary
 
 if __name__ == "__main__":
     file_name = Path("census_train.csv")

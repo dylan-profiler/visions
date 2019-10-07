@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from tenzing.core.model.typesets import (
+from visions.core.model.typesets import (
     tenzing_complete_set,
     tenzing_standard_set,
     tenzing_geometry_set,

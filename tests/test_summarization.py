@@ -4,8 +4,8 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from tenzing.core.model.types import *
-from tenzing.core.summaries.summary import CompleteSummary
+from visions.core.model.types import *
+from visions.core.summaries.summary import CompleteSummary
 
 
 @pytest.fixture(scope="class")

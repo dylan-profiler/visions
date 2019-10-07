@@ -1,8 +1,8 @@
 import pandas as pd
 
 from examples.custom_relations.rdw.rdw_typeset import rdw_typeset
-from tenzing.core.model import type_cast, type_inference
-from tenzing.core.summaries.summary import CompleteSummary
+from visions.core.model import type_cast, type_inference
+from visions.core.summaries.summary import CompleteSummary
 
 
 # file_name = "https://opendata.rdw.nl/api/views/m9d7-ebf2/rows.csv?accessType=DOWNLOAD"

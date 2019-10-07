@@ -2,7 +2,7 @@ from urllib.parse import urlparse
 
 import pandas as pd
 
-from tenzing.core.model.dtypes.url_dtype import UrlType
+from visions.core.model.dtypes.url_dtype import UrlType
 
 # UrlType
 
