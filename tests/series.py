@@ -85,7 +85,7 @@ def get_series():
             ],
             name="string_str_nan",
         ),
-        pd.Series(["True", "False", np.nan], name="string_bool_nan"),
+        pd.Series(["True", "False", None], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
         pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
         pd.Series(
@@ -105,8 +105,8 @@ def get_series():
         ),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
-        pd.Series([True, False, np.nan], name="bool_nan_series"),
-        # pd.Series([True, False, np.nan], name='nullable_bool_series', dtype='Bool'),
+        pd.Series([True, False, None], name="bool_nan_series"),
+        pd.Series([True, False, None], name='nullable_bool_series', dtype='Bool'),
         pd.Series([True, False, False, True], dtype=bool, name="bool_series2"),
         pd.Series(np.array([1, 0, 0, 1], dtype=np.bool), name="bool_series3"),
         # Complex Series
@@ -276,7 +276,7 @@ def get_contains_map():
             "bool_series",
             "bool_series2",
             "bool_series3",
-            # "nullable_bool_series",
+            "nullable_bool_series",
         ],
         tenzing_complex: [
             "complex_series",
@@ -378,7 +378,7 @@ def infer_series_type_map():
         "str_url": tenzing_url,
         "bool_series": tenzing_bool,
         "bool_nan_series": tenzing_bool,
-        # "nullable_bool_series": tenzing_bool,
+        "nullable_bool_series": tenzing_bool,
         "bool_series2": tenzing_bool,
         "bool_series3": tenzing_bool,
         "complex_series": tenzing_complex,
@@ -454,7 +454,7 @@ def get_convert_map():
         ),
         (tenzing_float, tenzing_complex, ["complex_series_float"]),
         (tenzing_bool, tenzing_integer, ["int_series_boolean"]),
-        # (tenzing_bool, tenzing_object, ["bool_nan_series"])
+        (tenzing_bool, tenzing_object, ["bool_nan_series"]),
     ]
 
     return series_map
