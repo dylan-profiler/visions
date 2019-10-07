@@ -29,9 +29,9 @@ test_requires = [
 ]
 
 setup(
-    name="tenzing",
-    version="0.0.4",
-    description="Tenzing",
+    name="visions",
+    version="0.1.0",
+    description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
     py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
