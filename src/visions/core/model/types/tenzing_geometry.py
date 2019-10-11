@@ -53,7 +53,8 @@ class tenzing_geometry(tenzing_model):
     def contains_op(cls, series: pd.Series) -> bool:
         from shapely.geometry.base import BaseGeometry
 
-        return series.apply(lambda x: issubclass(type(x), BaseGeometry)).all()
+        return all(issubclass(type(x), BaseGeometry) for x in series)
+
         # The below raises `TypeError: data type "geometry" not understood`
         # import geopandas
         # from geopandas import array

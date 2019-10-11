@@ -24,6 +24,4 @@ class tenzing_image_path(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(
-            lambda p: isinstance(p, Path) and p.exists() and imghdr.what(p) is not None
-        ).all()
+        return all(isinstance(p, Path) and p.exists() and imghdr.what(p) for p in series)

@@ -40,6 +40,5 @@ class tenzing_url(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(
-            lambda x: isinstance(x, ParseResult) and all((x.netloc, x.scheme))
-        ).all()
+        return all(isinstance(x, ParseResult) and all((x.netloc, x.scheme))
+                   for x in series)

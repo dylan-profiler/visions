@@ -57,9 +57,7 @@ class tenzing_bool(tenzing_model):
             ),
             tenzing_object: relation_conf(
                 inferential=True,
-                relationship=lambda s: s.apply(type)
-                .apply(lambda v: v in [type(None), bool])
-                .all(),
+                relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
                 transformer=to_bool,
             ),
         }
