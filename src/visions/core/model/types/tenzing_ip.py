@@ -34,4 +34,4 @@ class tenzing_ip(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(lambda x: isinstance(x, _BaseAddress)).all()
+        return all(isinstance(x, _BaseAddress) for x in series)

@@ -99,10 +99,10 @@ def get_type_inference_path(
     Returns:
 
     """
-    try:
-        path.append(base_type)
-    except:
+    if path is None:
         path = [base_type]
+    else:
+        path.append(base_type)
 
     for tenz_type in G.successors(base_type):
         if G[base_type][tenz_type]["relationship"].is_relation(series):

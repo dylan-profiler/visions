@@ -1,5 +1,6 @@
 import pandas.api.types as pdt
 import pandas as pd
+import numpy as np
 
 from visions.core.model.model_relation import relation_conf
 from visions.core.model.models import tenzing_model
@@ -14,10 +15,12 @@ def to_int(series: pd.Series) -> pd.Series:
 
 
 def float_is_int(series: pd.Series) -> bool:
-    return (
-        series.apply(lambda v: v.is_integer()).any()
-        and series.apply(lambda v: v.is_integer() or v != v).all()
-    )
+    def check_equality(series):
+        if series.empty or not np.isfinite(series).all():
+            return False
+        return series.eq(series.astype(int)).all()
+
+    return check_equality(series.dropna() if series.hasnans else series)
 
 
 class tenzing_integer(tenzing_model):

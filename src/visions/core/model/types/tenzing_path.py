@@ -43,4 +43,4 @@ class tenzing_path(tenzing_model):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return series.apply(lambda x: isinstance(x, PurePath) and x.is_absolute()).all()
+        return all(isinstance(x, PurePath) and x.is_absolute() for x in series)

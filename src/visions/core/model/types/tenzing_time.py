@@ -25,11 +25,7 @@ class tenzing_time(tenzing_model):
         if not pdt.is_datetime64_any_dtype(series):
             return False
 
-        temp_series = series.dropna()
-        return all(
-            (
-                temp_series.dt.day.eq(1).all(),
-                temp_series.dt.month.eq(1).all(),
-                temp_series.dt.year.eq(1970).all(),
-            )
-        )
+        temp_series = series.dropna().dt
+
+        time_val_map = {'day': 1, 'month': 1, 'year': 1}
+        return all(getattr(temp_series, time_part).eq(val).all() for time_part, val in time_val_map.items())
