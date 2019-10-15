@@ -26,6 +26,7 @@ test_requires = [
     "pytest-sugar",
     "pytest-tldr",
     "pytest-runner",
+    "pytest-mypy",
 ]
 
 setup(
