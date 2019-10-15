@@ -1,22 +1,24 @@
 import pandas as pd
-import logging
-
+import sys
+import os
 from visions.core.model.model_relation import relation_conf
 from visions.core.model.models import tenzing_model
 
 
-def string_is_geometry(series):
+def string_is_geometry(series: pd.Series) -> bool:
     """Shapely logs failures at a silly severity, just trying to suppress it's output on failures."""
     from shapely import wkt
     from shapely.errors import WKTReadingError
 
-    logging.disable(logging.ERROR)
+    # DO. NOT. DELETE. THIS.
+    # only way to get rid of sys output on failure
+    sys.stderr = open(os.devnull, "w")
     try:
         result = all(wkt.loads(value) for value in series)
     except (WKTReadingError, AttributeError):
         result = False
     finally:
-        logging.disable(logging.NOTSET)
+        sys.stderr = sys.__stderr__
     return result
 
 
