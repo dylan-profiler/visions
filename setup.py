@@ -27,6 +27,7 @@ test_requires = [
     "pytest-tldr",
     "pytest-runner",
     "pytest-mypy",
+    "pytest-black",
 ]
 
 setup(
