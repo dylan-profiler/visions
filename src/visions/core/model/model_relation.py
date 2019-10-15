@@ -11,9 +11,9 @@ relation_conf = namedtuple(
 
 
 class model_relation:
-    """Relationship encoder between implementations of :class:`tenzing.core.models.tenzing_model`
+    """Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`
 
-    Defines a one to one relationship between two tenzing_model implementations,
+    Defines a one to one relationship between two VisionsBaseType implementations,
     A and B, with respect to an underlying data series. In order to define a relationship we need
     two methods:
 
@@ -24,9 +24,9 @@ class model_relation:
     floats but in reality they are all integers.
 
     Examples:
-        >>> from visions.core.model.types import tenzing_integer, tenzing_float
+        >>> from visions.core.model.types import visions_integer, visions_float
         >>> x = pd.Series([1.0, 2.0, 3.0])
-        >>> relation = model_relation(tenzing_integer, tenzing_float)
+        >>> relation = model_relation(visions_integer, visions_float)
         >>> relation.is_relation(x)
         True
 
@@ -61,9 +61,7 @@ class model_relation:
             self.transformer = transformer
         else:
             if transformer is not None or relationship is not None:
-                raise ValueError(
-                    "noninferential relations may not have transformer or relations"
-                )
+                raise ValueError( "noninferential relations may not have transformer or relations")
 
             self.relationship = self.model.__contains__
             self.transformer = lambda s: s

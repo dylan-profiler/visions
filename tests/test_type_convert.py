@@ -1,13 +1,13 @@
 import pytest
 
-from visions.core.model import tenzing_complete_set, model_relation
+from visions.core.model import visions_complete_set, model_relation
 from visions.core.model.types import *
 
 from tests.series import get_series, get_convert_map
 
 
 def all_relations_tested(series_map):
-    typeset = tenzing_complete_set()
+    typeset = visions_complete_set()
 
     # Convert data structure for mapping
     series_map_lookup = {}
@@ -83,7 +83,7 @@ def test_relations(source_type, relation_type, series):
 
 @pytest.mark.run(order=10)
 def test_consistency(series):
-    typeset = tenzing_complete_set()
+    typeset = visions_complete_set()
 
     initial_type = typeset.get_series_type(series.copy(deep=True))
     converted_type = typeset.infer_series_type(series.copy(deep=True))
@@ -108,7 +108,7 @@ def test_consistency(series):
 def test_side_effects(series):
     reference = series.copy()
 
-    typeset = tenzing_complete_set()
+    typeset = visions_complete_set()
     typeset.get_series_type(series)
     typeset.infer_series_type(series)
 
@@ -124,7 +124,7 @@ def test_multiple_inference(series):
     Notes:
         Copy to prevent possible side effects only for testing.
     """
-    ts = tenzing_complete_set()
+    ts = visions_complete_set()
 
     inferred_type = ts.infer_series_type(series)
 

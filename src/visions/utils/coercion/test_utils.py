@@ -1,5 +1,5 @@
 """
-A selection of testing utilities for tenzing.
+A selection of testing utilities for visions.
 """
 from typing import Callable, Union, List, Dict, Optional
 import pandas as pd

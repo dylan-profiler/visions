@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_bool
+visions.core.model.types.visions\_bool
 ======================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_bool
+.. autoclass:: visions_bool
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_bool
 
    .. autosummary::
    
-      ~tenzing_bool.__init__
-      ~tenzing_bool.contains_op
-      ~tenzing_bool.get_relations
+      ~visions_bool.__init__
+      ~visions_bool.contains_op
+      ~visions_bool.get_relations
    
    
 

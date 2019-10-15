@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_categorical
+visions.core.model.types.visions\_categorical
 =============================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_categorical
+.. autoclass:: visions_categorical
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_categorical
 
    .. autosummary::
    
-      ~tenzing_categorical.__init__
-      ~tenzing_categorical.contains_op
-      ~tenzing_categorical.get_relations
+      ~visions_categorical.__init__
+      ~visions_categorical.contains_op
+      ~visions_categorical.get_relations
    
    
 

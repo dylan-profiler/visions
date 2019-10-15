@@ -1,11 +1,11 @@
 import pytest
 
-from visions.core.model.typesets import tenzing_complete_set
+from visions.core.model.typesets import visions_complete_set
 from visions.core.model.types import *
 from tests.series import get_series, infer_series_type_map
 
 
-typeset = tenzing_complete_set()
+typeset = visions_complete_set()
 
 
 def pytest_generate_tests(metafunc):
@@ -39,7 +39,7 @@ def test_consistency(series):
     assert series in typeset.get_series_type(series)
 
 
-def _traverse_relation_graph(series, G, node=tenzing_generic):
+def _traverse_relation_graph(series, G, node=visions_generic):
     match_types = []
     for tenz_type in G.successors(node):
         if series in tenz_type:

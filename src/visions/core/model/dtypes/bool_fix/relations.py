@@ -2,10 +2,10 @@ import pandas as pd
 
 from visions.core.model import model_relation
 from visions.core.model.types import (
-    tenzing_bool,
-    tenzing_string,
-    tenzing_generic,
-    tenzing_object,
+    visions_bool,
+    visions_string,
+    visions_generic,
+    visions_object,
 )
 from visions.utils.coercion import test_utils
 
@@ -37,17 +37,17 @@ def register_bool_relations():
 
     sb_relation = string_bool_relation()
     relations = [
-        model_relation(tenzing_bool, tenzing_generic, inferential=False),
+        model_relation(visions_bool, visions_generic, inferential=False),
         model_relation(
-            tenzing_bool,
-            tenzing_string,
+            visions_bool,
+            visions_string,
             sb_relation.string_is_bool,
             sb_relation.map_string_to_bool,
             inferential=True,
         ),
         model_relation(
-            tenzing_bool,
-            tenzing_object,
+            visions_bool,
+            visions_object,
             test_utils.coercion_equality_test(
                 lambda s: pd.to_numeric(s).astype("Bool")
             ),

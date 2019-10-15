@@ -1,45 +1,45 @@
 from visions.core.model.model_relation import relation_conf
 from visions.core.model.types import (
-    tenzing_bool,
-    tenzing_float,
-    tenzing_object,
-    tenzing_categorical,
-    tenzing_ordinal,
-    tenzing_datetime,
-    tenzing_timedelta,
-    tenzing_integer,
-    tenzing_string,
-    tenzing_url,
-    tenzing_date,
-    tenzing_time,
-    tenzing_complex,
+    visions_bool,
+    visions_float,
+    visions_object,
+    visions_categorical,
+    visions_ordinal,
+    visions_datetime,
+    visions_timedelta,
+    visions_integer,
+    visions_string,
+    visions_url,
+    visions_date,
+    visions_time,
+    visions_complex,
 )
-from visions.core.model.typeset import tenzingTypeset
+from visions.core.model.typeset import VisionTypeset
 from visions.lib.relations.string_to_bool import string_to_bool_dutch
 from visions.lib.relations.string_to_ordinal import string_to_ordinal
 
 
-class rdw_typeset(tenzingTypeset):
+class rdw_typeset(VisionTypeset):
     """Typeset used in the RDW dataset"""
 
     def __init__(self):
         types = {
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_categorical,
-            tenzing_ordinal,
-            tenzing_datetime,
-            tenzing_timedelta,
-            tenzing_integer,
-            tenzing_string,
-            tenzing_url,
-            tenzing_date,
-            tenzing_time,
-            tenzing_complex,
+            visions_bool,
+            visions_float,
+            visions_object,
+            visions_categorical,
+            visions_ordinal,
+            visions_datetime,
+            visions_timedelta,
+            visions_integer,
+            visions_string,
+            visions_url,
+            visions_date,
+            visions_time,
+            visions_complex,
         }
         super().__init__(types, build=False)
 
-        self.relations[tenzing_ordinal][tenzing_string] = string_to_ordinal()
-        self.relations[tenzing_bool][tenzing_string] = string_to_bool_dutch()
+        self.relations[visions_ordinal][visions_string] = string_to_ordinal()
+        self.relations[visions_bool][visions_string] = string_to_bool_dutch()
         self._build_graph()

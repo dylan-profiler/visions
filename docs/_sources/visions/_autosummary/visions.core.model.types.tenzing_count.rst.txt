@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_count
+visions.core.model.types.visions\_count
 =======================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_count
+.. autoclass:: visions_count
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_count
 
    .. autosummary::
    
-      ~tenzing_count.__init__
-      ~tenzing_count.contains_op
-      ~tenzing_count.get_relations
+      ~visions_count.__init__
+      ~visions_count.contains_op
+      ~visions_count.get_relations
    
    
 

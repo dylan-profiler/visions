@@ -2,13 +2,13 @@ import pandas.api.types as pdt
 import numpy as np
 import pandas as pd
 
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_float(tenzing_model):
-    """**Float** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_float(VisionsBaseType):
+    """**Float** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
-    >>> x in tenzing_float
+    >>> x in visions_float
     True
     """
 

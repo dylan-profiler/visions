@@ -18,7 +18,7 @@
 
 ## How
 
-Full documentation can be found [here](https://ieaves.github.io/tenzing/).
+Full documentation can be found [here](https://ieaves.github.io/visions/).
 
 ## Installation
 
@@ -28,7 +28,7 @@ You can install `visions` via pip:
 pip install visions
 ```
 
-Alternatives and more details can be found in the Full documentation can be found in the [documentation](https://ieaves.github.io/tenzing/).
+Alternatives and more details can be found in the Full documentation can be found in the [documentation](https://ieaves.github.io/visions/).
 
 
 ## References

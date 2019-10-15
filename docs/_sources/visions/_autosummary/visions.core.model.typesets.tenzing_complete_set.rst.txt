@@ -1,9 +1,9 @@
-visions.core.model.typesets.tenzing\_complete\_set
+visions.core.model.typesets.visions\_complete\_set
 ==================================================
 
 .. currentmodule:: visions.core.model.typesets
 
-.. autoclass:: tenzing_complete_set
+.. autoclass:: visions_complete_set
 
    
    .. automethod:: __init__
@@ -13,13 +13,13 @@ visions.core.model.typesets.tenzing\_complete\_set
 
    .. autosummary::
    
-      ~tenzing_complete_set.__init__
-      ~tenzing_complete_set.cast_series
-      ~tenzing_complete_set.cast_to_inferred_types
-      ~tenzing_complete_set.get_series_type
-      ~tenzing_complete_set.infer_series_type
-      ~tenzing_complete_set.output_graph
-      ~tenzing_complete_set.plot_graph
+      ~visions_complete_set.__init__
+      ~visions_complete_set.cast_series
+      ~visions_complete_set.cast_to_inferred_types
+      ~visions_complete_set.get_series_type
+      ~visions_complete_set.infer_series_type
+      ~visions_complete_set.output_graph
+      ~visions_complete_set.plot_graph
    
    
 

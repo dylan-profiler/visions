@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
@@ -23,29 +23,29 @@ def float_is_int(series: pd.Series) -> bool:
     return check_equality(series.dropna() if series.hasnans else series)
 
 
-class tenzing_integer(tenzing_model):
-    """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_integer(VisionsBaseType):
+    """**Integer** implementation of :class:`visions.core.models.VisionsBaseType`.
 
     Examples:
         >>> x = pd.Series([1, 2, 3])
-        >>> x in tenzing_integer
+        >>> x in visions_integer
         True
     """
 
     @classmethod
     def get_relations(cls):
         from visions.core.model.types import (
-            tenzing_string,
-            tenzing_generic,
-            tenzing_float,
+            visions_string,
+            visions_generic,
+            visions_float,
         )
 
         relations = {
-            tenzing_generic: relation_conf(inferential=False),
-            tenzing_float: relation_conf(
+            visions_generic: relation_conf(inferential=False),
+            visions_float: relation_conf(
                 relationship=float_is_int, transformer=to_int, inferential=True
             ),
-            tenzing_string: relation_conf(
+            visions_string: relation_conf(
                 relationship=test_utils.coercion_test(to_int),
                 transformer=to_int,
                 inferential=True,

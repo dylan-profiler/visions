@@ -9,18 +9,18 @@ These are called visions typesets.
 
 .. code-block:: python
 
-    from visions.core.model_implementations.typesets import tenzing_standard
+    from visions.core.model_implementations.typesets import visions_standard
 
     my_typeset = visions_standard_set()
     my_typeset.types
-    -> frozenset({tenzing_bool,
-               tenzing_categorical,
-               tenzing_complex,
-               tenzing_float,
-               tenzing_integer,
-               tenzing_object,
-               tenzing_string,
-               tenzing_timestamp})
+    -> frozenset({visions_bool,
+               visions_categorical,
+               visions_complex,
+               visions_float,
+               visions_integer,
+               visions_object,
+               visions_string,
+               visions_timestamp})
 
 
 The standard typeset includes all of the baseline visions types.
@@ -45,14 +45,14 @@ The example below creates a custom typeset that only supports time-related types
 .. code-block:: python
     :caption: Custom time typeset
 
-    class tenzing_custom_set(tenzingTypeset):
+    class visions_custom_set(VisionTypeset):
         def __init__(self):
             types = [
-                tenzing_datetime,
-                tenzing_timedelta,
-                tenzing_date,
-                tenzing_time,
-                tenzing_empty,
+                visions_datetime,
+                visions_timedelta,
+                visions_date,
+                visions_time,
+                visions_empty,
             ]
             containers = [missing, generic, type]
             super().__init__(containers, types)

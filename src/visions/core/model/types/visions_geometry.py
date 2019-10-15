@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 import os
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
 def string_is_geometry(series: pd.Series) -> bool:
@@ -28,25 +28,25 @@ def to_geometry(series: pd.Series) -> pd.Series:
 
 
 # https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
-class tenzing_geometry(tenzing_model):
-    """**Geometry** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_geometry(VisionsBaseType):
+    """**Geometry** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> from shapely import wkt
     >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
-    >>> x in tenzing_geometry
+    >>> x in visions_geometry
     True
     """
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import tenzing_string, tenzing_object
+        from visions.core.model.types import visions_string, visions_object
 
         relations = {
-            tenzing_string: relation_conf(
+            visions_string: relation_conf(
                 relationship=string_is_geometry,
                 transformer=to_geometry,
                 inferential=True,
             ),
-            tenzing_object: relation_conf(inferential=False),
+            visions_object: relation_conf(inferential=False),
         }
         return relations
 
@@ -55,13 +55,3 @@ class tenzing_geometry(tenzing_model):
         from shapely.geometry.base import BaseGeometry
 
         return all(issubclass(type(x), BaseGeometry) for x in series)
-
-        # The below raises `TypeError: data type "geometry" not understood`
-        # import geopandas
-        # from geopandas import array
-        # from geopandas.array import GeometryDtype
-        # return series.dtype == 'geometry'
-
-        # TODO: alternative
-        # import geopandas
-        # return geopandas.GeoSeries(series.values)

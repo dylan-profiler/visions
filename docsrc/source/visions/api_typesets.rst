@@ -12,7 +12,7 @@ Abstract Typesets
 .. autosummary::
    :toctree: _autosummary
 
-   tenzingTypeset
+   VisionTypeset
    build_relation_graph
 
 =================
@@ -25,6 +25,6 @@ Concrete Typesets
 .. autosummary::
    :toctree: _autosummary
 
-   tenzing_standard_set
-   tenzing_geometry_set
-   tenzing_complete_set
+   visions_standard_set
+   visions_geometry_set
+   visions_complete_set

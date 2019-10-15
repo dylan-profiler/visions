@@ -163,9 +163,9 @@
 
 
 <div class="viewcode-block" id="model_relation"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.model_relation.html#visions.core.model.model_relation">[docs]</a><span class="k">class</span> <span class="nc">model_relation</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`tenzing.core.models.tenzing_model`</span>
+    <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`</span>
 
-<span class="sd">    Defines a one to one relationship between two tenzing_model implementations,</span>
+<span class="sd">    Defines a one to one relationship between two VisionsBaseType implementations,</span>
 <span class="sd">    A and B, with respect to an underlying data series. In order to define a relationship we need</span>
 <span class="sd">    two methods:</span>
 
@@ -176,9 +176,9 @@
 <span class="sd">    floats but in reality they are all integers.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from visions.core.model.types import tenzing_integer, tenzing_float</span>
+<span class="sd">        &gt;&gt;&gt; from visions.core.model.types import visions_integer, visions_float</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.0, 3.0])</span>
-<span class="sd">        &gt;&gt;&gt; relation = model_relation(tenzing_integer, tenzing_float)</span>
+<span class="sd">        &gt;&gt;&gt; relation = model_relation(visions_integer, visions_float)</span>
 <span class="sd">        &gt;&gt;&gt; relation.is_relation(x)</span>
 <span class="sd">        True</span>
 

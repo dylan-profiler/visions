@@ -3,7 +3,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
 def string_is_path(series):
@@ -22,20 +22,20 @@ def to_path(series: pd.Series) -> pd.Series:
         return s
 
 
-class tenzing_path(tenzing_model):
-    """**Path** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_path(VisionsBaseType):
+    """**Path** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
-    >>> x in tenzing_path
+    >>> x in visions_path
     True
     """
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import tenzing_object, tenzing_string
+        from visions.core.model.types import visions_object, visions_string
 
         relations = {
-            tenzing_object: relation_conf(inferential=False),
-            tenzing_string: relation_conf(
+            visions_object: relation_conf(inferential=False),
+            visions_string: relation_conf(
                 inferential=True, relationship=string_is_path, transformer=to_path
             ),
         }

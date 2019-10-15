@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_geometry
+visions.core.model.types.visions\_geometry
 ==========================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_geometry
+.. autoclass:: visions_geometry
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_geometry
 
    .. autosummary::
    
-      ~tenzing_geometry.__init__
-      ~tenzing_geometry.contains_op
-      ~tenzing_geometry.get_relations
+      ~visions_geometry.__init__
+      ~visions_geometry.contains_op
+      ~visions_geometry.get_relations
    
    
 

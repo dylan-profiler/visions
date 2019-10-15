@@ -1,7 +1,7 @@
 Summaries example
 =================
 
-The following example demonstrates the summary of several `tenzing_string` types.
+The following example demonstrates the summary of several `visions_string` types.
 
 .. literalinclude:: ../../../../notebooks/examples/summarize_strings.py
     :language: python

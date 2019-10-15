@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_path
+visions.core.model.types.visions\_path
 ======================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_path
+.. autoclass:: visions_path
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_path
 
    .. autosummary::
    
-      ~tenzing_path.__init__
-      ~tenzing_path.contains_op
-      ~tenzing_path.get_relations
+      ~visions_path.__init__
+      ~visions_path.contains_op
+      ~visions_path.get_relations
    
    
 

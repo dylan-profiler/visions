@@ -162,10 +162,10 @@
             
   <div class="section" id="summaries-example">
 <h1>Summaries example<a class="headerlink" href="#summaries-example" title="Permalink to this headline">¶</a></h1>
-<p>The following example demonstrates the summary of several <cite>tenzing_string</cite> types.</p>
+<p>The following example demonstrates the summary of several <cite>visions_string</cite> types.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">summaries_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.model.typesets</span> <span class="kn">import</span> <span class="n">tenzing_complete_set</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.model.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 
@@ -187,7 +187,7 @@
 <span class="p">)</span>
 
 
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tenzing_complete_set</span><span class="p">()</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">column_type_map</span><span class="p">)</span>

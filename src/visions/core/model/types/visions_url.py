@@ -2,7 +2,7 @@ import pandas as pd
 from urllib.parse import urlparse, ParseResult
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
 def test_url(series):
@@ -16,25 +16,25 @@ def to_url(series: pd.Series) -> pd.Series:
     return series.apply(urlparse)
 
 
-class tenzing_url(tenzing_model):
-    """**Url** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_url(VisionsBaseType):
+    """**Url** implementation of :class:`visions.core.models.VisionsBaseType`.
 
     >>> from urllib.parse import urlparse
     >>> x = pd.Series([urlparse('http://www.cwi.nl:80/%7Eguido/Python.html'), urlparse('https://github.com/pandas-profiling/pandas-profiling')])
-    >>> x in tenzing_url
+    >>> x in visions_url
     True
     """
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import tenzing_string, tenzing_object
+        from visions.core.model.types import visions_string, visions_object
 
         relations = {
             # TODO: replace test_url with coercion test
-            tenzing_string: relation_conf(
+            visions_string: relation_conf(
                 relationship=test_url, transformer=to_url, inferential=True
             ),
-            tenzing_object: relation_conf(inferential=False),
+            visions_object: relation_conf(inferential=False),
         }
         return relations
 

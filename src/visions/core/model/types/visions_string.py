@@ -2,21 +2,21 @@ import pandas as pd
 import pandas.api.types as pdt
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_string(tenzing_model):
-    """**String** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_string(VisionsBaseType):
+    """**String** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series(['rubin', 'carter', 'champion'])
-    >>> x in tenzing_string
+    >>> x in visions_string
     True
     """
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import tenzing_object
+        from visions.core.model.types import visions_object
 
-        relations = {tenzing_object: relation_conf(inferential=False)}
+        relations = {visions_object: relation_conf(inferential=False)}
         return relations
 
     @classmethod

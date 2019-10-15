@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.core.model import tenzing_complete_set, type_cast, type_inference
+from visions.core.model import visions_complete_set, type_cast, type_inference
 from visions.core.summaries.summary import CompleteSummary
 
 
@@ -9,7 +9,7 @@ df = pd.read_csv("https://www.opendisdata.nl/download/csv/01_DBC.csv")
 df["JAAR"] = pd.to_datetime(df["JAAR"], format="%Y")
 
 # Type
-typeset = tenzing_complete_set()
+typeset = visions_complete_set()
 
 # Type inference
 inferred_types = type_inference(df, typeset)

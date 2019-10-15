@@ -1,12 +1,12 @@
 import pandas as pd
 
-from visions.core.models import tenzing_model
+from visions.core.models import visions_model
 
 
-class tenzing_bool_option(tenzing_model):
-    """**Nullable Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_bool_option(visions_model):
+    """**Nullable Boolean** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([True, False, np.nan])
-    >>> x in tenzing_bool_option
+    >>> x in visions_bool_option
     True
     """
 
