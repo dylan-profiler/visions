@@ -13,6 +13,7 @@ Abstract Types
    :toctree: _autosummary
 
    model_relation
+   VisionsBaseType
 
 ==============
 Concrete Types
@@ -25,17 +26,6 @@ Concrete Types
    :toctree: _autosummary
 
    visions_generic
-
-==============
-Concrete Types
-==============
-
-.. currentmodule:: visions.core.model.types
-.. toctree::
-
-.. autosummary::
-   :toctree: _autosummary
-
    visions_integer
    visions_float
    visions_bool
