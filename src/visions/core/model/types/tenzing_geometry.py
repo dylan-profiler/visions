@@ -10,8 +10,7 @@ def string_is_geometry(series: pd.Series) -> bool:
     from shapely import wkt
     from shapely.errors import WKTReadingError
 
-    # DO. NOT. DELETE. THIS.
-    # only way to get rid of sys output on failure
+    # only way to get rid of sys output when wkt.loads hits a bad value
     sys.stderr = open(os.devnull, "w")
     try:
         result = all(wkt.loads(value) for value in series)

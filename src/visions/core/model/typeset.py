@@ -111,22 +111,21 @@ def get_type_inference_path(
     return path, series
 
 
-def infer_type(
-    base_type: Type[tenzing_model], series: pd.Series, G: nx.DiGraph
-) -> Type[tenzing_model]:
-    """
+def infer_type(base_type, series, G, sample_size=10):
+    if sample_size >= len(series):
+        path, _ = get_type_inference_path(base_type, series, G)
+        return path[-1]
 
-    Args:
-        base_type:
-        series:
-        G:
-
-    Returns:
-
-    """
-    # TODO: path is never used...
-    path, _ = get_type_inference_path(base_type, series, G)
-    return path[-1]
+    subseries = series.sample(sample_size)
+    path, _ = get_type_inference_path(base_type, subseries, G)
+    if len(path) < 2:
+        return path[-1]
+    for from_type, to_type in zip(path[0:-1], path[1:]):
+        try:
+            new_series = G[from_type][to_type]["relationship"].transform(series)
+        except Exception:
+            break
+    return from_type
 
 
 def cast_series_to_inferred_type(
