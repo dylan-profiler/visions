@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_datetime
+visions.core.model.types.visions\_datetime
 ==========================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_datetime
+.. autoclass:: visions_datetime
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_datetime
 
    .. autosummary::
    
-      ~tenzing_datetime.__init__
-      ~tenzing_datetime.contains_op
-      ~tenzing_datetime.get_relations
+      ~visions_datetime.__init__
+      ~visions_datetime.contains_op
+      ~visions_datetime.get_relations
    
    
 

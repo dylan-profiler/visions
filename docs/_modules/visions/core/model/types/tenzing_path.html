@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.model.types.tenzing_path &mdash; package 0.1.0 documentation</title>
+  <title>visions.core.model.types.visions_path &mdash; package 0.1.0 documentation</title>
   
 
   
@@ -134,7 +134,7 @@
         
           <li><a href="../../../../index.html">Module code</a> &raquo;</li>
         
-      <li>visions.core.model.types.tenzing_path</li>
+      <li>visions.core.model.types.visions_path</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,13 +149,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for visions.core.model.types.tenzing_path</h1><div class="highlight"><pre>
+  <h1>Source code for visions.core.model.types.visions_path</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span><span class="p">,</span> <span class="n">PurePosixPath</span><span class="p">,</span> <span class="n">PurePath</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">visions.core.model.model_relation</span> <span class="k">import</span> <span class="n">relation_conf</span>
-<span class="kn">from</span> <span class="nn">visions.core.model.models</span> <span class="k">import</span> <span class="n">tenzing_model</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.models</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 
 
 <span class="k">def</span> <span class="nf">string_is_path</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
@@ -174,20 +174,20 @@
         <span class="k">return</span> <span class="n">s</span>
 
 
-<div class="viewcode-block" id="tenzing_path"><a class="viewcode-back" href="../../../../../visions/_autosummary/visions.core.model.types.tenzing_path.html#visions.core.model.types.tenzing_path">[docs]</a><span class="k">class</span> <span class="nc">tenzing_path</span><span class="p">(</span><span class="n">tenzing_model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;**Path** implementation of :class:`tenzing.core.models.tenzing_model`.</span>
+<div class="viewcode-block" id="visions_path"><a class="viewcode-back" href="../../../../../visions/_autosummary/visions.core.model.types.visions_path.html#visions.core.model.types.visions_path">[docs]</a><span class="k">class</span> <span class="nc">visions_path</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;**Path** implementation of :class:`visions.core.models.VisionsBaseType`.</span>
 <span class="sd">    &gt;&gt;&gt; x = pd.Series([Path(&#39;/home/user/file.txt&#39;), Path(&#39;/home/user/test2.txt&#39;)])</span>
-<span class="sd">    &gt;&gt;&gt; x in tenzing_path</span>
+<span class="sd">    &gt;&gt;&gt; x in visions_path</span>
 <span class="sd">    True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">visions.core.model.types</span> <span class="k">import</span> <span class="n">tenzing_object</span><span class="p">,</span> <span class="n">tenzing_string</span>
+        <span class="kn">from</span> <span class="nn">visions.core.model.types</span> <span class="k">import</span> <span class="n">visions_object</span><span class="p">,</span> <span class="n">visions_string</span>
 
         <span class="n">relations</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">tenzing_object</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-            <span class="n">tenzing_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
+            <span class="n">visions_object</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">visions_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
                 <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">string_is_path</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_path</span>
             <span class="p">),</span>
         <span class="p">}</span>

@@ -1,119 +1,118 @@
-from visions.core.model.typeset import tenzingTypeset
+from visions.core.model.typeset import VisionTypeset
 from visions.core.model.types import *
 
 
-class tenzing_standard_set(tenzingTypeset):
-    """The standard tenzing typesets
+class visions_standard_set(VisionTypeset):
+    """The standard visions typesets
 
     Includes support for the following types:
 
-    - tenzing_float
-    - tenzing_integer
-    - tenzing_bool
-    - tenzing_object
-    - tenzing_string
-    - tenzing_complex
-    - tenzing_categorical
-    - tenzing_datetime
-    - tenzing_timedelta
+    - visions_float
+    - visions_integer
+    - visions_bool
+    - visions_object
+    - visions_string
+    - visions_complex
+    - visions_categorical
+    - visions_datetime
+    - visions_timedelta
 
     """
 
     def __init__(self):
         types = {
-            tenzing_object,
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_complex,
-            tenzing_categorical,
-            tenzing_datetime,
-            tenzing_timedelta,
-            tenzing_integer,
-            tenzing_string,
+            visions_object,
+            visions_bool,
+            visions_float,
+            visions_complex,
+            visions_categorical,
+            visions_datetime,
+            visions_timedelta,
+            visions_integer,
+            visions_string,
         }
         super().__init__(types)
 
 
-class tenzing_geometry_set(tenzingTypeset):
-    """Standard tenzing typeset with shapely geometry support
+class visions_geometry_set(VisionTypeset):
+    """Standard vision typeset with shapely geometry support
 
     Includes support for the following types:
 
-    - tenzing_float
-    - tenzing_integer
-    - tenzing_bool
-    - tenzing_object
-    - tenzing_string
-    - tenzing_complex
-    - tenzing_categorical
-    - tenzing_datetime
-    - tenzing_timedelta
-    - tenzing_geometry
+    - visions_float
+    - visions_integer
+    - visions_bool
+    - visions_object
+    - visions_string
+    - visions_complex
+    - visions_categorical
+    - visions_datetime
+    - visions_timedelta
+    - visions_geometry
 
     """
 
     def __init__(self):
         types = {
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_complex,
-            tenzing_categorical,
-            tenzing_datetime,
-            tenzing_timedelta,
-            tenzing_integer,
-            tenzing_string,
-            tenzing_geometry,
+            visions_bool,
+            visions_float,
+            visions_object,
+            visions_complex,
+            visions_categorical,
+            visions_datetime,
+            visions_timedelta,
+            visions_integer,
+            visions_string,
+            visions_geometry,
         }
         super().__init__(types)
 
 
-class tenzing_complete_set(tenzingTypeset):
-    """Complete tenzing typeset with all supported types
+class visions_complete_set(VisionTypeset):
+    """Complete vision typeset with all supported types
 
     Includes support for the following types:
 
-    - tenzing_float
-    - tenzing_integer
-    - tenzing_bool
-    - tenzing_object
-    - tenzing_string
-    - tenzing_complex
-    - tenzing_categorical
-    - tenzing_datetime
-    - tenzing_date
-    - tenzing_time
-    - tenzing_timedelta
-    - tenzing_geometry
-    - tenzing_path
-    - tenzing_existing_path
-    - tenzing_image_path
-    - tenzing_url
-    - tenzing_ip
+    - visions_float
+    - visions_integer
+    - visions_bool
+    - visions_object
+    - visions_string
+    - visions_complex
+    - visions_categorical
+    - visions_datetime
+    - visions_date
+    - visions_time
+    - visions_timedelta
+    - visions_geometry
+    - visions_path
+    - visions_existing_path
+    - visions_image_path
+    - visions_url
+    - visions_ip
 
     """
 
     def __init__(self):
         types = {
-            tenzing_bool,
-            tenzing_float,
-            tenzing_object,
-            tenzing_complex,
-            tenzing_categorical,
-            tenzing_ordinal,
-            tenzing_datetime,
-            tenzing_timedelta,
-            tenzing_integer,
-            tenzing_count,
-            tenzing_string,
-            tenzing_geometry,
-            tenzing_url,
-            tenzing_path,
-            tenzing_date,
-            tenzing_time,
-            tenzing_existing_path,
-            tenzing_image_path,
-            tenzing_ip,
+            visions_bool,
+            visions_float,
+            visions_object,
+            visions_complex,
+            visions_categorical,
+            visions_ordinal,
+            visions_datetime,
+            visions_timedelta,
+            visions_integer,
+            visions_count,
+            visions_string,
+            visions_geometry,
+            visions_url,
+            visions_path,
+            visions_date,
+            visions_time,
+            visions_existing_path,
+            visions_image_path,
+            visions_ip,
         }
         super().__init__(types)

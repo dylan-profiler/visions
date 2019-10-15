@@ -1,15 +1,15 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_boolean(tenzing_model):
-    """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_boolean(VisionsBaseType):
+    """**Boolean** implementation of :class:`visions.core.models.VisionsBaseType`.
 
     Examples:
         >>> x = pd.Series([True, False, None])
-        >>> x in tenzing_boolean
+        >>> x in visions_boolean
         True
     """
 

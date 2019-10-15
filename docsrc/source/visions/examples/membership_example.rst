@@ -1,7 +1,7 @@
 Membership example
 ==================
 
-The following example demonstrates the membership of several `tenzing_bool` series.
+The following example demonstrates the membership of several `visions_bool` series.
 
 
 .. literalinclude:: ../../../../notebooks/examples/membership_boolean.py
@@ -15,19 +15,19 @@ Which prints:
 .. code-block:: text
 
     **bool_series**
-    True tenzing_bool
-    True type[tenzing_bool]
+    True visions_bool
+    True type[visions_bool]
     False missing
-    False missing | type[tenzing_bool]
+    False missing | type[visions_bool]
 
     **bool_nan_series**
-    False tenzing_bool
-    True type[tenzing_bool]
+    False visions_bool
+    True type[visions_bool]
     True missing
-    True missing | type[tenzing_bool]
+    True missing | type[visions_bool]
 
     **nan_series**
-    False tenzing_bool
-    False type[tenzing_bool]
+    False visions_bool
+    False type[visions_bool]
     True missing
-    False missing | type[tenzing_bool]
+    False missing | type[visions_bool]

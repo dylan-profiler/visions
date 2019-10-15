@@ -3,45 +3,46 @@ import numpy as np
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
-from visions.core.model.types.tenzing_integer import tenzing_integer
+from visions.core.model.models import VisionsBaseType
+from visions.core.model.types.visions_integer import visions_integer
 from visions.utils.coercion import test_utils
+from visions.utils.warning_handling import suppress_warnings
 
 
 def test_string_is_float(series):
     coerced_series = test_utils.option_coercion_evaluator(to_float)(series)
-    return coerced_series is not None and coerced_series in tenzing_float
+    return coerced_series is not None and coerced_series in visions_float
 
 
 def to_float(series: pd.Series) -> bool:
     return series.astype(float)
 
 
-class tenzing_float(tenzing_model):
-    """**Float** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_float(VisionsBaseType):
+    """**Float** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
-    >>> x in tenzing_float
+    >>> x in visions_float
     True
     """
 
     @classmethod
     def get_relations(cls):
         from visions.core.model.types import (
-            tenzing_generic,
-            tenzing_string,
-            tenzing_complex,
+            visions_generic,
+            visions_string,
+            visions_complex,
         )
 
         relations = {
-            tenzing_generic: relation_conf(inferential=False),
-            tenzing_string: relation_conf(
+            visions_generic: relation_conf(inferential=False),
+            visions_string: relation_conf(
                 relationship=test_string_is_float,
                 transformer=to_float,
                 inferential=True,
             ),
-            tenzing_complex: relation_conf(
+            visions_complex: relation_conf(
                 relationship=lambda s: all(np.imag(s.values) == 0),
-                transformer=to_float,
+                transformer=suppress_warnings(to_float),
                 inferential=True,
             ),
         }

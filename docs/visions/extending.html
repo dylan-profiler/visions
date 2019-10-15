@@ -155,17 +155,17 @@
             
   <div class="section" id="extending">
 <h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
-<p>Each Visions type is a singleton object extending the basic <cite>tenzing_model</cite> requiring a unique implementation of two methods:</p>
+<p>Each Visions type is a singleton object extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
-<li><p><cite>contains_op</cite>. Checks whether a series is of the type tenzing_type, returns Bool.</p></li>
+<li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
 <li><p><cite>cast_op</cite>. This is going away, needs to be folded into model_relations [TODO]</p></li>
 </ol>
-<p>All tenzing_types can be made into <cite>Option[tenzing_type]</cite> by inheriting from <cite>optionMixin</cite> in <cite>tenzing.core.Mixins</cite>.</p>
+<p>All visions_types can be made into <cite>Option[visions_type]</cite> by inheriting from <cite>optionMixin</cite> in <cite>visions.core.Mixins</cite>.</p>
 <div class="literal-block-wrapper docutils container" id="custom-type">
 <div class="code-block-caption"><span class="caption-text">custom_type.py</span><a class="headerlink" href="#custom-type" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tenzing.core.models</span> <span class="kn">import</span> <span class="n">tenzing_model</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.models</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 
-<span class="k">class</span> <span class="nc">tenzing_timestamp</span><span class="p">(</span><span class="n">tenzing_model</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">visions_timestamp</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 

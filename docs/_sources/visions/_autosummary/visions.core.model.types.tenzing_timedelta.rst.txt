@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_timedelta
+visions.core.model.types.visions\_timedelta
 ===========================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_timedelta
+.. autoclass:: visions_timedelta
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_timedelta
 
    .. autosummary::
    
-      ~tenzing_timedelta.__init__
-      ~tenzing_timedelta.contains_op
-      ~tenzing_timedelta.get_relations
+      ~visions_timedelta.__init__
+      ~visions_timedelta.contains_op
+      ~visions_timedelta.get_relations
    
    
 

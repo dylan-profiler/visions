@@ -150,123 +150,123 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.core.model.typesets</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="k">import</span> <span class="n">tenzingTypeset</span>
+<span></span><span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="k">import</span> <span class="n">VisionTypeset</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.types</span> <span class="k">import</span> <span class="o">*</span>
 
 
-<div class="viewcode-block" id="tenzing_standard_set"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.tenzing_standard_set.html#visions.core.model.typesets.tenzing_standard_set">[docs]</a><span class="k">class</span> <span class="nc">tenzing_standard_set</span><span class="p">(</span><span class="n">tenzingTypeset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The standard tenzing typesets</span>
+<div class="viewcode-block" id="visions_standard_set"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.visions_standard_set.html#visions.core.model.typesets.visions_standard_set">[docs]</a><span class="k">class</span> <span class="nc">visions_standard_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The standard visions typesets</span>
 
 <span class="sd">    Includes support for the following types:</span>
 
-<span class="sd">    - tenzing_float</span>
-<span class="sd">    - tenzing_integer</span>
-<span class="sd">    - tenzing_bool</span>
-<span class="sd">    - tenzing_object</span>
-<span class="sd">    - tenzing_string</span>
-<span class="sd">    - tenzing_complex</span>
-<span class="sd">    - tenzing_categorical</span>
-<span class="sd">    - tenzing_datetime</span>
-<span class="sd">    - tenzing_timedelta</span>
+<span class="sd">    - visions_float</span>
+<span class="sd">    - visions_integer</span>
+<span class="sd">    - visions_bool</span>
+<span class="sd">    - visions_object</span>
+<span class="sd">    - visions_string</span>
+<span class="sd">    - visions_complex</span>
+<span class="sd">    - visions_categorical</span>
+<span class="sd">    - visions_datetime</span>
+<span class="sd">    - visions_timedelta</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="tenzing_standard_set.__init__"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.tenzing_standard_set.html#visions.core.model.typesets.tenzing_standard_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="visions_standard_set.__init__"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.visions_standard_set.html#visions.core.model.typesets.visions_standard_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">tenzing_object</span><span class="p">,</span>
-            <span class="n">tenzing_bool</span><span class="p">,</span>
-            <span class="n">tenzing_float</span><span class="p">,</span>
-            <span class="n">tenzing_object</span><span class="p">,</span>
-            <span class="n">tenzing_complex</span><span class="p">,</span>
-            <span class="n">tenzing_categorical</span><span class="p">,</span>
-            <span class="n">tenzing_datetime</span><span class="p">,</span>
-            <span class="n">tenzing_timedelta</span><span class="p">,</span>
-            <span class="n">tenzing_integer</span><span class="p">,</span>
-            <span class="n">tenzing_string</span><span class="p">,</span>
+            <span class="n">visions_object</span><span class="p">,</span>
+            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="n">visions_float</span><span class="p">,</span>
+            <span class="n">visions_object</span><span class="p">,</span>
+            <span class="n">visions_complex</span><span class="p">,</span>
+            <span class="n">visions_categorical</span><span class="p">,</span>
+            <span class="n">visions_datetime</span><span class="p">,</span>
+            <span class="n">visions_timedelta</span><span class="p">,</span>
+            <span class="n">visions_integer</span><span class="p">,</span>
+            <span class="n">visions_string</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="tenzing_geometry_set"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.tenzing_geometry_set.html#visions.core.model.typesets.tenzing_geometry_set">[docs]</a><span class="k">class</span> <span class="nc">tenzing_geometry_set</span><span class="p">(</span><span class="n">tenzingTypeset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Standard tenzing typeset with shapely geometry support</span>
+<div class="viewcode-block" id="visions_geometry_set"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.visions_geometry_set.html#visions.core.model.typesets.visions_geometry_set">[docs]</a><span class="k">class</span> <span class="nc">visions_geometry_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Standard visions typeset with shapely geometry support</span>
 
 <span class="sd">    Includes support for the following types:</span>
 
-<span class="sd">    - tenzing_float</span>
-<span class="sd">    - tenzing_integer</span>
-<span class="sd">    - tenzing_bool</span>
-<span class="sd">    - tenzing_object</span>
-<span class="sd">    - tenzing_string</span>
-<span class="sd">    - tenzing_complex</span>
-<span class="sd">    - tenzing_categorical</span>
-<span class="sd">    - tenzing_datetime</span>
-<span class="sd">    - tenzing_timedelta</span>
-<span class="sd">    - tenzing_geometry</span>
+<span class="sd">    - visions_float</span>
+<span class="sd">    - visions_integer</span>
+<span class="sd">    - visions_bool</span>
+<span class="sd">    - visions_object</span>
+<span class="sd">    - visions_string</span>
+<span class="sd">    - visions_complex</span>
+<span class="sd">    - visions_categorical</span>
+<span class="sd">    - visions_datetime</span>
+<span class="sd">    - visions_timedelta</span>
+<span class="sd">    - visions_geometry</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="tenzing_geometry_set.__init__"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.tenzing_geometry_set.html#visions.core.model.typesets.tenzing_geometry_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="visions_geometry_set.__init__"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.visions_geometry_set.html#visions.core.model.typesets.visions_geometry_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">tenzing_bool</span><span class="p">,</span>
-            <span class="n">tenzing_float</span><span class="p">,</span>
-            <span class="n">tenzing_object</span><span class="p">,</span>
-            <span class="n">tenzing_complex</span><span class="p">,</span>
-            <span class="n">tenzing_categorical</span><span class="p">,</span>
-            <span class="n">tenzing_datetime</span><span class="p">,</span>
-            <span class="n">tenzing_timedelta</span><span class="p">,</span>
-            <span class="n">tenzing_integer</span><span class="p">,</span>
-            <span class="n">tenzing_string</span><span class="p">,</span>
-            <span class="n">tenzing_geometry</span><span class="p">,</span>
+            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="n">visions_float</span><span class="p">,</span>
+            <span class="n">visions_object</span><span class="p">,</span>
+            <span class="n">visions_complex</span><span class="p">,</span>
+            <span class="n">visions_categorical</span><span class="p">,</span>
+            <span class="n">visions_datetime</span><span class="p">,</span>
+            <span class="n">visions_timedelta</span><span class="p">,</span>
+            <span class="n">visions_integer</span><span class="p">,</span>
+            <span class="n">visions_string</span><span class="p">,</span>
+            <span class="n">visions_geometry</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="tenzing_complete_set"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.tenzing_complete_set.html#visions.core.model.typesets.tenzing_complete_set">[docs]</a><span class="k">class</span> <span class="nc">tenzing_complete_set</span><span class="p">(</span><span class="n">tenzingTypeset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Complete tenzing typeset with all supported types</span>
+<div class="viewcode-block" id="visions_complete_set"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.visions_complete_set.html#visions.core.model.typesets.visions_complete_set">[docs]</a><span class="k">class</span> <span class="nc">visions_complete_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Complete visions typeset with all supported types</span>
 
 <span class="sd">    Includes support for the following types:</span>
 
-<span class="sd">    - tenzing_float</span>
-<span class="sd">    - tenzing_integer</span>
-<span class="sd">    - tenzing_bool</span>
-<span class="sd">    - tenzing_object</span>
-<span class="sd">    - tenzing_string</span>
-<span class="sd">    - tenzing_complex</span>
-<span class="sd">    - tenzing_categorical</span>
-<span class="sd">    - tenzing_datetime</span>
-<span class="sd">    - tenzing_date</span>
-<span class="sd">    - tenzing_time</span>
-<span class="sd">    - tenzing_timedelta</span>
-<span class="sd">    - tenzing_geometry</span>
-<span class="sd">    - tenzing_path</span>
-<span class="sd">    - tenzing_existing_path</span>
-<span class="sd">    - tenzing_image_path</span>
-<span class="sd">    - tenzing_url</span>
-<span class="sd">    - tenzing_ip</span>
+<span class="sd">    - visions_float</span>
+<span class="sd">    - visions_integer</span>
+<span class="sd">    - visions_bool</span>
+<span class="sd">    - visions_object</span>
+<span class="sd">    - visions_string</span>
+<span class="sd">    - visions_complex</span>
+<span class="sd">    - visions_categorical</span>
+<span class="sd">    - visions_datetime</span>
+<span class="sd">    - visions_date</span>
+<span class="sd">    - visions_time</span>
+<span class="sd">    - visions_timedelta</span>
+<span class="sd">    - visions_geometry</span>
+<span class="sd">    - visions_path</span>
+<span class="sd">    - visions_existing_path</span>
+<span class="sd">    - visions_image_path</span>
+<span class="sd">    - visions_url</span>
+<span class="sd">    - visions_ip</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="tenzing_complete_set.__init__"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.tenzing_complete_set.html#visions.core.model.typesets.tenzing_complete_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="visions_complete_set.__init__"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.core.model.typesets.visions_complete_set.html#visions.core.model.typesets.visions_complete_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">tenzing_bool</span><span class="p">,</span>
-            <span class="n">tenzing_float</span><span class="p">,</span>
-            <span class="n">tenzing_object</span><span class="p">,</span>
-            <span class="n">tenzing_complex</span><span class="p">,</span>
-            <span class="n">tenzing_categorical</span><span class="p">,</span>
-            <span class="n">tenzing_ordinal</span><span class="p">,</span>
-            <span class="n">tenzing_datetime</span><span class="p">,</span>
-            <span class="n">tenzing_timedelta</span><span class="p">,</span>
-            <span class="n">tenzing_integer</span><span class="p">,</span>
-            <span class="n">tenzing_count</span><span class="p">,</span>
-            <span class="n">tenzing_string</span><span class="p">,</span>
-            <span class="n">tenzing_geometry</span><span class="p">,</span>
-            <span class="n">tenzing_url</span><span class="p">,</span>
-            <span class="n">tenzing_path</span><span class="p">,</span>
-            <span class="n">tenzing_date</span><span class="p">,</span>
-            <span class="n">tenzing_time</span><span class="p">,</span>
-            <span class="n">tenzing_existing_path</span><span class="p">,</span>
-            <span class="n">tenzing_image_path</span><span class="p">,</span>
-            <span class="n">tenzing_ip</span><span class="p">,</span>
+            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="n">visions_float</span><span class="p">,</span>
+            <span class="n">visions_object</span><span class="p">,</span>
+            <span class="n">visions_complex</span><span class="p">,</span>
+            <span class="n">visions_categorical</span><span class="p">,</span>
+            <span class="n">visions_ordinal</span><span class="p">,</span>
+            <span class="n">visions_datetime</span><span class="p">,</span>
+            <span class="n">visions_timedelta</span><span class="p">,</span>
+            <span class="n">visions_integer</span><span class="p">,</span>
+            <span class="n">visions_count</span><span class="p">,</span>
+            <span class="n">visions_string</span><span class="p">,</span>
+            <span class="n">visions_geometry</span><span class="p">,</span>
+            <span class="n">visions_url</span><span class="p">,</span>
+            <span class="n">visions_path</span><span class="p">,</span>
+            <span class="n">visions_date</span><span class="p">,</span>
+            <span class="n">visions_time</span><span class="p">,</span>
+            <span class="n">visions_existing_path</span><span class="p">,</span>
+            <span class="n">visions_image_path</span><span class="p">,</span>
+            <span class="n">visions_ip</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span></div></div>
 </pre></div>

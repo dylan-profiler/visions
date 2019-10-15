@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_ip
+visions.core.model.types.visions\_ip
 ====================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_ip
+.. autoclass:: visions_ip
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_ip
 
    .. autosummary::
    
-      ~tenzing_ip.__init__
-      ~tenzing_ip.contains_op
-      ~tenzing_ip.get_relations
+      ~visions_ip.__init__
+      ~visions_ip.contains_op
+      ~visions_ip.get_relations
    
    
 

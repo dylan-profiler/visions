@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_generic(tenzing_model):
-    """**Generic** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_generic(VisionsBaseType):
+    """**Generic** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series(['a', 1, np.nan])
-    >>> x in tenzing_generic
+    >>> x in visions_generic
     True
     """
 

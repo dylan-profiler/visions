@@ -1,5 +1,5 @@
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.types.tenzing_ordinal import to_ordinal
+from visions.core.model.types.visions_ordinal import to_ordinal
 
 
 def check_consecutive(l):

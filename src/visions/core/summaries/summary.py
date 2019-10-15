@@ -1,8 +1,8 @@
 import pandas as pd
 import networkx as nx
 
-from visions.core.model import tenzing_complete_set
-from visions.core.model.models import tenzing_model
+from visions.core.model import visions_complete_set
+from visions.core.model.models import VisionsBaseType
 from visions.core.model.types import *
 from visions.core.summaries import *
 from visions.core.summaries.frame.dataframe_series_summary import (
@@ -25,7 +25,7 @@ class Summary(object):
             summary_ops = {}
 
         if not all(
-            issubclass(base_type, tenzing_model) for base_type in summary_ops.keys()
+                issubclass(base_type, VisionsBaseType) for base_type in summary_ops.keys()
         ):
             raise TypeError("Summaries must be mapped on a type!")
 
@@ -50,7 +50,7 @@ class Summary(object):
             **dataframe_series_summary(series_summary),
         }
 
-    def summarize_series(self, series: pd.Series, summary_type: tenzing_model) -> dict:
+    def summarize_series(self, series: pd.Series, summary_type: VisionsBaseType) -> dict:
         """
 
         Args:
@@ -124,36 +124,36 @@ class Summary(object):
 class CompleteSummary(Summary):
     def __init__(self):
         type_summary_ops = {
-            tenzing_bool: [],
-            tenzing_categorical: [category_summary, unique_summary],
-            tenzing_complex: [
+            visions_bool: [],
+            visions_categorical: [category_summary, unique_summary],
+            visions_complex: [
                 infinite_summary,
                 numerical_basic_summary,
                 unique_summary_complex,
             ],
-            tenzing_datetime: [range_summary, unique_summary],
-            tenzing_date: [],
-            tenzing_existing_path: [existing_path_summary, path_summary, text_summary],
-            tenzing_float: [
+            visions_datetime: [range_summary, unique_summary],
+            visions_date: [],
+            visions_existing_path: [existing_path_summary, path_summary, text_summary],
+            visions_float: [
                 infinite_summary,
                 numerical_summary,
                 zero_summary,
                 unique_summary,
             ],
-            tenzing_geometry: [],
-            tenzing_image_path: [],
-            tenzing_integer: [
+            visions_geometry: [],
+            visions_image_path: [],
+            visions_integer: [
                 infinite_summary,
                 numerical_summary,
                 zero_summary,
                 unique_summary,
             ],
-            tenzing_object: [unique_summary],
-            tenzing_path: [path_summary, text_summary],
-            tenzing_string: [text_summary, unique_summary],
-            tenzing_time: [],
-            tenzing_timedelta: [],
-            tenzing_url: [url_summary, unique_summary],
-            tenzing_generic: [base_summary, missing_summary],
+            visions_object: [unique_summary],
+            visions_path: [path_summary, text_summary],
+            visions_string: [text_summary, unique_summary],
+            visions_time: [],
+            visions_timedelta: [],
+            visions_url: [url_summary, unique_summary],
+            visions_generic: [base_summary, missing_summary],
         }
-        super().__init__(type_summary_ops, tenzing_complete_set())
+        super().__init__(type_summary_ops, visions_complete_set())

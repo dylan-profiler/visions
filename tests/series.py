@@ -235,17 +235,17 @@ def get_series():
 
 def get_contains_map():
     series_map = {
-        tenzing_integer: [
+        visions_integer: [
             "int_series",
             "Int64_int_series",
             "int_range",
             "Int64_int_nan_series",
             "int_series_boolean",
         ],
-        tenzing_count: ["np_uint32"],
-        tenzing_path: ["path_series_linux", "path_series_windows"],
-        tenzing_url: ["url_series"],
-        tenzing_float: [
+        visions_count: ["np_uint32"],
+        visions_path: ["path_series_linux", "path_series_windows"],
+        visions_url: ["url_series"],
+        visions_float: [
             "float_series",
             "float_series2",
             "float_series3",
@@ -259,7 +259,7 @@ def get_contains_map():
             "float_with_inf",
             "float_series6",
         ],
-        tenzing_categorical: [
+        visions_categorical: [
             "categorical_int_series",
             "categorical_float_series",
             "categorical_string_series",
@@ -267,13 +267,13 @@ def get_contains_map():
             "categorical_char",
             "ordinal",
         ],
-        tenzing_bool: [
+        visions_bool: [
             "bool_series",
             "bool_series2",
             "bool_series3",
             "nullable_bool_series",
         ],
-        tenzing_complex: [
+        visions_complex: [
             "complex_series",
             "complex_series_py",
             "complex_series_nan",
@@ -281,16 +281,16 @@ def get_contains_map():
             "complex_series_nan_2",
             "complex_series_float",
         ],
-        tenzing_datetime: [
+        visions_datetime: [
             "timestamp_series",
             "timestamp_aware_series",
             "datetime",
             "timestamp_series_nat",
             "date_series_nat",
         ],
-        tenzing_date: ["datetime", "date_series_nat"],
-        tenzing_timedelta: ["timedelta_series", "timedelta_series_nat"],
-        tenzing_string: [
+        visions_date: ["datetime", "date_series_nat"],
+        visions_timedelta: ["timedelta_series", "timedelta_series_nat"],
+        visions_string: [
             "timestamp_string_series",
             "string_series",
             "geometry_string_series",
@@ -311,106 +311,106 @@ def get_contains_map():
             "string_bool_nan",
             "string_flt_nan",
         ],
-        tenzing_geometry: ["geometry_series"],
-        tenzing_ip: ["ip"],
-        tenzing_ordinal: ["ordinal"],
+        visions_geometry: ["geometry_series"],
+        visions_ip: ["ip"],
+        visions_ordinal: ["ordinal"],
     }
 
-    series_map[tenzing_object] = (
+    series_map[visions_object] = (
         ["mixed_list[str,int]", "mixed_dict", "callable", "module", "bool_nan_series"]
-        + series_map[tenzing_string]
-        + series_map[tenzing_geometry]
-        + series_map[tenzing_path]
-        + series_map[tenzing_url]
-        + series_map[tenzing_ip]
+        + series_map[visions_string]
+        + series_map[visions_geometry]
+        + series_map[visions_path]
+        + series_map[visions_url]
+        + series_map[visions_ip]
     )
 
     # Empty series
     all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
     for key, values in series_map.items():
         all += values
-    series_map[tenzing_generic] = list(set(all))
+    series_map[visions_generic] = list(set(all))
 
     return series_map
 
 
 def infer_series_type_map():
     return {
-        "int_series": tenzing_integer,
-        "categorical_int_series": tenzing_categorical,
-        "int_nan_series": tenzing_integer,
-        "Int64_int_series": tenzing_integer,
-        "Int64_int_nan_series": tenzing_integer,
-        "np_uint32": tenzing_count,
-        "int_range": tenzing_integer,
-        "float_series": tenzing_float,
-        "float_nan_series": tenzing_float,
-        "int_series_boolean": tenzing_bool,
-        "float_series2": tenzing_integer,
-        "float_series3": tenzing_float,
-        "float_series4": tenzing_float,
-        "float_series5": tenzing_float,
-        "float_series6": tenzing_float,
-        "complex_series_float": tenzing_integer,
-        "categorical_float_series": tenzing_categorical,
-        "float_with_inf": tenzing_float,
-        "inf_series": tenzing_float,
-        "nan_series": tenzing_float,
-        "nan_series_2": tenzing_float,
-        "string_series": tenzing_string,
-        "categorical_string_series": tenzing_categorical,
-        "timestamp_string_series": tenzing_date,
-        "string_unicode_series": tenzing_string,
-        "string_np_unicode_series": tenzing_string,
-        "string_num_nan": tenzing_integer,
-        "string_num": tenzing_integer,
-        "string_flt_nan": tenzing_float,
-        "string_flt": tenzing_float,
-        "string_str_nan": tenzing_string,
-        "string_bool_nan": tenzing_bool,
-        "int_str_range": tenzing_integer,
-        "string_date": tenzing_date,
-        "str_url": tenzing_url,
-        "bool_series": tenzing_bool,
-        "bool_nan_series": tenzing_bool,
-        "nullable_bool_series": tenzing_bool,
-        "bool_series2": tenzing_bool,
-        "bool_series3": tenzing_bool,
-        "complex_series": tenzing_complex,
-        "complex_series_nan": tenzing_complex,
-        "complex_series_nan_2": tenzing_complex,
-        "complex_series_py_nan": tenzing_complex,
-        "complex_series_py": tenzing_complex,
-        "categorical_complex_series": tenzing_categorical,
-        "timestamp_series": tenzing_datetime,
-        "timestamp_series_nat": tenzing_datetime,
-        "timestamp_aware_series": tenzing_datetime,
-        "datetime": tenzing_date,
-        "timedelta_series": tenzing_timedelta,
-        "timedelta_series_nat": tenzing_timedelta,
-        "geometry_string_series": tenzing_geometry,
-        "geometry_series": tenzing_geometry,
-        "path_series_linux": tenzing_path,
-        "path_series_linux_str": tenzing_path,
-        "path_series_windows": tenzing_path,
-        "path_series_windows_str": tenzing_path,
-        "url_series": tenzing_url,
-        "mixed_list[str,int]": tenzing_object,
-        "mixed_dict": tenzing_object,
-        "callable": tenzing_object,
-        "module": tenzing_object,
-        "textual_float": tenzing_float,
-        "textual_float_nan": tenzing_float,
-        "empty": tenzing_generic,
-        "empty_object": tenzing_generic,
-        "empty_float": tenzing_generic,
-        "empty_bool": tenzing_generic,
-        "empty_int64": tenzing_generic,
-        "ip": tenzing_ip,
-        "ip_str": tenzing_ip,
-        "date_series_nat": tenzing_date,
-        "categorical_char": tenzing_categorical,
-        "ordinal": tenzing_ordinal,
+        "int_series": visions_integer,
+        "categorical_int_series": visions_categorical,
+        "int_nan_series": visions_integer,
+        "Int64_int_series": visions_integer,
+        "Int64_int_nan_series": visions_integer,
+        "np_uint32": visions_count,
+        "int_range": visions_integer,
+        "float_series": visions_float,
+        "float_nan_series": visions_float,
+        "int_series_boolean": visions_bool,
+        "float_series2": visions_integer,
+        "float_series3": visions_float,
+        "float_series4": visions_float,
+        "float_series5": visions_float,
+        "float_series6": visions_float,
+        "complex_series_float": visions_integer,
+        "categorical_float_series": visions_categorical,
+        "float_with_inf": visions_float,
+        "inf_series": visions_float,
+        "nan_series": visions_float,
+        "nan_series_2": visions_float,
+        "string_series": visions_string,
+        "categorical_string_series": visions_categorical,
+        "timestamp_string_series": visions_date,
+        "string_unicode_series": visions_string,
+        "string_np_unicode_series": visions_string,
+        "string_num_nan": visions_integer,
+        "string_num": visions_integer,
+        "string_flt_nan": visions_float,
+        "string_flt": visions_float,
+        "string_str_nan": visions_string,
+        "string_bool_nan": visions_bool,
+        "int_str_range": visions_integer,
+        "string_date": visions_date,
+        "str_url": visions_url,
+        "bool_series": visions_bool,
+        "bool_nan_series": visions_bool,
+        "nullable_bool_series": visions_bool,
+        "bool_series2": visions_bool,
+        "bool_series3": visions_bool,
+        "complex_series": visions_complex,
+        "complex_series_nan": visions_complex,
+        "complex_series_nan_2": visions_complex,
+        "complex_series_py_nan": visions_complex,
+        "complex_series_py": visions_complex,
+        "categorical_complex_series": visions_categorical,
+        "timestamp_series": visions_datetime,
+        "timestamp_series_nat": visions_datetime,
+        "timestamp_aware_series": visions_datetime,
+        "datetime": visions_date,
+        "timedelta_series": visions_timedelta,
+        "timedelta_series_nat": visions_timedelta,
+        "geometry_string_series": visions_geometry,
+        "geometry_series": visions_geometry,
+        "path_series_linux": visions_path,
+        "path_series_linux_str": visions_path,
+        "path_series_windows": visions_path,
+        "path_series_windows_str": visions_path,
+        "url_series": visions_url,
+        "mixed_list[str,int]": visions_object,
+        "mixed_dict": visions_object,
+        "callable": visions_object,
+        "module": visions_object,
+        "textual_float": visions_float,
+        "textual_float_nan": visions_float,
+        "empty": visions_generic,
+        "empty_object": visions_generic,
+        "empty_float": visions_generic,
+        "empty_bool": visions_generic,
+        "empty_int64": visions_generic,
+        "ip": visions_ip,
+        "ip_str": visions_ip,
+        "date_series_nat": visions_date,
+        "categorical_char": visions_categorical,
+        "ordinal": visions_ordinal,
     }
 
 
@@ -418,11 +418,11 @@ def get_convert_map():
     # Conversions in one single step
     series_map = [
         # Model type, Relation type
-        (tenzing_integer, tenzing_float, ["int_nan_series", "float_series2"]),
-        (tenzing_integer, tenzing_string, ["int_str_range"]),
+        (visions_integer, visions_float, ["int_nan_series", "float_series2"]),
+        (visions_integer, visions_string, ["int_str_range"]),
         (
-            tenzing_float,
-            tenzing_string,
+            visions_float,
+            visions_string,
             [
                 "string_flt",
                 "string_num_nan",
@@ -433,19 +433,19 @@ def get_convert_map():
                 "int_str_range",
             ],
         ),
-        (tenzing_datetime, tenzing_string, ["timestamp_string_series", "string_date"]),
-        (tenzing_geometry, tenzing_string, ["geometry_string_series"]),
-        (tenzing_bool, tenzing_string, ["string_bool_nan"]),
-        (tenzing_ip, tenzing_string, ["ip_str"]),
-        (tenzing_url, tenzing_string, ["str_url"]),
+        (visions_datetime, visions_string, ["timestamp_string_series", "string_date"]),
+        (visions_geometry, visions_string, ["geometry_string_series"]),
+        (visions_bool, visions_string, ["string_bool_nan"]),
+        (visions_ip, visions_string, ["ip_str"]),
+        (visions_url, visions_string, ["str_url"]),
         (
-            tenzing_path,
-            tenzing_string,
+            visions_path,
+            visions_string,
             ["path_series_windows_str", "path_series_linux_str"],
         ),
-        (tenzing_float, tenzing_complex, ["complex_series_float"]),
-        (tenzing_bool, tenzing_integer, ["int_series_boolean"]),
-        (tenzing_bool, tenzing_object, ["bool_nan_series"]),
+        (visions_float, visions_complex, ["complex_series_float"]),
+        (visions_bool, visions_integer, ["int_series_boolean"]),
+        (visions_bool, visions_object, ["bool_nan_series"]),
     ]
 
     return series_map

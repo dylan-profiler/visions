@@ -24,7 +24,7 @@ Concrete Types
 .. autosummary::
    :toctree: _autosummary
 
-   tenzing_generic
+   visions_generic
 
 ==============
 Concrete Types
@@ -36,21 +36,21 @@ Concrete Types
 .. autosummary::
    :toctree: _autosummary
 
-   tenzing_integer
-   tenzing_float
-   tenzing_bool
-   tenzing_categorical
-   tenzing_complex
-   tenzing_datetime
-   tenzing_object
-   tenzing_string
-   tenzing_geometry
-   tenzing_path
-   tenzing_existing_path
-   tenzing_image_path
-   tenzing_timedelta
-   tenzing_time
-   tenzing_date
-   tenzing_url
-   tenzing_ip
-   tenzing_count
+   visions_integer
+   visions_float
+   visions_bool
+   visions_categorical
+   visions_complex
+   visions_datetime
+   visions_object
+   visions_string
+   visions_geometry
+   visions_path
+   visions_existing_path
+   visions_image_path
+   visions_timedelta
+   visions_time
+   visions_date
+   visions_url
+   visions_ip
+   visions_count

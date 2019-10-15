@@ -2,21 +2,21 @@ from pathlib import Path
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_existing_path(tenzing_model):
-    """**Existing Path** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_existing_path(VisionsBaseType):
+    """**Existing Path** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
-    >>> x in tenzing_existing_path
+    >>> x in visions_existing_path
     True
     """
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import tenzing_path
+        from visions.core.model.types import visions_path
 
-        relations = {tenzing_path: relation_conf(inferential=False)}
+        relations = {visions_path: relation_conf(inferential=False)}
         return relations
 
     @classmethod

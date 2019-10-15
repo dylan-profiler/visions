@@ -2,12 +2,12 @@ from abc import abstractmethod, ABCMeta
 import pandas as pd
 
 
-class meta_model(ABCMeta):
+class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
         if series.empty:
-            from visions.core.model.types.tenzing_generic import tenzing_generic
+            from visions.core.model.types.visions_generic import visions_generic
 
-            return cls == tenzing_generic
+            return cls == visions_generic
         return cls.contains_op(series)
 
     def __str__(cls) -> str:
@@ -17,10 +17,10 @@ class meta_model(ABCMeta):
         return str(cls)
 
 
-class tenzing_model(metaclass=meta_model):
-    """Abstract implementation of a tenzing type.
+class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
+    """Abstract implementation of a vision type.
 
-    Provides a common API for building custom tenzing datatypes.
+    Provides a common API for building custom vision datatypes.
     """
 
     @classmethod

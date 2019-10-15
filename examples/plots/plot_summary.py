@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from visions.core.model.types import tenzing_integer, tenzing_existing_path
+from visions.core.model.types import visions_integer, visions_existing_path
 from visions.core.summaries.summary import CompleteSummary
 
 
@@ -13,5 +13,5 @@ summary = CompleteSummary()
 summary.plot(summaries_dir / "summary.svg")
 
 # For a specific type
-summary.plot(summaries_dir / "summary_integer.svg", tenzing_integer)
-summary.plot(summaries_dir / "summary_existing_path.svg", tenzing_existing_path)
+summary.plot(summaries_dir / "summary_integer.svg", visions_integer)
+summary.plot(summaries_dir / "summary_existing_path.svg", visions_existing_path)

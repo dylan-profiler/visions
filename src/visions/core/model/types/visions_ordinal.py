@@ -2,7 +2,7 @@ import pandas.api.types as pdt
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
 def to_ordinal(series: pd.Series) -> pd.Series:
@@ -11,18 +11,18 @@ def to_ordinal(series: pd.Series) -> pd.Series:
     )
 
 
-class tenzing_ordinal(tenzing_model):
-    """**Ordinal** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_ordinal(VisionsBaseType):
+    """**Ordinal** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([1, 2, 3, 1, 1], dtype='category')
-    >>> x in tenzing_ordinal
+    >>> x in visions_ordinal
     True
     """
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import tenzing_categorical
+        from visions.core.model.types import visions_categorical
 
-        relations = {tenzing_categorical: relation_conf(inferential=False)}
+        relations = {visions_categorical: relation_conf(inferential=False)}
         return relations
 
     @classmethod

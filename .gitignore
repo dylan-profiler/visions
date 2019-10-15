@@ -1,7 +1,7 @@
 # Custom
 .idea/
 *.dot
-docsrc/source/tenzing/_autosummary/
+docsrc/source/visions/_autosummary/
 docsrc/build/
 plots/*/
 

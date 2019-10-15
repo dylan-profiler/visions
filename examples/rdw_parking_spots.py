@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.core.model import tenzing_complete_set, type_cast, type_inference
+from visions.core.model import visions_complete_set, type_cast, type_inference
 from visions.core.summaries.summary import CompleteSummary
 
 
@@ -11,7 +11,7 @@ file_name = r"C:\Users\Cees Closed\Downloads\Open_Data_Parkeren__SPECIFICATIES_P
 df = pd.read_csv(file_name)
 
 # Type
-typeset = tenzing_complete_set()
+typeset = visions_complete_set()
 
 # Type inference
 inferred_types = type_inference(df, typeset)

@@ -1,4 +1,4 @@
-from visions.core.model.typesets import tenzing_complete_set
+from visions.core.model.typesets import visions_complete_set
 
 import pandas as pd
 
@@ -20,7 +20,7 @@ df = pd.DataFrame(
 )
 
 
-ts = tenzing_complete_set()
+ts = visions_complete_set()
 ts.prep(df)
 
 x = summary.summarize(df, ts.column_type_map)

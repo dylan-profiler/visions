@@ -162,13 +162,13 @@
             
   <div class="section" id="membership-example">
 <h1>Membership example<a class="headerlink" href="#membership-example" title="Permalink to this headline">¶</a></h1>
-<p>The following example demonstrates the membership of several <cite>tenzing_bool</cite> series.</p>
+<p>The following example demonstrates the membership of several <cite>visions_bool</cite> series.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">membership_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.types.tenzing_bool</span> <span class="kn">import</span> <span class="n">tenzing_bool</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.types.visions_bool</span> <span class="kn">import</span> <span class="n">visions_bool</span>
 
 <span class="n">s1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bool_series&quot;</span><span class="p">)</span>
 <span class="n">s2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bool_nan_series&quot;</span><span class="p">)</span>
@@ -176,29 +176,29 @@
 
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">]:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;**{s.name}**&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">tenzing_bool</span><span class="p">,</span> <span class="s2">&quot;tenzing_bool&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">visions_bool</span><span class="p">,</span> <span class="s2">&quot;visions_bool&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>Which prints:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>**bool_series**
-True tenzing_bool
-True type[tenzing_bool]
+True visions_bool
+True type[visions_bool]
 False missing
-False missing | type[tenzing_bool]
+False missing | type[visions_bool]
 
 **bool_nan_series**
-False tenzing_bool
-True type[tenzing_bool]
+False visions_bool
+True type[visions_bool]
 True missing
-True missing | type[tenzing_bool]
+True missing | type[visions_bool]
 
 **nan_series**
-False tenzing_bool
-False type[tenzing_bool]
+False visions_bool
+False type[visions_bool]
 True missing
-False missing | type[tenzing_bool]
+False missing | type[visions_bool]
 </pre></div>
 </div>
 </div>

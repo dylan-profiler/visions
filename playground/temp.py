@@ -1,6 +1,6 @@
 import datetime
 
-from visions.core.model import tenzing_complete_set
+from visions.core.model import visions_complete_set
 import pandas as pd
 import numpy as np
 
@@ -37,8 +37,8 @@ df = pd.DataFrame(
         "path_win": [r"C:\Users\test.txt", r"C:\Users\test.bat", r"C:\Users\test.sh"],
     }
 )
-x = tenzing_complete_set()
-y = tenzing_complete_set()
+x = visions_complete_set()
+y = visions_complete_set()
 x.prep(df)
 tdf = x.cast_to_inferred_types(df)
 

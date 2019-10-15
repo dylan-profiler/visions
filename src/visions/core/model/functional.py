@@ -2,10 +2,10 @@ from typing import Tuple
 
 import pandas as pd
 
-from visions.core.model.typeset import tenzingTypeset
+from visions.core.model.typeset import VisionTypeset
 
 
-def type_cast(df: pd.DataFrame, typeset: tenzingTypeset) -> Tuple[pd.DataFrame, dict]:
+def type_cast(df: pd.DataFrame, typeset: VisionTypeset) -> Tuple[pd.DataFrame, dict]:
     """Cast the DataFrame to the inferred types. This has side-effects to the DataFrame. If you want to prevent this,
     simply pass a copy of the original DataFrame.
 
@@ -23,7 +23,7 @@ def type_cast(df: pd.DataFrame, typeset: tenzingTypeset) -> Tuple[pd.DataFrame, 
     return cast_df, cast_types
 
 
-def type_inference(df: pd.DataFrame, typeset: tenzingTypeset) -> dict:
+def type_inference(df: pd.DataFrame, typeset: VisionTypeset) -> dict:
     """Infer the current types of each column in the DataFrame given the typeset.
 
     Args:

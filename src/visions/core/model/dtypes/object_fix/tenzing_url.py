@@ -1,15 +1,15 @@
 import pandas as pd
 from urllib.parse import urlparse
 
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_url(tenzing_model):
-    """**Url** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_url(VisionsBaseType):
+    """**Url** implementation of :class:`visions.core.models.VisionsBaseType`.
 
     >>> from urllib.parse import urlparse
     >>> x = pd.Series([urlparse('http://www.cwi.nl:80/%7Eguido/Python.html'), urlparse('https://github.com/pandas-profiling/pandas-profiling')], dtype='Url')
-    >>> x in tenzing_url
+    >>> x in visions_url
     True
     """
 

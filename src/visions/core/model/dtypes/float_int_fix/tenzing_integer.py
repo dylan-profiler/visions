@@ -1,15 +1,15 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 
 
-class tenzing_integer(tenzing_model):
-    """**Integer** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_integer(VisionsBaseType):
+    """**Integer** implementation of :class:`visions.core.models.VisionsBaseType`.
 
     Examples:
         >>> x = pd.Series([1, 2, 3])
-        >>> x in tenzing_integer
+        >>> x in visions_integer
         True
     """
 

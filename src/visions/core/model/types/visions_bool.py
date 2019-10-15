@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import tenzing_model
+from visions.core.model.models import VisionsBaseType
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
@@ -16,24 +16,24 @@ def to_bool(series: pd.Series) -> pd.Series:
         raise ValueError(f"Values not supported {series.unique()}")
 
 
-class tenzing_bool(tenzing_model):
-    """**Boolean** implementation of :class:`tenzing.core.models.tenzing_model`.
+class visions_bool(VisionsBaseType):
+    """**Boolean** implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([True, False, False, True])
-    >>> x in tenzing_bool
+    >>> x in visions_bool
     True
 
     >>> x = pd.Series([True, False, None])
-    >>> x in tenzing_bool
+    >>> x in visions_bool
     True
     """
 
     @classmethod
     def get_relations(cls) -> dict:
         from visions.core.model.types import (
-            tenzing_generic,
-            tenzing_string,
-            tenzing_integer,
-            tenzing_object,
+            visions_generic,
+            visions_string,
+            visions_integer,
+            visions_object,
         )
 
         coercions = [
@@ -43,19 +43,19 @@ class tenzing_bool(tenzing_model):
         ]
 
         relations = {
-            tenzing_generic: relation_conf(inferential=False),
+            visions_generic: relation_conf(inferential=False),
             # TODO: ensure that series.str.lower() has no side effects
-            tenzing_string: relation_conf(
+            visions_string: relation_conf(
                 inferential=True,
                 relationship=lambda s: coercion_map_test(coercions)(s.str.lower()),
                 transformer=lambda s: to_bool(coercion_map(coercions)(s.str.lower())),
             ),
-            tenzing_integer: relation_conf(
+            visions_integer: relation_conf(
                 inferential=True,
                 relationship=lambda s: s.isin({0, 1, np.nan}).all(),
                 transformer=to_bool,
             ),
-            tenzing_object: relation_conf(
+            visions_object: relation_conf(
                 inferential=True,
                 relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
                 transformer=to_bool,

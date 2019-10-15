@@ -1,9 +1,9 @@
-visions.core.model.types.tenzing\_string
+visions.core.model.types.visions\_string
 ========================================
 
 .. currentmodule:: visions.core.model.types
 
-.. autoclass:: tenzing_string
+.. autoclass:: visions_string
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.model.types.tenzing\_string
 
    .. autosummary::
    
-      ~tenzing_string.__init__
-      ~tenzing_string.contains_op
-      ~tenzing_string.get_relations
+      ~visions_string.__init__
+      ~visions_string.contains_op
+      ~visions_string.get_relations
    
    
 

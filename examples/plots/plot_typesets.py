@@ -1,9 +1,9 @@
 from pathlib import Path
 
 from visions.core.model.typesets import (
-    tenzing_complete_set,
-    tenzing_standard_set,
-    tenzing_geometry_set,
+    visions_complete_set,
+    visions_standard_set,
+    visions_geometry_set,
 )
 
 # Windows Note
@@ -16,9 +16,9 @@ typesets_dir.mkdir(exist_ok=True)
 
 # Initialize typeset
 for name, tsc in [
-    ("typeset_complete", tenzing_complete_set()),
-    ("typeset_geometry", tenzing_geometry_set()),
-    ("typeset_standard", tenzing_standard_set()),
+    ("typeset_complete", visions_complete_set()),
+    ("typeset_geometry", visions_geometry_set()),
+    ("typeset_standard", visions_standard_set()),
 ]:
     # Write graph to dot
     tsc.output_graph(typesets_dir / f"{name}.dot")
