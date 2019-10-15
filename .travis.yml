@@ -12,7 +12,7 @@ install:
 
 script:
 #  - pytest --cov=. tests/
-  - pytest --mypy tests/
+  - pytest --mypy --black tests/
 
 #after_success:
 #  - codecov -F $TEST
