@@ -6,7 +6,7 @@ from visions.core.model.models import VisionsBaseType
 
 
 class visions_count(VisionsBaseType):
-    """**Existing Path** implementation of :class:`visions.core.models.VisionsBaseType`.
+    """**Count** (positive integer) implementation of :class:`visions.core.models.VisionsBaseType`.
     >>> x = pd.Series([1, 4, 10, 20])
     >>> x in visions_count
     True
