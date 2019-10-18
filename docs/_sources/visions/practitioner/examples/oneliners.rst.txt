@@ -30,7 +30,8 @@ Code										         Result
 Get Type
 --------
 
-Inference: determine the current type of a series S. We choose the most specific one, without conversion (casting and coercion).
+Inference: determine the current type of a series S.
+We choose the most specific one, without conversion (casting and coercion).
 Start at the root RootPartitioner.
 For each partitioner with a non-empty mask, traverse the graph (DFS) and return the base_type
 Return the Multipartitioner with individual partitioners and their inferred type.

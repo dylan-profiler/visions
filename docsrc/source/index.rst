@@ -8,6 +8,7 @@ Welcome.
 .. toctree::
    :maxdepth: 3
    :caption: Table of Contents:
+   :hidden:
 
    visions/introduction
    visions/installation
