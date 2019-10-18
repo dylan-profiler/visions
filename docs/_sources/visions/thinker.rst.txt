@@ -2,7 +2,7 @@ Thinker
 *******
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 2
 
     thinker/data_model
 
