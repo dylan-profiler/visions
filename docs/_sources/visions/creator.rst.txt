@@ -14,6 +14,7 @@ This section documents basic steps for contributing (e.g. testing and linting) a
 
 
 .. toctree::
+   :maxdepth: 1
 
     creator/contributing
     creator/extending

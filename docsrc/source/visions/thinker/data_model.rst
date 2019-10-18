@@ -17,11 +17,9 @@ Motivating example: Nullable Integer / Float
 
 Motivating example: Objects
 
-::
-
-    Visions creates an internal type system representing the type of a pandas series rather than the underlying types of it's constituent objects.
-    This allows us to flexibly perform sets of well defined operations over things like `Option[integer]` which might otherwise be upcast by pandas into `float`.
-    This also allows us to produce more interesting summaries for data which might otherwise simply be represented in pandas as `object`.
+.. Visions creates an internal type system representing the type of a pandas series rather than the underlying types of it's constituent objects.
+   This allows us to flexibly perform sets of well defined operations over things like `Option[integer]` which might otherwise be upcast by pandas into `float`.
+   This also allows us to produce more interesting summaries for data which might otherwise simply be represented in pandas as `object`.
 
 How do Python, Numpy and Pandas model data?
 ===========================================
