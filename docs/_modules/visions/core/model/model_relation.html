@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started.html">Understanding Visions Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/typesets.html">Typesets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">API</a></li>
 </ul>
 
@@ -213,9 +213,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="n">transformer</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;noninferential relations may not have transformer or relations&quot;</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span> <span class="s2">&quot;noninferential relations may not have transformer or relations&quot;</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="fm">__contains__</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span></div>

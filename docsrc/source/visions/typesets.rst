@@ -4,7 +4,7 @@ Typesets
 Introduction
 ============
 
-Types can also be organized into groups of types to perform analysis over a dataframe or collection of series.
+Types can also be organized into groups of types to perform analysis over a DataFrame or collection of series.
 These are called visions typesets.
 
 .. code-block:: python

@@ -33,7 +33,4 @@ Test `package` with ``pytest``::
 Requirements
 ------------
 
-* pandas
-* numpy
-* networkx
-* TODO: optional requirements
+The requirements are listed in `setup.py`.

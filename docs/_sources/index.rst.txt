@@ -1,6 +1,9 @@
 =========
-`package`
+Visions
 =========
+
+Welcome.
+
 
 .. toctree::
    :maxdepth: 3
@@ -11,7 +14,7 @@
    visions/getting_started.md
    visions/typesets
    visions/extending
-   examples
+   visions/examples
    modules
 
 

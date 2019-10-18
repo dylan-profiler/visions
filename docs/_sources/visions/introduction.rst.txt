@@ -7,9 +7,7 @@ Visions
    :alt: Jeanne D'Arc, Image in the public domain
 
 
-::
-
-   And these visions of data types, they kept us up past the dawn
+> And these visions of data types, they kept us up past the dawn.
 
 
 Why
