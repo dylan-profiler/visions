@@ -22,13 +22,6 @@ To install `visions` from source, clone the repository from `github
     python setup.py install .
 
 
-Testing
--------
-
-Test `package` with ``pytest``::
-
-    cd package
-    pytest
 
 Requirements
 ------------

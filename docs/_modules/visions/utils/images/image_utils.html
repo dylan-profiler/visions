@@ -82,12 +82,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started.html">Understanding Visions Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/data_model.html">Unifying the Python, Numpy and Pandas data model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/typesets.html">Typesets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
 </ul>
 
             
@@ -159,7 +157,7 @@
 <span class="kn">import</span> <span class="nn">imghdr</span>
 
 
-<div class="viewcode-block" id="open_image"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.open_image">[docs]</a><span class="k">def</span> <span class="nf">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">]:</span>
+<div class="viewcode-block" id="open_image"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.open_image">[docs]</a><span class="k">def</span> <span class="nf">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
@@ -174,7 +172,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="is_image_truncated"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.is_image_truncated">[docs]</a><span class="k">def</span> <span class="nf">is_image_truncated</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="is_image_truncated"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.is_image_truncated">[docs]</a><span class="k">def</span> <span class="nf">is_image_truncated</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Returns True if the path refers to a truncated image</span>
 
 <span class="sd">    Args:</span>
@@ -190,7 +188,7 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 
-<div class="viewcode-block" id="get_image_shape"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.get_image_shape">[docs]</a><span class="k">def</span> <span class="nf">get_image_shape</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<div class="viewcode-block" id="get_image_shape"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.get_image_shape">[docs]</a><span class="k">def</span> <span class="nf">get_image_shape</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
@@ -205,7 +203,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="hash_image"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.hash_image">[docs]</a><span class="k">def</span> <span class="nf">hash_image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="hash_image"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.hash_image">[docs]</a><span class="k">def</span> <span class="nf">hash_image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
@@ -220,7 +218,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="decode_byte_exif"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.decode_byte_exif">[docs]</a><span class="k">def</span> <span class="nf">decode_byte_exif</span><span class="p">(</span><span class="n">exif_val</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="decode_byte_exif"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.decode_byte_exif">[docs]</a><span class="k">def</span> <span class="nf">decode_byte_exif</span><span class="p">(</span><span class="n">exif_val</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Decode byte encodings</span>
 
 <span class="sd">    Args:</span>
@@ -235,7 +233,7 @@
         <span class="k">return</span> <span class="n">exif_val</span></div>
 
 
-<div class="viewcode-block" id="extract_exif"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.extract_exif">[docs]</a><span class="k">def</span> <span class="nf">extract_exif</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="extract_exif"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.extract_exif">[docs]</a><span class="k">def</span> <span class="nf">extract_exif</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>

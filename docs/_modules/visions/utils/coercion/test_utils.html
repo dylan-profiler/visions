@@ -82,12 +82,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started.html">Understanding Visions Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/data_model.html">Unifying the Python, Numpy and Pandas data model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/typesets.html">Typesets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/extending.html">Extending</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
 </ul>
 
             
@@ -158,7 +156,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="option_coercion_evaluator"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.option_coercion_evaluator">[docs]</a><span class="k">def</span> <span class="nf">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="option_coercion_evaluator"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.option_coercion_evaluator">[docs]</a><span class="k">def</span> <span class="nf">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion test evaluator</span>
 
 <span class="sd">    Evaluates a coercion method and optionally returns the coerced series.</span>
@@ -179,7 +177,7 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
-<div class="viewcode-block" id="coercion_test"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="coercion_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion test generator</span>
 
 <span class="sd">    Creates a coercion test based on a provided coercion method.</span>
@@ -201,7 +199,7 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
-<div class="viewcode-block" id="coercion_equality_test"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_equality_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_equality_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="coercion_equality_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_equality_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_equality_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion equality test generator</span>
 
 <span class="sd">    Creates a coercion test based on a provided coercion method which also enforces</span>
@@ -224,7 +222,7 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
-<div class="viewcode-block" id="coercion_map_test"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_map_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="coercion_map_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_map_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create a testing function for a single mapping or a list of mappings.</span>
 
 <span class="sd">    Args:</span>
@@ -262,7 +260,7 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
-<div class="viewcode-block" id="coercion_map"><a class="viewcode-back" href="../../../../visions/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_map">[docs]</a><span class="k">def</span> <span class="nf">coercion_map</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="coercion_map"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_map">[docs]</a><span class="k">def</span> <span class="nf">coercion_map</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Maps a series given a mapping</span>
 
 <span class="sd">    Args:</span>
