@@ -11,6 +11,7 @@ Visions
 
 
     And these visions of data types, they kept us up past the dawn.
+
     -- An Avantgardistic Data Scientist
 
 Why

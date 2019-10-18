@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Unifying the Python, Numpy and Pandas data model &mdash; package 0.1.0 documentation</title>
+  <title>Unifying the Python, Numpy and Pandas data model &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> package
+            <a href="../../index.html" class="icon icon-home"> visions
           
 
           
@@ -116,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">package</a>
+          <a href="../../index.html">visions</a>
         
       </nav>
 
@@ -180,12 +180,11 @@ The third part of this page introduces the concepts needed to combine them.</p>
 <p>Motivating example: Nullable Boolean</p>
 <p>Motivating example: Nullable Integer / Float</p>
 <p>Motivating example: Objects</p>
-<dl class="simple">
-<dt>::</dt><dd><p>Visions creates an internal type system representing the type of a pandas series rather than the underlying types of it’s constituent objects.
-This allows us to flexibly perform sets of well defined operations over things like <cite>Option[integer]</cite> which might otherwise be upcast by pandas into <cite>float</cite>.
-This also allows us to produce more interesting summaries for data which might otherwise simply be represented in pandas as <cite>object</cite>.</p>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Visions creates an internal type system representing the type of a pandas series rather than the underlying types of it&#39;s constituent objects.
+This allows us to flexibly perform sets of well defined operations over things like `Option[integer]` which might otherwise be upcast by pandas into `float`.
+This also allows us to produce more interesting summaries for data which might otherwise simply be represented in pandas as `object`.
+</pre></div>
+</div>
 </div>
 <div class="section" id="how-do-python-numpy-and-pandas-model-data">
 <h2>How do Python, Numpy and Pandas model data?<a class="headerlink" href="#how-do-python-numpy-and-pandas-model-data" title="Permalink to this headline">¶</a></h2>
