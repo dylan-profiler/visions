@@ -5,11 +5,12 @@ Understanding Visions Types
 
 Let's take the example of a timestamp:
 
-```python
-from visions.core.model_implementations import visions_timestamp
+.. code-block:: python
 
-test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
-```
+   from visions.core.model_implementations import visions_timestamp
+
+   test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
+
 
 Inference
 =========
@@ -19,6 +20,7 @@ Inference returns the narrowest possible type
 
     >>> get_type(test_series)
     visions_datetime + missing
+
 
 
 Membership

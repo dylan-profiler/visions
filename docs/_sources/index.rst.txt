@@ -11,7 +11,8 @@ Welcome.
 
    visions/introduction
    visions/installation
-   visions/getting_started.md
+   visions/getting_started
+   visions/data_model
    visions/typesets
    visions/extending
    visions/examples
