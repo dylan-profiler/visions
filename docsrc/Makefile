@@ -13,7 +13,12 @@ help:
 
 github:
 	@make html
+	@rm -r ../docs/
+	@mkdir ../docs
+	@touch ../docs/.nojekyll
 	@cp -a build/html/. ../docs
+	@rm -r build
+	@rm -r source/visions/_autosummary
 
 .PHONY: help Makefile
 

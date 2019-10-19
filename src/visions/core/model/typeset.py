@@ -1,5 +1,5 @@
 import warnings
-from typing import Type, Tuple, List
+from typing import Type, Tuple, List, Iterable
 
 import pandas as pd
 import networkx as nx
@@ -65,8 +65,10 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
 
     orphaned_nodes = nodes - set(relation_graph.nodes)
     if orphaned_nodes:
-        warnings.warn(f"{orphaned_nodes} were isolates in the type relation map and consequently\
-                      orphaned. Please add some mapping to the orphaned nodes.")
+        warnings.warn(
+            f"{orphaned_nodes} were isolates in the type relation map and consequently\
+                      orphaned. Please add some mapping to the orphaned nodes."
+        )
 
     cycles = list(nx.simple_cycles(relation_graph))
     if len(cycles) > 0:
@@ -120,10 +122,12 @@ def get_type_inference_path(
     return path, series
 
 
-def infer_type(base_type: Type[VisionsBaseType],
-               series: pd.Series,
-               G: nx.DiGraph,
-               sample_size: int = 10) -> Type[VisionsBaseType]:
+def infer_type(
+    base_type: Type[VisionsBaseType],
+    series: pd.Series,
+    G: nx.DiGraph,
+    sample_size: int = 10,
+) -> Type[VisionsBaseType]:
 
     if sample_size >= len(series):
         path, _ = get_type_inference_path(base_type, series, G)
@@ -168,7 +172,8 @@ class VisionTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, types: set, build=True):
+    # TODO: Can we indicate covariance of types such that it's an Iterable[VisionsBaseType]
+    def __init__(self, types: Iterable, build=True):
         """
 
         Args:
@@ -177,7 +182,7 @@ class VisionTypeset(object):
         # self.column_type_map = {}
 
         self.relations = {}
-        for node in types:
+        for node in set(types):
             self.relations[node] = node.get_relations()
         self._types = types
         if build:
@@ -252,15 +257,28 @@ class VisionTypeset(object):
             plt.imshow(img)
 
     def __add__(self, other):
+        # TODO: adding iterables of types?
         if issubclass(other.__class__, VisionTypeset):
             other_types = set(other.types)
-        elif issubclass(other, vision_model):
+        elif issubclass(other, VisionsBaseType):
             other_types = {other}
         else:
             raise NotImplementedError(
                 f"Typeset addition not implemented for type {type(other)}"
             )
         return VisionTypeset(self.types | other_types)
+
+    def __sub__(self, other):
+        if issubclass(other.__class__, VisionTypeset):
+            other_types = set(other.types)
+        elif issubclass(other, VisionsBaseType):
+            other_types = {other}
+        else:
+            raise NotImplementedError(
+                f"Typeset subtraction not implemented for type {type(other)}"
+            )
+
+        return VisionTypeset(self.types - other_types)
 
     def __repr__(self):
         return self.__class__.__name__

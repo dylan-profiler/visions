@@ -6,7 +6,7 @@ from visions.core.model.models import VisionsBaseType
 
 
 class visions_categorical(VisionsBaseType):
-    """**Categorical** implementation of :class:`visions.core.models.VisionsBaseType`.
+    """**Categorical** implementation of :class:`visions.core.model.VisionsBaseType`.
     >>> x = pd.Series([True, False, 1], dtype='category')
     >>> x in visions_categorical
     True

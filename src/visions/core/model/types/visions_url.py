@@ -19,10 +19,13 @@ def to_url(series: pd.Series) -> pd.Series:
 class visions_url(VisionsBaseType):
     """**Url** implementation of :class:`visions.core.models.VisionsBaseType`.
 
-    >>> from urllib.parse import urlparse
-    >>> x = pd.Series([urlparse('http://www.cwi.nl:80/%7Eguido/Python.html'), urlparse('https://github.com/pandas-profiling/pandas-profiling')])
-    >>> x in visions_url
-    True
+    Examples:
+        >>> import pandas as pd
+        >>> from urllib.parse import urlparse
+        >>> urls = ['http://www.cwi.nl:80/%7Eguido/Python.html', 'https://github.com/pandas-profiling/pandas-profiling']
+        >>> x = pd.Series([urlparse(url) for url in urls])
+        >>> x in visions_url
+        True
     """
 
     @classmethod
