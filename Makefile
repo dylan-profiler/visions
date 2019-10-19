@@ -1,30 +1,31 @@
 .PHONY: docs test pypi_package install all
 
-docs:
+docs: # Create and update the documentation
 	cd docsrc/ && make github
 	ECHO "Docs updated!"
 
-test:
+test: # Execute unit tests
 	pytest tests/
 	ECHO "Tests completed!"
 
-pypi_package:
+pypi_package: # Upload package to pypi
 	make install
 	python setup.py sdist
 	twine upload dist/*
 	ECHO "PyPi package completed"
 
-lint:
+lint: # Run black linting
 	black .
 
-type_checking:
+type_checking: # Run type checking
 	mypy .
 
-install:
+install: # Install visions locally
 	pip install -e .
 
-all:
+all: # lint, type check, install, rebuild docs, and finally test
 	make lint
+	make type_checking
 	make install
 	make docs
 	make test
