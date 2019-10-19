@@ -13,7 +13,7 @@ def to_bool(series: pd.Series) -> pd.Series:
     elif series.isin({True, False, None, np.nan}).all():
         return series.astype("Bool")
     else:
-        unsupported_values = series[series.isin({True, False, None, np.nan})].unique()
+        unsupported_values = series[~series.isin({True, False, None, np.nan})].unique()
         raise ValueError(f"Values not supported {unsupported_values}")
 
 
