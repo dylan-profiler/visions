@@ -25,7 +25,7 @@ class Summary(object):
             summary_ops = {}
 
         if not all(
-                issubclass(base_type, VisionsBaseType) for base_type in summary_ops.keys()
+            issubclass(base_type, VisionsBaseType) for base_type in summary_ops.keys()
         ):
             raise TypeError("Summaries must be mapped on a type!")
 
@@ -50,7 +50,9 @@ class Summary(object):
             **dataframe_series_summary(series_summary),
         }
 
-    def summarize_series(self, series: pd.Series, summary_type: VisionsBaseType) -> dict:
+    def summarize_series(
+        self, series: pd.Series, summary_type: VisionsBaseType
+    ) -> dict:
         """
 
         Args:

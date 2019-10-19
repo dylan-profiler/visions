@@ -61,7 +61,9 @@ class model_relation:
             self.transformer = transformer
         else:
             if transformer is not None or relationship is not None:
-                raise ValueError( "noninferential relations may not have transformer or relations")
+                raise ValueError(
+                    "noninferential relations may not have transformer or relations"
+                )
 
             self.relationship = self.model.__contains__
             self.transformer = lambda s: s

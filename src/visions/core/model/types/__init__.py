@@ -18,3 +18,4 @@ from visions.core.model.types.visions_url import visions_url
 from visions.core.model.types.visions_ip import visions_ip
 from visions.core.model.types.visions_ordinal import visions_ordinal
 from visions.core.model.types.visions_count import visions_count
+from visions.core.model.types.visions_language import *

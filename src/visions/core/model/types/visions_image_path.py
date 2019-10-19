@@ -24,4 +24,6 @@ class visions_image_path(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(isinstance(p, Path) and p.exists() and imghdr.what(p) for p in series)
+        return all(
+            isinstance(p, Path) and p.exists() and imghdr.what(p) for p in series
+        )

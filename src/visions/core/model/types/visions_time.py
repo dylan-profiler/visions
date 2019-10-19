@@ -27,5 +27,8 @@ class visions_time(VisionsBaseType):
 
         temp_series = series.dropna().dt
 
-        time_val_map = {'day': 1, 'month': 1, 'year': 1}
-        return all(getattr(temp_series, time_part).eq(val).all() for time_part, val in time_val_map.items())
+        time_val_map = {"day": 1, "month": 1, "year": 1}
+        return all(
+            getattr(temp_series, time_part).eq(val).all()
+            for time_part, val in time_val_map.items()
+        )
