@@ -144,7 +144,7 @@ def infer_type(
         An inferred visions type in the relation graph
 
     """
-    if full_search or sample_size >= len(series):
+    if not partial_search or sample_size >= len(series):
         path, _ = get_type_inference_path(base_type, series, G)
         return path[-1]
 
