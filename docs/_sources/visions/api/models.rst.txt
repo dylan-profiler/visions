@@ -13,7 +13,7 @@ Abstract Types
    :toctree: _autosummary
 
    model_relation
-   typeset.VisionBaseType
+   typeset.VisionTypeset
    typeset.build_relation_graph
 
 ==============
@@ -31,17 +31,18 @@ Concrete Types
    visions_float
    visions_bool
    visions_categorical
+   visions_ordinal
    visions_complex
    visions_datetime
+   visions_timedelta
+   visions_date
+   visions_time
    visions_object
    visions_string
    visions_geometry
    visions_path
    visions_existing_path
    visions_image_path
-   visions_timedelta
-   visions_time
-   visions_date
    visions_url
    visions_ip
    visions_count

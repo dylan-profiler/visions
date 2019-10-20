@@ -170,10 +170,13 @@
 <div class="viewcode-block" id="visions_url"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.core.model.types.visions_url.html#visions.core.model.types.visions_url">[docs]</a><span class="k">class</span> <span class="nc">visions_url</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Url** implementation of :class:`visions.core.models.VisionsBaseType`.</span>
 
-<span class="sd">    &gt;&gt;&gt; from urllib.parse import urlparse</span>
-<span class="sd">    &gt;&gt;&gt; x = pd.Series([urlparse(&#39;http://www.cwi.nl:80/%7Eguido/Python.html&#39;), urlparse(&#39;https://github.com/pandas-profiling/pandas-profiling&#39;)])</span>
-<span class="sd">    &gt;&gt;&gt; x in visions_url</span>
-<span class="sd">    True</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; from urllib.parse import urlparse</span>
+<span class="sd">        &gt;&gt;&gt; urls = [&#39;http://www.cwi.nl:80/%7Eguido/Python.html&#39;, &#39;https://github.com/pandas-profiling/pandas-profiling&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([urlparse(url) for url in urls])</span>
+<span class="sd">        &gt;&gt;&gt; x in visions_url</span>
+<span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>

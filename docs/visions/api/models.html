@@ -91,6 +91,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#abstract-types">Abstract Types</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.model_relation.html">visions.core.model.model_relation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.typeset.VisionTypeset.html">visions.core.model.typeset.VisionTypeset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.typeset.build_relation_graph.html">visions.core.model.typeset.build_relation_graph</a></li>
 </ul>
 </li>
@@ -100,17 +101,18 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_float.html">visions.core.model.types.visions_float</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_bool.html">visions.core.model.types.visions_bool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_categorical.html">visions.core.model.types.visions_categorical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_ordinal.html">visions.core.model.types.visions_ordinal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_complex.html">visions.core.model.types.visions_complex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_datetime.html">visions.core.model.types.visions_datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_timedelta.html">visions.core.model.types.visions_timedelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_date.html">visions.core.model.types.visions_date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_time.html">visions.core.model.types.visions_time</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_object.html">visions.core.model.types.visions_object</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_string.html">visions.core.model.types.visions_string</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_geometry.html">visions.core.model.types.visions_geometry</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_path.html">visions.core.model.types.visions_path</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_existing_path.html">visions.core.model.types.visions_existing_path</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_image_path.html">visions.core.model.types.visions_image_path</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_timedelta.html">visions.core.model.types.visions_timedelta</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_time.html">visions.core.model.types.visions_time</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_date.html">visions.core.model.types.visions_date</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_url.html">visions.core.model.types.visions_url</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_ip.html">visions.core.model.types.visions_ip</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.model.types.visions_count.html">visions.core.model.types.visions_count</a></li>
@@ -119,6 +121,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api_typesets.html">Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summaries.html">Summaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
@@ -204,8 +207,8 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.model_relation.html#visions.core.model.model_relation" title="visions.core.model.model_relation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">model_relation</span></code></a>(model, friend_model, inferential)</p></td>
 <td><p>Relationship encoder between implementations of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">typeset.VisionBaseType</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.typeset.VisionTypeset.html#visions.core.model.typeset.VisionTypeset" title="visions.core.model.typeset.VisionTypeset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">typeset.VisionTypeset</span></code></a>(types[, build])</p></td>
+<td><p>A collection of vision_types with an associated relationship map between them.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.typeset.build_relation_graph.html#visions.core.model.typeset.build_relation_graph" title="visions.core.model.typeset.build_relation_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">typeset.build_relation_graph</span></code></a>(nodes, relations)</p></td>
 <td><p>Constructs a traversable relation graph between vision types Builds a type relation graph from a collection of root and derivative nodes.</p></td>
@@ -236,13 +239,25 @@
 <td><p><strong>Boolean</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_categorical.html#visions.core.model.types.visions_categorical" title="visions.core.model.types.visions_categorical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_categorical</span></code></a></p></td>
-<td><p><strong>Categorical</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
+<td><p><strong>Categorical</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.model.VisionsBaseType</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_complex.html#visions.core.model.types.visions_complex" title="visions.core.model.types.visions_complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_complex</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_ordinal.html#visions.core.model.types.visions_ordinal" title="visions.core.model.types.visions_ordinal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_ordinal</span></code></a></p></td>
+<td><p><strong>Ordinal</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_complex.html#visions.core.model.types.visions_complex" title="visions.core.model.types.visions_complex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_complex</span></code></a></p></td>
 <td><p><strong>Complex</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_datetime.html#visions.core.model.types.visions_datetime" title="visions.core.model.types.visions_datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_datetime</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_datetime.html#visions.core.model.types.visions_datetime" title="visions.core.model.types.visions_datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_datetime</span></code></a></p></td>
 <td><p><strong>Datetime</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_timedelta.html#visions.core.model.types.visions_timedelta" title="visions.core.model.types.visions_timedelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_timedelta</span></code></a></p></td>
+<td><p><strong>Timedelta</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_date.html#visions.core.model.types.visions_date" title="visions.core.model.types.visions_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_date</span></code></a></p></td>
+<td><p><strong>Date</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_time.html#visions.core.model.types.visions_time" title="visions.core.model.types.visions_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_time</span></code></a></p></td>
+<td><p><strong>Time</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_object.html#visions.core.model.types.visions_object" title="visions.core.model.types.visions_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_object</span></code></a></p></td>
 <td><p><strong>Object</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
@@ -262,22 +277,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_image_path.html#visions.core.model.types.visions_image_path" title="visions.core.model.types.visions_image_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_image_path</span></code></a></p></td>
 <td><p><strong>Image Path</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_timedelta.html#visions.core.model.types.visions_timedelta" title="visions.core.model.types.visions_timedelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_timedelta</span></code></a></p></td>
-<td><p><strong>Timedelta</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_time.html#visions.core.model.types.visions_time" title="visions.core.model.types.visions_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_time</span></code></a></p></td>
-<td><p><strong>Time</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_date.html#visions.core.model.types.visions_date" title="visions.core.model.types.visions_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_date</span></code></a></p></td>
-<td><p><strong>Date</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_url.html#visions.core.model.types.visions_url" title="visions.core.model.types.visions_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_url</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_url.html#visions.core.model.types.visions_url" title="visions.core.model.types.visions_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_url</span></code></a></p></td>
 <td><p><strong>Url</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_ip.html#visions.core.model.types.visions_ip" title="visions.core.model.types.visions_ip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_ip</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_ip.html#visions.core.model.types.visions_ip" title="visions.core.model.types.visions_ip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_ip</span></code></a></p></td>
 <td><p><strong>IP Address</strong> (v4 and v6) implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_count.html#visions.core.model.types.visions_count" title="visions.core.model.types.visions_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_count</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.model.types.visions_count.html#visions.core.model.types.visions_count" title="visions.core.model.types.visions_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visions_count</span></code></a></p></td>
 <td><p><strong>Count</strong> (positive integer) implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p></td>
 </tr>
 </tbody>

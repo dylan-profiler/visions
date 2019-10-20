@@ -86,7 +86,7 @@ def traverse_relation_graph(
         node: the current node
 
     Returns:
-        The most specialist node matching the series.
+        The most uniquely defined node in a relation graph matching the series.
     """
     for vision_type in G.successors(node):
         if series in vision_type:
@@ -99,7 +99,7 @@ def traverse_relation_graph(
 def get_type_inference_path(
     base_type: Type[VisionsBaseType], series: pd.Series, G: nx.DiGraph, path=None
 ) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
-    """
+    """Returns the graph traversal path leading from `base_type` to an inferred type.
 
     Args:
         base_type:
@@ -127,14 +127,30 @@ def infer_type(
     series: pd.Series,
     G: nx.DiGraph,
     sample_size: int = 10,
+    partial_search: bool = True
 ) -> Type[VisionsBaseType]:
+    """Performs type inference on a series by traversing through a provided relation graph
+    starting at any given node in the graph.
 
-    if sample_size >= len(series):
+    For appropriately constructed relation graphs
+    Args:
+        base_type: A node in the relation graph to begin searching over.
+        series: The series to perform search over.
+        G: A relation graph
+        sample_size: The series sample size to be used for partial search. Ignored if partial_search is False.
+        partial_search: Flag indicating whether the partial search algorithm should be used.
+
+    Returns:
+        An inferred visions type in the relation graph
+
+    """
+    if full_search or sample_size >= len(series):
         path, _ = get_type_inference_path(base_type, series, G)
         return path[-1]
 
-    subseries = series.sample(sample_size)
-    path, _ = get_type_inference_path(base_type, subseries, G)
+    path, _ = get_type_inference_path(base_type, series.sample(sample_size), G)
+    if len(path) == 1:
+        return base_type
 
     from_type = to_type = path[0]
     for to_type in path[1:]:
