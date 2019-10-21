@@ -176,8 +176,11 @@
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="n">temp_series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">dt</span>
-        <span class="n">time_val_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">temp_series</span><span class="p">,</span> <span class="n">time_part</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="k">for</span> <span class="n">time_part</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">time_val_map</span><span class="o">.</span><span class="n">items</span><span class="p">())</span></div>
+        <span class="n">time_val_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">temp_series</span><span class="p">,</span> <span class="n">time_part</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">time_part</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">time_val_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>

@@ -30,7 +30,9 @@ def get_language_coercions(language_code: str) -> List[Dict]:
 
 
 def get_language_bool(language_code: str):
-    return visions_bool.make_string_coercion(language_code, get_language_coercions(language_code))
+    return visions_bool.make_string_coercion(
+        language_code, get_language_coercions(language_code)
+    )
 
 
 def _get_relations(cls) -> dict:
@@ -94,9 +96,13 @@ class visions_bool(VisionsBaseType):
         def get_relations(cls):
             return _get_relations(cls)
 
-        return type(f'{cls.__name__}[{type_name}]',
-                    (cls,),
-                    {"string_coercions": string_coercions,
-                     "get_relations": get_relations,
-                     "contains_op": cls.contains_op,
-                     "make_string_coercion": cls.make_string_coercion})
+        return type(
+            f"{cls.__name__}[{type_name}]",
+            (cls,),
+            {
+                "string_coercions": string_coercions,
+                "get_relations": get_relations,
+                "contains_op": cls.contains_op,
+                "make_string_coercion": cls.make_string_coercion,
+            },
+        )

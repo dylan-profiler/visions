@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="visions.core.model.types.visions_ip" href="visions.core.model.types.visions_ip.html" />
-    <link rel="prev" title="visions.core.model.types.visions_date" href="visions.core.model.types.visions_date.html" /> 
+    <link rel="prev" title="visions.core.model.types.visions_image_path" href="visions.core.model.types.visions_image_path.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -96,17 +96,18 @@
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_float.html">visions.core.model.types.visions_float</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_bool.html">visions.core.model.types.visions_bool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_categorical.html">visions.core.model.types.visions_categorical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_ordinal.html">visions.core.model.types.visions_ordinal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_complex.html">visions.core.model.types.visions_complex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_datetime.html">visions.core.model.types.visions_datetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_timedelta.html">visions.core.model.types.visions_timedelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_date.html">visions.core.model.types.visions_date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_time.html">visions.core.model.types.visions_time</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_object.html">visions.core.model.types.visions_object</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_string.html">visions.core.model.types.visions_string</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_geometry.html">visions.core.model.types.visions_geometry</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_path.html">visions.core.model.types.visions_path</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_existing_path.html">visions.core.model.types.visions_existing_path</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_image_path.html">visions.core.model.types.visions_image_path</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_timedelta.html">visions.core.model.types.visions_timedelta</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_time.html">visions.core.model.types.visions_time</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_date.html">visions.core.model.types.visions_date</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.model.types.visions_url</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_ip.html">visions.core.model.types.visions_ip</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.types.visions_count.html">visions.core.model.types.visions_count</a></li>
@@ -115,6 +116,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api_typesets.html">Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
 </ul>
@@ -193,8 +195,11 @@
 <dt id="visions.core.model.types.visions_url">
 <em class="property">class </em><code class="sig-prename descclassname">visions.core.model.types.</code><code class="sig-name descname">visions_url</code><a class="reference internal" href="../../../_modules/visions/core/model/types/visions_url.html#visions_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.types.visions_url" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Url</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlparse</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">urlparse</span><span class="p">(</span><span class="s1">&#39;http://www.cwi.nl:80/</span><span class="si">%7E</span><span class="s1">guido/Python.html&#39;</span><span class="p">),</span> <span class="n">urlparse</span><span class="p">(</span><span class="s1">&#39;https://github.com/pandas-profiling/pandas-profiling&#39;</span><span class="p">)])</span>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlparse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.cwi.nl:80/</span><span class="si">%7E</span><span class="s1">guido/Python.html&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/pandas-profiling/pandas-profiling&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="ow">in</span> <span class="n">visions_url</span>
 <span class="go">True</span>
 </pre></div>
@@ -243,7 +248,7 @@
         <a href="visions.core.model.types.visions_ip.html" class="btn btn-neutral float-right" title="visions.core.model.types.visions_ip" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.core.model.types.visions_date.html" class="btn btn-neutral float-left" title="visions.core.model.types.visions_date" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.core.model.types.visions_image_path.html" class="btn btn-neutral float-left" title="visions.core.model.types.visions_image_path" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

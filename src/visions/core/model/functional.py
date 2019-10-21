@@ -6,8 +6,8 @@ from visions.core.model.typeset import VisionTypeset
 
 
 def type_cast(df: pd.DataFrame, typeset: VisionTypeset) -> Tuple[pd.DataFrame, dict]:
-    """Cast the DataFrame to the inferred types. This has side-effects to the DataFrame. If you want to prevent this,
-    simply pass a copy of the original DataFrame.
+    """Casts a dataframe into a typeset by first performing column wise type inference against
+    a provided typeset
 
     Args:
         df: the DataFrame to cast

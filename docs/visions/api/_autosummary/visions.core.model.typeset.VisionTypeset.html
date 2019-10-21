@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>visions.core.model.typeset.VisionTypeset &mdash; visions 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="visions.core.model.typeset.build_relation_graph" href="visions.core.model.typeset.build_relation_graph.html" />
+    <link rel="prev" title="visions.core.model.model_relation" href="visions.core.model.model_relation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../practitioner.html">Practitioner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thinker.html">Thinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creator.html">Creator</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="visions.core.model.model_relation.html">visions.core.model.model_relation</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.model.typeset.VisionTypeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.core.model.typeset.build_relation_graph.html">visions.core.model.typeset.build_relation_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html#concrete-types">Concrete Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_typesets.html">Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../models.html">Types</a> &raquo;</li>
+        
+      <li>visions.core.model.typeset.VisionTypeset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/visions/api/_autosummary/visions.core.model.typeset.VisionTypeset.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visions-core-model-typeset-visiontypeset">
+<h1>visions.core.model.typeset.VisionTypeset<a class="headerlink" href="#visions-core-model-typeset-visiontypeset" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="visions.core.model.typeset.VisionTypeset">
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">VisionTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collection of vision_types with an associated relationship map between them.</p>
+<dl class="attribute">
+<dt id="visions.core.model.typeset.VisionTypeset.types">
+<code class="sig-name descname">types</code><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.types" title="Permalink to this definition">¶</a></dt>
+<dd><p>The collection of vision types which are derived either from a <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="visions.core.model.typeset.VisionTypeset.relation_graph">
+<code class="sig-name descname">relation_graph</code><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.relation_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>A directed acyclic graph constructed from relations defined across <cite>types</cite> in the typeset</p>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+VisionsType]) – An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="visions.core.model.typeset.VisionTypeset.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+VisionsType]) – An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typeset.VisionTypeset.__init__" title="visions.core.model.typeset.VisionTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">type types</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+VisionsType]</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
+<td><p>Casts a source series to a new series of the type inferred over the typeset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
+<td><p>Casts each series in a dataframe to it’s inferred type in the typeset.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_series_type</span></code>(series)</p></td>
+<td><p>Returns the visions type of a series from the available types in the typeset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
+<td><p>Infers the visions type of a series from the available types in the typeset</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_graph</span></code>(file_name)</p></td>
+<td><p>Generates a pydot image of the relation graph as either svg, png or dot to the provided file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
+<td><p>Plots a pydot image of the relation graph with user specified dpi.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="visions.core.model.typeset.build_relation_graph.html" class="btn btn-neutral float-right" title="visions.core.model.typeset.build_relation_graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="visions.core.model.model_relation.html" class="btn btn-neutral float-left" title="visions.core.model.model_relation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, TODO
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
