@@ -176,31 +176,31 @@
 <h1>visions.core.model.typeset.VisionTypeset<a class="headerlink" href="#visions-core-model-typeset-visiontypeset" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="visions.core.model.typeset.VisionTypeset">
-<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">VisionTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em>, <em class="sig-param">build=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">VisionTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of vision_types with an associated relationship map between them.</p>
 <dl class="attribute">
 <dt id="visions.core.model.typeset.VisionTypeset.types">
 <code class="sig-name descname">types</code><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.types" title="Permalink to this definition">¶</a></dt>
-<dd><p>The collection of vision types which are derived either from a base_type or themselves</p>
+<dd><p>The collection of vision types which are derived either from a <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="visions.core.model.typeset.VisionTypeset.relation_graph">
 <code class="sig-name descname">relation_graph</code><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.relation_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>…</p>
+<dd><p>A directed acyclic graph constructed from relations defined across <cite>types</cite> in the typeset</p>
 </dd></dl>
 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+T_co]) – </p>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+VisionsType]) – An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
 </dd>
 </dl>
 <dl class="method">
 <dt id="visions.core.model.typeset.VisionTypeset.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em>, <em class="sig-param">build=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionTypeset.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+T_co]) – </p>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+VisionsType]) – An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -212,61 +212,31 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typeset.VisionTypeset.__init__" title="visions.core.model.typeset.VisionTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types[, build])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typeset.VisionTypeset.__init__" title="visions.core.model.typeset.VisionTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type types</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+T_co]</p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+VisionsType]</p>
 </dd>
 </dl>
 </p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Casts a source series to a new series of the type inferred over the typeset.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Casts each series in a dataframe to it’s inferred type in the typeset.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Returns the visions type of a series from the available types in the typeset</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Infers the visions type of a series from the available types in the typeset</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_graph</span></code>(file_name)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type file_name</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Generates a pydot image of the relation graph as either svg, png or dot to the provided file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type dpi</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Plots a pydot image of the relation graph with user specified dpi.</p></td>
 </tr>
 </tbody>
 </table>
