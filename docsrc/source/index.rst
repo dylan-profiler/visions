@@ -15,6 +15,7 @@ Welcome.
    visions/practitioner
    visions/thinker
    visions/creator
+   visions/design_decisions
    visions/api
 
 
