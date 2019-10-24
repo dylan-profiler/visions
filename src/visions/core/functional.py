@@ -4,7 +4,7 @@ import pandas as pd
 from visions.core.model.typeset import VisionsTypeset
 
 
-def type_cast(df: pd.DataFrame, typeset: VisionTypeset) -> Tuple[pd.DataFrame, dict]:
+def type_cast(df: pd.DataFrame, typeset: VisionsTypeset) -> Tuple[pd.DataFrame, dict]:
     """Casts a dataframe into a typeset by first performing column wise type inference against
     a provided typeset
 
