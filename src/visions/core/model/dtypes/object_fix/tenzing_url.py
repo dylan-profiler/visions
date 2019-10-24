@@ -1,7 +1,7 @@
 import pandas as pd
 from urllib.parse import urlparse
 
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 class visions_url(VisionsBaseType):

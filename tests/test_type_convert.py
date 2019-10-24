@@ -1,7 +1,7 @@
 import pytest
 
-from visions.core.model import visions_complete_set, model_relation
-from visions.core.model.types import *
+from visions.core.implementations.typesets import visions_complete_set
+from visions.core.model import model_relation
 
 from tests.series import get_series, get_convert_map
 

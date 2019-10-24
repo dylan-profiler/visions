@@ -3,7 +3,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 def string_is_path(series):
@@ -31,7 +31,7 @@ class visions_path(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_object, visions_string
+        from visions.core.implementations.types import visions_object, visions_string
 
         relations = {
             visions_object: relation_conf(inferential=False),

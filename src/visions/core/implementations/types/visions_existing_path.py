@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 class visions_existing_path(VisionsBaseType):
@@ -14,7 +14,7 @@ class visions_existing_path(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_path
+        from visions.core.implementations.types import visions_path
 
         relations = {visions_path: relation_conf(inferential=False)}
         return relations

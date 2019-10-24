@@ -1,7 +1,5 @@
 import pytest
 
-from visions.core.model.types import *
-
 from tests.series import get_series, get_contains_map
 
 

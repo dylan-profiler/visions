@@ -1,9 +1,11 @@
-import pandas.api.types as pdt
-import pandas as pd
-import numpy as np
 from typing import List, Dict
+
+import numpy as np
+import pandas as pd
+import pandas.api.types as pdt
+
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
@@ -34,7 +36,7 @@ def get_language_bool(language_code: str):
 
 
 def _get_relations(cls) -> dict:
-    from visions.core.model.types import (
+    from visions.core.implementations.types import (
         visions_generic,
         visions_string,
         visions_integer,

@@ -2,7 +2,7 @@ import pandas as pd
 from ipaddress import _BaseAddress, ip_address
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
@@ -20,7 +20,7 @@ class visions_ip(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_object, visions_string
+        from visions.core.implementations.types import visions_object, visions_string
 
         relations = {
             visions_object: relation_conf(inferential=False),

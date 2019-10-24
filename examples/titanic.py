@@ -28,7 +28,7 @@ for key, variable_summary in summaries["series"].items():
 
 print(summaries["frame"])
 
-from visions.core.model.types import (
+from visions.core.implementations.types import (
     visions_float,
     visions_integer,
     visions_categorical,

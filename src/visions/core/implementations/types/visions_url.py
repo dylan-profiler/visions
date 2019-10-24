@@ -2,7 +2,7 @@ import pandas as pd
 from urllib.parse import urlparse, ParseResult
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 def test_url(series):
@@ -30,7 +30,7 @@ class visions_url(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_string, visions_object
+        from visions.core.implementations.types import visions_string, visions_object
 
         relations = {
             # TODO: replace test_url with coercion test

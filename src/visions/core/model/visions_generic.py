@@ -1,6 +1,5 @@
-import numpy as np
 import pandas as pd
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 class visions_generic(VisionsBaseType):

@@ -2,7 +2,7 @@ import pandas as pd
 import pandas.api.types as pdt
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 class visions_string(VisionsBaseType):
@@ -14,7 +14,7 @@ class visions_string(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_object
+        from visions.core.implementations.types import visions_object
 
         relations = {visions_object: relation_conf(inferential=False)}
         return relations

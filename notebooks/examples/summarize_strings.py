@@ -1,4 +1,4 @@
-from visions.core.model.typesets import visions_complete_set
+from visions.core.implementations.typesets import visions_complete_set
 
 import pandas as pd
 

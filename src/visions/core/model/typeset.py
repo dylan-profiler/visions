@@ -5,13 +5,13 @@ import pandas as pd
 import networkx as nx
 
 from visions.core.model.model_relation import model_relation
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 from visions.utils.graph import output_graph
-from visions.core.model.types import visions_generic
+from visions.core.model.visions_generic import visions_generic
 
 
 def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
-    """Constructs a traversable relation graph between vision types
+    """Constructs a traversable relation graph between visions types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
     nodes correspond to subtypes with a defined relation.
@@ -31,6 +31,11 @@ def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.Di
 
     for model, relation in relations.items():
         for friend_model, config in relation.items():
+            if friend_model not in nodes:
+                warnings.warn(
+                    f"Provided relations included mapping from {friend_model} to {model} but {friend_model} was not included in the provided list of nodes"
+                )
+                continue
             relation_graph.add_edge(
                 friend_model,
                 model,
@@ -50,17 +55,12 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
 
     Args:
         relation_graph: A directed graph representing the set of relations between type nodes.
-        nodes:  A list of vision_types considered at the root of the relations graph.
+        nodes:  A list of visions_types
         relations: A list of relations from type to types
 
     Returns:
         None
     """
-    undefined_nodes = set(relation_graph.nodes) - nodes
-    if len(undefined_nodes) > 0:
-        warnings.warn(f"undefined node {undefined_nodes}")
-        relation_graph.remove_nodes_from(undefined_nodes)
-
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
     orphaned_nodes = nodes - set(relation_graph.nodes)
@@ -163,7 +163,7 @@ def cast_series_to_inferred_type(
     return series
 
 
-class VisionTypeset(object):
+class VisionsTypeset(object):
     """
     A collection of vision_types with an associated relationship map between them.
 
@@ -250,15 +250,14 @@ class VisionTypeset(object):
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
         with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
-            p = nx.drawing.nx_pydot.to_pydot(G)
-            p.write_png(temp_file.name)
+            self.output_graph(temp_file.name)
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
             plt.imshow(img)
 
     def __add__(self, other):
         # TODO: adding iterables of types?
-        if issubclass(other.__class__, VisionTypeset):
+        if issubclass(other.__class__, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
             other_types = {other}
@@ -266,10 +265,10 @@ class VisionTypeset(object):
             raise NotImplementedError(
                 f"Typeset addition not implemented for type {type(other)}"
             )
-        return VisionTypeset(self.types | other_types)
+        return VisionsTypeset(self.types | other_types)
 
     def __sub__(self, other):
-        if issubclass(other.__class__, VisionTypeset):
+        if issubclass(other.__class__, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
             other_types = {other}
@@ -278,7 +277,7 @@ class VisionTypeset(object):
                 f"Typeset subtraction not implemented for type {type(other)}"
             )
 
-        return VisionTypeset(self.types - other_types)
+        return VisionsTypeset(self.types - other_types)
 
     def __repr__(self):
         return self.__class__.__name__

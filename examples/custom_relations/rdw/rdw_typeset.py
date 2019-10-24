@@ -1,5 +1,4 @@
-from visions.core.model.model_relation import relation_conf
-from visions.core.model.types import (
+from visions.core.implementations.types import (
     visions_bool,
     visions_float,
     visions_object,
@@ -14,12 +13,12 @@ from visions.core.model.types import (
     visions_time,
     visions_complex,
 )
-from visions.core.model.typeset import VisionTypeset
+from visions.core.model.typeset import VisionsTypeset
 from visions.lib.relations.string_to_bool import string_to_bool_dutch
 from visions.lib.relations.string_to_ordinal import string_to_ordinal
 
 
-class rdw_typeset(VisionTypeset):
+class rdw_typeset(VisionsTypeset):
     """Typeset used in the RDW dataset"""
 
     def __init__(self):

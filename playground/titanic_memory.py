@@ -3,7 +3,6 @@ import numpy as np
 
 from visions.core.model import visions_complete_set, type_cast, type_inference
 from visions.core.model.dtypes.bool_fix.visions_bool import visions_boolean
-from visions.core.summaries.summary import summary
 
 # Load dataset
 df = pd.read_csv(
@@ -46,7 +45,7 @@ print(cast_types)
 #     print(key, variable_summary)
 
 
-from visions.core.model.types import (
+from visions.core.implementations.types import (
     visions_float,
     visions_integer,
     visions_categorical,

@@ -1,8 +1,8 @@
-from visions.core.model.typeset import VisionTypeset
-from visions.core.model.types import *
+from visions.core.model.typeset import VisionsTypeset
+from visions.core.implementations.types import *
 
 
-class visions_standard_set(VisionTypeset):
+class visions_standard_set(VisionsTypeset):
     """The standard visions typesets
 
     Includes support for the following types:
@@ -34,8 +34,8 @@ class visions_standard_set(VisionTypeset):
         super().__init__(types)
 
 
-class visions_geometry_set(VisionTypeset):
-    """Standard vision typeset with shapely geometry support
+class visions_geometry_set(VisionsTypeset):
+    """Standard visions typeset with shapely geometry support
 
     Includes support for the following types:
 
@@ -68,8 +68,8 @@ class visions_geometry_set(VisionTypeset):
         super().__init__(types)
 
 
-class visions_complete_set(VisionTypeset):
-    """Complete vision typeset with all supported types
+class visions_complete_set(VisionsTypeset):
+    """Complete visions typeset with all supported types
 
     Includes support for the following types:
 
@@ -80,6 +80,8 @@ class visions_complete_set(VisionTypeset):
     - visions_string
     - visions_complex
     - visions_categorical
+    - visions_ordinal
+    - visions_count
     - visions_datetime
     - visions_date
     - visions_time
