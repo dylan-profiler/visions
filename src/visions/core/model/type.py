@@ -20,7 +20,7 @@ class VisionsBaseTypeMeta(ABCMeta):
 class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     """Abstract implementation of a vision type.
 
-    Provides a common API for building custom vision datatypes.
+    Provides a common API for building custom visions datatypes.
     """
 
     @classmethod

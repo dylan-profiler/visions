@@ -43,5 +43,6 @@ class visions_url(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(isinstance(x, ParseResult) and all((x.netloc, x.scheme))
-                   for x in series)
+        return all(
+            isinstance(x, ParseResult) and all((x.netloc, x.scheme)) for x in series
+        )

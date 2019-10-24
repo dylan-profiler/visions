@@ -99,6 +99,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
 </ul>
@@ -190,12 +191,12 @@
 <li><p>visions_timedelta</p></li>
 </ul>
 <p>Args:
-types:</p>
+types: An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
 <dl class="method">
 <dt id="visions.core.model.typesets.visions_standard_set.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typesets.html#visions_standard_set.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typesets.visions_standard_set.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Args:
-types:</p>
+types: An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -206,55 +207,25 @@ types:</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typesets.visions_standard_set.__init__" title="visions.core.model.typesets.visions_standard_set.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
-<td><p>Args: types:</p></td>
+<td><p>Args: types: An Iterable of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Casts a source series to a new series of the type inferred over the typeset.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Casts each series in a dataframe to it’s inferred type in the typeset.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Returns the visions type of a series from the available types in the typeset</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Infers the visions type of a series from the available types in the typeset</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_graph</span></code>(file_name)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type file_name</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Generates a pydot image of the relation graph as either svg, png or dot to the provided file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type dpi</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Plots a pydot image of the relation graph with user specified dpi.</p></td>
 </tr>
 </tbody>
 </table>

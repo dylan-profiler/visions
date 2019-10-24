@@ -30,9 +30,6 @@ Each typeset is unique to a dataset for caching purposes and can apply the same 
 .. code-block:: python
 
     df = pd.DataFrame({'a': range(3),
-                         'b': [2 * i for i in range(3)],
-                         'c': ['howdy', 'howdy', 'doody']})
+                       'b': [2 * i for i in range(3)],
+                       'c': ['howdy', 'howdy', 'doody']})
     my_typeset.prep(df)
-
-
-
