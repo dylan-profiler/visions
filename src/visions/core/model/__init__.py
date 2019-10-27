@@ -6,7 +6,8 @@ from visions.core.model.typeset import (
     check_graph_constraints,
     traverse_relation_graph,
     get_type_inference_path,
-    infer_type,
+    infer_type_path,
+    cast_along_path,
     cast_series_to_inferred_type,
     VisionsTypeset,
 )

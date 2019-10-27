@@ -20,7 +20,7 @@ extras_requires = {
 }
 
 test_requires = [
-    "pytest==5.2.0",
+    "pytest>=5.2.0",
     "pytest-ordering",
     "pytest-rerunfailures",
     "pytest-sugar",
