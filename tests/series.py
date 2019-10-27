@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 from shapely import wkt
 
-from visions.core.model.types import *
+from visions.core.implementations.types import *
 
 
 def get_series():

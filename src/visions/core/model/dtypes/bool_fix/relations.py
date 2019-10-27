@@ -1,7 +1,7 @@
 import pandas as pd
 
 from visions.core.model import model_relation
-from visions.core.model.types import (
+from visions.core.implementations.types import (
     visions_bool,
     visions_string,
     visions_generic,

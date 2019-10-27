@@ -4,7 +4,7 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from visions.core.model.types import *
+from visions.core.implementations.types import *
 from visions.core.summaries.summary import CompleteSummary
 
 

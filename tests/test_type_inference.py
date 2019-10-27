@@ -1,8 +1,8 @@
 import pytest
 
-from visions.core.model.typesets import visions_complete_set
-from visions.core.model.types import *
+from visions.core.implementations.typesets import visions_complete_set
 from tests.series import get_series, infer_series_type_map
+from visions.core.implementations.types import visions_generic
 
 
 typeset = visions_complete_set()

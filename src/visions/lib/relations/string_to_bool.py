@@ -1,5 +1,5 @@
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.types.visions_bool import to_bool
+from visions.core.implementations.types import to_bool
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 

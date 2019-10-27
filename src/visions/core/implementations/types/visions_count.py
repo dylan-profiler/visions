@@ -2,7 +2,7 @@ import pandas.api.types as pdt
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 class visions_count(VisionsBaseType):
@@ -14,7 +14,7 @@ class visions_count(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_integer, visions_generic
+        from visions.core.implementations.types import visions_generic
 
         relations = {
             # TODO: or inferential=False for integer?

@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
-from visions.core.model.types.visions_integer import visions_integer
+from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.warning_handling import suppress_warnings
 
@@ -27,7 +26,7 @@ class visions_float(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import (
+        from visions.core.implementations.types import (
             visions_generic,
             visions_string,
             visions_complex,

@@ -24,7 +24,7 @@ class model_relation:
     floats but in reality they are all integers.
 
     Examples:
-        >>> from visions.core.model.types import visions_integer, visions_float
+        >>> from visions.core.implementations.types import visions_integer, visions_float
         >>> x = pd.Series([1.0, 2.0, 3.0])
         >>> relation = model_relation(visions_integer, visions_float)
         >>> relation.is_relation(x)
@@ -42,13 +42,6 @@ class model_relation:
         relationship: Optional[Callable] = None,
         transformer: Optional[Callable] = None,
     ):
-        """
-        Args:
-            model: The type this relation will transform a series into.
-            friend_model: The type this relation will transform a series from.
-            relationship: A method to determine if a series of friend_model type can be converted to type model.
-            transformer: A method to convert a series from type friend_model to type model.
-        """
         self.model = model
         self.friend_model = friend_model
         self.inferential = inferential

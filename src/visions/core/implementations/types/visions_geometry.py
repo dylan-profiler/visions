@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 import os
 from visions.core.model.model_relation import relation_conf
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 
 
 def string_is_geometry(series: pd.Series) -> bool:
@@ -38,7 +38,7 @@ class visions_geometry(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.model.types import visions_string, visions_object
+        from visions.core.implementations.types import visions_string, visions_object
 
         relations = {
             visions_string: relation_conf(

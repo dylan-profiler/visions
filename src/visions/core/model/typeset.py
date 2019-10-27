@@ -1,28 +1,23 @@
 import warnings
-from typing import Type, Tuple, List, Iterable, TypeVar
+from typing import Type, Tuple, List, Iterable
 
 import pandas as pd
 import networkx as nx
 
 from visions.core.model.model_relation import model_relation
-from visions.core.model.models import VisionsBaseType
+from visions.core.model.type import VisionsBaseType
 from visions.utils.graph import output_graph
-from visions.core.model.types import visions_generic
-
-
-VisionsType = TypeVar("VisionsType", covariant=True)
+from visions.core.model.visions_generic import visions_generic
 
 
 def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
-    """Constructs a traversable relation graph between vision types
+    """Constructs a traversable relation graph between visions types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
     nodes correspond to subtypes with a defined relation.
-
     Args:
         nodes:  A list of vision_types considered at the root of the relations graph.
         relations: A list of relations from type to types
-
     Returns:
         A directed graph of type relations for the provided nodes.
     """
@@ -34,6 +29,11 @@ def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.Di
 
     for model, relation in relations.items():
         for friend_model, config in relation.items():
+            if friend_model not in nodes:
+                warnings.warn(
+                    f"Provided relations included mapping from {friend_model} to {model} but {friend_model} was not included in the provided list of nodes"
+                )
+                continue
             relation_graph.add_edge(
                 friend_model,
                 model,
@@ -50,20 +50,13 @@ def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.Di
 
 def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
     """Validates a relation_graph is appropriately constructed
-
     Args:
         relation_graph: A directed graph representing the set of relations between type nodes.
-        nodes:  A list of vision_types considered at the root of the relations graph.
+        nodes:  A list of visions_types
         relations: A list of relations from type to types
-
     Returns:
         None
     """
-    undefined_nodes = set(relation_graph.nodes) - nodes
-    if len(undefined_nodes) > 0:
-        warnings.warn(f"undefined node {undefined_nodes}")
-        relation_graph.remove_nodes_from(undefined_nodes)
-
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
     orphaned_nodes = nodes - set(relation_graph.nodes)
@@ -79,17 +72,15 @@ def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
 
 
 def traverse_relation_graph(
-    series: pd.Series, G: nx.DiGraph, node: Type[VisionsType] = visions_generic
-) -> Type[VisionsType]:
+    series: pd.Series, G: nx.DiGraph, node: Type[VisionsBaseType] = visions_generic
+) -> Type[VisionsBaseType]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
-
     Args:
         series: the Series to check
         G: the Graph to traverse
         node: the current node
-
     Returns:
-        The most uniquely defined node in a relation graph matching the series.
+        The most specialist node matching the series.
     """
     for vision_type in G.successors(node):
         if series in vision_type:
@@ -100,18 +91,15 @@ def traverse_relation_graph(
 
 # Infer type with conversion
 def get_type_inference_path(
-    base_type: Type[VisionsType], series: pd.Series, G: nx.DiGraph, path=None
-) -> Tuple[List[Type[VisionsType]], pd.Series]:
-    """Returns the graph traversal path leading from `base_type` to an inferred type.
-
+    base_type: Type[VisionsBaseType], series: pd.Series, G: nx.DiGraph, path=None
+) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
+    """
     Args:
         base_type:
         series:
         G:
         path:
-
     Returns:
-
     """
     if path is None:
         path = [base_type]
@@ -126,34 +114,18 @@ def get_type_inference_path(
 
 
 def infer_type(
-    base_type: Type[VisionsType],
+    base_type: Type[VisionsBaseType],
     series: pd.Series,
     G: nx.DiGraph,
     sample_size: int = 10,
-    partial_search: bool = True,
-) -> Type[VisionsType]:
-    """Performs type inference on a series by traversing through a provided relation graph
-    starting at any given node in the graph.
+) -> Type[VisionsBaseType]:
 
-    For appropriately constructed relation graphs
-    Args:
-        base_type: A node in the relation graph to begin searching over.
-        series: The series to perform search over.
-        G: A relation graph
-        sample_size: The series sample size to be used for partial search. Ignored if partial_search is False.
-        partial_search: Flag indicating whether the partial search algorithm should be used.
-
-    Returns:
-        An inferred visions type in the relation graph
-
-    """
-    if not partial_search or sample_size >= len(series):
+    if sample_size >= len(series):
         path, _ = get_type_inference_path(base_type, series, G)
         return path[-1]
 
-    path, _ = get_type_inference_path(base_type, series.sample(sample_size), G)
-    if len(path) == 1:
-        return base_type
+    subseries = series.sample(sample_size)
+    path, _ = get_type_inference_path(base_type, subseries, G)
 
     from_type = to_type = path[0]
     for to_type in path[1:]:
@@ -166,42 +138,41 @@ def infer_type(
 
 
 def cast_series_to_inferred_type(
-    base_type: Type[VisionsType], series: pd.Series, G: nx.DiGraph
+    base_type: Type[VisionsBaseType], series: pd.Series, G: nx.DiGraph
 ) -> pd.Series:
     """
-
     Args:
         base_type:
         series:
         G:
-
     Returns:
-
     """
     _, series = get_type_inference_path(base_type, series, G)
     return series
 
 
-class VisionTypeset(object):
+class VisionsTypeset(object):
     """
     A collection of vision_types with an associated relationship map between them.
-
     Attributes:
-        types: The collection of vision types which are derived either from a :class:`visions.core.models.VisionsBaseType`.
-        relation_graph: A directed acyclic graph constructed from relations defined across `types` in the typeset
+        types: The collection of vision types which are derived either from a base_type or themselves
+        relation_graph: ...
     """
 
-    def __init__(self, types: Iterable[VisionsType]):
+    # TODO: Can we indicate covariance of types such that it's an Iterable[VisionsBaseType]
+    def __init__(self, types: Iterable, build=True):
         """
         Args:
-            types: An Iterable of :class:`visions.core.models.VisionsBaseType`
+            types:
         """
+        # self.column_type_map = {}
 
         self.relations = {}
         for node in set(types):
             self.relations[node] = node.get_relations()
         self._types = types
-        self._build_graph()
+        if build:
+            self._build_graph()
 
     def _build_graph(self):
         self.relation_graph, self.base_graph = build_relation_graph(
@@ -209,60 +180,34 @@ class VisionTypeset(object):
         )
         self.types = set(self.relation_graph.nodes)
 
-    def get_series_type(self, series: pd.Series) -> Type[VisionsType]:
-        """Returns the visions type of a series from the available types in the typeset
+    def get_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
 
-        Args:
-            series: A pandas series.
-
-        Returns:
-            A visions type from the typeset
-        """
         base_type = traverse_relation_graph(series, self.base_graph)
         return base_type
 
-    def infer_series_type(self, series: pd.Series) -> Type[VisionsType]:
-        """Infers the visions type of a series from the available types in the typeset
-
-        Args:
-            series: A pandas series.
-
-        Returns:
-            A visions type from the typeset
-        """
+    def infer_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
+        # col_type = self.column_type_map.get(series.name, visions_generic)
         col_type = self.get_series_type(series)
         inferred_base_type = infer_type(col_type, series, self.relation_graph)
         return inferred_base_type
 
     def cast_series(self, series: pd.Series) -> pd.Series:
-        """Casts a source series to a new series of the type inferred over the typeset.
-
+        """
         Args:
-            series: A pandas series.
-
+            series:
         Returns:
-            A transformed pandas series.
         """
         series_type = self.get_series_type(series)
         return cast_series_to_inferred_type(series_type, series, self.relation_graph)
 
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Casts each series in a dataframe to it's inferred type in the typeset.
-
-        Args:
-            df: A DataFrame.
-
-        Returns:
-            A transformed dataframe.
-        """
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
 
     def output_graph(self, file_name: str) -> None:
-        """Generates a pydot image of the relation graph as either svg, png or dot to the provided file.
-
+        """
         Args:
-            file_name: The filename to write to.
-
+            file_name:
+        Returns:
         """
         G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
@@ -270,25 +215,26 @@ class VisionTypeset(object):
         output_graph(G, file_name)
 
     def plot_graph(self, dpi: int = 800):
-        """Plots a pydot image of the relation graph with user specified dpi.
-
+        """
         Args:
-            dpi: dpi to display the resulting graph.
-
+            dpi:
+        Returns:
         """
         import matplotlib.pyplot as plt
         import matplotlib.image as mpimg
         import tempfile
 
+        G = self.relation_graph.copy()
+        G.graph["node"] = {"shape": "box", "color": "red"}
         with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
-            self.output_graph(temp_file)
+            self.output_graph(temp_file.name)
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
             plt.imshow(img)
 
     def __add__(self, other):
         # TODO: adding iterables of types?
-        if issubclass(other.__class__, VisionTypeset):
+        if issubclass(other.__class__, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
             other_types = {other}
@@ -296,10 +242,10 @@ class VisionTypeset(object):
             raise NotImplementedError(
                 f"Typeset addition not implemented for type {type(other)}"
             )
-        return VisionTypeset(self.types | other_types)
+        return VisionsTypeset(self.types | other_types)
 
     def __sub__(self, other):
-        if issubclass(other.__class__, VisionTypeset):
+        if issubclass(other.__class__, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
             other_types = {other}
@@ -308,7 +254,7 @@ class VisionTypeset(object):
                 f"Typeset subtraction not implemented for type {type(other)}"
             )
 
-        return VisionTypeset(self.types - other_types)
+        return VisionsTypeset(self.types - other_types)
 
     def __repr__(self):
         return self.__class__.__name__

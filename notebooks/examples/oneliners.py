@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from visions.core.model import VisionsBaseType
-from visions.core.model.types import (
+from visions.core.implementations.types import (
     visions_bool,
     visions_generic,
     visions_integer,

@@ -5,7 +5,7 @@ import pandas as pd
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
         if series.empty:
-            from visions.core.model.types.visions_generic import visions_generic
+            from visions.core.implementations.types import visions_generic
 
             return cls == visions_generic
         return cls.contains_op(series)
