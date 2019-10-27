@@ -1,7 +1,7 @@
 import pandas as pd
 
 from examples.custom_relations.rdw.rdw_typeset import rdw_typeset
-from visions.core.model import type_cast, type_inference
+from visions.core.functional import type_cast, type_inference
 from visions.core.summaries.summary import CompleteSummary
 
 
