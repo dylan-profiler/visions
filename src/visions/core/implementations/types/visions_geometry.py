@@ -29,11 +29,13 @@ def to_geometry(series: pd.Series) -> pd.Series:
 
 # https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
 class visions_geometry(VisionsBaseType):
-    """**Geometry** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> from shapely import wkt
-    >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
-    >>> x in visions_geometry
-    True
+    """**Geometry** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> from shapely import wkt
+        >>> x = pd.Series([wkt.loads('POINT (-92 42)'), wkt.loads('POINT (-92 42.1)'), wkt.loads('POINT (-92 42.2)')]
+        >>> x in visions_geometry
+        True
     """
 
     @classmethod

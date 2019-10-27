@@ -6,10 +6,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_string(VisionsBaseType):
-    """**String** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series(['rubin', 'carter', 'champion'])
-    >>> x in visions_string
-    True
+    """**String** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series(['rubin', 'carter', 'champion'])
+        >>> x in visions_string
+        True
     """
 
     @classmethod

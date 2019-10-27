@@ -47,7 +47,6 @@ def _get_relations(cls) -> dict:
 
     relations = {
         visions_generic: relation_conf(inferential=False),
-        # TODO: ensure that series.str.lower() has no side effects
         visions_string: relation_conf(
             inferential=True,
             relationship=lambda s: coercion_map_test(cls.string_coercions)(
@@ -72,14 +71,16 @@ def _get_relations(cls) -> dict:
 
 
 class visions_bool(VisionsBaseType):
-    """**Boolean** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([True, False, False, True])
-    >>> x in visions_bool
-    True
+    """**Boolean** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
-    >>> x = pd.Series([True, False, None])
-    >>> x in visions_bool
-    True
+    Examples:
+        >>> x = pd.Series([True, False, False, True])
+        >>> x in visions_bool
+        True
+
+        >>> x = pd.Series([True, False, None])
+        >>> x in visions_bool
+        True
     """
 
     string_coercions = get_language_coercions("en")

@@ -18,10 +18,12 @@ def to_float(series: pd.Series) -> bool:
 
 
 class visions_float(VisionsBaseType):
-    """**Float** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
-    >>> x in visions_float
-    True
+    """**Float** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([1.0, 2.5, 5.0, np.nan])
+        >>> x in visions_float
+        True
     """
 
     @classmethod

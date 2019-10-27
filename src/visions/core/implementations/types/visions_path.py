@@ -23,10 +23,12 @@ def to_path(series: pd.Series) -> pd.Series:
 
 
 class visions_path(VisionsBaseType):
-    """**Path** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
-    >>> x in visions_path
-    True
+    """**Path** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
+        >>> x in visions_path
+        True
     """
 
     @classmethod

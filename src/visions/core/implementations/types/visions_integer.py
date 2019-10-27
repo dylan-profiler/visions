@@ -24,7 +24,7 @@ def float_is_int(series: pd.Series) -> bool:
 
 
 class visions_integer(VisionsBaseType):
-    """**Integer** implementation of :class:`visions.core.models.VisionsBaseType`.
+    """**Integer** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
     Examples:
         >>> x = pd.Series([1, 2, 3])

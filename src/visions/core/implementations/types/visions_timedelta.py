@@ -6,10 +6,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_timedelta(VisionsBaseType):
-    """**Timedelta** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([pd.Timedelta(days=i) for i in range(3)])
-    >>> x in visions_timedelta
-    True
+    """**Timedelta** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([pd.Timedelta(days=i) for i in range(3)])
+        >>> x in visions_timedelta
+        True
     """
 
     @classmethod

@@ -11,11 +11,13 @@ def to_ip(series: pd.Series) -> pd.Series:
 
 
 class visions_ip(VisionsBaseType):
-    """**IP Address** (v4 and v6) implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> from ipaddress import IPv4Address
-    >>> x = pd.Series([IPv4Address('127.0.0.1'), IPv4Address('128.0.1.2')])
-    >>> x in visions_ip
-    True
+    """**IP Address** (v4 and v6) implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> from ipaddress import IPv4Address
+        >>> x = pd.Series([IPv4Address('127.0.0.1'), IPv4Address('128.0.1.2')])
+        >>> x in visions_ip
+        True
     """
 
     @classmethod
