@@ -12,10 +12,12 @@ def to_datetime(series: pd.Series) -> pd.Series:
 
 
 class visions_datetime(VisionsBaseType):
-    """**Datetime** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
-    >>> x in visions_datetime
-    True
+    """**Datetime** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+        >>> x in visions_datetime
+        True
     """
 
     @classmethod

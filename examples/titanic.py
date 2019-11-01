@@ -1,6 +1,7 @@
 import pandas as pd
 
-from visions.core.model import visions_complete_set, type_cast, type_inference
+from visions.core.implementations import visions_complete_set
+from visions.core.functional import type_cast, type_inference
 from visions.core.summaries.summary import CompleteSummary
 from visions.core.model.dtypes.bool_fix.visions_bool import visions_boolean
 

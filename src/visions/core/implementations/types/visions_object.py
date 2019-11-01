@@ -6,10 +6,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_object(VisionsBaseType):
-    """**Object** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series(['a', 1, np.nan])
-    >>> x in visions_object
-    True
+    """**Object** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series(['a', 1, np.nan])
+        >>> x in visions_object
+        True
     """
 
     @classmethod

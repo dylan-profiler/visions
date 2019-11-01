@@ -80,7 +80,7 @@ def traverse_relation_graph(
         G: the Graph to traverse
         node: the current node
     Returns:
-        The most specialist node matching the series.
+        The most uniquely specified node matching the series.
     """
     for vision_type in G.successors(node):
         if series in vision_type:
@@ -102,9 +102,9 @@ def get_type_inference_path(
     Returns:
     """
     if path is None:
-        path = [base_type]
-    else:
-        path.append(base_type)
+        path = []
+
+    path.append(base_type)
 
     for vision_type in G.successors(base_type):
         if G[base_type][vision_type]["relationship"].is_relation(series):
@@ -113,19 +113,26 @@ def get_type_inference_path(
     return path, series
 
 
-def infer_type(
-    base_type: Type[VisionsBaseType],
+def cast_along_path(series: pd.Series, path: List, G: nx.DiGraph):
+    from_type = to_type = path[0]
+    for to_type in path[1:]:
+        new_series = G[from_type][to_type]["relationship"].transform(series)
+    return new_series
+
+
+def infer_type_path(
     series: pd.Series,
     G: nx.DiGraph,
+    base_type: Type[VisionsBaseType] = visions_generic,
     sample_size: int = 10,
-) -> Type[VisionsBaseType]:
+) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
 
     if sample_size >= len(series):
-        path, _ = get_type_inference_path(base_type, series, G)
-        return path[-1]
+        path, new_series = get_type_inference_path(base_type, series, G)
+        return path, new_series
 
     subseries = series.sample(sample_size)
-    path, _ = get_type_inference_path(base_type, subseries, G)
+    path, new_series = get_type_inference_path(base_type, subseries, G)
 
     from_type = to_type = path[0]
     for to_type in path[1:]:
@@ -134,7 +141,7 @@ def infer_type(
             from_type = to_type
         except Exception:
             break
-    return to_type
+    return path[0: (path.index(to_type) + 1)], new_series
 
 
 def cast_series_to_inferred_type(
@@ -186,10 +193,8 @@ class VisionsTypeset(object):
         return base_type
 
     def infer_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
-        # col_type = self.column_type_map.get(series.name, visions_generic)
-        col_type = self.get_series_type(series)
-        inferred_base_type = infer_type(col_type, series, self.relation_graph)
-        return inferred_base_type
+        inferred_base_type, _ = infer_type_path(series, self.relation_graph)
+        return inferred_base_type[-1]
 
     def cast_series(self, series: pd.Series) -> pd.Series:
         """

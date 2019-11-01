@@ -7,19 +7,13 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_complex(VisionsBaseType):
-    """**Complex** implementation of :class:`visions.core.models.VisionsBaseType`.
+    """**Complex** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
     Examples:
         >>> import numpy as np
         >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
         >>> x in visions_complex
         True
-    """
-
-    """**Complex** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan])
-    >>> x in visions_complex
-    True
     """
 
     @classmethod

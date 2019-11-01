@@ -6,10 +6,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_existing_path(VisionsBaseType):
-    """**Existing Path** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
-    >>> x in visions_existing_path
-    True
+    """**Existing Path** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([Path('/home/user/file.txt'), Path('/home/user/test2.txt')])
+        >>> x in visions_existing_path
+        True
     """
 
     @classmethod

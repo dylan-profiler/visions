@@ -6,10 +6,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_date(VisionsBaseType):
-    """**Date** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
-    >>> x in visions_date
-    True
+    """**Date** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+        >>> x in visions_date
+        True
     """
 
     @classmethod

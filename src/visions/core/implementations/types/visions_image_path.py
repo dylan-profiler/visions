@@ -8,10 +8,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_image_path(VisionsBaseType):
-    """**Image Path** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([Path('/home/user/file.png'), Path('/home/user/test2.jpg')])
-    >>> x in visions_image_path
-    True
+    """**Image Path** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([Path('/home/user/file.png'), Path('/home/user/test2.jpg')])
+        >>> x in visions_image_path
+        True
     """
 
     @classmethod

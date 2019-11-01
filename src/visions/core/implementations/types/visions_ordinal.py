@@ -12,10 +12,12 @@ def to_ordinal(series: pd.Series) -> pd.Series:
 
 
 class visions_ordinal(VisionsBaseType):
-    """**Ordinal** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([1, 2, 3, 1, 1], dtype='category')
-    >>> x in visions_ordinal
-    True
+    """**Ordinal** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([1, 2, 3, 1, 1], dtype='category')
+        >>> x in visions_ordinal
+        True
     """
 
     @classmethod

@@ -17,7 +17,7 @@ def to_url(series: pd.Series) -> pd.Series:
 
 
 class visions_url(VisionsBaseType):
-    """**Url** implementation of :class:`visions.core.models.VisionsBaseType`.
+    """**Url** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
     Examples:
         >>> import pandas as pd

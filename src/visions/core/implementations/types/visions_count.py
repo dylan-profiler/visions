@@ -6,10 +6,12 @@ from visions.core.model.type import VisionsBaseType
 
 
 class visions_count(VisionsBaseType):
-    """**Count** (positive integer) implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series([1, 4, 10, 20])
-    >>> x in visions_count
-    True
+    """**Count** (positive integer) implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series([1, 4, 10, 20])
+        >>> x in visions_count
+        True
     """
 
     @classmethod
