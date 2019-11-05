@@ -165,7 +165,16 @@
 <div class="section" id="pip">
 <h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
 <p>Installing with pip:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions[all]</span>
+</pre></div>
+</div>
+<p>By default, <cite>visions</cite> includes dependencies for additional types such as images and geodata.
+You can install a more lightweight version by picking the dependencies that you really need:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Minimal example
+<span class="go">pip install visions</span>
+
+<span class="gp">#</span> Only geometry
+<span class="go">pip install visions[type_geometry]</span>
 </pre></div>
 </div>
 </div>
