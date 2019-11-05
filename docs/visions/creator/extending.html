@@ -199,6 +199,11 @@
 </pre></div>
 </div>
 </div>
+<p>Alternatively you can choose to base a type on an existing type.
+This is convenient when you only change a single relation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="custom-typesets">
 <h2>Custom Typesets<a class="headerlink" href="#custom-typesets" title="Permalink to this headline">¶</a></h2>
@@ -226,6 +231,13 @@ The example below creates a custom typeset that only supports time-related types
             <span class="n">visions_time</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Another way of creating a typeset is by basing it on another typeset</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
 </pre></div>
 </div>
 </div>

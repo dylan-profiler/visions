@@ -38,6 +38,12 @@ All visions_types can be made into `Option[visions_type]` by inheriting from `op
         def contains_op(cls, series):
             return pdt.is_datetime64_dtype(series)
 
+Alternatively you can choose to base a type on an existing type.
+This is convenient when you only change a single relation.
+
+.. code-block:: python
+
+    visions
 
 Custom Typesets
 ---------------
@@ -68,3 +74,10 @@ The example below creates a custom typeset that only supports time-related types
                 visions_time,
             ]
             super().__init__(types)
+
+Another way of creating a typeset is by basing it on another typeset
+
+.. code-block:: python
+    :caption: Custom time typeset
+
+    typeset = visions_complete_set() - visions_time + visions_date
