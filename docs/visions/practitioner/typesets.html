@@ -170,27 +170,17 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Types can also be organized into groups of types to perform analysis over a DataFrame or collection of series.
 These are called visions typesets.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.model_implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_standard</span>
-
-<span class="n">my_typeset</span> <span class="o">=</span> <span class="n">visions_standard_set</span><span class="p">()</span>
-<span class="n">my_typeset</span><span class="o">.</span><span class="n">types</span>
-<span class="o">-&gt;</span> <span class="nb">frozenset</span><span class="p">({</span><span class="n">visions_bool</span><span class="p">,</span>
-           <span class="n">visions_categorical</span><span class="p">,</span>
-           <span class="n">visions_complex</span><span class="p">,</span>
-           <span class="n">visions_float</span><span class="p">,</span>
-           <span class="n">visions_integer</span><span class="p">,</span>
-           <span class="n">visions_object</span><span class="p">,</span>
-           <span class="n">visions_string</span><span class="p">,</span>
-           <span class="n">visions_timestamp</span><span class="p">})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_standard_set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_typeset</span> <span class="o">=</span> <span class="n">visions_standard_set</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_typeset</span><span class="o">.</span><span class="n">types</span>
+<span class="go">{visions_datetime, visions_string, visions_generic, visions_timedelta, visions_integer, visions_complex, visions_bool, visions_object, visions_categorical, visions_float}</span>
 </pre></div>
 </div>
 <p>The standard typeset includes all of the baseline visions types.
-A complete list of default typesets can be found in the API documentation.
-Each typeset is unique to a dataset for caching purposes and can apply the same methods, like <cite>summarize</cite>, as a visions type.</p>
+A complete list of default typesets can be found in the API documentation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
                    <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span>
                    <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;howdy&#39;</span><span class="p">,</span> <span class="s1">&#39;howdy&#39;</span><span class="p">,</span> <span class="s1">&#39;doody&#39;</span><span class="p">]})</span>
-<span class="n">my_typeset</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -216,7 +206,7 @@ Each typeset is unique to a dataset for caching purposes and can apply the same 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
 
     </p>
   </div>

@@ -1,26 +1,38 @@
 Types
 *****
 
-A type is defined by allo
 Let's take the example of a timestamp:
 
 .. code-block:: python
 
-    from visions.core.model_implementations import visions_timestamp
+    test_series = pd.Series([
+        pd.datetime(2010, 1, 1),
+        pd.datetime(2010, 8, 2),
+        pd.datetime(2011, 2, 1),
+        np.nan
+    ])
 
-    test_series = pd.Series([pd.datetime(2010, 1, 1), pd.datetime(2010, 8, 2), pd.datetime(2011, 2, 1), np.nan])
+
+Detection
+=========
+
+.. code-block:: python
+
+    # Functional
+    >>> from visions.core.functional import get_type
+    >>> get_type(test_series)
+    visions_datetime
+
+    # Object Oriented
+    >>> from visions.core.implementations.typesets import visions_complete_set
+    >>> typeset = visions_complete_set()
+    >>> typeset.get_series_type(test_series)
+    visions_datetime
 
 
 Inference
 =========
 Inference returns the narrowest possible type
-
-.. code-block:: python
-
-    >>> get_type(test_series)
-    visions_datetime + missing
-
-
 
 Membership
 ==========
@@ -28,11 +40,11 @@ We can do a couple of things with this, first we can check if `test_series` is a
 
 .. code-block:: python
 
-    >>> test_series in visions_datetime + missing
+    >>> test_series in visions_datetime
     True
 
-    >>> test_series in visions_datetime
-    -> False
+    >>> test_series in visions_boolean
+    False
 
 
 Summarize
@@ -72,12 +84,34 @@ Because Visions types are `Option[type]` by default, they all inherit the same m
 
 By default Visions includes implementations for the following types:
 
-* visions_integer
-* visions_float
-* visions_bool
-* visions_categorical
-* visions_complex
-* visions_timestamp
-* visions_object
-* visions_string
-* visions_geometry (these are shapely geometries)
++-------------------------+---------+----------+----------+
+| Type                    | Default | Geometry | Complete |
++=========================+=========+==========+==========+
+| visions_integer         | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_float           | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_bool            | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_categorical     | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_complex         | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_timestamp       | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_object          | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_string          | Yes     | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_geometry        | No      | Yes      | Yes      |
++-------------------------+---------+----------+----------+
+| visions_path            | No      | No       | Yes      |
++-------------------------+---------+----------+----------+
+| visions_existing_path   | No      | No       | Yes      |
++-------------------------+---------+----------+----------+
+| visions_image_path      | No      | No       | Yes      |
++-------------------------+---------+----------+----------+
+| visions_url             | No      | No       | Yes      |
++-------------------------+---------+----------+----------+
+| visions_ip              | No      | No       | Yes      |
++-------------------------+---------+----------+----------+

@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(r"..\..\src\visions"))
 # -- Project information -----------------------------------------------------
 
 project = "visions"
-copyright = "2019"
+copyright = "2019, Ian Eaves and Simon Brugman"
 author = "Simon Brugman and Ian Eaves"
 
 # The full version, including alpha/beta/rc tags

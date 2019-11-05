@@ -9,27 +9,18 @@ These are called visions typesets.
 
 .. code-block:: python
 
-    from visions.core.model_implementations.typesets import visions_standard
+    >>> from visions.core.implementations.typesets import visions_standard_set
+    >>> my_typeset = visions_standard_set()
+    >>> my_typeset.types
+    {visions_datetime, visions_string, visions_generic, visions_timedelta, visions_integer, visions_complex, visions_bool, visions_object, visions_categorical, visions_float}
 
-    my_typeset = visions_standard_set()
-    my_typeset.types
-    -> frozenset({visions_bool,
-               visions_categorical,
-               visions_complex,
-               visions_float,
-               visions_integer,
-               visions_object,
-               visions_string,
-               visions_timestamp})
 
 
 The standard typeset includes all of the baseline visions types.
 A complete list of default typesets can be found in the API documentation.
-Each typeset is unique to a dataset for caching purposes and can apply the same methods, like `summarize`, as a visions type.
 
 .. code-block:: python
 
     df = pd.DataFrame({'a': range(3),
                        'b': [2 * i for i in range(3)],
                        'c': ['howdy', 'howdy', 'doody']})
-    my_typeset.prep(df)

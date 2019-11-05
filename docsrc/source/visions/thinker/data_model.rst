@@ -27,18 +27,50 @@ How do Python, Numpy and Pandas model data?
 Python
 ------
 
-The Python data model (`docs <https://docs.python.org/3/reference/datamodel.html>`_) (`diagram <https://en.wikipedia.org/wiki/Data_type#/media/File:Python_3._The_standard_type_hierarchy.png>`_)
+The Python data model (`docs <https://docs.python.org/3/reference/datamodel.html>`_)
+
+.. image:: https://upload.wikimedia.org/wikipedia/commons/1/10/Python_3._The_standard_type_hierarchy.png
+   :width: 424 px
+   :align: center
+   :alt: Python Data Model
 
 Numpy
 -----
-- The Numpy data model (`docs <https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html>`_) (`diagram <https://docs.scipy.org/doc/numpy-1.13.0/_images/dtype-hierarchy.png>`_)
+- The Numpy data model (`docs <https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html>`_)
+
+.. image:: https://docs.scipy.org/doc/numpy/_images/dtype-hierarchy.png
+   :width: 426 px
+   :align: center
+   :alt: Numpy Data Model
 
 Pandas
 ------
-- The Pandas data model (`docs <https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes>`_) (`diagram <https://pbpython.com/images/pandas_dtypes.png>`_)
+- The Pandas data model (`docs <https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes>`_)
 
-Complete Typeset
-----------------
+
++---------------+----------------------------------+
+| Pandas Dtype  | Usage                            |
++===============+==================================+
+| object        | Text or mixed                    |
++---------------+----------------------------------+
+| int           | Integer                          |
++---------------+----------------------------------+
+| float         | Floating point number            |
++---------------+----------------------------------+
+| bool          | Boolean value                    |
++---------------+----------------------------------+
+| datetime[ns]  | Date and time value              |
++---------------+----------------------------------+
+| timedelta[ns] | Difference between two datetimes |
++---------------+----------------------------------+
+| category      | Categorical values               |
++---------------+----------------------------------+
+| Int           | Nullable integers                |
++---------------+----------------------------------+
+
+
+Visions (Complete)
+------------------
 .. figure:: ../../../../examples/plots/typesets/typeset_complete.svg
    :width: 700 px
    :align: center
