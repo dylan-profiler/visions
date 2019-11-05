@@ -8,6 +8,9 @@ We first provide a motivating example why we need a new model.
 Secondly, we show what the data models of Python, Numpy and Pandas look like under the hood.
 The third part of this page introduces the concepts needed to combine them.
 
+We are envisioning a one-to-one correspondence between each of the data models without loss.
+Types should be grouped together if they have the same analysis summary.
+
 Where the current models fail
 =============================
 

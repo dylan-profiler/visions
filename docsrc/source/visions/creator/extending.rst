@@ -5,7 +5,7 @@ Extending
 Custom Types
 ------------
 
-Each Visions type is a singleton object extending the basic `VisionsBaseType` requiring a unique implementation of two methods:
+Each Visions type is class extending the basic `VisionsBaseType` requiring a unique implementation of two methods:
 
 1. `get_relations`.
 2. `contains_op`. Checks whether a series is of the type visions_type, returns Bool.
