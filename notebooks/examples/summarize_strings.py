@@ -1,16 +1,17 @@
-from visions.core.implementations.typesets import visions_complete_set
-
 import pandas as pd
 
-from visions.core.summaries.summary import summary
+from visions.core.functional import type_inference
+from visions.core.implementations.typesets import visions_complete_set
+from visions.core.summaries.summary import CompleteSummary
 
+# Create a DataFrame with various string columns
 df = pd.DataFrame(
     {
         "latin": ["orange", "apple", "pear"],
         "cyrillic": ["Кириллица", "гласность", "демократија"],
         "mixed": ["Кириллица", "soep", "демократија"],
         "burmese": ["ရေကြီးခြင်း", "စက်သင်ယူမှု", "ဉာဏ်ရည်တု"],
-        "digits": ["01234", "121223", "123123"],
+        # "digits": ["01234", "121223", "123123"],
         "specials": ["$", "%^&*(", "!!!~``"],
         "whitespace": ["\t", "\n", " "],
         "jiddisch": ["רעכט צו לינקס", "שאָסיי 61", "פּיצאַ איז אָנגענעם"],
@@ -19,13 +20,14 @@ df = pd.DataFrame(
     }
 )
 
+# Initialize the typeset
+typeset = visions_complete_set()
 
-ts = visions_complete_set()
-ts.prep(df)
+# Infer the column type
+types = type_inference(df, typeset)
 
-x = summary.summarize(df, ts.column_type_map)
-for key, variable_summary in x["series"].items():
-    print(key, variable_summary)
-    # print(
-    #     f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}"
-    # )
+# Generate a summary
+summarizer = CompleteSummary()
+summary = summarizer.summarize(df, types)
+for key, variable_summary in summary["series"].items():
+    print(f"Scripts in column {key}: {set(variable_summary['script_values'].values())}")

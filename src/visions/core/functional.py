@@ -54,8 +54,18 @@ def type_inference(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
     Returns:
         A dictionary with a mapping from column name to type
     """
+
+    def unpack(vals):
+        path, series = vals
+        return path[-1]
+
     inferred_types = {
-        column: infer_type_path(df[column], typeset.relation_graph)[0]
+        column: unpack(infer_type_path(df[column], typeset.relation_graph))
         for column in df.columns
     }
     return inferred_types
+
+
+def type_detect(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
+    # TODO: implement
+    return {}

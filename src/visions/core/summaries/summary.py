@@ -68,6 +68,7 @@ class Summary(object):
 
         done = []
         for base_type, summary_ops in self.summary_ops.items():
+            print(base_type, summary_type)
             if base_type not in done and nx.has_path(G, base_type, summary_type):
                 for op in summary_ops:
                     summary.update(op(series))

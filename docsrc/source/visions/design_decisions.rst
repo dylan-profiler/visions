@@ -1,6 +1,10 @@
 Design decisions
 ================
 
+Nullable types
+--------------
+All types are nullable by default, meaning that
+
 Memory usage
 ------------
 Operations are designed to be idempotent (i.e. do not have side-effects).

@@ -1,6 +1,7 @@
 Types
 *****
 
+A type is defined by allo
 Let's take the example of a timestamp:
 
 .. code-block:: python
