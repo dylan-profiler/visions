@@ -170,8 +170,8 @@
 <h2>Custom Types<a class="headerlink" href="#custom-types" title="Permalink to this headline">¶</a></h2>
 <p>Each Visions type is a singleton object extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
+<li><p><cite>get_relations</cite>.</p></li>
 <li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
-<li><p><cite>cast_op</cite>. This is going away, needs to be folded into model_relations [TODO]</p></li>
 </ol>
 <p>All visions_types can be made into <cite>Option[visions_type]</cite> by inheriting from <cite>optionMixin</cite> in <cite>visions.core.Mixins</cite>.</p>
 <div class="literal-block-wrapper docutils container" id="custom-type">
@@ -179,11 +179,23 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.models</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 
 <span class="k">class</span> <span class="nc">visions_timestamp</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="n">visions_generic</span>
 
-    <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">visions_generic</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+            <span class="n">visions_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
+                <span class="n">relationship</span><span class="o">=</span><span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="n">to_datetime</span><span class="p">),</span>
+                <span class="n">transformer</span><span class="o">=</span><span class="n">to_datetime</span><span class="p">,</span>
+                <span class="n">inferential</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">relations</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -195,16 +207,25 @@ The example below creates a custom typeset that only supports time-related types
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">visions_custom_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
+
+<span class="sd">    Includes support for the following types:</span>
+
+<span class="sd">    - visions_datetime</span>
+<span class="sd">    - visions_timedelta</span>
+<span class="sd">    - visions_date</span>
+<span class="sd">    - visions_time</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">visions_datetime</span><span class="p">,</span>
             <span class="n">visions_timedelta</span><span class="p">,</span>
             <span class="n">visions_date</span><span class="p">,</span>
             <span class="n">visions_time</span><span class="p">,</span>
-            <span class="n">visions_empty</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">containers</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

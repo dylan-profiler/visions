@@ -69,8 +69,8 @@ Pandas
 +---------------+----------------------------------+
 
 
-Complete Typeset
-----------------
+Visions (Complete)
+------------------
 .. figure:: ../../../../examples/plots/typesets/typeset_complete.svg
    :width: 700 px
    :align: center
