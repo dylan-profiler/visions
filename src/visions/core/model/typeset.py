@@ -141,7 +141,7 @@ def infer_type_path(
             from_type = to_type
         except Exception:
             break
-    return path[0: (path.index(to_type) + 1)], new_series
+    return path[0 : (path.index(to_type) + 1)], new_series
 
 
 def cast_series_to_inferred_type(

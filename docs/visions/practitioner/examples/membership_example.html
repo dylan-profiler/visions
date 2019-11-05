@@ -97,6 +97,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design_decisions.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
 </ul>
 
@@ -174,7 +176,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.types.visions_bool</span> <span class="kn">import</span> <span class="n">visions_bool</span>
+<span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="n">visions_bool</span>
 
 <span class="n">s1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bool_series&quot;</span><span class="p">)</span>
 <span class="n">s2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bool_nan_series&quot;</span><span class="p">)</span>
@@ -229,7 +231,7 @@ False missing | type[visions_bool]
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019
 
     </p>
   </div>

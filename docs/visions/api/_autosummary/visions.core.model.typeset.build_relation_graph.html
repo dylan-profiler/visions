@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.core.model.types.visions_generic" href="visions.core.model.types.visions_generic.html" />
-    <link rel="prev" title="visions.core.model.typeset.VisionTypeset" href="visions.core.model.typeset.VisionTypeset.html" /> 
+    <link rel="next" title="Typesets" href="../api_typesets.html" />
+    <link rel="prev" title="visions.core.model.model_relation" href="visions.core.model.model_relation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,11 +87,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design_decisions.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.model_relation.html">visions.core.model.model_relation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.model.typeset.VisionTypeset.html">visions.core.model.typeset.VisionTypeset</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.model.typeset.build_relation_graph</a></li>
 </ul>
 </li>
@@ -177,22 +178,20 @@
 <dl class="function">
 <dt id="visions.core.model.typeset.build_relation_graph">
 <code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">build_relation_graph</code><span class="sig-paren">(</span><em class="sig-param">nodes</em>, <em class="sig-param">relations</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#build_relation_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.build_relation_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a traversable relation graph between vision types
+<dd><p>Constructs a traversable relation graph between visions types
 Builds a type relation graph from a collection of root and derivative nodes. Usually
 root nodes correspond to the baseline numpy types found in pandas while derivative
-nodes correspond to subtypes with a defined relation.</p>
+nodes correspond to subtypes with a defined relation.
+:type nodes: <code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>
+:param nodes: A list of vision_types considered at the root of the relations graph.
+:type relations: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>
+:param relations: A list of relations from type to types</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>nodes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – A list of vision_types considered at the root of the relations graph.</p></li>
-<li><p><strong>relations</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – A list of relations from type to types</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[networkx.DiGraph, networkx.DiGraph]</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[networkx.DiGraph, networkx.DiGraph]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A directed graph of type relations for the provided nodes.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A directed graph of type relations for the provided nodes.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,10 +206,10 @@ nodes correspond to subtypes with a defined relation.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.core.model.types.visions_generic.html" class="btn btn-neutral float-right" title="visions.core.model.types.visions_generic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../api_typesets.html" class="btn btn-neutral float-right" title="Typesets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.core.model.typeset.VisionTypeset.html" class="btn btn-neutral float-left" title="visions.core.model.typeset.VisionTypeset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.core.model.model_relation.html" class="btn btn-neutral float-left" title="visions.core.model.model_relation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -219,7 +218,7 @@ nodes correspond to subtypes with a defined relation.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019
 
     </p>
   </div>

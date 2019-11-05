@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; visions 0.1.0 documentation</title>
+  <title>Design decisions &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Practitioner" href="practitioner.html" />
-    <link rel="prev" title="Visions" href="introduction.html" /> 
+    <link rel="next" title="About" href="about.html" />
+    <link rel="prev" title="Extending" href="creator/extending.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,16 +83,14 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Visions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#source">Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creator.html">Creator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design_decisions.html">Design decisions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design decisions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#memory-usage">Memory usage</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
@@ -140,13 +138,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Installation</li>
+      <li>Design decisions</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/visions/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/visions/design_decisions.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,28 +157,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>You can install <cite>visions</cite> from source and from pip</p>
-<div class="section" id="pip">
-<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
-<p>Installing with pip:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="source">
-<h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
-<p>To install <cite>visions</cite> from source, clone the repository from <a class="reference external" href="https://github.com/dylan-profiling/visions">github</a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/dylan-profiling/visions.git</span>
-<span class="go">cd package</span>
-<span class="go">python setup.py install .</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>The requirements are listed in <cite>setup.py</cite>.</p>
+  <div class="section" id="design-decisions">
+<h1>Design decisions<a class="headerlink" href="#design-decisions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="memory-usage">
+<h2>Memory usage<a class="headerlink" href="#memory-usage" title="Permalink to this headline">¶</a></h2>
+<p>Operations are designed to be idempotent (i.e. do not have side-effects).
+This may impact the performance of your program when you use large DataFrames, as a copy is made.</p>
 </div>
 </div>
 
@@ -192,10 +174,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="practitioner.html" class="btn btn-neutral float-right" title="Practitioner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="introduction.html" class="btn btn-neutral float-left" title="Visions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="creator/extending.html" class="btn btn-neutral float-left" title="Extending" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

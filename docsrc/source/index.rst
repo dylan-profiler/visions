@@ -16,6 +16,7 @@ Welcome.
    visions/thinker
    visions/creator
    visions/design_decisions
+   visions/about
    visions/api
 
 

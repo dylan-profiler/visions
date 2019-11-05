@@ -85,6 +85,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/design_decisions.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
 </ul>
 
@@ -175,7 +177,7 @@
 <span class="sd">    floats but in reality they are all integers.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from visions.core.model.types import visions_integer, visions_float</span>
+<span class="sd">        &gt;&gt;&gt; from visions.core.implementations.types import visions_integer, visions_float</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.0, 3.0])</span>
 <span class="sd">        &gt;&gt;&gt; relation = model_relation(visions_integer, visions_float)</span>
 <span class="sd">        &gt;&gt;&gt; relation.is_relation(x)</span>
@@ -193,13 +195,6 @@
         <span class="n">relationship</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            model: The type this relation will transform a series into.</span>
-<span class="sd">            friend_model: The type this relation will transform a series from.</span>
-<span class="sd">            relationship: A method to determine if a series of friend_model type can be converted to type model.</span>
-<span class="sd">            transformer: A method to convert a series from type friend_model to type model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">friend_model</span> <span class="o">=</span> <span class="n">friend_model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inferential</span> <span class="o">=</span> <span class="n">inferential</span>
@@ -242,7 +237,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019
 
     </p>
   </div>

@@ -14,20 +14,29 @@ Visions
 
     -- An Avantgardistic Data Scientist
 
-Why
----
+
+Purpose of this package
+-----------------------
+The data models in Python, Numpy and Pandas have different ways of representing the same data, and this is problematic for data analysis.
 Visions unifies the data model of Python, Numpy and Pandas, with a focus on data analysis.
+For example, this package provides support for nullable booleans.
 
+Having an unified data model, does not mean that real-world data is in that format.
+The type system in this package provides a mechanism to clean this data.
+For example, booleans may be stored as "Yes"/"No".
+Converting these values makes the data easier to analyse and more compact in memory.
 
-What
-------------
-Visions provides an extensible suite of tools to support common data analysis operations primarily
+The data models are not complete enough for analysis.
+Visions offers extendable support for additional types as Urls, Paths and Images.
 
+What can it do?
+---------------
+Visions provides an extensible functionality to support common data analysis operations primarily
+
+* typing common data types
 * type inference on unknown data
+* type conversion on real-world data
 * automated data summarization
-
-* improved memory handling (up to 25% RAM reduction)
-
 
 How to navigate
 ---------------

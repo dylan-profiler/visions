@@ -83,8 +83,8 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Visions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#why">Why</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what">What</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#purpose-of-this-package">Purpose of this package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-can-it-do">What can it do?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-navigate">How to navigate</a></li>
 </ul>
 </li>
@@ -92,6 +92,8 @@
 <li class="toctree-l1"><a class="reference internal" href="practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_decisions.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
@@ -164,17 +166,26 @@
 <div><p>And these visions of data types, they kept us up past the dawn.</p>
 <p class="attribution">—An Avantgardistic Data Scientist</p>
 </div></blockquote>
-<div class="section" id="why">
-<h2>Why<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
-<p>Visions unifies the data model of Python, Numpy and Pandas, with a focus on data analysis.</p>
+<div class="section" id="purpose-of-this-package">
+<h2>Purpose of this package<a class="headerlink" href="#purpose-of-this-package" title="Permalink to this headline">¶</a></h2>
+<p>The data models in Python, Numpy and Pandas have different ways of representing the same data, and this is problematic for data analysis.
+Visions unifies the data model of Python, Numpy and Pandas, with a focus on data analysis.
+For example, this package provides support for nullable booleans.</p>
+<p>Having an unified data model, does not mean that real-world data is in that format.
+The type system in this package provides a mechanism to clean this data.
+For example, booleans may be stored as “Yes”/”No”.
+Converting these values makes the data easier to analyse and more compact in memory.</p>
+<p>The data models are not complete enough for analysis.
+Visions offers extendable support for additional types as Urls, Paths and Images.</p>
 </div>
-<div class="section" id="what">
-<h2>What<a class="headerlink" href="#what" title="Permalink to this headline">¶</a></h2>
-<p>Visions provides an extensible suite of tools to support common data analysis operations primarily</p>
+<div class="section" id="what-can-it-do">
+<h2>What can it do?<a class="headerlink" href="#what-can-it-do" title="Permalink to this headline">¶</a></h2>
+<p>Visions provides an extensible functionality to support common data analysis operations primarily</p>
 <ul class="simple">
+<li><p>typing common data types</p></li>
 <li><p>type inference on unknown data</p></li>
+<li><p>type conversion on real-world data</p></li>
 <li><p>automated data summarization</p></li>
-<li><p>improved memory handling (up to 25% RAM reduction)</p></li>
 </ul>
 </div>
 <div class="section" id="how-to-navigate">
@@ -208,7 +219,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019
 
     </p>
   </div>

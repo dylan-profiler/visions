@@ -85,6 +85,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/design_decisions.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
 </ul>
 
@@ -150,30 +152,25 @@
             
   <h1>Source code for visions.core.model.typeset</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
 <span class="kn">from</span> <span class="nn">visions.core.model.model_relation</span> <span class="k">import</span> <span class="n">model_relation</span>
-<span class="kn">from</span> <span class="nn">visions.core.model.models</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.utils.graph</span> <span class="k">import</span> <span class="n">output_graph</span>
-<span class="kn">from</span> <span class="nn">visions.core.model.types</span> <span class="k">import</span> <span class="n">visions_generic</span>
-
-
-<span class="n">VisionsType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;VisionsType&#39;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.visions_generic</span> <span class="k">import</span> <span class="n">visions_generic</span>
 
 
 <div class="viewcode-block" id="build_relation_graph"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.build_relation_graph.html#visions.core.model.typeset.build_relation_graph">[docs]</a><span class="k">def</span> <span class="nf">build_relation_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">relations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Constructs a traversable relation graph between vision types</span>
+    <span class="sd">&quot;&quot;&quot;Constructs a traversable relation graph between visions types</span>
 <span class="sd">    Builds a type relation graph from a collection of root and derivative nodes. Usually</span>
 <span class="sd">    root nodes correspond to the baseline numpy types found in pandas while derivative</span>
 <span class="sd">    nodes correspond to subtypes with a defined relation.</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        nodes:  A list of vision_types considered at the root of the relations graph.</span>
 <span class="sd">        relations: A list of relations from type to types</span>
-
 <span class="sd">    Returns:</span>
 <span class="sd">        A directed graph of type relations for the provided nodes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -185,6 +182,11 @@
 
     <span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">relations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">friend_model</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">relation</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">friend_model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s2">&quot;Provided relations included mapping from </span><span class="si">{friend_model}</span><span class="s2"> to </span><span class="si">{model}</span><span class="s2"> but </span><span class="si">{friend_model}</span><span class="s2"> was not included in the provided list of nodes&quot;</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
             <span class="n">relation_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
                 <span class="n">friend_model</span><span class="p">,</span>
                 <span class="n">model</span><span class="p">,</span>
@@ -201,20 +203,13 @@
 
 <span class="k">def</span> <span class="nf">check_graph_constraints</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Validates a relation_graph is appropriately constructed</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        relation_graph: A directed graph representing the set of relations between type nodes.</span>
-<span class="sd">        nodes:  A list of vision_types considered at the root of the relations graph.</span>
+<span class="sd">        nodes:  A list of visions_types</span>
 <span class="sd">        relations: A list of relations from type to types</span>
-
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">undefined_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span> <span class="o">-</span> <span class="n">nodes</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">undefined_nodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;undefined node </span><span class="si">{undefined_nodes}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">relation_graph</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="n">undefined_nodes</span><span class="p">)</span>
-
     <span class="n">relation_graph</span><span class="o">.</span><span class="n">remove_nodes_from</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">isolates</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">)))</span>
 
     <span class="n">orphaned_nodes</span> <span class="o">=</span> <span class="n">nodes</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
@@ -230,17 +225,15 @@
 
 
 <span class="k">def</span> <span class="nf">traverse_relation_graph</span><span class="p">(</span>
-    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]</span> <span class="o">=</span> <span class="n">visions_generic</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]:</span>
+    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span> <span class="o">=</span> <span class="n">visions_generic</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Depth First Search traversal. There should be at most one successor that contains the series.</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        series: the Series to check</span>
 <span class="sd">        G: the Graph to traverse</span>
 <span class="sd">        node: the current node</span>
-
 <span class="sd">    Returns:</span>
-<span class="sd">        The most uniquely defined node in a relation graph matching the series.</span>
+<span class="sd">        The most uniquely specified node matching the series.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">vision_type</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">vision_type</span><span class="p">:</span>
@@ -251,23 +244,20 @@
 
 <span class="c1"># Infer type with conversion</span>
 <span class="k">def</span> <span class="nf">get_type_inference_path</span><span class="p">(</span>
-    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Returns the graph traversal path leading from `base_type` to an inferred type.</span>
-
+    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
 <span class="sd">        base_type:</span>
 <span class="sd">        series:</span>
 <span class="sd">        G:</span>
 <span class="sd">        path:</span>
-
 <span class="sd">    Returns:</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_type</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_type</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_type</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">vision_type</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">base_type</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">G</span><span class="p">[</span><span class="n">base_type</span><span class="p">][</span><span class="n">vision_type</span><span class="p">][</span><span class="s2">&quot;relationship&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_relation</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
@@ -276,35 +266,26 @@
     <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">series</span>
 
 
-<span class="k">def</span> <span class="nf">infer_type</span><span class="p">(</span>
-    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">],</span>
+<span class="k">def</span> <span class="nf">cast_along_path</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
+    <span class="n">from_type</span> <span class="o">=</span> <span class="n">to_type</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">to_type</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">new_series</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">from_type</span><span class="p">][</span><span class="n">to_type</span><span class="p">][</span><span class="s2">&quot;relationship&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_series</span>
+
+
+<span class="k">def</span> <span class="nf">infer_type_path</span><span class="p">(</span>
     <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
     <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span>
+    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span> <span class="o">=</span> <span class="n">visions_generic</span><span class="p">,</span>
     <span class="n">sample_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="n">partial_search</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Performs type inference on a series by traversing through a provided relation graph</span>
-<span class="sd">    starting at any given node in the graph.</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
 
-<span class="sd">    For appropriately constructed relation graphs</span>
-<span class="sd">    Args:</span>
-<span class="sd">        base_type: A node in the relation graph to begin searching over.</span>
-<span class="sd">        series: The series to perform search over.</span>
-<span class="sd">        G: A relation graph</span>
-<span class="sd">        sample_size: The series sample size to be used for partial search. Ignored if partial_search is False.</span>
-<span class="sd">        partial_search: Flag indicating whether the partial search algorithm should be used.</span>
+    <span class="k">if</span> <span class="n">sample_size</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">new_series</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">new_series</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        An inferred visions type in the relation graph</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">partial_search</span> <span class="ow">or</span> <span class="n">sample_size</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-        <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_size</span><span class="p">),</span> <span class="n">G</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">base_type</span>
+    <span class="n">subseries</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
+    <span class="n">path</span><span class="p">,</span> <span class="n">new_series</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">subseries</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
 
     <span class="n">from_type</span> <span class="o">=</span> <span class="n">to_type</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">to_type</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
@@ -313,46 +294,45 @@
             <span class="n">from_type</span> <span class="o">=</span> <span class="n">to_type</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">break</span>
-    <span class="k">return</span> <span class="n">to_type</span>
+    <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">to_type</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">new_series</span>
 
 
 <span class="k">def</span> <span class="nf">cast_series_to_inferred_type</span><span class="p">(</span>
-    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span>
+    <span class="n">base_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        base_type:</span>
 <span class="sd">        series:</span>
 <span class="sd">        G:</span>
-
 <span class="sd">    Returns:</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">series</span> <span class="o">=</span> <span class="n">get_type_inference_path</span><span class="p">(</span><span class="n">base_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">series</span>
 
 
-<div class="viewcode-block" id="VisionTypeset"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.VisionTypeset.html#visions.core.model.typeset.VisionTypeset">[docs]</a><span class="k">class</span> <span class="nc">VisionTypeset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">VisionsTypeset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of vision_types with an associated relationship map between them.</span>
-
 <span class="sd">    Attributes:</span>
-<span class="sd">        types: The collection of vision types which are derived either from a :class:`visions.core.models.VisionsBaseType`.</span>
-<span class="sd">        relation_graph: A directed acyclic graph constructed from relations defined across `types` in the typeset</span>
+<span class="sd">        types: The collection of vision types which are derived either from a base_type or themselves</span>
+<span class="sd">        relation_graph: ...</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="VisionTypeset.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.VisionTypeset.html#visions.core.model.typeset.VisionTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]):</span>
+    <span class="c1"># TODO: Can we indicate covariance of types such that it&#39;s an Iterable[VisionsBaseType]</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">build</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            types: An Iterable of :class:`visions.core.models.VisionsBaseType`</span>
+<span class="sd">            types:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># self.column_type_map = {}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">relations</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">relations</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_types</span> <span class="o">=</span> <span class="n">types</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_build_graph</span><span class="p">()</span></div>
+        <span class="k">if</span> <span class="n">build</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_graph</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_build_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span> <span class="o">=</span> <span class="n">build_relation_graph</span><span class="p">(</span>
@@ -360,60 +340,32 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Returns the visions type of a series from the available types in the typeset</span>
+    <span class="k">def</span> <span class="nf">get_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]:</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            series: A pandas series.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A visions type from the typeset</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">base_type</span> <span class="o">=</span> <span class="n">traverse_relation_graph</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">base_type</span>
 
-    <span class="k">def</span> <span class="nf">infer_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsType</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Infers the visions type of a series from the available types in the typeset</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            series: A pandas series.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A visions type from the typeset</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">col_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="n">inferred_base_type</span> <span class="o">=</span> <span class="n">infer_type</span><span class="p">(</span><span class="n">col_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">inferred_base_type</span>
+    <span class="k">def</span> <span class="nf">infer_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]:</span>
+        <span class="n">inferred_base_type</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">infer_type_path</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">inferred_base_type</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">cast_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Casts a source series to a new series of the type inferred over the typeset.</span>
-
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            series: A pandas series.</span>
-
+<span class="sd">            series:</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            A transformed pandas series.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">series_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast_series_to_inferred_type</span><span class="p">(</span><span class="n">series_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cast_to_inferred_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Casts each series in a dataframe to it&#39;s inferred type in the typeset.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            df: A DataFrame.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A transformed dataframe.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">})</span>
 
     <span class="k">def</span> <span class="nf">output_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Generates a pydot image of the relation graph as either svg, png or dot to the provided file.</span>
-
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            file_name: The filename to write to.</span>
-
+<span class="sd">            file_name:</span>
+<span class="sd">        Returns:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
@@ -421,25 +373,26 @@
         <span class="n">output_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Plots a pydot image of the relation graph with user specified dpi.</span>
-
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            dpi: dpi to display the resulting graph.</span>
-
+<span class="sd">            dpi:</span>
+<span class="sd">        Returns:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
         <span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
         <span class="kn">import</span> <span class="nn">tempfile</span>
 
+        <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
         <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_graph</span><span class="p">(</span><span class="n">temp_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_graph</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="c1"># TODO: adding iterables of types?</span>
-        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">VisionTypeset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">VisionsTypeset</span><span class="p">):</span>
             <span class="n">other_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">types</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">VisionsBaseType</span><span class="p">):</span>
             <span class="n">other_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">other</span><span class="p">}</span>
@@ -447,10 +400,10 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                 <span class="n">f</span><span class="s2">&quot;Typeset addition not implemented for type {type(other)}&quot;</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">|</span> <span class="n">other_types</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">VisionsTypeset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">|</span> <span class="n">other_types</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">VisionTypeset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">VisionsTypeset</span><span class="p">):</span>
             <span class="n">other_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">types</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">VisionsBaseType</span><span class="p">):</span>
             <span class="n">other_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">other</span><span class="p">}</span>
@@ -459,10 +412,10 @@
                 <span class="n">f</span><span class="s2">&quot;Typeset subtraction not implemented for type {type(other)}&quot;</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">-</span> <span class="n">other_types</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">VisionsTypeset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">-</span> <span class="n">other_types</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 </pre></div>
 
            </div>
@@ -475,7 +428,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019
 
     </p>
   </div>
