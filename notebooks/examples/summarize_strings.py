@@ -30,4 +30,6 @@ types = type_inference(df, typeset)
 summarizer = CompleteSummary()
 summary = summarizer.summarize(df, types)
 for key, variable_summary in summary["series"].items():
-    print(f"Scripts in column {key}: {set(variable_summary['script_values'].values())}")
+    print(
+        f"Scripts in '{key}' column: {set(variable_summary['script_values'].values())}"
+    )

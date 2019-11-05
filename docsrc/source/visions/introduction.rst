@@ -43,6 +43,6 @@ How to navigate
 
 This documentation is setup with the following audiences in mind (you can decide which one you are at any moment):
 
-- The practitioner: Providing essential information to get started quickly
-- The thinker: Providing a deeper understanding of concepts behind `visions`
-- The creator: Providing ways to extend for your use case or contribute to the community
+- **The Practitioner:** Providing essential information to get started quickly
+- **The Thinker:** Providing a deeper understanding of concepts behind `visions`
+- **The Creator:** Providing ways to extend for your use case or contribute to the community

@@ -37,6 +37,15 @@ Pandas
 ------
 - The Pandas data model (`docs <https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes>`_) (`diagram <https://pbpython.com/images/pandas_dtypes.png>`_)
 
+Complete Typeset
+----------------
+.. figure:: ../../../../examples/plots/typesets/typeset_complete.svg
+   :width: 700 px
+   :align: center
+   :alt: CompleteTypeset Graph
+
+   CompleteTypeset Graph
+
 
 Unifying, what do we need?
 ==========================

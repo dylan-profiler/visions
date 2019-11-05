@@ -12,7 +12,7 @@ print(pd.Series([True, False]) in visions_bool)  # True
 print(pd.Series([True, False]) in visions_generic)  # True
 print(pd.Series([True, False]) in visions_integer)  # False
 print(pd.Series([True, False, np.nan]) in visions_bool)  # False
-print(pd.Series([True, False, np.nan]) in visions_object)  # False
+print(pd.Series([True, False, np.nan]) in visions_object)  # True
 print(pd.Series([True, False, np.nan]) in visions_bool)  # True
 print(pd.Series([True, False, np.nan]) in visions_bool)  # True
 
