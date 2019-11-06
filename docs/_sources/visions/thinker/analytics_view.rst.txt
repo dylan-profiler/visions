@@ -1,5 +1,7 @@
-Summaries Graph
-===============
+Analytics view
+==============
+
+We can
 
 For specific types
 

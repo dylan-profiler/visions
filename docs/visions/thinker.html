@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Unifying the Python, Numpy and Pandas data model" href="thinker/data_model.html" />
+    <link rel="next" title="Data type view" href="thinker/data_type_view.html" />
     <link rel="prev" title="Summaries example" href="practitioner/examples/summaries_example.html" /> 
 </head>
 
@@ -83,12 +83,14 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Thinker</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html">Unifying the Python, Numpy and Pandas data model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/summaries_graph.html">Summaries Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/data_type_view.html">Data type view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thinker/subset_view.html">The subset view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/graph_view.html">Graph View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/analytics_view.html">Analytics view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="creator.html">Creator</a></li>
@@ -161,22 +163,32 @@
             
   <div class="section" id="thinker">
 <h1>Thinker<a class="headerlink" href="#thinker" title="Permalink to this headline">¶</a></h1>
+<p>Types and typesets are poly interpretable.
+We provide four ways of viewing these concepts.</p>
+<p>The <strong>data type view</strong> focuses on logical and physical data types.</p>
+<p>The <strong>subset view</strong> zooms in on viewing types as a subset of all possible values.</p>
+<p>The <strong>graph view</strong> gives overview in the relation between types in a typeset.</p>
+<p>The <strong>analytics view</strong> directs our attention to subsequent analytical tasks given a typeset.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="thinker/data_model.html">Unifying the Python, Numpy and Pandas data model</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#comparing-to-pandas">Comparing to pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#problem-with-missing-values">Problem with missing values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#problem-with-strings">Problem with strings</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="thinker/summaries_graph.html">Summaries Graph</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="thinker/summaries_graph.html#type-summary-graphs">Type summary graphs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/summaries_graph.html#typeset-summary-graphs">Typeset summary graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thinker/data_type_view.html">Data type view</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thinker/data_type_view.html#comparing-to-pandas">Comparing to pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/data_type_view.html#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/data_type_view.html#problem-with-missing-values">Problem with missing values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/data_type_view.html#problem-with-strings">Problem with strings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="thinker/subset_view.html">The subset view</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="thinker/subset_view.html#type-definition">Type: definition</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thinker/graph_view.html">Graph View</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thinker/graph_view.html#visions-complete">Visions (Complete)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thinker/analytics_view.html">Analytics view</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thinker/analytics_view.html#type-summary-graphs">Type summary graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/analytics_view.html#typeset-summary-graphs">Typeset summary graphs</a></li>
 </ul>
 </li>
 </ul>
@@ -191,7 +203,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="thinker/data_model.html" class="btn btn-neutral float-right" title="Unifying the Python, Numpy and Pandas data model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="thinker/data_type_view.html" class="btn btn-neutral float-right" title="Data type view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="practitioner/examples/summaries_example.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

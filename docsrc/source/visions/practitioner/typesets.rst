@@ -24,3 +24,20 @@ A complete list of default typesets can be found in the API documentation.
     df = pd.DataFrame({'a': range(3),
                        'b': [2 * i for i in range(3)],
                        'c': ['howdy', 'howdy', 'doody']})
+
+Detection
+=========
+
+TODO
+
+Inference
+=========
+
+TODO
+
+Cast
+====
+
+TODO
+
+.. seealso:: This returns a copy of your DataFrame object, please read the :doc:`design decisions <../design_decisions>` document for more information.

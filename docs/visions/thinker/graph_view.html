@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Summaries Graph &mdash; visions 0.1.0 documentation</title>
+  <title>Graph View &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="The subset view" href="subset_view.html" />
-    <link rel="prev" title="Unifying the Python, Numpy and Pandas data model" href="data_model.html" /> 
+    <link rel="next" title="Analytics view" href="analytics_view.html" />
+    <link rel="prev" title="The subset view" href="subset_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,23 +83,17 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="data_model.html">Unifying the Python, Numpy and Pandas data model</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Summaries Graph</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#type-summary-graphs">Type summary graphs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#integer">Integer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#existing-path">Existing Path</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#typeset-summary-graphs">Typeset summary graphs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subset_view.html">The subset view</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Graph View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#visions-complete">Visions (Complete)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="analytics_view.html">Analytics view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
@@ -153,13 +147,13 @@
         
           <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>Summaries Graph</li>
+      <li>Graph View</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/thinker/summaries_graph.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/thinker/graph_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,34 +166,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="summaries-graph">
-<h1>Summaries Graph<a class="headerlink" href="#summaries-graph" title="Permalink to this headline">¶</a></h1>
-<p>For specific types</p>
-<div class="section" id="type-summary-graphs">
-<h2>Type summary graphs<a class="headerlink" href="#type-summary-graphs" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="integer">
-<h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
+  <div class="section" id="graph-view">
+<h1>Graph View<a class="headerlink" href="#graph-view" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>Type consist of</dt><dd><ul class="simple">
+<li><p>one node</p></li>
+<li><p>one inheritance edge</p></li>
+<li><p>zero or more conversion edges</p></li>
+</ul>
+</dd>
+<dt>A typeset:</dt><dd><p>Set of types
+Directed Acyclic Graph</p>
+</dd>
+</dl>
+<div class="section" id="visions-complete">
+<h2>Visions (Complete)<a class="headerlink" href="#visions-complete" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="150px" /></a>
-<p class="caption"><span class="caption-text">Integer Summary Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="existing-path">
-<h3>Existing Path<a class="headerlink" href="#existing-path" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="../../_images/summary_existing_path.svg"><img alt="Existing Path Summary Graph" src="../../_images/summary_existing_path.svg" width="300px" /></a>
-<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="typeset-summary-graphs">
-<h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="complete-typeset">
-<h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="../../_images/summary_complete.svg"><img alt="CompleteTypeset Summary Graph" src="../../_images/summary_complete.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="CompleteTypeset Graph" src="../../_images/typeset_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">CompleteTypeset Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -212,10 +196,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="subset_view.html" class="btn btn-neutral float-right" title="The subset view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="analytics_view.html" class="btn btn-neutral float-right" title="Analytics view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="data_model.html" class="btn btn-neutral float-left" title="Unifying the Python, Numpy and Pandas data model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="subset_view.html" class="btn btn-neutral float-left" title="The subset view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -15,14 +15,10 @@ Visions
     -- An Avantgardistic Data Scientist
 
 
-<!--
-Why do we need a type system?
-
-Python, Pandas and Numpy offer types that we can use to work with data.
-These data types
-
-Problem: there is no one-to-one map between types in Python, Numpy and Pandas.
--->
+.. Why do we need a type system?
+   Python, Pandas and Numpy offer types that we can use to work with data.
+   These data types
+   Problem: there is no one-to-one map between types in Python, Numpy and Pandas.
 
 Purpose of this package
 -----------------------
@@ -50,8 +46,24 @@ Visions provides an extensible functionality to support common data analysis ope
 How to navigate
 ---------------
 
-This documentation is setup with the following audiences in mind (you can decide which one you are at any moment):
+This documentation is divided with the following audiences in mind (you can decide which one you are at any moment):
 
-- **The Practitioner:** Providing essential information to get started quickly
-- **The Thinker:** Providing a deeper understanding of concepts behind `visions`
-- **The Creator:** Providing ways to extend for your use case or contribute to the community
+**The New kid on the block**
+    The minimal information you need to setup and start
+
+    :doc:`Read more <get_started/installation.rst>`
+
+**The Practitioner**
+    Providing essential information to use type and typeset features quickly
+
+    :doc:`Read more <practitioner/>`
+
+**The Thinker**
+    Providing a deeper understanding of concepts behind `visions`
+
+    :doc:`Read more <thinker/>`
+
+**The Creator**
+    Providing ways to extend for your use case or contribute to the community
+
+    :doc:`Read more <creator/>`

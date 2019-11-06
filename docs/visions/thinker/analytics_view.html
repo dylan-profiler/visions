@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Typesets &mdash; visions 0.1.0 documentation</title>
+  <title>Analytics view &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Examples" href="examples.html" />
-    <link rel="prev" title="Types" href="types.html" /> 
+    <link rel="next" title="Creator" href="../creator.html" />
+    <link rel="prev" title="Graph View" href="graph_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,19 +85,25 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../practitioner.html">Practitioner</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Typesets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#detection">Detection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#inference">Inference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cast">Cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subset_view.html">The subset view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Analytics view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#type-summary-graphs">Type summary graphs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integer">Integer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#existing-path">Existing Path</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#typeset-summary-graphs">Typeset summary graphs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
@@ -147,15 +153,15 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../practitioner.html">Practitioner</a> &raquo;</li>
+          <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>Typesets</li>
+      <li>Analytics view</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/practitioner/typesets.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/thinker/analytics_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -168,40 +174,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="typesets">
-<h1>Typesets<a class="headerlink" href="#typesets" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Types can also be organized into groups of types to perform analysis over a DataFrame or collection of series.
-These are called visions typesets.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_standard_set</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_typeset</span> <span class="o">=</span> <span class="n">visions_standard_set</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_typeset</span><span class="o">.</span><span class="n">types</span>
-<span class="go">{visions_datetime, visions_string, visions_generic, visions_timedelta, visions_integer, visions_complex, visions_bool, visions_object, visions_categorical, visions_float}</span>
-</pre></div>
-</div>
-<p>The standard typeset includes all of the baseline visions types.
-A complete list of default typesets can be found in the API documentation.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-                   <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span>
-                   <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;howdy&#39;</span><span class="p">,</span> <span class="s1">&#39;howdy&#39;</span><span class="p">,</span> <span class="s1">&#39;doody&#39;</span><span class="p">]})</span>
-</pre></div>
+  <div class="section" id="analytics-view">
+<h1>Analytics view<a class="headerlink" href="#analytics-view" title="Permalink to this headline">¶</a></h1>
+<p>We can</p>
+<p>For specific types</p>
+<div class="section" id="type-summary-graphs">
+<h2>Type summary graphs<a class="headerlink" href="#type-summary-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="integer">
+<h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="150px" /></a>
+<p class="caption"><span class="caption-text">Integer Summary Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="detection">
-<h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<div class="section" id="existing-path">
+<h3>Existing Path<a class="headerlink" href="#existing-path" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/summary_existing_path.svg"><img alt="Existing Path Summary Graph" src="../../_images/summary_existing_path.svg" width="300px" /></a>
+<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
-<div class="section" id="inference">
-<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
 </div>
-<div class="section" id="cast">
-<h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>This returns a copy of your DataFrame object, please read the <a class="reference internal" href="../design_decisions.html"><span class="doc">design decisions</span></a> document for more information.</p>
+</div>
+<div class="section" id="typeset-summary-graphs">
+<h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="complete-typeset">
+<h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/summary_complete.svg"><img alt="CompleteTypeset Summary Graph" src="../../_images/summary_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -214,10 +215,10 @@ A complete list of default typesets can be found in the API documentation.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../creator.html" class="btn btn-neutral float-right" title="Creator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="types.html" class="btn btn-neutral float-left" title="Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="graph_view.html" class="btn btn-neutral float-left" title="Graph View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -11,7 +11,8 @@ Welcome to `visions`, the type system for data analysis in Python.
    :hidden:
 
    visions/introduction
-   visions/installation
+   visions/getting_started/installation
+   visions/getting_started/concepts
    visions/practitioner
    visions/thinker
    visions/creator

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Unifying the Python, Numpy and Pandas data model &mdash; visions 0.1.0 documentation</title>
+  <title>Data type view &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Summaries Graph" href="summaries_graph.html" />
+    <link rel="next" title="The subset view" href="subset_view.html" />
     <link rel="prev" title="Thinker" href="../thinker.html" /> 
 </head>
 
@@ -83,10 +83,11 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Unifying the Python, Numpy and Pandas data model</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Data type view</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#comparing-to-pandas">Comparing to pandas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#problem-with-missing-values">Problem with missing values</a></li>
@@ -99,8 +100,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="summaries_graph.html">Summaries Graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subset_view.html">The subset view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analytics_view.html">Analytics view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
@@ -154,13 +156,13 @@
         
           <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>Unifying the Python, Numpy and Pandas data model</li>
+      <li>Data type view</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/thinker/data_model.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/thinker/data_type_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,8 +175,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="unifying-the-python-numpy-and-pandas-data-model">
-<h1>Unifying the Python, Numpy and Pandas data model<a class="headerlink" href="#unifying-the-python-numpy-and-pandas-data-model" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="data-type-view">
+<h1>Data type view<a class="headerlink" href="#data-type-view" title="Permalink to this headline">¶</a></h1>
 <p>The definitions that we need:</p>
 <ul class="simple">
 <li><p>Logical data types</p></li>
@@ -287,13 +289,6 @@ Types should be grouped together if they have the same analysis summary.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="visions-complete">
-<h4>Visions (Complete)<a class="headerlink" href="#visions-complete" title="Permalink to this headline">¶</a></h4>
-<div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="CompleteTypeset Graph" src="../../_images/typeset_complete.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">CompleteTypeset Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div>
 </div>
 <div class="section" id="unifying-what-do-we-need">
 <h3>Unifying, what do we need?<a class="headerlink" href="#unifying-what-do-we-need" title="Permalink to this headline">¶</a></h3>
@@ -314,7 +309,7 @@ Types should be grouped together if they have the same analysis summary.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="summaries_graph.html" class="btn btn-neutral float-right" title="Summaries Graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="subset_view.html" class="btn btn-neutral float-right" title="The subset view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../thinker.html" class="btn btn-neutral float-left" title="Thinker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

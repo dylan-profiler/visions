@@ -1,5 +1,5 @@
-Unifying the Python, Numpy and Pandas data model
-************************************************
+Data type view
+**************
 
 The definitions that we need:
 
@@ -119,14 +119,6 @@ Pandas
 +---------------+----------------------------------+
 
 
-Visions (Complete)
-------------------
-.. figure:: ../../../../examples/plots/typesets/typeset_complete.svg
-   :width: 700 px
-   :align: center
-   :alt: CompleteTypeset Graph
-
-   CompleteTypeset Graph
 
 
 Unifying, what do we need?
