@@ -47,6 +47,22 @@ We can do a couple of things with this, first we can check if `test_series` is a
     False
 
 
+Cast
+====
+
+.. code-block:: python
+
+    # Functional
+    >>> from visions.core.functional import cast_type
+    >>> cast_type(test_series)
+    test_series
+
+    # Object Oriented
+    >>> from visions.core.implementations.typesets import visions_complete_set
+    >>> typeset = visions_complete_set()
+    >>> typeset.cast_series(test_series)
+    test_series
+
 Summarize
 =========
 We can also get a summary unique to the visions_type of the data

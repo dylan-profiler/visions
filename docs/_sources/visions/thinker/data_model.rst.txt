@@ -2,6 +2,7 @@ Unifying the Python, Numpy and Pandas data model
 ************************************************
 
 The definitions that we need:
+
 - Logical data types
 - Physical data types
 - Type detection

@@ -89,6 +89,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#detection">Detection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inference">Inference</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#membership">Membership</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cast">Cast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#summarize">Summarize</a></li>
 </ul>
 </li>
@@ -205,6 +206,21 @@
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="ow">in</span> <span class="n">visions_boolean</span>
 <span class="go">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cast">
+<h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">cast_type</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cast_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="n">test_series</span>
+
+<span class="c1"># Object Oriented</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="n">test_series</span>
 </pre></div>
 </div>
 </div>
