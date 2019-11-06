@@ -87,16 +87,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Unifying the Python, Numpy and Pandas data model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#where-the-current-models-fail">Where the current models fail</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-do-python-numpy-and-pandas-model-data">How do Python, Numpy and Pandas model data?</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#numpy">Numpy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pandas">Pandas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#visions-complete">Visions (Complete)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-to-pandas">Comparing to pandas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-with-missing-values">Problem with missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-with-strings">Problem with strings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#where-the-current-models-fail">Where the current models fail</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-python-numpy-and-pandas-model-data">How do Python, Numpy and Pandas model data?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unifying-what-do-we-need">Unifying, what do we need?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#unifying-what-do-we-need">Unifying, what do we need?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="summaries_graph.html">Summaries Graph</a></li>
@@ -175,6 +175,43 @@
             
   <div class="section" id="unifying-the-python-numpy-and-pandas-data-model">
 <h1>Unifying the Python, Numpy and Pandas data model<a class="headerlink" href="#unifying-the-python-numpy-and-pandas-data-model" title="Permalink to this headline">¶</a></h1>
+<p>The definitions that we need:
+- Logical data types
+- Physical data types
+- Type detection
+- Type inference
+- Casting, coercion, conversion</p>
+<div class="section" id="comparing-to-pandas">
+<h2>Comparing to pandas<a class="headerlink" href="#comparing-to-pandas" title="Permalink to this headline">¶</a></h2>
+<p>There are multiple problems when working with pandas for data analysis:</p>
+<ul class="simple">
+<li><p>Missing values are handled inconsistently (int, bool, object)</p></li>
+<li><p>Strings are stored as objects</p></li>
+</ul>
+</div>
+<div class="section" id="decoupling-physical-and-logical-types">
+<h2>Decoupling physical and logical types<a class="headerlink" href="#decoupling-physical-and-logical-types" title="Permalink to this headline">¶</a></h2>
+<p>This package decouples physical and logical data types.
+Physical data types describe the manner in which data is stored in memory.
+Logical data types describe data on a more abstract level.
+This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
+A simple example is a set of URLs.
+These are stored as strings, while not every string is an URL.
+There are also operations that are only sensible on URLs and not on strings, such as extracting the url parts domain or protocol.</p>
+</div>
+<div class="section" id="problem-with-missing-values">
+<h2>Problem with missing values<a class="headerlink" href="#problem-with-missing-values" title="Permalink to this headline">¶</a></h2>
+<p>Pandas’ current data model is inconsistent with respect to missing values (i.e. <cite>NaN</cite> or <cite>None</cite>).
+Adding missing values to integers and boolean results in upcasting the float and object respectively.
+Implementing nullable integer and boolean logical types allow for more efficient storage.
+This can be achieved through an internal bitmap (i.e. for each value keep track if it is missing yes or no).
+<a class="reference external" href="https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution">https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution</a></p>
+</div>
+<div class="section" id="problem-with-strings">
+<h2>Problem with strings<a class="headerlink" href="#problem-with-strings" title="Permalink to this headline">¶</a></h2>
+<p>Pandas does not have a logical type “string”.
+Strings are stored as objects, which gives non-trivial overhead
+<a class="reference external" href="https://dev.pandas.io/pandas2/strings.html">https://dev.pandas.io/pandas2/strings.html</a></p>
 <p>The data models in Python, Numpy and Pandas are inconsistent and incomplete for logical storage of data types for analysis.
 Here, we try to understand the aspects relation to what are shortcomings of the current implementation and we want of the unified data model.</p>
 <p>We first provide a motivating example why we need a new model.
@@ -183,27 +220,27 @@ The third part of this page introduces the concepts needed to combine them.</p>
 <p>We are envisioning a one-to-one correspondence between each of the data models without loss.
 Types should be grouped together if they have the same analysis summary.</p>
 <div class="section" id="where-the-current-models-fail">
-<h2>Where the current models fail<a class="headerlink" href="#where-the-current-models-fail" title="Permalink to this headline">¶</a></h2>
+<h3>Where the current models fail<a class="headerlink" href="#where-the-current-models-fail" title="Permalink to this headline">¶</a></h3>
 <p>Motivating example: Nullable Boolean</p>
 <p>Motivating example: Nullable Integer / Float</p>
 <p>Motivating example: Objects</p>
 </div>
 <div class="section" id="how-do-python-numpy-and-pandas-model-data">
-<h2>How do Python, Numpy and Pandas model data?<a class="headerlink" href="#how-do-python-numpy-and-pandas-model-data" title="Permalink to this headline">¶</a></h2>
+<h3>How do Python, Numpy and Pandas model data?<a class="headerlink" href="#how-do-python-numpy-and-pandas-model-data" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="python">
-<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
 <p>The Python data model (<a class="reference external" href="https://docs.python.org/3/reference/datamodel.html">docs</a>)</p>
 <a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/1/10/Python_3._The_standard_type_hierarchy.png"><img alt="Python Data Model" class="align-center" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Python_3._The_standard_type_hierarchy.png" style="width: 424px;" /></a>
 </div>
 <div class="section" id="numpy">
-<h3>Numpy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h3>
+<h4>Numpy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>The Numpy data model (<a class="reference external" href="https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html">docs</a>)</p></li>
 </ul>
 <a class="reference internal image-reference" href="https://docs.scipy.org/doc/numpy/_images/dtype-hierarchy.png"><img alt="Numpy Data Model" class="align-center" src="https://docs.scipy.org/doc/numpy/_images/dtype-hierarchy.png" style="width: 426px;" /></a>
 </div>
 <div class="section" id="pandas">
-<h3>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h3>
+<h4>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>The Pandas data model (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes">docs</a>)</p></li>
 </ul>
@@ -227,26 +264,29 @@ Types should be grouped together if they have the same analysis summary.</p>
 <tr class="row-even"><td><p>float</p></td>
 <td><p>Floating point number</p></td>
 </tr>
-<tr class="row-odd"><td><p>bool</p></td>
+<tr class="row-odd"><td><p>complex</p></td>
+<td><p>Complex numbers</p></td>
+</tr>
+<tr class="row-even"><td><p>bool</p></td>
 <td><p>Boolean value</p></td>
 </tr>
-<tr class="row-even"><td><p>datetime[ns]</p></td>
+<tr class="row-odd"><td><p>datetime[ns]</p></td>
 <td><p>Date and time value</p></td>
 </tr>
-<tr class="row-odd"><td><p>timedelta[ns]</p></td>
+<tr class="row-even"><td><p>timedelta[ns]</p></td>
 <td><p>Difference between two datetimes</p></td>
 </tr>
-<tr class="row-even"><td><p>category</p></td>
+<tr class="row-odd"><td><p>category</p></td>
 <td><p>Categorical values</p></td>
 </tr>
-<tr class="row-odd"><td><p>Int</p></td>
+<tr class="row-even"><td><p>Int</p></td>
 <td><p>Nullable integers</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="visions-complete">
-<h3>Visions (Complete)<a class="headerlink" href="#visions-complete" title="Permalink to this headline">¶</a></h3>
+<h4>Visions (Complete)<a class="headerlink" href="#visions-complete" title="Permalink to this headline">¶</a></h4>
 <div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="CompleteTypeset Graph" src="../../_images/typeset_complete.svg" width="700px" /></a>
 <p class="caption"><span class="caption-text">CompleteTypeset Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
@@ -254,14 +294,13 @@ Types should be grouped together if they have the same analysis summary.</p>
 </div>
 </div>
 <div class="section" id="unifying-what-do-we-need">
-<h2>Unifying, what do we need?<a class="headerlink" href="#unifying-what-do-we-need" title="Permalink to this headline">¶</a></h2>
+<h3>Unifying, what do we need?<a class="headerlink" href="#unifying-what-do-we-need" title="Permalink to this headline">¶</a></h3>
 <p>Custom dtypes.</p>
 </div>
 <div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>The pandas 2.0 Design Document (discussions 2015-2016): <a class="reference external" href="https://dev.pandas.io/pandas2/">https://dev.pandas.io/pandas2/</a></p></li>
-</ul>
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>We note that many of the problems <cite>visions</cite> attempts to solve, are discussed in the [design documents for pandas 2.0](<a class="reference external" href="https://dev.pandas.io/pandas2/">https://dev.pandas.io/pandas2/</a>) (2015-2016).</p>
+</div>
 </div>
 </div>
 

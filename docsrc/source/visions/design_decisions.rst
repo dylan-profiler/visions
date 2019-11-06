@@ -3,7 +3,7 @@ Design decisions
 
 Nullable types
 --------------
-All types are nullable by default, meaning that
+All types are nullable by default.
 
 Memory usage
 ------------

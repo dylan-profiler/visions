@@ -1,6 +1,48 @@
 Unifying the Python, Numpy and Pandas data model
 ************************************************
 
+The definitions that we need:
+- Logical data types
+- Physical data types
+- Type detection
+- Type inference
+- Casting, coercion, conversion
+
+Comparing to pandas
++++++++++++++++++++
+
+There are multiple problems when working with pandas for data analysis:
+
+- Missing values are handled inconsistently (int, bool, object)
+- Strings are stored as objects
+
+Decoupling physical and logical types
++++++++++++++++++++++++++++++++++++++
+This package decouples physical and logical data types.
+Physical data types describe the manner in which data is stored in memory.
+Logical data types describe data on a more abstract level.
+This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
+A simple example is a set of URLs.
+These are stored as strings, while not every string is an URL.
+There are also operations that are only sensible on URLs and not on strings, such as extracting the url parts domain or protocol.
+
+Problem with missing values
++++++++++++++++++++++++++++
+Pandas' current data model is inconsistent with respect to missing values (i.e. `NaN` or `None`).
+Adding missing values to integers and boolean results in upcasting the float and object respectively.
+Implementing nullable integer and boolean logical types allow for more efficient storage.
+This can be achieved through an internal bitmap (i.e. for each value keep track if it is missing yes or no).
+https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution
+
+Problem with strings
+++++++++++++++++++++
+Pandas does not have a logical type "string".
+Strings are stored as objects, which gives non-trivial overhead
+https://dev.pandas.io/pandas2/strings.html
+
+
+
+
 The data models in Python, Numpy and Pandas are inconsistent and incomplete for logical storage of data types for analysis.
 Here, we try to understand the aspects relation to what are shortcomings of the current implementation and we want of the unified data model.
 
@@ -10,6 +52,8 @@ The third part of this page introduces the concepts needed to combine them.
 
 We are envisioning a one-to-one correspondence between each of the data models without loss.
 Types should be grouped together if they have the same analysis summary.
+
+
 
 Where the current models fail
 =============================
@@ -60,6 +104,8 @@ Pandas
 +---------------+----------------------------------+
 | float         | Floating point number            |
 +---------------+----------------------------------+
+| complex       | Complex numbers                  |
++---------------+----------------------------------+
 | bool          | Boolean value                    |
 +---------------+----------------------------------+
 | datetime[ns]  | Date and time value              |
@@ -91,4 +137,4 @@ Custom dtypes.
 References
 ==========
 
-- The pandas 2.0 Design Document (discussions 2015-2016): https://dev.pandas.io/pandas2/
+We note that many of the problems `visions` attempts to solve, are discussed in the [design documents for pandas 2.0](https://dev.pandas.io/pandas2/) (2015-2016).

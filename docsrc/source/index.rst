@@ -2,7 +2,7 @@
 Visions
 =========
 
-Welcome.
+Welcome to `visions`, the type system for data analysis in Python.
 
 
 .. toctree::

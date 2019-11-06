@@ -3,17 +3,26 @@ Visions
 
 .. image:: images/johanna.png
    :width: 200 px
-   :align: center
+   :align: left
    :alt: Jeanne D'Arc, Image in the public domain
 
 
 ..
 
 
-    And these visions of data types, they kept us up past the dawn.
+    *And these visions of data types, they kept us up past the dawn.*
 
     -- An Avantgardistic Data Scientist
 
+
+<!--
+Why do we need a type system?
+
+Python, Pandas and Numpy offer types that we can use to work with data.
+These data types
+
+Problem: there is no one-to-one map between types in Python, Numpy and Pandas.
+-->
 
 Purpose of this package
 -----------------------
