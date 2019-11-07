@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The subset view &mdash; visions 0.1.0 documentation</title>
+  <title>Nested set view &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Graph View" href="graph_view.html" />
-    <link rel="prev" title="Data type view" href="data_type_view.html" /> 
+    <link rel="next" title="Analytics view" href="analytics_view.html" />
+    <link rel="prev" title="Graph View" href="graph_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,11 +89,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The subset view</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#type-definition">Type: definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nested set view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#root-type">Root type</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="analytics_view.html">Analytics view</a></li>
 </ul>
 </li>
@@ -147,7 +148,7 @@
         
           <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>The subset view</li>
+      <li>Nested set view</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -166,12 +167,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="the-subset-view">
-<h1>The subset view<a class="headerlink" href="#the-subset-view" title="Permalink to this headline">¶</a></h1>
-<p>The subset view is a way of thinking about types, typesets and relations.</p>
-<div class="section" id="type-definition">
-<h2>Type: definition<a class="headerlink" href="#type-definition" title="Permalink to this headline">¶</a></h2>
-<p>A type is a subset of all possible values.</p>
+  <div class="section" id="nested-set-view">
+<h1>Nested set view<a class="headerlink" href="#nested-set-view" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Nested_set_model#Example">https://en.wikipedia.org/wiki/Nested_set_model#Example</a>
+# <a class="reference external" href="https://www.data-to-viz.com/graph/circularpacking.html">https://www.data-to-viz.com/graph/circularpacking.html</a>
+<a class="reference external" href="https://pypi.org/project/circlify/">https://pypi.org/project/circlify/</a>
+The subset view is a way of thinking about types, typesets and relations.
+It builds on the graph view.</p>
+<p>Membership
+Constraints (e.g. narrowest set)</p>
+<p>Note empty series is always generic</p>
+<div class="section" id="root-type">
+<h2>Root type<a class="headerlink" href="#root-type" title="Permalink to this headline">¶</a></h2>
+<p>There is one root type, <cite>visions_generic</cite>, of which all values <span class="math notranslate nohighlight">\(V\)</span> are member.</p>
+<p>A type <span class="math notranslate nohighlight">\(T\)</span> is associated with a parent type <span class="math notranslate nohighlight">\(p\)</span>, and a subset of all the parent’s values <span class="math notranslate nohighlight">\(V_p\)</span>.</p>
+<p>For example, the boolean type values <span class="math notranslate nohighlight">\(\{True, False, None\} \in V\)</span></p>
 <p>Inference: the narrowest possible type for a set of values.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -188,10 +198,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="graph_view.html" class="btn btn-neutral float-right" title="Graph View" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="analytics_view.html" class="btn btn-neutral float-right" title="Analytics view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="data_type_view.html" class="btn btn-neutral float-left" title="Data type view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="graph_view.html" class="btn btn-neutral float-left" title="Graph View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

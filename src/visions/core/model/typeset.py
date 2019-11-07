@@ -50,12 +50,11 @@ def build_relation_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.Di
 
 def check_graph_constraints(relation_graph: nx.DiGraph, nodes: set) -> None:
     """Validates a relation_graph is appropriately constructed
+
     Args:
         relation_graph: A directed graph representing the set of relations between type nodes.
         nodes:  A list of visions_types
-        relations: A list of relations from type to types
-    Returns:
-        None
+
     """
     relation_graph.remove_nodes_from(list(nx.isolates(relation_graph)))
 
@@ -75,12 +74,15 @@ def traverse_relation_graph(
     series: pd.Series, G: nx.DiGraph, node: Type[VisionsBaseType] = visions_generic
 ) -> Type[VisionsBaseType]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
+
     Args:
         series: the Series to check
         G: the Graph to traverse
         node: the current node
+
     Returns:
         The most uniquely specified node matching the series.
+
     """
     for vision_type in G.successors(node):
         if series in vision_type:
@@ -208,13 +210,16 @@ class VisionsTypeset(object):
     def cast_to_inferred_types(self, df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
 
-    def output_graph(self, file_name: str) -> None:
+    def output_graph(self, file_name: str, base_only: bool = False) -> None:
         """
         Args:
             file_name:
         Returns:
         """
-        G = self.relation_graph.copy()
+        if base_only:
+            G = self.base_graph.copy()
+        else:
+            G = self.relation_graph.copy()
         G.graph["node"] = {"shape": "box", "color": "red"}
 
         output_graph(G, file_name)

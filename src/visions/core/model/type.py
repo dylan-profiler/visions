@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABCMeta
+
 import pandas as pd
 
 
@@ -20,7 +21,7 @@ class VisionsBaseTypeMeta(ABCMeta):
 class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     """Abstract implementation of a vision type.
 
-    Provides a common API for building custom visions datatypes.
+    Provides a common API for building custom visions data types.
     """
 
     @classmethod

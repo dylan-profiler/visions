@@ -25,6 +25,7 @@ for name, tsc in [
 
     # Plot the graph (svg)
     tsc.output_graph(typesets_dir / f"{name}.svg")
+    tsc.output_graph(typesets_dir / f"{name}_base.svg", base_only=True)
 
     # Plot the graph (png)
     tsc.output_graph(typesets_dir / f"{name}.png")

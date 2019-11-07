@@ -4,6 +4,16 @@ import numpy as np
 
 from visions.core.model.model_relation import relation_conf
 from visions.core.model.type import VisionsBaseType
+from visions.utils.coercion import test_utils
+
+
+def test_string_is_complex(series):
+    coerced_series = test_utils.option_coercion_evaluator(to_complex)(series)
+    return coerced_series is not None
+
+
+def to_complex(series: pd.Series) -> bool:
+    return series.astype(complex)
 
 
 class visions_complex(VisionsBaseType):
@@ -18,9 +28,16 @@ class visions_complex(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_generic
+        from visions.core.implementations.types import visions_generic, visions_string
 
-        relations = {visions_generic: relation_conf(inferential=False)}
+        relations = {
+            visions_generic: relation_conf(inferential=False),
+            visions_string: relation_conf(
+                inferential=True,
+                relationship=test_string_is_complex,
+                transformer=to_complex,
+            ),
+        }
         return relations
 
     @classmethod

@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Analytics view" href="analytics_view.html" />
-    <link rel="prev" title="The subset view" href="subset_view.html" /> 
+    <link rel="next" title="Nested set view" href="subset_view.html" />
+    <link rel="prev" title="Data type view" href="data_type_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,11 +89,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
-<li class="toctree-l2"><a class="reference internal" href="subset_view.html">The subset view</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Graph View</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#visions-complete">Visions (Complete)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-base-data-structure">The base data structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#type-detection">Type detection</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#relational-mapping-extensions">Relational mapping extensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visions-standard-typeset">Visions Standard Typeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions-geometry-typeset">Visions Geometry Typeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions-complete-typeset">Visions Complete Typeset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subset_view.html">Nested set view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="analytics_view.html">Analytics view</a></li>
 </ul>
 </li>
@@ -168,22 +178,59 @@
             
   <div class="section" id="graph-view">
 <h1>Graph View<a class="headerlink" href="#graph-view" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>Type consist of</dt><dd><ul class="simple">
-<li><p>one node</p></li>
-<li><p>one inheritance edge</p></li>
-<li><p>zero or more conversion edges</p></li>
-</ul>
-</dd>
-<dt>A typeset:</dt><dd><p>Set of types
-Directed Acyclic Graph</p>
-</dd>
-</dl>
-<div class="section" id="visions-complete">
-<h2>Visions (Complete)<a class="headerlink" href="#visions-complete" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-base-data-structure">
+<h2>The base data structure<a class="headerlink" href="#the-base-data-structure" title="Permalink to this headline">¶</a></h2>
+<p>The base data structure of a typeset is a directed rooted tree (graph).
+Each node represents a data type.
+The root note is <cite>visions_generic</cite>.</p>
+<p>Each data type is associated with a set.
+The root node is associated with the universal set <span class="math notranslate nohighlight">\(U = \{\textrm{all data structures supported by a Series}\}\)</span>.
+Each data type’s set must be a proper subset of the parent’s set.
+Membership of a data type is defined as membership of that set.
+In symbols: <span class="math notranslate nohighlight">\(f: \textrm{Type} \times S \to \{True, False\}\)</span>.
+There is a constraint: membership of siblings must be mutually exclusive.
+This is the same as that sets for each two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
+For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the parent data type <cite>Object</cite>, then in symbols: <span class="math notranslate nohighlight">\(\textrm{Path} \ \{\textrm{None}\} \cap \textrm{URL} \ \{\textrm{None}\} = \emptyset\)</span>.</p>
+<p>For the <cite>visions_complete_set</cite>, this can be visualised as:</p>
 <div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="CompleteTypeset Graph" src="../../_images/typeset_complete.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">CompleteTypeset Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/typeset_complete_base.svg"><img alt="Visualisation of the base data structure of the *visions_complete_set*." src="../../_images/typeset_complete_base.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the base data structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="type-detection">
+<h3>Type detection<a class="headerlink" href="#type-detection" title="Permalink to this headline">¶</a></h3>
+<p>For any typeset and Pandas Series <span class="math notranslate nohighlight">\(S\)</span> (i.e. a bag of values), there is the operation type detection to be <span class="math notranslate nohighlight">\(f: \textrm{Typeset} \times S \to \textrm{Type}\)</span>.
+The function returns the narrowest matching type given a Series.
+Type detection is implemented as depth first search starting at the root note.</p>
+</div>
+</div>
+<div class="section" id="relational-mapping-extensions">
+<h2>Relational mapping extensions<a class="headerlink" href="#relational-mapping-extensions" title="Permalink to this headline">¶</a></h2>
+<p>We extend the data structure to support mappings from one data type to another.
+Relational mappings are very similar to the edges in the base data structure.
+Like the edges in the base data structure, each relational mapping is associated with a set and has to adhere to the same constraint.
+In addition, it is associated with a mapping.
+The domain of the mapping is the associated set.
+The mapping function must be surjective.
+A relational mapping may not introduce any cycles.</p>
+<div class="section" id="visions-standard-typeset">
+<h3>Visions Standard Typeset<a class="headerlink" href="#visions-standard-typeset" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/typeset_standard.svg"><img alt="Visualisation of the graph structure of the *visions_standard_set*." src="../../_images/typeset_standard.svg" width="700px" /></a>
+</div>
+</div>
+<div class="section" id="visions-geometry-typeset">
+<h3>Visions Geometry Typeset<a class="headerlink" href="#visions-geometry-typeset" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/typeset_geometry.svg"><img alt="Visualisation of the graph structure of the *visions_geometry_set*." src="../../_images/typeset_geometry.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_geometry_set</em>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="visions-complete-typeset">
+<h3>Visions Complete Typeset<a class="headerlink" href="#visions-complete-typeset" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="Visualisation of the graph structure of the *visions_complete_set*." src="../../_images/typeset_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -196,10 +243,10 @@ Directed Acyclic Graph</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="analytics_view.html" class="btn btn-neutral float-right" title="Analytics view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="subset_view.html" class="btn btn-neutral float-right" title="Nested set view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="subset_view.html" class="btn btn-neutral float-left" title="The subset view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="data_type_view.html" class="btn btn-neutral float-left" title="Data type view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
