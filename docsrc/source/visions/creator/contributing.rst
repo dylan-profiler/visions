@@ -1,7 +1,17 @@
 General contributions
 *********************
 
+You are welcome to contribute to the `visions` package.
+This section contains information on the workflow when you want to add a contribution.
 
+Installing development dependencies
+-----------------------------------
+
+To get access to the development tools, you should have all dependencies installed.
+
+.. code-block:: console
+
+   pip install visions[dev_docs]
 
 Testing
 -------
@@ -29,7 +39,7 @@ Linting
 
    make lint
 
-Which is equivalent to
+Which is equivalent to:
 
 .. code-block:: console
 
@@ -51,6 +61,7 @@ You can view the docs locally by going to the `docs/` folder and starting a web 
 
 .. code-block:: console
 
+   cd docs/
    python -m http.server
 
 

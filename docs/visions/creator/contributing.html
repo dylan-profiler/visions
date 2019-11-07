@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../creator.html">Creator</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">General contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-development-dependencies">Installing development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#linting">Linting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docs">Docs</a></li>
@@ -170,6 +171,15 @@
             
   <div class="section" id="general-contributions">
 <h1>General contributions<a class="headerlink" href="#general-contributions" title="Permalink to this headline">¶</a></h1>
+<p>You are welcome to contribute to the <cite>visions</cite> package.
+This section contains information on the workflow when you want to add a contribution.</p>
+<div class="section" id="installing-development-dependencies">
+<h2>Installing development dependencies<a class="headerlink" href="#installing-development-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>To get access to the development tools, you should have all dependencies installed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions[dev_docs]</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
 <p>Test <cite>visions</cite> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
@@ -187,7 +197,7 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make lint</span>
 </pre></div>
 </div>
-<p>Which is equivalent to</p>
+<p>Which is equivalent to:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">black .</span>
 </pre></div>
 </div>
