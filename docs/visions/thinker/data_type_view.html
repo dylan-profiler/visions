@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Data type view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#concepts">Concepts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#comparing-to-pandas">Comparing to pandas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#problem-with-missing-values">Problem with missing values</a></li>
@@ -178,6 +179,21 @@
             
   <div class="section" id="data-type-view">
 <h1>Data type view<a class="headerlink" href="#data-type-view" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses viewing the concepts of <cite>visions</cite> as logical and physical data types.
+We find this view intuitive to create understanding of:</p>
+<ul class="simple">
+<li><p>how types relate</p></li>
+<li><p>how operations on types are performed</p></li>
+<li><p>storage efficiency</p></li>
+<li><p>the relations to Pandas’, Numpy’s and Python’s data models</p></li>
+</ul>
+<p>It is limited with respect to:</p>
+<ul class="simple">
+<li><p>intuitive understanding of membership constraints (see the nested set view).</p></li>
+<li><p>understanding when</p></li>
+</ul>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <p>The definitions that we need:</p>
 <ul class="simple">
 <li><p>Logical data types</p></li>
@@ -186,6 +202,7 @@
 <li><p>Type inference</p></li>
 <li><p>Casting, coercion, conversion</p></li>
 </ul>
+</div>
 <div class="section" id="comparing-to-pandas">
 <h2>Comparing to pandas<a class="headerlink" href="#comparing-to-pandas" title="Permalink to this headline">¶</a></h2>
 <p>There are multiple problems when working with pandas for data analysis:</p>

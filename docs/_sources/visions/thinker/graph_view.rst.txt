@@ -1,6 +1,17 @@
 Graph View
 ==========
 
+This section discusses viewing the concepts of `visions` as graph.
+We find this view intuitive to create understanding of:
+
+- how types relate
+- how operations on types are performed
+
+It is limited for:
+
+- intuitive understanding of membership constraints (see the nested set view).
+- understanding when
+
 The base data structure
 -----------------------
 The base data structure of a typeset is a directed rooted tree (graph).
@@ -16,7 +27,7 @@ There is a constraint: membership of siblings must be mutually exclusive.
 This is the same as that sets for each two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
 For example, the `Path` and `URL` data type both have the parent data type `Object`, then in symbols: :math:`\textrm{Path} \ \{\textrm{None}\} \cap \textrm{URL} \ \{\textrm{None}\} = \emptyset`.
 
-For the `visions_complete_set`, this can be visualised as:
+For the `visions_complete_set`, this base structure can be visualised as:
 
 .. figure:: ../../../../examples/plots/typesets/typeset_complete_base.svg
    :width: 700 px
@@ -43,17 +54,16 @@ The domain of the mapping is the associated set.
 The mapping function must be surjective.
 A relational mapping may not introduce any cycles.
 
-Visions Standard Typeset
-^^^^^^^^^^^^^^^^^^^^^^^^
+We can also visualise the extended structure:
+
 .. figure:: ../../../../examples/plots/typesets/typeset_standard.svg
    :width: 700 px
    :align: center
    :alt: Visualisation of the graph structure of the *visions_standard_set*.
 
-    Visualisation of the graph structure of the *visions_standard_set*.
+   Visualisation of the graph structure of the *visions_standard_set*.
 
-Visions Geometry Typeset
-^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. figure:: ../../../../examples/plots/typesets/typeset_geometry.svg
    :width: 700 px
    :align: center
@@ -61,11 +71,22 @@ Visions Geometry Typeset
 
    Visualisation of the graph structure of the *visions_geometry_set*.
 
-Visions Complete Typeset
-^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. figure:: ../../../../examples/plots/typesets/typeset_complete.svg
    :width: 700 px
    :align: center
    :alt: Visualisation of the graph structure of the *visions_complete_set*.
 
    Visualisation of the graph structure of the *visions_complete_set*.
+
+Type inference
+^^^^^^^^^^^^^^
+
+Type inference is type detection on the extended graph.
+Similarly, we perform depth first search.
+A difference is that when the type inference traverses a relational map, the values are mapped before continuing the search.
+
+Type casting
+^^^^^^^^^^^^
+
+Type casting returns the (possibly mapped) values of type inference.

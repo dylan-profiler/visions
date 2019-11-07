@@ -1,6 +1,22 @@
 Data type view
 **************
 
+This section discusses viewing the concepts of `visions` as logical and physical data types.
+We find this view intuitive to create understanding of:
+
+- how types relate
+- how operations on types are performed
+- storage efficiency
+- the relations to Pandas', Numpy's and Python's data models
+
+It is limited with respect to:
+
+- intuitive understanding of membership constraints (see the nested set view).
+- understanding when
+
+Concepts
+++++++++
+
 The definitions that we need:
 
 - Logical data types

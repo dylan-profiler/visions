@@ -95,9 +95,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#relational-mapping-extensions">Relational mapping extensions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#visions-standard-typeset">Visions Standard Typeset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#visions-geometry-typeset">Visions Geometry Typeset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#visions-complete-typeset">Visions Complete Typeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-inference">Type inference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-casting">Type casting</a></li>
 </ul>
 </li>
 </ul>
@@ -178,6 +177,17 @@
             
   <div class="section" id="graph-view">
 <h1>Graph View<a class="headerlink" href="#graph-view" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses viewing the concepts of <cite>visions</cite> as graph.
+We find this view intuitive to create understanding of:</p>
+<ul class="simple">
+<li><p>how types relate</p></li>
+<li><p>how operations on types are performed</p></li>
+</ul>
+<p>It is limited for:</p>
+<ul class="simple">
+<li><p>intuitive understanding of membership constraints (see the nested set view).</p></li>
+<li><p>understanding when</p></li>
+</ul>
 <div class="section" id="the-base-data-structure">
 <h2>The base data structure<a class="headerlink" href="#the-base-data-structure" title="Permalink to this headline">¶</a></h2>
 <p>The base data structure of a typeset is a directed rooted tree (graph).
@@ -191,7 +201,7 @@ In symbols: <span class="math notranslate nohighlight">\(f: \textrm{Type} \times
 There is a constraint: membership of siblings must be mutually exclusive.
 This is the same as that sets for each two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
 For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the parent data type <cite>Object</cite>, then in symbols: <span class="math notranslate nohighlight">\(\textrm{Path} \ \{\textrm{None}\} \cap \textrm{URL} \ \{\textrm{None}\} = \emptyset\)</span>.</p>
-<p>For the <cite>visions_complete_set</cite>, this can be visualised as:</p>
+<p>For the <cite>visions_complete_set</cite>, this base structure can be visualised as:</p>
 <div class="figure align-center" id="id1">
 <a class="reference internal image-reference" href="../../_images/typeset_complete_base.svg"><img alt="Visualisation of the base data structure of the *visions_complete_set*." src="../../_images/typeset_complete_base.svg" width="700px" /></a>
 <p class="caption"><span class="caption-text">Visualisation of the base data structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
@@ -212,25 +222,28 @@ In addition, it is associated with a mapping.
 The domain of the mapping is the associated set.
 The mapping function must be surjective.
 A relational mapping may not introduce any cycles.</p>
-<div class="section" id="visions-standard-typeset">
-<h3>Visions Standard Typeset<a class="headerlink" href="#visions-standard-typeset" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center">
-<a class="reference internal image-reference" href="../../_images/typeset_standard.svg"><img alt="Visualisation of the graph structure of the *visions_standard_set*." src="../../_images/typeset_standard.svg" width="700px" /></a>
-</div>
-</div>
-<div class="section" id="visions-geometry-typeset">
-<h3>Visions Geometry Typeset<a class="headerlink" href="#visions-geometry-typeset" title="Permalink to this headline">¶</a></h3>
+<p>We can also visualise the extended structure:</p>
 <div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="../../_images/typeset_geometry.svg"><img alt="Visualisation of the graph structure of the *visions_geometry_set*." src="../../_images/typeset_geometry.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_geometry_set</em>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/typeset_standard.svg"><img alt="Visualisation of the graph structure of the *visions_standard_set*." src="../../_images/typeset_standard.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_standard_set</em>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
-</div>
-<div class="section" id="visions-complete-typeset">
-<h3>Visions Complete Typeset<a class="headerlink" href="#visions-complete-typeset" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="Visualisation of the graph structure of the *visions_complete_set*." src="../../_images/typeset_complete.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/typeset_geometry.svg"><img alt="Visualisation of the graph structure of the *visions_geometry_set*." src="../../_images/typeset_geometry.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_geometry_set</em>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="Visualisation of the graph structure of the *visions_complete_set*." src="../../_images/typeset_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="type-inference">
+<h3>Type inference<a class="headerlink" href="#type-inference" title="Permalink to this headline">¶</a></h3>
+<p>Type inference is type detection on the extended graph.
+Similarly, we perform depth first search.
+A difference is that when the type inference traverses a relational map, the values are mapped before continuing the search.</p>
+</div>
+<div class="section" id="type-casting">
+<h3>Type casting<a class="headerlink" href="#type-casting" title="Permalink to this headline">¶</a></h3>
+<p>Type casting returns the (possibly mapped) values of type inference.</p>
 </div>
 </div>
 </div>

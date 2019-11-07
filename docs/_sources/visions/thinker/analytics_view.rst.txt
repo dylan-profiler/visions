@@ -1,12 +1,20 @@
 Analytics view
 ==============
 
-We can
+This section discusses viewing the concepts of `visions` with respect to subsequent data analysis.
+We find this view intuitive to create understanding of:
 
-For specific types
+- for what we want to create types, typesets and relations
+- the benefits of using visions in practise
 
-Type summary graphs
--------------------
+It is limited for:
+
+- abstracter concepts
+
+Descriptive statistics
+----------------------
+
+TODO
 
 Integer
 ~~~~~~~
@@ -40,3 +48,9 @@ Complete Typeset
    :alt: CompleteTypeset Summary Graph
 
    CompleteTypeset Summary Graph
+
+
+Predictive analytics (including machine learning)
+-------------------------------------------------
+
+One hot encoding, etc.

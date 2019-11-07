@@ -1,6 +1,18 @@
 Nested set view
 ===============
 
+This section discusses viewing the concepts of `visions` as `nested sets <https://en.wikipedia.org/wiki/Hereditarily_finite_set>`_.
+We find this view intuitive to create understanding of:
+
+- where the constraints in the graph view come from
+
+It is limited in:
+
+- visualising larger typesets and relational mappings (see the graph view).
+
+The nested set structure
+------------------------
+
 https://en.wikipedia.org/wiki/Nested_set_model#Example
 # https://www.data-to-viz.com/graph/circularpacking.html
 https://pypi.org/project/circlify/
