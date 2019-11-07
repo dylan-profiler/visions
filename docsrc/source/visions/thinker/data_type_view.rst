@@ -12,7 +12,7 @@ We find this view intuitive to create understanding of:
 It is limited with respect to:
 
 - intuitive understanding of membership constraints (see the nested set view).
-- understanding when
+- the exact implementation (see the engineering view).
 
 Concepts
 ++++++++
@@ -48,8 +48,7 @@ Problem with missing values
 Pandas' current data model is inconsistent with respect to missing values (i.e. `NaN` or `None`).
 Adding missing values to integers and boolean results in upcasting the float and object respectively.
 Implementing nullable integer and boolean logical types allow for more efficient storage.
-This can be achieved through an internal bitmap (i.e. for each value keep track if it is missing yes or no).
-https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution
+This can be achieved through an internal bitmap (see the engineering view for details).
 
 Problem with strings
 ++++++++++++++++++++
@@ -146,4 +145,4 @@ Custom dtypes.
 References
 ==========
 
-We note that many of the problems `visions` attempts to solve, are discussed in the [design documents for pandas 2.0](https://dev.pandas.io/pandas2/) (2015-2016).
+We note that many of the problems `visions` attempts to solve, are discussed in the `design documents for pandas 2.0 <https://dev.pandas.io/pandas2/>`_ (2015-2016).

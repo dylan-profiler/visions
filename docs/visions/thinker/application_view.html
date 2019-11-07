@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nested set view &mdash; visions 0.1.0 documentation</title>
+  <title>Application view &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Analytics view" href="analytics_view.html" />
-    <link rel="prev" title="Graph View" href="graph_view.html" /> 
+    <link rel="next" title="Engineering view" href="engineering_view.html" />
+    <link rel="prev" title="Nested set view" href="nested_set_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,13 +89,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Nested set view</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-nested-set-structure">The nested set structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#root-type">Root type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Application view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#applications">Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#descriptive-statistics">Descriptive statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integer">Integer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#existing-path">Existing Path</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="analytics_view.html">Analytics view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#typeset-summary-graphs">Typeset summary graphs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#predictive-analytics-including-machine-learning">Predictive analytics (including machine learning)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
@@ -149,13 +159,13 @@
         
           <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>Nested set view</li>
+      <li>Application view</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/thinker/subset_view.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/thinker/application_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -168,38 +178,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="nested-set-view">
-<h1>Nested set view<a class="headerlink" href="#nested-set-view" title="Permalink to this headline">¶</a></h1>
-<p>This section discusses viewing the concepts of <cite>visions</cite> as <a class="reference external" href="https://en.wikipedia.org/wiki/Hereditarily_finite_set">nested sets</a>.
+  <div class="section" id="application-view">
+<h1>Application view<a class="headerlink" href="#application-view" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses viewing the concepts of <cite>visions</cite> with respect to subsequent application.
 We find this view intuitive to create understanding of:</p>
 <ul class="simple">
-<li><p>where the constraints in the graph view come from</p></li>
+<li><p>for what we want to create types, typesets and relations</p></li>
+<li><p>the benefits of using visions in practise</p></li>
 </ul>
-<p>It is limited in:</p>
+<p>It is limited for:</p>
 <ul class="simple">
-<li><p>visualising larger typesets and relational mappings (see the graph view).</p></li>
+<li><p>abstracter concepts</p></li>
 </ul>
-<div class="section" id="the-nested-set-structure">
-<h2>The nested set structure<a class="headerlink" href="#the-nested-set-structure" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Nested_set_model#Example">https://en.wikipedia.org/wiki/Nested_set_model#Example</a>
-# <a class="reference external" href="https://www.data-to-viz.com/graph/circularpacking.html">https://www.data-to-viz.com/graph/circularpacking.html</a>
-<a class="reference external" href="https://pypi.org/project/circlify/">https://pypi.org/project/circlify/</a>
-The subset view is a way of thinking about types, typesets and relations.
-It builds on the graph view.</p>
-<p>Membership
-Constraints (e.g. narrowest set)</p>
-<p>Note empty series is always generic</p>
+<div class="section" id="applications">
+<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
+<p>Applications are broad.
+We explain using analytics use cases, as this was the original motivation (pandas-profiling).</p>
 </div>
-<div class="section" id="root-type">
-<h2>Root type<a class="headerlink" href="#root-type" title="Permalink to this headline">¶</a></h2>
-<p>There is one root type, <cite>visions_generic</cite>, of which all values <span class="math notranslate nohighlight">\(V\)</span> are member.</p>
-<p>A type <span class="math notranslate nohighlight">\(T\)</span> is associated with a parent type <span class="math notranslate nohighlight">\(p\)</span>, and a subset of all the parent’s values <span class="math notranslate nohighlight">\(V_p\)</span>.</p>
-<p>For example, the boolean type values <span class="math notranslate nohighlight">\(\{True, False, None\} \in V\)</span></p>
-<p>Inference: the narrowest possible type for a set of values.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>So cool</p>
+<div class="section" id="descriptive-statistics">
+<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+<div class="section" id="integer">
+<h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="150px" /></a>
+<p class="caption"><span class="caption-text">Integer Summary Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
+</div>
+<div class="section" id="existing-path">
+<h3>Existing Path<a class="headerlink" href="#existing-path" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/summary_existing_path.svg"><img alt="Existing Path Summary Graph" src="../../_images/summary_existing_path.svg" width="300px" /></a>
+<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="typeset-summary-graphs">
+<h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="complete-typeset">
+<h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/summary_complete.svg"><img alt="CompleteTypeset Summary Graph" src="../../_images/summary_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="predictive-analytics-including-machine-learning">
+<h2>Predictive analytics (including machine learning)<a class="headerlink" href="#predictive-analytics-including-machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>One hot encoding, etc.</p>
 </div>
 </div>
 
@@ -211,10 +237,10 @@ Constraints (e.g. narrowest set)</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="analytics_view.html" class="btn btn-neutral float-right" title="Analytics view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="engineering_view.html" class="btn btn-neutral float-right" title="Engineering view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="graph_view.html" class="btn btn-neutral float-left" title="Graph View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nested_set_view.html" class="btn btn-neutral float-left" title="Nested set view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

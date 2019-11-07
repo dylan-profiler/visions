@@ -48,14 +48,14 @@ class model_relation:
         if inferential:
             if transformer is None or relationship is None:
                 raise ValueError(
-                    "Inferential relations should have transformer and relations"
+                    "Inferential relations must have transformer and relations"
                 )
             self.relationship = relationship
             self.transformer = transformer
         else:
             if transformer is not None or relationship is not None:
                 raise ValueError(
-                    "noninferential relations may not have transformer or relations"
+                    "noninferential relations must not have transformer or relations"
                 )
 
             self.relationship = self.model.__contains__

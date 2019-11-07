@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Analytics view &mdash; visions 0.1.0 documentation</title>
+  <title>Engineering view &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Creator" href="../creator.html" />
-    <link rel="prev" title="Nested set view" href="subset_view.html" /> 
+    <link rel="prev" title="Application view" href="application_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,19 +89,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
-<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="subset_view.html">Nested set view</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Analytics view</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#descriptive-statistics">Descriptive statistics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#integer">Integer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#existing-path">Existing Path</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#typeset-summary-graphs">Typeset summary graphs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#predictive-analytics-including-machine-learning">Predictive analytics (including machine learning)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_view.html">Application view</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Engineering view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#short-circuiting">Short circuiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sampling">Sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-usage">Memory usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dtypes">Dtypes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constraint-checking-in-tests">Constraint checking in tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#missing-value-bitmaps">Missing value bitmaps</a></li>
 </ul>
 </li>
 </ul>
@@ -157,13 +154,13 @@
         
           <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>Analytics view</li>
+      <li>Engineering view</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/thinker/analytics_view.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/thinker/engineering_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -176,49 +173,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="analytics-view">
-<h1>Analytics view<a class="headerlink" href="#analytics-view" title="Permalink to this headline">¶</a></h1>
-<p>This section discusses viewing the concepts of <cite>visions</cite> with respect to subsequent data analysis.
+  <div class="section" id="engineering-view">
+<h1>Engineering view<a class="headerlink" href="#engineering-view" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses implementation of <cite>visions</cite>.
 We find this view intuitive to create understanding of:</p>
 <ul class="simple">
-<li><p>for what we want to create types, typesets and relations</p></li>
-<li><p>the benefits of using visions in practise</p></li>
+<li><p>performance and complexity of operations</p></li>
 </ul>
 <p>It is limited for:</p>
 <ul class="simple">
-<li><p>abstracter concepts</p></li>
+<li><p>understanding abstract concepts</p></li>
+<li><p>motivation for representations</p></li>
 </ul>
-<div class="section" id="descriptive-statistics">
-<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="short-circuiting">
+<h2>Short circuiting<a class="headerlink" href="#short-circuiting" title="Permalink to this headline">¶</a></h2>
 <p>TODO</p>
-<div class="section" id="integer">
-<h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="150px" /></a>
-<p class="caption"><span class="caption-text">Integer Summary Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
+<div class="section" id="sampling">
+<h2>Sampling<a class="headerlink" href="#sampling" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
 </div>
-<div class="section" id="existing-path">
-<h3>Existing Path<a class="headerlink" href="#existing-path" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="../../_images/summary_existing_path.svg"><img alt="Existing Path Summary Graph" src="../../_images/summary_existing_path.svg" width="300px" /></a>
-<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="section" id="memory-usage">
+<h2>Memory usage<a class="headerlink" href="#memory-usage" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
 </div>
+<div class="section" id="dtypes">
+<h2>Dtypes<a class="headerlink" href="#dtypes" title="Permalink to this headline">¶</a></h2>
+<p>Staying close to pandas’ data types, we can use the dtypes for type detection.
+Complexity O(1) instead of O(n).</p>
 </div>
+<div class="section" id="constraint-checking-in-tests">
+<h2>Constraint checking in tests<a class="headerlink" href="#constraint-checking-in-tests" title="Permalink to this headline">¶</a></h2>
+<p>Constraint of mutual exclusivity is not checked on runtime, rather during testing.</p>
 </div>
-<div class="section" id="typeset-summary-graphs">
-<h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="complete-typeset">
-<h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="../../_images/summary_complete.svg"><img alt="CompleteTypeset Summary Graph" src="../../_images/summary_complete.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="predictive-analytics-including-machine-learning">
-<h2>Predictive analytics (including machine learning)<a class="headerlink" href="#predictive-analytics-including-machine-learning" title="Permalink to this headline">¶</a></h2>
-<p>One hot encoding, etc.</p>
+<div class="section" id="missing-value-bitmaps">
+<h2>Missing value bitmaps<a class="headerlink" href="#missing-value-bitmaps" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+<p>Ref: <a class="reference external" href="https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution">pandas 2.0 design document</a></p>
 </div>
 </div>
 
@@ -233,7 +224,7 @@ We find this view intuitive to create understanding of:</p>
         <a href="../creator.html" class="btn btn-neutral float-right" title="Creator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="subset_view.html" class="btn btn-neutral float-left" title="Nested set view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="application_view.html" class="btn btn-neutral float-left" title="Application view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>General contributions &mdash; visions 0.1.0 documentation</title>
+  <title>Nested set view &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Extending" href="extending.html" />
-    <link rel="prev" title="Creator" href="../creator.html" /> 
+    <link rel="next" title="Application view" href="application_view.html" />
+    <link rel="prev" title="Graph view" href="graph_view.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,18 +87,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../creator.html">Creator</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">General contributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linting">Linting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docs">Docs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#all-together">All together</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nested set view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-nested-set-structure">The nested set structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#root-type">Root type</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="extending.html">Extending</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_view.html">Application view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
@@ -147,15 +148,15 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../creator.html">Creator</a> &raquo;</li>
+          <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>General contributions</li>
+      <li>Nested set view</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/creator/contributing.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/thinker/nested_set_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -168,48 +169,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="general-contributions">
-<h1>General contributions<a class="headerlink" href="#general-contributions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>Test <cite>visions</cite> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make test</span>
-</pre></div>
+  <div class="section" id="nested-set-view">
+<h1>Nested set view<a class="headerlink" href="#nested-set-view" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses viewing the concepts of <cite>visions</cite> as <a class="reference external" href="https://en.wikipedia.org/wiki/Hereditarily_finite_set">nested sets</a>.
+We find this view intuitive to create understanding of:</p>
+<ul class="simple">
+<li><p>where the constraints in the graph view come from</p></li>
+</ul>
+<p>It is limited in:</p>
+<ul class="simple">
+<li><p>visualising larger typesets and relational mappings (see the graph view).</p></li>
+</ul>
+<div class="section" id="the-nested-set-structure">
+<h2>The nested set structure<a class="headerlink" href="#the-nested-set-structure" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Nested_set_model#Example">https://en.wikipedia.org/wiki/Nested_set_model#Example</a>
+# <a class="reference external" href="https://www.data-to-viz.com/graph/circularpacking.html">https://www.data-to-viz.com/graph/circularpacking.html</a>
+<a class="reference external" href="https://pypi.org/project/circlify/">https://pypi.org/project/circlify/</a>
+The subset view is a way of thinking about types, typesets and relations.
+It builds on the graph view.</p>
+<p>Membership: plot set of values over the nested plot, take narrowest set that contains all values.
+Constraints (e.g. narrowest set)</p>
+<p>Note empty series is always generic. (e.g. corresponds to everyplace in the graph)</p>
 </div>
-<p>Which is equivalent to</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pytest --mypy --black tests/</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="linting">
-<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h2>
-<p><cite>visions</cite> uses the <cite>black</cite> code style.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make lint</span>
-</pre></div>
-</div>
-<p>Which is equivalent to</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">black .</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="docs">
-<h2>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h2>
-<p>The documentation needs to be generated after each contribution, because the API reference is automatically generated.
-You can do this by:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make docs</span>
-</pre></div>
-</div>
-<p>This builds the docs using sphinx.</p>
-<p>You can view the docs locally by going to the <cite>docs/</cite> folder and starting a web server, e.g.:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m http.server</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="all-together">
-<h2>All together<a class="headerlink" href="#all-together" title="Permalink to this headline">¶</a></h2>
-<p>A shorthand for all commands above is:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make all</span>
-</pre></div>
+<div class="section" id="root-type">
+<h2>Root type<a class="headerlink" href="#root-type" title="Permalink to this headline">¶</a></h2>
+<p>There is one root type, <cite>visions_generic</cite>, of which all values <span class="math notranslate nohighlight">\(V\)</span> are member.</p>
+<p>A type <span class="math notranslate nohighlight">\(T\)</span> is associated with a parent type <span class="math notranslate nohighlight">\(p\)</span>, and a subset of all the parent’s values <span class="math notranslate nohighlight">\(V_p\)</span>.</p>
+<p>For example, the boolean type values <span class="math notranslate nohighlight">\(\{True, False, None\} \in V\)</span></p>
+<p>Inference: the narrowest possible type for a set of values.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>So cool</p>
 </div>
 </div>
 </div>
@@ -222,10 +212,10 @@ You can do this by:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="extending.html" class="btn btn-neutral float-right" title="Extending" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="application_view.html" class="btn btn-neutral float-right" title="Application view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../creator.html" class="btn btn-neutral float-left" title="Creator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="graph_view.html" class="btn btn-neutral float-left" title="Graph view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

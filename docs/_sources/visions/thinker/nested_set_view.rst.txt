@@ -19,11 +19,12 @@ https://pypi.org/project/circlify/
 The subset view is a way of thinking about types, typesets and relations.
 It builds on the graph view.
 
-Membership
+Membership: plot set of values over the nested plot, take narrowest set that contains all values.
 Constraints (e.g. narrowest set)
 
 
-Note empty series is always generic
+Note empty series is always generic. (e.g. corresponds to everyplace in the graph)
+
 
 
 Root type

@@ -81,3 +81,6 @@ Another way of creating a typeset is by basing it on another typeset
     :caption: Custom time typeset
 
     typeset = visions_complete_set() - visions_time + visions_date
+
+
+.. seealso:: Engineer view on constraint checking

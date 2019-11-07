@@ -1,4 +1,4 @@
-Graph View
+Graph view
 ==========
 
 This section discusses viewing the concepts of `visions` as graph.

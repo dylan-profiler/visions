@@ -1,6 +1,9 @@
 Design decisions
 ================
 
+TODO: integrate in thinker
+TODO: add axioma's (performant, extendible with sensible defaults, ...)
+
 Nullable types
 --------------
 All types are nullable by default.

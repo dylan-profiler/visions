@@ -54,7 +54,7 @@ This documentation is divided with the following audiences in mind (you can deci
     :doc:`Read more <getting_started/installation>`
 
 **The Practitioner**
-    Providing essential information to use type and typeset features quickly
+    Providing essential information to use type and typeset features quickly with plenty of code examples
 
     :doc:`Read more <practitioner/>`
 

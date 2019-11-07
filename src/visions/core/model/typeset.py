@@ -115,7 +115,7 @@ def get_type_inference_path(
     return path, series
 
 
-def cast_along_path(series: pd.Series, path: List, G: nx.DiGraph):
+def cast_along_path(series: pd.Series, path: List, G: nx.DiGraph) -> pd.Series:
     from_type = to_type = path[0]
     for to_type in path[1:]:
         new_series = G[from_type][to_type]["relationship"].transform(series)
@@ -163,6 +163,7 @@ def cast_series_to_inferred_type(
 class VisionsTypeset(object):
     """
     A collection of vision_types with an associated relationship map between them.
+
     Attributes:
         types: The collection of vision types which are derived either from a base_type or themselves
         relation_graph: ...
@@ -174,7 +175,6 @@ class VisionsTypeset(object):
         Args:
             types:
         """
-        # self.column_type_map = {}
 
         self.relations = {}
         for node in set(types):
@@ -204,6 +204,7 @@ class VisionsTypeset(object):
             series:
         Returns:
         """
+
         series_type = self.get_series_type(series)
         return cast_series_to_inferred_type(series_type, series, self.relation_graph)
 
@@ -212,17 +213,21 @@ class VisionsTypeset(object):
 
     def output_graph(self, file_name: str, base_only: bool = False) -> None:
         """
-        Args:
-            file_name:
-        Returns:
-        """
-        if base_only:
-            G = self.base_graph.copy()
-        else:
-            G = self.relation_graph.copy()
-        G.graph["node"] = {"shape": "box", "color": "red"}
 
-        output_graph(G, file_name)
+        Args:
+            file_name: the file to save the output to
+            base_only: if True, plot the graph without relation mapping edges
+
+        """
+
+        if base_only:
+            graph = self.base_graph.copy()
+        else:
+            graph = self.relation_graph.copy()
+
+        graph.graph["node"] = {"shape": "box", "color": "red"}
+
+        output_graph(graph, file_name)
 
     def plot_graph(self, dpi: int = 800):
         """
@@ -242,28 +247,24 @@ class VisionsTypeset(object):
             plt.figure(dpi=dpi)
             plt.imshow(img)
 
-    def __add__(self, other):
-        # TODO: adding iterables of types?
+    def _get_other_type(self, other):
         if issubclass(other.__class__, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
             other_types = {other}
         else:
             raise NotImplementedError(
-                f"Typeset addition not implemented for type {type(other)}"
+                f"Typeset operation not implemented for type {type(other)}"
             )
+        return other_types
+
+    def __add__(self, other):
+        # TODO: adding iterables of types?
+        other_types = self._get_other_type(other)
         return VisionsTypeset(self.types | other_types)
 
     def __sub__(self, other):
-        if issubclass(other.__class__, VisionsTypeset):
-            other_types = set(other.types)
-        elif issubclass(other, VisionsBaseType):
-            other_types = {other}
-        else:
-            raise NotImplementedError(
-                f"Typeset subtraction not implemented for type {type(other)}"
-            )
-
+        other_types = self._get_other_type(other)
         return VisionsTypeset(self.types - other_types)
 
     def __repr__(self):

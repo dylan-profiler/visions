@@ -6,6 +6,7 @@ It introduces functionality of working with types and typesets.
 
 .. toctree::
     :maxdepth: 1
+    :hidden:
 
     practitioner/types
     practitioner/typesets

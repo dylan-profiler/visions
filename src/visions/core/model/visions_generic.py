@@ -4,9 +4,12 @@ from visions.core.model.type import VisionsBaseType
 
 class visions_generic(VisionsBaseType):
     """**Generic** implementation of :class:`visions.core.models.VisionsBaseType`.
-    >>> x = pd.Series(['a', 1, np.nan])
-    >>> x in visions_generic
-    True
+
+    Examples:
+        >>> import numpy as np
+        >>> x = pd.Series(['a', 1, np.nan])
+        >>> x in visions_generic
+        True
     """
 
     @classmethod

@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Graph View" href="graph_view.html" />
+    <link rel="next" title="Graph view" href="graph_view.html" />
     <link rel="prev" title="Thinker" href="../thinker.html" /> 
 </head>
 
@@ -102,9 +102,10 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="subset_view.html">Nested set view</a></li>
-<li class="toctree-l2"><a class="reference internal" href="analytics_view.html">Analytics view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_view.html">Application view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
@@ -190,7 +191,7 @@ We find this view intuitive to create understanding of:</p>
 <p>It is limited with respect to:</p>
 <ul class="simple">
 <li><p>intuitive understanding of membership constraints (see the nested set view).</p></li>
-<li><p>understanding when</p></li>
+<li><p>the exact implementation (see the engineering view).</p></li>
 </ul>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
@@ -226,8 +227,7 @@ There are also operations that are only sensible on URLs and not on strings, suc
 <p>Pandas’ current data model is inconsistent with respect to missing values (i.e. <cite>NaN</cite> or <cite>None</cite>).
 Adding missing values to integers and boolean results in upcasting the float and object respectively.
 Implementing nullable integer and boolean logical types allow for more efficient storage.
-This can be achieved through an internal bitmap (i.e. for each value keep track if it is missing yes or no).
-<a class="reference external" href="https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution">https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution</a></p>
+This can be achieved through an internal bitmap (see the engineering view for details).</p>
 </div>
 <div class="section" id="problem-with-strings">
 <h2>Problem with strings<a class="headerlink" href="#problem-with-strings" title="Permalink to this headline">¶</a></h2>
@@ -314,7 +314,7 @@ Types should be grouped together if they have the same analysis summary.</p>
 </div>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
-<p>We note that many of the problems <cite>visions</cite> attempts to solve, are discussed in the [design documents for pandas 2.0](<a class="reference external" href="https://dev.pandas.io/pandas2/">https://dev.pandas.io/pandas2/</a>) (2015-2016).</p>
+<p>We note that many of the problems <cite>visions</cite> attempts to solve, are discussed in the <a class="reference external" href="https://dev.pandas.io/pandas2/">design documents for pandas 2.0</a> (2015-2016).</p>
 </div>
 </div>
 </div>
@@ -327,7 +327,7 @@ Types should be grouped together if they have the same analysis summary.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="graph_view.html" class="btn btn-neutral float-right" title="Graph View" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="graph_view.html" class="btn btn-neutral float-right" title="Graph view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../thinker.html" class="btn btn-neutral float-left" title="Thinker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
