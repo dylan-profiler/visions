@@ -17,6 +17,6 @@ This section documents basic steps for contributing (e.g. testing and linting) a
     :maxdepth: 1
     :hidden:
 
-    creator/contributing
     creator/extending
+    creator/contributing
 
