@@ -20,7 +20,7 @@ Abstract Types
 Concrete Types
 ==============
 
-.. currentmodule:: visions.core.model.types
+.. currentmodule:: visions.core.implementations.types
 .. toctree::
 
 .. autosummary::
@@ -46,3 +46,4 @@ Concrete Types
    visions_url
    visions_ip
    visions_count
+

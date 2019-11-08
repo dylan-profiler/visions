@@ -1,5 +1,5 @@
 Application view
-==============
+================
 
 This section discusses viewing the concepts of `visions` with respect to subsequent application.
 We find this view intuitive to create understanding of:
