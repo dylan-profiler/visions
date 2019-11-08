@@ -183,10 +183,7 @@ We find this view intuitive to create understanding of:</p>
 </ul>
 <div class="section" id="the-nested-set-structure">
 <h2>The nested set structure<a class="headerlink" href="#the-nested-set-structure" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Nested_set_model#Example">https://en.wikipedia.org/wiki/Nested_set_model#Example</a>
-# <a class="reference external" href="https://www.data-to-viz.com/graph/circularpacking.html">https://www.data-to-viz.com/graph/circularpacking.html</a>
-<a class="reference external" href="https://pypi.org/project/circlify/">https://pypi.org/project/circlify/</a>
-The subset view is a way of thinking about types, typesets and relations.
+<p>The subset view is a way of thinking about types, typesets and relations.
 It builds on the graph view.</p>
 <p>Membership: plot set of values over the nested plot, take narrowest set that contains all values.
 Constraints (e.g. narrowest set)</p>
@@ -198,11 +195,167 @@ Constraints (e.g. narrowest set)</p>
 <p>A type <span class="math notranslate nohighlight">\(T\)</span> is associated with a parent type <span class="math notranslate nohighlight">\(p\)</span>, and a subset of all the parent’s values <span class="math notranslate nohighlight">\(V_p\)</span>.</p>
 <p>For example, the boolean type values <span class="math notranslate nohighlight">\(\{True, False, None\} \in V\)</span></p>
 <p>Inference: the narrowest possible type for a set of values.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>So cool</p>
-</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+
+        .node {
+            cursor: pointer;
+        }
+
+        .node:hover {
+            stroke: #000;
+            stroke-width: 1.5px;
+        }
+
+        .node--leaf {
+            fill: white;
+        }
+
+        .label {
+            font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-anchor: middle;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+        }
+
+        .label,
+        .node--root,
+        .node--leaf {
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+<svg width="700" height="700"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    var svg = d3.select("svg"),
+        margin = 20,
+        diameter = +svg.attr("width"),
+        g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+    var color = d3.scaleLinear()
+        .domain([-1, 5])
+        .range(["hsl(204, 64%, 44%)", "hsl(204, 65%, 90%)"])
+        .interpolate(d3.interpolateHcl);
+
+    var pack = d3.pack()
+        .size([diameter - margin, diameter - margin])
+        .padding(2);
+
+    // d3.json("typesets/typeset_complete_base.json", function (error, root) {
+    //    if (error) throw error;
+    root =
+        {"children": [{"name": "visions_timedelta", "size": 1}, {"name": "visions_float", "size": 1}, {"name": "visions_complex", "size": 1}, {"name": "visions_bool", "size": 1}, {"children": [{"name": "visions_geometry", "size": 1}, {"name": "visions_ip", "size": 1}, {"name": "visions_url", "size": 1}, {"name": "visions_string", "size": 1}, {"children": [{"children": [{"name": "visions_image_path", "size": 1}], "name": "visions_existing_path"}], "name": "visions_path"}], "name": "visions_object"}, {"name": "visions_integer", "size": 1}, {"children": [{"name": "visions_time", "size": 1}, {"name": "visions_date", "size": 1}], "name": "visions_datetime"}, {"name": "visions_count", "size": 1}, {"children": [{"name": "visions_ordinal", "size": 1}], "name": "visions_categorical"}], "name": "visions_generic"}
+    ;
+
+        root = d3.hierarchy(root)
+            .sum(function (d) {
+                return d.size;
+            })
+            .sort(function (a, b) {
+                return b.value - a.value;
+            });
+
+        var focus = root,
+            nodes = pack(root).descendants(),
+            view;
+
+        var circle = g.selectAll("circle")
+            .data(nodes)
+            .enter().append("circle")
+            .attr("class", function (d) {
+                return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root";
+            })
+            .style("fill", function (d) {
+                return d.children ? color(d.depth) : null;
+            })
+            .on("click", function (d) {
+                if (focus !== d) zoom(d), d3.event.stopPropagation();
+            });
+
+        var text = g.selectAll("text")
+            .data(nodes)
+            .enter().append("text")
+            //.attr("transform", "translate(-1,0.5)")
+            //.attr("dy", "-5.7em")
+            .attr("class", "label")
+            .style("fill-opacity", function (d) {
+                return d.parent === root ? 1 : 1;
+            })
+            /*
+            .style("display", function (d) {
+                return d.parent === root ? "inline" : "none";
+            })
+            */
+            .text(function (d) {
+                return d.data.name;
+            });
+
+        var node = g.selectAll("circle,text");
+
+        svg
+            //.style("background", color(-1))
+            .on("click", function () {
+                zoom(root);
+            });
+
+        zoomTo([root.x, root.y, root.r * 2 + margin]);
+
+        function zoom(d) {
+            var focus0 = focus;
+            focus = d;
+
+            var transition = d3.transition()
+                .duration(d3.event.altKey ? 7500 : 750)
+                .tween("zoom", function (d) {
+                    var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+                    return function (t) {
+                        zoomTo(i(t));
+                    };
+                });
+
+            /*
+            transition.selectAll("text")
+                .filter(function (d) {
+                    return d.parent === focus || this.style.display === "inline";
+                })
+                .style("fill-opacity", function (d) {
+                    return d.parent === focus ? 1 : 0;
+                })
+                .on("start", function (d) {
+                    if (d.parent === focus) this.style.display = "inline";
+                })
+                .on("end", function (d) {
+                    if (d.parent !== focus) this.style.display = "none";
+                });
+
+             */
+        }
+
+        function zoomTo(v) {
+            var k = diameter / v[2];
+            view = v;
+            node.attr("transform", function (d) {
+                return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
+            });
+            circle.attr("r", function (d) {
+                return d.r * k;
+            });
+        }
+    //});
+
+</script>
+</body>
+</html><p class="caption">
+    <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circular packing</a> of the <em>visions_complete_set</em>.</span>
+    <a class="headerlink" href="#id1" title="Permalink to this image">
+    </a>
+</p></div>
 </div>
 
 

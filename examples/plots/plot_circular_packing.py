@@ -1,17 +1,31 @@
-import circlify as circ
+# https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56
 
-# https://observablehq.com/@d3/zoomable-circle-packing
+import json
+from pathlib import Path
 
-data = [
-    0.05,
-    {"id": "a2", "datum": 0.05},
-    {"id": "a0", "datum": 0.8, "children": [0.3, 0.2, 0.2, 0.1]},
-    {
-        "id": "a1",
-        "datum": 0.1,
-        "children": [{"id": "a1_1", "datum": 0.05}, {"datum": 0.04}, 0.01],
-    },
-]
+import networkx as nx
+from networkx.readwrite import json_graph
 
-circles = circ.circlify(data, show_enclosure=True)
-circ.bubbles(circles, labels=list(range(0, len(circles))))
+from visions.core.implementations.typesets import visions_complete_set
+
+typeset = visions_complete_set()
+graph = typeset.base_graph.copy()
+nx.relabel_nodes(graph, {n: str(n) for n in graph.nodes}, copy=False)
+
+
+def update(data):
+    data['name'] = data.pop('id')
+    if 'children' not in data:
+        data['size'] = 1
+    else:
+        data['children'] = [update(child) for child in data['children']]
+    return data
+
+
+data = json_graph.tree_data(graph, root='visions_generic')
+
+data = update(data)
+
+# TODO:
+with Path('typesets/typeset_complete_base.json').open('w') as f:
+    json.dump(data, f)

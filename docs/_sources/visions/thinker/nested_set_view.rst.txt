@@ -13,9 +13,6 @@ It is limited in:
 The nested set structure
 ------------------------
 
-https://en.wikipedia.org/wiki/Nested_set_model#Example
-# https://www.data-to-viz.com/graph/circularpacking.html
-https://pypi.org/project/circlify/
 The subset view is a way of thinking about types, typesets and relations.
 It builds on the graph view.
 
@@ -38,7 +35,14 @@ For example, the boolean type values :math:`\{True, False, None\} \in V`
 
 Inference: the narrowest possible type for a set of values.
 
+.. raw:: html
+    :file: ../../../../examples/plots/circular_packing.html
 
-.. attention::
 
-    So cool
+.. raw:: html
+
+    <p class="caption">
+        <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circular packing</a> of the <em>visions_complete_set</em>.</span>
+        <a class="headerlink" href="#id1" title="Permalink to this image">
+        </a>
+    </p>
