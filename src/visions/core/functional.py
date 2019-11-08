@@ -67,5 +67,14 @@ def type_inference(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
 
 
 def type_detect(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
+    """Detect the type in the base graph
+
+    Args:
+        df: the DataFrame to detect types on
+        typeset: the Typeset that provides the type context
+
+    Returns:
+        A dictionary with a mapping from column name to type
+    """
     # TODO: implement
     return {}

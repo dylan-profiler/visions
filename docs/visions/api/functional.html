@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Summaries" href="summaries.html" />
-    <link rel="prev" title="Typesets" href="api_typesets.html" /> 
+    <link rel="next" title="visions.core.functional.type_detect" href="_autosummary/visions.core.functional.type_detect.html" />
+    <link rel="prev" title="visions.core.implementations.typesets.visions_complete_set" href="_autosummary/visions.core.implementations.typesets.visions_complete_set.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,7 +94,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="models.html">Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_typesets.html">Typesets</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Functional API</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Functional API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/visions.core.functional.type_detect.html">visions.core.functional.type_detect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/visions.core.functional.type_inference.html">visions.core.functional.type_inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/visions.core.functional.type_cast.html">visions.core.functional.type_cast</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="summaries.html">Summaries</a></li>
@@ -177,11 +180,14 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_detect.html#visions.core.functional.type_detect" title="visions.core.functional.type_detect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_detect</span></code></a>(df, typeset)</p></td>
+<td><p>Detect the type in the base graph</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_inference.html#visions.core.functional.type_inference" title="visions.core.functional.type_inference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference</span></code></a>(df, typeset)</p></td>
+<td><p>Infer the current types of each column in the DataFrame given the typeset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_cast.html#visions.core.functional.type_cast" title="visions.core.functional.type_cast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast</span></code></a>(df, typeset)</p></td>
+<td><p>Casts a dataframe into a typeset by first performing column wise type inference against a provided typeset</p></td>
 </tr>
 </tbody>
 </table>
@@ -195,10 +201,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="summaries.html" class="btn btn-neutral float-right" title="Summaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="_autosummary/visions.core.functional.type_detect.html" class="btn btn-neutral float-right" title="visions.core.functional.type_detect" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="api_typesets.html" class="btn btn-neutral float-left" title="Typesets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="_autosummary/visions.core.implementations.typesets.visions_complete_set.html" class="btn btn-neutral float-left" title="visions.core.implementations.typesets.visions_complete_set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

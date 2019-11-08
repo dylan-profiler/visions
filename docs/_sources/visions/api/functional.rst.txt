@@ -2,11 +2,12 @@
 Functional API
 ==============
 
-.. currentmodule:: visions.core.model.functional
+.. currentmodule:: visions.core.functional
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   type_cast
+   type_detect
    type_inference
+   type_cast
