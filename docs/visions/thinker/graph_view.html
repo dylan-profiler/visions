@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="goals.html">Goals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Graph view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-about-this-view">What about this view?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-base-data-structure">The base data structure</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#type-detection">Type detection</a></li>
 </ul>
@@ -179,6 +180,8 @@
             
   <div class="section" id="graph-view">
 <h1>Graph view<a class="headerlink" href="#graph-view" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-about-this-view">
+<h2>What about this view?<a class="headerlink" href="#what-about-this-view" title="Permalink to this headline">¶</a></h2>
 <p>This section discusses viewing the concepts of <cite>visions</cite> as graph.
 We find this view intuitive to create understanding of:</p>
 <ul class="simple">
@@ -188,12 +191,12 @@ We find this view intuitive to create understanding of:</p>
 <p>It is limited for:</p>
 <ul class="simple">
 <li><p>intuitive understanding of membership constraints (see the nested set view).</p></li>
-<li><p>understanding when</p></li>
 </ul>
+</div>
 <div class="section" id="the-base-data-structure">
 <h2>The base data structure<a class="headerlink" href="#the-base-data-structure" title="Permalink to this headline">¶</a></h2>
-<p>The base data structure of a typeset is a directed rooted tree (graph).
-Each node represents a data type.
+<p>The base data structure of a typeset is a <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree">directed rooted tree</a> (graph).
+Each node represents a <a class="reference external" href="../getting_started/concepts.html#type">data type</a>.
 The root note is <cite>visions_generic</cite>.</p>
 <p>Each data type is associated with a set.
 The root node is associated with the universal set <span class="math notranslate nohighlight">\(U = \{\textrm{all data structures supported by a Series}\}\)</span>.

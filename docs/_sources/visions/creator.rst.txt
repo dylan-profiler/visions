@@ -1,7 +1,7 @@
 Creator
 *******
 
-One of the assumptions in this package is that is extendable.
+One of the goals of this package is that is easy extendable for your different problems under other constraints than the defaults.
 Extensions can be specific to your use case, or general for the community.
 
 There are myriad ways to extend:

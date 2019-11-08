@@ -1,6 +1,9 @@
 Graph view
 ==========
 
+What about this view?
+---------------------
+
 This section discusses viewing the concepts of `visions` as graph.
 We find this view intuitive to create understanding of:
 
@@ -10,12 +13,11 @@ We find this view intuitive to create understanding of:
 It is limited for:
 
 - intuitive understanding of membership constraints (see the nested set view).
-- understanding when
 
 The base data structure
 -----------------------
-The base data structure of a typeset is a directed rooted tree (graph).
-Each node represents a data type.
+The base data structure of a typeset is a `directed rooted tree <https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree>`_ (graph).
+Each node represents a `data type <../getting_started/concepts.html#type>`_.
 The root note is `visions_generic`.
 
 Each data type is associated with a set.
