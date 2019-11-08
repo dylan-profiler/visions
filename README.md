@@ -1,8 +1,12 @@
 # Visions
 
 <p align="center">
-    <img src="http://res.publicdomainfiles.com/pdf_view/91/13944090013588.png" width="200"/>
+    <img src="docs/_images/johanna.png" width="200"/>
 </p>
+
+<!-- 
+    http://res.publicdomainfiles.com/pdf_view/91/13944090013588.png
+    -->
 
 > And these visions of data types, they kept us up past the dawn
 
