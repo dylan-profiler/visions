@@ -48,7 +48,7 @@ How to navigate
 
 This documentation is divided with the following audiences in mind (you can decide which one you are at any moment):
 
-**The New kid on the block**
+**The New Kid On The Block**
     The minimal information you need to setup and start
 
     :doc:`Read more <getting_started/installation>`

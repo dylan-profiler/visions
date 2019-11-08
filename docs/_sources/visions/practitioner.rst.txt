@@ -10,5 +10,7 @@ It introduces functionality of working with types and typesets.
 
     practitioner/types
     practitioner/typesets
+    practitioner/summarizer
+    practitioner/defaults
     practitioner/examples
 

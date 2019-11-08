@@ -4,8 +4,8 @@ General contributions
 You are welcome to contribute to the `visions` package.
 This section contains information on the workflow when you want to add a contribution.
 
-Installing development dependencies
------------------------------------
+Installing dependencies
+-----------------------
 
 To get access to the development tools, you should have all dependencies installed.
 

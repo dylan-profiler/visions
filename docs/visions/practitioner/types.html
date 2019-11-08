@@ -92,10 +92,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#inference">Inference</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#membership">Membership</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cast">Cast</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#summarize">Summarize</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="typesets.html">Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summarizer.html">Summarize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defaults.html">Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 </li>
@@ -210,6 +211,10 @@
 <span class="go">False</span>
 </pre></div>
 </div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="examples/membership.html"><span class="doc">Membership example</span></a></p>
+</div>
 </div>
 <div class="section" id="cast">
 <h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline">¶</a></h2>
@@ -225,125 +230,10 @@
 <span class="n">test_series</span>
 </pre></div>
 </div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="examples/casting.html"><span class="doc">Casting example</span></a></p>
 </div>
-<div class="section" id="summarize">
-<h2>Summarize<a class="headerlink" href="#summarize" title="Permalink to this headline">¶</a></h2>
-<p>We can also get a summary unique to the visions_type of the data</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">summarize</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">visions_datetime</span> <span class="o">+</span> <span class="n">missing</span><span class="p">)</span>
-<span class="o">-&gt;</span> <span class="p">{</span>
-     <span class="s1">&#39;nunique&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-     <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2010-01-01 00:00:00&#39;</span><span class="p">),</span>
-     <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2011-02-01 00:00:00&#39;</span><span class="p">),</span>
-     <span class="s1">&#39;n_records&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-     <span class="s1">&#39;perc_unique&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-     <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;396 days 00:00:00&#39;</span><span class="p">),</span>
-     <span class="s1">&#39;na_count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-     <span class="s1">&#39;perc_na&#39;</span><span class="p">:</span> <span class="mf">0.25</span>
-   <span class="p">}</span>
-</pre></div>
-</div>
-<p>If we had instead applied a summarization operation to a categorical series we would get</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">]))</span>
-<span class="n">summarize</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">visions_categorical</span><span class="p">)</span>
-<span class="o">-&gt;</span> <span class="p">{</span>
-    <span class="s1">&#39;nunique&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s1">&#39;n_records&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s1">&#39;category_size&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s1">&#39;missing_categorical_values&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
-    <span class="s1">&#39;na_count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s1">&#39;perc_na&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
-   <span class="p">}</span>
-</pre></div>
-</div>
-<p>Because Visions types are <cite>Option[type]</cite> by default, they all inherit the same missing value summaries (<cite>na_count</cite>, and <cite>perc_na</cite>), however, new visions types can be created at will if you prefer to produce your own summaries or extend your analysis to other types of objects.</p>
-<p>By default Visions includes implementations for the following types:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 46%" />
-<col style="width: 17%" />
-<col style="width: 19%" />
-<col style="width: 19%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Type</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Geometry</p></th>
-<th class="head"><p>Complete</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>visions_integer</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_float</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>visions_bool</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_categorical</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>visions_complex</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_timestamp</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>visions_object</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_string</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>visions_geometry</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_path</p></td>
-<td><p>No</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>visions_existing_path</p></td>
-<td><p>No</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_image_path</p></td>
-<td><p>No</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>visions_url</p></td>
-<td><p>No</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>visions_ip</p></td>
-<td><p>No</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 

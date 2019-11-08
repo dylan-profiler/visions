@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>General contributions &mdash; visions 0.1.0 documentation</title>
+  <title>Defaults &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Extending" href="extending.html" />
-    <link rel="prev" title="Creator" href="../creator.html" /> 
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Summarize" href="summarizer.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,20 +86,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../practitioner.html">Practitioner</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typesets.html">Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summarizer.html">Summarize</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../creator.html">Creator</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">General contributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#installing-dependencies">Installing dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linting">Linting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docs">Docs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#all-together">All together</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="extending.html">Extending</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
@@ -148,15 +144,15 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../creator.html">Creator</a> &raquo;</li>
+          <li><a href="../practitioner.html">Practitioner</a> &raquo;</li>
         
-      <li>General contributions</li>
+      <li>Defaults</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/creator/contributing.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/practitioner/defaults.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,60 +165,96 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="general-contributions">
-<h1>General contributions<a class="headerlink" href="#general-contributions" title="Permalink to this headline">¶</a></h1>
-<p>You are welcome to contribute to the <cite>visions</cite> package.
-This section contains information on the workflow when you want to add a contribution.</p>
-<div class="section" id="installing-dependencies">
-<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>To get access to the development tools, you should have all dependencies installed.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions[dev_docs]</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>Test <cite>visions</cite> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make test</span>
-</pre></div>
-</div>
-<p>Which is equivalent to</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pytest --mypy --black tests/</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="linting">
-<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h2>
-<p><cite>visions</cite> uses the <cite>black</cite> code style.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make lint</span>
-</pre></div>
-</div>
-<p>Which is equivalent to:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">black .</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="docs">
-<h2>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h2>
-<p>The documentation needs to be generated after each contribution, because the API reference is automatically generated.
-You can do this by:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make docs</span>
-</pre></div>
-</div>
-<p>This builds the docs using sphinx.</p>
-<p>You can view the docs locally by going to the <cite>docs/</cite> folder and starting a web server, e.g.:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd docs/</span>
-<span class="go">python -m http.server</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="all-together">
-<h2>All together<a class="headerlink" href="#all-together" title="Permalink to this headline">¶</a></h2>
-<p>A shorthand for all commands above is:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make all</span>
-</pre></div>
-</div>
-</div>
+  <div class="section" id="defaults">
+<h1>Defaults<a class="headerlink" href="#defaults" title="Permalink to this headline">¶</a></h1>
+<p>By default Visions includes implementations for the following types:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 17%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Geometry</p></th>
+<th class="head"><p>Complete</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>visions_integer</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_float</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>visions_bool</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_categorical</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>visions_complex</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_timestamp</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>visions_object</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_string</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>visions_geometry</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_path</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>visions_existing_path</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_image_path</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>visions_url</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>visions_ip</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
@@ -233,10 +265,10 @@ You can do this by:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="extending.html" class="btn btn-neutral float-right" title="Extending" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../creator.html" class="btn btn-neutral float-left" title="Creator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="summarizer.html" class="btn btn-neutral float-left" title="Summarize" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

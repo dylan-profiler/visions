@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="goals.html">Goals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data type view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
@@ -98,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#memory-usage">Memory usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dtypes">Dtypes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#constraint-checking-in-tests">Constraint checking in tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-don-t-we-use-oop-inheritance">Why don’t we use OOP inheritance?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#missing-value-bitmaps">Missing value bitmaps</a></li>
 </ul>
 </li>
@@ -205,6 +207,15 @@ Complexity O(1) instead of O(n).</p>
 <div class="section" id="constraint-checking-in-tests">
 <h2>Constraint checking in tests<a class="headerlink" href="#constraint-checking-in-tests" title="Permalink to this headline">¶</a></h2>
 <p>Constraint of mutual exclusivity is not checked on runtime, rather during testing.</p>
+</div>
+<div class="section" id="why-don-t-we-use-oop-inheritance">
+<h2>Why don’t we use OOP inheritance?<a class="headerlink" href="#why-don-t-we-use-oop-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>You might wonder why for example <cite>ImagePath</cite> class does not inherit from <cite>ExistingPath</cite> class.
+The short answer is, we tried, it didn’t work out for the conditions we are under.
+It is just not the abstraction that simplifies our problem, in fact it introduces complexity.
+The current abstraction however, each type inherits from a base type, class inheritance from relations.</p>
+<p>When you think how class inheritance would be beneficial is here, is where it reduces complexity.
+TODO</p>
 </div>
 <div class="section" id="missing-value-bitmaps">
 <h2>Missing value bitmaps<a class="headerlink" href="#missing-value-bitmaps" title="Permalink to this headline">¶</a></h2>

@@ -4,5 +4,6 @@ Examples
 
 .. toctree::
 
-    examples/membership_example
-    examples/summaries_example
+    examples/membership
+    examples/casting
+    examples/summaries
