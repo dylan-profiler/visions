@@ -1,5 +1,3 @@
-# https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56
-
 import json
 from pathlib import Path
 
@@ -26,6 +24,6 @@ data = json_graph.tree_data(graph, root='visions_generic')
 
 data = update(data)
 
-# TODO:
+# TODO: write to circular_packing.html
 with Path('typesets/typeset_complete_base.json').open('w') as f:
     json.dump(data, f)

@@ -35,6 +35,9 @@ For example, the boolean type values :math:`\{True, False, None\} \in V`
 
 Inference: the narrowest possible type for a set of values.
 
+Complete Set
+------------
+
 .. raw:: html
     :file: ../../../../examples/plots/circular_packing.html
 

@@ -4,7 +4,6 @@
     <title></title>
     <meta charset="utf-8">
     <style>
-
         .node {
             cursor: pointer;
         }
@@ -38,7 +37,7 @@
 <script>
     var svg = d3.select("svg"),
         margin = 20,
-        diameter = +svg.attr("width"),
+        diameter = svg.attr("width"),
         g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
     var color = d3.scaleLinear()
@@ -48,7 +47,7 @@
 
     var pack = d3.pack()
         .size([diameter - margin, diameter - margin])
-        .padding(2);
+        .padding(30);
 
     // d3.json("typesets/typeset_complete_base.json", function (error, root) {
     //    if (error) throw error;
@@ -61,48 +60,55 @@
                 return d.size;
             })
             .sort(function (a, b) {
-                return b.value - a.value;
+                return b.size - a.size;
             });
 
-        var focus = root,
-            nodes = pack(root).descendants(),
-            view;
+        var focus = root;
+        var view;
 
-        var circle = g.selectAll("circle")
-            .data(nodes)
-            .enter().append("circle")
-            .attr("class", function (d) {
-                return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root";
-            })
-            .style("fill", function (d) {
-                return d.children ? color(d.depth) : null;
-            })
+        var nodes = d3.select('svg g')
+          .selectAll('g')
+          .data(pack(root).descendants())
+          .enter()
+          .append('g')
+          .attr('transform', function(d) {return 'translate(' + [d.x, d.y] + ')'})
             .on("click", function (d) {
                 if (focus !== d) zoom(d), d3.event.stopPropagation();
             });
 
-        var text = g.selectAll("text")
-            .data(nodes)
-            .enter().append("text")
-            //.attr("transform", "translate(-1,0.5)")
-            //.attr("dy", "-5.7em")
-            .attr("class", "label")
-            .style("fill-opacity", function (d) {
-                return d.parent === root ? 1 : 1;
-            })
-            /*
-            .style("display", function (d) {
-                return d.parent === root ? "inline" : "none";
-            })
-            */
-            .text(function (d) {
-                return d.data.name;
-            });
+        nodes
+          .append('circle')
+          .attr("class", function (d) {
+                return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root";
+          })
+          .style("fill", function (d) {
+                return d.children ? color(d.depth) : null;
+          })
+          .attr('r', function(d) { return d.r; });
 
-        var node = g.selectAll("circle,text");
+        nodes
+          .append('text')
+            .attr('y', function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+
+                return d.children ? - 0.9 * c.attr('r') + 10 : 0;
+            })
+          .attr("class", "label")
+            .style('font-size', function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+                return Math.round(8 + 0.5 * c.attr('r') / 10).toString() + 'px';
+            })
+          .text(function(d) {
+              return d.data.name;
+          });
+
+        var node = g.selectAll("g");
+        var circle = g.selectAll("circle");
+        var text = g.selectAll("text");
 
         svg
-            //.style("background", color(-1))
             .on("click", function () {
                 zoom(root);
             });
@@ -121,37 +127,32 @@
                         zoomTo(i(t));
                     };
                 });
-
-            /*
-            transition.selectAll("text")
-                .filter(function (d) {
-                    return d.parent === focus || this.style.display === "inline";
-                })
-                .style("fill-opacity", function (d) {
-                    return d.parent === focus ? 1 : 0;
-                })
-                .on("start", function (d) {
-                    if (d.parent === focus) this.style.display = "inline";
-                })
-                .on("end", function (d) {
-                    if (d.parent !== focus) this.style.display = "none";
-                });
-
-             */
         }
 
         function zoomTo(v) {
             var k = diameter / v[2];
             view = v;
+
+
+            // TODO: different translation for text without children
             node.attr("transform", function (d) {
                 return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
             });
+
+            /*
+            text.attr("y", function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+
+                return d.children ? - (0.9 * c.attr('r') + 10) * k : 0;
+            });
+            */
+
             circle.attr("r", function (d) {
                 return d.r * k;
             });
         }
     //});
-
 </script>
 </body>
 </html>
