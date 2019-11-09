@@ -177,7 +177,6 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="c1"># Substantially better scaling</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_any_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 

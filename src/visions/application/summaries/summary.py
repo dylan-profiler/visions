@@ -8,7 +8,9 @@ from visions.application.summaries import *
 from visions.application.summaries.frame.dataframe_series_summary import (
     dataframe_series_summary,
 )
-from visions.application.summaries.frame.dataframe_type_summary import dataframe_type_summary
+from visions.application.summaries.frame.dataframe_type_summary import (
+    dataframe_type_summary,
+)
 from visions.utils.graph import output_graph
 
 
@@ -68,7 +70,6 @@ class Summary(object):
 
         done = []
         for base_type, summary_ops in self.summary_ops.items():
-            print(base_type, summary_type)
             if base_type not in done and nx.has_path(G, base_type, summary_type):
                 for op in summary_ops:
                     summary.update(op(series))

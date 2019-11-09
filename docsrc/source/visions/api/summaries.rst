@@ -6,7 +6,7 @@ Summaries
 Series Summaries
 =================
 
-.. currentmodule:: visions.core.summaries.series
+.. currentmodule:: visions.application.summaries.series
 .. toctree::
 
 .. autosummary::
@@ -31,7 +31,7 @@ Series Summaries
 Frame Summaries
 =================
 
-.. currentmodule:: visions.core.summaries.frame
+.. currentmodule:: visions.application.summaries.frame
 .. toctree::
 
 .. autosummary::

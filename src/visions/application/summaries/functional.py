@@ -4,8 +4,8 @@ from visions.core.model import VisionsBaseType
 from visions.application.summaries.summary import Summary
 
 
-def summarize_frame(df: pd.DataFrame, summarizer: Summary):
-    return summarizer.summarize_frame(df)
+def summarize_frame(df: pd.DataFrame, series_types: dict, summarizer: Summary):
+    return summarizer.summarize_frame(df, {}, series_types)
 
 
 def summarize_series(

@@ -1,12 +1,9 @@
 from typing import List, Dict
 
 
-
 def get_boolean_coercions(id: str) -> List[Dict]:
     coercion_map = {
-        "default": [
-            {"true": True, "false": False},
-        ],
+        "default": [{"true": True, "false": False}],
         "en": [
             {"true": True, "false": False},
             {"y": True, "n": False},

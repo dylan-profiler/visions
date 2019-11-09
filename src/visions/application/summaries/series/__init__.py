@@ -1,4 +1,6 @@
-from visions.application.summaries.series.existing_path_summary import existing_path_summary
+from visions.application.summaries.series.existing_path_summary import (
+    existing_path_summary,
+)
 from visions.application.summaries.series.infinite_summary import infinite_summary
 from visions.application.summaries.series.missing_summary import missing_summary
 from visions.application.summaries.series.text_summary import text_summary
