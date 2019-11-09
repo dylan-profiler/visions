@@ -1,25 +1,47 @@
-.. include:: docsrc/source/visions/introduction.rst
+Visions
+=======
 
-## How
+.. figure:: docs/_images/johanna.png
+   :width: 200 px
+   :align: right
+   :alt: Jeanne D'Arc, Image in the public domain
 
-Full documentation can be found [here](https://ieaves.github.io/visions/).
+   The Maid of Orléans
 
-## Installation
+..
+
+    *And these visions of data types, they kept us up past the dawn.*
+
+..
+
+`Visions` provides an extensible suite of tools to support common data analysis operations including
+
+* type inference on unknown data
+* casting data types
+* automated data summarization
+
+Documentation
+-------------
+
+Full documentation can be found `here <https://ieaves.github.io/visions/>`_.
+
+Installation
+------------
 
 You can install `visions` via pip:
 
-```
-pip install visions
-```
+.. code-block:: console
 
-Alternatives and more details can be found in the Full documentation can be found in the [documentation](https://ieaves.github.io/visions/).
+    pip install visions
+
+Alternatives and more details can be found in the Full documentation can be found in the `documentation <https://ieaves.github.io/visions/>`_.
 
 
 Acknowledgements
 ----------------
 
-This package is part of the [dylan-profiler](https://github.com/dylan-profiler) project. 
-The package is an important component for [pandas-profiling](https://github.com/pandas-profiling/pandas-profiling).
+This package is part of the `dylan-profiler <https://github.com/dylan-profiler>`_ project.
+The package is an important component for `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_.
 
 TODO: link to about page.
 
