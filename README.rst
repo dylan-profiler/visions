@@ -5,7 +5,7 @@ Visions
 
     <div>
         <a target="_blank" rel="noopener noreferrer" href="docs/_images/johanna.png"><img alt="Jeanne D'Arc, Image in the public domain" src="docs/_images/johanna.png" style="max-width:100%;float: right;width: 200px;text-align: center;font-style: italic;"></a>
-        <p>The Maid of Orléans</p>
+        <p>The Maid of Orléans (2)</p>
     </div>
 
 ..
