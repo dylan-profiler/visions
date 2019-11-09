@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 from visions.core.implementations.types import *
-from visions.core.summaries.summary import CompleteSummary
+from visions.application.summaries.summary import CompleteSummary
 
 
 @pytest.fixture(scope="class")

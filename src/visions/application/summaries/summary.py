@@ -4,11 +4,11 @@ import networkx as nx
 from visions.core.implementations.typesets import visions_complete_set
 from visions.core.model.type import VisionsBaseType
 from visions.core.implementations.types import *
-from visions.core.summaries import *
-from visions.core.summaries.frame.dataframe_series_summary import (
+from visions.application.summaries import *
+from visions.application.summaries.frame.dataframe_series_summary import (
     dataframe_series_summary,
 )
-from visions.core.summaries.frame.dataframe_type_summary import dataframe_type_summary
+from visions.application.summaries.frame.dataframe_type_summary import dataframe_type_summary
 from visions.utils.graph import output_graph
 
 

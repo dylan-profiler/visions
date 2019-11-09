@@ -1,7 +1,7 @@
 import pandas as pd
 
 from visions.core.model import VisionsBaseType
-from visions.core.summaries.summary import Summary
+from visions.application.summaries.summary import Summary
 
 
 def summarize_frame(df: pd.DataFrame, summarizer: Summary):

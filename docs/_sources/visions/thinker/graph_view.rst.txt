@@ -31,7 +31,7 @@ For example, the `Path` and `URL` data type both have the parent data type `Obje
 
 For the `visions_complete_set`, this base structure can be visualised as:
 
-.. figure:: ../../../../examples/plots/typesets/typeset_complete_base.svg
+.. figure:: ../../../../src/visions/visualisation/typesets/typeset_complete_base.svg
    :width: 700 px
    :align: center
    :alt: Visualisation of the base data structure of the *visions_complete_set*.
@@ -58,7 +58,7 @@ A relational mapping may not introduce any cycles.
 
 We can also visualise the extended structure:
 
-.. figure:: ../../../../examples/plots/typesets/typeset_standard.svg
+.. figure:: ../../../../src/visions/visualisation/typesets/typeset_standard.svg
    :width: 700 px
    :align: center
    :alt: Visualisation of the graph structure of the *visions_standard_set*.
@@ -66,7 +66,7 @@ We can also visualise the extended structure:
    Visualisation of the graph structure of the *visions_standard_set*.
 
 
-.. figure:: ../../../../examples/plots/typesets/typeset_geometry.svg
+.. figure:: ../../../../src/visions/visualisation/typesets/typeset_geometry.svg
    :width: 700 px
    :align: center
    :alt: Visualisation of the graph structure of the *visions_geometry_set*.
@@ -74,7 +74,7 @@ We can also visualise the extended structure:
    Visualisation of the graph structure of the *visions_geometry_set*.
 
 
-.. figure:: ../../../../examples/plots/typesets/typeset_complete.svg
+.. figure:: ../../../../src/visions/visualisation/typesets/typeset_complete.svg
    :width: 700 px
    :align: center
    :alt: Visualisation of the graph structure of the *visions_complete_set*.

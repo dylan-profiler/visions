@@ -36,7 +36,7 @@ Complete Set
 ------------
 
 .. raw:: html
-    :file: ../../../../examples/plots/circular_packing.html
+    :file: ../../../../src/visions/visualisation/circular_packing.html
 
 
 .. raw:: html

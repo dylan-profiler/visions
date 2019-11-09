@@ -24,7 +24,7 @@ TODO
 Integer
 ~~~~~~~
 
-.. figure:: ../../../../examples/plots/summaries/summary_integer.svg
+.. figure:: ../../../../src/visions/visualisation/summaries/summary_integer.svg
    :width: 150 px
    :align: center
    :alt: Integer Summary Graph
@@ -34,7 +34,7 @@ Integer
 Existing Path
 ~~~~~~~~~~~~~
 
-.. figure:: ../../../../examples/plots/summaries/summary_existing_path.svg
+.. figure:: ../../../../src/visions/visualisation/summaries/summary_existing_path.svg
    :width: 300 px
    :align: center
    :alt: Existing Path Summary Graph
@@ -47,7 +47,7 @@ Typeset summary graphs
 Complete Typeset
 ~~~~~~~~~~~~~~~~
 
-.. figure:: ../../../../examples/plots/summaries/summary_complete.svg
+.. figure:: ../../../../src/visions/visualisation/summaries/summary_complete.svg
    :width: 700 px
    :align: center
    :alt: CompleteTypeset Summary Graph

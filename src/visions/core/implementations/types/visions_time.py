@@ -23,7 +23,6 @@ class visions_time(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        # Substantially better scaling
         if not pdt.is_datetime64_any_dtype(series):
             return False
 
