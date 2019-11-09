@@ -2,7 +2,7 @@ Visions
 =======
 
 .. figure:: docs/_images/johanna.png
-   :width: 200 px
+   :width: 200px
    :align: right
    :alt: Jeanne D'Arc, Image in the public domain
 
@@ -45,3 +45,13 @@ The package is core component of `pandas-profiling <https://github.com/pandas-pr
 
 TODO: link to about page.
 
+.. raw::
+
+   <style>
+   .markdown-body > div{
+    float: right;
+    width: 200px;
+    text-align: center;
+    font-style: italic;
+   }
+   </style>
