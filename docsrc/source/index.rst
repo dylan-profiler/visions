@@ -29,7 +29,6 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
    visions/practitioner
    visions/thinker
    visions/creator
-   visions/design_decisions
    visions/about
    visions/api
 

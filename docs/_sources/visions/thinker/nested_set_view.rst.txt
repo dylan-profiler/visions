@@ -19,10 +19,7 @@ It builds on the graph view.
 Membership: plot set of values over the nested plot, take narrowest set that contains all values.
 Constraints (e.g. narrowest set)
 
-
 Note empty series is always generic. (e.g. corresponds to everyplace in the graph)
-
-
 
 Root type
 ---------

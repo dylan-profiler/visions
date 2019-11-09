@@ -27,7 +27,7 @@ Membership of a data type is defined as membership of that set.
 In symbols: :math:`f: \textrm{Type} \times S \to \{True, False\}`.
 There is a constraint: membership of siblings must be mutually exclusive.
 This is the same as that sets for each two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
-For example, the `Path` and `URL` data type both have the parent data type `Object`, then in symbols: :math:`\textrm{Path} \ \{\textrm{None}\} \cap \textrm{URL} \ \{\textrm{None}\} = \emptyset`.
+For example, the `Path` and `URL` data type both have the parent data type `Object`, then in symbols: :math:`\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset`.
 
 For the `visions_complete_set`, this base structure can be visualised as:
 

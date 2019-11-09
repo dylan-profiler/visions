@@ -87,7 +87,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
 </ul>
@@ -315,7 +314,7 @@
     <span class="k">return</span> <span class="n">series</span>
 
 
-<span class="k">class</span> <span class="nc">VisionsTypeset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="VisionsTypeset"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.VisionsTypeset.html#visions.core.model.typeset.VisionsTypeset">[docs]</a><span class="k">class</span> <span class="nc">VisionsTypeset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of vision_types with an associated relationship map between them.</span>
 
@@ -325,7 +324,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># TODO: Can we indicate covariance of types such that it&#39;s an Iterable[VisionsBaseType]</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">build</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="VisionsTypeset.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.VisionsTypeset.html#visions.core.model.typeset.VisionsTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">build</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            types:</span>
@@ -336,7 +335,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">relations</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_types</span> <span class="o">=</span> <span class="n">types</span>
         <span class="k">if</span> <span class="n">build</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_build_graph</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_graph</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_build_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span> <span class="o">=</span> <span class="n">build_relation_graph</span><span class="p">(</span>
@@ -423,7 +422,7 @@
         <span class="k">return</span> <span class="n">VisionsTypeset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">-</span> <span class="n">other_types</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>
 </pre></div>
 
            </div>

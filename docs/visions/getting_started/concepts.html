@@ -86,14 +86,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Concepts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#type">Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-type">Data Type</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#typeset">Typeset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relational-mapping">Relational mapping</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
@@ -163,9 +163,10 @@
   <div class="section" id="concepts">
 <h1>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h1>
 <p>This page introduces the concepts <cite>visions</cite> uses.</p>
-<div class="section" id="type">
-<h2>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<div class="section" id="data-type">
+<h2>Data Type<a class="headerlink" href="#data-type" title="Permalink to this headline">¶</a></h2>
+<p>A data type is an attribute of data that constraints the possible values.
+<cite>visions</cite> considers data types for tuples (pandas: Series, numpy: array).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>If you want a deeper understanding of data types, see <a class="reference internal" href="../thinker/data_type_view.html"><span class="doc">data type view</span></a>.</p>
@@ -173,7 +174,13 @@
 </div>
 <div class="section" id="typeset">
 <h2>Typeset<a class="headerlink" href="#typeset" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p>A typeset is literally a set of types.
+You can use typesets to specify different type systems.
+Intuitively, a typeset is comparable to a namespace for code or a virtual environment for dependencies.</p>
+</div>
+<div class="section" id="relational-mapping">
+<h2>Relational mapping<a class="headerlink" href="#relational-mapping" title="Permalink to this headline">¶</a></h2>
+<p>A relational mapping maps all values from one type to another.</p>
 </div>
 </div>
 

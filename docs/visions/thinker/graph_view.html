@@ -109,7 +109,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
@@ -205,7 +204,7 @@ Membership of a data type is defined as membership of that set.
 In symbols: <span class="math notranslate nohighlight">\(f: \textrm{Type} \times S \to \{True, False\}\)</span>.
 There is a constraint: membership of siblings must be mutually exclusive.
 This is the same as that sets for each two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
-For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the parent data type <cite>Object</cite>, then in symbols: <span class="math notranslate nohighlight">\(\textrm{Path} \ \{\textrm{None}\} \cap \textrm{URL} \ \{\textrm{None}\} = \emptyset\)</span>.</p>
+For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the parent data type <cite>Object</cite>, then in symbols: <span class="math notranslate nohighlight">\(\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset\)</span>.</p>
 <p>For the <cite>visions_complete_set</cite>, this base structure can be visualised as:</p>
 <div class="figure align-center" id="id1">
 <a class="reference internal image-reference" href="../../_images/typeset_complete_base.svg"><img alt="Visualisation of the base data structure of the *visions_complete_set*." src="../../_images/typeset_complete_base.svg" width="700px" /></a>

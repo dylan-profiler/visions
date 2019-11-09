@@ -84,8 +84,9 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Visions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#purpose-of-this-package">Purpose of this package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-this-package">Why this package?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-can-it-do">What can it do?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-it-do-it">How does it do it?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-navigate">How to navigate</a></li>
 </ul>
 </li>
@@ -94,7 +95,6 @@
 <li class="toctree-l1"><a class="reference internal" href="practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creator.html">Creator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
@@ -163,41 +163,50 @@
             
   <div class="section" id="visions">
 <h1>Visions<a class="headerlink" href="#visions" title="Permalink to this headline">¶</a></h1>
-<a class="reference internal image-reference" href="../_images/johanna.png"><img alt="Jeanne D'Arc, Image in the public domain" class="align-left" src="../_images/johanna.png" style="width: 200px;" /></a>
+<div class="figure align-right" id="id1">
+<a class="reference internal image-reference" href="../_images/johanna.png"><img alt="Jeanne D'Arc, Image in the public domain" src="../_images/johanna.png" style="width: 200px;" /></a>
+<p class="caption"><span class="caption-text">The Maid of Orléans</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <blockquote>
 <div><p><em>And these visions of data types, they kept us up past the dawn.</em></p>
-<p class="attribution">—An Avantgardistic Data Scientist</p>
 </div></blockquote>
-<div class="section" id="purpose-of-this-package">
-<h2>Purpose of this package<a class="headerlink" href="#purpose-of-this-package" title="Permalink to this headline">¶</a></h2>
-<p>The data models in Python, Numpy and Pandas have different ways of representing the same data, and this is problematic for data analysis.
-Visions unifies the data model of Python, Numpy and Pandas, with a focus on data analysis.
-For example, this package provides support for nullable booleans.</p>
-<p>Having an unified data model, does not mean that real-world data is in that format.
-The type system in this package provides a mechanism to clean this data.
-For example, booleans may be stored as “Yes”/”No”.
-Converting these values makes the data easier to analyse and more compact in memory.</p>
-<p>The data models are not complete enough for analysis.
-Visions offers extendable support for additional types as Urls, Paths and Images.</p>
+<div class="section" id="why-this-package">
+<h2>Why this package?<a class="headerlink" href="#why-this-package" title="Permalink to this headline">¶</a></h2>
+<p>This package lets you work with efficient, extendable data types on tabular data in Python.
+The right abstraction of your data, through these types, are a powerful tool to effectively reducing complexity and increasing performance, helping solve problems you are working on.
+Type systems are extremely flexible, applications include dataset creation, exploratory data analysis, data cleaning.</p>
 </div>
 <div class="section" id="what-can-it-do">
 <h2>What can it do?<a class="headerlink" href="#what-can-it-do" title="Permalink to this headline">¶</a></h2>
-<p>Visions provides an extensible functionality to support common data analysis operations primarily</p>
+<p>You can use the package in the following way:</p>
 <ul class="simple">
-<li><p>typing common data types</p></li>
-<li><p>type inference on unknown data</p></li>
-<li><p>type conversion on real-world data</p></li>
-<li><p>automated data summarization</p></li>
+<li><p>You pick the types and typeset that are relevant to your problem.
+The types and typeset can be chosen from the default library, or you can create custom types.
+(application: modeling the problem)</p></li>
+<li><p><cite>visions</cite> can detect types.</p></li>
+<li><p>It lets you define mappings from one type to another.
+This is helpful when working with real-world data.
+Provided these mappings, <cite>visions</cite> can infer and convert types.
+(application: data cleaning)</p></li>
+</ul>
+</div>
+<div class="section" id="how-does-it-do-it">
+<h2>How does it do it?<a class="headerlink" href="#how-does-it-do-it" title="Permalink to this headline">¶</a></h2>
+<p>Essentially, <cite>visions</cite> does the following:</p>
+<ul class="simple">
+<li><p>It builds on Pandas, Numpy and Python.</p></li>
+<li><p>It extends the data types in Pandas to solve storage and implementation issues.</p></li>
+<li><p>On top of that it models typesets as graphs (networkx) and provides graph traversal algorithms for type detection, inference and conversion.</p></li>
 </ul>
 </div>
 <div class="section" id="how-to-navigate">
 <h2>How to navigate<a class="headerlink" href="#how-to-navigate" title="Permalink to this headline">¶</a></h2>
 <p>This documentation is divided with the following audiences in mind (you can decide which one you are at any moment):</p>
 <dl>
-<dt><strong>The New Kid On The Block</strong></dt><dd><p>The minimal information you need to setup and start</p>
+<dt><strong>The New Kid On The Block</strong></dt><dd><p>The basic information you need to setup and start</p>
 <p><a class="reference internal" href="getting_started/installation.html"><span class="doc">Read more</span></a></p>
 </dd>
-<dt><strong>The Practitioner</strong></dt><dd><p>Providing essential information to use type and typeset features quickly with plenty of code examples</p>
+<dt><strong>The Practitioner</strong></dt><dd><p>Providing practical information to use type’s and typeset’s features quickly, with plenty of code examples</p>
 <p><a class="reference internal" href="practitioner.html"><span class="doc">Read more</span></a></p>
 </dd>
 <dt><strong>The Thinker</strong></dt><dd><p>Providing a deeper understanding of concepts behind <cite>visions</cite></p>

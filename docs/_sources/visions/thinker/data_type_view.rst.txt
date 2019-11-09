@@ -90,7 +90,7 @@ How do Python, Numpy and Pandas model data?
 Python
 ------
 
-The Python data model (`docs <https://docs.python.org/3/reference/datamodel.html>`_)
+`The Python data model <https://docs.python.org/3/reference/datamodel.html>`_
 
 .. image:: https://upload.wikimedia.org/wikipedia/commons/1/10/Python_3._The_standard_type_hierarchy.png
    :width: 424 px
@@ -99,7 +99,7 @@ The Python data model (`docs <https://docs.python.org/3/reference/datamodel.html
 
 Numpy
 -----
-- The Numpy data model (`docs <https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html>`_)
+`The Numpy data model <https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html>`_
 
 .. image:: https://docs.scipy.org/doc/numpy/_images/dtype-hierarchy.png
    :width: 426 px
@@ -108,7 +108,7 @@ Numpy
 
 Pandas
 ------
-- The Pandas data model (`docs <https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes>`_)
+`The Pandas data model <https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes>`_
 
 
 +---------------+----------------------------------+

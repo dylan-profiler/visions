@@ -40,4 +40,4 @@ Cast
 
 TODO
 
-.. seealso:: This returns a copy of your DataFrame object, please read the :doc:`design decisions <../design_decisions>` document for more information.
+.. seealso:: This returns a copy of your DataFrame object, please read the :doc:`engineering view <../thinker/engineering_view>` document for more information.

@@ -6,13 +6,13 @@ Typesets
 Abstract Typesets
 =================
 
-.. currentmodule:: visions.core.implementations.typeset
+.. currentmodule:: visions.core.model.typeset
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   VisionTypeset
+   VisionsTypeset
 
 =================
 Concrete Typesets

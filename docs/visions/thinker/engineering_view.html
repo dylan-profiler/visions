@@ -99,14 +99,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#memory-usage">Memory usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dtypes">Dtypes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#constraint-checking-in-tests">Constraint checking in tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nullable-types">Nullable types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#why-don-t-we-use-oop-inheritance">Why don’t we use OOP inheritance?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-are-relations-defined-on-the-type">Why are relations defined on the type?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#missing-value-bitmaps">Missing value bitmaps</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../design_decisions.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
@@ -198,6 +199,8 @@ We find this view intuitive to create understanding of:</p>
 <div class="section" id="memory-usage">
 <h2>Memory usage<a class="headerlink" href="#memory-usage" title="Permalink to this headline">¶</a></h2>
 <p>TODO</p>
+<p>Operations are designed to be idempotent (i.e. do not have side-effects).
+This may impact the performance of your program when you use large DataFrames, as a copy is made.</p>
 </div>
 <div class="section" id="dtypes">
 <h2>Dtypes<a class="headerlink" href="#dtypes" title="Permalink to this headline">¶</a></h2>
@@ -208,6 +211,11 @@ Complexity O(1) instead of O(n).</p>
 <h2>Constraint checking in tests<a class="headerlink" href="#constraint-checking-in-tests" title="Permalink to this headline">¶</a></h2>
 <p>Constraint of mutual exclusivity is not checked on runtime, rather during testing.</p>
 </div>
+<div class="section" id="nullable-types">
+<h2>Nullable types<a class="headerlink" href="#nullable-types" title="Permalink to this headline">¶</a></h2>
+<p>All types are nullable by default.
+TODO: why (refer to goal)</p>
+</div>
 <div class="section" id="why-don-t-we-use-oop-inheritance">
 <h2>Why don’t we use OOP inheritance?<a class="headerlink" href="#why-don-t-we-use-oop-inheritance" title="Permalink to this headline">¶</a></h2>
 <p>You might wonder why for example <cite>ImagePath</cite> class does not inherit from <cite>ExistingPath</cite> class.
@@ -216,6 +224,10 @@ It is just not the abstraction that simplifies our problem, in fact it introduce
 The current abstraction however, each type inherits from a base type, class inheritance from relations.</p>
 <p>When you think how class inheritance would be beneficial is here, is where it reduces complexity.
 TODO</p>
+</div>
+<div class="section" id="why-are-relations-defined-on-the-type">
+<h2>Why are relations defined on the type?<a class="headerlink" href="#why-are-relations-defined-on-the-type" title="Permalink to this headline">¶</a></h2>
+<p>TODO (extendability)</p>
 </div>
 <div class="section" id="missing-value-bitmaps">
 <h2>Missing value bitmaps<a class="headerlink" href="#missing-value-bitmaps" title="Permalink to this headline">¶</a></h2>

@@ -13,7 +13,7 @@ Abstract Types
    :toctree: _autosummary
 
    model_relation
-   typeset.VisionTypeset
+   typeset.VisionsTypeset
    typeset.build_relation_graph
 
 ==============
