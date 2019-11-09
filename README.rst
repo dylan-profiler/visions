@@ -33,7 +33,7 @@ You can install `visions` via pip:
 
     pip install visions
 
-Alternatives and more details can be found in the Full documentation can be found in the `documentation <https://ieaves.github.io/visions/>`_.
+Alternatives and more details can be found in the `documentation <https://ieaves.github.io/visions/visions/installation.html>`_.
 
 
 Acknowledgements
@@ -41,5 +41,4 @@ Acknowledgements
 
 This package is part of the `dylan-profiler <https://github.com/dylan-profiler>`_ project.
 The package is core component of `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_.
-
-TODO: link to about page.
+More information can be found `here <https://ieaves.github.io/visions/visions/about.html>`_.
