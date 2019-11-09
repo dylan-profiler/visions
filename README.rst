@@ -1,12 +1,12 @@
 Visions
 =======
 
-.. figure:: docs/_images/johanna.png
-   :width: 200px
-   :align: right
-   :alt: Jeanne D'Arc, Image in the public domain
+.. raw:: html
 
-   The Maid of Orléans
+    <div>
+        <a target="_blank" rel="noopener noreferrer" href="docs/_images/johanna.png"><img alt="Jeanne D'Arc, Image in the public domain" src="docs/_images/johanna.png" style="max-width:100%;float: right;width: 200px;text-align: center;font-style: italic;"></a>
+        <p>The Maid of Orléans</p>
+    </div>
 
 ..
 
@@ -44,14 +44,3 @@ This package is part of the `dylan-profiler <https://github.com/dylan-profiler>`
 The package is core component of `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_.
 
 TODO: link to about page.
-
-.. raw::
-
-   <style>
-   .markdown-body > div{
-    float: right;
-    width: 200px;
-    text-align: center;
-    font-style: italic;
-   }
-   </style>
