@@ -35,7 +35,6 @@ def test_summarize_series():
     brand_series = pd.Series(["Honda Civic", "Toyota Corolla", "Ford Focus", "Audi A4"])
 
     summary = summarize_series(brand_series, visions_string, CompleteSummary())
-    # print(summary)
     assert summary == {
         "n_unique": 4,
         "length": {7: 1, 14: 1, 11: 1, 10: 1},

@@ -41,6 +41,11 @@ def test_type_inference():
     }
 
 
+def test_type_cast():
+    # TODO: complete tests
+    raise NotImplementedError()
+
+
 def test_type_detect():
     # TODO: complete tests
     raise NotImplementedError()

@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from visions.core.implementations.types import visions_integer, visions_existing_path
-from visions.core.summaries.summary import CompleteSummary
+from visions.application.summaries.summary import CompleteSummary
 
 
 summaries_dir = Path("summaries/")
