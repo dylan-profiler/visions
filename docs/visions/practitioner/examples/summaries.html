@@ -178,7 +178,7 @@
 <div class="code-block-caption"><span class="caption-text">summaries_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_inference_frame</span>
+<span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_frame</span>
 <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
 <span class="kn">from</span> <span class="nn">visions.application.summaries.summary</span> <span class="kn">import</span> <span class="n">CompleteSummary</span>
 
@@ -189,7 +189,7 @@
         <span class="s2">&quot;cyrillic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Кириллица&quot;</span><span class="p">,</span> <span class="s2">&quot;гласность&quot;</span><span class="p">,</span> <span class="s2">&quot;демократија&quot;</span><span class="p">],</span>
         <span class="s2">&quot;mixed&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Кириллица&quot;</span><span class="p">,</span> <span class="s2">&quot;soep&quot;</span><span class="p">,</span> <span class="s2">&quot;демократија&quot;</span><span class="p">],</span>
         <span class="s2">&quot;burmese&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ရေကြီးခြင်း&quot;</span><span class="p">,</span> <span class="s2">&quot;စက်သင်ယူမှု&quot;</span><span class="p">,</span> <span class="s2">&quot;ဉာဏ်ရည်တု&quot;</span><span class="p">],</span>
-        <span class="c1"># &quot;digits&quot;: [&quot;01234&quot;, &quot;121223&quot;, &quot;123123&quot;],</span>
+        <span class="s2">&quot;digits&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;01234&quot;</span><span class="p">,</span> <span class="s2">&quot;121223&quot;</span><span class="p">,</span> <span class="s2">&quot;123123&quot;</span><span class="p">],</span>
         <span class="s2">&quot;specials&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="s2">&quot;%^&amp;*(&quot;</span><span class="p">,</span> <span class="s2">&quot;!!!~``&quot;</span><span class="p">],</span>
         <span class="s2">&quot;whitespace&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">],</span>
         <span class="s2">&quot;jiddisch&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;רעכט צו לינקס&quot;</span><span class="p">,</span> <span class="s2">&quot;שאָסיי 61&quot;</span><span class="p">,</span> <span class="s2">&quot;פּיצאַ איז אָנגענעם&quot;</span><span class="p">],</span>
@@ -202,7 +202,7 @@
 <span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
 
 <span class="c1"># Infer the column type</span>
-<span class="n">types</span> <span class="o">=</span> <span class="n">type_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="n">types</span> <span class="o">=</span> <span class="n">type_detect_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 
 <span class="c1"># Generate a summary</span>
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
@@ -217,6 +217,7 @@
 
     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;| {column: &lt;15}| {scripts: &lt;17}| {categories: &lt;84}| {blocks: &lt;25}|&quot;</span><span class="p">)</span>
 
+
 </pre></div>
 </div>
 </div>
@@ -227,6 +228,7 @@
 | cyrillic       | Cyrillic         | Lowercase_Letter, Uppercase_Letter                                                  | Cyrillic                 |
 | mixed          | Latin, Cyrillic  | Lowercase_Letter, Uppercase_Letter                                                  | Basic Latin, Cyrillic    |
 | burmese        | Myanmar          | Nonspacing_Mark, Spacing_Mark, Other_Letter                                         | Myanmar                  |
+| digits         | Common           | Decimal_Number                                                                      | Basic Latin              |
 | specials       | Common           | Modifier_Symbol, Currency_Symbol, Math_Symbol, Other_Punctuation, Open_Punctuation  | Basic Latin              |
 | whitespace     | Common           | Space_Separator, Control                                                            | Basic Latin              |
 | jiddisch       | Hebrew, Common   | Space_Separator, Nonspacing_Mark, Other_Letter, Decimal_Number                      | Basic Latin, Hebrew      |

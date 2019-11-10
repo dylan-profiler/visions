@@ -39,3 +39,4 @@ for column, variable_summary in summary["series"].items():
 
     print(f"| {column: <15}| {scripts: <17}| {categories: <84}| {blocks: <25}|")
 
+

@@ -44,6 +44,7 @@ Type detection
 For any typeset and Pandas Series :math:`S` (i.e. a bag of values), there is the operation type detection to be :math:`f: \textrm{Typeset} \times S \to \textrm{Type}`.
 The function returns the narrowest matching type given a Series.
 Type detection is implemented as depth first search starting at the root note.
+Hence detection (and inference) return the narrowest possible type.
 
 Relational mapping extensions
 -----------------------------

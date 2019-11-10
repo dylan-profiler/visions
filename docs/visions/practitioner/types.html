@@ -177,28 +177,36 @@
     <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;NaT&#39;</span><span class="p">)</span>
 <span class="p">])</span>
 </pre></div>
 </div>
 <div class="section" id="detection">
 <h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">get_type</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">get_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">type_detect_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
 <span class="n">visions_datetime</span>
 
 <span class="c1"># Object Oriented</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">get_series_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_type_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
 <span class="n">visions_datetime</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="inference">
 <h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
-<p>Inference returns the narrowest possible type</p>
+<p>Inference tries to cast certain series:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span><span class="p">,</span> <span class="n">type_inference_series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integer_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">type_detect_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">)</span>
+<span class="go">visions_string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">type_inference_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">)</span>
+<span class="go">visions_integer</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="membership">
 <h2>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h2>
@@ -218,15 +226,23 @@
 <div class="section" id="cast">
 <h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">cast_type</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">cast_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
-<span class="n">test_series</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_cast_series</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">type_cast_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="mi">2</span>    <span class="mi">3</span>
+<span class="mi">3</span>    <span class="mi">4</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 
 <span class="c1"># Object Oriented</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
-<span class="n">test_series</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="mi">2</span>    <span class="mi">3</span>
+<span class="mi">3</span>    <span class="mi">4</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 </pre></div>
 </div>
 <div class="admonition seealso">

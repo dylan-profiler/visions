@@ -164,7 +164,7 @@
 <span class="kn">from</span> <span class="nn">visions.core.model.visions_generic</span> <span class="k">import</span> <span class="n">visions_generic</span>
 
 
-<span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">relations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">]:</span>
+<div class="viewcode-block" id="build_graph"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.build_graph.html#visions.core.model.typeset.build_graph">[docs]</a><span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">relations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Constructs a traversable relation graph between visions types</span>
 <span class="sd">    Builds a type relation graph from a collection of root and derivative nodes. Usually</span>
 <span class="sd">    root nodes correspond to the baseline numpy types found in pandas while derivative</span>
@@ -202,7 +202,7 @@
                 <span class="n">noninferential_edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">friend_model</span><span class="p">,</span> <span class="n">model</span><span class="p">))</span>
 
     <span class="n">check_graph_constraints</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">relation_graph</span><span class="p">,</span> <span class="n">relation_graph</span><span class="o">.</span><span class="n">edge_subgraph</span><span class="p">(</span><span class="n">noninferential_edges</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">relation_graph</span><span class="p">,</span> <span class="n">relation_graph</span><span class="o">.</span><span class="n">edge_subgraph</span><span class="p">(</span><span class="n">noninferential_edges</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">check_graph_constraints</span><span class="p">(</span><span class="n">relation_graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

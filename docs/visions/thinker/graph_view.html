@@ -214,7 +214,8 @@ For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the 
 <h3>Type detection<a class="headerlink" href="#type-detection" title="Permalink to this headline">¶</a></h3>
 <p>For any typeset and Pandas Series <span class="math notranslate nohighlight">\(S\)</span> (i.e. a bag of values), there is the operation type detection to be <span class="math notranslate nohighlight">\(f: \textrm{Typeset} \times S \to \textrm{Type}\)</span>.
 The function returns the narrowest matching type given a Series.
-Type detection is implemented as depth first search starting at the root note.</p>
+Type detection is implemented as depth first search starting at the root note.
+Hence detection (and inference) return the narrowest possible type.</p>
 </div>
 </div>
 <div class="section" id="relational-mapping-extensions">
