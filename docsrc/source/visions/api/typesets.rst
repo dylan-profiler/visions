@@ -38,6 +38,9 @@ Functional API
 .. autosummary::
    :toctree: _autosummary
 
-   type_detect
-   type_inference
-   type_cast
+   type_detect_frame
+   type_detect_series
+   type_inference_frame
+   type_inference_series
+   type_cast_frame
+   type_cast_series

@@ -1,11 +1,11 @@
 import pandas as pd
 
-from visions.core.functional import type_inference, type_detect
+from visions.core.functional import type_inference_frame, type_detect_frame
 from visions.core.implementations.types import visions_string, visions_integer
 from visions.core.implementations.typesets import visions_complete_set
 
 
-def test_type_inference():
+def test_type_inference_frame():
     # Create a DataFrame with various string columns
     df = pd.DataFrame(
         {
@@ -26,7 +26,7 @@ def test_type_inference():
     typeset = visions_complete_set()
 
     # Infer the column type
-    types = type_inference(df, typeset)
+    types = type_inference_frame(df, typeset)
     assert types == {
         "latin": visions_string,
         "cyrillic": visions_string,
@@ -41,12 +41,22 @@ def test_type_inference():
     }
 
 
-def test_type_cast():
+def test_type_inference_series():
     # TODO: complete tests
     raise NotImplementedError()
 
 
-def test_type_detect():
+def test_type_cast_frame():
+    # TODO: complete tests
+    raise NotImplementedError()
+
+
+def test_type_cast_series():
+    # TODO: complete tests
+    raise NotImplementedError()
+
+
+def test_type_detect_frame():
     # Create a DataFrame with various string columns
     df = pd.DataFrame(
         {
@@ -67,7 +77,7 @@ def test_type_detect():
     typeset = visions_complete_set()
 
     # Infer the column type
-    types = type_detect(df, typeset)
+    types = type_detect_frame(df, typeset)
     assert types == {
         "latin": visions_string,
         "cyrillic": visions_string,
@@ -80,3 +90,8 @@ def test_type_detect():
         "arabic": visions_string,
         "playing_cards": visions_string,
     }
+
+
+def test_type_detect_series():
+    # TODO: complete tests
+    raise NotImplementedError()

@@ -180,6 +180,7 @@ def traverse_graph_inference_sample(
     return path, series
 
 
+# TODO: remove or use
 # def cast_along_path(
 #     series: pd.Series, path: List[Type[VisionsBaseType]], graph: nx.DiGraph
 # ) -> pd.Series:
@@ -204,36 +205,36 @@ def traverse_graph_inference_sample(
 #     return new_series
 
 
-# def infer_type_path(
-#     series: pd.Series,
-#     G: nx.DiGraph,
-#     base_type: Type[VisionsBaseType] = visions_generic,
-#     sample_size: int = 10,
-# ) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
-#     # Hmmm.
-#     if sample_size >= len(series):
-#         path, new_series = traverse_graph_inference(base_type, series, G)
-#         return path, new_series
-#
-#     # Sample a part of the series
-#     series_sample = series.sample(sample_size)
-#
-#     # Infer the type
-#     path, new_series_sample = traverse_graph_inference(base_type, series_sample, G)
-#
-#     # Cast the full series
-#     from_type = to_type = path[0]
-#     for to_type in path[1:]:
-#         try:
-#             # TODO: hmmm this either has side-effects, or copies every time
-#             new_series = G[from_type][to_type]["relationship"].transform(series)
-#             from_type = to_type
-#         except Exception:
-#             # TODO: We can't just ignore the errors...
-#             warnings.warn(f"Sample size for inference {sample_size} was too small")
-#             break
-#
-#     return path[0 : (path.index(to_type) + 1)], new_series
+def infer_type_path(
+    series: pd.Series,
+    G: nx.DiGraph,
+    base_type: Type[VisionsBaseType] = visions_generic,
+    sample_size: int = 10,
+) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
+    # TODO: Try sample, Except do this
+    if sample_size >= len(series):
+        path, new_series = traverse_graph_inference(base_type, series, G)
+        return path, new_series
+
+    # Sample a part of the series
+    series_sample = series.sample(sample_size)
+
+    # Infer the type
+    path, new_series_sample = traverse_graph_inference(base_type, series_sample, G)
+
+    # Cast the full series
+    from_type = to_type = path[0]
+    for to_type in path[1:]:
+        try:
+            # TODO: why can we do `new_series = cast(series)` over and over?
+            new_series = G[from_type][to_type]["relationship"].transform(series)
+            from_type = to_type
+        except Exception:
+            # TODO: Make sure that the transform always raises an exception when expected
+            # TODO: We might to do something here
+            break
+
+    return path[0 : (path.index(to_type) + 1)], new_series
 
 
 class VisionsTypeset(object):

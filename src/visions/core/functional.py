@@ -1,10 +1,13 @@
+from typing import Dict, Type
+
 import pandas as pd
 
+from visions.core.model.type import VisionsBaseType
 from visions.core.model.typeset import VisionsTypeset
 
 
-def type_cast(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
-    """Casts a dataframe into a typeset by first performing column wise type inference against
+def type_cast_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
+    """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
     Args:
@@ -17,7 +20,13 @@ def type_cast(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
     return typeset.cast_frame(df)
 
 
-def type_inference(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
+def type_cast_series(series: pd.Series, typeset: VisionsTypeset) -> pd.Series:
+    return typeset.cast_series(series)
+
+
+def type_inference_frame(
+    df: pd.DataFrame, typeset: VisionsTypeset
+) -> Dict[str, Type[VisionsBaseType]]:
     """Infer the current types of each column in the DataFrame given the typeset.
 
     Args:
@@ -31,7 +40,15 @@ def type_inference(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
     return typeset.infer_frame_type(df)
 
 
-def type_detect(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
+def type_inference_series(
+    series: pd.Series, typeset: VisionsTypeset
+) -> Type[VisionsBaseType]:
+    return typeset.infer_series_type(series)
+
+
+def type_detect_frame(
+    df: pd.DataFrame, typeset: VisionsTypeset
+) -> Dict[str, Type[VisionsBaseType]]:
     """Detect the type in the base graph
 
     Args:
@@ -42,3 +59,9 @@ def type_detect(df: pd.DataFrame, typeset: VisionsTypeset) -> dict:
         A dictionary with a mapping from column name to type
     """
     return typeset.detect_frame_type(df)
+
+
+def type_detect_series(
+    series: pd.Series, typeset: VisionsTypeset
+) -> Type[VisionsBaseType]:
+    return typeset.detect_series_type(series)
