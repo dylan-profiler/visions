@@ -152,35 +152,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.core.functional</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Tuple</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="k">import</span> <span class="n">VisionsTypeset</span><span class="p">,</span> <span class="n">infer_type_path</span>
-
-
-<span class="k">def</span> <span class="nf">cast_and_infer</span><span class="p">(</span>
-    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Casts a dataframe into a typeset by first performing column wise type inference against</span>
-<span class="sd">    a provided typeset</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        df: the DataFrame to cast</span>
-<span class="sd">        typeset: the Typeset in which we cast</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A tuple of the casted DataFrame and the types to which the columns were cast</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">inferred_values</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">column</span><span class="p">:</span> <span class="n">infer_type_path</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">typeset</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-    <span class="p">}</span>
-
-    <span class="n">inferred_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">inf_type</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="p">(</span><span class="n">inf_type</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">inferred_values</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-    <span class="n">inferred_series</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">col</span><span class="p">:</span> <span class="n">inf_series</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">inf_series</span><span class="p">)</span> <span class="ow">in</span> <span class="n">inferred_values</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">inferred_series</span><span class="p">),</span> <span class="n">inferred_types</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="k">import</span> <span class="n">VisionsTypeset</span>
 
 
 <div class="viewcode-block" id="type_cast"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_cast.html#visions.core.functional.type_cast">[docs]</a><span class="k">def</span> <span class="nf">type_cast</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -194,8 +168,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A tuple of the casted DataFrame and the types to which the columns were cast</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cast_and_infer</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span></div>
+    <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_frame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="type_inference"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_inference.html#visions.core.functional.type_inference">[docs]</a><span class="k">def</span> <span class="nf">type_inference</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -209,15 +182,7 @@
 <span class="sd">        A dictionary with a mapping from column name to type</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">unpack</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
-        <span class="n">path</span><span class="p">,</span> <span class="n">series</span> <span class="o">=</span> <span class="n">vals</span>
-        <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">inferred_types</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">column</span><span class="p">:</span> <span class="n">unpack</span><span class="p">(</span><span class="n">infer_type_path</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">typeset</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">inferred_types</span></div>
+    <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">infer_frame_type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="type_detect"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_detect.html#visions.core.functional.type_detect">[docs]</a><span class="k">def</span> <span class="nf">type_detect</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -230,8 +195,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A dictionary with a mapping from column name to type</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: implement</span>
-    <span class="k">return</span> <span class="p">{}</span></div>
+    <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_frame_type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

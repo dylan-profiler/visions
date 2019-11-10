@@ -14,9 +14,11 @@ visions.core.implementations.typesets.visions\_geometry\_set
    .. autosummary::
    
       ~visions_geometry_set.__init__
+      ~visions_geometry_set.cast_frame
       ~visions_geometry_set.cast_series
-      ~visions_geometry_set.cast_to_inferred_types
-      ~visions_geometry_set.get_series_type
+      ~visions_geometry_set.detect_frame_type
+      ~visions_geometry_set.detect_series_type
+      ~visions_geometry_set.infer_frame_type
       ~visions_geometry_set.infer_series_type
       ~visions_geometry_set.output_graph
       ~visions_geometry_set.plot_graph

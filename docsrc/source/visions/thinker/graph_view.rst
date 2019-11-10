@@ -48,6 +48,8 @@ Type detection is implemented as depth first search starting at the root note.
 Relational mapping extensions
 -----------------------------
 
+TODO: Identity transformation nad note in practice we don't check this...
+
 We extend the data structure to support mappings from one data type to another.
 Relational mappings are very similar to the edges in the base data structure.
 Like the edges in the base data structure, each relational mapping is associated with a set and has to adhere to the same constraint.

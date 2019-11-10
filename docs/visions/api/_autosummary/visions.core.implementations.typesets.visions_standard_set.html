@@ -195,12 +195,14 @@
 <li><p>visions_timedelta</p></li>
 </ul>
 <p>Args:
-types:</p>
+types:
+build: Construct the graph, set to false when</p>
 <dl class="method">
 <dt id="visions.core.implementations.typesets.visions_standard_set.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/implementations/typesets.html#visions_standard_set.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.implementations.typesets.visions_standard_set.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Args:
-types:</p>
+types:
+build: Construct the graph, set to false when</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -211,47 +213,28 @@ types:</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.implementations.typesets.visions_standard_set.__init__" title="visions.core.implementations.typesets.visions_standard_set.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
-<td><p>Args: types:</p></td>
+<td><p>Args: types: build: Construct the graph, set to false when</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_frame</span></code>(df)</p></td>
+<td><p>Cast to DataFrame, simple wrapper around cast_series.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
+<td><p>Cast Series to its inferred type.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_frame_type</span></code>(df)</p></td>
+<td><p>Detect the types of the series in the DataFrame, simple wrapper around get_series type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_series_type</span></code>(series)</p></td>
+<td><p>Get the series type (without casting).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_frame_type</span></code>(df)</p></td>
+<td><p>Infer the types of the series in the DataFrame, simple wrapper around get_series type.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Infer the series type (without casting).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_graph</span></code>(file_name[, base_only])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type file_name</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Write the type graph to a file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
 <td><p><dl class="field-list simple">

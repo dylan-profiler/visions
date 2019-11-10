@@ -85,7 +85,7 @@ def test_relations(source_type, relation_type, series):
 def test_consistency(series):
     typeset = visions_complete_set()
 
-    initial_type = typeset.get_series_type(series.copy(deep=True))
+    initial_type = typeset.detect_series_type(series.copy(deep=True))
     converted_type = typeset.infer_series_type(series.copy(deep=True))
 
     if initial_type != converted_type:
@@ -109,7 +109,7 @@ def test_side_effects(series):
     reference = series.copy()
 
     typeset = visions_complete_set()
-    typeset.get_series_type(series)
+    typeset.detect_series_type(series)
     typeset.infer_series_type(series)
 
     # Check if NaN mask is equal
@@ -130,12 +130,12 @@ def test_multiple_inference(series):
 
     series_convert = ts.cast_series(series.copy(deep=True))
 
-    initial_type_after_convert = ts.get_series_type(series_convert.copy(deep=True))
+    initial_type_after_convert = ts.detect_series_type(series_convert.copy(deep=True))
     assert inferred_type == initial_type_after_convert
 
     series_convert2 = ts.cast_series(series_convert.copy(deep=True))
 
-    inferred_type_after_convert = ts.get_series_type(series_convert2.copy(deep=True))
+    inferred_type_after_convert = ts.detect_series_type(series_convert2.copy(deep=True))
     assert initial_type_after_convert == inferred_type_after_convert
 
     assert series_convert.isna().eq(series_convert2.isna()).all()

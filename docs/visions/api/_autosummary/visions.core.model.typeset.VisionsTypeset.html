@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.core.model.typeset.build_relation_graph" href="visions.core.model.typeset.build_relation_graph.html" />
+    <link rel="next" title="visions.core.implementations.types.visions_generic" href="visions.core.implementations.types.visions_generic.html" />
     <link rel="prev" title="visions.core.model.model_relation" href="visions.core.model.model_relation.html" /> 
 </head>
 
@@ -179,7 +179,7 @@
 <dl class="class">
 <dt id="visions.core.model.typeset.VisionsTypeset">
 <em class="property">class </em><code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">VisionsTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em>, <em class="sig-param">build=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionsTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset" title="Permalink to this definition">¶</a></dt>
-<dd><p>A collection of vision_types with an associated relationship map between them.</p>
+<dd><p>A set of visions types with an associated relationship map between them.</p>
 <dl class="attribute">
 <dt id="visions.core.model.typeset.VisionsTypeset.types">
 <code class="sig-name descname">types</code><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset.types" title="Permalink to this definition">¶</a></dt>
@@ -194,7 +194,10 @@
 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+T_co]) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – </p></li>
+<li><p><strong>build</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Construct the graph, set to false when</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="method">
@@ -202,7 +205,10 @@
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em>, <em class="sig-param">build=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionsTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+T_co]) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – </p></li>
+<li><p><strong>build</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Construct the graph, set to false when</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -217,50 +223,31 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typeset.VisionsTypeset.__init__" title="visions.core.model.typeset.VisionsTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types[, build])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type types</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[+T_co]</p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>
 </dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_frame</span></code>(df)</p></td>
+<td><p>Cast to DataFrame, simple wrapper around cast_series.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred_types</span></code>(df)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
+<td><p>Cast Series to its inferred type.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_frame_type</span></code>(df)</p></td>
+<td><p>Detect the types of the series in the DataFrame, simple wrapper around get_series type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_series_type</span></code>(series)</p></td>
+<td><p>Get the series type (without casting).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_frame_type</span></code>(df)</p></td>
+<td><p>Infer the types of the series in the DataFrame, simple wrapper around get_series type.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">rtype</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code>]</p>
-</dd>
-</dl>
-</p></td>
+<td><p>Infer the series type (without casting).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_graph</span></code>(file_name[, base_only])</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type file_name</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Write the type graph to a file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
 <td><p><dl class="field-list simple">
@@ -284,7 +271,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.core.model.typeset.build_relation_graph.html" class="btn btn-neutral float-right" title="visions.core.model.typeset.build_relation_graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="visions.core.implementations.types.visions_generic.html" class="btn btn-neutral float-right" title="visions.core.implementations.types.visions_generic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="visions.core.model.model_relation.html" class="btn btn-neutral float-left" title="visions.core.model.model_relation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -53,6 +53,11 @@ The current abstraction however, each type inherits from a base type, class inhe
 When you think how class inheritance would be beneficial is here, is where it reduces complexity.
 TODO
 
+Sampling in inference
+---------------------
+
+TODO
+
 Why are relations defined on the type?
 --------------------------------------
 TODO (extendability)
