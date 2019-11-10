@@ -14,7 +14,7 @@ Abstract Types
 
    model_relation
    typeset.VisionsTypeset
-   typeset.build_relation_graph
+   typeset.build_graph
 
 ==============
 Concrete Types
