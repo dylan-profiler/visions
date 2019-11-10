@@ -13,11 +13,11 @@ def test_cast_copy():
     assert id_s != id_ns
 
 
-def test_noncast_copy():
+def test_noncast_noncopy():
     s = pd.Series(["asdasd", "asdasda", "asdasd", "sadasd"])
     id_s = hex(id(s))
 
     typeset = visions_complete_set()
     ns = typeset.cast_series(s)
     id_ns = hex(id(ns))
-    assert id_s != id_ns
+    assert id_s == id_ns
