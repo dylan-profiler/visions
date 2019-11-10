@@ -33,10 +33,8 @@ summary = summarizer.summarize(df, types)
 print(f"| {'Column': <15}| {'Scripts': <17}| {'Categories': <84}| {'Blocks': <25}|")
 print(f"{'':-<17}+{'':-<18}+{'':-<85}+{'':-<26}+")
 for column, variable_summary in summary["series"].items():
-    scripts = ", ".join(set(variable_summary['script_values'].values()))
-    categories = ", ".join(set(variable_summary['category_alias_values'].values()))
-    blocks = ", ".join(set(variable_summary['block_values'].values()))
+    scripts = ", ".join(set(variable_summary["script_values"].values()))
+    categories = ", ".join(set(variable_summary["category_alias_values"].values()))
+    blocks = ", ".join(set(variable_summary["block_values"].values()))
 
     print(f"| {column: <15}| {scripts: <17}| {categories: <84}| {blocks: <25}|")
-
-
