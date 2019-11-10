@@ -38,3 +38,18 @@ Frame Summaries
    :toctree: _autosummary
 
    dataframe_summary
+
+
+=================
+Functional API
+=================
+
+.. currentmodule:: visions.application.summaries.functional
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+   summarize
+   summarize_frame
+   summarize_series

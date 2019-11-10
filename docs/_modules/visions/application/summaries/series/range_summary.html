@@ -156,13 +156,13 @@
 
 
 <div class="viewcode-block" id="range_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.range_summary.html#visions.application.summaries.series.range_summary">[docs]</a><span class="k">def</span> <span class="nf">range_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Summarize min, max and calculate the range</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        series:</span>
+<span class="sd">        series: series to summarize</span>
 
 <span class="sd">    Returns:</span>
-
+<span class="sd">        A dict with `min`, `max` and `range`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">aggregates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">]</span>
     <span class="n">summary</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">aggregates</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>

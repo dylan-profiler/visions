@@ -157,13 +157,13 @@
 
 
 <div class="viewcode-block" id="infinite_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.infinite_summary.html#visions.application.summaries.series.infinite_summary">[docs]</a><span class="k">def</span> <span class="nf">infinite_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Counts the number of infinite values.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        series:</span>
+<span class="sd">        series: series to summarize</span>
 
 <span class="sd">    Returns:</span>
-
+<span class="sd">        A dict containing `inf_count`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">series</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">series</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span>

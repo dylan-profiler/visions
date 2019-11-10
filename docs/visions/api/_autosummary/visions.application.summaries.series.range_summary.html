@@ -92,8 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../models.html">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_typesets.html">Typesets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typesets.html">Typesets</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../summaries.html">Summaries</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../summaries.html#series-summaries">Series Summaries</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.base_summary.html">visions.application.summaries.series.base_summary</a></li>
@@ -113,8 +112,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../summaries.html#frame-summaries">Frame Summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../summaries.html#functional-api">Functional API</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
 </ul>
 </li>
@@ -191,15 +192,16 @@
 <dl class="function">
 <dt id="visions.application.summaries.series.range_summary">
 <code class="sig-prename descclassname">visions.application.summaries.series.</code><code class="sig-name descname">range_summary</code><span class="sig-paren">(</span><em class="sig-param">series</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/application/summaries/series/range_summary.html#range_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.application.summaries.series.range_summary" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>series</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – </p>
-</dd>
-</dl>
-<p>Returns:</p>
+<dd><p>Summarize min, max and calculate the range</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – series to summarize</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict with <cite>min</cite>, <cite>max</cite> and <cite>range</cite>.</p>
 </dd>
 </dl>
 </dd></dl>

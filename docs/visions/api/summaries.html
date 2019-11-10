@@ -92,8 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="models.html">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_typesets.html">Typesets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functional.html">Functional API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typesets.html">Typesets</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Summaries</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#series-summaries">Series Summaries</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.base_summary.html">visions.application.summaries.series.base_summary</a></li>
@@ -116,8 +115,15 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.frame.dataframe_summary.html">visions.application.summaries.frame.dataframe_summary</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#functional-api">Functional API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.functional.summarize.html">visions.application.summaries.functional.summarize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.functional.summarize_frame.html">visions.application.summaries.functional.summarize_frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.functional.summarize_series.html">visions.application.summaries.functional.summarize_series</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
 </li>
@@ -206,12 +212,7 @@
 <td><p>Summary for pandas.Categorical</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.range_summary.html#visions.application.summaries.series.range_summary" title="visions.application.summaries.series.range_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">range_summary</span></code></a>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Summarize min, max and calculate the range</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.existing_path_summary.html#visions.application.summaries.series.existing_path_summary" title="visions.application.summaries.series.existing_path_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">existing_path_summary</span></code></a>(series)</p></td>
 <td><p><dl class="field-list simple">
@@ -230,20 +231,10 @@
 </p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.infinite_summary.html#visions.application.summaries.series.infinite_summary" title="visions.application.summaries.series.infinite_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">infinite_summary</span></code></a>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Counts the number of infinite values.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.missing_summary.html#visions.application.summaries.series.missing_summary" title="visions.application.summaries.series.missing_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">missing_summary</span></code></a>(series)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Counts the number of missing values</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.numerical_summary.html#visions.application.summaries.series.numerical_summary" title="visions.application.summaries.series.numerical_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerical_summary</span></code></a>(series)</p></td>
 <td><p><dl class="field-list simple">
@@ -311,6 +302,28 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.frame.dataframe_summary.html#visions.application.summaries.frame.dataframe_summary" title="visions.application.summaries.frame.dataframe_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dataframe_summary</span></code></a>(df)</p></td>
 <td><p>Summarization for a DataFrame</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functional-api">
+<h2>Functional API<a class="headerlink" href="#functional-api" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.functional.summarize.html#visions.application.summaries.functional.summarize" title="visions.application.summaries.functional.summarize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">summarize</span></code></a>(df, series_types, summarizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.functional.summarize_frame.html#visions.application.summaries.functional.summarize_frame" title="visions.application.summaries.functional.summarize_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">summarize_frame</span></code></a>(df, series_types, summarizer)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.functional.summarize_series.html#visions.application.summaries.functional.summarize_series" title="visions.application.summaries.functional.summarize_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">summarize_series</span></code></a>(series, series_type, summarizer)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>

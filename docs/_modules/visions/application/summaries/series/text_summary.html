@@ -163,7 +163,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        series:</span>
+<span class="sd">        series: series to summarize</span>
 
 <span class="sd">    Returns:</span>
 
@@ -178,12 +178,13 @@
         <span class="n">key</span><span class="p">:</span> <span class="n">category</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">key</span><span class="p">:</span> <span class="n">category_long</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">category_long</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_short_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;script_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">script</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">block</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">key</span><span class="p">:</span> <span class="n">block_abbr</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">block_abbr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">summary</span></div>

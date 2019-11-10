@@ -25,9 +25,14 @@ def write_json(data):
 def write_html(data):
     string = f"\n\troot = {json.dumps(data)}\n\t"
 
-    file_name = Path('circular_packing.html')
+    file_name = Path("circular_packing.html")
     fc = file_name.read_text()
-    fc = re.sub(r'// START-REPLACE(.*)// END-REPLACE', f'// START-REPLACE{string}// END-REPLACE', fc, flags=re.MULTILINE | re.DOTALL)
+    fc = re.sub(
+        r"// START-REPLACE(.*)// END-REPLACE",
+        f"// START-REPLACE{string}// END-REPLACE",
+        fc,
+        flags=re.MULTILINE | re.DOTALL,
+    )
     file_name.write_text(fc)
 
 

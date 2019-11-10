@@ -6,7 +6,7 @@ def numerical_summary(series: pd.Series) -> dict:
     """
 
     Args:
-        series:
+        series: series to summarize
 
     Returns:
 

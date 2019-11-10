@@ -27,3 +27,17 @@ Concrete Typesets
    visions_standard_set
    visions_geometry_set
    visions_complete_set
+
+==============
+Functional API
+==============
+
+.. currentmodule:: visions.core.functional
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+   type_detect
+   type_inference
+   type_cast

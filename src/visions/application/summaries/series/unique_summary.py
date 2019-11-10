@@ -6,7 +6,7 @@ def unique_summary(series: pd.Series) -> dict:
     """
 
     Args:
-        series:
+        series: series to summarize
 
     Returns:
 
@@ -20,7 +20,7 @@ def unique_summary_complex(series: pd.Series) -> dict:
     """
 
     Args:
-        series:
+        series: series to summarize
 
     Returns:
 
