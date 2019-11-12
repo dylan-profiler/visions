@@ -242,11 +242,10 @@ class VisionsTypeset(object):
         relation_graph: ...
     """
 
-    def __init__(self, types: set, build: bool = True):
+    def __init__(self, types: set):
         """
         Args:
-            types:
-            build: Construct the graph, set to false when
+            types: a set of types in the typeset
         """
         if not isinstance(types, set):
             raise ValueError("types should be a set")
@@ -255,10 +254,6 @@ class VisionsTypeset(object):
         types.add(visions_generic)
         self._types = types
 
-        if build:
-            self._build_graph()
-
-    def _build_graph(self):
         self.relation_graph, self.base_graph = build_graph(self._types, self.relations)
         self.types = set(self.relation_graph.nodes)
 
