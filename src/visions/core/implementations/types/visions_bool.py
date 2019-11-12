@@ -1,11 +1,10 @@
-from typing import List, Dict
-
 import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
 
 from visions.core.model.model_relation import relation_conf
 from visions.core.model.type import VisionsBaseType
+from visions.lib.relations.string_to_bool import get_boolean_coercions
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
@@ -17,24 +16,6 @@ def to_bool(series: pd.Series) -> pd.Series:
     else:
         unsupported_values = series[~series.isin({True, False, None, np.nan})].unique()
         raise ValueError(f"Values not supported {unsupported_values}")
-
-
-def get_language_coercions(language_code: str) -> List[Dict]:
-    lang_map = {
-        "en": [
-            {"true": True, "false": False},
-            {"y": True, "n": False},
-            {"yes": True, "no": False},
-        ],
-        "nl": [{"ja": True, "nee": False}],
-    }
-    return lang_map[language_code]
-
-
-def get_language_bool(language_code: str):
-    return visions_bool.make_string_coercion(
-        language_code, get_language_coercions(language_code)
-    )
 
 
 def _get_relations(cls) -> dict:
@@ -83,7 +64,7 @@ class visions_bool(VisionsBaseType):
         True
     """
 
-    string_coercions = get_language_coercions("en")
+    string_coercions = get_boolean_coercions("en")
 
     @classmethod
     def get_relations(cls) -> dict:

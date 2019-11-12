@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Type View &mdash; visions 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Graph view" href="graph_view.html" />
+    <link rel="prev" title="Goals" href="goals.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="goals.html">Goals</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Data Type View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#concepts">Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-with-pandas">Comparing with pandas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-with-missing-values">Problem with missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-with-strings">Problem with strings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#where-the-current-models-fail">Where the current models fail</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-python-numpy-and-pandas-model-data">How do Python, Numpy and Pandas model data?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unifying-what-do-we-need">Unifying, what do we need?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_view.html">Application view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../thinker.html">Thinker</a> &raquo;</li>
+        
+      <li>Data Type View</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/visions/thinker/data_type_view.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-type-view">
+<h1>Data Type View<a class="headerlink" href="#data-type-view" title="Permalink to this headline">¶</a></h1>
+<p><cite>Visions</cite> views data types through the lens of logical and physical data types.</p>
+<p>This view can help guide our intuition around:</p>
+<ul class="simple">
+<li><p>how types relate</p></li>
+<li><p>how operations on types are performed</p></li>
+<li><p>storage efficiency</p></li>
+<li><p>the relations to Pandas’, Numpy’s and Python’s data models</p></li>
+</ul>
+<p>It is limited with respect to:</p>
+<ul class="simple">
+<li><p>intuitive understanding of membership constraints (see the nested set view).</p></li>
+<li><p>the exact implementation (see the engineering view).</p></li>
+</ul>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<p>When we refer to a data type or shortly type in visions, we mean abstract data type (ADT).
+An ADT is used by the user to abstract from data to solve subsequent tasks.
+When a data type isn’t abstract, we refer to it as a physical data type, which is concerned with storage of the data.
+The ADT internally represents the data in one or more physical data types.
+This abstraction is a powerful tool to the user.</p>
+<p>For example, the data type integer can be stored as int64, int32, int16, int8, uint64 etc.</p>
+<p>properties of AdT: expressiveness, low overhead complexity</p>
+<ul class="simple">
+<li><p>Physical types</p></li>
+<li><p>Logical types</p></li>
+<li><p>Type detection</p></li>
+<li><p>Type inference</p></li>
+<li><p>Casting, coercion, conversion</p></li>
+</ul>
+</div>
+<div class="section" id="comparing-with-pandas">
+<h2>Comparing with pandas<a class="headerlink" href="#comparing-with-pandas" title="Permalink to this headline">¶</a></h2>
+<p>There are multiple problems when working with pandas for data analysis:</p>
+<ul class="simple">
+<li><p>Missing values are handled inconsistently (int, bool, object)</p></li>
+<li><p>Strings are stored as objects</p></li>
+</ul>
+<p>Pandas’ functionality to create abstract data types is ExtensionsDType.
+It is expressive.
+Creating a new type has high overhead, as we need to define it from scratch for the lack of basic components.</p>
+</div>
+<div class="section" id="decoupling-physical-and-logical-types">
+<h2>Decoupling physical and logical types<a class="headerlink" href="#decoupling-physical-and-logical-types" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p><cite>Physical types</cite> represent the actual, underlying representation of the data.</p></li>
+<li><p><cite>Logical types</cite> represent the abstracted understanding of that data.</p></li>
+</ol>
+<p>To make this distinction more concrete we can imagine the sequence <cite>[‘Apple’, ‘Orange’, ‘Pear’]</cite>.</p>
+<p>At a logical level these are of the logical type <cite>Fruit</cite> while under the hood each element is physically represented as <cite>String</cite>.</p>
+<p>This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
+Another simple example is a set of URLs. While we might say all URLs are stored as strings, not every string is an URL.
+There are also operations that are only sensible on URLs and not on strings, such as extracting the url, domain, or protocol.</p>
+</div>
+<div class="section" id="problem-with-missing-values">
+<h2>Problem with missing values<a class="headerlink" href="#problem-with-missing-values" title="Permalink to this headline">¶</a></h2>
+<p>Pandas’ current data model is inconsistent with respect to missing values (i.e. <cite>NaN</cite> or <cite>None</cite>).
+Adding missing values to integers and boolean results in upcasting to float and object respectively.
+Implementing nullable integer and boolean logical types allow for more efficient storage which can be achieved
+through an internal bitmap (see the engineering view for details).</p>
+</div>
+<div class="section" id="problem-with-strings">
+<h2>Problem with strings<a class="headerlink" href="#problem-with-strings" title="Permalink to this headline">¶</a></h2>
+<p>Pandas does not have a logical type “string”.
+Strings are stored as objects, which gives non-trivial overhead
+<a class="reference external" href="https://dev.pandas.io/pandas2/strings.html">https://dev.pandas.io/pandas2/strings.html</a></p>
+<div class="section" id="where-the-current-models-fail">
+<h3>Where the current models fail<a class="headerlink" href="#where-the-current-models-fail" title="Permalink to this headline">¶</a></h3>
+<p>The data models in Python, Numpy and Pandas are inconsistent and incomplete for logical storage of data types for analysis.
+Here, we try to understand the aspects relation to what are shortcomings of the current implementation and we want of the unified data model.</p>
+<p>We first provide a motivating example why we need a new model.
+Secondly, we show what the data models of Python, Numpy and Pandas look like under the hood.
+The third part of this page introduces the concepts needed to combine them.</p>
+<p>We are envisioning a one-to-one correspondence between each of the data models without loss.
+Types should be grouped together if they have the same analysis summary.</p>
+<p>Motivating example: Nullable Boolean</p>
+<p>Motivating example: Nullable Integer / Float</p>
+<p>Motivating example: Objects</p>
+</div>
+<div class="section" id="how-do-python-numpy-and-pandas-model-data">
+<h3>How do Python, Numpy and Pandas model data?<a class="headerlink" href="#how-do-python-numpy-and-pandas-model-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="python">
+<h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://docs.python.org/3/reference/datamodel.html">The Python data model</a></p>
+<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/1/10/Python_3._The_standard_type_hierarchy.png"><img alt="Python Data Model" class="align-center" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Python_3._The_standard_type_hierarchy.png" style="width: 424px;" /></a>
+</div>
+<div class="section" id="numpy">
+<h4>Numpy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.scalars.html">The Numpy data model</a></p>
+<a class="reference internal image-reference" href="https://docs.scipy.org/doc/numpy/_images/dtype-hierarchy.png"><img alt="Numpy Data Model" class="align-center" src="https://docs.scipy.org/doc/numpy/_images/dtype-hierarchy.png" style="width: 426px;" /></a>
+</div>
+<div class="section" id="pandas">
+<h4>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/getting_started/basics.html#dtypes">The Pandas data model</a></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pandas Dtype</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>object</p></td>
+<td><p>Text or mixed</p></td>
+</tr>
+<tr class="row-odd"><td><p>int</p></td>
+<td><p>Integer</p></td>
+</tr>
+<tr class="row-even"><td><p>float</p></td>
+<td><p>Floating point number</p></td>
+</tr>
+<tr class="row-odd"><td><p>complex</p></td>
+<td><p>Complex numbers</p></td>
+</tr>
+<tr class="row-even"><td><p>bool</p></td>
+<td><p>Boolean value</p></td>
+</tr>
+<tr class="row-odd"><td><p>datetime[ns]</p></td>
+<td><p>Date and time value</p></td>
+</tr>
+<tr class="row-even"><td><p>timedelta[ns]</p></td>
+<td><p>Difference between two datetimes</p></td>
+</tr>
+<tr class="row-odd"><td><p>category</p></td>
+<td><p>Categorical values</p></td>
+</tr>
+<tr class="row-even"><td><p>Int</p></td>
+<td><p>Nullable integers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="unifying-what-do-we-need">
+<h3>Unifying, what do we need?<a class="headerlink" href="#unifying-what-do-we-need" title="Permalink to this headline">¶</a></h3>
+<p>Custom dtypes.</p>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>We note that many of the problems <cite>visions</cite> attempts to solve, are discussed in the <a class="reference external" href="https://dev.pandas.io/pandas2/">design documents for pandas 2.0</a> (2015-2016).</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="graph_view.html" class="btn btn-neutral float-right" title="Graph view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="goals.html" class="btn btn-neutral float-left" title="Goals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

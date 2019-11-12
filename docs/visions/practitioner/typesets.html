@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="next" title="Summarize" href="summarizer.html" />
     <link rel="prev" title="Types" href="types.html" /> 
 </head>
 
@@ -83,18 +84,25 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../practitioner.html">Practitioner</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Typesets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detection">Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inference">Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cast">Cast</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="summarizer.html">Summarize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defaults.html">Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
 
@@ -166,30 +174,64 @@
 <h1>Typesets<a class="headerlink" href="#typesets" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Types can also be organized into groups of types to perform analysis over a DataFrame or collection of series.
-These are called visions typesets.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.model_implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_standard</span>
-
-<span class="n">my_typeset</span> <span class="o">=</span> <span class="n">visions_standard_set</span><span class="p">()</span>
-<span class="n">my_typeset</span><span class="o">.</span><span class="n">types</span>
-<span class="o">-&gt;</span> <span class="nb">frozenset</span><span class="p">({</span><span class="n">visions_bool</span><span class="p">,</span>
-           <span class="n">visions_categorical</span><span class="p">,</span>
-           <span class="n">visions_complex</span><span class="p">,</span>
-           <span class="n">visions_float</span><span class="p">,</span>
-           <span class="n">visions_integer</span><span class="p">,</span>
-           <span class="n">visions_object</span><span class="p">,</span>
-           <span class="n">visions_string</span><span class="p">,</span>
-           <span class="n">visions_timestamp</span><span class="p">})</span>
+<p>Groups of types can be added together to perform analysis over data sequences like pandas series
+or dataframes. These grouping are called typesets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_standard_set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_standard_set</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span><span class="o">.</span><span class="n">types</span>
+<span class="go">{visions_datetime, visions_string, visions_generic, visions_timedelta, visions_integer, visions_complex, visions_bool, visions_object, visions_categorical, visions_float}</span>
 </pre></div>
 </div>
 <p>The standard typeset includes all of the baseline visions types.
-A complete list of default typesets can be found in the API documentation.
-Each typeset is unique to a dataset for caching purposes and can apply the same methods, like <cite>summarize</cite>, as a visions type.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-                   <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span>
-                   <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;howdy&#39;</span><span class="p">,</span> <span class="s1">&#39;howdy&#39;</span><span class="p">,</span> <span class="s1">&#39;doody&#39;</span><span class="p">]})</span>
-<span class="n">my_typeset</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+A complete list of default typesets can be found in the API documentation.</p>
+<p>Let’s look at an example sequence of integers encoded as strings.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">])</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="detection">
+<h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
+<p>Type detection attempts to answer the question <cite>What type is my data right now?</cite></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">type_detect_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="n">visions_string</span>
+
+<span class="c1"># Object Oriented</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_type_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
+<span class="n">visions_string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inference">
+<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
+<p>Type inference attempts to answer the question <cite>What type is my data best represented as?`</cite></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span><span class="p">,</span> <span class="n">type_inference_series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">type_detect_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="go">visions_string</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">type_inference_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="go">visions_integer</span>
+</pre></div>
+</div>
+<p>As you can see, visions was able to infer that our test_series was really a an integer
+series rather than a string series. Integer detection is a fairly simple use case but
+using visions types of any degree of complexity from geometries to URLs to file paths and beyond.
+Inference can be performed over any type included in a typeset.</p>
+</div>
+<div class="section" id="cast">
+<h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline">¶</a></h2>
+<p>Type casting is the process of converting a series or dataframe from one type to another, for example,
+from strings to integers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_cast_series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">type_cast_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="go">pd.Series([1, 2, 3])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This returns a copy of your data object, please read the <a class="reference internal" href="../thinker/engineering_view.html"><span class="doc">engineering view</span></a> document for more information.</p>
 </div>
 </div>
 </div>
@@ -202,7 +244,7 @@ Each typeset is unique to a dataset for caching purposes and can apply the same 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="summarizer.html" class="btn btn-neutral float-right" title="Summarize" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="types.html" class="btn btn-neutral float-left" title="Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -214,7 +256,7 @@ Each typeset is unique to a dataset for caching purposes and can apply the same 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
 
     </p>
   </div>

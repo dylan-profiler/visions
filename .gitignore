@@ -2,6 +2,7 @@
 .idea/
 *.dot
 docsrc/source/visions/_autosummary/
+docsrc/source/visions/api/_autosummary/
 docsrc/build/
 plots/*/
 

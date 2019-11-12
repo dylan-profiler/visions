@@ -1,7 +1,7 @@
 Creator
 *******
 
-One of the assumptions in this package is that is extendable.
+One of the goals of this package is that is easy extendable for your different problems under other constraints than the defaults.
 Extensions can be specific to your use case, or general for the community.
 
 There are myriad ways to extend:
@@ -14,8 +14,9 @@ This section documents basic steps for contributing (e.g. testing and linting) a
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
+    :hidden:
 
-    creator/contributing
     creator/extending
+    creator/contributing
 

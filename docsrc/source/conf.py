@@ -13,15 +13,15 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(r"..\..\src"))
-sys.path.insert(0, os.path.abspath(r"..\..\src\visions"))
+sys.path.insert(0, os.path.join("..", "..", "src"))
+sys.path.insert(0, os.path.join("..", "..", "src", "visions"))
 
 
 # -- Project information -----------------------------------------------------
 
 project = "visions"
-copyright = "2019, TODO"
-author = "TODO"
+copyright = "2019, Ian Eaves and Simon Brugman"
+author = "Simon Brugman and Ian Eaves"
 
 # The full version, including alpha/beta/rc tags
 

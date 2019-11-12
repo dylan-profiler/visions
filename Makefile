@@ -1,29 +1,40 @@
 .PHONY: docs test pypi_package install all
 
-docs: # Create and update the documentation
+#################################################################################
+# COMMANDS                                                                      #
+#################################################################################
+
+## Create and update the documentation
+docs:
 	cd docsrc/ && make github
 	ECHO "Docs updated!"
 
-test: # Execute unit tests
+## Execute unit tests
+test:
 	pytest tests/
 	ECHO "Tests completed!"
 
-pypi_package: # Upload package to pypi
+## Upload package to pypi
+pypi_package:
 	make install
 	python setup.py sdist
 	twine upload dist/*
 	ECHO "PyPi package completed"
 
-lint: # Run black linting
+## Run black linting
+lint:
 	black .
 
-type_checking: # Run type checking
+## Run type checking
+type_checking:
 	mypy .
 
-install: # Install visions locally
+## Install visions locally
+install:
 	pip install -e .
 
-all: # lint, type check, install, rebuild docs, and finally test
+## lint, type check, install, rebuild docs, and finally test
+all:
 	make lint
 	make type_checking
 	make install
@@ -88,4 +99,4 @@ help:
 			printf "%s ", words[i]; \
 		} \
 		printf "\n"; \
-	}'
+	}' \

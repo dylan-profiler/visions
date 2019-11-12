@@ -33,7 +33,6 @@ class visions_url(VisionsBaseType):
         from visions.core.implementations.types import visions_string, visions_object
 
         relations = {
-            # TODO: replace test_url with coercion test
             visions_string: relation_conf(
                 relationship=test_url, transformer=to_url, inferential=True
             ),

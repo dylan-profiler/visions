@@ -6,7 +6,7 @@ Summaries
 Series Summaries
 =================
 
-.. currentmodule:: visions.core.summaries.series
+.. currentmodule:: visions.application.summaries.series
 .. toctree::
 
 .. autosummary::
@@ -31,10 +31,25 @@ Series Summaries
 Frame Summaries
 =================
 
-.. currentmodule:: visions.core.summaries.frame
+.. currentmodule:: visions.application.summaries.frame
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
    dataframe_summary
+
+
+=================
+Functional API
+=================
+
+.. currentmodule:: visions.application.summaries.functional
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+   summarize
+   summarize_frame
+   summarize_series

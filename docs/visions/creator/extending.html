@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -35,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="API" href="../api.html" />
-    <link rel="prev" title="General contributions" href="contributing.html" /> 
+    <link rel="next" title="Community contributions" href="contributing.html" />
+    <link rel="prev" title="Creator" href="../creator.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,18 +84,20 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../creator.html">Creator</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="contributing.html">General contributions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Extending</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#custom-types">Custom Types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#custom-typesets">Custom Typesets</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Community contributions</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
 
@@ -166,10 +169,10 @@
 <h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="custom-types">
 <h2>Custom Types<a class="headerlink" href="#custom-types" title="Permalink to this headline">¶</a></h2>
-<p>Each Visions type is a singleton object extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
+<p>Each Visions type is class extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
+<li><p><cite>get_relations</cite>.</p></li>
 <li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
-<li><p><cite>cast_op</cite>. This is going away, needs to be folded into model_relations [TODO]</p></li>
 </ol>
 <p>All visions_types can be made into <cite>Option[visions_type]</cite> by inheriting from <cite>optionMixin</cite> in <cite>visions.core.Mixins</cite>.</p>
 <div class="literal-block-wrapper docutils container" id="custom-type">
@@ -177,13 +180,30 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.models</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 
 <span class="k">class</span> <span class="nc">visions_timestamp</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="n">visions_generic</span>
 
-    <span class="k">def</span> <span class="nf">cast_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">visions_generic</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+            <span class="n">visions_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
+                <span class="n">relationship</span><span class="o">=</span><span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="n">to_datetime</span><span class="p">),</span>
+                <span class="n">transformer</span><span class="o">=</span><span class="n">to_datetime</span><span class="p">,</span>
+                <span class="n">inferential</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">relations</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<p>Alternatively you can choose to base a type on an existing type.
+This is convenient when you only change a single relation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="custom-typesets">
@@ -193,18 +213,38 @@ The example below creates a custom typeset that only supports time-related types
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">visions_custom_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
+
+<span class="sd">    Includes support for the following types:</span>
+
+<span class="sd">    - visions_datetime</span>
+<span class="sd">    - visions_timedelta</span>
+<span class="sd">    - visions_date</span>
+<span class="sd">    - visions_time</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">visions_datetime</span><span class="p">,</span>
             <span class="n">visions_timedelta</span><span class="p">,</span>
             <span class="n">visions_date</span><span class="p">,</span>
             <span class="n">visions_time</span><span class="p">,</span>
-            <span class="n">visions_empty</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">containers</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<p>Another way of creating a typeset is by basing it on another typeset</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Engineer view on constraint checking</p>
 </div>
 </div>
 </div>
@@ -217,10 +257,10 @@ The example below creates a custom typeset that only supports time-related types
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Community contributions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="contributing.html" class="btn btn-neutral float-left" title="General contributions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../creator.html" class="btn btn-neutral float-left" title="Creator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -229,7 +269,7 @@ The example below creates a custom typeset that only supports time-related types
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
 
     </p>
   </div>

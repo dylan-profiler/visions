@@ -1,0 +1,32 @@
+visions.core.model.typeset.VisionsTypeset
+=========================================
+
+.. currentmodule:: visions.core.model.typeset
+
+.. autoclass:: VisionsTypeset
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~VisionsTypeset.__init__
+      ~VisionsTypeset.cast_and_infer_frame
+      ~VisionsTypeset.cast_and_infer_series
+      ~VisionsTypeset.cast_frame
+      ~VisionsTypeset.cast_series
+      ~VisionsTypeset.detect_frame_type
+      ~VisionsTypeset.detect_series_type
+      ~VisionsTypeset.infer_frame_type
+      ~VisionsTypeset.infer_series_type
+      ~VisionsTypeset.output_graph
+      ~VisionsTypeset.plot_graph
+   
+   
+
+   
+   
+   

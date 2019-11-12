@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>visions.application.summaries.series.image_summary &mdash; visions 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/practitioner.html">Practitioner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/thinker.html">Thinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>visions.application.summaries.series.image_summary</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for visions.application.summaries.series.image_summary</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">visions.utils.images.image_utils</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">open_image</span><span class="p">,</span>
+    <span class="n">is_image_truncated</span><span class="p">,</span>
+    <span class="n">extract_exif</span><span class="p">,</span>
+    <span class="n">hash_image</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">count_duplicate_hashes</span><span class="p">(</span><span class="n">image_descriptions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        image_descriptions:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;hash&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">image_descriptions</span> <span class="k">if</span> <span class="s2">&quot;hash&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">extract_exif_series</span><span class="p">(</span><span class="n">image_exifs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        image_exifs:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">exif_keys</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">exif_values</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">image_exif</span> <span class="ow">in</span> <span class="n">image_exifs</span><span class="p">:</span>
+        <span class="c1"># Extract key</span>
+        <span class="n">exif_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">image_exif</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+
+        <span class="c1"># Extract values per key</span>
+        <span class="k">for</span> <span class="n">exif_key</span><span class="p">,</span> <span class="n">exif_val</span> <span class="ow">in</span> <span class="n">image_exif</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">exif_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exif_values</span><span class="p">:</span>
+                <span class="n">exif_values</span><span class="p">[</span><span class="n">exif_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">exif_values</span><span class="p">[</span><span class="n">exif_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exif_val</span><span class="p">)</span>
+
+    <span class="n">series</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;exif_keys&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">exif_keys</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">exif_values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">series</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">series</span>
+
+
+<span class="k">def</span> <span class="nf">extract_image_information</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Extracts all image information per file, as opening files is slow</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path: Path to the image</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dict containing image information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">information</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">information</span><span class="p">[</span><span class="s2">&quot;opened&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">information</span><span class="p">[</span><span class="s2">&quot;opened&quot;</span><span class="p">]:</span>
+        <span class="n">information</span><span class="p">[</span><span class="s2">&quot;truncated&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">is_image_truncated</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">information</span><span class="p">[</span><span class="s2">&quot;truncated&quot;</span><span class="p">]:</span>
+            <span class="n">information</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+            <span class="n">information</span><span class="p">[</span><span class="s2">&quot;exif&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_exif</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="n">information</span><span class="p">[</span><span class="s2">&quot;hash&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hash_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     print(image.size)</span>
+    <span class="k">return</span> <span class="n">information</span>
+
+
+<div class="viewcode-block" id="image_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.image_summary.html#visions.application.summaries.series.image_summary">[docs]</a><span class="k">def</span> <span class="nf">image_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        series: series to summarize</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image_information</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">extract_image_information</span><span class="p">)</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;n_duplicate_hash&quot;</span><span class="p">:</span> <span class="n">count_duplicate_hashes</span><span class="p">(</span><span class="n">image_information</span><span class="p">),</span>
+        <span class="s2">&quot;n_truncated&quot;</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">image_information</span> <span class="k">if</span> <span class="s2">&quot;truncated&quot;</span> <span class="ow">in</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;truncated&quot;</span><span class="p">]]</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">exif_series</span> <span class="o">=</span> <span class="n">extract_exif_series</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;exif&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">image_information</span> <span class="k">if</span> <span class="s2">&quot;exif&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;exif_keys_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exif_series</span><span class="p">[</span><span class="s2">&quot;exif_keys&quot;</span><span class="p">]</span>
+
+    <span class="n">image_shapes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">image_information</span> <span class="k">if</span> <span class="s2">&quot;size&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;image_shape&quot;</span>
+    <span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;image_shape_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_shapes</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">summary</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

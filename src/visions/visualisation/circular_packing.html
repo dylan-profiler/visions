@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+        .node {
+            cursor: pointer;
+        }
+
+        .node:hover {
+            stroke: #000;
+            stroke-width: 1.5px;
+        }
+
+        .node--leaf {
+            fill: white;
+        }
+
+        .label {
+            font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-anchor: middle;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+        }
+
+        .label,
+        .node--root,
+        .node--leaf {
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+<svg width="700" height="700"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    var svg = d3.select("svg"),
+        margin = 20,
+        diameter = svg.attr("width"),
+        g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+    var color = d3.scaleLinear()
+        .domain([-1, 5])
+        .range(["hsl(204, 64%, 44%)", "hsl(204, 65%, 90%)"])
+        .interpolate(d3.interpolateHcl);
+
+    var pack = d3.pack()
+        .size([diameter - margin, diameter - margin])
+        .padding(30);
+
+    // d3.json("typesets/typeset_complete_base.json", function (error, root) {
+    //    if (error) throw error;
+    // START-REPLACE
+    root = {"children": [{"name": "visions_timedelta", "size": 1}, {"name": "visions_float", "size": 1}, {"name": "visions_complex", "size": 1}, {"name": "visions_bool", "size": 1}, {"children": [{"name": "visions_geometry", "size": 1}, {"name": "visions_ip", "size": 1}, {"name": "visions_url", "size": 1}, {"name": "visions_string", "size": 1}, {"children": [{"children": [{"name": "visions_image_path", "size": 1}], "name": "visions_existing_path"}], "name": "visions_path"}], "name": "visions_object"}, {"name": "visions_integer", "size": 1}, {"children": [{"name": "visions_time", "size": 1}, {"name": "visions_date", "size": 1}], "name": "visions_datetime"}, {"name": "visions_count", "size": 1}, {"children": [{"name": "visions_ordinal", "size": 1}], "name": "visions_categorical"}], "name": "visions_generic"};
+    // END-REPLACE
+        root = d3.hierarchy(root)
+            .sum(function (d) {
+                return d.size;
+            })
+            .sort(function (a, b) {
+                return b.size - a.size;
+            });
+
+        var focus = root;
+        var view;
+
+        var nodes = d3.select('svg g')
+          .selectAll('g')
+          .data(pack(root).descendants())
+          .enter()
+          .append('g')
+          .attr('transform', function(d) {return 'translate(' + [d.x, d.y] + ')'})
+            .on("click", function (d) {
+                if (focus !== d) zoom(d), d3.event.stopPropagation();
+            });
+
+        nodes
+          .append('circle')
+          .attr("class", function (d) {
+                return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root";
+          })
+          .style("fill", function (d) {
+                return d.children ? color(d.depth) : null;
+          })
+          .attr('r', function(d) { return d.r; });
+
+        nodes
+          .append('text')
+            .attr('y', function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+
+                return d.children ? - 0.9 * c.attr('r') + 10 : 0;
+            })
+          .attr("class", "label")
+            .style('font-size', function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+                return Math.round(8 + 0.5 * c.attr('r') / 10).toString() + 'px';
+            })
+          .text(function(d) {
+              return d.data.name;
+          });
+
+        var node = g.selectAll("g");
+        var circle = g.selectAll("circle");
+        var text = g.selectAll("text");
+
+        svg
+            .on("click", function () {
+                zoom(root);
+            });
+
+        zoomTo([root.x, root.y, root.r * 2 + margin]);
+
+        function zoom(d) {
+            var focus0 = focus;
+            focus = d;
+
+            var transition = d3.transition()
+                .duration(d3.event.altKey ? 7500 : 750)
+                .tween("zoom", function (d) {
+                    var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+                    return function (t) {
+                        zoomTo(i(t));
+                    };
+                });
+        }
+
+        function zoomTo(v) {
+            var k = diameter / v[2];
+            view = v;
+
+
+            // TODO: different translation for text without children
+            node.attr("transform", function (d) {
+                return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
+            });
+
+            /*
+            text.attr("y", function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+
+                return d.children ? - (0.9 * c.attr('r') + 10) * k : 0;
+            });
+            */
+
+            circle.attr("r", function (d) {
+                return d.r * k;
+            });
+        }
+    //});
+</script>
+</body>
+</html>

@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Unifying the Python, Numpy and Pandas data model" href="thinker/data_model.html" />
-    <link rel="prev" title="Summaries example" href="practitioner/examples/summaries_example.html" /> 
+    <link rel="next" title="Goals" href="thinker/goals.html" />
+    <link rel="prev" title="Summaries example" href="practitioner/examples/summaries.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,13 +84,20 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Thinker</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html">Unifying the Python, Numpy and Pandas data model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/goals.html">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/data_type_view.html">Data Type View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/graph_view.html">Graph view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/application_view.html">Application view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thinker/engineering_view.html">Engineering view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
@@ -157,16 +165,18 @@
             
   <div class="section" id="thinker">
 <h1>Thinker<a class="headerlink" href="#thinker" title="Permalink to this headline">¶</a></h1>
+<p>We find that viewing the concepts of <cite>visions</cite> in a single way is not exhaustive for understanding.
+We provide six ways of viewing these concepts.
+Note that these views are not mutually exclusive or exhaustive.</p>
+<ul class="simple">
+<li><p>The <strong>goals overview</strong> outlines the axioms driving decisions in <cite>visions</cite>.</p></li>
+<li><p>The <strong>data type view</strong> focuses on logical and physical data types.</p></li>
+<li><p>The <strong>graph view</strong> gives overview in the relation between types in a typeset.</p></li>
+<li><p>The <strong>nested set view</strong> zooms in on viewing types as a subset of all possible values.</p></li>
+<li><p>The <strong>application view</strong> directs our attention to subsequent tasks given a typeset.</p></li>
+<li><p>The <strong>engineering view</strong> provides reference on performance.</p></li>
+</ul>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="thinker/data_model.html">Unifying the Python, Numpy and Pandas data model</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#where-the-current-models-fail">Where the current models fail</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#how-do-python-numpy-and-pandas-model-data">How do Python, Numpy and Pandas model data?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#unifying-what-do-we-need">Unifying, what do we need?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thinker/data_model.html#references">References</a></li>
-</ul>
-</li>
-</ul>
 </div>
 </div>
 
@@ -178,10 +188,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="thinker/data_model.html" class="btn btn-neutral float-right" title="Unifying the Python, Numpy and Pandas data model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="thinker/goals.html" class="btn btn-neutral float-right" title="Goals" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="practitioner/examples/summaries_example.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="practitioner/examples/summaries.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -190,7 +200,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
 
     </p>
   </div>

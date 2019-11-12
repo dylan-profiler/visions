@@ -1,8 +1,8 @@
 import pandas as pd
 
 from visions.core.implementations import visions_complete_set
-from visions.core.functional import type_cast, type_inference
-from visions.core.summaries.summary import CompleteSummary
+from visions.core.functional import type_cast_frame, type_inference_frame
+from visions.application.summaries.summary import CompleteSummary
 from visions.core.model.dtypes.bool_fix.visions_bool import visions_boolean
 
 # Load dataset
@@ -14,11 +14,11 @@ df = pd.read_csv(
 typeset = visions_complete_set()
 
 # Type inference
-inferred_types = type_inference(df, typeset)
+inferred_types = type_inference_frame(df, typeset)
 print(inferred_types)
 
 # Type cast
-cast_df, cast_types = type_cast(df, typeset)
+cast_df, cast_types = type_cast_frame(df, typeset)
 print(cast_types)
 
 # Summarization

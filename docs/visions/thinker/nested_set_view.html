@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Nested set view &mdash; visions 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Application view" href="application_view.html" />
+    <link rel="prev" title="Graph view" href="graph_view.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="goals.html">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data Type View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nested set view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-nested-set-structure">The nested set structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#root-type">Root type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complete-set">Complete Set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application_view.html">Application view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../thinker.html">Thinker</a> &raquo;</li>
+        
+      <li>Nested set view</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/visions/thinker/nested_set_view.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nested-set-view">
+<h1>Nested set view<a class="headerlink" href="#nested-set-view" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses viewing the concepts of <cite>visions</cite> as <a class="reference external" href="https://en.wikipedia.org/wiki/Hereditarily_finite_set">nested sets</a>.
+We find this view intuitive to create understanding of:</p>
+<ul class="simple">
+<li><p>where the constraints in the graph view come from</p></li>
+</ul>
+<p>It is limited in:</p>
+<ul class="simple">
+<li><p>visualising larger typesets and relational mappings (see the graph view).</p></li>
+</ul>
+<div class="section" id="the-nested-set-structure">
+<h2>The nested set structure<a class="headerlink" href="#the-nested-set-structure" title="Permalink to this headline">¶</a></h2>
+<p>The subset view is a way of thinking about types, typesets and relations and builds on the graph view.</p>
+<p>Membership: plot set of values over the nested plot, take narrowest set that contains all values.
+Constraints (e.g. narrowest set)</p>
+<p>Note: an empty series is always generic. (e.g. corresponds to everyplace in the graph)</p>
+</div>
+<div class="section" id="root-type">
+<h2>Root type<a class="headerlink" href="#root-type" title="Permalink to this headline">¶</a></h2>
+<p>There is one root type, <cite>visions_generic</cite>, of which all values <span class="math notranslate nohighlight">\(V\)</span> are member.</p>
+<p>A type <span class="math notranslate nohighlight">\(T\)</span> is associated with a parent type <span class="math notranslate nohighlight">\(p\)</span>, and a subset of all the parent’s values <span class="math notranslate nohighlight">\(V_p\)</span>.</p>
+<p>For example, the boolean type values <span class="math notranslate nohighlight">\(\{True, False, None\} \in V\)</span></p>
+<p>Inference: the narrowest possible type for a set of values.</p>
+</div>
+<div class="section" id="complete-set">
+<h2>Complete Set<a class="headerlink" href="#complete-set" title="Permalink to this headline">¶</a></h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+        .node {
+            cursor: pointer;
+        }
+
+        .node:hover {
+            stroke: #000;
+            stroke-width: 1.5px;
+        }
+
+        .node--leaf {
+            fill: white;
+        }
+
+        .label {
+            font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-anchor: middle;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+        }
+
+        .label,
+        .node--root,
+        .node--leaf {
+            pointer-events: none;
+        }
+
+    </style>
+</head>
+<body>
+<svg width="700" height="700"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    var svg = d3.select("svg"),
+        margin = 20,
+        diameter = svg.attr("width"),
+        g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+    var color = d3.scaleLinear()
+        .domain([-1, 5])
+        .range(["hsl(204, 64%, 44%)", "hsl(204, 65%, 90%)"])
+        .interpolate(d3.interpolateHcl);
+
+    var pack = d3.pack()
+        .size([diameter - margin, diameter - margin])
+        .padding(30);
+
+    // d3.json("typesets/typeset_complete_base.json", function (error, root) {
+    //    if (error) throw error;
+    // START-REPLACE
+    root = {"children": [{"name": "visions_timedelta", "size": 1}, {"name": "visions_float", "size": 1}, {"name": "visions_complex", "size": 1}, {"name": "visions_bool", "size": 1}, {"children": [{"name": "visions_geometry", "size": 1}, {"name": "visions_ip", "size": 1}, {"name": "visions_url", "size": 1}, {"name": "visions_string", "size": 1}, {"children": [{"children": [{"name": "visions_image_path", "size": 1}], "name": "visions_existing_path"}], "name": "visions_path"}], "name": "visions_object"}, {"name": "visions_integer", "size": 1}, {"children": [{"name": "visions_time", "size": 1}, {"name": "visions_date", "size": 1}], "name": "visions_datetime"}, {"name": "visions_count", "size": 1}, {"children": [{"name": "visions_ordinal", "size": 1}], "name": "visions_categorical"}], "name": "visions_generic"};
+    // END-REPLACE
+        root = d3.hierarchy(root)
+            .sum(function (d) {
+                return d.size;
+            })
+            .sort(function (a, b) {
+                return b.size - a.size;
+            });
+
+        var focus = root;
+        var view;
+
+        var nodes = d3.select('svg g')
+          .selectAll('g')
+          .data(pack(root).descendants())
+          .enter()
+          .append('g')
+          .attr('transform', function(d) {return 'translate(' + [d.x, d.y] + ')'})
+            .on("click", function (d) {
+                if (focus !== d) zoom(d), d3.event.stopPropagation();
+            });
+
+        nodes
+          .append('circle')
+          .attr("class", function (d) {
+                return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root";
+          })
+          .style("fill", function (d) {
+                return d.children ? color(d.depth) : null;
+          })
+          .attr('r', function(d) { return d.r; });
+
+        nodes
+          .append('text')
+            .attr('y', function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+
+                return d.children ? - 0.9 * c.attr('r') + 10 : 0;
+            })
+          .attr("class", "label")
+            .style('font-size', function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+                return Math.round(8 + 0.5 * c.attr('r') / 10).toString() + 'px';
+            })
+          .text(function(d) {
+              return d.data.name;
+          });
+
+        var node = g.selectAll("g");
+        var circle = g.selectAll("circle");
+        var text = g.selectAll("text");
+
+        svg
+            .on("click", function () {
+                zoom(root);
+            });
+
+        zoomTo([root.x, root.y, root.r * 2 + margin]);
+
+        function zoom(d) {
+            var focus0 = focus;
+            focus = d;
+
+            var transition = d3.transition()
+                .duration(d3.event.altKey ? 7500 : 750)
+                .tween("zoom", function (d) {
+                    var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+                    return function (t) {
+                        zoomTo(i(t));
+                    };
+                });
+        }
+
+        function zoomTo(v) {
+            var k = diameter / v[2];
+            view = v;
+
+
+            // TODO: different translation for text without children
+            node.attr("transform", function (d) {
+                return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
+            });
+
+            /*
+            text.attr("y", function(d){
+                var parent = d3.select(this.parentNode);
+                var c = parent.select('circle');
+
+                return d.children ? - (0.9 * c.attr('r') + 10) * k : 0;
+            });
+            */
+
+            circle.attr("r", function (d) {
+                return d.r * k;
+            });
+        }
+    //});
+</script>
+</body>
+</html><p class="caption">
+    <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circular packing</a> of the <em>visions_complete_set</em>.</span>
+    <a class="headerlink" href="#id1" title="Permalink to this image">
+    </a>
+</p></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="application_view.html" class="btn btn-neutral float-right" title="Application view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="graph_view.html" class="btn btn-neutral float-left" title="Graph view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

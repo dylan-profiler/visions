@@ -14,7 +14,7 @@ def string_is_geometry(series: pd.Series) -> bool:
     sys.stderr = open(os.devnull, "w")
     try:
         result = all(wkt.loads(value) for value in series)
-    except (WKTReadingError, AttributeError):
+    except (WKTReadingError, AttributeError, UnicodeEncodeError):
         result = False
     finally:
         sys.stderr = sys.__stderr__

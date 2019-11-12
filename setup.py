@@ -18,6 +18,10 @@ extras_requires = {
     "network_plot": ["pydot", "pygraphviz"],
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
+extras_requires["all"] = (
+    extras_requires["type_geometry"] + extras_requires["type_image_path"]
+)
+
 
 test_requires = [
     "pytest>=5.2.0",

@@ -1,9 +1,10 @@
-from visions.core.implementations.typesets import visions_complete_set
-
 import pandas as pd
 
-from visions.core.summaries.summary import summary
+from visions.core.functional import type_detect_frame
+from visions.core.implementations.typesets import visions_complete_set
+from visions.application.summaries.summary import CompleteSummary
 
+# Create a DataFrame with various string columns
 df = pd.DataFrame(
     {
         "latin": ["orange", "apple", "pear"],
@@ -19,13 +20,21 @@ df = pd.DataFrame(
     }
 )
 
+# Initialize the typeset
+typeset = visions_complete_set()
 
-ts = visions_complete_set()
-ts.prep(df)
+# Infer the column type
+types = type_detect_frame(df, typeset)
 
-x = summary.summarize(df, ts.column_type_map)
-for key, variable_summary in x["series"].items():
-    print(key, variable_summary)
-    # print(
-    #     f"series with name {key} contains the unicode values {variable_summary['unicode_scripts']}"
-    # )
+# Generate a summary
+summarizer = CompleteSummary()
+summary = summarizer.summarize(df, types)
+
+print(f"| {'Column': <15}| {'Scripts': <17}| {'Categories': <84}| {'Blocks': <25}|")
+print(f"{'':-<17}+{'':-<18}+{'':-<85}+{'':-<26}+")
+for column, variable_summary in summary["series"].items():
+    scripts = ", ".join(set(variable_summary["script_values"].values()))
+    categories = ", ".join(set(variable_summary["category_alias_values"].values()))
+    blocks = ", ".join(set(variable_summary["block_values"].values()))
+
+    print(f"| {column: <15}| {scripts: <17}| {categories: <84}| {blocks: <25}|")

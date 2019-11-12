@@ -36,7 +36,7 @@ def pytest_generate_tests(metafunc):
 
 @pytest.mark.run(order=4)
 def test_consistency(series):
-    assert series in typeset.get_series_type(series)
+    assert series in typeset.detect_series_type(series)
 
 
 def _traverse_relation_graph(series, G, node=visions_generic):

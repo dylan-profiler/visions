@@ -12,13 +12,14 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 github:
-	@rm -r ./source/visions/api/_autosummary
+	@rm -rf ./source/visions/api/_autosummary
 	@make html
-	@rm -r ../docs/
+	@rm -rf ../docs/
 	@mkdir ../docs
 	@touch ../docs/.nojekyll
 	@cp -a build/html/. ../docs
-	@rm -r build
+	@rm -rf build
+	@rm -rf ./source/visions/api/_autosummary
 
 .PHONY: help Makefile
 

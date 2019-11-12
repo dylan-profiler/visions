@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Graph view &mdash; visions 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Nested set view" href="nested_set_view.html" />
+    <link rel="prev" title="Data Type View" href="data_type_view.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="goals.html">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_type_view.html">Data Type View</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Graph view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-about-this-view">What about this view?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-base-data-structure">The base data structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#type-detection">Type detection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#relational-mapping-extensions">Relational mapping extensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#type-inference">Type inference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-casting">Type casting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_view.html">Application view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../thinker.html">Thinker</a> &raquo;</li>
+        
+      <li>Graph view</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/visions/thinker/graph_view.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="graph-view">
+<h1>Graph view<a class="headerlink" href="#graph-view" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-about-this-view">
+<h2>What about this view?<a class="headerlink" href="#what-about-this-view" title="Permalink to this headline">¶</a></h2>
+<p>In <cite>visions</cite> relationships between types are formalized through the language of graphs.</p>
+<p>Additionally, this graph view can guide our intuition around:</p>
+<ul class="simple">
+<li><p>how types relate</p></li>
+<li><p>how operations on types are performed</p></li>
+</ul>
+<p>It is limited for:</p>
+<ul class="simple">
+<li><p>intuitive understanding of membership constraints (see the nested set view).</p></li>
+</ul>
+</div>
+<div class="section" id="the-base-data-structure">
+<h2>The base data structure<a class="headerlink" href="#the-base-data-structure" title="Permalink to this headline">¶</a></h2>
+<p>The base data structure of a typeset is a <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree">directed rooted tree</a> (graph).
+Each node represents a <a class="reference external" href="../getting_started/concepts.html#type">data type</a>.
+The root note is <cite>visions_generic</cite>.</p>
+<p>Each data type is associated with a set.
+The root node is associated with the universal set</p>
+<p><span class="math notranslate nohighlight">\(U = \{\textrm{all data structures supported by a Series}\}\)</span>.</p>
+<ul class="simple">
+<li><p>Each data type’s set must be a proper subset of the parent’s set.</p></li>
+<li><p>Membership of a data type is defined as membership of that set.</p></li>
+</ul>
+<p>Symbolically : <span class="math notranslate nohighlight">\(f: \textrm{Type} \times S \to \{True, False\}\)</span>.</p>
+<p>In order for graph traversal to be decidable membership of siblings must be mutually exclusive.</p>
+<p>This is the same as saying sets of any two pairs of data types with the same parent must be disjoint, except for the missing value indicator.</p>
+<p>For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the parent data type <cite>Object</cite> i.e.
+<span class="math notranslate nohighlight">\(\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset\)</span>.</p>
+<p>For the <cite>visions_complete_set</cite>, this base structure can be visualised as:</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/typeset_complete_base.svg"><img alt="Visualisation of the base data structure of the *visions_complete_set*." src="../../_images/typeset_complete_base.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the base data structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="type-detection">
+<h3>Type detection<a class="headerlink" href="#type-detection" title="Permalink to this headline">¶</a></h3>
+<p>For any typeset and sequence <span class="math notranslate nohighlight">\(S\)</span> (i.e. a bag of values), the type detection operation is defined as <span class="math notranslate nohighlight">\(f: \textrm{Typeset} \times S \to \textrm{Type}\)</span>.
+This function returns the narrowest matching type given a Series.
+Type detection is implemented as depth first search starting at the root node.
+Hence detection (and inference) return the narrowest possible type.</p>
+</div>
+</div>
+<div class="section" id="relational-mapping-extensions">
+<h2>Relational mapping extensions<a class="headerlink" href="#relational-mapping-extensions" title="Permalink to this headline">¶</a></h2>
+<p>TODO: Identity transformation and note in practice we don’t check this…</p>
+<p>We extend the data structure to support mappings from one data type to another.
+Relational mappings are very similar to the edges in the base data structure.
+Like the edges in the base data structure, each relational mapping is associated with a set and has to adhere to the same constraint.
+In addition, it is associated with a mapping.
+The domain of the mapping is the associated set.
+The mapping function must be surjective.
+A relational mapping may not introduce any cycles.</p>
+<p>We can also visualise the extended structure:</p>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/typeset_standard.svg"><img alt="Visualisation of the graph structure of the *visions_standard_set*." src="../../_images/typeset_standard.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_standard_set</em>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/typeset_geometry.svg"><img alt="Visualisation of the graph structure of the *visions_geometry_set*." src="../../_images/typeset_geometry.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_geometry_set</em>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="../../_images/typeset_complete.svg"><img alt="Visualisation of the graph structure of the *visions_complete_set*." src="../../_images/typeset_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the graph structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="type-inference">
+<h3>Type inference<a class="headerlink" href="#type-inference" title="Permalink to this headline">¶</a></h3>
+<p>Type inference is type detection on the extended graph.
+Similarly, we perform depth first search.
+The primary difference between type inference and detection are that values are
+mapped before continuing the search when traversing a relational map</p>
+</div>
+<div class="section" id="type-casting">
+<h3>Type casting<a class="headerlink" href="#type-casting" title="Permalink to this headline">¶</a></h3>
+<p>Type casting returns the (possibly mapped) values of type inference.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nested_set_view.html" class="btn btn-neutral float-right" title="Nested set view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data_type_view.html" class="btn btn-neutral float-left" title="Data Type View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

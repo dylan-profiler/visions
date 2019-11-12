@@ -13,19 +13,18 @@ Abstract Types
    :toctree: _autosummary
 
    model_relation
-   typeset.VisionTypeset
-   typeset.build_relation_graph
+   VisionsBaseType
 
-==============
-Concrete Types
-==============
+=============
+Logical Types
+=============
 
-.. currentmodule:: visions.core.model.types
+.. currentmodule:: visions.core.implementations.types
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
-
+  
    visions_generic
    visions_integer
    visions_float

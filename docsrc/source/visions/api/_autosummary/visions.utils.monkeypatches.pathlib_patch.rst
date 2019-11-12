@@ -1,5 +1,0 @@
-visions.utils.monkeypatches.pathlib_patch
-=========================================
-
-.. automodule:: visions.utils.monkeypatches.pathlib_patch
-    :members:

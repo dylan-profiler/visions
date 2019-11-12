@@ -123,6 +123,7 @@ def get_series():
             ],
             name="complex_series_nan",
         ),
+        pd.Series(["(1+1j)", "(2+2j)", "(10+100j)"], name="str_complex"),
         pd.Series(
             [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
             name="complex_series_nan_2",
@@ -310,6 +311,7 @@ def get_contains_map():
             "string_num_nan",
             "string_bool_nan",
             "string_flt_nan",
+            "str_complex",
         ],
         visions_geometry: ["geometry_series"],
         visions_ip: ["ip"],
@@ -411,6 +413,7 @@ def infer_series_type_map():
         "date_series_nat": visions_date,
         "categorical_char": visions_categorical,
         "ordinal": visions_ordinal,
+        "str_complex": visions_complex,
     }
 
 
@@ -420,6 +423,7 @@ def get_convert_map():
         # Model type, Relation type
         (visions_integer, visions_float, ["int_nan_series", "float_series2"]),
         (visions_integer, visions_string, ["int_str_range"]),
+        (visions_complex, visions_string, ["str_complex"]),
         (
             visions_float,
             visions_string,

@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -81,10 +82,12 @@
               <p class="caption"><span class="caption-text">Table of Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/introduction.html">Visions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
 </ul>
 
@@ -175,7 +178,7 @@
 <span class="sd">    floats but in reality they are all integers.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from visions.core.model.types import visions_integer, visions_float</span>
+<span class="sd">        &gt;&gt;&gt; from visions.core.implementations.types import visions_integer, visions_float</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.0, 3.0])</span>
 <span class="sd">        &gt;&gt;&gt; relation = model_relation(visions_integer, visions_float)</span>
 <span class="sd">        &gt;&gt;&gt; relation.is_relation(x)</span>
@@ -193,27 +196,20 @@
         <span class="n">relationship</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            model: The type this relation will transform a series into.</span>
-<span class="sd">            friend_model: The type this relation will transform a series from.</span>
-<span class="sd">            relationship: A method to determine if a series of friend_model type can be converted to type model.</span>
-<span class="sd">            transformer: A method to convert a series from type friend_model to type model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">friend_model</span> <span class="o">=</span> <span class="n">friend_model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inferential</span> <span class="o">=</span> <span class="n">inferential</span>
         <span class="k">if</span> <span class="n">inferential</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Inferential relations should have transformer and relations&quot;</span>
+                    <span class="s2">&quot;Inferential relations must have transformer and relations&quot;</span>
                 <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span> <span class="o">=</span> <span class="n">relationship</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="n">transformer</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;noninferential relations may not have transformer or relations&quot;</span>
+                    <span class="s2">&quot;noninferential relations must not have transformer or relations&quot;</span>
                 <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="fm">__contains__</span>
@@ -242,7 +238,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, TODO
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
 
     </p>
   </div>
