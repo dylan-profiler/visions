@@ -167,14 +167,14 @@ def traverse_graph_inference_sample(
     for vision_type in graph.successors(node):
         if graph[node][vision_type]["relationship"].is_relation(sample):
             try:
-                new_series = graph[node][vision_type]["relationship"].transform(series)
+                series = graph[node][vision_type]["relationship"].transform(series)
             except Exception:
                 # TODO: alternatively, increase sample size
                 raise ValueError(
                     f"Sample size for inference {sample_size} was too small"
                 )
             return traverse_graph_inference_sample(
-                vision_type, new_series, graph, sample_size, sample, path
+                vision_type, series, graph, sample_size, sample, path
             )
 
     return path, series
@@ -224,17 +224,13 @@ def infer_type_path(
 
     # Cast the full series
     from_type = to_type = path[0]
-    for to_type in path[1:]:
-        try:
-            # TODO: why can we do `new_series = cast(series)` over and over?
-            new_series = G[from_type][to_type]["relationship"].transform(series)
-            from_type = to_type
-        except Exception:
-            # TODO: Make sure that the transform always raises an exception when expected
-            # TODO: We might to do something here
+    for i, to_type in enumerate(path[1:]):
+        if not G[from_type][to_type]["relationship"].is_relation(series):
             break
+        series = G[from_type][to_type]["relationship"].transform(series)
+        from_type = to_type
 
-    return path[0 : (path.index(to_type) + 1)], new_series
+    return path[0:(i + 1)], series
 
 
 class VisionsTypeset(object):
