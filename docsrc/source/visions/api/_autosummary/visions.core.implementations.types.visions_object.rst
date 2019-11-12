@@ -1,9 +1,9 @@
-visions.core.implementations.types.visions\_string
+visions.core.implementations.types.visions\_object
 ==================================================
 
 .. currentmodule:: visions.core.implementations.types
 
-.. autoclass:: visions_string
+.. autoclass:: visions_object
 
    
    .. automethod:: __init__
@@ -13,9 +13,9 @@ visions.core.implementations.types.visions\_string
 
    .. autosummary::
    
-      ~visions_string.__init__
-      ~visions_string.contains_op
-      ~visions_string.get_relations
+      ~visions_object.__init__
+      ~visions_object.contains_op
+      ~visions_object.get_relations
    
    
 

@@ -26,7 +26,7 @@ Concepts
 
 
 Comparing with pandas
-+++++++++++++++++++
++++++++++++++++++++++
 
 There are multiple problems when working with pandas for data analysis:
 
