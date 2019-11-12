@@ -19,6 +19,7 @@ github:
 	@touch ../docs/.nojekyll
 	@cp -a build/html/. ../docs
 	@rm -rf build
+	@rm -rf ./source/visions/api/_autosummary
 
 .PHONY: help Makefile
 

@@ -1,5 +1,0 @@
-visions.utils.monkeypatches.imghdr_patch
-========================================
-
-.. automodule:: visions.utils.monkeypatches.imghdr_patch
-    :members:
