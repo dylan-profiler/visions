@@ -8,31 +8,31 @@ By default Visions includes implementations for the following types:
     +-------------------------+---------+----------+----------+
     |Type                     |Standard |Geometry  |Complete  |
     +=========================+=========+==========+==========+
-    | visions_integer         | Yes     | Yes      | Yes      |
+    | visions_integer         |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_float           | Yes     | Yes      | Yes      |
+    | visions_float           |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_bool            | Yes     | Yes      | Yes      |
+    | visions_bool            |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_categorical     | Yes     | Yes      | Yes      |
+    | visions_categorical     |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_complex         | Yes     | Yes      | Yes      |
+    | visions_complex         |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_timestamp       | Yes     | Yes      | Yes      |
+    | visions_timestamp       |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_object          | Yes     | Yes      | Yes      |
+    | visions_object          |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_string          | Yes     | Yes      | Yes      |
+    | visions_string          |✅       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_geometry        | No      | Yes      | Yes      |
+    | visions_geometry        |❌       |✅        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_path            | No      | No       | Yes      |
+    | visions_path            |❌       |❌        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_existing_path   | No      | No       | Yes      |
+    | visions_existing_path   |❌       |❌        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_image_path      | No      | No       | Yes      |
+    | visions_image_path      |❌       |❌        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_url             | No      | No       | Yes      |
+    | visions_url             |❌       |❌        |✅        |
     +-------------------------+---------+----------+----------+
-    | visions_ip              | No      | No       | Yes      |
+    | visions_ip              |❌       |❌        |✅        |
     +-------------------------+---------+----------+----------+

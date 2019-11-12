@@ -18,6 +18,16 @@ It is limited with respect to:
 Concepts
 ++++++++
 
+When we refer to a data type or shortly type in visions, we mean abstract data type (ADT).
+An ADT is used by the user to abstract from data to solve subsequent tasks.
+When a data type isn't abstract, we refer to it as a physical data type, which is concerned with storage of the data.
+The ADT internally represents the data in one or more physical data types.
+This abstraction is a powerful tool to the user.
+
+For example, the data type integer can be stored as int64, int32, int16, int8, uint64 etc.
+
+properties of AdT: expressiveness, low overhead complexity
+
 - Physical types
 - Logical types
 - Type detection
@@ -32,6 +42,11 @@ There are multiple problems when working with pandas for data analysis:
 
 - Missing values are handled inconsistently (int, bool, object)
 - Strings are stored as objects
+
+Pandas' functionality to create abstract data types is ExtensionsDType.
+It is expressive.
+Creating a new type has high overhead, as we need to define it from scratch for the lack of basic components.
+
 
 
 Decoupling physical and logical types

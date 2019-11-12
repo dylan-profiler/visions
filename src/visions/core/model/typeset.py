@@ -230,7 +230,7 @@ def infer_type_path(
         series = G[from_type][to_type]["relationship"].transform(series)
         from_type = to_type
 
-    return path[0:(i + 1)], series
+    return path[0 : (i + 1)], series
 
 
 class VisionsTypeset(object):

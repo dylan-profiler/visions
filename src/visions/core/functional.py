@@ -21,6 +21,15 @@ def type_cast_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
 
 
 def type_cast_series(series: pd.Series, typeset: VisionsTypeset) -> pd.Series:
+    """
+
+    Args:
+        series:
+        typeset:
+
+    Returns:
+
+    """
     return typeset.cast_series(series)
 
 
@@ -43,6 +52,15 @@ def type_inference_frame(
 def type_inference_series(
     series: pd.Series, typeset: VisionsTypeset
 ) -> Type[VisionsBaseType]:
+    """
+
+    Args:
+        series:
+        typeset:
+
+    Returns:
+
+    """
     return typeset.infer_series_type(series)
 
 
@@ -64,4 +82,13 @@ def type_detect_frame(
 def type_detect_series(
     series: pd.Series, typeset: VisionsTypeset
 ) -> Type[VisionsBaseType]:
+    """
+
+    Args:
+        series:
+        typeset:
+
+    Returns:
+
+    """
     return typeset.detect_series_type(series)

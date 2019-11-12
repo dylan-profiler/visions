@@ -5,16 +5,17 @@ This section discusses viewing the concepts of `visions` with respect to subsequ
 We find this view intuitive to create understanding of:
 
 - for what we want to create types, typesets and relations
-- the benefits of using visions in practise
+- the benefits of using visions in practice
 
 It is limited for:
 
-- abstracter concepts
+- abstract concepts
 
 Applications
 ------------
-Applications are broad.
-We explain using analytics use cases, as this was the original motivation (pandas-profiling).
+The potential applications for `visions` are broad.
+The motivating use case came from analytics (specifically pandas-profiling) so we
+will continue from there.
 
 Descriptive statistics
 ----------------------

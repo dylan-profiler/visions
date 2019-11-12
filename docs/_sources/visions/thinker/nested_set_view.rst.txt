@@ -13,13 +13,12 @@ It is limited in:
 The nested set structure
 ------------------------
 
-The subset view is a way of thinking about types, typesets and relations.
-It builds on the graph view.
+The subset view is a way of thinking about types, typesets and relations and builds on the graph view.
 
 Membership: plot set of values over the nested plot, take narrowest set that contains all values.
 Constraints (e.g. narrowest set)
 
-Note empty series is always generic. (e.g. corresponds to everyplace in the graph)
+Note: an empty series is always generic. (e.g. corresponds to everyplace in the graph)
 
 Root type
 ---------

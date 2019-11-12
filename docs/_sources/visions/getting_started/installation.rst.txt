@@ -14,7 +14,7 @@ Installing with pip:
 
 
 By default, `visions` includes dependencies for additional types such as images and geodata.
-You can install a more lightweight version by picking the dependencies that you really need:
+You can install a more lightweight version by installing only the specific dependencies you really need:
 
 
 .. code-block:: console

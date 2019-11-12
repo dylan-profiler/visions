@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.model.typeset.build_graph &mdash; visions 0.1.0 documentation</title>
+  <title>visions.core.model.VisionsBaseType &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="visions.core.implementations.types.visions_generic" href="visions.core.implementations.types.visions_generic.html" />
-    <link rel="prev" title="visions.core.model.typeset.VisionsTypeset" href="visions.core.model.typeset.VisionsTypeset.html" /> 
+    <link rel="prev" title="visions.core.model.model_relation" href="visions.core.model.model_relation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,11 +94,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="visions.core.model.model_relation.html">visions.core.model.model_relation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.model.typeset.VisionsTypeset.html">visions.core.model.typeset.VisionsTypeset</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.model.typeset.build_graph</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.model.VisionsBaseType</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../models.html#concrete-types">Concrete Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html#logical-types">Logical Types</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../typesets.html">Typesets</a></li>
@@ -156,13 +155,13 @@
         
           <li><a href="../models.html">Types</a> &raquo;</li>
         
-      <li>visions.core.model.typeset.build_graph</li>
+      <li>visions.core.model.VisionsBaseType</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/visions/api/_autosummary/visions.core.model.typeset.build_graph.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/visions/api/_autosummary/visions.core.model.VisionsBaseType.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,29 +174,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="visions-core-model-typeset-build-graph">
-<h1>visions.core.model.typeset.build_graph<a class="headerlink" href="#visions-core-model-typeset-build-graph" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="visions.core.model.typeset.build_graph">
-<code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">build_graph</code><span class="sig-paren">(</span><em class="sig-param">nodes</em>, <em class="sig-param">relations</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#build_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.build_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a traversable relation graph between visions types
-Builds a type relation graph from a collection of root and derivative nodes. Usually
-root nodes correspond to the baseline numpy types found in pandas while derivative
-nodes correspond to subtypes with a defined relation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>nodes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – A list of vision_types considered at the root of the relations graph.</p></li>
-<li><p><strong>relations</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – A list of relations from type to types</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[networkx.DiGraph, networkx.DiGraph]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A directed graph of type relations for the provided nodes.</p>
+  <div class="section" id="visions-core-model-visionsbasetype">
+<h1>visions.core.model.VisionsBaseType<a class="headerlink" href="#visions-core-model-visionsbasetype" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="visions.core.model.VisionsBaseType">
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.</code><code class="sig-name descname">VisionsBaseType</code><a class="reference internal" href="../../../_modules/visions/core/model/type.html#VisionsBaseType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.VisionsBaseType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract implementation of a vision type.</p>
+<p>Provides a common API for building custom visions data types.</p>
+<dl class="method">
+<dt id="visions.core.model.VisionsBaseType.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#visions.core.model.VisionsBaseType.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.VisionsBaseType.__init__" title="visions.core.model.VisionsBaseType.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains_op</span></code>(series)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
 </dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_relations</span></code>()</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -213,7 +230,7 @@ nodes correspond to subtypes with a defined relation.</p>
         <a href="visions.core.implementations.types.visions_generic.html" class="btn btn-neutral float-right" title="visions.core.implementations.types.visions_generic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.core.model.typeset.VisionsTypeset.html" class="btn btn-neutral float-left" title="visions.core.model.typeset.VisionsTypeset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.core.model.model_relation.html" class="btn btn-neutral float-left" title="visions.core.model.model_relation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data type view &mdash; visions 0.1.0 documentation</title>
+  <title>Data Type View &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -89,9 +89,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../thinker.html">Thinker</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="goals.html">Goals</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Data type view</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Data Type View</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#concepts">Concepts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#comparing-to-pandas">Comparing to pandas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-with-pandas">Comparing with pandas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#decoupling-physical-and-logical-types">Decoupling physical and logical types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#problem-with-missing-values">Problem with missing values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#problem-with-strings">Problem with strings</a><ul>
@@ -159,7 +159,7 @@
         
           <li><a href="../thinker.html">Thinker</a> &raquo;</li>
         
-      <li>Data type view</li>
+      <li>Data Type View</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -179,9 +179,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="data-type-view">
-<h1>Data type view<a class="headerlink" href="#data-type-view" title="Permalink to this headline">¶</a></h1>
-<p>This section discusses viewing the concepts of <cite>visions</cite> as logical and physical data types.
-We find this view intuitive to create understanding of:</p>
+<h1>Data Type View<a class="headerlink" href="#data-type-view" title="Permalink to this headline">¶</a></h1>
+<p><cite>Visions</cite> views data types through the lens of logical and physical data types.</p>
+<p>This view can help guide our intuition around:</p>
 <ul class="simple">
 <li><p>how types relate</p></li>
 <li><p>how operations on types are performed</p></li>
@@ -195,45 +195,58 @@ We find this view intuitive to create understanding of:</p>
 </ul>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<p>The definitions that we need:</p>
+<p>When we refer to a data type or shortly type in visions, we mean abstract data type (ADT).
+An ADT is used by the user to abstract from data to solve subsequent tasks.
+When a data type isn’t abstract, we refer to it as a physical data type, which is concerned with storage of the data.
+The ADT internally represents the data in one or more physical data types.
+This abstraction is a powerful tool to the user.</p>
+<p>For example, the data type integer can be stored as int64, int32, int16, int8, uint64 etc.</p>
+<p>properties of AdT: expressiveness, low overhead complexity</p>
 <ul class="simple">
-<li><p>Logical data types</p></li>
-<li><p>Physical data types</p></li>
+<li><p>Physical types</p></li>
+<li><p>Logical types</p></li>
 <li><p>Type detection</p></li>
 <li><p>Type inference</p></li>
 <li><p>Casting, coercion, conversion</p></li>
 </ul>
 </div>
-<div class="section" id="comparing-to-pandas">
-<h2>Comparing to pandas<a class="headerlink" href="#comparing-to-pandas" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparing-with-pandas">
+<h2>Comparing with pandas<a class="headerlink" href="#comparing-with-pandas" title="Permalink to this headline">¶</a></h2>
 <p>There are multiple problems when working with pandas for data analysis:</p>
 <ul class="simple">
 <li><p>Missing values are handled inconsistently (int, bool, object)</p></li>
 <li><p>Strings are stored as objects</p></li>
 </ul>
+<p>Pandas’ functionality to create abstract data types is ExtensionsDType.
+It is expressive.
+Creating a new type has high overhead, as we need to define it from scratch for the lack of basic components.</p>
 </div>
 <div class="section" id="decoupling-physical-and-logical-types">
 <h2>Decoupling physical and logical types<a class="headerlink" href="#decoupling-physical-and-logical-types" title="Permalink to this headline">¶</a></h2>
-<p>This package decouples physical and logical data types.
-Physical data types describe the manner in which data is stored in memory.
-Logical data types describe data on a more abstract level.
-This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
-A simple example is a set of URLs.
-These are stored as strings, while not every string is an URL.
-There are also operations that are only sensible on URLs and not on strings, such as extracting the url parts domain or protocol.</p>
+<ol class="arabic simple">
+<li><p><cite>Physical types</cite> represent the actual, underlying representation of the data.</p></li>
+<li><p><cite>Logical types</cite> represent the abstracted understanding of that data.</p></li>
+</ol>
+<p>To make this distinction more concrete we can imagine the sequence <cite>[‘Apple’, ‘Orange’, ‘Pear’]</cite>.</p>
+<p>At a logical level these are of the logical type <cite>Fruit</cite> while under the hood each element is physically represented as <cite>String</cite>.</p>
+<p>This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
+Another simple example is a set of URLs. While we might say all URLs are stored as strings, not every string is an URL.
+There are also operations that are only sensible on URLs and not on strings, such as extracting the url, domain, or protocol.</p>
 </div>
 <div class="section" id="problem-with-missing-values">
 <h2>Problem with missing values<a class="headerlink" href="#problem-with-missing-values" title="Permalink to this headline">¶</a></h2>
 <p>Pandas’ current data model is inconsistent with respect to missing values (i.e. <cite>NaN</cite> or <cite>None</cite>).
-Adding missing values to integers and boolean results in upcasting the float and object respectively.
-Implementing nullable integer and boolean logical types allow for more efficient storage.
-This can be achieved through an internal bitmap (see the engineering view for details).</p>
+Adding missing values to integers and boolean results in upcasting to float and object respectively.
+Implementing nullable integer and boolean logical types allow for more efficient storage which can be achieved
+through an internal bitmap (see the engineering view for details).</p>
 </div>
 <div class="section" id="problem-with-strings">
 <h2>Problem with strings<a class="headerlink" href="#problem-with-strings" title="Permalink to this headline">¶</a></h2>
 <p>Pandas does not have a logical type “string”.
 Strings are stored as objects, which gives non-trivial overhead
 <a class="reference external" href="https://dev.pandas.io/pandas2/strings.html">https://dev.pandas.io/pandas2/strings.html</a></p>
+<div class="section" id="where-the-current-models-fail">
+<h3>Where the current models fail<a class="headerlink" href="#where-the-current-models-fail" title="Permalink to this headline">¶</a></h3>
 <p>The data models in Python, Numpy and Pandas are inconsistent and incomplete for logical storage of data types for analysis.
 Here, we try to understand the aspects relation to what are shortcomings of the current implementation and we want of the unified data model.</p>
 <p>We first provide a motivating example why we need a new model.
@@ -241,8 +254,6 @@ Secondly, we show what the data models of Python, Numpy and Pandas look like und
 The third part of this page introduces the concepts needed to combine them.</p>
 <p>We are envisioning a one-to-one correspondence between each of the data models without loss.
 Types should be grouped together if they have the same analysis summary.</p>
-<div class="section" id="where-the-current-models-fail">
-<h3>Where the current models fail<a class="headerlink" href="#where-the-current-models-fail" title="Permalink to this headline">¶</a></h3>
 <p>Motivating example: Nullable Boolean</p>
 <p>Motivating example: Nullable Integer / Float</p>
 <p>Motivating example: Objects</p>
