@@ -393,14 +393,14 @@
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        types: The collection of vision types which are derived either from a base_type or themselves</span>
-<span class="sd">        relation_graph: ...</span>
+<span class="sd">        base_graph: the graph with relations to parent types</span>
+<span class="sd">        relation_graph: the graph with relations to the parent types and mapping relations</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="VisionsTypeset.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.VisionsTypeset.html#visions.core.model.typeset.VisionsTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">build</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="VisionsTypeset.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.typeset.VisionsTypeset.html#visions.core.model.typeset.VisionsTypeset.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">set</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            types:</span>
-<span class="sd">            build: Construct the graph, set to false when</span>
+<span class="sd">            types: a set of types</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;types should be a set&quot;</span><span class="p">)</span>
@@ -409,12 +409,8 @@
         <span class="n">types</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">visions_generic</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_types</span> <span class="o">=</span> <span class="n">types</span>
 
-        <span class="k">if</span> <span class="n">build</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_build_graph</span><span class="p">()</span></div>
-
-    <span class="k">def</span> <span class="nf">_build_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_types</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relations</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">detect_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Get the series type (without casting).</span>

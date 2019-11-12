@@ -178,7 +178,7 @@
 <h1>visions.core.model.typeset.VisionsTypeset<a class="headerlink" href="#visions-core-model-typeset-visionstypeset" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="visions.core.model.typeset.VisionsTypeset">
-<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">VisionsTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em>, <em class="sig-param">build=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionsTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.typeset.</code><code class="sig-name descname">VisionsTypeset</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionsTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset" title="Permalink to this definition">¶</a></dt>
 <dd><p>A set of visions types with an associated relationship map between them.</p>
 <dl class="attribute">
 <dt id="visions.core.model.typeset.VisionsTypeset.types">
@@ -187,28 +187,28 @@
 </dd></dl>
 
 <dl class="attribute">
+<dt id="visions.core.model.typeset.VisionsTypeset.base_graph">
+<code class="sig-name descname">base_graph</code><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset.base_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>the graph with relations to parent types</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="visions.core.model.typeset.VisionsTypeset.relation_graph">
 <code class="sig-name descname">relation_graph</code><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset.relation_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>…</p>
+<dd><p>the graph with relations to the parent types and mapping relations</p>
 </dd></dl>
 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – </p></li>
-<li><p><strong>build</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Construct the graph, set to false when</p></li>
-</ul>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – a set of types</p>
 </dd>
 </dl>
 <dl class="method">
 <dt id="visions.core.model.typeset.VisionsTypeset.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em>, <em class="sig-param">build=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionsTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">types</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/typeset.html#VisionsTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.typeset.VisionsTypeset.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – </p></li>
-<li><p><strong>build</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Construct the graph, set to false when</p></li>
-</ul>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – a set of types</p>
 </dd>
 </dl>
 </dd></dl>
@@ -220,7 +220,7 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typeset.VisionsTypeset.__init__" title="visions.core.model.typeset.VisionsTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types[, build])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.typeset.VisionsTypeset.__init__" title="visions.core.model.typeset.VisionsTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type types</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>

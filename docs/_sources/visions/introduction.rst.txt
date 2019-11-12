@@ -26,8 +26,8 @@ Why this package?
 -----------------
 
 This package lets you work with efficient, extendable data types on tabular data in Python.
-The right abstraction of your data, through these types, are a powerful tool to effectively reducing complexity and increasing performance, helping solve problems you are working on.
-Type systems are extremely flexible, applications include dataset creation, exploratory data analysis, data cleaning.
+The right abstraction of your data, through these types, is a powerful tool to effectively reduce complexity and increase performance, helping solve problems you are working on.
+Type systems are extremely flexible, applications include dataset creation, exploratory data analysis and data cleaning.
 
 .. The data models in Python, Numpy and Pandas have different ways of representing the same data, and this is problematic for data analysis.
    Visions unifies the data model of Python, Numpy and Pandas, with a focus on data analysis.
@@ -50,13 +50,14 @@ You can use the package in the following way:
   The types and typeset can be chosen from the default library, or you can create custom types.
   (application: modeling the problem)
 
-- `visions` can detect types.
+- `visions` can detect types of your data.
 
 - It lets you define mappings from one type to another.
   This is helpful when working with real-world data.
   Provided these mappings, `visions` can infer and convert types.
   (application: data cleaning)
 
+- You can then develop applications using the abstraction provided by the types.
 
 How does it do it?
 ------------------
@@ -70,7 +71,7 @@ Essentially, `visions` does the following:
 How to navigate
 ---------------
 
-This documentation is divided with the following audiences in mind (you can decide which one you are at any moment):
+This documentation is subdivided with the following audiences in mind (you can decide which one you are at any moment):
 
 **The New Kid On The Block**
     The basic information you need to setup and start

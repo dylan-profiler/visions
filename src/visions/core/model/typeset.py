@@ -239,14 +239,14 @@ class VisionsTypeset(object):
 
     Attributes:
         types: The collection of vision types which are derived either from a base_type or themselves
-        relation_graph: ...
+        base_graph: the graph with relations to parent types
+        relation_graph: the graph with relations to the parent types and mapping relations
     """
 
-    def __init__(self, types: set, build: bool = True):
+    def __init__(self, types: set):
         """
         Args:
-            types:
-            build: Construct the graph, set to false when
+            types: a set of types
         """
         if not isinstance(types, set):
             raise ValueError("types should be a set")
@@ -255,10 +255,6 @@ class VisionsTypeset(object):
         types.add(visions_generic)
         self._types = types
 
-        if build:
-            self._build_graph()
-
-    def _build_graph(self):
         self.relation_graph, self.base_graph = build_graph(self._types, self.relations)
         self.types = set(self.relation_graph.nodes)
 
