@@ -14,6 +14,8 @@ visions.core.implementations.typesets.visions\_standard\_set
    .. autosummary::
    
       ~visions_standard_set.__init__
+      ~visions_standard_set.cast_and_infer_frame
+      ~visions_standard_set.cast_and_infer_series
       ~visions_standard_set.cast_frame
       ~visions_standard_set.cast_series
       ~visions_standard_set.detect_frame_type

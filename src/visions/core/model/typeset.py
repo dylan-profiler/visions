@@ -337,6 +337,36 @@ class VisionsTypeset(object):
         """
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
 
+    def cast_and_infer_series(self, series: pd.Series) -> pd.Series:
+        """Cast Series to its inferred type.
+
+        Args:
+            series: the Series to cast
+
+        Returns:
+            A cast copy of the Series
+        """
+
+        series_type = self.detect_series_type(series)
+        path, new_series = traverse_graph_inference(
+            series_type, series, self.relation_graph
+        )
+        return path[-1], new_series
+
+    def cast_and_infer_frame(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Cast to DataFrame, simple wrapper around cast_series.
+
+        Args:
+            df: the DataFrame to cast
+
+        Returns:
+            A copy of the DataFrame with cast
+        """
+        inferred_values = {col: self.cast_series(df[col]) for col in df.columns}
+        inferred_types = {col: inf_type for col, (inf_type, _) in inferred_values.items()}
+        inferred_series = {col: inf_series for col, (_, inf_series) in inferred_values.items()}
+        return pd.DataFrame(inferred_series), inferred_types
+
     def output_graph(self, file_name: str, base_only: bool = False) -> None:
         """Write the type graph to a file.
 

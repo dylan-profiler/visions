@@ -491,6 +491,36 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">})</span>
 
+    <span class="k">def</span> <span class="nf">cast_and_infer_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Cast Series to its inferred type.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            series: the Series to cast</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A cast copy of the Series</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">series_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">new_series</span> <span class="o">=</span> <span class="n">traverse_graph_inference</span><span class="p">(</span>
+            <span class="n">series_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">new_series</span>
+
+    <span class="k">def</span> <span class="nf">cast_and_infer_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Cast to DataFrame, simple wrapper around cast_series.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df: the DataFrame to cast</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A copy of the DataFrame with cast</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inferred_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+        <span class="n">inferred_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">inf_type</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="p">(</span><span class="n">inf_type</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">inferred_values</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">inferred_series</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">inf_series</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">inf_series</span><span class="p">)</span> <span class="ow">in</span> <span class="n">inferred_values</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">inferred_series</span><span class="p">),</span> <span class="n">inferred_types</span>
+
     <span class="k">def</span> <span class="nf">output_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Write the type graph to a file.</span>
 

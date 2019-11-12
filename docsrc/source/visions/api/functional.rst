@@ -17,7 +17,8 @@ Typesets
    type_inference_series
    type_cast_frame
    type_cast_series
-
+   type_cast_and_infer_frame
+   type_cast_and_infer_series
 
 =================
 Summaries

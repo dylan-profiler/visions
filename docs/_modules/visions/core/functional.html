@@ -187,6 +187,33 @@
     <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="type_cast_and_infer_frame"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_cast_and_infer_frame.html#visions.core.functional.type_cast_and_infer_frame">[docs]</a><span class="k">def</span> <span class="nf">type_cast_and_infer_frame</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Casts a DataFrame into a typeset by first performing column wise type inference against</span>
+<span class="sd">    a provided typeset</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: the DataFrame to cast</span>
+<span class="sd">        typeset: the Typeset in which we cast</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple of the casted DataFrame and the types to which the columns were cast</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_and_infer_frame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="type_cast_and_infer_series"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_cast_and_infer_series.html#visions.core.functional.type_cast_and_infer_series">[docs]</a><span class="k">def</span> <span class="nf">type_cast_and_infer_series</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        series:</span>
+<span class="sd">        typeset:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_and_infer_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="type_inference_frame"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_inference_frame.html#visions.core.functional.type_inference_frame">[docs]</a><span class="k">def</span> <span class="nf">type_inference_frame</span><span class="p">(</span>
     <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]]:</span>
