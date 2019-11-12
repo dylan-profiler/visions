@@ -1,8 +1,8 @@
 Engineering view
 ================
 
-This section discusses implementation of `visions`.
-We find this view intuitive to create understanding of:
+This section discusses the core implementation of `visions`.
+This view can guide intuition of:
 
 - performance and complexity of operations
 
@@ -46,21 +46,25 @@ TODO: why (refer to goal)
 Why don't we use OOP inheritance?
 ---------------------------------
 You might wonder why for example `ImagePath` class does not inherit from `ExistingPath` class.
-The short answer is, we tried, it didn't work out for the conditions we are under.
-It is just not the abstraction that simplifies our problem, in fact it introduces complexity.
-The current abstraction however, each type inherits from a base type, class inheritance from relations.
+The short answer is, we tried, in order to support our use cases inheritance ultimately only added complexity to the solution.
+Within the current abstraction, each type inherits from a base type, class inheritance from relations.
 
 When you think how class inheritance would be beneficial is here, is where it reduces complexity.
 TODO
 
 Sampling in inference
 ---------------------
-
 TODO
 
 Why are relations defined on the type?
 --------------------------------------
-TODO (extendability)
+The short answer is extendability.
+
+Recall, relations define mappings to a type, so, given two types `A` and `B` with a relation from `B -> A`,
+that relationship is defined on `A`. Defining relationships in this way actually decouples types from each other.
+This allows us to dynamically construct a relation graph based only on the types included in the typeset without
+modifying any type specific logic.
+
 
 Missing value bitmaps
 ---------------------

@@ -4,8 +4,9 @@ Graph view
 What about this view?
 ---------------------
 
-This section discusses viewing the concepts of `visions` as graph.
-We find this view intuitive to create understanding of:
+In `visions` relationships between types are formalized through the language of graphs.
+
+Additionally, this graph view can guide our intuition around:
 
 - how types relate
 - how operations on types are performed
@@ -14,6 +15,7 @@ It is limited for:
 
 - intuitive understanding of membership constraints (see the nested set view).
 
+
 The base data structure
 -----------------------
 The base data structure of a typeset is a `directed rooted tree <https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree>`_ (graph).
@@ -21,13 +23,22 @@ Each node represents a `data type <../getting_started/concepts.html#type>`_.
 The root note is `visions_generic`.
 
 Each data type is associated with a set.
-The root node is associated with the universal set :math:`U = \{\textrm{all data structures supported by a Series}\}`.
-Each data type's set must be a proper subset of the parent's set.
-Membership of a data type is defined as membership of that set.
-In symbols: :math:`f: \textrm{Type} \times S \to \{True, False\}`.
-There is a constraint: membership of siblings must be mutually exclusive.
-This is the same as that sets for each two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
-For example, the `Path` and `URL` data type both have the parent data type `Object`, then in symbols: :math:`\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset`.
+The root node is associated with the universal set
+
+:math:`U = \{\textrm{all data structures supported by a Series}\}`.
+
+
+* Each data type's set must be a proper subset of the parent's set.
+* Membership of a data type is defined as membership of that set.
+
+Symbolically : :math:`f: \textrm{Type} \times S \to \{True, False\}`.
+
+In order for graph traversal to be decidable membership of siblings must be mutually exclusive.
+
+This is the same as saying sets of any two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
+
+For example, the `Path` and `URL` data type both have the parent data type `Object` i.e.
+:math:`\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset`.
 
 For the `visions_complete_set`, this base structure can be visualised as:
 
@@ -41,15 +52,15 @@ For the `visions_complete_set`, this base structure can be visualised as:
 Type detection
 ^^^^^^^^^^^^^^
 
-For any typeset and Pandas Series :math:`S` (i.e. a bag of values), there is the operation type detection to be :math:`f: \textrm{Typeset} \times S \to \textrm{Type}`.
-The function returns the narrowest matching type given a Series.
-Type detection is implemented as depth first search starting at the root note.
+For any typeset and sequence :math:`S` (i.e. a bag of values), the type detection operation is defined as :math:`f: \textrm{Typeset} \times S \to \textrm{Type}`.
+This function returns the narrowest matching type given a Series.
+Type detection is implemented as depth first search starting at the root node.
 Hence detection (and inference) return the narrowest possible type.
 
 Relational mapping extensions
 -----------------------------
 
-TODO: Identity transformation nad note in practice we don't check this...
+TODO: Identity transformation and note in practice we don't check this...
 
 We extend the data structure to support mappings from one data type to another.
 Relational mappings are very similar to the edges in the base data structure.
@@ -89,7 +100,8 @@ Type inference
 
 Type inference is type detection on the extended graph.
 Similarly, we perform depth first search.
-A difference is that when the type inference traverses a relational map, the values are mapped before continuing the search.
+The primary difference between type inference and detection are that values are
+mapped before continuing the search when traversing a relational map
 
 Type casting
 ^^^^^^^^^^^^
