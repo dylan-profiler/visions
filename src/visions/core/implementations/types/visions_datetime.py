@@ -1,7 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 from visions.core.implementations.types import visions_string
 from visions.utils.coercion import test_utils
@@ -9,6 +9,21 @@ from visions.utils.coercion import test_utils
 
 def to_datetime(series: pd.Series) -> pd.Series:
     return pd.to_datetime(series)
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_generic
+
+    relations = [
+        IdentityRelation(visions_datetime, visions_generic),
+        InferenceRelation(
+            visions_datetime,
+            visions_string,
+            relationship=test_utils.coercion_test(to_datetime),
+            transformer=to_datetime,
+        ),
+    ]
+    return relations
 
 
 class visions_datetime(VisionsBaseType):
@@ -22,17 +37,7 @@ class visions_datetime(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_generic
-
-        relations = {
-            visions_generic: relation_conf(inferential=False),
-            visions_string: relation_conf(
-                relationship=test_utils.coercion_test(to_datetime),
-                transformer=to_datetime,
-                inferential=True,
-            ),
-        }
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

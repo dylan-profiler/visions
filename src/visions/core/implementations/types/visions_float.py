@@ -2,7 +2,7 @@ import pandas.api.types as pdt
 import numpy as np
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.warning_handling import suppress_warnings
@@ -17,6 +17,31 @@ def to_float(series: pd.Series) -> bool:
     return series.astype(float)
 
 
+def _get_relations():
+    from visions.core.implementations.types import (
+        visions_generic,
+        visions_string,
+        visions_complex,
+    )
+
+    relations = [
+        IdentityRelation(visions_float, visions_generic),
+        InferenceRelation(
+            visions_float,
+            visions_string,
+            relationship=test_string_is_float,
+            transformer=to_float,
+        ),
+        InferenceRelation(
+            visions_float,
+            visions_complex,
+            relationship=lambda s: all(np.imag(s.values) == 0),
+            transformer=suppress_warnings(to_float),
+        ),
+    ]
+    return relations
+
+
 class visions_float(VisionsBaseType):
     """**Float** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
@@ -28,27 +53,7 @@ class visions_float(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import (
-            visions_generic,
-            visions_string,
-            visions_complex,
-        )
-
-        relations = {
-            visions_generic: relation_conf(inferential=False),
-            visions_string: relation_conf(
-                relationship=test_string_is_float,
-                transformer=to_float,
-                inferential=True,
-            ),
-            visions_complex: relation_conf(
-                relationship=lambda s: all(np.imag(s.values) == 0),
-                transformer=suppress_warnings(to_float),
-                inferential=True,
-            ),
-        }
-
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

@@ -1,8 +1,15 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_datetime
+
+    relations = [IdentityRelation(visions_time, visions_datetime)]
+    return relations
 
 
 class visions_time(VisionsBaseType):
@@ -16,10 +23,7 @@ class visions_time(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_datetime
-
-        relations = {visions_datetime: relation_conf(inferential=False)}
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

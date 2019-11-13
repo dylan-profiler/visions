@@ -1,4 +1,4 @@
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import TypeRelation
 from visions.core.implementations.types import to_ordinal
 
 
@@ -15,6 +15,6 @@ def is_ordinal_str(s):
 
 
 def string_to_ordinal():
-    return relation_conf(
+    return TypeRelation(
         inferential=True, relationship=is_ordinal_str, transformer=to_ordinal
     )

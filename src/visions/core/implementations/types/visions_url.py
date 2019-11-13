@@ -1,7 +1,7 @@
 import pandas as pd
 from urllib.parse import urlparse, ParseResult
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 
 
@@ -14,6 +14,18 @@ def test_url(series):
 
 def to_url(series: pd.Series) -> pd.Series:
     return series.apply(urlparse)
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_string, visions_object
+
+    relations = [
+        IdentityRelation(visions_url, visions_object),
+        InferenceRelation(
+            visions_url, visions_string, relationship=test_url, transformer=to_url
+        ),
+    ]
+    return relations
 
 
 class visions_url(VisionsBaseType):
@@ -30,15 +42,7 @@ class visions_url(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_string, visions_object
-
-        relations = {
-            visions_string: relation_conf(
-                relationship=test_url, transformer=to_url, inferential=True
-            ),
-            visions_object: relation_conf(inferential=False),
-        }
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

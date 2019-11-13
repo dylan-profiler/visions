@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import TypeRelation
 from visions.utils.coercion import test_utils
 
 
@@ -27,7 +27,7 @@ def to_datetime_year_week(series):
 
 
 def string_to_datetime_year_week():
-    return relation_conf(
+    return TypeRelation(
         inferential=True,
         relationship=test_utils.coercion_test(to_datetime_year_week),
         transformer=to_datetime_year_week,

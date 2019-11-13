@@ -33,7 +33,9 @@ def type_cast_series(series: pd.Series, typeset: VisionsTypeset) -> pd.Series:
     return typeset.cast_series(series)
 
 
-def type_cast_and_infer_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
+def type_cast_and_infer_frame(
+    df: pd.DataFrame, typeset: VisionsTypeset
+) -> pd.DataFrame:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 

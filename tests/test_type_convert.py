@@ -1,7 +1,7 @@
 import pytest
 
 from visions.core.implementations.typesets import visions_complete_set
-from visions.core.model import model_relation
+from visions.core.model import TypeRelation
 
 from tests.series import get_series, get_convert_map
 
@@ -18,14 +18,15 @@ def all_relations_tested(series_map):
             series_map_lookup[map_to_type] = {map_from_type: items}
 
     missing_relations = set()
-    for to_type, from_types in typeset.relations.items():
-        for from_type, config in from_types.items():
-            if config.inferential and (
+    for node in typeset.types:
+        for relation in node.get_relations():
+            from_type, to_type = relation.related_type, relation.type
+            if relation.inferential and (
                 to_type not in series_map_lookup
                 or from_type not in series_map_lookup[to_type]
                 or len(series_map_lookup[to_type][from_type]) == 0
             ):
-                missing_relations.add(f"{from_type} -> {to_type}")
+                missing_relations.add(f"{relation}")
 
     if len(missing_relations) > 0:
         raise ValueError(
@@ -70,8 +71,10 @@ def pytest_generate_tests(metafunc):
 
 @pytest.mark.run(order=9)
 def test_relations(source_type, relation_type, series):
-    relation = source_type.get_relations()[relation_type]
-    relation = model_relation(source_type, relation_type, **relation._asdict())
+    relation_gen = (
+        rel for rel in source_type.get_relations() if rel.related_type == relation_type
+    )
+    relation = next(relation_gen)
     if relation.is_relation(series):
         cast_series = relation.transform(series)
         assert (

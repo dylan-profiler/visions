@@ -1,7 +1,8 @@
 import pandas as pd
 import sys
 import os
-from visions.core.model.model_relation import relation_conf
+
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 
 
@@ -27,6 +28,21 @@ def to_geometry(series: pd.Series) -> pd.Series:
     return pd.Series([wkt.loads(value) for value in series])
 
 
+def _get_relations():
+    from visions.core.implementations.types import visions_string, visions_object
+
+    relations = [
+        IdentityRelation(visions_geometry, visions_object),
+        InferenceRelation(
+            visions_geometry,
+            visions_string,
+            relationship=string_is_geometry,
+            transformer=to_geometry,
+        ),
+    ]
+    return relations
+
+
 # https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
 class visions_geometry(VisionsBaseType):
     """**Geometry** implementation of :class:`visions.core.model.type.VisionsBaseType`.
@@ -40,17 +56,7 @@ class visions_geometry(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_string, visions_object
-
-        relations = {
-            visions_string: relation_conf(
-                relationship=string_is_geometry,
-                transformer=to_geometry,
-                inferential=True,
-            ),
-            visions_object: relation_conf(inferential=False),
-        }
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

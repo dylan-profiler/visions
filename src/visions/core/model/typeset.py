@@ -1,16 +1,16 @@
 import warnings
-from typing import Type, Tuple, List, Dict
+from typing import Type, Tuple, List, Dict, Iterable
 
 import pandas as pd
 import networkx as nx
 
-from visions.core.model.model_relation import model_relation
+from visions.core.model.relations import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.graph import output_graph
 from visions.core.model.visions_generic import visions_generic
 
 
-def build_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
+def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     """Constructs a traversable relation graph between visions types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -18,7 +18,6 @@ def build_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
 
     Args:
         nodes:  A list of vision_types considered at the root of the relations graph.
-        relations: A list of relations from type to types
 
     Returns:
         A directed graph of type relations for the provided nodes.
@@ -30,22 +29,22 @@ def build_graph(nodes: set, relations: dict) -> Tuple[nx.DiGraph, nx.DiGraph]:
 
     noninferential_edges = []
 
-    for model, relation in relations.items():
-        for friend_model, config in relation.items():
-            if friend_model not in nodes:
+    for node in nodes:
+        for relation in node.get_relations():
+            if relation.related_type not in nodes:
                 warnings.warn(
                     f"Provided relations included mapping from {friend_model} to {model} but {friend_model} was not included in the provided list of nodes"
                 )
-                continue
+
             relation_graph.add_edge(
-                friend_model,
-                model,
-                relationship=model_relation(model, friend_model, **config._asdict()),
-                style=style_map[config.inferential],
+                relation.related_type,
+                relation.type,
+                relationship=relation,
+                style=style_map[relation.inferential],
             )
 
-            if not config.inferential:
-                noninferential_edges.append((friend_model, model))
+            if not relation.inferential:
+                noninferential_edges.append((relation.related_type, relation.type))
 
     check_graph_constraints(relation_graph)
     return relation_graph, relation_graph.edge_subgraph(noninferential_edges)
@@ -248,14 +247,10 @@ class VisionsTypeset(object):
         Args:
             types: a set of types
         """
-        if not isinstance(types, set):
-            raise ValueError("types should be a set")
+        if not isinstance(types, Iterable):
+            raise ValueError("types should be iterable")
 
-        self.relations = {node: node.get_relations() for node in types}
-        types.add(visions_generic)
-        self._types = types
-
-        self.relation_graph, self.base_graph = build_graph(self._types, self.relations)
+        self.relation_graph, self.base_graph = build_graph(set(types) | {visions_generic})
         self.types = set(self.relation_graph.nodes)
 
     def detect_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
@@ -359,8 +354,12 @@ class VisionsTypeset(object):
             A copy of the DataFrame with cast
         """
         inferred_values = {col: self.cast_series(df[col]) for col in df.columns}
-        inferred_types = {col: inf_type for col, (inf_type, _) in inferred_values.items()}
-        inferred_series = {col: inf_series for col, (_, inf_series) in inferred_values.items()}
+        inferred_types = {
+            col: inf_type for col, (inf_type, _) in inferred_values.items()
+        }
+        inferred_series = {
+            col: inf_series for col, (_, inf_series) in inferred_values.items()
+        }
         return pd.DataFrame(inferred_series), inferred_types
 
     def output_graph(self, file_name: str, base_only: bool = False) -> None:

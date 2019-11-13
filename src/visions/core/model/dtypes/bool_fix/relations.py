@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.core.model import model_relation
+from visions.core.model import TypeRelation
 from visions.core.implementations.types import (
     visions_bool,
     visions_string,
@@ -37,15 +37,15 @@ def register_bool_relations():
 
     sb_relation = string_bool_relation()
     relations = [
-        model_relation(visions_bool, visions_generic, inferential=False),
-        model_relation(
+        TypeRelation(visions_bool, visions_generic, inferential=False),
+        TypeRelation(
             visions_bool,
             visions_string,
             sb_relation.string_is_bool,
             sb_relation.map_string_to_bool,
             inferential=True,
         ),
-        model_relation(
+        TypeRelation(
             visions_bool,
             visions_object,
             test_utils.coercion_equality_test(

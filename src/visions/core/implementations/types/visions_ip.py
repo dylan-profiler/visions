@@ -1,13 +1,28 @@
 import pandas as pd
 from ipaddress import _BaseAddress, ip_address
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
 def to_ip(series: pd.Series) -> pd.Series:
     return series.apply(ip_address)
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_object, visions_string
+
+    relations = [
+        IdentityRelation(visions_ip, visions_object),
+        InferenceRelation(
+            visions_ip,
+            visions_string,
+            relationship=test_utils.coercion_test(to_ip),
+            transformer=to_ip,
+        ),
+    ]
+    return relations
 
 
 class visions_ip(VisionsBaseType):
@@ -22,17 +37,7 @@ class visions_ip(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_object, visions_string
-
-        relations = {
-            visions_object: relation_conf(inferential=False),
-            visions_string: relation_conf(
-                inferential=True,
-                relationship=test_utils.coercion_test(to_ip),
-                transformer=to_ip,
-            ),
-        }
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

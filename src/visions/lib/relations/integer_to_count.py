@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import TypeRelation
 
 
 def is_unsigned_int(series: pd.Series):
@@ -10,7 +10,7 @@ def is_unsigned_int(series: pd.Series):
 
 
 def integer_to_count():
-    return relation_conf(
+    return TypeRelation(
         inferential=True,
         relationship=is_unsigned_int,
         transformer=lambda s: s.astype(np.uint64),

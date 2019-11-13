@@ -2,7 +2,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
 
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 
 
@@ -22,6 +22,21 @@ def to_path(series: pd.Series) -> pd.Series:
         return s
 
 
+def _get_relations():
+    from visions.core.implementations.types import visions_object, visions_string
+
+    relations = [
+        IdentityRelation(visions_path, visions_object),
+        InferenceRelation(
+            visions_path,
+            visions_string,
+            relationship=string_is_path,
+            transformer=to_path,
+        ),
+    ]
+    return relations
+
+
 class visions_path(VisionsBaseType):
     """**Path** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
@@ -33,15 +48,7 @@ class visions_path(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_object, visions_string
-
-        relations = {
-            visions_object: relation_conf(inferential=False),
-            visions_string: relation_conf(
-                inferential=True, relationship=string_is_path, transformer=to_path
-            ),
-        }
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

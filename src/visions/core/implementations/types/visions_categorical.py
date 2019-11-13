@@ -1,8 +1,15 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation
 from visions.core.model.type import VisionsBaseType
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_generic
+
+    relations = [IdentityRelation(visions_categorical, visions_generic)]
+    return relations
 
 
 class visions_categorical(VisionsBaseType):
@@ -16,9 +23,7 @@ class visions_categorical(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> dict:
-        from visions.core.implementations.types import visions_generic
-
-        return {visions_generic: relation_conf(inferential=False)}
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

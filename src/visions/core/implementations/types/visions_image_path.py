@@ -1,10 +1,16 @@
-from visions.core.model.model_relation import relation_conf
 import imghdr
 from pathlib import Path
-
 import pandas as pd
 
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_existing_path
+
+    relations = [IdentityRelation(visions_image_path, visions_existing_path)]
+    return relations
 
 
 class visions_image_path(VisionsBaseType):
@@ -18,10 +24,7 @@ class visions_image_path(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_existing_path
-
-        relations = {visions_existing_path: relation_conf(inferential=False)}
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

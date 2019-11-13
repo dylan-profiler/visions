@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 from visions.core.implementations.types.visions_float import test_string_is_float
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
@@ -18,6 +18,21 @@ def to_complex(series: pd.Series) -> bool:
     return series.apply(complex)
 
 
+def _get_relations():
+    from visions.core.implementations.types import visions_generic, visions_string
+
+    relations = [
+        IdentityRelation(visions_complex, visions_generic),
+        InferenceRelation(
+            visions_complex,
+            visions_string,
+            relationship=test_string_is_complex,
+            transformer=to_complex,
+        ),
+    ]
+    return relations
+
+
 class visions_complex(VisionsBaseType):
     """**Complex** implementation of :class:`visions.core.model.type.VisionsBaseType`.
 
@@ -29,18 +44,8 @@ class visions_complex(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
-        from visions.core.implementations.types import visions_generic, visions_string
-
-        relations = {
-            visions_generic: relation_conf(inferential=False),
-            visions_string: relation_conf(
-                inferential=True,
-                relationship=test_string_is_complex,
-                transformer=to_complex,
-            ),
-        }
-        return relations
+    def get_relations(cls) -> dict:
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

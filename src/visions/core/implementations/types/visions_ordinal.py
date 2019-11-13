@@ -1,7 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 
 
@@ -9,6 +9,13 @@ def to_ordinal(series: pd.Series) -> pd.Series:
     return pd.Series(
         pd.Categorical(series, categories=sorted(series.unique()), ordered=True)
     )
+
+
+def _get_relations():
+    from visions.core.implementations.types import visions_categorical
+
+    relations = [IdentityRelation(visions_ordinal, visions_categorical)]
+    return relations
 
 
 class visions_ordinal(VisionsBaseType):
@@ -22,10 +29,7 @@ class visions_ordinal(VisionsBaseType):
 
     @classmethod
     def get_relations(cls):
-        from visions.core.implementations.types import visions_categorical
-
-        relations = {visions_categorical: relation_conf(inferential=False)}
-        return relations
+        return _get_relations()
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

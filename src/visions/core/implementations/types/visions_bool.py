@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
 
-from visions.core.model.model_relation import relation_conf
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model.type import VisionsBaseType
 from visions.lib.relations.string_to_bool import get_boolean_coercions
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
@@ -26,10 +26,11 @@ def _get_relations(cls) -> dict:
         visions_object,
     )
 
-    relations = {
-        visions_generic: relation_conf(inferential=False),
-        visions_string: relation_conf(
-            inferential=True,
+    relations = [
+        IdentityRelation(visions_bool, visions_generic),
+        InferenceRelation(
+            visions_bool,
+            visions_string,
             relationship=lambda s: coercion_map_test(cls.string_coercions)(
                 s.str.lower()
             ),
@@ -37,17 +38,19 @@ def _get_relations(cls) -> dict:
                 coercion_map(cls.string_coercions)(s.str.lower())
             ),
         ),
-        visions_integer: relation_conf(
-            inferential=True,
+        InferenceRelation(
+            visions_bool,
+            visions_integer,
             relationship=lambda s: s.isin({0, 1, np.nan}).all(),
             transformer=to_bool,
         ),
-        visions_object: relation_conf(
-            inferential=True,
+        InferenceRelation(
+            visions_bool,
+            visions_object,
             relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
             transformer=to_bool,
         ),
-    }
+    ]
     return relations
 
 
