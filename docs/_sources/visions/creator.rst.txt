@@ -8,6 +8,7 @@ There are myriad ways to extend:
 
 - Create a new data type (example: `email_address`)
 - Create a new type set
+- Create a new dtype / storage type for an existing type (reference: `cyberpandas <https://github.com/ContinuumIO/cyberpandas>`_)
 - Create relations between data types (a field with the strings "J" and "N", might be Dutch or German representations of a boolean)
 
 This section documents basic steps for contributing (e.g. testing and linting) and specific instructions on how to create each of the steps above.

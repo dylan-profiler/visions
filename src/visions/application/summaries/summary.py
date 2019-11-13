@@ -108,10 +108,9 @@ class Summary(object):
 
         included_nodes = G.nodes
         if type_specific is not None:
-            leave = nx.ancestors(G, type_specific)
-
-            included_nodes = leave
-            G.remove_nodes_from(G.nodes - leave)
+            included_nodes = nx.ancestors(G, type_specific)
+            included_nodes.add(type_specific)
+            G.remove_nodes_from(G.nodes - included_nodes)
 
         G.add_node("summary", shape="note")
         for base_type, summary_ops in self.summary_ops.items():

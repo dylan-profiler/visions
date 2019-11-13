@@ -224,6 +224,11 @@ The short answer is, we tried, in order to support our use cases inheritance ult
 Within the current abstraction, each type inherits from a base type, class inheritance from relations.</p>
 <p>When you think how class inheritance would be beneficial is here, is where it reduces complexity.
 TODO</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The choice of not using OOP inheritance limits the use of build-in type hints that rely on covariance and contravariance.
+Read more in <a class="reference external" href="https://www.python.org/dev/peps/pep-0483/#covariance-and-contravariance">PEP 484</a>.</p>
+</div>
 </div>
 <div class="section" id="sampling-in-inference">
 <h2>Sampling in inference<a class="headerlink" href="#sampling-in-inference" title="Permalink to this headline">¶</a></h2>
@@ -239,8 +244,13 @@ modifying any type specific logic.</p>
 </div>
 <div class="section" id="missing-value-bitmaps">
 <h2>Missing value bitmaps<a class="headerlink" href="#missing-value-bitmaps" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
-<p>Ref: <a class="reference external" href="https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution">pandas 2.0 design document</a></p>
+<p>Pandas upcasts certain types when adding missing values, unnecessarily increasing physical storage size.
+This behaviour <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html#missing-data-casting-rules-and-indexing">occurs for booleans and integers</a>.
+Pandas itself offers <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/integer_na.html#integer-na">nullable integers</a>.
+We implement nullable types as missing value bitmaps, in the same way pandas’ nullable integers work.
+For each value, we keep a 1 bit per value that specifies whether a value is null or not.
+We use the contention that <cite>NaN</cite> is used when the type represents numbers, <cite>None</cite> otherwise.
+More information can be found here: <a class="reference external" href="https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution">pandas 2.0 design document</a></p>
 </div>
 </div>
 
