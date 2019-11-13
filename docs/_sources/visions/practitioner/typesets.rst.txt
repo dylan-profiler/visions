@@ -4,8 +4,8 @@ Typesets
 Introduction
 ============
 
-Groups of types can be added together to perform analysis over data sequences like pandas series
-or dataframes. These grouping are called typesets.
+Groups of types can be added together to perform analysis over data sequences like pandas series or dataframes.
+These grouping are called typesets.
 
 .. code-block:: python
 
@@ -57,17 +57,15 @@ Type inference attempts to answer the question `What type is my data best repres
     >>> type_inference_series(test_series, typeset)
     visions_integer
 
-As you can see, visions was able to infer that our test_series was really a an integer
-series rather than a string series. Integer detection is a fairly simple use case but
-using visions types of any degree of complexity from geometries to URLs to file paths and beyond.
+As you can see, visions was able to infer that our test_series was really a an integer series rather than a string series.
+Integer detection is a fairly simple use case but using visions types of any degree of complexity from geometries to URLs to file paths and beyond.
 Inference can be performed over any type included in a typeset.
 
 
 Cast
 ====
 
-Type casting is the process of converting a series or dataframe from one type to another, for example,
-from strings to integers.
+Type casting is the process of converting a series or dataframe from one type to another, for example, from strings to integers.
 
 .. code-block:: python
 

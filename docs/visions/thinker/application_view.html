@@ -96,6 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#applications">Applications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#descriptive-statistics">Descriptive statistics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#integer">Integer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#string">String</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#existing-path">Existing Path</a></li>
 </ul>
 </li>
@@ -103,7 +104,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#predictive-analytics-including-machine-learning">Predictive analytics (including machine learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machine-learning">Machine learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reducing-memory-footprint">Reducing Memory Footprint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#relations">Relations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-conversion">Type Conversion</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="engineering_view.html">Engineering view</a></li>
@@ -193,40 +199,78 @@ We find this view intuitive to create understanding of:</p>
 <div class="section" id="applications">
 <h2>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
 <p>The potential applications for <cite>visions</cite> are broad.
-The motivating use case came from analytics (specifically pandas-profiling) so we
-will continue from there.</p>
+The motivating use case came from analytics (specifically pandas-profiling) so we will start with descriptive statistics.
+Then, we will shortly touch predictive analytics/machine learning and reducing memory footprint.</p>
 </div>
 <div class="section" id="descriptive-statistics">
 <h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p>In descriptive statistics we are looking for coefficients that summarize our data.
+Describing numbers (for instance through the five-number summary) is completely different from describing strings.</p>
+<p>The application is designed that each type in a typeset is associated with summary functions.
+The summary of a sequence is the combination of all summary functions of the type and all its super types.
+Examples from Integer, String, ExistingPath are given below.</p>
 <div class="section" id="integer">
 <h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="150px" /></a>
+<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="200px" /></a>
 <p class="caption"><span class="caption-text">Integer Summary Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
+<div class="section" id="string">
+<h3>String<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/summary_string.svg"><img alt="String Summary Graph" src="../../_images/summary_string.svg" width="200px" /></a>
+<p class="caption"><span class="caption-text">String Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Notably, the <cite>text_summary</cite> obtains awesome unicode statistics from another package within this project: <a class="reference external" href="https://github.com/dylan-profiler/tangled-up-in-unicode">tangled up in unicode</a>.
+If you are working with text data, you definitely want to check it out.</p>
+</div>
 <div class="section" id="existing-path">
 <h3>Existing Path<a class="headerlink" href="#existing-path" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="../../_images/summary_existing_path.svg"><img alt="Existing Path Summary Graph" src="../../_images/summary_existing_path.svg" width="300px" /></a>
-<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
 <div class="section" id="typeset-summary-graphs">
 <h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
+<p>We can visualise the summary functions for the a typeset, too.</p>
 <div class="section" id="complete-typeset">
 <h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id4">
 <a class="reference internal image-reference" href="../../_images/summary_complete.svg"><img alt="CompleteTypeset Summary Graph" src="../../_images/summary_complete.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
-<div class="section" id="predictive-analytics-including-machine-learning">
-<h2>Predictive analytics (including machine learning)<a class="headerlink" href="#predictive-analytics-including-machine-learning" title="Permalink to this headline">¶</a></h2>
-<p>One hot encoding, etc.</p>
+<div class="section" id="machine-learning">
+<h2>Machine learning<a class="headerlink" href="#machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>In predictive analytics and machine learning, variables are processed and encoded differently.
+The default typesets in <cite>visions</cite> are an useful abstraction to base the encoding and preprocessing steps on.
+For example categorical values are one-hot or <a class="reference external" href="https://en.wikipedia.org/wiki/Categorical_variable#Dummy_coding">dummy coded</a>, while ordinals can be <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder">encoded as integer</a>.</p>
+</div>
+<div class="section" id="reducing-memory-footprint">
+<h2>Reducing Memory Footprint<a class="headerlink" href="#reducing-memory-footprint" title="Permalink to this headline">¶</a></h2>
+<p>A typeset can be an useful abstraction to reduce memory required for a dataset.
+There are two dynamics that can help.</p>
+<div class="section" id="relations">
+<h3>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h3>
+<p>The first is by defining semantically-equivalent inferential relations from generalist to specialist types.
+The default typeset contains examples of those relations:</p>
+<ul class="simple">
+<li><p>from complex to float when the imaginary part is equal to zero</p></li>
+<li><p>from float to integer when the there is no fractional component</p></li>
+<li><p>from integer to boolean when the values are binary</p></li>
+</ul>
+<p>Note that the user needs to decide if these relations are semantically equivalent given his/her dataset.</p>
+</div>
+<div class="section" id="type-conversion">
+<h3>Type Conversion<a class="headerlink" href="#type-conversion" title="Permalink to this headline">¶</a></h3>
+<p>The second dynamic is by minimizing the memory used for a single type.
+We can define a (lossless) conversion operation for specific types.
+For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.</p>
+</div>
 </div>
 </div>
 
