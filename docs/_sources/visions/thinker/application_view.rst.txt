@@ -76,10 +76,10 @@ Complete Typeset
    CompleteTypeset Summary Graph
 
 
-Predictive analytics (including machine learning)
--------------------------------------------------
+Machine learning
+----------------
 
-In predictive analytics variables are processed and encoded differently.
+In predictive analytics and machine learning, variables are processed and encoded differently.
 The default typesets in `visions` are an useful abstraction to base the encoding and preprocessing steps on.
 For example categorical values are one-hot or `dummy coded <https://en.wikipedia.org/wiki/Categorical_variable#Dummy_coding>`_, while ordinals can be `encoded as integer <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder>`_.
 
@@ -101,9 +101,9 @@ The default typeset contains examples of those relations:
 
 Note that the user needs to decide if these relations are semantically equivalent given his/her dataset.
 
-Type Downcasting
-~~~~~~~~~~~~~~~~
+Type Conversion
+~~~~~~~~~~~~~~~
 
 The second dynamic is by minimizing the memory used for a single type.
-We can define a (lossless) downcasting operation for specific types.
-For example, we could downcast a 64-bit integer to a 8-bit integer if it contains only pixel values.
+We can define a (lossless) conversion operation for specific types.
+For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.

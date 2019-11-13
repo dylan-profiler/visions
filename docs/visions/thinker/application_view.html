@@ -104,10 +104,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#predictive-analytics-including-machine-learning">Predictive analytics (including machine learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machine-learning">Machine learning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reducing-memory-footprint">Reducing Memory Footprint</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#relations">Relations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#type-downcasting">Type Downcasting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#type-conversion">Type Conversion</a></li>
 </ul>
 </li>
 </ul>
@@ -244,9 +244,9 @@ If you are working with text data, you definitely want to check it out.</p>
 </div>
 </div>
 </div>
-<div class="section" id="predictive-analytics-including-machine-learning">
-<h2>Predictive analytics (including machine learning)<a class="headerlink" href="#predictive-analytics-including-machine-learning" title="Permalink to this headline">¶</a></h2>
-<p>In predictive analytics variables are processed and encoded differently.
+<div class="section" id="machine-learning">
+<h2>Machine learning<a class="headerlink" href="#machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>In predictive analytics and machine learning, variables are processed and encoded differently.
 The default typesets in <cite>visions</cite> are an useful abstraction to base the encoding and preprocessing steps on.
 For example categorical values are one-hot or <a class="reference external" href="https://en.wikipedia.org/wiki/Categorical_variable#Dummy_coding">dummy coded</a>, while ordinals can be <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder">encoded as integer</a>.</p>
 </div>
@@ -265,11 +265,11 @@ The default typeset contains examples of those relations:</p>
 </ul>
 <p>Note that the user needs to decide if these relations are semantically equivalent given his/her dataset.</p>
 </div>
-<div class="section" id="type-downcasting">
-<h3>Type Downcasting<a class="headerlink" href="#type-downcasting" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="type-conversion">
+<h3>Type Conversion<a class="headerlink" href="#type-conversion" title="Permalink to this headline">¶</a></h3>
 <p>The second dynamic is by minimizing the memory used for a single type.
-We can define a (lossless) downcasting operation for specific types.
-For example, we could downcast a 64-bit integer to a 8-bit integer if it contains only pixel values.</p>
+We can define a (lossless) conversion operation for specific types.
+For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.</p>
 </div>
 </div>
 </div>
