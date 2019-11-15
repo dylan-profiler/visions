@@ -22,6 +22,9 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
+    def get_relations(node, nodes):
+        return (relation for relation in node.get_relations()
+                if relation.related_type in nodes)
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -30,12 +33,7 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     noninferential_edges = []
 
     for node in nodes:
-        for relation in node.get_relations():
-            if relation.related_type not in nodes:
-                warnings.warn(
-                    f"Provided relations included mapping from {friend_model} to {model} but {friend_model} was not included in the provided list of nodes"
-                )
-
+        for relation in get_relations(node, nodes):
             relation_graph.add_edge(
                 relation.related_type,
                 relation.type,
@@ -69,7 +67,8 @@ def check_isolates(graph: nx.DiGraph) -> None:
 
     """
     nodes = set(graph.nodes)
-    graph.remove_nodes_from(list(nx.isolates(graph)))
+    isolates = list(set(nx.isolates(graph)) - {visions_generic})  # root can be isolate
+    graph.remove_nodes_from(isolates)
     orphaned_nodes = nodes - set(graph.nodes)
     if orphaned_nodes:
         warnings.warn(

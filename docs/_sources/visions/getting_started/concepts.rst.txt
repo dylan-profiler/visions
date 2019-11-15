@@ -3,11 +3,16 @@ Concepts
 
 This page introduces the concepts `visions` uses.
 
-Data Type
----------
+Types
+-----
 
-A data type is an abstraction of data that constrains the values that data can take.
-`visions` considers types for sequences (in python: Tuples/Lists, pandas: Series, numpy: array, etc...).
+A data type is a logical abstraction constraining the types of values data can be composed from. For example,
+`integers` can only consist of values like 1, 2, 3 but never 4.5.
+
+Within the `visions` framework, Types represent a logical abstraction over sequences of data
+(i.e. python: Tuples/Lists, pandas: Series, numpy: array, etc...). These types might correspond
+to every day notions analysts might be familiar with like integers, floats, strings, datetimes, etc...
+but also to be user configurable.
 
 .. seealso:: If you want a deeper understanding of data types, see :doc:`data type view <../thinker/data_type_view>`.
 

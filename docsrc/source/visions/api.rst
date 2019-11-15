@@ -4,7 +4,8 @@ API
 
 .. toctree::
 
-    api/models
+    api/types
+    api/relations
     api/typesets
     api/summaries
     api/functional

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.model.model_relation &mdash; visions 0.1.0 documentation</title>
+  <title>visions.core.model.relations &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -136,7 +136,7 @@
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
-      <li>visions.core.model.model_relation</li>
+      <li>visions.core.model.relations</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -151,20 +151,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for visions.core.model.model_relation</h1><div class="highlight"><pre>
+  <h1>Source code for visions.core.model.relations</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="k">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">relation_conf</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
-    <span class="s2">&quot;relation_conf&quot;</span><span class="p">,</span>
-    <span class="p">(</span><span class="s2">&quot;inferential&quot;</span><span class="p">,</span> <span class="s2">&quot;relationship&quot;</span><span class="p">,</span> <span class="s2">&quot;transformer&quot;</span><span class="p">),</span>
-    <span class="n">defaults</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">identity_relation</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">series</span>
 
 
-<div class="viewcode-block" id="model_relation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.model_relation.html#visions.core.model.model_relation">[docs]</a><span class="k">class</span> <span class="nc">model_relation</span><span class="p">:</span>
+<div class="viewcode-block" id="TypeRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.TypeRelation.html#visions.core.model.relations.TypeRelation">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TypeRelation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`</span>
 
 <span class="sd">    Defines a one to one relationship between two VisionsBaseType implementations,</span>
@@ -180,7 +181,7 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; from visions.core.implementations.types import visions_integer, visions_float</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.0, 3.0])</span>
-<span class="sd">        &gt;&gt;&gt; relation = model_relation(visions_integer, visions_float)</span>
+<span class="sd">        &gt;&gt;&gt; relation = TypeRelation(visions_integer, visions_float)</span>
 <span class="sd">        &gt;&gt;&gt; relation.is_relation(x)</span>
 <span class="sd">        True</span>
 
@@ -188,32 +189,11 @@
 <span class="sd">        pd.Series([1, 2, 3])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="model_relation.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.model_relation.html#visions.core.model.model_relation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">model</span><span class="p">,</span>
-        <span class="n">friend_model</span><span class="p">,</span>
-        <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-        <span class="n">relationship</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">transformer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">friend_model</span> <span class="o">=</span> <span class="n">friend_model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inferential</span> <span class="o">=</span> <span class="n">inferential</span>
-        <span class="k">if</span> <span class="n">inferential</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Inferential relations must have transformer and relations&quot;</span>
-                <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span> <span class="o">=</span> <span class="n">relationship</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="n">transformer</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;noninferential relations must not have transformer or relations&quot;</span>
-                <span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="fm">__contains__</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span></div>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span>
+    <span class="n">related_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span>
+    <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">transformer</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">relationship</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">is_relation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
@@ -222,10 +202,37 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;(</span><span class="si">{self.friend_model}</span><span class="s2"> -&gt; </span><span class="si">{self.model}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;TypeRelation(</span><span class="si">{self.related_type}</span><span class="s2"> -&gt; </span><span class="si">{self.type}</span><span class="s2">)&quot;</span></div>
 
-    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">model_relation</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IdentityRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.IdentityRelation.html#visions.core.model.relations.IdentityRelation">[docs]</a><span class="k">class</span> <span class="nc">IdentityRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
+<div class="viewcode-block" id="IdentityRelation.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.IdentityRelation.html#visions.core.model.relations.IdentityRelation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">related_type</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">relationship</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="fm">__contains__</span> <span class="k">if</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">relationship</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">,</span>
+            <span class="n">related_type</span><span class="p">,</span>
+            <span class="n">relationship</span><span class="o">=</span><span class="n">relationship</span><span class="p">,</span>
+            <span class="n">transformer</span><span class="o">=</span><span class="n">identity_relation</span><span class="p">,</span>
+            <span class="n">inferential</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;IdentityRelation(</span><span class="si">{self.related_type}</span><span class="s2"> -&gt; </span><span class="si">{self.type}</span><span class="s2">)&quot;</span></div>
+
+
+<div class="viewcode-block" id="InferenceRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.InferenceRelation.html#visions.core.model.relations.InferenceRelation">[docs]</a><span class="k">class</span> <span class="nc">InferenceRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
+<div class="viewcode-block" id="InferenceRelation.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.InferenceRelation.html#visions.core.model.relations.InferenceRelation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">related_type</span><span class="p">,</span> <span class="n">transformer</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">relationship</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="fm">__contains__</span> <span class="k">if</span> <span class="n">relationship</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">relationship</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">,</span>
+            <span class="n">related_type</span><span class="p">,</span>
+            <span class="n">relationship</span><span class="o">=</span><span class="n">relationship</span><span class="p">,</span>
+            <span class="n">transformer</span><span class="o">=</span><span class="n">transformer</span><span class="p">,</span>
+            <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;InferenceRelation(</span><span class="si">{self.related_type}</span><span class="s2"> -&gt; </span><span class="si">{self.type}</span><span class="s2">)&quot;</span></div>
 </pre></div>
 
            </div>

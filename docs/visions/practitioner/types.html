@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Typesets" href="typesets.html" />
+    <link rel="next" title="Type Relations" href="relations.html" />
     <link rel="prev" title="Practitioner" href="../practitioner.html" /> 
 </head>
 
@@ -89,8 +89,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../practitioner.html">Practitioner</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#membership">Membership</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relations">Relations</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="relations.html">Type Relations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typesets.html">Typesets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="summarizer.html">Summarize</a></li>
 <li class="toctree-l2"><a class="reference internal" href="defaults.html">Defaults</a></li>
@@ -169,9 +171,16 @@
             
   <div class="section" id="types">
 <h1>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h1>
-<p>Types are the fundamental unit within visions.
-At their most fundamental, types must know how to test whether a sequence represents an instance of itself.
-Beyond that types also understand their relationship with other types.</p>
+<p>Types are the fundamental building block of visions, representing “logical” abstractions
+of a sequence. This logical abstraction is distinct is often distinct from the
+underlying in-memory implementation.</p>
+<p>To make this distinction more concrete we can imagine the sequence <cite>[‘Apple’, ‘Orange’, ‘Pear’]</cite>.</p>
+<p>At a logical level these are of the type <cite>Fruit</cite> while under the hood each element is physically represented as <cite>String</cite>.</p>
+<p>Types have two basic capabilities:</p>
+<ol class="arabic simple">
+<li><p>Type membership testing</p></li>
+<li><p>Type relations</p></li>
+</ol>
 <div class="section" id="membership">
 <h2>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h2>
 <p>Type membership is an important component of every visions type, membership checks answer the question <cite>is my sequence of a type?</cite>
@@ -188,6 +197,27 @@ In practice this looks like</p>
 <p><a class="reference internal" href="examples/membership.html"><span class="doc">Membership example</span></a></p>
 </div>
 </div>
+<div class="section" id="relations">
+<h2>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h2>
+<p>Types also have special knowledge about their relations with other types. A relation
+represents a mapping between types. Let’s take the example of an integer</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions</span> <span class="kn">import</span> <span class="n">visions_integer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visions_integer</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
+<span class="go">[IdentityRelation(visions_generic -&gt; visions_integer),</span>
+<span class="go"> InferenceRelation(visions_float -&gt; visions_integer),</span>
+<span class="go"> InferenceRelation(visions_string -&gt; visions_integer)]</span>
+</pre></div>
+</div>
+<p>As we can see, there are three relations defined on the integer type. Each represents
+a mapping from another type to integer. This characteristic is generally true for all
+visions types; given two types, A, and B, relations defined on B represent mappings from
+A to B.</p>
+<p>By defining relations in this way types are effectively decoupled from each other.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="relations.html"><span class="doc">Type Relations</span></a></p>
+</div>
+</div>
 </div>
 
 
@@ -198,7 +228,7 @@ In practice this looks like</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="typesets.html" class="btn btn-neutral float-right" title="Typesets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="relations.html" class="btn btn-neutral float-right" title="Type Relations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../practitioner.html" class="btn btn-neutral float-left" title="Practitioner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

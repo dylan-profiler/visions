@@ -1,0 +1,30 @@
+visions.core.model.relations.InferenceRelation
+==============================================
+
+.. currentmodule:: visions.core.model.relations
+
+.. autoclass:: InferenceRelation
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~InferenceRelation.__init__
+      ~InferenceRelation.is_relation
+      ~InferenceRelation.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~InferenceRelation.relationship
+   
+   
