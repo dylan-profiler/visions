@@ -1,0 +1,8 @@
+numpy
+pandas
+networkx
+tangled_up_in_unicode==0.0.3
+shapely
+geopandas
+imagehash
+pillow
