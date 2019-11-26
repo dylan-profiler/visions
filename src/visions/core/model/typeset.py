@@ -22,9 +22,13 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
+
     def get_relations(node, nodes):
-        return (relation for relation in node.get_relations()
-                if relation.related_type in nodes)
+        return (
+            relation
+            for relation in node.get_relations()
+            if relation.related_type in nodes
+        )
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -249,7 +253,9 @@ class VisionsTypeset(object):
         if not isinstance(types, Iterable):
             raise ValueError("types should be iterable")
 
-        self.relation_graph, self.base_graph = build_graph(set(types) | {visions_generic})
+        self.relation_graph, self.base_graph = build_graph(
+            set(types) | {visions_generic}
+        )
         self.types = set(self.relation_graph.nodes)
 
     def detect_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
