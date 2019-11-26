@@ -6,3 +6,10 @@ shapely
 geopandas
 imagehash
 pillow
+pytest>=5.2.0
+pytest-ordering
+pytest-rerunfailures
+pytest-mypy
+pytest-black
+mypy
+black
