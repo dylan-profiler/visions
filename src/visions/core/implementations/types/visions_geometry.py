@@ -1,8 +1,13 @@
 import pandas as pd
 import sys
 import os
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 
 
@@ -28,7 +33,7 @@ def to_geometry(series: pd.Series) -> pd.Series:
     return pd.Series([wkt.loads(value) for value in series])
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_string, visions_object
 
     relations = [
@@ -55,7 +60,7 @@ class visions_geometry(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

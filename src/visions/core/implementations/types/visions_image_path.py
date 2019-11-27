@@ -1,12 +1,17 @@
 import imghdr
 from pathlib import Path
 import pandas as pd
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_existing_path
 
     relations = [IdentityRelation(visions_image_path, visions_existing_path)]
@@ -23,7 +28,7 @@ class visions_image_path(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

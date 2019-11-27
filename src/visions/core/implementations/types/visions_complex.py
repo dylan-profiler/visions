@@ -1,14 +1,19 @@
 import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
+from typing import Sequence
 
 from visions.core.implementations.types.visions_float import test_string_is_float
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
-def test_string_is_complex(series):
+def test_string_is_complex(series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(to_complex)(series)
 
     return coerced_series is not None and not test_string_is_float(series)
@@ -18,7 +23,7 @@ def to_complex(series: pd.Series) -> bool:
     return series.apply(complex)
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_generic, visions_string
 
     relations = [
@@ -44,7 +49,7 @@ class visions_complex(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls) -> dict:
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

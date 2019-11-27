@@ -1,7 +1,12 @@
 import pandas as pd
 from ipaddress import _BaseAddress, ip_address
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
@@ -10,7 +15,7 @@ def to_ip(series: pd.Series) -> pd.Series:
     return series.apply(ip_address)
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_object, visions_string
 
     relations = [
@@ -36,7 +41,7 @@ class visions_ip(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

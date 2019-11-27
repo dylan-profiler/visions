@@ -15,7 +15,7 @@ install_requires = (
 extras_requires = {
     "type_geometry": type_geometry_requires,
     "type_image_path": type_image_path_requires,
-    "network_plot": ["pydot", "pygraphviz"],
+    "network_plot": ["pydot", "pygraphviz", "matplotlib"],
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
 extras_requires["all"] = (

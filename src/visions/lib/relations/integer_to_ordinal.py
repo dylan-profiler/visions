@@ -1,12 +1,12 @@
-from visions.core.model.relations import TypeRelation
-from visions.core.implementations.types import to_ordinal
+from visions.core.model.relations import InferenceRelation
+from visions.core.implementations.types.visions_ordinal import to_ordinal
 
 
-def check_consecutive(l):
+def check_consecutive(l) -> bool:
     return sorted(l) == list(range(min(l), max(l) + 1))
 
 
-def is_ordinal_int(s):
+def is_ordinal_int(s) -> bool:
     unique_values = list(s.unique())
     return (
         check_consecutive(unique_values)
@@ -15,7 +15,12 @@ def is_ordinal_int(s):
     )
 
 
-def integer_to_ordinal():
-    return TypeRelation(
-        inferential=True, relationship=is_ordinal_int, transformer=to_ordinal
+def integer_to_ordinal() -> InferenceRelation:
+    from visions.core.implementations.types import visions_ordinal, visions_integer
+
+    return InferenceRelation(
+        visions_ordinal,
+        visions_integer,
+        relationship=is_ordinal_int,
+        transformer=to_ordinal,
     )

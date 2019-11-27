@@ -1,9 +1,14 @@
+from __future__ import annotations
 from collections import namedtuple
 from dataclasses import dataclass
+import typing
 from typing import Callable, Optional, Type
-from visions.core.model.type import VisionsBaseType
+
 
 import pandas as pd
+
+if typing.TYPE_CHECKING:
+    from visions.core.model.type import VisionsBaseType
 
 
 def identity_relation(series: pd.Series) -> pd.Series:
@@ -39,7 +44,7 @@ class TypeRelation:
     related_type: Type[VisionsBaseType]
     inferential: bool
     transformer: Callable
-    relationship: Callable = None
+    relationship: Callable = lambda x: False
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)

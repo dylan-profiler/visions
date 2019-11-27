@@ -71,6 +71,24 @@ def coercion_equality_test(method: Callable) -> Callable:
     return f
 
 
+def coercion_single_map_test(mapping: List[Dict]) -> Callable:
+    def f(series: pd.Series) -> bool:
+        # TODO: None value
+        return any(
+            series.isin(list(single_map.keys()) + [None]).all()
+            for single_map in mapping
+        )
+
+    return f
+
+
+def coercion_multi_map_test(mapping: Dict) -> Callable:
+    def f(series: pd.Series) -> bool:
+        return series.isin(list(mapping.keys()) + [None]).all()
+
+    return f
+
+
 def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable:
     """Create a testing function for a single mapping or a list of mappings.
 
@@ -90,20 +108,10 @@ def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable:
         >>> )
     """
 
-    if type(mapping) == list:
-
-        def f(series: pd.Series) -> bool:
-            # TODO: None value
-            return any(
-                series.isin(list(single_map.keys()) + [None]).all()
-                for single_map in mapping
-            )
-
-    elif type(mapping) == dict:
-
-        def f(series: pd.Series) -> bool:
-            return series.isin(list(mapping.keys()) + [None]).all()
-
+    if isinstance(mapping, list):
+        f = coercion_single_map_test(mapping)
+    elif isinstance(mapping, dict):
+        f = coercion_multi_map_test(mapping)
     else:
         raise ValueError("Mapping should be dict or list of dicts")
     return f

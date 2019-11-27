@@ -1,0 +1,15 @@
+numpy
+pandas
+networkx
+tangled_up_in_unicode==0.0.3
+shapely
+geopandas
+imagehash
+pillow
+mypy
+black
+pytest>=5.2.0
+pytest-ordering
+pytest-rerunfailures
+pytest-mypy
+pytest-black
