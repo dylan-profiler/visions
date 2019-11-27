@@ -1,5 +1,5 @@
 numpy
-pandas
+pandas==0.25.1
 networkx
 tangled_up_in_unicode==0.0.3
 shapely
