@@ -8,6 +8,7 @@ imagehash
 pillow
 mypy
 black
+attr
 pytest>=5.2.0
 pytest-ordering
 pytest-rerunfailures
