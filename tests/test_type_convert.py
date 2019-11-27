@@ -93,8 +93,6 @@ def test_consistency(series):
 
     if initial_type != converted_type:
         converted_series = typeset.cast_series(series.copy(deep=True))
-        print(f"OG {series.to_dict()}, {series.dtype}")
-        print(f"Converted {converted_series.to_dict()}, {converted_series.dtype}")
         assert series.dtype.kind != converted_series.dtype.kind or not (
             (
                 converted_series.eq(series) ^ (converted_series.isna() & series.isna())
