@@ -1,4 +1,3 @@
-from __future__ import annotations
 from collections import namedtuple
 from dataclasses import dataclass
 import typing
@@ -6,9 +5,6 @@ from typing import Callable, Optional, Type
 
 
 import pandas as pd
-
-if typing.TYPE_CHECKING:
-    from visions.core.model.type import VisionsBaseType
 
 
 def identity_relation(series: pd.Series) -> pd.Series:
@@ -40,8 +36,8 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type: Type[VisionsBaseType]
-    related_type: Type[VisionsBaseType]
+    type: Type['visions.core.model.type.VisionsBaseType']
+    related_type: Type['visions.core.model.type.VisionsBaseType']
     inferential: bool
     transformer: Callable
     relationship: Callable = lambda x: False
