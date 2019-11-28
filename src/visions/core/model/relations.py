@@ -10,7 +10,7 @@ def identity_relation(series: pd.Series) -> pd.Series:
     return series
 
 
-@attr.s
+@attr.s(frozen=True)
 class TypeRelation:
     """Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`
 
@@ -35,8 +35,8 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type: Type['visions.core.model.type.VisionsBaseType'] = attr.ib()
-    related_type: Type['visions.core.model.type.VisionsBaseType'] = attr.ib()
+    type: Type["visions.core.model.type.VisionsBaseType"] = attr.ib()
+    related_type: Type["visions.core.model.type.VisionsBaseType"] = attr.ib()
     inferential: bool = attr.ib()
     transformer: Callable = attr.ib()
     relationship: Callable = attr.ib(default=lambda x: False)
