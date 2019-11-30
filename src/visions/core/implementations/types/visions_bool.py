@@ -1,8 +1,14 @@
+from typing import Sequence, Type, Union
 import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 from visions.lib.relations.string_to_bool import get_boolean_coercions
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
@@ -18,7 +24,7 @@ def to_bool(series: pd.Series) -> pd.Series:
         raise ValueError(f"Values not supported {unsupported_values}")
 
 
-def _get_relations(cls) -> dict:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import (
         visions_generic,
         visions_string,
@@ -70,7 +76,7 @@ class visions_bool(VisionsBaseType):
     string_coercions = get_boolean_coercions("en")
 
     @classmethod
-    def get_relations(cls) -> dict:
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations(cls)
 
     @classmethod

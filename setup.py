@@ -7,7 +7,7 @@ type_geometry_requires = ["shapely", "geopandas==0.6.0"]
 type_image_path_requires = ["imagehash", "Pillow"]
 
 install_requires = (
-    ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3"]
+    ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3", "attr"]
     + type_geometry_requires
     + type_image_path_requires
 )
@@ -15,7 +15,7 @@ install_requires = (
 extras_requires = {
     "type_geometry": type_geometry_requires,
     "type_image_path": type_image_path_requires,
-    "network_plot": ["pydot", "pygraphviz"],
+    "network_plot": ["pydot", "pygraphviz", "matplotlib"],
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
 extras_requires["all"] = (

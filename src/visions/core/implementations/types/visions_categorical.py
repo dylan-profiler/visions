@@ -1,11 +1,12 @@
 import pandas.api.types as pdt
 import pandas as pd
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation
+from visions.core.model.relations import IdentityRelation, TypeRelation
 from visions.core.model.type import VisionsBaseType
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_generic
 
     relations = [IdentityRelation(visions_categorical, visions_generic)]
@@ -22,7 +23,7 @@ class visions_categorical(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls) -> dict:
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

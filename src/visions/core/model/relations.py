@@ -1,7 +1,7 @@
 from collections import namedtuple
-from dataclasses import dataclass
+import typing
 from typing import Callable, Optional, Type
-from visions.core.model.type import VisionsBaseType
+import attr
 
 import pandas as pd
 
@@ -10,7 +10,7 @@ def identity_relation(series: pd.Series) -> pd.Series:
     return series
 
 
-@dataclass(frozen=True)
+@attr.s(frozen=True)
 class TypeRelation:
     """Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`
 
@@ -35,11 +35,11 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type: Type[VisionsBaseType]
-    related_type: Type[VisionsBaseType]
-    inferential: bool
-    transformer: Callable
-    relationship: Callable = None
+    type: Type["visions.core.model.type.VisionsBaseType"] = attr.ib()
+    related_type: Type["visions.core.model.type.VisionsBaseType"] = attr.ib()
+    inferential: bool = attr.ib()
+    transformer: Callable = attr.ib()
+    relationship: Callable = attr.ib(default=lambda x: False)
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)

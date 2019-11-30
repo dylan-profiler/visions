@@ -1,11 +1,16 @@
 import pandas as pd
+from typing import Sequence
 from urllib.parse import urlparse, ParseResult
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 
 
-def test_url(series):
+def test_url(series) -> bool:
     try:
         return to_url(series).apply(lambda x: all((x.netloc, x.scheme))).all()
     except AttributeError:
@@ -16,7 +21,7 @@ def to_url(series: pd.Series) -> pd.Series:
     return series.apply(urlparse)
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_string, visions_object
 
     relations = [
@@ -41,7 +46,7 @@ class visions_url(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

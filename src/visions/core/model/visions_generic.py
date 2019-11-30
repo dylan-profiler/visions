@@ -1,5 +1,8 @@
 import pandas as pd
+from typing import Sequence
+
 from visions.core.model.type import VisionsBaseType
+from visions.core.model.relations import TypeRelation
 
 
 class visions_generic(VisionsBaseType):
@@ -13,8 +16,8 @@ class visions_generic(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls) -> dict:
-        return {}
+    def get_relations(cls) -> Sequence[TypeRelation]:
+        return []
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

@@ -37,7 +37,12 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     noninferential_edges = []
 
     for node in nodes:
-        for relation in get_relations(node, nodes):
+        for relation in node.get_relations():
+            if relation.related_type not in nodes:
+                warnings.warn(
+                    f"Provided relations included mapping from {relation.related_type} to {relation.type} but {relation.related_type} was not included in the provided list of nodes"
+                )
+
             relation_graph.add_edge(
                 relation.related_type,
                 relation.type,
