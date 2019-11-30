@@ -1,6 +1,8 @@
 from abc import abstractmethod, ABCMeta
-
+from typing import Sequence
 import pandas as pd
+
+from visions.core.model.relations import TypeRelation
 
 
 class VisionsBaseTypeMeta(ABCMeta):
@@ -9,7 +11,7 @@ class VisionsBaseTypeMeta(ABCMeta):
             from visions.core.implementations.types import visions_generic
 
             return cls == visions_generic
-        return cls.contains_op(series)
+        return cls.contains_op(series)  # type: ignore
 
     def __str__(cls) -> str:
         return f"{cls.__name__}"
@@ -26,7 +28,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     @abstractmethod
-    def get_relations(cls) -> dict:
+    def get_relations(cls) -> Sequence[TypeRelation]:
         raise NotImplementedError
 
     @classmethod

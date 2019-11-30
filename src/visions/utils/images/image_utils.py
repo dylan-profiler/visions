@@ -76,10 +76,10 @@ def decode_byte_exif(exif_val: Union[str, bytes]) -> str:
     Returns:
 
     """
-    try:
-        return exif_val.decode()
-    except (UnicodeDecodeError, AttributeError):
+    if isinstance(exif_val, str):
         return exif_val
+    else:
+        return exif_val.decode()
 
 
 def extract_exif(image: Image) -> dict:

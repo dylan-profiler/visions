@@ -1,8 +1,13 @@
 import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
@@ -23,7 +28,7 @@ def float_is_int(series: pd.Series) -> bool:
     return check_equality(series.dropna() if series.hasnans else series)
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import (
         visions_string,
         visions_generic,
@@ -58,7 +63,7 @@ class visions_integer(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

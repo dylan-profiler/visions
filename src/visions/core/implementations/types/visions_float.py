@@ -1,14 +1,19 @@
 import pandas.api.types as pdt
 import numpy as np
 import pandas as pd
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.warning_handling import suppress_warnings
 
 
-def test_string_is_float(series):
+def test_string_is_float(series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(to_float)(series)
     return coerced_series is not None and coerced_series in visions_float
 
@@ -17,7 +22,7 @@ def to_float(series: pd.Series) -> bool:
     return series.astype(float)
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import (
         visions_generic,
         visions_string,
@@ -52,7 +57,7 @@ class visions_float(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

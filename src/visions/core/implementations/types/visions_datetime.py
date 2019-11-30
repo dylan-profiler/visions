@@ -1,7 +1,12 @@
 import pandas.api.types as pdt
 import pandas as pd
+from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 from visions.core.implementations.types import visions_string
 from visions.utils.coercion import test_utils
@@ -11,7 +16,7 @@ def to_datetime(series: pd.Series) -> pd.Series:
     return pd.to_datetime(series)
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_generic
 
     relations = [
@@ -36,7 +41,7 @@ class visions_datetime(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

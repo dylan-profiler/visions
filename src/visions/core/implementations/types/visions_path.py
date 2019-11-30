@@ -1,12 +1,16 @@
 from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
-
+from typing import Sequence
 import pandas as pd
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+from visions.core.model.relations import (
+    IdentityRelation,
+    InferenceRelation,
+    TypeRelation,
+)
 from visions.core.model.type import VisionsBaseType
 
 
-def string_is_path(series):
+def string_is_path(series) -> bool:
     try:
         s = to_path(series.copy())
         return s.apply(lambda x: x.is_absolute()).all()
@@ -22,7 +26,7 @@ def to_path(series: pd.Series) -> pd.Series:
         return s
 
 
-def _get_relations():
+def _get_relations() -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_object, visions_string
 
     relations = [
@@ -47,7 +51,7 @@ class visions_path(VisionsBaseType):
     """
 
     @classmethod
-    def get_relations(cls):
+    def get_relations(cls) -> Sequence[TypeRelation]:
         return _get_relations()
 
     @classmethod

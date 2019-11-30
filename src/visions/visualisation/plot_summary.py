@@ -1,6 +1,10 @@
 from pathlib import Path
 
-from visions.core.implementations.types import visions_integer, visions_existing_path, visions_string
+from visions.core.implementations.types import (
+    visions_integer,
+    visions_existing_path,
+    visions_string,
+)
 from visions.application.summaries.summary import CompleteSummary
 
 
