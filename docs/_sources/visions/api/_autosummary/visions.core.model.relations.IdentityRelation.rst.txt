@@ -21,10 +21,4 @@ visions.core.model.relations.IdentityRelation
 
    
    
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~IdentityRelation.relationship
-   
    

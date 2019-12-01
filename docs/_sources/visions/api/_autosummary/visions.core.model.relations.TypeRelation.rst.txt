@@ -21,10 +21,4 @@ visions.core.model.relations.TypeRelation
 
    
    
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~TypeRelation.relationship
-   
    

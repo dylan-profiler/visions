@@ -4,7 +4,7 @@ from typing import Type, Tuple, List, Dict, Iterable
 import pandas as pd
 import networkx as nx
 
-from visions.core.model.relations import TypeRelation
+from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.graph import output_graph
 from visions.core.model.visions_generic import visions_generic

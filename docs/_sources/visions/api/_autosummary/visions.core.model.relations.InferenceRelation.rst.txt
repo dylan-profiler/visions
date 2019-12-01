@@ -21,10 +21,4 @@ visions.core.model.relations.InferenceRelation
 
    
    
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~InferenceRelation.relationship
-   
    

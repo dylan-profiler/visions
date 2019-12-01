@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from visions.core.model.relations import TypeRelation
+from visions.core.model import TypeRelation
 
 
 def is_unsigned_int(series: pd.Series):

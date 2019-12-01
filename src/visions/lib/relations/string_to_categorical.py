@@ -1,4 +1,4 @@
-from visions.core.model.relations import TypeRelation
+from visions.core.model import TypeRelation
 
 
 def string_to_categorical():

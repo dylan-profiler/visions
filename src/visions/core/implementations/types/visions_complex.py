@@ -7,8 +7,8 @@ from visions.core.implementations.types.visions_float import test_string_is_floa
 from visions.core.model.relations import (
     IdentityRelation,
     InferenceRelation,
-    TypeRelation,
 )
+from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 

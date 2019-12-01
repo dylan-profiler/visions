@@ -12,7 +12,6 @@ Abstract Types
 .. autosummary::
    :toctree: _autosummary
 
-   relations
    VisionsBaseType
 
 =============

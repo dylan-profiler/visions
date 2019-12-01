@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.core.model.relations import TypeRelation
+from visions.core.model import TypeRelation
 from visions.utils.coercion import test_utils
 
 

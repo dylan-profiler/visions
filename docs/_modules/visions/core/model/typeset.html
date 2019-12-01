@@ -158,7 +158,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="k">import</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.utils.graph</span> <span class="k">import</span> <span class="n">output_graph</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.visions_generic</span> <span class="k">import</span> <span class="n">visions_generic</span>
@@ -176,9 +176,13 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A directed graph of type relations for the provided nodes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">relation</span> <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">relation</span>
+            <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span> <span class="ow">in</span> <span class="n">nodes</span>
+        <span class="p">)</span>
 
     <span class="n">style_map</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="p">:</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">}</span>
     <span class="n">relation_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
@@ -187,7 +191,12 @@
     <span class="n">noninferential_edges</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">get_relations</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s2">&quot;Provided relations included mapping from </span><span class="si">{relation.related_type}</span><span class="s2"> to </span><span class="si">{relation.type}</span><span class="s2"> but </span><span class="si">{relation.related_type}</span><span class="s2"> was not included in the provided list of nodes&quot;</span>
+                <span class="p">)</span>
+
             <span class="n">relation_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
                 <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span><span class="p">,</span>
                 <span class="n">relation</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
@@ -403,7 +412,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;types should be iterable&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">|</span> <span class="p">{</span><span class="n">visions_generic</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">|</span> <span class="p">{</span><span class="n">visions_generic</span><span class="p">}</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">detect_series_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]:</span>
