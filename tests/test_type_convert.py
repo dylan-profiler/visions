@@ -1,3 +1,5 @@
+import sys
+
 import pytest
 
 from visions.core.implementations.typesets import visions_complete_set
@@ -87,6 +89,14 @@ def test_relations(source_type, relation_type, series):
 @pytest.mark.run(order=10)
 def test_consistency(series):
     typeset = visions_complete_set()
+
+    if (
+        series.name
+        in ["timedelta_series_nat", "date_series_nat", "timestamp_series_nat"]
+        and sys.version_info.major == 3
+        and sys.version_info.minor == 7
+    ):
+        pytest.skip("unsupported configuration")
 
     initial_type = typeset.detect_series_type(series.copy(deep=True))
     converted_type = typeset.infer_series_type(series.copy(deep=True))
