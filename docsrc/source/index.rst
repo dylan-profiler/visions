@@ -31,6 +31,7 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
    visions/creator
    visions/about
    visions/api
+   visions/examples
 
 
 

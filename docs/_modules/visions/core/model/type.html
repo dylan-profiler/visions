@@ -153,7 +153,9 @@
             
   <h1>Source code for visions.core.model.type</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Callable</span>
 
+<span class="kn">import</span> <span class="nn">attr</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
@@ -163,7 +165,7 @@
             <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_generic</span>
 
             <span class="k">return</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">visions_generic</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{cls.__name__}</span><span class="s2">&quot;</span>
@@ -180,13 +182,54 @@
 
     <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="s2">&quot;TypeRelation&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="TypeRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.TypeRelation.html#visions.core.model.TypeRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TypeRelation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`</span>
+
+<span class="sd">    Defines a one to one relationship between two VisionsBaseType implementations,</span>
+<span class="sd">    A and B, with respect to an underlying data series. In order to define a relationship we need</span>
+<span class="sd">    two methods:</span>
+
+<span class="sd">        - **is_relationship**, determines whether a series of type B can be alternatively represented as type A.</span>
+<span class="sd">        - **transform**, provides a mechanism to convert the series from B -&gt; A.</span>
+
+<span class="sd">    For example, the series `pd.Series([1.0, 2.0, 3.0])` is encoded as a sequence of</span>
+<span class="sd">    floats but in reality they are all integers.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from visions.core.implementations.types import visions_integer, visions_float</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.0, 3.0])</span>
+<span class="sd">        &gt;&gt;&gt; relation = TypeRelation(visions_integer, visions_float)</span>
+<span class="sd">        &gt;&gt;&gt; relation.is_relation(x)</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; relation.transform(x)</span>
+<span class="sd">        pd.Series([1, 2, 3])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">related_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">transformer</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">relationship</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">is_relation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;TypeRelation(</span><span class="si">{self.related_type}</span><span class="s2"> -&gt; </span><span class="si">{self.type}</span><span class="s2">)&quot;</span></div>
 </pre></div>
 
            </div>

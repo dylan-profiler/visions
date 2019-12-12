@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.model.model_relation &mdash; visions 0.1.0 documentation</title>
+  <title>visions.core.model.relations.IdentityRelation &mdash; visions 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.core.model.VisionsBaseType" href="visions.core.model.VisionsBaseType.html" />
-    <link rel="prev" title="Types" href="../models.html" /> 
+    <link rel="next" title="visions.core.model.relations.InferenceRelation" href="visions.core.model.relations.InferenceRelation.html" />
+    <link rel="prev" title="visions.core.model.relations.TypeRelation" href="visions.core.model.relations.TypeRelation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,13 +91,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../creator.html">Creator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../models.html">Types</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../models.html#abstract-types">Abstract Types</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.model.model_relation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.model.VisionsBaseType.html">visions.core.model.VisionsBaseType</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../models.html#logical-types">Logical Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../relations.html">Relations</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="visions.core.model.relations.TypeRelation.html">visions.core.model.relations.TypeRelation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.core.model.relations.IdentityRelation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visions.core.model.relations.InferenceRelation.html">visions.core.model.relations.InferenceRelation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../typesets.html">Typesets</a></li>
@@ -153,15 +151,15 @@
         
           <li><a href="../../api.html">API</a> &raquo;</li>
         
-          <li><a href="../models.html">Types</a> &raquo;</li>
+          <li><a href="../relations.html">Relations</a> &raquo;</li>
         
-      <li>visions.core.model.model_relation</li>
+      <li>visions.core.model.relations.IdentityRelation</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/visions/api/_autosummary/visions.core.model.model_relation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/visions/api/_autosummary/visions.core.model.relations.IdentityRelation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -174,38 +172,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="visions-core-model-model-relation">
-<h1>visions.core.model.model_relation<a class="headerlink" href="#visions-core-model-model-relation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="visions-core-model-relations-identityrelation">
+<h1>visions.core.model.relations.IdentityRelation<a class="headerlink" href="#visions-core-model-relations-identityrelation" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="visions.core.model.model_relation">
-<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.</code><code class="sig-name descname">model_relation</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">friend_model</em>, <em class="sig-param">inferential</em>, <em class="sig-param">relationship=None</em>, <em class="sig-param">transformer=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/model_relation.html#model_relation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.model_relation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Relationship encoder between implementations of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.models.VisionsBaseType</span></code></p>
-<p>Defines a one to one relationship between two VisionsBaseType implementations,
-A and B, with respect to an underlying data series. In order to define a relationship we need
-two methods:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>is_relationship</strong>, determines whether a series of type B can be alternatively represented as type A.</p></li>
-<li><p><strong>transform</strong>, provides a mechanism to convert the series from B -&gt; A.</p></li>
-</ul>
-</div></blockquote>
-<p>For example, the series <cite>pd.Series([1.0, 2.0, 3.0])</cite> is encoded as a sequence of
-floats but in reality they are all integers.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_integer</span><span class="p">,</span> <span class="n">visions_float</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span> <span class="o">=</span> <span class="n">model_relation</span><span class="p">(</span><span class="n">visions_integer</span><span class="p">,</span> <span class="n">visions_float</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span><span class="o">.</span><span class="n">is_relation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">pd.Series([1, 2, 3])</span>
-</pre></div>
-</div>
-<dl class="method">
-<dt id="visions.core.model.model_relation.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">friend_model</em>, <em class="sig-param">inferential</em>, <em class="sig-param">relationship=None</em>, <em class="sig-param">transformer=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/model_relation.html#model_relation.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.model_relation.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="visions.core.model.relations.IdentityRelation">
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.relations.</code><code class="sig-name descname">IdentityRelation</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">relationship=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/relations.html#IdentityRelation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.relations.IdentityRelation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="visions.core.model.relations.IdentityRelation.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">relationship=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/relations.html#IdentityRelation.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.relations.IdentityRelation.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -216,7 +190,7 @@ floats but in reality they are all integers.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(model, friend_model, inferential[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.relations.IdentityRelation.__init__" title="visions.core.model.relations.IdentityRelation.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(type, related_type[, relationship])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_relation</span></code>(series)</p></td>
@@ -249,10 +223,10 @@ floats but in reality they are all integers.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.core.model.VisionsBaseType.html" class="btn btn-neutral float-right" title="visions.core.model.VisionsBaseType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="visions.core.model.relations.InferenceRelation.html" class="btn btn-neutral float-right" title="visions.core.model.relations.InferenceRelation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../models.html" class="btn btn-neutral float-left" title="Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.core.model.relations.TypeRelation.html" class="btn btn-neutral float-left" title="visions.core.model.relations.TypeRelation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

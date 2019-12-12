@@ -4,7 +4,7 @@ from typing import Type, Tuple, List, Dict, Iterable
 import pandas as pd
 import networkx as nx
 
-from visions.core.model.relations import TypeRelation
+from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.graph import output_graph
 from visions.core.model.visions_generic import visions_generic
@@ -22,6 +22,13 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
+
+    def get_relations(node, nodes):
+        return (
+            relation
+            for relation in node.get_relations()
+            if relation.related_type in nodes
+        )
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -69,7 +76,8 @@ def check_isolates(graph: nx.DiGraph) -> None:
 
     """
     nodes = set(graph.nodes)
-    graph.remove_nodes_from(list(nx.isolates(graph)))
+    isolates = list(set(nx.isolates(graph)) - {visions_generic})  # root can be isolate
+    graph.remove_nodes_from(isolates)
     orphaned_nodes = nodes - set(graph.nodes)
     if orphaned_nodes:
         warnings.warn(

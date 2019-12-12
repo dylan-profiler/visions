@@ -5,8 +5,8 @@ from typing import Sequence
 from visions.core.model.relations import (
     IdentityRelation,
     InferenceRelation,
-    TypeRelation,
 )
+from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.core.implementations.types import visions_string
 from visions.utils.coercion import test_utils

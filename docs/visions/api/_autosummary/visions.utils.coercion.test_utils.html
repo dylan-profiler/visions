@@ -91,7 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../creator.html">Creator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../models.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../relations.html">Relations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../typesets.html">Typesets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
@@ -204,7 +205,7 @@ when converting an integer to a float.</p>
 <dd><p>Maps a series given a mapping</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mapping</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[~KT, ~VT]], <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[~KT, ~VT]]) – a dict to map, or a list of dicts.</p>
+<dd class="field-odd"><p><strong>mapping</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – a dict to map, or a list of dicts.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
@@ -221,7 +222,7 @@ when converting an integer to a float.</p>
 <dd><p>Create a testing function for a single mapping or a list of mappings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mapping</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[~KT, ~VT]], <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[~KT, ~VT]]) – A dict with a mapping or a list of dicts</p>
+<dd class="field-odd"><p><strong>mapping</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dict with a mapping or a list of dicts</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>

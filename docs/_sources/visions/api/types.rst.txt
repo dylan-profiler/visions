@@ -12,7 +12,6 @@ Abstract Types
 .. autosummary::
    :toctree: _autosummary
 
-   model_relation
    VisionsBaseType
 
 =============
@@ -24,7 +23,7 @@ Logical Types
 
 .. autosummary::
    :toctree: _autosummary
-  
+
    visions_generic
    visions_integer
    visions_float

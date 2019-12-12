@@ -57,7 +57,7 @@ Decoupling physical and logical types
 
 To make this distinction more concrete we can imagine the sequence `['Apple', 'Orange', 'Pear']`.
 
-At a logical level these are of the logical type `Fruit` while under the hood each element is physically represented as `String`.
+At a logical level these are of the type `Fruit` while under the hood each element is physically represented as `String`.
 
 This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
 Another simple example is a set of URLs. While we might say all URLs are stored as strings, not every string is an URL.

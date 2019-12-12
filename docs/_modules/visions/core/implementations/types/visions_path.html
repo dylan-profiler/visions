@@ -153,14 +153,18 @@
             
   <h1>Source code for visions.core.implementations.types.visions_path</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span><span class="p">,</span> <span class="n">PurePosixPath</span><span class="p">,</span> <span class="n">PurePath</span>
-
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.model_relation</span> <span class="k">import</span> <span class="n">relation_conf</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">IdentityRelation</span><span class="p">,</span>
+    <span class="n">InferenceRelation</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 
 
-<span class="k">def</span> <span class="nf">string_is_path</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">string_is_path</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">to_path</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -176,6 +180,21 @@
         <span class="k">return</span> <span class="n">s</span>
 
 
+<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_object</span><span class="p">,</span> <span class="n">visions_string</span>
+
+    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_path</span><span class="p">,</span> <span class="n">visions_object</span><span class="p">),</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span>
+            <span class="n">visions_path</span><span class="p">,</span>
+            <span class="n">visions_string</span><span class="p">,</span>
+            <span class="n">relationship</span><span class="o">=</span><span class="n">string_is_path</span><span class="p">,</span>
+            <span class="n">transformer</span><span class="o">=</span><span class="n">to_path</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">relations</span>
+
+
 <div class="viewcode-block" id="visions_path"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.core.implementations.types.visions_path.html#visions.core.implementations.types.visions_path">[docs]</a><span class="k">class</span> <span class="nc">visions_path</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Path** implementation of :class:`visions.core.model.type.VisionsBaseType`.</span>
 
@@ -186,16 +205,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_object</span><span class="p">,</span> <span class="n">visions_string</span>
-
-        <span class="n">relations</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">visions_object</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-            <span class="n">visions_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
-                <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">string_is_path</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_path</span>
-            <span class="p">),</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">relations</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>

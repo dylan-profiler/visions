@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Concepts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#data-type">Data Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#types">Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#typeset">Typeset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#relational-mapping">Relational mapping</a></li>
 </ul>
@@ -163,10 +163,14 @@
   <div class="section" id="concepts">
 <h1>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h1>
 <p>This page introduces the concepts <cite>visions</cite> uses.</p>
-<div class="section" id="data-type">
-<h2>Data Type<a class="headerlink" href="#data-type" title="Permalink to this headline">¶</a></h2>
-<p>A data type is an abstraction of data that constrains the values that data can take.
-<cite>visions</cite> considers types for sequences (in python: Tuples/Lists, pandas: Series, numpy: array, etc…).</p>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<p>A data type is a logical abstraction constraining the types of values data can be composed from. For example,
+<cite>integers</cite> can only consist of values like <cite>1</cite>, <cite>2</cite>, <cite>3</cite> but never <cite>4.5</cite>.</p>
+<p>Within the <cite>visions</cite> framework, Types represent a logical abstraction over sequences of data
+(i.e. python: Tuples/Lists, pandas: Series, numpy: array, etc…). These types might correspond
+to every day notions like integers, floats, strings, datetimes, etc… or more complicated,
+user configured ideas like geometries, fruits, or files.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>If you want a deeper understanding of data types, see <a class="reference internal" href="../thinker/data_type_view.html"><span class="doc">data type view</span></a>.</p>
@@ -174,9 +178,10 @@
 </div>
 <div class="section" id="typeset">
 <h2>Typeset<a class="headerlink" href="#typeset" title="Permalink to this headline">¶</a></h2>
-<p>A typeset is literally a set of types and the relationships between them.
-You can use typesets to specify different type systems.
-The typeset contains types, comparable to a namespace for code or a virtual environment for dependencies.</p>
+<p>Typesets represent a mechanism to perform work over groups of types. Typesets contain types
+in a way comparable to a namespace for code or a virtual environment for dependencies.
+Flexible groupings of types allow different users to solve different problems in a manner specific
+to their circumstances.</p>
 </div>
 <div class="section" id="relational-mapping">
 <h2>Relational mapping<a class="headerlink" href="#relational-mapping" title="Permalink to this headline">¶</a></h2>

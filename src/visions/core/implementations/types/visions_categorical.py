@@ -2,7 +2,8 @@ import pandas.api.types as pdt
 import pandas as pd
 from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, TypeRelation
+from visions.core.model.relations import IdentityRelation
+from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 
 

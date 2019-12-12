@@ -7,8 +7,8 @@ from typing import Sequence
 from visions.core.model.relations import (
     IdentityRelation,
     InferenceRelation,
-    TypeRelation,
 )
+from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.lib.relations.string_to_bool import get_boolean_coercions
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map

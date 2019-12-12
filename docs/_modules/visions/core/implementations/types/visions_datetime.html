@@ -154,8 +154,13 @@
   <h1>Source code for visions.core.implementations.types.visions_datetime</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.model_relation</span> <span class="k">import</span> <span class="n">relation_conf</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">IdentityRelation</span><span class="p">,</span>
+    <span class="n">InferenceRelation</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_string</span>
 <span class="kn">from</span> <span class="nn">visions.utils.coercion</span> <span class="k">import</span> <span class="n">test_utils</span>
@@ -163,6 +168,21 @@
 
 <span class="k">def</span> <span class="nf">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_generic</span>
+
+    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_datetime</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span>
+            <span class="n">visions_datetime</span><span class="p">,</span>
+            <span class="n">visions_string</span><span class="p">,</span>
+            <span class="n">relationship</span><span class="o">=</span><span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="n">to_datetime</span><span class="p">),</span>
+            <span class="n">transformer</span><span class="o">=</span><span class="n">to_datetime</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">relations</span>
 
 
 <div class="viewcode-block" id="visions_datetime"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.core.implementations.types.visions_datetime.html#visions.core.implementations.types.visions_datetime">[docs]</a><span class="k">class</span> <span class="nc">visions_datetime</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
@@ -175,18 +195,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_generic</span>
-
-        <span class="n">relations</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">visions_generic</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-            <span class="n">visions_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
-                <span class="n">relationship</span><span class="o">=</span><span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="n">to_datetime</span><span class="p">),</span>
-                <span class="n">transformer</span><span class="o">=</span><span class="n">to_datetime</span><span class="p">,</span>
-                <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">relations</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>

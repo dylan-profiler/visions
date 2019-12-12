@@ -2,7 +2,7 @@ import pandas as pd
 from typing import Sequence
 
 from visions.core.model.type import VisionsBaseType
-from visions.core.model.relations import TypeRelation
+from visions.core.model import TypeRelation
 
 
 class visions_generic(VisionsBaseType):

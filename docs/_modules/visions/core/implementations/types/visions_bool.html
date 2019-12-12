@@ -152,11 +152,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.core.implementations.types.visions_bool</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.model_relation</span> <span class="k">import</span> <span class="n">relation_conf</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">IdentityRelation</span><span class="p">,</span>
+    <span class="n">InferenceRelation</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.lib.relations.string_to_bool</span> <span class="k">import</span> <span class="n">get_boolean_coercions</span>
 <span class="kn">from</span> <span class="nn">visions.utils.coercion.test_utils</span> <span class="k">import</span> <span class="n">coercion_map_test</span><span class="p">,</span> <span class="n">coercion_map</span>
@@ -172,7 +178,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Values not supported </span><span class="si">{unsupported_values}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
     <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="p">(</span>
         <span class="n">visions_generic</span><span class="p">,</span>
         <span class="n">visions_string</span><span class="p">,</span>
@@ -180,10 +186,11 @@
         <span class="n">visions_object</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">visions_generic</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span><span class="n">inferential</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-        <span class="n">visions_string</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
-            <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_bool</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span>
+            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="n">visions_string</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">coercion_map_test</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">string_coercions</span><span class="p">)(</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="p">),</span>
@@ -191,17 +198,19 @@
                 <span class="n">coercion_map</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">string_coercions</span><span class="p">)(</span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
             <span class="p">),</span>
         <span class="p">),</span>
-        <span class="n">visions_integer</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
-            <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span>
+            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="n">visions_integer</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
         <span class="p">),</span>
-        <span class="n">visions_object</span><span class="p">:</span> <span class="n">relation_conf</span><span class="p">(</span>
-            <span class="n">inferential</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span>
+            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="n">visions_object</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">bool</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
         <span class="p">),</span>
-    <span class="p">}</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="n">relations</span>
 
 
@@ -221,7 +230,7 @@
     <span class="n">string_coercions</span> <span class="o">=</span> <span class="n">get_boolean_coercions</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>

@@ -10,8 +10,8 @@ Furthermore, it provides plenty of examples.
     :hidden:
 
     practitioner/types
+    practitioner/relations
     practitioner/typesets
     practitioner/summarizer
     practitioner/defaults
     practitioner/examples
-

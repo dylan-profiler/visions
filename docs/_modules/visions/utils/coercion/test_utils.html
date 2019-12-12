@@ -225,6 +225,24 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
+<span class="k">def</span> <span class="nf">coercion_single_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># TODO: None value</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">single_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">single_map</span> <span class="ow">in</span> <span class="n">mapping</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f</span>
+
+
+<span class="k">def</span> <span class="nf">coercion_multi_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">f</span>
+
+
 <div class="viewcode-block" id="coercion_map_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_map_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create a testing function for a single mapping or a list of mappings.</span>
 
@@ -244,20 +262,10 @@
 <span class="sd">        &gt;&gt;&gt; )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
-
-        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-            <span class="c1"># TODO: None value</span>
-            <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
-                <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">single_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-                <span class="k">for</span> <span class="n">single_map</span> <span class="ow">in</span> <span class="n">mapping</span>
-            <span class="p">)</span>
-
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
-
-        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">coercion_single_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">coercion_multi_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Mapping should be dict or list of dicts&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">f</span></div>
