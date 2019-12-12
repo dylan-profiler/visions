@@ -95,7 +95,8 @@ def test_consistency(series):
         converted_series = typeset.cast_series(series.copy(deep=True))
         assert series.dtype.kind != converted_series.dtype.kind or not (
             (
-                converted_series.eq(series) ^ (converted_series.isnull() & series.isnull())
+                converted_series.eq(series)
+                ^ (converted_series.isnull() & series.isnull())
             ).all()
         )
     else:
