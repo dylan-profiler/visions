@@ -2,10 +2,7 @@ import pandas as pd
 from typing import Sequence
 from urllib.parse import urlparse, ParseResult
 
-from visions.core.model.relations import (
-    IdentityRelation,
-    InferenceRelation,
-)
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 

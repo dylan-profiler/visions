@@ -3,10 +3,7 @@ import numpy as np
 import pandas as pd
 from typing import Sequence
 
-from visions.core.model.relations import (
-    IdentityRelation,
-    InferenceRelation,
-)
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils

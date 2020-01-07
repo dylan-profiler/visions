@@ -2,10 +2,7 @@ import pandas as pd
 from ipaddress import _BaseAddress, ip_address
 from typing import Sequence
 
-from visions.core.model.relations import (
-    IdentityRelation,
-    InferenceRelation,
-)
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.utils.coercion import test_utils

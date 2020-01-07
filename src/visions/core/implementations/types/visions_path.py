@@ -2,10 +2,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath, PurePath
 from typing import Sequence
 import pandas as pd
 
-from visions.core.model.relations import (
-    IdentityRelation,
-    InferenceRelation,
-)
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 
