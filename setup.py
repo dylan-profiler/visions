@@ -1,16 +1,27 @@
 from setuptools import setup
 from os.path import basename, splitext
 from glob import glob
+import os
 from setuptools import find_packages
 
-type_geometry_requires = ["shapely", "geopandas==0.6.0"]
+
+type_geometry_requires = ["shapely", "geopandas>=0.6.0"]
 type_image_path_requires = ["imagehash", "Pillow"]
 
-install_requires = (
-    ["numpy", "pandas==0.25.1", "networkx", "tangled_up_in_unicode==0.0.3", "attr"]
-    + type_geometry_requires
-    + type_image_path_requires
-)
+install_requires = [
+    "numpy",
+    "pandas>=0.25.3",
+    "networkx",
+    "tangled_up_in_unicode>=0.0.3",
+    "shapely",
+    "imagehash",
+    "pillow",
+    "mypy",
+    "black",
+    "attr",
+]
+
+install_requires += type_geometry_requires + type_image_path_requires
 
 extras_requires = {
     "type_geometry": type_geometry_requires,
@@ -18,10 +29,10 @@ extras_requires = {
     "network_plot": ["pydot", "pygraphviz", "matplotlib"],
     "dev_docs": ["recommonmark", "sphinx_rtd_theme", "sphinx-autodoc-typehints"],
 }
+
 extras_requires["all"] = (
     extras_requires["type_geometry"] + extras_requires["type_image_path"]
 )
-
 
 test_requires = [
     "pytest>=5.2.0",
@@ -45,5 +56,5 @@ setup(
     include_package_data=True,
     extras_require=extras_requires,
     tests_require=test_requires,
-    python_requires=">=3.5",
+    python_requires=">=3.4",
 )
