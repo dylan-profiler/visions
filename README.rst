@@ -33,7 +33,7 @@ You can install `visions` via pip:
 
     pip install visions
 
-Alternatives and more details can be found in the `documentation <https://dylan-profiler.github.io/visions/visions/installation.html>`_.
+Alternatives and more details can be found in the `documentation <https://dylan-profiler.github.io/visions/visions/getting_started/installation.html>`_.
 
 
 Acknowledgements
