@@ -47,7 +47,7 @@ test_requires = [
 
 setup(
     name="visions",
-    version="0.1.0",
+    version="0.1.1",
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
