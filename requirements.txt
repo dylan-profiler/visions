@@ -10,6 +10,5 @@ pytest
 Shapely
 tangled_up_in_unicode>=0.0.3
 shapely
-geopandas>=0.6.0
 imagehash
 Pillow

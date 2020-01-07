@@ -5,7 +5,7 @@ import os
 from setuptools import find_packages
 
 
-type_geometry_requires = ["shapely", "geopandas>=0.6.0"]
+type_geometry_requires = ["shapely"]
 type_image_path_requires = ["imagehash", "Pillow"]
 
 install_requires = [
