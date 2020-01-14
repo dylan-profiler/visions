@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from setuptools import setup
 from os.path import basename, splitext
 from glob import glob
@@ -45,13 +47,18 @@ test_requires = [
     "pytest-black",
 ]
 
+# Read the contents of README file
+source_root = Path(".")
+with (source_root / "README.rst").open(encoding="utf-8") as f:
+    long_description = f.read()
+
 setup(
     name="visions",
-    version="0.1.2",
+    version="0.1.3",
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
+    # py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     install_requires=install_requires,
     include_package_data=True,
     extras_require=extras_requires,
