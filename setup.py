@@ -1,8 +1,9 @@
 from pathlib import Path
 
 from setuptools import setup
-from os.path import basename, splitext
-from glob import glob
+
+# from os.path import basename, splitext
+# from glob import glob
 from setuptools import find_packages
 
 
@@ -54,7 +55,7 @@ with (source_root / "README.rst").open(encoding="utf-8") as f:
 
 setup(
     name="visions",
-    version="0.1.3",
+    version="0.2.0",
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
@@ -64,4 +65,6 @@ setup(
     extras_require=extras_requires,
     tests_require=test_requires,
     python_requires=">=3.5",
+    long_description=long_description,
+    long_description_content_type="text/x-rst",
 )

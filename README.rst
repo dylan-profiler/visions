@@ -1,12 +1,6 @@
 Visions
 =======
 
-.. raw:: html
-
-    <div>
-        <a target="_blank" rel="noopener noreferrer" href="docs/_images/johanna.png"><img alt="Jeanne D'Arc, Image in the public domain" src="docs/_images/johanna.png" align="right" width="200" style="max-width:100%"></a>
-    </div>
-
 ..
 
     *And these visions of data types, they kept us up past the dawn.*
@@ -41,4 +35,4 @@ Acknowledgements
 
 This package is part of the `dylan-profiler <https://github.com/dylan-profiler>`_ project.
 The package is core component of `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_.
-More information can be found `here <https://dylan-profiler.github.io/visions/visions/about.html>`_.
+More information can be found `here <https://dylan-profiler.github.io/visions/visions/about.html>`__.

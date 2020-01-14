@@ -16,6 +16,7 @@ IF "%1" == "test" (
 IF "%1" == "pypi_package" (
 	make install
     python setup.py sdist
+    twine check dist/*
     twine upload dist/*
     ECHO "PyPi package completed"
     GOTO end
