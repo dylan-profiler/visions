@@ -56,5 +56,5 @@ setup(
     include_package_data=True,
     extras_require=extras_requires,
     tests_require=test_requires,
-    python_requires=">=3.6",
+    python_requires=">=3.5",
 )
