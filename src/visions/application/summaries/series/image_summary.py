@@ -2,13 +2,6 @@ from pathlib import Path
 
 import pandas as pd
 
-from visions.utils.images.image_utils import (
-    open_image,
-    is_image_truncated,
-    extract_exif,
-    hash_image,
-)
-
 
 def count_duplicate_hashes(image_descriptions: dict) -> int:
     """
@@ -88,6 +81,13 @@ def image_summary(series: pd.Series) -> dict:
     Returns:
 
     """
+    from visions.utils.images.image_utils import (
+        open_image,
+        is_image_truncated,
+        extract_exif,
+        hash_image,
+    )
+
     image_information = series.apply(extract_image_information)
     summary = {
         "n_duplicate_hash": count_duplicate_hashes(image_information),

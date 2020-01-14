@@ -55,7 +55,7 @@ with (source_root / "README.rst").open(encoding="utf-8") as f:
 
 setup(
     name="visions",
-    version="0.2.0",
+    version="0.2.1",
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},

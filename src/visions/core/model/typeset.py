@@ -6,7 +6,6 @@ import networkx as nx
 
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
-from visions.utils.graph import output_graph
 from visions.core.model.visions_generic import visions_generic
 
 
@@ -380,6 +379,7 @@ class VisionsTypeset(object):
             base_only: if True, plot the graph without relation mapping edges
 
         """
+        from visions.utils.graph import output_graph
 
         if base_only:
             graph = self.base_graph.copy()

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.model.typeset &mdash; visions 0.2.0 documentation</title>
+  <title>visions.core.model.typeset &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -160,7 +160,6 @@
 
 <span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils.graph</span> <span class="k">import</span> <span class="n">output_graph</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.visions_generic</span> <span class="k">import</span> <span class="n">visions_generic</span>
 
 
@@ -534,6 +533,7 @@
 <span class="sd">            base_only: if True, plot the graph without relation mapping edges</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">visions.utils.graph</span> <span class="k">import</span> <span class="n">output_graph</span>
 
         <span class="k">if</span> <span class="n">base_only</span><span class="p">:</span>
             <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
