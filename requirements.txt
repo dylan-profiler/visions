@@ -1,14 +1,5 @@
 numpy
-matplotlib
-attrs
 pandas>=0.25.3
 attr
-imagehash
 networkx
-Pillow
-pytest
-Shapely
 tangled_up_in_unicode>=0.0.3
-shapely
-imagehash
-Pillow
