@@ -1,3 +1,6 @@
+
+|PythonBadge|
+
 Visions
 =======
 
@@ -36,3 +39,5 @@ Acknowledgements
 This package is part of the `dylan-profiler <https://github.com/dylan-profiler>`_ project.
 The package is core component of `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_.
 More information can be found `here <https://dylan-profiler.github.io/visions/visions/about.html>`__.
+
+.. |PythonBadge| image:: https://img.shields.io/pypi/pyversions/visions
