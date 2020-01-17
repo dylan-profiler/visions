@@ -192,6 +192,8 @@ def test_summarize_series():
         "dtype": np.int64,
         "types": {"int": 4},
         "na_count": 0,
+        "monotonic_decrease": False,
+        "monotonic_increase": True,
     }
 
 
