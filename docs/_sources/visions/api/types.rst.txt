@@ -44,3 +44,4 @@ Logical Types
    visions_url
    visions_ip
    visions_count
+   visions_uuid

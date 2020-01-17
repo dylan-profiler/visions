@@ -1,0 +1,24 @@
+visions.core.implementations.types.visions\_uuid
+================================================
+
+.. currentmodule:: visions.core.implementations.types
+
+.. autoclass:: visions_uuid
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~visions_uuid.__init__
+      ~visions_uuid.contains_op
+      ~visions_uuid.get_relations
+   
+   
+
+   
+   
+   

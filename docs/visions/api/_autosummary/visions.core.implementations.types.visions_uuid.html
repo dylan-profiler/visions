@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.implementations.types.visions_url &mdash; visions 0.2.1 documentation</title>
+  <title>visions.core.implementations.types.visions_uuid &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.core.implementations.types.visions_ip" href="visions.core.implementations.types.visions_ip.html" />
-    <link rel="prev" title="visions.core.implementations.types.visions_image_path" href="visions.core.implementations.types.visions_image_path.html" /> 
+    <link rel="next" title="Relations" href="../relations.html" />
+    <link rel="prev" title="visions.core.implementations.types.visions_count" href="visions.core.implementations.types.visions_count.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -111,10 +111,10 @@
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_path.html">visions.core.implementations.types.visions_path</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_existing_path.html">visions.core.implementations.types.visions_existing_path</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_image_path.html">visions.core.implementations.types.visions_image_path</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.implementations.types.visions_url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_url.html">visions.core.implementations.types.visions_url</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_ip.html">visions.core.implementations.types.visions_ip</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_count.html">visions.core.implementations.types.visions_count</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_uuid.html">visions.core.implementations.types.visions_uuid</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.core.implementations.types.visions_uuid</a></li>
 </ul>
 </li>
 </ul>
@@ -176,13 +176,13 @@
         
           <li><a href="../types.html">Types</a> &raquo;</li>
         
-      <li>visions.core.implementations.types.visions_url</li>
+      <li>visions.core.implementations.types.visions_uuid</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/visions/api/_autosummary/visions.core.implementations.types.visions_url.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/visions/api/_autosummary/visions.core.implementations.types.visions_uuid.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -195,24 +195,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="visions-core-implementations-types-visions-url">
-<h1>visions.core.implementations.types.visions_url<a class="headerlink" href="#visions-core-implementations-types-visions-url" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="visions-core-implementations-types-visions-uuid">
+<h1>visions.core.implementations.types.visions_uuid<a class="headerlink" href="#visions-core-implementations-types-visions-uuid" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="visions.core.implementations.types.visions_url">
-<em class="property">class </em><code class="sig-prename descclassname">visions.core.implementations.types.</code><code class="sig-name descname">visions_url</code><a class="reference internal" href="../../../_modules/visions/core/implementations/types/visions_url.html#visions_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.implementations.types.visions_url" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Url</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.model.type.VisionsBaseType</span></code>.</p>
+<dt id="visions.core.implementations.types.visions_uuid">
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.implementations.types.</code><code class="sig-name descname">visions_uuid</code><a class="reference internal" href="../../../_modules/visions/core/implementations/types/visions_uuid.html#visions_uuid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.implementations.types.visions_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>UUID</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.model.type.VisionsBaseType</span></code>.</p>
+<p class="rubric">References</p>
+<p>UUID specification in RFC4122:
+<a class="reference external" href="https://tools.ietf.org/html/rfc4122#section-3">https://tools.ietf.org/html/rfc4122#section-3</a></p>
+<p>Python standard library:
+<a class="reference external" href="https://docs.python.org/3/library/uuid.html">https://docs.python.org/3/library/uuid.html</a></p>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlparse</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.cwi.nl:80/</span><span class="si">%7E</span><span class="s1">guido/Python.html&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/pandas-profiling/pandas-profiling&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="ow">in</span> <span class="n">visions_url</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">uuid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uuids</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0b8a22ca-80ad-4df5-85ac-fa49c44b7ede&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa381d6-8442-4f63-88c8-7c900e9a23c6&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">uuid_str</span><span class="p">)</span> <span class="k">for</span> <span class="n">uuid_str</span> <span class="ow">in</span> <span class="n">uuids</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="ow">in</span> <span class="n">visions_uuid</span>
 <span class="go">True</span>
 </pre></div>
 </div>
 <dl class="method">
-<dt id="visions.core.implementations.types.visions_url.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#visions.core.implementations.types.visions_url.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="visions.core.implementations.types.visions_uuid.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#visions.core.implementations.types.visions_uuid.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -256,10 +261,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.core.implementations.types.visions_ip.html" class="btn btn-neutral float-right" title="visions.core.implementations.types.visions_ip" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../relations.html" class="btn btn-neutral float-right" title="Relations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.core.implementations.types.visions_image_path.html" class="btn btn-neutral float-left" title="visions.core.implementations.types.visions_image_path" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.core.implementations.types.visions_count.html" class="btn btn-neutral float-left" title="visions.core.implementations.types.visions_count" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -90,7 +90,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../creator.html">Creator</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Extending</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#custom-types">Custom Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-types">Custom Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#contributions-new-types-to-visions">Contributions new types to visions</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#custom-typesets">Custom Typesets</a></li>
 </ul>
 </li>
@@ -99,6 +102,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Usage</a></li>
 </ul>
 
             
@@ -207,6 +211,23 @@
 This is convenient when you only change a single relation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
 </pre></div>
+</div>
+<div class="section" id="contributions-new-types-to-visions">
+<h3>Contributions new types to visions<a class="headerlink" href="#contributions-new-types-to-visions" title="Permalink to this headline">¶</a></h3>
+<p>Your custom type might be helpful for others, in which case you can choose to contribute it to <cite>visions</cite>.
+Below you will find a checklist with instructions on which files to add or modify.</p>
+<p>Type implementation:
+- place the type implementation in <cite>src/visions/core/implementations/types/visions_[your type_name].py</cite>
+- include the type in <cite>src/visions/core/implementations/types/__init__.py</cite>
+- include the type in a relevant typeset, or create one <cite>src/visions/core/implementations/typesets.py</cite></p>
+<p>Tests:
+- add series to <cite>tests/series.py</cite> that test the type
+- add series to <cite>tests/series.py</cite> that test the each relation</p>
+<p>Documentation:
+- provide informative docstrings <cite>src/visions/core/implementations/types/visions_[your type_name].py</cite>
+- include the type in the api documentation: <cite>docsrc/source/visions/api/types.rst</cite>
+- add a row to the defaults table: <cite>docsrc/source/visions/practitioner/defaults.rst</cite></p>
+<p>Read more on <a class="reference internal" href="contributing.html"><span class="doc">how to contribute</span></a>.</p>
 </div>
 </div>
 <div class="section" id="custom-typesets">

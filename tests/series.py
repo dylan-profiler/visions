@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from ipaddress import IPv4Address
 from pathlib import PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
@@ -209,6 +210,21 @@ def get_series():
             ],
             name="url_series",
         ),
+        # UUID Series
+        pd.Series(
+            [
+                uuid.UUID("0b8a22ca-80ad-4df5-85ac-fa49c44b7ede"),
+                uuid.UUID("aaa381d6-8442-4f63-88c8-7c900e9a23c6"),
+            ],
+            name="uuid_series",
+        ),
+        pd.Series(
+            [
+                "0b8a22ca-80ad-4df5-85ac-fa49c44b7ede",
+                "aaa381d6-8442-4f63-88c8-7c900e9a23c6",
+            ],
+            name="uuid_series_str",
+        ),
         # Object Series
         pd.Series([[1, ""], [2, "Rubin"], [3, "Carter"]], name="mixed_list[str,int]"),
         pd.Series(
@@ -312,10 +328,12 @@ def get_contains_map():
             "string_bool_nan",
             "string_flt_nan",
             "str_complex",
+            "uuid_series_str",
         ],
         visions_geometry: ["geometry_series"],
         visions_ip: ["ip"],
         visions_ordinal: ["ordinal"],
+        visions_uuid: ["uuid_series"],
     }
 
     series_map[visions_object] = (
@@ -325,6 +343,7 @@ def get_contains_map():
         + series_map[visions_path]
         + series_map[visions_url]
         + series_map[visions_ip]
+        + series_map[visions_uuid]
     )
 
     # Empty series
@@ -414,6 +433,8 @@ def infer_series_type_map():
         "categorical_char": visions_categorical,
         "ordinal": visions_ordinal,
         "str_complex": visions_complex,
+        "uuid_series": visions_uuid,
+        "uuid_series_str": visions_uuid,
     }
 
 
@@ -450,6 +471,7 @@ def get_convert_map():
         (visions_float, visions_complex, ["complex_series_float"]),
         (visions_bool, visions_integer, ["int_series_boolean"]),
         (visions_bool, visions_object, ["bool_nan_series"]),
+        (visions_uuid, visions_string, ["uuid_series_str"]),
     ]
 
     return series_map

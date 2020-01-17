@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.implementations.types.visions_date &mdash; visions 0.2.1 documentation</title>
+  <title>visions.core.implementations.types.visions_uuid &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -137,7 +137,7 @@
         
           <li><a href="../../../../index.html">Module code</a> &raquo;</li>
         
-      <li>visions.core.implementations.types.visions_date</li>
+      <li>visions.core.implementations.types.visions_uuid</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,9 +152,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for visions.core.implementations.types.visions_date</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
+  <h1>Source code for visions.core.implementations.types.visions_uuid</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
 <span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="k">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span>
@@ -162,19 +163,45 @@
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 
 
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_datetime</span>
+<span class="k">def</span> <span class="nf">test_uuid</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_uuid</span><span class="p">(</span><span class="n">series</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_date</span><span class="p">,</span> <span class="n">visions_datetime</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">to_uuid</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_string</span><span class="p">,</span> <span class="n">visions_object</span>
+
+    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_uuid</span><span class="p">,</span> <span class="n">visions_object</span><span class="p">),</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span>
+            <span class="n">visions_uuid</span><span class="p">,</span> <span class="n">visions_string</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">test_uuid</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_uuid</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="n">relations</span>
 
 
-<div class="viewcode-block" id="visions_date"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.core.implementations.types.visions_date.html#visions.core.implementations.types.visions_date">[docs]</a><span class="k">class</span> <span class="nc">visions_date</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;**Date** implementation of :class:`visions.core.model.type.VisionsBaseType`.</span>
+<div class="viewcode-block" id="visions_uuid"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.core.implementations.types.visions_uuid.html#visions.core.implementations.types.visions_uuid">[docs]</a><span class="k">class</span> <span class="nc">visions_uuid</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;**UUID** implementation of :class:`visions.core.model.type.VisionsBaseType`.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        UUID specification in RFC4122:</span>
+<span class="sd">        https://tools.ietf.org/html/rfc4122#section-3</span>
+
+<span class="sd">        Python standard library:</span>
+<span class="sd">        https://docs.python.org/3/library/uuid.html</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])</span>
-<span class="sd">        &gt;&gt;&gt; x in visions_date</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; import uuid</span>
+<span class="sd">        &gt;&gt;&gt; uuids = [&#39;0b8a22ca-80ad-4df5-85ac-fa49c44b7ede&#39;, &#39;aaa381d6-8442-4f63-88c8-7c900e9a23c6&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([uuid.UUID(uuid_str) for uuid_str in uuids])</span>
+<span class="sd">        &gt;&gt;&gt; x in visions_uuid</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -184,15 +211,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_datetime64_any_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="n">temp_series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">dt</span>
-        <span class="n">time_val_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="n">temp_series</span><span class="p">,</span> <span class="n">time_part</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">time_part</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">time_val_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">series</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
