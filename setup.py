@@ -37,7 +37,6 @@ extras_requires["all"] = install_requires + [
 
 test_requires = [
     "mypy",
-    "black",
     "pytest>=5.2.0",
     "pytest-ordering",
     "pytest-rerunfailures",
