@@ -215,6 +215,7 @@ def get_series():
             [
                 uuid.UUID("0b8a22ca-80ad-4df5-85ac-fa49c44b7ede"),
                 uuid.UUID("aaa381d6-8442-4f63-88c8-7c900e9a23c6"),
+                uuid.UUID("00000000-0000-0000-0000-000000000000"),
             ],
             name="uuid_series",
         ),
@@ -222,6 +223,7 @@ def get_series():
             [
                 "0b8a22ca-80ad-4df5-85ac-fa49c44b7ede",
                 "aaa381d6-8442-4f63-88c8-7c900e9a23c6",
+                "00000000-0000-0000-0000-000000000000",
             ],
             name="uuid_series_str",
         ),
