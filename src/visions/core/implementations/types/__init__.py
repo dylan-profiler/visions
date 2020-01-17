@@ -20,3 +20,4 @@ from visions.core.implementations.types.visions_path import visions_path
 from visions.core.implementations.types.visions_time import visions_time
 from visions.core.implementations.types.visions_timedelta import visions_timedelta
 from visions.core.implementations.types.visions_url import visions_url
+from visions.core.implementations.types.visions_uuid import visions_uuid

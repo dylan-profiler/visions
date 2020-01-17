@@ -92,6 +92,7 @@ class visions_complete_set(VisionsTypeset):
     - visions_image_path
     - visions_url
     - visions_ip
+    - visions_uuid
 
     """
 
@@ -116,5 +117,6 @@ class visions_complete_set(VisionsTypeset):
             visions_existing_path,
             visions_image_path,
             visions_ip,
+            visions_uuid,
         }
         super().__init__(types)
