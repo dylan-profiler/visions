@@ -53,7 +53,7 @@ with (source_root / "README.rst").open(encoding="utf-8") as f:
 setup(
     name="visions",
     version="0.2.1",
-    url='https://github.com/dylan-profiler/visions',
+    url="https://github.com/dylan-profiler/visions",
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
@@ -70,5 +70,5 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-    ]
+    ],
 )
