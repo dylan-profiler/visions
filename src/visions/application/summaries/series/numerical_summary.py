@@ -33,6 +33,13 @@ def numerical_summary(series: pd.Series) -> dict:
     summary["range"] = summary["max"] - summary["min"]
     summary["cv"] = summary["std"] / summary["mean"] if summary["mean"] else np.NaN
 
+    summary["monotonic_increase"] = series.is_monotonic_increasing
+    summary["monotonic_decrease"] = series.is_monotonic_decreasing
+
+    # TODO: need access to n_unique
+    # summary['monotonic_increase_strict'] = summary['monotonic_increase'] and summary['unique']
+    # summary['monotonic_decrease_strict'] = summary['monotonic_increase'] and summary['unique']
+
     # TODO: only calculations for histogram, not the plotting
     # summary['image'] = plotting.histogram(series)
     return summary
