@@ -28,11 +28,13 @@ def all_relations_tested(series_map):
                 or from_type not in series_map_lookup[to_type]
                 or len(series_map_lookup[to_type][from_type]) == 0
             ):
-                missing_relations.add(f"{relation}")
+                missing_relations.add(str(relation))
 
     if len(missing_relations) > 0:
         raise ValueError(
-            f"Not all inferential relations are tested {missing_relations}"
+            "Not all inferential relations are tested {missing_relations}".format(
+                missing_relations=missing_relations
+            )
         )
 
 
@@ -47,7 +49,13 @@ def pytest_generate_tests(metafunc):
         for item in _test_suite:
             for source_type, relation_type, series_list in _series_map:
                 if item in relation_type:
-                    args = {"id": f"{item.name}: {relation_type} -> {source_type}"}
+                    args = {
+                        "id": "{name}: {relation_type} -> {source_type}".format(
+                            name=item.name,
+                            relation_type=relation_type,
+                            source_type=source_type,
+                        )
+                    }
                     if item.name not in series_list:
                         args["marks"] = pytest.mark.xfail(raises=ValueError)
 
@@ -65,7 +73,7 @@ def pytest_generate_tests(metafunc):
     ]:
         argsvalues = []
         for series in _test_suite:
-            args = {"id": f"{series.name}"}
+            args = {"id": str(series.name)}
             argsvalues.append(pytest.param(series, **args))
 
         metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
@@ -81,7 +89,11 @@ def test_relations(source_type, relation_type, series):
         cast_series = relation.transform(series)
         assert (
             cast_series in source_type
-        ), f"Relationship {relation} cast {series.values} to {cast_series.values} "
+        ), "Relationship {relation} cast {series_values} to {cast_values}".format(
+            relation=relation,
+            series_values=series.values,
+            cast_values=cast_series.values,
+        )
     else:
         raise ValueError("No relation.")
 

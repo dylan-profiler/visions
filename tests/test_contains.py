@@ -8,7 +8,9 @@ def all_series_included(series_list, series_map):
     used_names = set([name for names in series_map.values() for name in names])
     names = set([series.name for series in series_list])
     if not names == used_names:
-        raise ValueError(f"Not all series are used {names ^ used_names}")
+        raise ValueError(
+            "Not all series are used {unused}".format(unused=names ^ used_names)
+        )
 
 
 def pytest_generate_tests(metafunc):
@@ -21,7 +23,11 @@ def pytest_generate_tests(metafunc):
         argsvalues = []
         for item in _test_suite:
             for type, series_list in _series_map.items():
-                args = {"id": f"{item.name} x {type}"}
+                args = {
+                    "id": "{item_name} x {item_type}".format(
+                        item_name=item.name, item_type=type
+                    )
+                }
                 if item.name not in series_list:
                     args["marks"] = pytest.mark.xfail(raises=AssertionError)
 

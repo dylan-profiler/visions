@@ -13,7 +13,7 @@ df = pd.read_csv(file_name, nrows=10000)
 
 # Type
 typeset = rdw_typeset()
-typeset.output_graph(f"rdw_typeset.svg")
+typeset.output_graph("rdw_typeset.svg")
 
 # Type inference
 inferred_types = type_inference(df, typeset)

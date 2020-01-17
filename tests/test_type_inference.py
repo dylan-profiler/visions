@@ -13,7 +13,7 @@ def pytest_generate_tests(metafunc):
     if metafunc.function.__name__ in ["test_consistency", "test_traversal_mutex"]:
         argsvalues = []
         for series in _test_suite:
-            args = {"id": f"{series.name}"}
+            args = {"id": series.name}
             argsvalues.append(pytest.param(series, **args))
 
         metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
@@ -24,7 +24,11 @@ def pytest_generate_tests(metafunc):
             expected_type = inferred_series_type_map[series.name]
             for test_type in typeset.types:
                 args = {
-                    "id": f"{series.name} x {test_type} expected {test_type==expected_type}"
+                    "id": "{name} x {type} expected {expected}".format(
+                        name=series.name,
+                        type=test_type,
+                        expected=test_type == expected_type,
+                    )
                 }
                 if test_type != expected_type:
                     args["marks"] = pytest.mark.xfail(raises=AssertionError)
@@ -47,7 +51,9 @@ def _traverse_relation_graph(series, G, node=visions_generic):
 
     assert (
         len(match_types) < 2
-    ), f"types contains should be mutually exclusive {match_types}"
+    ), "types contains should be mutually exclusive {match_types}".format(
+        match_types=match_types
+    )
     if len(match_types) == 1:
         return _traverse_relation_graph(series, G, match_types[0])
     else:

@@ -30,11 +30,19 @@ types = type_detect_frame(df, typeset)
 summarizer = CompleteSummary()
 summary = summarizer.summarize(df, types)
 
-print(f"| {'Column': <15}| {'Scripts': <17}| {'Categories': <84}| {'Blocks': <25}|")
-print(f"{'':-<17}+{'':-<18}+{'':-<85}+{'':-<26}+")
+print(
+    "| {h1: <15}| {h2: <17}| {h3: <84}| {h4: <25}|".format(
+        h1="Column", h2="Scripts", h3="Categories", h4="Blocks"
+    )
+)
+print("{e:-<17}+{e:-<18}+{e:-<85}+{e:-<26}+".format(e=""))
 for column, variable_summary in summary["series"].items():
     scripts = ", ".join(set(variable_summary["script_values"].values()))
     categories = ", ".join(set(variable_summary["category_alias_values"].values()))
     blocks = ", ".join(set(variable_summary["block_values"].values()))
 
-    print(f"| {column: <15}| {scripts: <17}| {categories: <84}| {blocks: <25}|")
+    print(
+        "| {column: <15}| {scripts: <17}| {categories: <84}| {blocks: <25}|".format(
+            column=column, scripts=scripts, categories=categories, blocks=blocks
+        )
+    )
