@@ -19,7 +19,9 @@ class IdentityRelation(TypeRelation):
         )
 
     def __repr__(self) -> str:
-        return f"IdentityRelation({self.related_type} -> {self.type})"
+        return "IdentityRelation({related_type} -> {own_type})".format(
+            related_type=self.related_type, own_type=self.type
+        )
 
 
 class InferenceRelation(TypeRelation):
@@ -34,4 +36,6 @@ class InferenceRelation(TypeRelation):
         )
 
     def __repr__(self) -> str:
-        return f"InferenceRelation({self.related_type} -> {self.type})"
+        return "InferenceRelation({related_type} -> {own_type})".format(
+            related_type=self.related_type, own_type=self.type
+        )
