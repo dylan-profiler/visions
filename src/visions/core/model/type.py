@@ -62,11 +62,11 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type: Type[VisionsBaseType] = attr.ib()
-    related_type: Type[VisionsBaseType] = attr.ib()
-    inferential: bool = attr.ib()
-    transformer: Callable = attr.ib()
-    relationship: Callable = attr.ib(default=lambda x: False)
+    type = attr.ib()
+    related_type = attr.ib()
+    inferential = attr.ib()
+    transformer = attr.ib()
+    relationship = attr.ib(default=lambda x: False)
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)
