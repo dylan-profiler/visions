@@ -18,7 +18,11 @@ def to_bool(series: pd.Series) -> pd.Series:
         return series.astype("Bool")
     else:
         unsupported_values = series[~series.isin({True, False, None, np.nan})].unique()
-        raise ValueError(f"Values not supported {unsupported_values}")
+        raise ValueError(
+            "Values not supported {unsupported_values}".format(
+                unsupported_values=unsupported_values
+            )
+        )
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -87,7 +91,7 @@ class visions_bool(VisionsBaseType):
             return _get_relations(cls)
 
         return type(
-            f"{cls.__name__}[{type_name}]",
+            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
             (cls,),
             {
                 "string_coercions": string_coercions,

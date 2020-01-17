@@ -96,7 +96,9 @@ class UrlArray(ObjectArrayMixin):
     def equals(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(
-                f"Cannot compare '{self.__class__.__name__}' to type '{type(other)}'"
+                "Cannot compare '{name}' to type '{other_type}'".format(
+                    name=self.__class__.__name__, other_type=type(other)
+                )
             )
         return (self.data == other.data).all()
 

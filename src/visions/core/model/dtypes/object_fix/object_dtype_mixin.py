@@ -97,4 +97,4 @@ class ObjectArrayMixin(ExtensionArray):
     @classmethod
     def __repr__(cls):
         formatted = cls._format_values()
-        return f"{cls.__class__.__name__}({repr(formatted)})"
+        return "{name}({fmt})".format(name=cls.__class__.__name__, fmt=repr(formatted))

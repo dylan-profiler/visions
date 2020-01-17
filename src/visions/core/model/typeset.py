@@ -39,7 +39,9 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
         for relation in node.get_relations():
             if relation.related_type not in nodes:
                 warnings.warn(
-                    f"Provided relations included mapping from {relation.related_type} to {relation.type} but {relation.related_type} was not included in the provided list of nodes"
+                    "Provided relations included mapping from {related_type} to {own_type} but {related_type} was not included in the provided list of nodes".format(
+                        related_type=relation.related_type, own_type=relation.type
+                    )
                 )
 
             relation_graph.add_edge(
@@ -80,8 +82,10 @@ def check_isolates(graph: nx.DiGraph) -> None:
     orphaned_nodes = nodes - set(graph.nodes)
     if orphaned_nodes:
         warnings.warn(
-            f"{orphaned_nodes} were isolates in the type relation map and consequently\
-                      orphaned. Please add some mapping to the orphaned nodes."
+            "{orphaned_nodes} were isolates in the type relation map and consequently\
+                      orphaned. Please add some mapping to the orphaned nodes.".format(
+                orphaned_nodes=orphaned_nodes
+            )
         )
 
 
@@ -94,7 +98,9 @@ def check_cycles(graph: nx.DiGraph) -> None:
     """
     cycles = list(nx.simple_cycles(graph))
     if len(cycles) > 0:
-        warnings.warn(f"Cyclical relations between types {cycles} detected")
+        warnings.warn(
+            "Cyclical relations between types {cycles} detected".format(cycles=cycles)
+        )
 
 
 def traverse_graph(
@@ -177,7 +183,9 @@ def traverse_graph_inference_sample(
             except Exception:
                 # TODO: alternatively, increase sample size
                 raise ValueError(
-                    f"Sample size for inference {sample_size} was too small"
+                    "Sample size for inference {sample_size} was too small".format(
+                        sample_size=sample_size
+                    )
                 )
             return traverse_graph_inference_sample(
                 vision_type, series, graph, sample_size, sample, path
@@ -416,7 +424,9 @@ class VisionsTypeset(object):
             other_types = {other}
         else:
             raise NotImplementedError(
-                f"Typeset operation not implemented for type {type(other)}"
+                "Typeset operation not implemented for type {other_type}".format(
+                    other_type=type(other)
+                )
             )
         return other_types
 

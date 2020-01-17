@@ -17,10 +17,14 @@ def validate_summary_output(test_series, visions_type, correct_output, summary):
     trial_output = summary.summarize_series(test_series, visions_type)
 
     for metric, result in correct_output.items():
-        assert metric in trial_output, f"Metric `{metric}` is missing"
+        assert metric in trial_output, "Metric `{metric}` is missing".format(
+            metric=metric
+        )
         assert (
             trial_output[metric] == result
-        ), f"Expected value {result} for metric `{metric}`, got {trial_output[metric]}"
+        ), "Expected value {result} for metric `{metric}`, got {output}".format(
+            result=result, metric=metric, output=trial_output[metric]
+        )
 
 
 def test_integer_summary(summary, visions_type=visions_integer):

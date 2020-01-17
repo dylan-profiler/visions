@@ -14,7 +14,7 @@ class VisionsBaseTypeMeta(ABCMeta):
         return cls.contains_op(series)  # type: ignore
 
     def __str__(cls) -> str:
-        return f"{cls.__name__}"
+        return str(cls.__name__)
 
     def __repr__(cls) -> str:
         return str(cls)
@@ -62,11 +62,11 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type: Type[VisionsBaseType] = attr.ib()
-    related_type: Type[VisionsBaseType] = attr.ib()
-    inferential: bool = attr.ib()
-    transformer: Callable = attr.ib()
-    relationship: Callable = attr.ib(default=lambda x: False)
+    type = attr.ib()
+    related_type = attr.ib()
+    inferential = attr.ib()
+    transformer = attr.ib()
+    relationship = attr.ib(default=lambda x: False)
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)
@@ -75,4 +75,6 @@ class TypeRelation:
         return self.transformer(series)
 
     def __repr__(self) -> str:
-        return f"TypeRelation({self.related_type} -> {self.type})"
+        return "TypeRelation({related_type} -> {own_type})".format(
+            related_type=self.related_type, own_type=self.type
+        )

@@ -2,8 +2,6 @@ from pathlib import Path
 
 from setuptools import setup
 
-# from os.path import basename, splitext
-# from glob import glob
 from setuptools import find_packages
 
 
@@ -37,7 +35,6 @@ extras_requires["all"] = install_requires + [
 
 test_requires = [
     "mypy",
-    "black",
     "pytest>=5.2.0",
     "pytest-ordering",
     "pytest-rerunfailures",
@@ -56,10 +53,10 @@ with (source_root / "README.rst").open(encoding="utf-8") as f:
 setup(
     name="visions",
     version="0.2.1",
+    url='https://github.com/dylan-profiler/visions',
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    # py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     install_requires=install_requires,
     include_package_data=True,
     extras_require=extras_requires,
@@ -67,4 +64,11 @@ setup(
     python_requires=">=3.5",
     long_description=long_description,
     long_description_content_type="text/x-rst",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+    ]
 )

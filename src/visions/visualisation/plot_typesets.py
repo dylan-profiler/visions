@@ -21,11 +21,11 @@ for name, tsc in [
     ("typeset_standard", visions_standard_set()),
 ]:
     # Write graph to dot
-    tsc.output_graph(typesets_dir / f"{name}.dot")
+    tsc.output_graph(typesets_dir / "{name}.dot".format(name=name))
 
     # Plot the graph (svg)
-    tsc.output_graph(typesets_dir / f"{name}.svg")
-    tsc.output_graph(typesets_dir / f"{name}_base.svg", base_only=True)
+    tsc.output_graph(typesets_dir / "{name}.svg".format(name=name))
+    tsc.output_graph(typesets_dir / "{name}_base.svg".format(name=name), base_only=True)
 
     # Plot the graph (png)
-    tsc.output_graph(typesets_dir / f"{name}.png")
+    tsc.output_graph(typesets_dir / "{name}.png".format(name=name))
