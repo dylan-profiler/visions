@@ -13,6 +13,15 @@ IF "%1" == "test" (
     GOTO end
 )
 
+IF "%1" == "plots" (
+    cd src/visions/visualisation/
+    python plot_circular_packing.py
+    python plot_summary.py
+    python plot_typesets.py
+    ECHO "Plots completed!"
+    GOTO end
+)
+
 IF "%1" == "pypi_package" (
 	make install
     python setup.py sdist
@@ -32,9 +41,17 @@ IF "%1" == "install" (
 	GOTO end
 )
 
+
+IF "%1" == "type_checking" (
+	mypy .
+	GOTO end
+)
+
 IF "%1%" == "all" (
     make lint
     make install
+    make type_checking
+    make plots
     make docs
     make test
     GOTO end

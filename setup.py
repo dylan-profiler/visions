@@ -13,7 +13,7 @@ install_requires = [
     "pandas>=0.25.3",
     "networkx",
     "tangled_up_in_unicode>=0.0.3",
-    "attr",
+    "attrs",
 ]
 
 extras_requires = {
@@ -30,7 +30,9 @@ extras_requires = {
 }
 
 extras_requires["all"] = install_requires + [
-    dependency for dependency in extras_requires.values()
+    dependency
+    for dependencies in extras_requires.values()
+    for dependency in dependencies
 ]
 
 test_requires = [

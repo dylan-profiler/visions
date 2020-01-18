@@ -194,7 +194,9 @@
         <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="n">f</span><span class="s2">&quot;Provided relations included mapping from </span><span class="si">{relation.related_type}</span><span class="s2"> to </span><span class="si">{relation.type}</span><span class="s2"> but </span><span class="si">{relation.related_type}</span><span class="s2"> was not included in the provided list of nodes&quot;</span>
+                    <span class="s2">&quot;Provided relations included mapping from </span><span class="si">{related_type}</span><span class="s2"> to </span><span class="si">{own_type}</span><span class="s2"> but </span><span class="si">{related_type}</span><span class="s2"> was not included in the provided list of nodes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">related_type</span><span class="o">=</span><span class="n">relation</span><span class="o">.</span><span class="n">related_type</span><span class="p">,</span> <span class="n">own_type</span><span class="o">=</span><span class="n">relation</span><span class="o">.</span><span class="n">type</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
 
             <span class="n">relation_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
@@ -235,8 +237,10 @@
     <span class="n">orphaned_nodes</span> <span class="o">=</span> <span class="n">nodes</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">orphaned_nodes</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{orphaned_nodes}</span><span class="s2"> were isolates in the type relation map and consequently</span><span class="se">\</span>
-<span class="s2">                      orphaned. Please add some mapping to the orphaned nodes.&quot;</span>
+            <span class="s2">&quot;</span><span class="si">{orphaned_nodes}</span><span class="s2"> were isolates in the type relation map and consequently</span><span class="se">\</span>
+<span class="s2">                      orphaned. Please add some mapping to the orphaned nodes.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">orphaned_nodes</span><span class="o">=</span><span class="n">orphaned_nodes</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
 
@@ -249,7 +253,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cycles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">simple_cycles</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cycles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Cyclical relations between types </span><span class="si">{cycles}</span><span class="s2"> detected&quot;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Cyclical relations between types </span><span class="si">{cycles}</span><span class="s2"> detected&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cycles</span><span class="o">=</span><span class="n">cycles</span><span class="p">)</span>
+        <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">traverse_graph</span><span class="p">(</span>
@@ -332,7 +338,9 @@
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="c1"># TODO: alternatively, increase sample size</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">f</span><span class="s2">&quot;Sample size for inference </span><span class="si">{sample_size}</span><span class="s2"> was too small&quot;</span>
+                    <span class="s2">&quot;Sample size for inference </span><span class="si">{sample_size}</span><span class="s2"> was too small&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">sample_size</span><span class="o">=</span><span class="n">sample_size</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">return</span> <span class="n">traverse_graph_inference_sample</span><span class="p">(</span>
                 <span class="n">vision_type</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">path</span>
@@ -571,7 +579,9 @@
             <span class="n">other_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">other</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="n">f</span><span class="s2">&quot;Typeset operation not implemented for type {type(other)}&quot;</span>
+                <span class="s2">&quot;Typeset operation not implemented for type </span><span class="si">{other_type}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">other_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">other_types</span>
 

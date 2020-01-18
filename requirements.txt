@@ -1,5 +1,5 @@
 numpy
 pandas>=0.25.3
-attr
+attrs
 networkx
 tangled_up_in_unicode>=0.0.3

@@ -174,7 +174,9 @@
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;IdentityRelation(</span><span class="si">{self.related_type}</span><span class="s2"> -&gt; </span><span class="si">{self.type}</span><span class="s2">)&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;IdentityRelation(</span><span class="si">{related_type}</span><span class="s2"> -&gt; </span><span class="si">{own_type}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">related_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">related_type</span><span class="p">,</span> <span class="n">own_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InferenceRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.InferenceRelation.html#visions.core.model.relations.InferenceRelation">[docs]</a><span class="k">class</span> <span class="nc">InferenceRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
@@ -189,7 +191,9 @@
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;InferenceRelation(</span><span class="si">{self.related_type}</span><span class="s2"> -&gt; </span><span class="si">{self.type}</span><span class="s2">)&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;InferenceRelation(</span><span class="si">{related_type}</span><span class="s2"> -&gt; </span><span class="si">{own_type}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">related_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">related_type</span><span class="p">,</span> <span class="n">own_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>

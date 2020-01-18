@@ -173,7 +173,11 @@
         <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;Bool&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">unsupported_values</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="o">~</span><span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Values not supported </span><span class="si">{unsupported_values}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Values not supported </span><span class="si">{unsupported_values}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">unsupported_values</span><span class="o">=</span><span class="n">unsupported_values</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
@@ -242,7 +246,7 @@
             <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span>
-            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{cls.__name__}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
             <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
             <span class="p">{</span>
                 <span class="s2">&quot;string_coercions&quot;</span><span class="p">:</span> <span class="n">string_coercions</span><span class="p">,</span>

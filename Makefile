@@ -33,11 +33,19 @@ type_checking:
 install:
 	pip install -e .
 
+## Plots
+plots:
+    cd src/visions/visualisation/
+    python plot_circular_packing.py
+    python plot_summary.py
+    python plot_typesets.py
+
 ## lint, type check, install, rebuild docs, and finally test
 all:
 	make lint
 	make type_checking
 	make install
+	make plots
 	make docs
 	make test
 

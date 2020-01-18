@@ -210,14 +210,22 @@
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;| {&#39;Column&#39;: &lt;15}| {&#39;Scripts&#39;: &lt;17}| {&#39;Categories&#39;: &lt;84}| {&#39;Blocks&#39;: &lt;25}|&quot;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{&#39;&#39;:-&lt;17}+{&#39;&#39;:-&lt;18}+{&#39;&#39;:-&lt;85}+{&#39;&#39;:-&lt;26}+&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span>
+    <span class="s2">&quot;| {h1: &lt;15}| {h2: &lt;17}| {h3: &lt;84}| {h4: &lt;25}|&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">h1</span><span class="o">=</span><span class="s2">&quot;Column&quot;</span><span class="p">,</span> <span class="n">h2</span><span class="o">=</span><span class="s2">&quot;Scripts&quot;</span><span class="p">,</span> <span class="n">h3</span><span class="o">=</span><span class="s2">&quot;Categories&quot;</span><span class="p">,</span> <span class="n">h4</span><span class="o">=</span><span class="s2">&quot;Blocks&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;{e:-&lt;17}+{e:-&lt;18}+{e:-&lt;85}+{e:-&lt;26}+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">variable_summary</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;series&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">scripts</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_summary</span><span class="p">[</span><span class="s2">&quot;script_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
     <span class="n">categories</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
     <span class="n">blocks</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;| {column: &lt;15}| {scripts: &lt;17}| {categories: &lt;84}| {blocks: &lt;25}|&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span>
+        <span class="s2">&quot;| {column: &lt;15}| {scripts: &lt;17}| {categories: &lt;84}| {blocks: &lt;25}|&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">scripts</span><span class="o">=</span><span class="n">scripts</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">,</span> <span class="n">blocks</span><span class="o">=</span><span class="n">blocks</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>

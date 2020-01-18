@@ -1,8 +1,7 @@
-
-|PythonBadge|
-
 Visions
 =======
+
+|PythonBadge|
 
 ..
 
