@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Design decisions &mdash; visions 0.2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Nested set view" href="nested_set_view.html" />
+    <link rel="prev" title="Data Type View" href="data_type_view.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../applications/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/machine_learning.html">Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="goals.html">Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_type_view.html">Data Type View</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design decisions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#short-circuiting">Short circuiting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sampling">Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#memory-usage">Memory usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dtypes">Dtypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constraint-checking-in-tests">Constraint checking in tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nullable-types">Nullable types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-don-t-we-use-oop-inheritance">Why don’t we use OOP inheritance?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sampling-in-inference">Sampling in inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-are-relations-defined-on-the-type">Why are relations defined on the type?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#missing-value-bitmaps">Missing value bitmaps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_view.html">Graph view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Design decisions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/visions/background/engineering_view.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="design-decisions">
+<h1>Design decisions<a class="headerlink" href="#design-decisions" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses the core implementation of <cite>visions</cite>.
+This view can guide intuition of:</p>
+<ul class="simple">
+<li><p>performance and complexity of operations</p></li>
+</ul>
+<p>It is limited for:</p>
+<ul class="simple">
+<li><p>understanding abstract concepts</p></li>
+<li><p>motivation for representations</p></li>
+</ul>
+<div class="section" id="short-circuiting">
+<h2>Short circuiting<a class="headerlink" href="#short-circuiting" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+</div>
+<div class="section" id="sampling">
+<h2>Sampling<a class="headerlink" href="#sampling" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+</div>
+<div class="section" id="memory-usage">
+<h2>Memory usage<a class="headerlink" href="#memory-usage" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+<p>Operations are designed to be idempotent (i.e. do not have side-effects).
+This may impact the performance of your program when you use large DataFrames, as a copy is made.</p>
+</div>
+<div class="section" id="dtypes">
+<h2>Dtypes<a class="headerlink" href="#dtypes" title="Permalink to this headline">¶</a></h2>
+<p>Staying close to pandas’ data types, we can use the dtypes for type detection.
+Complexity O(1) instead of O(n).</p>
+</div>
+<div class="section" id="constraint-checking-in-tests">
+<h2>Constraint checking in tests<a class="headerlink" href="#constraint-checking-in-tests" title="Permalink to this headline">¶</a></h2>
+<p>Constraint of mutual exclusivity is not checked on runtime, rather during testing.</p>
+</div>
+<div class="section" id="nullable-types">
+<h2>Nullable types<a class="headerlink" href="#nullable-types" title="Permalink to this headline">¶</a></h2>
+<p>All types are nullable by default.
+TODO: why (refer to goal)</p>
+</div>
+<div class="section" id="why-don-t-we-use-oop-inheritance">
+<h2>Why don’t we use OOP inheritance?<a class="headerlink" href="#why-don-t-we-use-oop-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>You might wonder why for example <cite>ImagePath</cite> class does not inherit from <cite>ExistingPath</cite> class.
+The short answer is, we tried, in order to support our use cases inheritance ultimately only added complexity to the solution.
+Within the current abstraction, each type inherits from a base type, class inheritance from relations.</p>
+<p>When you think how class inheritance would be beneficial is here, is where it reduces complexity.
+TODO</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The choice of not using OOP inheritance limits the use of build-in type hints that rely on covariance and contravariance.
+Read more in <a class="reference external" href="https://www.python.org/dev/peps/pep-0483/#covariance-and-contravariance">PEP 484</a>.</p>
+</div>
+</div>
+<div class="section" id="sampling-in-inference">
+<h2>Sampling in inference<a class="headerlink" href="#sampling-in-inference" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+</div>
+<div class="section" id="why-are-relations-defined-on-the-type">
+<h2>Why are relations defined on the type?<a class="headerlink" href="#why-are-relations-defined-on-the-type" title="Permalink to this headline">¶</a></h2>
+<p>The short answer is extendability.</p>
+<p>Recall, relations define mappings to a type, so, given two types <cite>A</cite> and <cite>B</cite> with a relation from <cite>B -&gt; A</cite>,
+that relationship is defined on <cite>A</cite>. Defining relationships in this way actually decouples types from each other.
+This allows us to dynamically construct a relation graph based only on the types included in the typeset without
+modifying any type specific logic.</p>
+</div>
+<div class="section" id="missing-value-bitmaps">
+<h2>Missing value bitmaps<a class="headerlink" href="#missing-value-bitmaps" title="Permalink to this headline">¶</a></h2>
+<p>Pandas upcasts certain types when adding missing values, unnecessarily increasing physical storage size.
+This behaviour <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html#missing-data-casting-rules-and-indexing">occurs for booleans and integers</a>.
+Pandas itself offers <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/integer_na.html#integer-na">nullable integers</a>.
+We implement nullable types as missing value bitmaps, in the same way pandas’ nullable integers work.
+For each value, we keep a 1 bit per value that specifies whether a value is null or not.
+We use the contention that <cite>NaN</cite> is used when the type represents numbers, <cite>None</cite> otherwise.
+More information can be found here: <a class="reference external" href="https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution">pandas 2.0 design document</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nested_set_view.html" class="btn btn-neutral float-right" title="Nested set view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data_type_view.html" class="btn btn-neutral float-left" title="Data Type View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

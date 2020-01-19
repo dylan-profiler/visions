@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Practitioner" href="../practitioner.html" />
+    <link rel="next" title="Usage" href="../practitioner.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -81,7 +81,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -91,12 +91,35 @@
 <li class="toctree-l2"><a class="reference internal" href="#relational-mapping">Relational mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../applications/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/machine_learning.html">Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Usage</a></li>
 </ul>
 
             
@@ -166,23 +189,24 @@
 <p>This page introduces the concepts <cite>visions</cite> uses.</p>
 <div class="section" id="types">
 <h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
-<p>A data type is a logical abstraction constraining the types of values data can be composed from. For example,
-<cite>integers</cite> can only consist of values like <cite>1</cite>, <cite>2</cite>, <cite>3</cite> but never <cite>4.5</cite>.</p>
-<p>Within the <cite>visions</cite> framework, Types represent a logical abstraction over sequences of data
-(i.e. python: Tuples/Lists, pandas: Series, numpy: array, etc…). These types might correspond
-to every day notions like integers, floats, strings, datetimes, etc… or more complicated,
+<p>A data type is a logical abstraction constraining the types of values data can be composed from.
+For example, <cite>integers</cite> can only consist of values like <cite>1</cite>, <cite>2</cite>, <cite>3</cite> but never <cite>4.5</cite>.</p>
+<p>Within the <cite>visions</cite> framework, Types represent a logical abstraction over sequences of data (i.e. python: Tuples/Lists, pandas: Series, numpy: array, etc…).
+These types might correspond to every day notions like integers, floats, strings, datetimes, etc… or more complicated,
 user configured ideas like geometries, fruits, or files.</p>
+<p>We distinguish <em>semantic types</em> from <em>physical types</em>.
+When analysing a dataset with URLs, the semantic type might be URL, as we are interested in properties such as scheme and domain.
+The physical type then is string (or object), depending on how the URLs are stored on disk.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>If you want a deeper understanding of data types, see <a class="reference internal" href="../thinker/data_type_view.html"><span class="doc">data type view</span></a>.</p>
+<p>If you want a deeper understanding of data types, see <span class="xref std std-doc">data type view</span>.</p>
 </div>
 </div>
 <div class="section" id="typeset">
 <h2>Typeset<a class="headerlink" href="#typeset" title="Permalink to this headline">¶</a></h2>
-<p>Typesets represent a mechanism to perform work over groups of types. Typesets contain types
-in a way comparable to a namespace for code or a virtual environment for dependencies.
-Flexible groupings of types allow different users to solve different problems in a manner specific
-to their circumstances.</p>
+<p>Typesets represent a mechanism to perform work over groups of types.
+Typesets contain types in a way comparable to a namespace for code or a virtual environment for dependencies.
+Flexible groupings of types allow different users to solve different problems in a manner specific to their circumstances.</p>
 </div>
 <div class="section" id="relational-mapping">
 <h2>Relational mapping<a class="headerlink" href="#relational-mapping" title="Permalink to this headline">¶</a></h2>
@@ -199,7 +223,7 @@ Visions creates a graph of these relationships within a typeset as a mechanism t
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../practitioner.html" class="btn btn-neutral float-right" title="Practitioner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../practitioner.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

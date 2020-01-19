@@ -1,5 +1,5 @@
-Practitioner
-************
+Usage
+*****
 
 This section of the docs explains how you can use the package.
 It introduces functionality of working with the core concepts types and typesets.
@@ -12,6 +12,4 @@ Furthermore, it provides plenty of examples.
     practitioner/types
     practitioner/relations
     practitioner/typesets
-    practitioner/summarizer
     practitioner/defaults
-    practitioner/examples

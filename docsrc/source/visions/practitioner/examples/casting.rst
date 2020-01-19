@@ -1,4 +1,0 @@
-Casting example
-===============
-
-TODO

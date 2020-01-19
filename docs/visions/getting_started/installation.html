@@ -81,7 +81,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
@@ -91,12 +91,35 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Practitioner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thinker.html">Thinker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../applications/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/machine_learning.html">Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Usage</a></li>
 </ul>
 
             
@@ -170,15 +193,24 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions[all]</span>
 </pre></div>
 </div>
-<p>By default, <cite>visions</cite> includes dependencies for additional types such as images and geodata.
-You can install a more lightweight version by installing only the specific dependencies you really need:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Minimal example
+<p>By default, <cite>visions</cite> installs the complete set of dependencies, including for specialized types such as images and geodata.
+This is great for experimenting, however once you have settled on a set of types, it is recommended to slim down the dependencies.
+It is possible to obtain a more lightweight installation by installing only the specific dependencies you really need:</p>
+<ul class="simple">
+<li><p><cite>type_geometry</cite> for <cite>visions_geometry</cite></p></li>
+<li><p><cite>type_image_path</cite> for <cite>visions_image_path</cite></p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Minimal example: only install the default types
 <span class="go">pip install visions</span>
 
-<span class="gp">#</span> Only geometry
+<span class="gp">#</span> Default and geometry dependencies
 <span class="go">pip install visions[type_geometry]</span>
+
+<span class="gp">#</span> Multiple dependency sets
+<span class="go">pip install visions[type_geometry,type_image_path]</span>
 </pre></div>
 </div>
+<p>For additional dependencies (plotting, development, testing), please read the <a class="reference external" href="../creator/contributing">contribution page</a>.</p>
 </div>
 <div class="section" id="source">
 <h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
@@ -191,7 +223,7 @@ You can install a more lightweight version by installing only the specific depen
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>The requirements are listed in <cite>setup.py</cite>.</p>
+<p>The requirements are listed in <cite>setup.py</cite> and the files <cite>requirements.txt</cite>, <cite>requirements_dev.txt</cite> and <cite>requirements_test.txt</cite>.</p>
 </div>
 </div>
 

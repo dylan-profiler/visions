@@ -20,18 +20,56 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
 
 .. toctree::
    :maxdepth: 3
-   :caption: Table of Contents:
+   :caption: Getting started
    :hidden:
 
    visions/introduction
    visions/getting_started/installation
    visions/getting_started/concepts
    visions/practitioner
-   visions/thinker
-   visions/creator
-   visions/about
-   visions/api
    visions/getting_started/examples
+   visions/contributing/extending
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Applications
+   :hidden:
+
+   visions/applications/applications
+   visions/applications/summarizer
+   visions/applications/compression
+   visions/applications/integration
+   visions/applications/validation
+   visions/applications/machine_learning
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Contribution
+   :hidden:
+
+   visions/contributing/contributing
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Background
+   :hidden:
+
+   visions/background/goals
+   visions/background/motivation
+   visions/background/data_type_view
+   visions/background/engineering_view
+   visions/background/nested_set_view
+   visions/background/graph_view
+   visions/about
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Reference
+   :hidden:
+
+   visions/api
 
 
 Indices and tables
