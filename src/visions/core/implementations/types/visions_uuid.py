@@ -11,7 +11,7 @@ from visions.core.model.type import VisionsBaseType
 def test_uuid(series) -> bool:
     try:
         return to_uuid(series).all()
-    except ValueError:
+    except (ValueError, AttributeError):
         return False
 
 

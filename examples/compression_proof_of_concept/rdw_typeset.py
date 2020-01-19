@@ -14,8 +14,12 @@ from visions.core.implementations.types import (
     visions_complex,
 )
 from visions.core.model.typeset import VisionsTypeset
-from visions.lib.relations.string_to_bool import string_to_bool_dutch
+from visions.lib.relations.string_to_bool import get_language_bool
 from visions.lib.relations.string_to_ordinal import string_to_ordinal
+
+
+# TODO: make Dutch boolean
+rdw_typeset = visions_complete_set - visions_bool + custom_bool
 
 
 class rdw_typeset(VisionsTypeset):
@@ -37,8 +41,7 @@ class rdw_typeset(VisionsTypeset):
             visions_time,
             visions_complex,
         }
-        super().__init__(types, build=False)
+        super().__init__(types)
 
         self.relations[visions_ordinal][visions_string] = string_to_ordinal()
-        self.relations[visions_bool][visions_string] = string_to_bool_dutch()
-        self._build_graph()
+        self.relations[visions_bool][visions_string] = get_language_bool("nl")

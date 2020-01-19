@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
 <ul class="current">
@@ -181,13 +182,24 @@
             
   <div class="section" id="data-compression">
 <h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline">¶</a></h1>
-<p>Minimizing the memory used for a single type.
-We can define a (lossless) conversion operation for specific types.
-For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.</p>
-<p>decoupling semantic from physical allows to minimize the physical storage as long as the semantic type is preserved.
-casting int64 to int32, text/categoricals may be encoded as string or dict, depending it cardinality,
-dates can be encoded as numbers,
-ip as numbers [4,5, 10].</p>
+<p>Decoupling <em>semantic</em> data types from <em>physical</em> data types makes it easier to compress variables.
+Our task is to minimize the physical memory used while preserving the same semantic type.</p>
+<p>Two characteristics of the types provide us space to compress:
+- Semantic types restrict the possible values of a variable (the URL type is a subset of String).
+- The type system infers the exact semantic type independent of physical subtype (int64 and int32 are both Count)</p>
+<p><a class="reference external" href="../../../examples/compression_proof_of_concept/compression.py">Proof of Concept</a></p>
+<p>Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, <a class="footnote-reference brackets" href="#id5" id="id2">2</a>, <a class="footnote-reference brackets" href="#id6" id="id3">3</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Tom Augspurger, Extension Arrays for Pandas, 12 February 2018, <a class="reference external" href="https://tomaugspurger.github.io/pandas-extension-arrays.html">https://tomaugspurger.github.io/pandas-extension-arrays.html</a></p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Tom Augspurger, CyberPandas: Extending Pandas with Richer Types, 16 May 2018, <a class="reference external" href="https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/">https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/</a></p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Tom Augspurger, Cyberpandas package on Github, <a class="reference external" href="https://github.com/ContinuumIO/cyberpandas">https://github.com/ContinuumIO/cyberpandas</a></p>
+</dd>
+</dl>
 </div>
 
 

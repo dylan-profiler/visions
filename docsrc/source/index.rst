@@ -28,7 +28,7 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
    visions/getting_started/concepts
    visions/practitioner
    visions/getting_started/examples
-   visions/contributing/extending
+   visions/getting_started/extending
 
 .. toctree::
    :maxdepth: 3

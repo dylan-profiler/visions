@@ -35,7 +35,9 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Applications" href="../applications/applications.html" />
+    <link rel="prev" title="Summaries example" href="examples/summaries.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,12 +82,17 @@
             
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#custom-types">Custom Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-typesets">Custom Typesets</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
 <ul>
@@ -220,22 +227,10 @@ This is convenient when you only change a single relation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
 </pre></div>
 </div>
-<div class="section" id="contributions-new-types-to-visions">
-<h3>Contributions new types to visions<a class="headerlink" href="#contributions-new-types-to-visions" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Your custom type might be helpful for others, in which case you can choose to contribute it to <cite>visions</cite>.
-Below you will find a checklist with instructions on which files to add or modify.</p>
-<p>Type implementation:
-- place the type implementation in <cite>src/visions/core/implementations/types/visions_[your type_name].py</cite>
-- include the type in <cite>src/visions/core/implementations/types/__init__.py</cite>
-- include the type in a relevant typeset, or create one <cite>src/visions/core/implementations/typesets.py</cite></p>
-<p>Tests:
-- add series to <cite>tests/series.py</cite> that test the type
-- add series to <cite>tests/series.py</cite> that test the each relation</p>
-<p>Documentation:
-- provide informative docstrings <cite>src/visions/core/implementations/types/visions_[your type_name].py</cite>
-- include the type in the api documentation: <cite>docsrc/source/visions/api/types.rst</cite>
-- add a row to the defaults table: <cite>docsrc/source/visions/practitioner/defaults.rst</cite></p>
-<p>Read more on <span class="xref std std-doc">how to contribute</span>.</p>
+Read more on <a class="reference internal" href="../contributing/type.html"><span class="doc">how to contribute</span></a>.</p>
 </div>
 </div>
 <div class="section" id="custom-typesets">
@@ -286,6 +281,15 @@ The example below creates a custom typeset that only supports time-related types
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../applications/applications.html" class="btn btn-neutral float-right" title="Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/summaries.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
