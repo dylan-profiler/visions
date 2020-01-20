@@ -35,10 +35,10 @@ install:
 
 ## Plots
 plots:
-    cd src/visions/visualisation/
-    python plot_circular_packing.py
-    python plot_summary.py
-    python plot_typesets.py
+	cd src/visions/visualisation/
+	python plot_circular_packing.py
+	python plot_summary.py
+	python plot_typesets.py
 
 ## lint, type check, install, rebuild docs, and finally test
 all:
