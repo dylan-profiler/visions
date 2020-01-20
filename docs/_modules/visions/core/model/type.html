@@ -213,7 +213,15 @@
     <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">extend_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">relations_func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
+            <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;get_relations&quot;</span><span class="p">:</span> <span class="n">relations_func</span><span class="p">,</span> <span class="s2">&quot;contains_op&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">},</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TypeRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.TypeRelation.html#visions.core.model.TypeRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

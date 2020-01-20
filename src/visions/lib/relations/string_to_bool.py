@@ -22,6 +22,5 @@ def get_language_bool(language_code: str):
     from visions.core.implementations.types.visions_bool import visions_bool
 
     return visions_bool.make_string_coercion(
-        "visions_bool_{language_code}".format(language_code=language_code),
-        get_boolean_coercions(language_code),
+        language_code, get_boolean_coercions(language_code)
     )

@@ -1,7 +1,7 @@
 import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
-from typing import Sequence
+from typing import Sequence, List
 
 from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.core.model import TypeRelation
@@ -25,7 +25,7 @@ def float_is_int(series: pd.Series) -> bool:
     return check_equality(series.dropna() if series.hasnans else series)
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations() -> List[TypeRelation]:
     from visions.core.implementations.types import (
         visions_string,
         visions_generic,

@@ -1,8 +1,8 @@
 Extending
 =========
 
-Custom Types
-------------
+Custom Type (from scratch)
+---------------------------
 
 Each `visions` type is class extending the basic `VisionsBaseType` requiring a unique implementation of two methods:
 
@@ -57,8 +57,38 @@ This is convenient when you only change a single relation.
     Read more on :doc:`how to contribute <../contributing/type>`.
 
 
-Custom Typesets
----------------
+Custom Type (extend type)
+-------------------------
+
+Another option is to create a new type based on an existing type.
+This is useful for small changes, such as adding a single relation.
+
+Each type has the method `extend_relations` for this purpose.
+
+.. code-block:: python
+   :caption: Add a inference relation from integer to datetime (YYYYMMDD)
+
+    from visions.core.implementations.types.visions_integer import _get_relations, visions_integer
+    from visions.lib.relations.integer_to_datetime import integer_to_datetime_year_month_day
+
+    compose_relations = lambda: _get_relations() + [integer_to_datetime_year_month_day()]
+    visions_integer_ddt = visions_integer.extend_relations('with_datetime', compose_relations)
+
+    print(visions_integer_ddt)
+    # Prints: visions_integer[with_datetime]
+
+.. hint::
+
+    While developing new type relations, you can use this helper function to debug:
+
+    .. code-block:: python
+
+       for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
+            print(f"{column} was {type_before} is {type_after}")
+
+
+Custom Typesets (from scratch)
+------------------------------
 
 It is possible to use custom typesets.
 The example below creates a custom typeset that only supports time-related types.
@@ -87,6 +117,10 @@ The example below creates a custom typeset that only supports time-related types
             ]
             super().__init__(types)
 
+
+Custom typesets (extend typeset)
+--------------------------------
+
 Another way of creating a typeset is by basing it on another typeset
 
 .. code-block:: python
@@ -94,5 +128,17 @@ Another way of creating a typeset is by basing it on another typeset
 
     typeset = visions_complete_set() - visions_time + visions_date
 
+When performing multiple additions and/or subtractions, the above will become a long list.
+Just like other addition and subtraction in Python, you can split the operations:
+
+.. code-block:: python
+
+    rdw_typeset = visions_complete_set()
+    rdw_typeset -= visions_bool
+    rdw_typeset += visions_bool_nl
+    rdw_typeset -= visions_integer
+    rdw_typeset += visions_integer_ddt
+    rdw_typeset -= visions_categorical
+    rdw_typeset += visions_categorical_str
 
 .. seealso:: Engineer view on constraint checking

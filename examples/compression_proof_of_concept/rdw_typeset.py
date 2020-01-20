@@ -1,10 +1,40 @@
+from visions import visions_bool
 from visions.core.implementations import visions_complete_set
-from visions.core.implementations.types import visions_bool
-
-from visions.lib.relations.string_to_bool import get_language_bool
-from visions.lib.relations.string_to_ordinal import string_to_ordinal
-
 
 # make Dutch boolean
+from visions.lib.relations.string_to_bool import get_language_bool
+from visions.lib.relations.string_to_categorical import (
+    string_to_categorical_distinct_count,
+)
+
 visions_bool_nl = get_language_bool("nl")
-rdw_typeset = visions_complete_set() + visions_bool_nl
+
+# recognizes YYYYMMDD
+from visions.core.implementations.types.visions_integer import (
+    _get_relations,
+    visions_integer,
+)
+from visions.lib.relations.integer_to_datetime import integer_to_datetime_year_month_day
+
+compose_relations = lambda: _get_relations() + [integer_to_datetime_year_month_day()]
+visions_integer_ddt = visions_integer.extend_relations(
+    "with_datetime", compose_relations
+)
+
+# string to category
+from visions.core.implementations.types.visions_categorical import (
+    _get_relations,
+    visions_categorical,
+)
+
+# TODO: ensure that string_to_categorical is evaluated last (catch all)
+compose_relations = lambda: _get_relations() + [string_to_categorical_distinct_count()]
+visions_categorical_str = visions_categorical.extend_relations("str", compose_relations)
+
+rdw_typeset = visions_complete_set()
+rdw_typeset -= visions_bool
+rdw_typeset += visions_bool_nl
+rdw_typeset -= visions_integer
+rdw_typeset += visions_integer_ddt
+rdw_typeset -= visions_categorical
+rdw_typeset += visions_categorical_str

@@ -89,8 +89,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Extending</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#custom-types">Custom Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#custom-typesets">Custom Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-type-extend-type">Custom Type (extend type)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
 </ul>
 </li>
 </ul>
@@ -186,8 +188,8 @@
             
   <div class="section" id="extending">
 <h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="custom-types">
-<h2>Custom Types<a class="headerlink" href="#custom-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="custom-type-from-scratch">
+<h2>Custom Type (from scratch)<a class="headerlink" href="#custom-type-from-scratch" title="Permalink to this headline">¶</a></h2>
 <p>Each <cite>visions</cite> type is class extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
 <li><p><cite>get_relations</cite>. Returns relations directed towards other types.</p></li>
@@ -233,12 +235,39 @@ This is convenient when you only change a single relation.</p>
 Read more on <a class="reference internal" href="../contributing/type.html"><span class="doc">how to contribute</span></a>.</p>
 </div>
 </div>
-<div class="section" id="custom-typesets">
-<h2>Custom Typesets<a class="headerlink" href="#custom-typesets" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="custom-type-extend-type">
+<h2>Custom Type (extend type)<a class="headerlink" href="#custom-type-extend-type" title="Permalink to this headline">¶</a></h2>
+<p>Another option is to create a new type based on an existing type.
+This is useful for small changes, such as adding a single relation.</p>
+<p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.core.implementations.types.visions_integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_integer</span>
+ <span class="kn">from</span> <span class="nn">visions.lib.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
+
+ <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
+ <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">visions_integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
+
+ <span class="k">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
+ <span class="c1"># Prints: visions_integer[with_datetime]</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>While developing new type relations, you can use this helper function to debug:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
+     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{column} was {type_before} is {type_after}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="custom-typesets-from-scratch">
+<h2>Custom Typesets (from scratch)<a class="headerlink" href="#custom-typesets-from-scratch" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to use custom typesets.
 The example below creates a custom typeset that only supports time-related types.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">visions_custom_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
 
@@ -262,12 +291,26 @@ The example below creates a custom typeset that only supports time-related types
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="custom-typesets-extend-typeset">
+<h2>Custom typesets (extend typeset)<a class="headerlink" href="#custom-typesets-extend-typeset" title="Permalink to this headline">¶</a></h2>
 <p>Another way of creating a typeset is by basing it on another typeset</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
 </pre></div>
 </div>
+</div>
+<p>When performing multiple additions and/or subtractions, the above will become a long list.
+Just like other addition and subtraction in Python, you can split the operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_bool</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_bool_nl</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_integer</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_integer_ddt</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_categorical</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_categorical_str</span>
+</pre></div>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>

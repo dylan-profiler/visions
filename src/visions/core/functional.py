@@ -1,4 +1,4 @@
-from typing import Dict, Type
+from typing import Dict, Type, List, Tuple
 
 import pandas as pd
 
@@ -121,3 +121,25 @@ def type_detect_series(
 
     """
     return typeset.detect_series_type(series)
+
+
+def compare_detect_inference_frame(
+    df: pd.DataFrame, typeset: VisionsTypeset
+) -> List[Tuple[str, Type[VisionsBaseType], Type[VisionsBaseType]]]:
+    """Compare the types given by inference on the base graph and the relational graph
+
+    Args:
+        df: the DataFrame to detect types on
+        typeset: the Typeset that provides the type context
+
+    Examples:
+        >>> for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
+        >>>    print(f"{column} was {type_before} is {type_after}")
+
+    """
+    comparisons = []
+    detected_types = type_detect_frame(df, typeset)
+    inferred_types = type_inference_frame(df, typeset)
+    for key in detected_types.keys() & inferred_types.keys():
+        comparisons.append((key, detected_types[key], inferred_types[key]))
+    return comparisons

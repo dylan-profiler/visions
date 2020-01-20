@@ -36,6 +36,14 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     def contains_op(cls, series: pd.Series) -> bool:
         raise NotImplementedError
 
+    @classmethod
+    def extend_relations(cls, type_name, relations_func):
+        return type(
+            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+            (cls,),
+            {"get_relations": relations_func, "contains_op": cls.contains_op},
+        )
+
 
 @attr.s(frozen=True)
 class TypeRelation:
