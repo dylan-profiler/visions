@@ -5,6 +5,7 @@ Decoupling *semantic* data types from *physical* data types makes it easier to c
 Our task is to minimize the physical memory used while preserving the same semantic type.
 
 Two characteristics of the types provide us space to compress:
+
 - Semantic types restrict the possible values of a variable (the URL type is a subset of String).
 - The type system infers the exact semantic type independent of physical subtype (int64 and int32 are both Count)
 
@@ -16,6 +17,16 @@ Two characteristics of the types provide us space to compress:
    :alt: File sizes per file type (RDW Vehicles data set)
 
    File sizes per file type (RDW Vehicles data set) before compression.
+
+Plot to determine when to encode categorical values as string and when as categorical.
+
+.. figure:: ../../../../examples/compression_proof_of_concept/category_string_memory.png
+   :width: 700 px
+   :align: center
+   :alt: String and Categorical storage trade-off
+
+   pandas string and categorical memory size as function of percentage of unique values.
+
 
 .. We can define a (lossless) conversion operation for specific types.
    For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.

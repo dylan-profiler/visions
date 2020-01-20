@@ -184,13 +184,20 @@
 <h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline">¶</a></h1>
 <p>Decoupling <em>semantic</em> data types from <em>physical</em> data types makes it easier to compress variables.
 Our task is to minimize the physical memory used while preserving the same semantic type.</p>
-<p>Two characteristics of the types provide us space to compress:
-- Semantic types restrict the possible values of a variable (the URL type is a subset of String).
-- The type system infers the exact semantic type independent of physical subtype (int64 and int32 are both Count)</p>
+<p>Two characteristics of the types provide us space to compress:</p>
+<ul class="simple">
+<li><p>Semantic types restrict the possible values of a variable (the URL type is a subset of String).</p></li>
+<li><p>The type system infers the exact semantic type independent of physical subtype (int64 and int32 are both Count)</p></li>
+</ul>
 <p><a class="reference external" href="../../../examples/compression_proof_of_concept/compression.py">Proof of Concept</a></p>
 <div class="figure align-center" id="id7">
 <a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) before compression.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>Plot to determine when to encode categorical values as string and when as categorical.</p>
+<div class="figure align-center" id="id8">
+<a class="reference internal image-reference" href="../../_images/category_string_memory.png"><img alt="String and Categorical storage trade-off" src="../../_images/category_string_memory.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">pandas string and categorical memory size as function of percentage of unique values.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 <p>Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, <a class="footnote-reference brackets" href="#id5" id="id2">2</a>, <a class="footnote-reference brackets" href="#id6" id="id3">3</a>.</p>
 <dl class="footnote brackets">
