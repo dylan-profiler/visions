@@ -34,9 +34,9 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     )
 
     relations = [
-        IdentityRelation(visions_bool, visions_generic),
+        IdentityRelation(cls, visions_generic),
         InferenceRelation(
-            visions_bool,
+            cls,
             visions_string,
             relationship=lambda s: coercion_map_test(cls.string_coercions)(
                 s.str.lower()
@@ -46,13 +46,13 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
             ),
         ),
         InferenceRelation(
-            visions_bool,
+            cls,
             visions_integer,
             relationship=lambda s: s.isin({0, 1, np.nan}).all(),
             transformer=to_bool,
         ),
         InferenceRelation(
-            visions_bool,
+            cls,
             visions_object,
             relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
             transformer=to_bool,

@@ -10,6 +10,13 @@ Two characteristics of the types provide us space to compress:
 
 `Proof of Concept <../../../examples/compression_proof_of_concept/compression.py>`_
 
+.. figure:: ../../../../examples/compression_proof_of_concept/file_sizes.png
+   :width: 700 px
+   :align: center
+   :alt: File sizes per file type (RDW Vehicles data set)
+
+   File sizes per file type (RDW Vehicles data set) before compression.
+
 .. We can define a (lossless) conversion operation for specific types.
    For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.
    casting int64 to int32, text/categoricals may be encoded as string or dict, depending it cardinality,

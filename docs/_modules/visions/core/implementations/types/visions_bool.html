@@ -213,9 +213,9 @@
     <span class="p">)</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_bool</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_string</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">coercion_map_test</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">string_coercions</span><span class="p">)(</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -225,13 +225,13 @@
             <span class="p">),</span>
         <span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_integer</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_object</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">bool</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
