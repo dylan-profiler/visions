@@ -10,17 +10,17 @@ def to_datetime(series: pd.Series) -> pd.Series:
 
 
 # TODO: do only convert obvious dates (20191003000000)
-def integer_to_datetime():
+def integer_to_datetime(cls):
     return TypeRelation(
         inferential=True,
         relationship=test_utils.coercion_test(lambda s: to_datetime(s.astype(str))),
         transformer=to_datetime,
         type=visions_datetime,
-        related_type=visions_integer,
+        related_type=cls,
     )
 
 
-def integer_to_datetime_year_month_day():
+def integer_to_datetime_year_month_day(cls):
     return TypeRelation(
         inferential=True,
         relationship=test_utils.coercion_test(
@@ -28,5 +28,5 @@ def integer_to_datetime_year_month_day():
         ),
         transformer=to_datetime,
         type=visions_datetime,
-        related_type=visions_integer,
+        related_type=cls,
     )

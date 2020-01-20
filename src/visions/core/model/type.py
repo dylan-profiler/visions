@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABCMeta
+from functools import partial
 from typing import Sequence, Type, Callable
 
 import attr

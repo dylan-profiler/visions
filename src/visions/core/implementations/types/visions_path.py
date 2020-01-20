@@ -23,16 +23,13 @@ def to_path(series: pd.Series) -> pd.Series:
         return s
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_object, visions_string
 
     relations = [
-        IdentityRelation(visions_path, visions_object),
+        IdentityRelation(cls, visions_object),
         InferenceRelation(
-            visions_path,
-            visions_string,
-            relationship=string_is_path,
-            transformer=to_path,
+            cls, visions_string, relationship=string_is_path, transformer=to_path
         ),
     ]
     return relations
@@ -49,7 +46,7 @@ class visions_path(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

@@ -25,7 +25,7 @@ def float_is_int(series: pd.Series) -> bool:
     return check_equality(series.dropna() if series.hasnans else series)
 
 
-def _get_relations() -> List[TypeRelation]:
+def _get_relations(cls) -> List[TypeRelation]:
     from visions.core.implementations.types import (
         visions_string,
         visions_generic,
@@ -33,7 +33,7 @@ def _get_relations() -> List[TypeRelation]:
     )
 
     relations = [
-        IdentityRelation(visions_integer, visions_generic),
+        IdentityRelation(cls, visions_generic),
         InferenceRelation(
             visions_integer,
             visions_float,
@@ -41,7 +41,7 @@ def _get_relations() -> List[TypeRelation]:
             transformer=to_int,
         ),
         InferenceRelation(
-            visions_integer,
+            cls,
             visions_string,
             relationship=test_utils.coercion_test(to_int),
             transformer=to_int,
@@ -61,7 +61,7 @@ class visions_integer(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

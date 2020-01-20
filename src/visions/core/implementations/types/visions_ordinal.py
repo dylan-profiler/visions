@@ -13,10 +13,10 @@ def to_ordinal(series: pd.Series) -> pd.Series:
     )
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_categorical
 
-    relations = [IdentityRelation(visions_ordinal, visions_categorical)]
+    relations = [IdentityRelation(cls, visions_categorical)]
     return relations
 
 
@@ -31,7 +31,7 @@ class visions_ordinal(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

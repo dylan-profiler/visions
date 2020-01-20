@@ -434,9 +434,15 @@ class VisionsTypeset(object):
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types | other_types)
 
+    def __iadd__(self, other):
+        return self.__add__(other)
+
     def __sub__(self, other):
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types - other_types)
+
+    def __isub__(self, other):
+        return self.__sub__(other)
 
     def __repr__(self):
         return self.__class__.__name__

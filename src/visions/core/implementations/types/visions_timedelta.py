@@ -7,10 +7,10 @@ from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_generic
 
-    relations = [IdentityRelation(visions_timedelta, visions_generic)]
+    relations = [IdentityRelation(cls, visions_generic)]
     return relations
 
 
@@ -25,7 +25,7 @@ class visions_timedelta(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

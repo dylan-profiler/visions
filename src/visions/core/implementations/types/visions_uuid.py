@@ -19,13 +19,13 @@ def to_uuid(series: pd.Series) -> pd.Series:
     return series.apply(lambda e: uuid.UUID(e))
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_string, visions_object
 
     relations = [
-        IdentityRelation(visions_uuid, visions_object),
+        IdentityRelation(cls, visions_object),
         InferenceRelation(
-            visions_uuid, visions_string, relationship=test_uuid, transformer=to_uuid
+            cls, visions_string, relationship=test_uuid, transformer=to_uuid
         ),
     ]
     return relations
@@ -52,7 +52,7 @@ class visions_uuid(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

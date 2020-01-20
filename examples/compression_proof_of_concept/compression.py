@@ -1,11 +1,8 @@
 from pathlib import Path
 
 import pandas as pd
-import numpy as np
-from pandas import CategoricalDtype
 from pandas_profiling import ProfileReport
 
-from visions.core.implementations import visions_complete_set
 from visions.core.functional import (
     type_cast_frame,
     type_inference_frame,
@@ -39,8 +36,6 @@ for column, type_before, type_after in compare_detect_inference_frame(df, typese
     else:
         fill = "=="
     print(f"{column: <50} {str(type_before): <16} {fill} {str(type_after): <16} ")
-
-exit()
 
 # Type cast
 cast_df = type_cast_frame(df, typeset)

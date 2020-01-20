@@ -12,13 +12,13 @@ def to_ip(series: pd.Series) -> pd.Series:
     return series.apply(ip_address)
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_object, visions_string
 
     relations = [
-        IdentityRelation(visions_ip, visions_object),
+        IdentityRelation(cls, visions_object),
         InferenceRelation(
-            visions_ip,
+            cls,
             visions_string,
             relationship=test_utils.coercion_test(to_ip),
             transformer=to_ip,
@@ -39,7 +39,7 @@ class visions_ip(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

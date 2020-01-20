@@ -2,7 +2,7 @@ from visions import visions_string, visions_categorical
 from visions.core.model import TypeRelation
 
 
-def string_to_categorical_distinct_count() -> TypeRelation:
+def string_to_categorical_distinct_count(cls) -> TypeRelation:
     """Convert string to categorical when it has fewer than 50% unique values.
 
     Returns:
@@ -14,5 +14,5 @@ def string_to_categorical_distinct_count() -> TypeRelation:
         relationship=lambda s: s.nunique() / len(s) < 0.5,
         transformer=lambda s: s.astype("category"),
         related_type=visions_string,
-        type=visions_categorical,
+        type=cls,
     )
