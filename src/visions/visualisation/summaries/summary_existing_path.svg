@@ -15,7 +15,7 @@
 <text text-anchor="middle" x="383.5" y="-364.3" font-family="Times New Roman,serif" font-size="14.00">visions_generic</text>
 </g>
 <!-- visions_object -->
-<g id="node2" class="node"><title>visions_object</title>
+<g id="node4" class="node"><title>visions_object</title>
 <polygon fill="none" stroke="red" points="355.5,-313 257.5,-313 257.5,-277 355.5,-277 355.5,-313"/>
 <text text-anchor="middle" x="306.5" y="-291.3" font-family="Times New Roman,serif" font-size="14.00">visions_object</text>
 </g>
@@ -38,29 +38,26 @@
 <text text-anchor="middle" x="468" y="-225.8" font-family="Times New Roman,serif" font-size="14.00">base_summary</text>
 <text text-anchor="middle" x="468" y="-210.8" font-family="Times New Roman,serif" font-size="14.00">missing_summary</text>
 </g>
+<!-- visions_existing_path -->
+<g id="node2" class="node"><title>visions_existing_path</title>
+<polygon fill="none" stroke="red" points="137,-153 0,-153 0,-117 137,-117 137,-153"/>
+<text text-anchor="middle" x="68.5" y="-131.3" font-family="Times New Roman,serif" font-size="14.00">visions_existing_path</text>
+</g>
+<!-- visions_existing_path&#45;&gt;summary -->
+<g id="edge4" class="edge"><title>visions_existing_path&#45;&gt;summary</title>
+<path fill="none" stroke="black" d="M56.3501,-116.74C45.5417,-99.0671 33.5658,-71.7443 48.5,-54 68.2135,-30.5771 152.651,-22.8291 205.922,-20.2664"/>
+<polygon fill="black" stroke="black" points="206.295,-23.7535 216.132,-19.8199 205.989,-16.7602 206.295,-23.7535"/>
+<text text-anchor="middle" x="115" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">existing_path_summary</text>
+<text text-anchor="middle" x="115" y="-72.8" font-family="Times New Roman,serif" font-size="14.00">path_summary</text>
+<text text-anchor="middle" x="115" y="-57.8" font-family="Times New Roman,serif" font-size="14.00">text_summary</text>
+</g>
 <!-- visions_path -->
 <g id="node3" class="node"><title>visions_path</title>
 <polygon fill="none" stroke="red" points="239,-240 152,-240 152,-204 239,-204 239,-240"/>
 <text text-anchor="middle" x="195.5" y="-218.3" font-family="Times New Roman,serif" font-size="14.00">visions_path</text>
 </g>
-<!-- visions_object&#45;&gt;visions_path -->
-<g id="edge2" class="edge"><title>visions_object&#45;&gt;visions_path</title>
-<path fill="none" stroke="black" d="M279.913,-276.994C265.193,-267.579 246.709,-255.755 230.793,-245.575"/>
-<polygon fill="black" stroke="black" points="232.565,-242.554 222.255,-240.114 228.793,-248.45 232.565,-242.554"/>
-</g>
-<!-- visions_object&#45;&gt;summary -->
-<g id="edge5" class="edge"><title>visions_object&#45;&gt;summary</title>
-<path fill="none" stroke="black" d="M306.975,-276.868C307.46,-244.924 306.641,-174.311 292.5,-117 286.241,-91.6327 274.115,-64.4457 264.495,-45.1578"/>
-<polygon fill="black" stroke="black" points="267.538,-43.4205 259.875,-36.1049 261.304,-46.603 267.538,-43.4205"/>
-<text text-anchor="middle" x="352.5" y="-174.8" font-family="Times New Roman,serif" font-size="14.00">unique_summary</text>
-</g>
-<!-- visions_existing_path -->
-<g id="node4" class="node"><title>visions_existing_path</title>
-<polygon fill="none" stroke="red" points="137,-153 0,-153 0,-117 137,-117 137,-153"/>
-<text text-anchor="middle" x="68.5" y="-131.3" font-family="Times New Roman,serif" font-size="14.00">visions_existing_path</text>
-</g>
 <!-- visions_path&#45;&gt;visions_existing_path -->
-<g id="edge3" class="edge"><title>visions_path&#45;&gt;visions_existing_path</title>
+<g id="edge2" class="edge"><title>visions_path&#45;&gt;visions_existing_path</title>
 <path fill="none" stroke="black" d="M169.8,-203.799C150.434,-190.838 123.693,-172.941 102.549,-158.789"/>
 <polygon fill="black" stroke="black" points="104.419,-155.829 94.1621,-153.175 100.526,-161.646 104.419,-155.829"/>
 </g>
@@ -71,13 +68,16 @@
 <text text-anchor="middle" x="251" y="-138.8" font-family="Times New Roman,serif" font-size="14.00">path_summary</text>
 <text text-anchor="middle" x="251" y="-123.8" font-family="Times New Roman,serif" font-size="14.00">text_summary</text>
 </g>
-<!-- visions_existing_path&#45;&gt;summary -->
-<g id="edge4" class="edge"><title>visions_existing_path&#45;&gt;summary</title>
-<path fill="none" stroke="black" d="M56.3501,-116.74C45.5417,-99.0671 33.5658,-71.7443 48.5,-54 68.2135,-30.5771 152.651,-22.8291 205.922,-20.2664"/>
-<polygon fill="black" stroke="black" points="206.295,-23.7535 216.132,-19.8199 205.989,-16.7602 206.295,-23.7535"/>
-<text text-anchor="middle" x="115" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">existing_path_summary</text>
-<text text-anchor="middle" x="115" y="-72.8" font-family="Times New Roman,serif" font-size="14.00">path_summary</text>
-<text text-anchor="middle" x="115" y="-57.8" font-family="Times New Roman,serif" font-size="14.00">text_summary</text>
+<!-- visions_object&#45;&gt;visions_path -->
+<g id="edge3" class="edge"><title>visions_object&#45;&gt;visions_path</title>
+<path fill="none" stroke="black" d="M279.913,-276.994C265.193,-267.579 246.709,-255.755 230.793,-245.575"/>
+<polygon fill="black" stroke="black" points="232.565,-242.554 222.255,-240.114 228.793,-248.45 232.565,-242.554"/>
+</g>
+<!-- visions_object&#45;&gt;summary -->
+<g id="edge5" class="edge"><title>visions_object&#45;&gt;summary</title>
+<path fill="none" stroke="black" d="M306.975,-276.868C307.46,-244.924 306.641,-174.311 292.5,-117 286.241,-91.6327 274.115,-64.4457 264.495,-45.1578"/>
+<polygon fill="black" stroke="black" points="267.538,-43.4205 259.875,-36.1049 261.304,-46.603 267.538,-43.4205"/>
+<text text-anchor="middle" x="352.5" y="-174.8" font-family="Times New Roman,serif" font-size="14.00">unique_summary</text>
 </g>
 </g>
 </svg>
