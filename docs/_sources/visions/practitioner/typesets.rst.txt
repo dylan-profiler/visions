@@ -77,7 +77,7 @@ Type casting is the process of converting a series or dataframe from one type to
   >>> type_cast_series(test_series, typeset)
   pd.Series([1, 2, 3])
 
-.. seealso:: This returns a copy of your data object, please read the :doc:`engineering view <../thinker/engineering_view>` document for more information.
+.. seealso:: This returns a copy of your data object, please read the :doc:`engineering view <../background/engineering_view>` document for more information.
 
 
 Details

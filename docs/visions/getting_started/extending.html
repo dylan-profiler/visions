@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Extending &mdash; visions 0.2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Applications" href="../applications/applications.html" />
+    <link rel="prev" title="Summaries example" href="examples/summaries.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-type-extend-type">Custom Type (extend type)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../applications/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/machine_learning.html">Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Extending</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/visions/getting_started/extending.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extending">
+<h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="custom-type-from-scratch">
+<h2>Custom Type (from scratch)<a class="headerlink" href="#custom-type-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>Each <cite>visions</cite> type is class extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
+<ol class="arabic simple">
+<li><p><cite>get_relations</cite>. Returns relations directed towards other types.</p></li>
+<li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
+</ol>
+<p>To get some intuition, we can have a look at the source code of any type, in this case <cite>visions_ordinal</cite>.</p>
+<div class="literal-block-wrapper docutils container" id="visions-ordinal">
+<div class="code-block-caption"><span class="caption-text">visions_ordinal.py</span><a class="headerlink" href="#visions-ordinal" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.models</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
+
+<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="n">visions_categorical</span>
+
+    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_ordinal</span><span class="p">,</span> <span class="n">visions_categorical</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">relations</span>
+
+<span class="k">class</span> <span class="nc">visions_ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.core.model.type.VisionsBaseType`.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([1, 2, 3, 1, 1], dtype=&#39;category&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; x in visions_ordinal</span>
+<span class="sd">        True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">ordered</span>
+</pre></div>
+</div>
+</div>
+<p>Alternatively you can choose to base a type on an existing type.
+This is convenient when you only change a single relation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your custom type might be helpful for others, in which case you can choose to contribute it to <cite>visions</cite>.
+Read more on <a class="reference internal" href="../contributing/type.html"><span class="doc">how to contribute</span></a>.</p>
+</div>
+</div>
+<div class="section" id="custom-type-extend-type">
+<h2>Custom Type (extend type)<a class="headerlink" href="#custom-type-extend-type" title="Permalink to this headline">¶</a></h2>
+<p>Another option is to create a new type based on an existing type.
+This is useful for small changes, such as adding a single relation.</p>
+<p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.core.implementations.types.visions_integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_integer</span>
+ <span class="kn">from</span> <span class="nn">visions.lib.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
+
+ <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
+ <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">visions_integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
+
+ <span class="k">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
+ <span class="c1"># Prints: visions_integer[with_datetime]</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>While developing new type relations, you can use this helper function to debug:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
+     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{column} was {type_before} is {type_after}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="custom-typesets-from-scratch">
+<h2>Custom Typesets (from scratch)<a class="headerlink" href="#custom-typesets-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to use custom typesets.
+The example below creates a custom typeset that only supports time-related types.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">visions_custom_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
+
+<span class="sd">    Includes support for the following types:</span>
+
+<span class="sd">    - visions_datetime</span>
+<span class="sd">    - visions_timedelta</span>
+<span class="sd">    - visions_date</span>
+<span class="sd">    - visions_time</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">visions_datetime</span><span class="p">,</span>
+            <span class="n">visions_timedelta</span><span class="p">,</span>
+            <span class="n">visions_date</span><span class="p">,</span>
+            <span class="n">visions_time</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="custom-typesets-extend-typeset">
+<h2>Custom typesets (extend typeset)<a class="headerlink" href="#custom-typesets-extend-typeset" title="Permalink to this headline">¶</a></h2>
+<p>Another way of creating a typeset is by basing it on another typeset</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
+</pre></div>
+</div>
+</div>
+<p>When performing multiple additions and/or subtractions, the above will become a long list.
+Just like other addition and subtraction in Python, you can split the operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_bool</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_bool_nl</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_integer</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_integer_ddt</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_categorical</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_categorical_str</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Engineer view on constraint checking</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../applications/applications.html" class="btn btn-neutral float-right" title="Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/summaries.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

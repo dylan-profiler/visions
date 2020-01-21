@@ -1,0 +1,40 @@
+Data Compression
+================
+
+Decoupling *semantic* data types from *physical* data types makes it easier to compress variables.
+Our task is to minimize the physical memory used while preserving the same semantic type.
+
+Two characteristics of the types provide us space to compress:
+
+- Semantic types restrict the possible values of a variable (the URL type is a subset of String).
+- The type system infers the exact semantic type independent of physical subtype (int64 and int32 are both Count)
+
+`Proof of Concept <../../../examples/compression_proof_of_concept/compression.py>`_
+
+.. figure:: ../../../../examples/compression_proof_of_concept/file_sizes.png
+   :width: 700 px
+   :align: center
+   :alt: File sizes per file type (RDW Vehicles data set)
+
+   File sizes per file type (RDW Vehicles data set) before compression.
+
+Plot to determine when to encode categorical values as string and when as categorical.
+
+.. figure:: ../../../../examples/compression_proof_of_concept/category_string_memory.png
+   :width: 700 px
+   :align: center
+   :alt: String and Categorical storage trade-off
+
+   pandas string and categorical memory size as function of percentage of unique values.
+
+
+.. We can define a (lossless) conversion operation for specific types.
+   For example, we could convert a 64-bit integer to a 8-bit integer if it contains only pixel values.
+   casting int64 to int32, text/categoricals may be encoded as string or dict, depending it cardinality,
+   dates can be encoded as numbers,
+
+Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) [1]_, [2]_, [3]_.
+
+.. [1] Tom Augspurger, Extension Arrays for Pandas, 12 February 2018, https://tomaugspurger.github.io/pandas-extension-arrays.html
+.. [2] Tom Augspurger, CyberPandas: Extending Pandas with Richer Types, 16 May 2018, https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/
+.. [3] Tom Augspurger, Cyberpandas package on Github, https://github.com/ContinuumIO/cyberpandas

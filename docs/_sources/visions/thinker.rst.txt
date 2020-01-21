@@ -16,9 +16,9 @@ Note that these views are not mutually exclusive or exhaustive.
     :maxdepth: 1
     :hidden:
 
-    thinker/goals
-    thinker/data_type_view
-    thinker/graph_view
-    thinker/nested_set_view
-    thinker/application_view
-    thinker/engineering_view
+    background/goals
+    background/data_type_view
+    background/graph_view
+    background/nested_set_view
+    background/application_view
+    background/engineering_view

@@ -8,10 +8,10 @@ from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_existing_path
 
-    relations = [IdentityRelation(visions_image_path, visions_existing_path)]
+    relations = [IdentityRelation(cls, visions_existing_path)]
     return relations
 
 
@@ -26,7 +26,7 @@ class visions_image_path(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

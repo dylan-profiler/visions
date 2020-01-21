@@ -19,7 +19,7 @@ def to_float(series: pd.Series) -> bool:
     return series.astype(float)
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import (
         visions_generic,
         visions_string,
@@ -27,15 +27,12 @@ def _get_relations() -> Sequence[TypeRelation]:
     )
 
     relations = [
-        IdentityRelation(visions_float, visions_generic),
+        IdentityRelation(cls, visions_generic),
         InferenceRelation(
-            visions_float,
-            visions_string,
-            relationship=test_string_is_float,
-            transformer=to_float,
+            cls, visions_string, relationship=test_string_is_float, transformer=to_float
         ),
         InferenceRelation(
-            visions_float,
+            cls,
             visions_complex,
             relationship=lambda s: all(np.imag(s.values) == 0),
             transformer=suppress_warnings(to_float),
@@ -55,7 +52,7 @@ class visions_float(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

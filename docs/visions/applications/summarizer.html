@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Summarization &mdash; visions 0.2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Data Compression" href="compression.html" />
+    <link rel="prev" title="Applications" href="applications.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Summarization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#descriptive-statistics">Descriptive statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#integer">Integer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string">String</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#existing-path">Existing Path</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#typeset-summary-graphs">Typeset summary graphs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#complete-typeset">Complete Typeset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="machine_learning.html">Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Data Summarization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/visions/applications/summarizer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-summarization">
+<h1>Data Summarization<a class="headerlink" href="#data-summarization" title="Permalink to this headline">¶</a></h1>
+<p>Data summarization and exploratory data analysis: couple specific analysis to specific types of data. [&#64;pandasprofiling]</p>
+<p>We can also get a summary unique to the visions_type of the data</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">datetime_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;NaT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">datetime_series</span><span class="p">,</span> <span class="n">visions_datetime</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span>
+<span class="go">{&#39;dtype&#39;: dtype(&#39;&lt;M8[ns]&#39;),</span>
+<span class="go"> &#39;frequencies&#39;: {Timestamp(&#39;2010-01-01 00:00:00&#39;): 1,</span>
+<span class="go">                 Timestamp(&#39;2010-08-02 00:00:00&#39;): 1,</span>
+<span class="go">                 Timestamp(&#39;2011-02-01 00:00:00&#39;): 1},</span>
+<span class="go"> &#39;max&#39;: Timestamp(&#39;2011-02-01 00:00:00&#39;),</span>
+<span class="go"> &#39;memory_size&#39;: 160,</span>
+<span class="go"> &#39;min&#39;: Timestamp(&#39;2010-01-01 00:00:00&#39;),</span>
+<span class="go"> &#39;n_records&#39;: 4,</span>
+<span class="go"> &#39;n_unique&#39;: 3,</span>
+<span class="go"> &#39;na_count&#39;: 1,</span>
+<span class="go"> &#39;range&#39;: Timedelta(&#39;396 days 00:00:00&#39;),</span>
+<span class="go"> &#39;types&#39;: {&#39;NaTType&#39;: 1, &#39;Timestamp&#39;: 3}}</span>
+</pre></div>
+</div>
+<p>If we had instead applied a summarization operation to a categorical series we would get</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">category_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;missing&#39;</span><span class="p">]))</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">category_series</span><span class="p">,</span> <span class="n">visions_categorical</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span>
+<span class="go">{&#39;category_size&#39;: 4,</span>
+<span class="go"> &#39;dtype&#39;: CategoricalDtype(categories=[True, False, &#39;test&#39;, &#39;missing&#39;], ordered=False),</span>
+<span class="go"> &#39;frequencies&#39;: {False: 1, True: 1, &#39;missing&#39;: 0, &#39;test&#39;: 1},</span>
+<span class="go"> &#39;memory_size&#39;: 495,</span>
+<span class="go"> &#39;missing_categorical_values&#39;: True,</span>
+<span class="go"> &#39;n_records&#39;: 4,</span>
+<span class="go"> &#39;n_unique&#39;: 3,</span>
+<span class="go"> &#39;na_count&#39;: 1,</span>
+<span class="go"> &#39;ordered&#39;: False,</span>
+<span class="go"> &#39;types&#39;: {&#39;bool&#39;: 2, &#39;str&#39;: 1}}</span>
+</pre></div>
+</div>
+<div class="section" id="descriptive-statistics">
+<h2>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h2>
+<p>In descriptive statistics we are looking for coefficients that summarize our data.
+Describing numbers (for instance through the five-number summary) is completely different from describing strings.</p>
+<p>The application is designed that each type in a typeset is associated with summary functions.
+The summary of a sequence is the combination of all summary functions of the type and all its super types.
+Examples from Integer, String, ExistingPath are given below.</p>
+<div class="section" id="integer">
+<h3>Integer<a class="headerlink" href="#integer" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/summary_integer.svg"><img alt="Integer Summary Graph" src="../../_images/summary_integer.svg" width="200px" /></a>
+<p class="caption"><span class="caption-text">Integer Summary Graph</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="string">
+<h3>String<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/summary_string.svg"><img alt="String Summary Graph" src="../../_images/summary_string.svg" width="200px" /></a>
+<p class="caption"><span class="caption-text">String Summary Graph</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Notably, the <cite>text_summary</cite> obtains awesome unicode statistics from another package within this project: <a class="reference external" href="https://github.com/dylan-profiler/tangled-up-in-unicode">tangled up in unicode</a>.
+If you are working with text data, you definitely want to check it out.</p>
+</div>
+<div class="section" id="existing-path">
+<h3>Existing Path<a class="headerlink" href="#existing-path" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/summary_existing_path.svg"><img alt="Existing Path Summary Graph" src="../../_images/summary_existing_path.svg" width="300px" /></a>
+<p class="caption"><span class="caption-text">Existing Path Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="typeset-summary-graphs">
+<h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
+<p>We can visualise the summary functions for the a typeset, too.</p>
+<div class="section" id="complete-typeset">
+<h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="../../_images/summary_complete.svg"><img alt="CompleteTypeset Summary Graph" src="../../_images/summary_complete.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">CompleteTypeset Summary Graph</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../getting_started/examples/summaries.html"><span class="doc">Summaries example</span></a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because <cite>visions</cite> types are nullable by default, they all inherit the same missing value summaries (<cite>na_count</cite>).
+New visions types <span class="xref std std-doc">can be created</span> at will if you prefer to produce your own summaries or extend your analysis to other types of objects.</p>
+</div>
+<p><cite>Pandas profiling &lt;https://github.com/pandas-profiling/pandas-profiling&gt;</cite></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="compression.html" class="btn btn-neutral float-right" title="Data Compression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="applications.html" class="btn btn-neutral float-left" title="Applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

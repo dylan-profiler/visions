@@ -79,17 +79,41 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents:</span></p>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/introduction.html">Visions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Practitioner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/thinker.html">Thinker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/creator.html">Creator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/extending.html">Extending</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/machine_learning.html">Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/contributing/contributing.html">Community contributions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/goals.html">Goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/data_type_view.html">Data Type View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/engineering_view.html">Design decisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/graph_view.html">Graph view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/examples.html">Usage</a></li>
 </ul>
 
             
@@ -189,7 +213,15 @@
     <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">extend_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">relations_func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
+            <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
+            <span class="p">{</span><span class="s2">&quot;get_relations&quot;</span><span class="p">:</span> <span class="n">relations_func</span><span class="p">,</span> <span class="s2">&quot;contains_op&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">},</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TypeRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.TypeRelation.html#visions.core.model.TypeRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
