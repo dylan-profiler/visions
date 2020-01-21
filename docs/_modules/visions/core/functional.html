@@ -349,11 +349,11 @@
             <span class="n">change_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fill</span> <span class="o">=</span> <span class="s2">&quot;==&quot;</span>
-        <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;{column: &lt;</span><span class="si">{max_column_length}</span><span class="s2">} {str(type_before): &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="si">{fill}</span><span class="s2"> {str(type_after): &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;{column: &lt;</span><span class="si">{max_column_length}</span><span class="s2">} {type_before: &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="si">{fill}</span><span class="s2"> {type_after: &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span>
             <span class="n">max_column_length</span><span class="o">=</span><span class="n">max_column_length</span><span class="p">,</span>
-            <span class="n">type_before</span><span class="o">=</span><span class="n">type_before</span><span class="p">,</span>
-            <span class="n">type_after</span><span class="o">=</span><span class="n">type_after</span><span class="p">,</span>
+            <span class="n">type_before</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">type_before</span><span class="p">),</span>
+            <span class="n">type_after</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">type_after</span><span class="p">),</span>
             <span class="n">max_type_length</span><span class="o">=</span><span class="n">max_type_length</span><span class="p">,</span>
             <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
         <span class="p">)</span>

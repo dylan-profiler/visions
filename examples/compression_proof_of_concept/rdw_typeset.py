@@ -61,7 +61,6 @@ def to_int_smallest(series: pd.Series) -> pd.Series:
     return series.astype(type_name)
 
 
-
 @classmethod
 def compose_relations_int(cls):
     # Overwrite compression

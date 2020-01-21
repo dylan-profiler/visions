@@ -66,27 +66,41 @@ def benchmark_sizes(file_name, ratio=False):
 
     sizes_df = pd.DataFrame(sizes)
 
-    # ax = sns.lineplot(x="n", y="size", hue="type", data=sizes_df)
-    # ax.set(xscale="log", yscale="log")
-    # plt.ylabel("size (bytes)")
-    # plt.xlabel("number of rows")
-    # plt.title(f"File sizes for stored rows | RDW Vehicles dataset")
-    # plt.show()
-    # fig = ax.get_figure()
-    # fig.savefig(f"file_sizes.png")
-
     if ratio:
         ax = sns.barplot(x="n", y="size", hue="type", data=sizes_df)
-        plt.title("Relative DataFrame sizes | RDW Vehicles dataset")
-        plt.ylabel("size ratio")
-        plt.xlabel("number of rows")
+        plt.title("Relative DataFrame Memory Usage | RDW Vehicles dataset")
+        plt.ylabel("Memory Usage Ratio")
+        plt.xlabel("Number of Rows")
         plt.show()
         fig = ax.get_figure()
         fig.savefig(f"sizes_bar.png")
+    else:
+        ax = sns.lineplot(
+            x="n",
+            y="size",
+            hue="type",
+            data=sizes_df[sizes_df.type == "DataFrame in memory"],
+        )
+        ax.set(xscale="log", yscale="log")
+        plt.ylabel("Memory Used (bytes)")
+        plt.xlabel("Number of Rows")
+        plt.title(f"Memory Usage | RDW Vehicles dataset")
+        plt.show()
+        fig = ax.get_figure()
+        fig.savefig(f"file_sizes.png")
+
+        ax = sns.lineplot(x="n", y="size", hue="type", data=sizes_df)
+        ax.set(xscale="log", yscale="log")
+        plt.ylabel("Memory Used (bytes)")
+        plt.xlabel("Number of Rows")
+        plt.title(f"Memory Usage | RDW Vehicles dataset")
+        plt.show()
+        fig = ax.get_figure()
+        fig.savefig(f"file_sizes_compare.png")
 
 
 if __name__ == "__main__":
     file_name = Path(
         r"C:\Users\Cees Closed\Documents\code\say-hello\data\rdw\gekentekende_voertuigen.csv"
     )
-    benchmark_sizes(file_name, ratio=True)
+    benchmark_sizes(file_name, ratio=False)

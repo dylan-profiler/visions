@@ -214,10 +214,7 @@
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_integer</span><span class="p">,</span>
-            <span class="n">visions_float</span><span class="p">,</span>
-            <span class="n">relationship</span><span class="o">=</span><span class="n">float_is_int</span><span class="p">,</span>
-            <span class="n">transformer</span><span class="o">=</span><span class="n">to_int</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span> <span class="n">visions_float</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">float_is_int</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_int</span>
         <span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
             <span class="bp">cls</span><span class="p">,</span>
