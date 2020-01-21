@@ -51,6 +51,7 @@ Within the current abstraction, each type inherits from a base type, class inher
 
 When you think how class inheritance would be beneficial is here, is where it reduces complexity.
 TODO
+`The End Of Object Inheritance & The Beginning Of A New Modularity <https://www.youtube.com/watch?v=3MNVP9-hglc>`_
 
 .. note::
     The choice of not using OOP inheritance limits the use of build-in type hints that rely on covariance and contravariance.

@@ -1,5 +1,6 @@
 from visions import visions_string, visions_categorical
 from visions.core.model import TypeRelation
+from visions.core.model.relations import InferenceRelation
 
 
 def string_to_categorical_distinct_count(cls) -> TypeRelation:
@@ -9,8 +10,7 @@ def string_to_categorical_distinct_count(cls) -> TypeRelation:
         relation
     """
     # TODO: only when not any other string relation (either exclude others or have ordering and evaluate last)
-    return TypeRelation(
-        inferential=True,
+    return InferenceRelation(
         relationship=lambda s: s.nunique() / len(s) < 0.5,
         transformer=lambda s: s.astype("category"),
         related_type=visions_string,

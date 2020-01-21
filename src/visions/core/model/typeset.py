@@ -22,13 +22,6 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
         A directed graph of type relations for the provided nodes.
     """
 
-    def get_relations(node, nodes):
-        return (
-            relation
-            for relation in node.get_relations()
-            if relation.related_type in nodes
-        )
-
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
     relation_graph.add_nodes_from(nodes)

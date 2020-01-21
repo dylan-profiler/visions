@@ -7,6 +7,7 @@ from visions.core.implementations.types import (
     visions_generic,
     visions_object,
 )
+from visions.core.model.relations import IdentityRelation, InferenceRelation
 from visions.utils.coercion import test_utils
 
 
@@ -37,21 +38,19 @@ def register_bool_relations():
 
     sb_relation = string_bool_relation()
     relations = [
-        TypeRelation(visions_bool, visions_generic, inferential=False),
-        TypeRelation(
+        IdentityRelation(visions_bool, visions_generic),
+        InferenceRelation(
             visions_bool,
             visions_string,
             sb_relation.string_is_bool,
             sb_relation.map_string_to_bool,
-            inferential=True,
         ),
-        TypeRelation(
+        InferenceRelation(
             visions_bool,
             visions_object,
             test_utils.coercion_equality_test(
                 lambda s: pd.to_numeric(s).astype("Bool")
             ),
-            inferential=True,
         ),
     ]
     return relations

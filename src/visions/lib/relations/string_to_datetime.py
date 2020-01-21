@@ -1,7 +1,8 @@
 import pandas as pd
-from visions import visions_string
+from visions import visions_string, visions_datetime
 
 from visions.core.model import TypeRelation
+from visions.core.model.relations import InferenceRelation
 from visions.utils.coercion import test_utils
 
 
@@ -49,11 +50,11 @@ def to_datetime_year_month_day(series):
 
 
 def get_string_datetime_type_relation(func):
-    return TypeRelation(
-        inferential=True,
+    return InferenceRelation(
         relationship=test_utils.coercion_test(func),
         transformer=func,
         related_type=visions_string,
+        type=visions_datetime,
     )
 
 

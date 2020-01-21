@@ -191,13 +191,13 @@
     <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
     <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="n">visions_object</span><span class="p">,</span> <span class="n">visions_string</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_ip</span><span class="p">,</span> <span class="n">visions_object</span><span class="p">),</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions_object</span><span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_ip</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_string</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="n">to_ip</span><span class="p">),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_ip</span><span class="p">,</span>
@@ -218,7 +218,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>

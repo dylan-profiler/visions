@@ -94,7 +94,24 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="summarizer.html">Data Summarization</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Compression</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Compression</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dataset">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#baseline">Baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#type-compression">Type compression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#within-types">Within types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#between-types">Between types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verifying-the-typeset">Verifying the typeset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#type-inference-report">Type Inference Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relation-graph-plot">Relation graph plot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outlook">Outlook</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Data Discovery and Data Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Data Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="machine_learning.html">Machine Learning</a></li>
@@ -183,34 +200,174 @@
   <div class="section" id="data-compression">
 <h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline">¶</a></h1>
 <p>Decoupling <em>semantic</em> data types from <em>physical</em> data types makes it easier to compress variables.
-Our task is to minimize the physical memory used while preserving the same semantic type.</p>
+For this example we restrict ourselves to in-memory compression.
+Our task is to automatically obtain an efficient in-memory representation, to minimize the RAM used, while preserving the same semantic type.</p>
 <p>Two characteristics of the types provide us space to compress:</p>
 <ul class="simple">
 <li><p>Semantic types restrict the possible values of a variable (the URL type is a subset of String).</p></li>
 <li><p>The type system infers the exact semantic type independent of physical subtype (int64 and int32 are both Count)</p></li>
 </ul>
-<p><a class="reference external" href="../../../examples/compression_proof_of_concept/compression.py">Proof of Concept</a></p>
-<div class="figure align-center" id="id7">
-<a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) before compression.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The following example demonstrates how in-memory compression works on a real-life dataset using <cite>visions</cite>.
+The full code for the example can be found <a class="reference external" href="../../../examples/compression_proof_of_concept/">here</a>.</p>
 </div>
-<p>Plot to determine when to encode categorical values as string and when as categorical.</p>
+<div class="section" id="dataset">
+<h2>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h2>
+<p>The data is taken from the RDW (the Dutch DMV) through the <a class="reference external" href="https://github.com/dylan-profiler/say-hello">say-hello</a> package.
+It records all (registered) vehicles in the Netherlands.
+The file is provided as .csv with a file size of 7.1 GB.
+The set has 64 variables including booleans, integers, urls and dates.
+The data is messy, as we can expect from real-world data.
+There are missing values, variable types are not standardized etc.
+For a more elaborate description of the dataset, we refer the reader to it <a class="reference external" href="https://github.com/pandas-profiling/pandas-profiling">pandas-profiling</a> report which can be found: <a class="reference external" href="http://github.com/dylan-profiler/say-hello/">here</a>.</p>
+</div>
+<div class="section" id="baseline">
+<h2>Baseline<a class="headerlink" href="#baseline" title="Permalink to this headline">¶</a></h2>
+<p>Any meaningful compression of the data should have a lower RAM usage.
+To be able to compare, we measure the usage of the dataframe without any preprocessing.
+We are also interested in how the compression scales with the number of rows.</p>
 <div class="figure align-center" id="id8">
-<a class="reference internal image-reference" href="../../_images/category_string_memory.png"><img alt="String and Categorical storage trade-off" src="../../_images/category_string_memory.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">pandas string and categorical memory size as function of percentage of unique values.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
-<p>Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, <a class="footnote-reference brackets" href="#id5" id="id2">2</a>, <a class="footnote-reference brackets" href="#id6" id="id3">3</a>.</p>
+</div>
+<div class="section" id="type-compression">
+<h2>Type compression<a class="headerlink" href="#type-compression" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="within-types">
+<h3>Within types<a class="headerlink" href="#within-types" title="Permalink to this headline">¶</a></h3>
+<p>Examples: integer, categorical/string</p>
+<p>Plot to determine when to encode categorical values as string and when as categorical.</p>
+<div class="figure align-center" id="id9">
+<a class="reference internal image-reference" href="../../_images/category_string_memory.png"><img alt="String and Categorical storage trade-off" src="../../_images/category_string_memory.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">pandas string and categorical memory size as function of percentage of unique values.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="between-types">
+<h3>Between types<a class="headerlink" href="#between-types" title="Permalink to this headline">¶</a></h3>
+<p>Examples: float-&gt;int</p>
+</div>
+</div>
+<div class="section" id="verifying-the-typeset">
+<h2>Verifying the typeset<a class="headerlink" href="#verifying-the-typeset" title="Permalink to this headline">¶</a></h2>
+<p><cite>visions</cite> provides us with tools to verify whether our typeset behaves as intended.</p>
+<div class="section" id="type-inference-report">
+<h3>Type Inference Report<a class="headerlink" href="#type-inference-report" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>type_inference_report_frame</cite> reports the changes before and after type inference given a typeset.
+This report is useful for catching various errors, for example that all types are visions_generic or that string columns containing dates have not changed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_inference_report_frame</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">type_inference_report_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rdw_typeset</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Maximum</span> <span class="n">ondersteunende</span> <span class="n">snelheid</span>                        <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Cilinderinhoud</span>                                         <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Plaats</span> <span class="n">chassisnummer</span>                                   <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Typegoedkeuringsnummer</span>                                 <span class="n">visions_string</span>                 <span class="o">==</span> <span class="n">visions_string</span>
+<span class="n">Vermogen</span> <span class="n">massarijklaar</span>                                 <span class="n">visions_float</span>                  <span class="o">==</span> <span class="n">visions_float</span>
+<span class="n">Merk</span>                                                   <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Openstaande</span> <span class="n">terugroepactie</span> <span class="n">indicator</span>                   <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Afstand</span> <span class="n">hart</span> <span class="n">koppeling</span> <span class="n">tot</span> <span class="n">achterzijde</span> <span class="n">voertuig</span>        <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Handelsbenaming</span>                                        <span class="n">visions_string</span>                 <span class="o">==</span> <span class="n">visions_string</span>
+<span class="n">Inrichting</span>                                             <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">API</span> <span class="n">Gekentekende_voertuigen_voertuigklasse</span>             <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Aanhangwagen</span> <span class="n">autonoom</span> <span class="n">geremd</span>                           <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Massa</span> <span class="n">rijklaar</span>                                         <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Aantal</span> <span class="n">cilinders</span>                                       <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Eerste</span> <span class="n">kleur</span>                                           <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Datum</span> <span class="n">eerste</span> <span class="n">afgifte</span> <span class="n">Nederland</span>                         <span class="n">visions_integer</span><span class="p">[</span><span class="n">with_datetime</span><span class="p">]</span> <span class="o">!=</span> <span class="n">visions_date</span>
+<span class="n">Aantal</span> <span class="n">deuren</span>                                          <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">API</span> <span class="n">Gekentekende_voertuigen_carrosserie</span>                <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Kenteken</span>                                               <span class="n">visions_string</span>                 <span class="o">==</span> <span class="n">visions_string</span>
+<span class="n">Aantal</span> <span class="n">wielen</span>                                          <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Taxi</span> <span class="n">indicator</span>                                         <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Europese</span> <span class="n">voertuigcategorie</span> <span class="n">toevoeging</span>                  <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Massa</span> <span class="n">ledig</span> <span class="n">voertuig</span>                                   <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Maximale</span> <span class="n">constructiesnelheid</span> <span class="p">(</span><span class="n">brom</span><span class="o">/</span><span class="n">snorfiets</span><span class="p">)</span>          <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Lengte</span>                                                 <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Type</span>                                                   <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Maximum</span> <span class="n">massa</span> <span class="n">samenstelling</span>                            <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Toegestane</span> <span class="n">maximum</span> <span class="n">massa</span> <span class="n">voertuig</span>                      <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Voertuigsoort</span>                                          <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">WAM</span> <span class="n">verzekerd</span>                                          <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Catalogusprijs</span>                                         <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">API</span> <span class="n">Gekentekende_voertuigen_brandstof</span>                  <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Maximum</span> <span class="n">trekken</span> <span class="n">massa</span> <span class="n">geremd</span>                           <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Aantal</span> <span class="n">rolstoelplaatsen</span>                                <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_bool</span><span class="p">[</span><span class="n">nl</span><span class="p">]</span>
+<span class="n">Europese</span> <span class="n">voertuigcategorie</span>                             <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Type</span> <span class="n">gasinstallatie</span>                                    <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Aantal</span> <span class="n">zitplaatsen</span>                                     <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Aantal</span> <span class="n">staanplaatsen</span>                                   <span class="n">visions_float</span>                  <span class="o">==</span> <span class="n">visions_float</span>
+<span class="n">Breedte</span>                                                <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">API</span> <span class="n">Gekentekende_voertuigen_assen</span>                      <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Datum</span> <span class="n">eerste</span> <span class="n">toelating</span>                                 <span class="n">visions_integer</span><span class="p">[</span><span class="n">with_datetime</span><span class="p">]</span> <span class="o">!=</span> <span class="n">visions_date</span>
+<span class="n">Datum</span> <span class="n">tenaamstelling</span>                                   <span class="n">visions_integer</span><span class="p">[</span><span class="n">with_datetime</span><span class="p">]</span> <span class="o">!=</span> <span class="n">visions_date</span>
+<span class="n">Oplegger</span> <span class="n">geremd</span>                                        <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Bruto</span> <span class="n">BPM</span>                                              <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Vervaldatum</span> <span class="n">tachograaf</span>                                 <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Afwijkende</span> <span class="n">maximum</span> <span class="n">snelheid</span>                            <span class="n">visions_float</span>                  <span class="o">==</span> <span class="n">visions_float</span>
+<span class="n">Uitvoering</span>                                             <span class="n">visions_string</span>                 <span class="o">==</span> <span class="n">visions_string</span>
+<span class="n">Europese</span> <span class="n">uitvoeringcategorie</span> <span class="n">toevoeging</span>                <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Export</span> <span class="n">indicator</span>                                       <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Variant</span>                                                <span class="n">visions_string</span>                 <span class="o">==</span> <span class="n">visions_string</span>
+<span class="n">Aanhangwagen</span> <span class="n">middenas</span> <span class="n">geremd</span>                           <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Vervaldatum</span> <span class="n">APK</span>                                        <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Wielbasis</span>                                              <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Wacht</span> <span class="n">op</span> <span class="n">keuren</span>                                        <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Vermogen</span> <span class="p">(</span><span class="n">brom</span><span class="o">/</span><span class="n">snorfiets</span><span class="p">)</span>                              <span class="n">visions_float</span>                  <span class="o">==</span> <span class="n">visions_float</span>
+<span class="n">API</span> <span class="n">Gekentekende_voertuigen_carrosserie_specifiek</span>      <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Zuinigheidslabel</span>                                       <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Technische</span> <span class="nb">max</span><span class="o">.</span> <span class="n">massa</span> <span class="n">voertuig</span>                         <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Volgnummer</span> <span class="n">wijziging</span> <span class="n">EU</span> <span class="n">typegoedkeuring</span>                <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Maximum</span> <span class="n">massa</span> <span class="n">trekken</span> <span class="n">ongeremd</span>                         <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Laadvermogen</span>                                           <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">Tweede</span> <span class="n">kleur</span>                                           <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Retrofit</span> <span class="n">roetfilter</span>                                    <span class="n">visions_string</span>                 <span class="o">!=</span> <span class="n">visions_categorical</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="n">Afstand</span> <span class="n">voorzijde</span> <span class="n">voertuig</span> <span class="n">tot</span> <span class="n">hart</span> <span class="n">koppeling</span>          <span class="n">visions_float</span>                  <span class="o">!=</span> <span class="n">visions_integer</span>
+<span class="n">In</span> <span class="n">total</span> <span class="mi">55</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">64</span> <span class="n">types</span> <span class="n">were</span> <span class="n">changed</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="relation-graph-plot">
+<h3>Relation graph plot<a class="headerlink" href="#relation-graph-plot" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rdw_typeset</span><span class="o">.</span><span class="n">output_graph</span><span class="p">(</span><span class="s2">&quot;rdw_typeset.svg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/rdw_typeset.svg"><img alt="RDW Typeset Relations" src="../../_images/rdw_typeset.svg" width="700px" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id10">
+<a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id11">
+<a class="reference internal image-reference" href="../../_images/sizes_bar.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/sizes_bar.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id12">
+<a class="reference internal image-reference" href="../../_images/file_sizes_uncompressed.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes_uncompressed.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<p>Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) <a class="footnote-reference brackets" href="#id5" id="id2">1</a>, <a class="footnote-reference brackets" href="#id6" id="id3">2</a>, <a class="footnote-reference brackets" href="#id7" id="id4">3</a>.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>Tom Augspurger, Extension Arrays for Pandas, 12 February 2018, <a class="reference external" href="https://tomaugspurger.github.io/pandas-extension-arrays.html">https://tomaugspurger.github.io/pandas-extension-arrays.html</a></p>
 </dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
 <dd><p>Tom Augspurger, CyberPandas: Extending Pandas with Richer Types, 16 May 2018, <a class="reference external" href="https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/">https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
 <dd><p>Tom Augspurger, Cyberpandas package on Github, <a class="reference external" href="https://github.com/ContinuumIO/cyberpandas">https://github.com/ContinuumIO/cyberpandas</a></p>
 </dd>
 </dl>
+</div>
 </div>
 
 

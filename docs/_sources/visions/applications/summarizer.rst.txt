@@ -115,4 +115,4 @@ Complete Typeset
 .. note:: Because `visions` types are nullable by default, they all inherit the same missing value summaries (`na_count`).
    New visions types :doc:`can be created <../creator/extending>` at will if you prefer to produce your own summaries or extend your analysis to other types of objects.
 
-`Pandas profiling <https://github.com/pandas-profiling/pandas-profiling>`
+`Pandas profiling <https://github.com/pandas-profiling/pandas-profiling>`_

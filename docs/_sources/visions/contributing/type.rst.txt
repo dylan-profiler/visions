@@ -1,6 +1,9 @@
 Contributions new types to visions
 **********************************
-Your custom type might be helpful for others, in which case you can choose to contribute it to `visions`.
+`visions` is a continuously evolving project with the aim of expanding it's set of useful
+semantic types. To that end, if you find a type construction useful, please feel free to contribute
+it back here.
+
 Below you will find a checklist with instructions on which files to add or modify.
 
 Type implementation:

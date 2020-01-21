@@ -136,6 +136,8 @@ def compare_detect_inference_frame(
         >>> for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
         >>>    print(f"{column} was {type_before} is {type_after}")
 
+    See Also:
+        `type_inference_report_frame`
     """
     comparisons = []
     detected_types = type_detect_frame(df, typeset)
@@ -143,3 +145,31 @@ def compare_detect_inference_frame(
     for key in detected_types.keys() & inferred_types.keys():
         comparisons.append((key, detected_types[key], inferred_types[key]))
     return comparisons
+
+
+def type_inference_report_frame(df, typeset) -> str:
+    """Print formatted report of the output of `compare_detect_inference_frame`.
+
+    Args:
+        df: the DataFrame to detect types on
+        typeset: the Typeset that provides the type context
+
+    Returns:
+        Text-based comparative type inference report
+    """
+    padding = 5
+    max_column_length = max([len(column) for column in df.columns]) + padding
+    max_type_length = 30
+
+    report = ""
+    change_count = 0
+    for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
+        changed = type_before != type_after
+        if changed:
+            fill = "!="
+            change_count += 1
+        else:
+            fill = "=="
+        report += f"{column: <{max_column_length}} {str(type_before): <{max_type_length}} {fill} {str(type_after): <{max_type_length}} \n"
+    report += f"In total {change_count} out of {len(df.columns)} types were changed.\n"
+    return report

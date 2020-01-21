@@ -82,8 +82,3 @@ class TypeRelation:
 
     def transform(self, series: pd.Series) -> pd.Series:
         return self.transformer(series)
-
-    def __repr__(self) -> str:
-        return "TypeRelation({related_type} -> {own_type})".format(
-            related_type=self.related_type, own_type=self.type
-        )

@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Extending</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#custom-type-extend-type">Custom Type (extend type)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-types-extend-a-type">Custom Types (extend a type)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
 </ul>
@@ -190,12 +190,12 @@
 <h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="custom-type-from-scratch">
 <h2>Custom Type (from scratch)<a class="headerlink" href="#custom-type-from-scratch" title="Permalink to this headline">¶</a></h2>
-<p>Each <cite>visions</cite> type is class extending the basic <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
+<p>Each <cite>visions</cite> type is a subclass of  <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
-<li><p><cite>get_relations</cite>. Returns relations directed towards other types.</p></li>
+<li><p><cite>get_relations</cite>. Returns the set of relations mapping from another type to the current type.</p></li>
 <li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
 </ol>
-<p>To get some intuition, we can have a look at the source code of any type, in this case <cite>visions_ordinal</cite>.</p>
+<p>Let’s inspect the source code for <cite>visions_ordinal</cite> to gather intuition.</p>
 <div class="literal-block-wrapper docutils container" id="visions-ordinal">
 <div class="code-block-caption"><span class="caption-text">visions_ordinal.py</span><a class="headerlink" href="#visions-ordinal" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.models</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
@@ -224,6 +224,10 @@
 </pre></div>
 </div>
 </div>
+<p>In this example, ordinal declares a single <cite>IdentityRelation</cite> from categorical. The meaning
+of <cite>IdentityRelation</cite> is not particularly important in this case, just know it means the mapping
+function between categorical and ordinal is the identity function.</p>
+<p>We can also see the <cite>contains_op</cite> requires the sequence to be an ordered categorical physical type.</p>
 <p>Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
@@ -235,8 +239,8 @@ This is convenient when you only change a single relation.</p>
 Read more on <a class="reference internal" href="../contributing/type.html"><span class="doc">how to contribute</span></a>.</p>
 </div>
 </div>
-<div class="section" id="custom-type-extend-type">
-<h2>Custom Type (extend type)<a class="headerlink" href="#custom-type-extend-type" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="custom-types-extend-a-type">
+<h2>Custom Types (extend a type)<a class="headerlink" href="#custom-types-extend-a-type" title="Permalink to this headline">¶</a></h2>
 <p>Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.</p>
 <p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
@@ -264,8 +268,11 @@ This is useful for small changes, such as adding a single relation.</p>
 </div>
 <div class="section" id="custom-typesets-from-scratch">
 <h2>Custom Typesets (from scratch)<a class="headerlink" href="#custom-typesets-from-scratch" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to use custom typesets.
-The example below creates a custom typeset that only supports time-related types.</p>
+<p>Although <cite>visions</cite> comes with an array of starter typesets suitable for most standard usage
+you may quickly find yourself looking to expand upon those types to suit your own domain specific
+needs. In order to meet those needs there are a number of easy mechanisms to either extend pre-existing
+typesets or define your own from scratch.</p>
+<p>For example, you could define a custom typeset with only time specific types as follows:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">visions_custom_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
@@ -291,18 +298,27 @@ The example below creates a custom typeset that only supports time-related types
 </pre></div>
 </div>
 </div>
+<p>or even more simply,</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset (simplified)</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">visions_datetime</span><span class="p">,</span> <span class="n">visions_timedelta</span><span class="p">,</span> <span class="n">visions_date</span><span class="p">,</span> <span class="n">visions_time</span><span class="p">]</span>
+<span class="n">visions_custom_set</span> <span class="o">=</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="custom-typesets-extend-typeset">
 <h2>Custom typesets (extend typeset)<a class="headerlink" href="#custom-typesets-extend-typeset" title="Permalink to this headline">¶</a></h2>
-<p>Another way of creating a typeset is by basing it on another typeset</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<p>Alternatively, typesets support a limited algebra allowing you to define new typesets
+based on simple manipulations to pre-existing sets.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
 </pre></div>
 </div>
 </div>
-<p>When performing multiple additions and/or subtractions, the above will become a long list.
-Just like other addition and subtraction in Python, you can split the operations:</p>
+<p>Just like addition and subtraction elsewhere in Python, you can split these operations up
+in any way imaginable:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
 <span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_bool</span>
 <span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_bool_nl</span>

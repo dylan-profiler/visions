@@ -190,14 +190,15 @@
 <p>This page introduces the concepts <cite>visions</cite> uses.</p>
 <div class="section" id="types">
 <h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
-<p>A data type is a logical abstraction constraining the types of values data can be composed from.
-For example, <cite>integers</cite> can only consist of values like <cite>1</cite>, <cite>2</cite>, <cite>3</cite> but never <cite>4.5</cite>.</p>
-<p>Within the <cite>visions</cite> framework, Types represent a logical abstraction over sequences of data (i.e. python: Tuples/Lists, pandas: Series, numpy: array, etc…).
-These types might correspond to every day notions like integers, floats, strings, datetimes, etc… or more complicated,
-user configured ideas like geometries, fruits, or files.</p>
-<p>We distinguish <em>semantic types</em> from <em>physical types</em>.
-When analysing a dataset with URLs, the semantic type might be URL, as we are interested in properties such as scheme and domain.
-The physical type then is string (or object), depending on how the URLs are stored on disk.</p>
+<p>A data type is a logical abstraction constraining the set of values data can be composed from.
+For example, <cite>integers</cite> can consist of values like 1, 2, and 3 but never 4.5.</p>
+<p>Within the <cite>visions</cite> framework, types represent a logical abstraction over sequences of data
+like python lists, numpy arrays, or pandas series.
+These types might correspond to every day notions like integers, floats, strings, and datetimes or more complicated,
+user configured ideas like geometries, fruits, or files. These logical, or semantic notions of type are
+distinct from the physical representations of that data found on disk where, for example, the file
+abstraction is physically represented as a string.</p>
+<p>We use the terms <em>semantic type</em> and <em>physical type</em> to denote this difference.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>If you want a deeper understanding of data types, see <span class="xref std std-doc">data type view</span>.</p>
@@ -205,14 +206,22 @@ The physical type then is string (or object), depending on how the URLs are stor
 </div>
 <div class="section" id="typeset">
 <h2>Typeset<a class="headerlink" href="#typeset" title="Permalink to this headline">¶</a></h2>
-<p>Typesets represent a mechanism to perform work over groups of types.
-Typesets contain types in a way comparable to a namespace for code or a virtual environment for dependencies.
+<p>Typesets represent a mechanism to perform work over collections of types and contain
+types in a way comparable to a namespace for code or a virtual environment for dependencies.
 Flexible groupings of types allow different users to solve different problems in a manner specific to their circumstances.</p>
 </div>
 <div class="section" id="relational-mapping">
 <h2>Relational mapping<a class="headerlink" href="#relational-mapping" title="Permalink to this headline">¶</a></h2>
-<p>A relational mapping represents the relationships between types.
-Visions creates a graph of these relationships within a typeset as a mechanism to perform type inference on data.</p>
+<p>A relational mapping encodes the relationships between various types. These relationships come in
+the form of two functions:</p>
+<ol class="arabic simple">
+<li><p>A relation function to test whether a mapping is possible between data of two types.</p></li>
+<li><p>A mapping function defining the transformation between data of two types.</p></li>
+</ol>
+<p>Each type is required to declare the set of potential relational mappings to itself upon
+instantiation. Because types are purely self contained, it’s possible to dynamically construct a
+traversible graph of potential relations for any given typeset. This graph is then the mechanism used
+to perform type inference on data.</p>
 </div>
 </div>
 

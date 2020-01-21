@@ -4,12 +4,12 @@ Extending
 Custom Type (from scratch)
 ---------------------------
 
-Each `visions` type is class extending the basic `VisionsBaseType` requiring a unique implementation of two methods:
+Each `visions` type is a subclass of  `VisionsBaseType` requiring a unique implementation of two methods:
 
-1. `get_relations`. Returns relations directed towards other types.
+1. `get_relations`. Returns the set of relations mapping from another type to the current type.
 2. `contains_op`. Checks whether a series is of the type visions_type, returns Bool.
 
-To get some intuition, we can have a look at the source code of any type, in this case `visions_ordinal`.
+Let's inspect the source code for `visions_ordinal` to gather intuition.
 
 .. code-block:: python
     :caption: visions_ordinal.py
@@ -40,7 +40,11 @@ To get some intuition, we can have a look at the source code of any type, in thi
             return pdt.is_categorical_dtype(series) and series.cat.ordered
 
 
+In this example, ordinal declares a single `IdentityRelation` from categorical. The meaning
+of `IdentityRelation` is not particularly important in this case, just know it means the mapping
+function between categorical and ordinal is the identity function.
 
+We can also see the `contains_op` requires the sequence to be an ordered categorical physical type.
 
 Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.
@@ -57,7 +61,7 @@ This is convenient when you only change a single relation.
     Read more on :doc:`how to contribute <../contributing/type>`.
 
 
-Custom Type (extend type)
+Custom Types (extend a type)
 -------------------------
 
 Another option is to create a new type based on an existing type.
@@ -90,8 +94,12 @@ Each type has the method `extend_relations` for this purpose.
 Custom Typesets (from scratch)
 ------------------------------
 
-It is possible to use custom typesets.
-The example below creates a custom typeset that only supports time-related types.
+Although `visions` comes with an array of starter typesets suitable for most standard usage
+you may quickly find yourself looking to expand upon those types to suit your own domain specific
+needs. In order to meet those needs there are a number of easy mechanisms to either extend pre-existing
+typesets or define your own from scratch.
+
+For example, you could define a custom typeset with only time specific types as follows:
 
 .. code-block:: python
     :caption: Custom time typeset
@@ -118,18 +126,30 @@ The example below creates a custom typeset that only supports time-related types
             super().__init__(types)
 
 
+or even more simply,
+
+
+.. code-block:: python
+    :caption: Custom time typeset (simplified)
+
+    types = [visions_datetime, visions_timedelta, visions_date, visions_time]
+    visions_custom_set = VisionTypeset(types)
+
+
 Custom typesets (extend typeset)
 --------------------------------
 
-Another way of creating a typeset is by basing it on another typeset
+Alternatively, typesets support a limited algebra allowing you to define new typesets
+based on simple manipulations to pre-existing sets.
 
 .. code-block:: python
     :caption: Custom time typeset
 
     typeset = visions_complete_set() - visions_time + visions_date
 
-When performing multiple additions and/or subtractions, the above will become a long list.
-Just like other addition and subtraction in Python, you can split the operations:
+
+Just like addition and subtraction elsewhere in Python, you can split these operations up
+in any way imaginable:
 
 .. code-block:: python
 
