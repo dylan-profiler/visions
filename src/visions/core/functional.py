@@ -170,6 +170,15 @@ def type_inference_report_frame(df, typeset) -> str:
             change_count += 1
         else:
             fill = "=="
-        report += f"{column: <{max_column_length}} {str(type_before): <{max_type_length}} {fill} {str(type_after): <{max_type_length}} \n"
-    report += f"In total {change_count} out of {len(df.columns)} types were changed.\n"
+        report += "{column: <{max_column_length}} {str(type_before): <{max_type_length}} {fill} {str(type_after): <{max_type_length}} \n".format(
+            column=column,
+            max_column_length=max_column_length,
+            type_before=type_before,
+            type_after=type_after,
+            max_type_length=max_type_length,
+            fill=fill,
+        )
+    report += "In total {change_count} out of {type_count} types were changed.\n".format(
+        change_count=change_count, type_count=len(df.columns)
+    )
     return report
