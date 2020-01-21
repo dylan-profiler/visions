@@ -35,7 +35,7 @@ def _get_relations(cls) -> List[TypeRelation]:
     relations = [
         IdentityRelation(cls, visions_generic),
         InferenceRelation(
-            visions_integer,
+            cls,
             visions_float,
             relationship=float_is_int,
             transformer=to_int,

@@ -170,11 +170,11 @@ def type_inference_report_frame(df, typeset) -> str:
             change_count += 1
         else:
             fill = "=="
-        report += "{column: <{max_column_length}} {str(type_before): <{max_type_length}} {fill} {str(type_after): <{max_type_length}} \n".format(
+        report += "{column: <{max_column_length}} {type_before: <{max_type_length}} {fill} {type_after: <{max_type_length}} \n".format(
             column=column,
             max_column_length=max_column_length,
-            type_before=type_before,
-            type_after=type_after,
+            type_before=str(type_before),
+            type_after=str(type_after),
             max_type_length=max_type_length,
             fill=fill,
         )
