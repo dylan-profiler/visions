@@ -38,15 +38,15 @@ Baseline
 --------
 
 Any meaningful compression of the data should have a lower RAM usage.
-To be able to compare, we measure the usage of the dataframe without any preprocessing.
+To be able to compare, we measure the usage of the DataFrame without any preprocessing.
 We are also interested in how the compression scales with the number of rows.
 
 .. figure:: ../../../../examples/compression_proof_of_concept/file_sizes.png
    :width: 700 px
    :align: center
-   :alt: File sizes per file type (RDW Vehicles data set)
+   :alt: Memory usage for the RDW Vehicles data set
 
-   File sizes per file type (RDW Vehicles data set) on disk.
+   Memory usage for the RDW Vehicles data set
 
 Type compression
 ----------------

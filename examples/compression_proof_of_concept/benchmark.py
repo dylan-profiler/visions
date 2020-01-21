@@ -33,10 +33,8 @@ def benchmark_sizes(file_name, ratio=False):
             size_2 = size_2 / size_1
             size_1 = 1.0
 
-        sizes.append({"size": size_1, "type": "DataFrame in memory", "n": n})
-        sizes.append(
-            {"size": size_2, "type": "DataFrame in memory (after cast)", "n": n}
-        )
+        sizes.append({"size": size_1, "type": "DataFrame", "n": n})
+        sizes.append({"size": size_2, "type": "DataFrame (after cast)", "n": n})
 
         # csv_path = data_path / file_name.with_suffix(f".{n}.csv").name
         # if not csv_path.exists():
@@ -76,10 +74,7 @@ def benchmark_sizes(file_name, ratio=False):
         fig.savefig(f"sizes_bar.png")
     else:
         ax = sns.lineplot(
-            x="n",
-            y="size",
-            hue="type",
-            data=sizes_df[sizes_df.type == "DataFrame in memory"],
+            x="n", y="size", hue="type", data=sizes_df[sizes_df.type == "DataFrame"]
         )
         ax.set(xscale="log", yscale="log")
         plt.ylabel("Memory Used (bytes)")
