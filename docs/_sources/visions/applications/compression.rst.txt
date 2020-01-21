@@ -41,7 +41,7 @@ Any meaningful compression of the data should have a lower RAM usage.
 To be able to compare, we measure the usage of the DataFrame without any preprocessing.
 We are also interested in how the compression scales with the number of rows.
 
-.. figure:: ../../../../examples/compression_proof_of_concept/file_sizes.png
+.. figure:: ../../../../examples/data_compression/figures/memory_usage.png
    :width: 700 px
    :align: center
    :alt: Memory usage for the RDW Vehicles data set
@@ -62,7 +62,7 @@ Examples: integer, categorical/string
 
 Plot to determine when to encode categorical values as string and when as categorical.
 
-.. figure:: ../../../../examples/compression_proof_of_concept/category_string_memory.png
+.. figure:: ../../../../examples/data_compression/figures/category_string_memory.png
    :width: 700 px
    :align: center
    :alt: String and Categorical storage trade-off
@@ -173,7 +173,7 @@ Relation graph plot
    rdw_typeset.output_graph("rdw_typeset.svg")
 
 
-.. figure:: ../../../../examples/compression_proof_of_concept/rdw_typeset.svg
+.. figure:: ../../../../examples/data_compression/figures/rdw_typeset.svg
    :width: 700 px
    :align: center
    :alt: RDW Typeset Relations
@@ -182,19 +182,19 @@ Relation graph plot
 Results
 -------
 
-.. figure:: ../../../../examples/compression_proof_of_concept/file_sizes.png
+.. figure:: ../../../../examples/data_compression/figures/memory_usage_compare.png
    :width: 700 px
    :align: center
-   :alt: File sizes per file type (RDW Vehicles data set)
+   :alt: Memory Usage after type casting (RDW Vehicles data set)
 
-   File sizes per file type (RDW Vehicles data set) in memory.
+    Memory Usage after type casting (RDW Vehicles data set)
 
-.. figure:: ../../../../examples/compression_proof_of_concept/sizes_bar.png
+.. figure:: ../../../../examples/data_compression/figures/memory_usage_ratio.png
    :width: 700 px
    :align: center
-   :alt: File sizes per file type (RDW Vehicles data set)
+   :alt: Memory Usage ratio of before and after type casting (RDW Vehicles data set)
 
-   File sizes per file type (RDW Vehicles data set) in memory.
+   Memory Usage ratio of before and after type casting
 
 Outlook
 -------
@@ -204,7 +204,7 @@ Future work should investigate to what extent we can compress data on disk furth
 The challenge here is to define efficient mappings between semantic types and the logical types in the file formats.
 The implementation of this mapping also depends on the storage engine, for example different engines for hdf5 have different ways of dealing with storing non-standard types [4]_, [5]_.
 
-.. figure:: ../../../../examples/compression_proof_of_concept/file_sizes_uncompressed.png
+.. figure:: ../../../../examples/data_compression/figures/file_sizes.png
    :width: 700 px
    :align: center
    :alt: File sizes per file type (RDW Vehicles data set)

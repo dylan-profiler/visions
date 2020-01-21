@@ -13,7 +13,7 @@ from visions.core.functional import (
 from visions.application.summaries.summary import CompleteSummary
 
 # file_name = "https://opendata.rdw.nl/api/views/m9d7-ebf2/rows.csv?accessType=DOWNLOAD"
-from examples.compression_proof_of_concept.rdw_typeset import rdw_typeset
+from examples.data_compression.rdw_typeset import rdw_typeset
 
 file_name = Path(
     r"C:\Users\Cees Closed\Documents\code\say-hello\data\rdw\gekentekende_voertuigen.csv"

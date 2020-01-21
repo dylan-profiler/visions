@@ -101,4 +101,4 @@ rdw_typeset = rdw_typeset.replace(visions_categorical, visions_categorical_str)
 
 
 if __name__ == "__main__":
-    rdw_typeset.output_graph("rdw_typeset.svg")
+    rdw_typeset.output_graph("figures/rdw_typeset.svg")

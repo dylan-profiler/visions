@@ -235,7 +235,7 @@ For a more elaborate description of the dataset, we refer the reader to it <a cl
 To be able to compare, we measure the usage of the DataFrame without any preprocessing.
 We are also interested in how the compression scales with the number of rows.</p>
 <div class="figure align-center" id="id14">
-<a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="Memory usage for the RDW Vehicles data set" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../../_images/memory_usage.png"><img alt="Memory usage for the RDW Vehicles data set" src="../../_images/memory_usage.png" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-text">Memory usage for the RDW Vehicles data set</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -356,13 +356,12 @@ This report is useful for catching various errors, for example that all types ar
 </div>
 <div class="section" id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id16">
-<a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/memory_usage_compare.png"><img alt="Memory Usage after type casting (RDW Vehicles data set)" src="../../_images/memory_usage_compare.png" style="width: 700px;" /></a>
 </div>
-<div class="figure align-center" id="id17">
-<a class="reference internal image-reference" href="../../_images/sizes_bar.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/sizes_bar.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<div class="figure align-center" id="id16">
+<a class="reference internal image-reference" href="../../_images/memory_usage_ratio.png"><img alt="Memory Usage ratio of before and after type casting (RDW Vehicles data set)" src="../../_images/memory_usage_ratio.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">Memory Usage ratio of before and after type casting</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="outlook">
@@ -371,9 +370,9 @@ This report is useful for catching various errors, for example that all types ar
 Future work should investigate to what extent we can compress data on disk further with popular file formats.
 The challenge here is to define efficient mappings between semantic types and the logical types in the file formats.
 The implementation of this mapping also depends on the storage engine, for example different engines for hdf5 have different ways of dealing with storing non-standard types <a class="footnote-reference brackets" href="#id11" id="id3">4</a>, <a class="footnote-reference brackets" href="#id12" id="id4">5</a>.</p>
-<div class="figure align-center" id="id18">
-<a class="reference internal image-reference" href="../../_images/file_sizes_uncompressed.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes_uncompressed.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<div class="figure align-center" id="id17">
+<a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 <p>Interesting work on mapping a semantic type (ip-address) to physical storage (two 64-bit numpy arrays for IPv6) has been done by Tom Augspurger <a class="footnote-reference brackets" href="#id8" id="id5">1</a>, <a class="footnote-reference brackets" href="#id9" id="id6">2</a>, <a class="footnote-reference brackets" href="#id10" id="id7">3</a>.</p>
 <dl class="footnote brackets">
