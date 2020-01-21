@@ -1,8 +1,8 @@
 Community contributions
 ***********************
 
-You are welcome to contribute to the `visions` package.
-This section contains information on the workflow when you want to add a contribution.
+Contributions are welcome to the `visions` package! Please insure all contributions
+abide by the guidelines outlined below.
 
     When you build a tool, you do not know how it is going to be used.
     You try to improve the tool by looking how it is being used, and how people cut their fingers and stop that from happening.
