@@ -183,7 +183,6 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.core.model.visions_generic</span> <span class="k">import</span> <span class="n">visions_generic</span>
 
@@ -366,31 +365,6 @@
     <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">series</span>
 
 
-<span class="c1"># TODO: remove or use</span>
-<span class="c1"># def cast_along_path(</span>
-<span class="c1">#     series: pd.Series, path: List[Type[VisionsBaseType]], graph: nx.DiGraph</span>
-<span class="c1"># ) -&gt; pd.Series:</span>
-<span class="c1">#     &quot;&quot;&quot;Successively cast series along a path of visions types.</span>
-<span class="c1">#</span>
-<span class="c1">#     Args:</span>
-<span class="c1">#         series: the Series to cast</span>
-<span class="c1">#         path: the path to follow</span>
-<span class="c1">#         graph: the graph</span>
-<span class="c1">#</span>
-<span class="c1">#     Returns:</span>
-<span class="c1">#         The casted series</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     if len(path) &lt;= 1:</span>
-<span class="c1">#         raise ValueError(&quot;path should at least contain 2 values&quot;)</span>
-<span class="c1">#</span>
-<span class="c1">#     new_series = series.copy()</span>
-<span class="c1">#</span>
-<span class="c1">#     for from_type, to_type in zip(path, path[1:]):</span>
-<span class="c1">#         new_series = graph[from_type][to_type][&quot;relationship&quot;].transform(new_series)</span>
-<span class="c1">#</span>
-<span class="c1">#     return new_series</span>
-
-
 <span class="k">def</span> <span class="nf">infer_type_path</span><span class="p">(</span>
     <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
     <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span>
@@ -517,7 +491,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">col</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cast_series</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">})</span>
 
-    <span class="k">def</span> <span class="nf">cast_and_infer_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">cast_and_infer_series</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Cast Series to its inferred type.</span>
 
 <span class="sd">        Args:</span>
@@ -533,7 +509,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">new_series</span>
 
-    <span class="k">def</span> <span class="nf">cast_and_infer_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">cast_and_infer_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Cast to DataFrame, simple wrapper around cast_series.</span>
 
 <span class="sd">        Args:</span>
@@ -615,6 +591,10 @@
 
     <span class="k">def</span> <span class="nf">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="c1"># TODO: overwrite all relations</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">old</span><span class="p">)</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>

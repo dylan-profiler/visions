@@ -202,6 +202,13 @@
 <p>Decoupling <em>semantic</em> data types from <em>physical</em> data types makes it easier to compress variables.
 For this example we restrict ourselves to in-memory compression.
 Our task is to automatically obtain an efficient in-memory representation, to minimize the RAM used, while preserving the same semantic type.</p>
+<p>A typical task is data compression, where the user seeks to minimize memory utilization of the <em>physical</em> type while preserving the <em>semantic</em> type of their data.
+We consider a dataset with one variable consisting of “Yes” and “No” values.
+As the variable has only two distinct values, the <em>physical</em> storage needed can be optimally stored as a bool using only one byte per value as opposed to a pandas object using approximately 66 bytes.
+There are infinite potential ways to denote “Yes” and “No” values within a dataset, consequently, we cannot rely on a static rule-based system for inference in general purpose software.
+However, that does not mean that this is “just data munging” and we cannot do this and other tasks more effectively.
+We observe that some patterns occur more often (“Yes”, “No” over “Arr” or “Nay”) and there are other indicators that can help a system to decide what to do (the variable two distinct values).
+We note that a rule-based system that trivially encodes each variable with two distinct values as boolean is no solution, as the encoding loses part of it’s meaning (e.g. encoding “Male”, “Female”).</p>
 <p>Two characteristics of the types provide us space to compress:</p>
 <ul class="simple">
 <li><p>Semantic types restrict the possible values of a variable (the URL type is a subset of String).</p></li>
@@ -227,9 +234,9 @@ For a more elaborate description of the dataset, we refer the reader to it <a cl
 <p>Any meaningful compression of the data should have a lower RAM usage.
 To be able to compare, we measure the usage of the dataframe without any preprocessing.
 We are also interested in how the compression scales with the number of rows.</p>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id14">
 <a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="type-compression">
@@ -237,10 +244,19 @@ We are also interested in how the compression scales with the number of rows.</p
 <div class="section" id="within-types">
 <h3>Within types<a class="headerlink" href="#within-types" title="Permalink to this headline">¶</a></h3>
 <p>Examples: integer, categorical/string</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We could take a similar approach for float and complex.</p>
+</div>
 <p>Plot to determine when to encode categorical values as string and when as categorical.</p>
-<div class="figure align-center" id="id9">
+<div class="figure align-center" id="id15">
 <a class="reference internal image-reference" href="../../_images/category_string_memory.png"><img alt="String and Categorical storage trade-off" src="../../_images/category_string_memory.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">pandas string and categorical memory size as function of percentage of unique values.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">pandas string and categorical memory size as function of percentage of unique values.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The integer, float and complex in-type compressions are based on narrowing conversions <a class="footnote-reference brackets" href="#id13" id="id2">6</a>.
+This is useful is the current dataframe is not updated, but you risk losing information when appending new data</p>
 </div>
 </div>
 <div class="section" id="between-types">
@@ -340,31 +356,44 @@ This report is useful for catching various errors, for example that all types ar
 </div>
 <div class="section" id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id10">
+<div class="figure align-center" id="id16">
 <a class="reference internal image-reference" href="../../_images/file_sizes.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-center" id="id11">
+<div class="figure align-center" id="id17">
 <a class="reference internal image-reference" href="../../_images/sizes_bar.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/sizes_bar.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) in memory.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="outlook">
 <h2>Outlook<a class="headerlink" href="#outlook" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id12">
+<p>This post demonstrated how we can compress data in memory.
+Future work should investigate to what extent we can compress data on disk further with popular file formats.
+The challenge here is to define efficient mappings between semantic types and the logical types in the file formats.
+The implementation of this mapping also depends on the storage engine, for example different engines for hdf5 have different ways of dealing with storing non-standard types <a class="footnote-reference brackets" href="#id11" id="id3">4</a>, <a class="footnote-reference brackets" href="#id12" id="id4">5</a>.</p>
+<div class="figure align-center" id="id18">
 <a class="reference internal image-reference" href="../../_images/file_sizes_uncompressed.png"><img alt="File sizes per file type (RDW Vehicles data set)" src="../../_images/file_sizes_uncompressed.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">File sizes per file type (RDW Vehicles data set) on disk.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
-<p>Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) <a class="footnote-reference brackets" href="#id5" id="id2">1</a>, <a class="footnote-reference brackets" href="#id6" id="id3">2</a>, <a class="footnote-reference brackets" href="#id7" id="id4">3</a>.</p>
+<p>Interesting work on mapping a semantic type (ip-address) to physical storage (two 64-bit numpy arrays for IPv6) has been done by Tom Augspurger <a class="footnote-reference brackets" href="#id8" id="id5">1</a>, <a class="footnote-reference brackets" href="#id9" id="id6">2</a>, <a class="footnote-reference brackets" href="#id10" id="id7">3</a>.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
 <dd><p>Tom Augspurger, Extension Arrays for Pandas, 12 February 2018, <a class="reference external" href="https://tomaugspurger.github.io/pandas-extension-arrays.html">https://tomaugspurger.github.io/pandas-extension-arrays.html</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
 <dd><p>Tom Augspurger, CyberPandas: Extending Pandas with Richer Types, 16 May 2018, <a class="reference external" href="https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/">https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/</a></p>
 </dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id7">3</a></span></dt>
 <dd><p>Tom Augspurger, Cyberpandas package on Github, <a class="reference external" href="https://github.com/ContinuumIO/cyberpandas">https://github.com/ContinuumIO/cyberpandas</a></p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id3">4</a></span></dt>
+<dd><p>Special types: Storing other types as opaque data <a class="reference external" href="http://docs.h5py.org/en/latest/special.html#storing-other-types-as-opaque-data">http://docs.h5py.org/en/latest/special.html#storing-other-types-as-opaque-data</a></p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">5</a></span></dt>
+<dd><p>Using your own custom data types <a class="reference external" href="https://www.pytables.org/cookbook/custom_data_types.html">https://www.pytables.org/cookbook/custom_data_types.html</a></p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id2">6</a></span></dt>
+<dd><p>Lecture 1: Types, Expressions, &amp; Variables <a class="reference external" href="http://www.cs.cornell.edu/courses/cs1133/2014fa/lectures/09-08-14/presentation-01.pdf">http://www.cs.cornell.edu/courses/cs1133/2014fa/lectures/09-08-14/presentation-01.pdf</a></p>
 </dd>
 </dl>
 </div>

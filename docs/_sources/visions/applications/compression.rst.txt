@@ -5,6 +5,14 @@ Decoupling *semantic* data types from *physical* data types makes it easier to c
 For this example we restrict ourselves to in-memory compression.
 Our task is to automatically obtain an efficient in-memory representation, to minimize the RAM used, while preserving the same semantic type.
 
+A typical task is data compression, where the user seeks to minimize memory utilization of the *physical* type while preserving the *semantic* type of their data.
+We consider a dataset with one variable consisting of "Yes" and "No" values.
+As the variable has only two distinct values, the *physical* storage needed can be optimally stored as a bool using only one byte per value as opposed to a pandas object using approximately 66 bytes.
+There are infinite potential ways to denote "Yes" and "No" values within a dataset, consequently, we cannot rely on a static rule-based system for inference in general purpose software.
+However, that does not mean that this is "just data munging" and we cannot do this and other tasks more effectively.
+We observe that some patterns occur more often ("Yes", "No" over "Arr" or "Nay") and there are other indicators that can help a system to decide what to do (the variable two distinct values).
+We note that a rule-based system that trivially encodes each variable with two distinct values as boolean is no solution, as the encoding loses part of it's meaning (e.g. encoding "Male", "Female").
+
 Two characteristics of the types provide us space to compress:
 
 - Semantic types restrict the possible values of a variable (the URL type is a subset of String).
@@ -48,6 +56,10 @@ Within types
 
 Examples: integer, categorical/string
 
+.. note::
+
+    We could take a similar approach for float and complex.
+
 Plot to determine when to encode categorical values as string and when as categorical.
 
 .. figure:: ../../../../examples/compression_proof_of_concept/category_string_memory.png
@@ -56,6 +68,12 @@ Plot to determine when to encode categorical values as string and when as catego
    :alt: String and Categorical storage trade-off
 
    pandas string and categorical memory size as function of percentage of unique values.
+
+.. warning::
+
+   The integer, float and complex in-type compressions are based on narrowing conversions [6]_.
+   This is useful is the current dataframe is not updated, but you risk losing information when appending new data
+
 
 Between types
 #############
@@ -181,6 +199,11 @@ Results
 Outlook
 -------
 
+This post demonstrated how we can compress data in memory.
+Future work should investigate to what extent we can compress data on disk further with popular file formats.
+The challenge here is to define efficient mappings between semantic types and the logical types in the file formats.
+The implementation of this mapping also depends on the storage engine, for example different engines for hdf5 have different ways of dealing with storing non-standard types [4]_, [5]_.
+
 .. figure:: ../../../../examples/compression_proof_of_concept/file_sizes_uncompressed.png
    :width: 700 px
    :align: center
@@ -188,9 +211,12 @@ Outlook
 
    File sizes per file type (RDW Vehicles data set) on disk.
 
+Interesting work on mapping a semantic type (ip-address) to physical storage (two 64-bit numpy arrays for IPv6) has been done by Tom Augspurger [1]_, [2]_, [3]_.
 
-Tom Augspurger implemented a ip-address data type for pandas that efficiently stores ip-addresses (as numbers) [1]_, [2]_, [3]_.
 
 .. [1] Tom Augspurger, Extension Arrays for Pandas, 12 February 2018, https://tomaugspurger.github.io/pandas-extension-arrays.html
 .. [2] Tom Augspurger, CyberPandas: Extending Pandas with Richer Types, 16 May 2018, https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/
 .. [3] Tom Augspurger, Cyberpandas package on Github, https://github.com/ContinuumIO/cyberpandas
+.. [4] Special types: Storing other types as opaque data http://docs.h5py.org/en/latest/special.html#storing-other-types-as-opaque-data
+.. [5] Using your own custom data types https://www.pytables.org/cookbook/custom_data_types.html
+.. [6] Lecture 1: Types, Expressions, & Variables http://www.cs.cornell.edu/courses/cs1133/2014fa/lectures/09-08-14/presentation-01.pdf

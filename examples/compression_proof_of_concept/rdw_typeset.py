@@ -61,6 +61,7 @@ def to_int_smallest(series: pd.Series) -> pd.Series:
     return series.astype(type_name)
 
 
+
 @classmethod
 def compose_relations_int(cls):
     # Overwrite compression
@@ -95,12 +96,9 @@ visions_categorical_str = visions_categorical.extend_relations(
 )
 
 rdw_typeset = visions_complete_set()
-rdw_typeset -= visions_bool
-rdw_typeset += visions_bool_nl
-rdw_typeset -= visions_integer
-rdw_typeset += visions_integer_ddt
-rdw_typeset -= visions_categorical
-rdw_typeset += visions_categorical_str
+rdw_typeset = rdw_typeset.replace(visions_bool, visions_bool_nl)
+rdw_typeset = rdw_typeset.replace(visions_integer, visions_integer_ddt)
+rdw_typeset = rdw_typeset.replace(visions_categorical, visions_categorical_str)
 
 
 if __name__ == "__main__":
