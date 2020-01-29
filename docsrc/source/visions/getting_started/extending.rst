@@ -72,7 +72,7 @@ For a boolean we could the true/false ratio for example.
 See: `examples/data_analysis` for an example.
 
 Custom Types (extend a type)
--------------------------
+----------------------------
 
 Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.

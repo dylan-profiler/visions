@@ -37,10 +37,10 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
 
    visions/applications/applications
    visions/applications/summarizer
-   visions/applications/compression
-   visions/applications/integration
    visions/applications/validation
    visions/applications/machine_learning
+   visions/applications/compression
+   visions/applications/integration
 
 
 .. toctree::

@@ -92,10 +92,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/summarizer.html">Data Summarization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/compression.html">Data Compression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/validation.html">Data Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/machine_learning.html">Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -593,9 +593,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-        <span class="n">new_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_other_type</span><span class="p">(</span><span class="n">old</span><span class="p">)</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_other_type</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
-        <span class="n">new_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">new_type</span><span class="o">.</span><span class="n">replace_relations</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span> <span class="k">for</span> <span class="n">new_type</span> <span class="ow">in</span> <span class="n">new_types</span><span class="p">}</span>
-        <span class="k">return</span> <span class="n">VisionsTypeset</span><span class="p">(</span><span class="n">new_types</span><span class="p">)</span>
+        <span class="c1"># TODO: overwrite all relations</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">old</span><span class="p">)</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>

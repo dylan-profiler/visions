@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Community contributions" href="../contributing/contributing.html" />
+    <link rel="next" title="Data Compression" href="compression.html" />
     <link rel="prev" title="Data Validation" href="validation.html" /> 
 </head>
 
@@ -94,10 +94,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Data Validation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#supervised-problem-type-inference">Supervised Problem Type Inference</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Data Discovery and Data Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">Data Validation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Machine Learning</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -194,6 +197,13 @@ In predictive analytics and machine learning, variables are processed and encode
 The default typesets in <cite>visions</cite> are an useful abstraction to base the encoding and preprocessing steps on.
 For example categorical values are one-hot or <a class="reference external" href="https://en.wikipedia.org/wiki/Categorical_variable#Dummy_coding">dummy coded</a>, while ordinals can be <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder">encoded as integer</a>.</p></li>
 </ul>
+<div class="section" id="supervised-problem-type-inference">
+<h2>Supervised Problem Type Inference<a class="headerlink" href="#supervised-problem-type-inference" title="Permalink to this headline">¶</a></h2>
+<p>AutoML, an automatic machine learning tool offers a variety of potential machine learning tools ranging from field specific transformations and encodings, to modeling techniques like regression and classification.
+Inferring the appropriate modeling technique or variable encodings depends not on the data’s <em>physical type</em>, but on it’s <em>semantic type</em>.
+Consider a <em>physical</em> integer with 30 distinct values - this could potentially represent either a categorical (classification) task or count (regression) task absent additional context.
+Similarly, if considered as an input feature might require one hot encoding or the like.</p>
+</div>
 </div>
 
 
@@ -204,7 +214,7 @@ For example categorical values are one-hot or <a class="reference external" href
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../contributing/contributing.html" class="btn btn-neutral float-right" title="Community contributions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="compression.html" class="btn btn-neutral float-right" title="Data Compression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="validation.html" class="btn btn-neutral float-left" title="Data Validation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

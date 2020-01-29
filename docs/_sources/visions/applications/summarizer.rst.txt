@@ -1,68 +1,27 @@
 Data Summarization
 ==================
 
-Data summarization and exploratory data analysis: couple specific analysis to specific types of data. [@pandasprofiling]
+The process of exploratory data analysis (EDA) or data summarization intends to get a high-level overview of the main characteristics of a dataset.
+This is an essential step when working with a new dataset, and therefore is worthwhile automating.
 
-We can also get a summary unique to the visions_type of the data
+An effective summary of the dataset goes beyond the *physical* types of the dataset.
+If a variable stores a URL as a string, we might be interested if every URL has the "https" scheme.
+There is also overlap between physical types, where `min`, `max` and `range` are sensible statistics for real values as well as dates.
 
-.. code-block:: python
+Currently visions contains code for type summarization.
+`pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_ is a dedicated package that provides a user interface for these summarizations.
 
-    >>> datetime_series = pd.Series([
-    >>>    pd.datetime(2010, 1, 1),
-    >>>    pd.datetime(2010, 8, 2),
-    >>>    pd.datetime(2011, 2, 1),
-    >>>    np.datetime64('NaT')
-    >>> ])
+How does it work?
+-----------------
 
-    >>> summarizer = CompleteSummary()
-    >>> summary = summarizer.summarize_series(datetime_series, visions_datetime)
-    >>> summary
-    {'dtype': dtype('<M8[ns]'),
-     'frequencies': {Timestamp('2010-01-01 00:00:00'): 1,
-                     Timestamp('2010-08-02 00:00:00'): 1,
-                     Timestamp('2011-02-01 00:00:00'): 1},
-     'max': Timestamp('2011-02-01 00:00:00'),
-     'memory_size': 160,
-     'min': Timestamp('2010-01-01 00:00:00'),
-     'n_records': 4,
-     'n_unique': 3,
-     'na_count': 1,
-     'range': Timedelta('396 days 00:00:00'),
-     'types': {'NaTType': 1, 'Timestamp': 3}}
+Summaries are designed as *summary functions* on top of a `visions` typeset.
+Each type in the set can be associated with a set of these functions.
+The summary of a variable is the union of the output of the summary functions associated with it's type or any of it's super types.
 
-If we had instead applied a summarization operation to a categorical series we would get
+Examples from Integer, Datetime and String types are given below.
 
-.. code-block:: python
-
-    >>> category_series = pd.Series(pd.Categorical([True, False, np.nan, 'test'], categories=[True, False, 'test', 'missing']))
-
-    >>> summarizer = CompleteSummary()
-    >>> summary = summarizer.summarize_series(category_series, visions_categorical)
-    >>> summary
-    {'category_size': 4,
-     'dtype': CategoricalDtype(categories=[True, False, 'test', 'missing'], ordered=False),
-     'frequencies': {False: 1, True: 1, 'missing': 0, 'test': 1},
-     'memory_size': 495,
-     'missing_categorical_values': True,
-     'n_records': 4,
-     'n_unique': 3,
-     'na_count': 1,
-     'ordered': False,
-     'types': {'bool': 2, 'str': 1}}
-
-
-Descriptive statistics
-----------------------
-
-In descriptive statistics we are looking for coefficients that summarize our data.
-Describing numbers (for instance through the five-number summary) is completely different from describing strings.
-
-The application is designed that each type in a typeset is associated with summary functions.
-The summary of a sequence is the combination of all summary functions of the type and all its super types.
-Examples from Integer, String, ExistingPath are given below.
-
-Integer
-~~~~~~~
+Integer summary
+~~~~~~~~~~~~~~~
 
 .. figure:: ../../../../src/visions/visualisation/summaries/summary_integer.svg
    :width: 200 px
@@ -71,8 +30,34 @@ Integer
 
    Integer Summary Graph
 
-String
-~~~~~~
+.. literalinclude:: ../../../../examples/summaries/integer_example.py
+   :language: python
+   :lines: 5-
+   :lineno-start: 5
+   :linenos:
+   :caption: Integer Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/integer_example.py>`__)
+
+
+Datetime summary
+~~~~~~~~~~~~~~~~
+
+
+.. figure:: ../../../../src/visions/visualisation/summaries/summary_datetime.svg
+   :width: 200 px
+   :align: center
+   :alt: Datetime Summary Graph
+
+   Datetime Summary Graph
+
+.. literalinclude:: ../../../../examples/summaries/datetime_example.py
+   :language: python
+   :lines: 6-
+   :lineno-start: 6
+   :linenos:
+   :caption: Datetime Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/datetime_example.py>`__)
+
+String summary
+~~~~~~~~~~~~~~
 
 .. figure:: ../../../../src/visions/visualisation/summaries/summary_string.svg
    :width: 200 px
@@ -81,18 +66,17 @@ String
 
    String Summary Graph
 
+
+.. literalinclude:: ../../../../examples/summaries/string_example.py
+   :language: python
+   :lines: 6-
+   :lineno-start: 6
+   :linenos:
+   :caption: String Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/string_example.py>`__)
+
 Notably, the `text_summary` obtains awesome unicode statistics from another package within this project: `tangled up in unicode <https://github.com/dylan-profiler/tangled-up-in-unicode>`_.
 If you are working with text data, you definitely want to check it out.
 
-Existing Path
-~~~~~~~~~~~~~
-
-.. figure:: ../../../../src/visions/visualisation/summaries/summary_existing_path.svg
-   :width: 300 px
-   :align: center
-   :alt: Existing Path Summary Graph
-
-   Existing Path Summary Graph
 
 Typeset summary graphs
 ----------------------
@@ -114,5 +98,3 @@ Complete Typeset
 
 .. note:: Because `visions` types are nullable by default, they all inherit the same missing value summaries (`na_count`).
    New visions types :doc:`can be created <../creator/extending>` at will if you prefer to produce your own summaries or extend your analysis to other types of objects.
-
-`Pandas profiling <https://github.com/pandas-profiling/pandas-profiling>`_

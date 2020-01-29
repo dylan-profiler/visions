@@ -14,3 +14,10 @@ This is implemented in the `model-profiler <https://github.com/dylan-profiler/mo
   In predictive analytics and machine learning, variables are processed and encoded differently.
   The default typesets in `visions` are an useful abstraction to base the encoding and preprocessing steps on.
   For example categorical values are one-hot or `dummy coded <https://en.wikipedia.org/wiki/Categorical_variable#Dummy_coding>`_, while ordinals can be `encoded as integer <https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder>`_.
+
+Supervised Problem Type Inference
+---------------------------------
+AutoML, an automatic machine learning tool offers a variety of potential machine learning tools ranging from field specific transformations and encodings, to modeling techniques like regression and classification.
+Inferring the appropriate modeling technique or variable encodings depends not on the data's *physical type*, but on it's *semantic type*.
+Consider a *physical* integer with 30 distinct values - this could potentially represent either a categorical (classification) task or count (regression) task absent additional context.
+Similarly, if considered as an input feature might require one hot encoding or the like.

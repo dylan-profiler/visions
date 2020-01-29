@@ -92,10 +92,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/applications.html">Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/summarizer.html">Data Summarization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/compression.html">Data Compression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/validation.html">Data Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/machine_learning.html">Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -222,34 +222,7 @@
             <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
             <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
             <span class="p">{</span><span class="s2">&quot;get_relations&quot;</span><span class="p">:</span> <span class="n">relations_func</span><span class="p">,</span> <span class="s2">&quot;contains_op&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">},</span>
-        <span class="p">)</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">replace_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-        <span class="c1"># TODO: without side effects</span>
-        <span class="c1"># TODO: test for side effects</span>
-        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-            <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
-                <span class="n">new_relations</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">relations</span> <span class="o">=</span> <span class="n">func</span><span class="p">()</span>
-                <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">relations</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span> <span class="o">==</span> <span class="n">old</span><span class="p">:</span>
-                        <span class="n">new_relation</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">relation</span><span class="p">,</span> <span class="n">related_type</span><span class="o">=</span><span class="n">new</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">new_relation</span> <span class="o">=</span> <span class="n">relation</span>
-                    <span class="n">new_relations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_relation</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">new_relations</span>
-
-            <span class="k">return</span> <span class="n">inner</span>
-
-        <span class="c1"># pltr = type(</span>
-        <span class="c1">#     &quot;{name}[{type_name}]&quot;.format(name=cls.__name__, type_name=&#39;yas&#39;),</span>
-        <span class="c1">#     (cls,),</span>
-        <span class="c1">#     {&quot;get_relations&quot;: wrapper(cls.get_relations), &quot;contains_op&quot;: cls.contains_op},</span>
-        <span class="c1"># )</span>
-        <span class="c1"># pltr</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">get_relations</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_relations</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">cls</span></div>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TypeRelation"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.model.relations.TypeRelation.html#visions.core.model.TypeRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

@@ -1,3 +1,5 @@
+from typing import Type
+
 import pandas as pd
 import networkx as nx
 
@@ -53,7 +55,7 @@ class Summary(object):
         }
 
     def summarize_series(
-        self, series: pd.Series, summary_type: VisionsBaseType
+        self, series: pd.Series, summary_type: Type[VisionsBaseType]
     ) -> dict:
         """
 
