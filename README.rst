@@ -48,9 +48,10 @@ The package is core component of `pandas-profiling <https://github.com/pandas-pr
 More information can be found `here <https://dylan-profiler.github.io/visions/visions/about.html>`__.
 This work was partially supported by `SIDN Fonds <https://www.sidnfonds.nl/projecten/dylan-data-analysis-leveraging-automatisation>`_.
 
-.. figure:: SIDNfonds.png
-   :width: 200px
-   :align: center
+
+.. raw:: html
+
+   <img src="SIDNfonds.png" width="200" />
 
 .. |PythonBadge| image:: https://img.shields.io/pypi/pyversions/visions
 .. |PyPiDownloadsBadge| image:: https://pepy.tech/badge/visions
