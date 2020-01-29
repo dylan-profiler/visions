@@ -1,16 +1,16 @@
 import pandas.api.types as pdt
 import pandas as pd
-from typing import Sequence
+from typing import Sequence, List
 
 from visions.core.model.relations import IdentityRelation
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> List[TypeRelation]:
     from visions.core.implementations.types import visions_generic
 
-    relations = [IdentityRelation(visions_categorical, visions_generic)]
+    relations = [IdentityRelation(cls, visions_generic)]
     return relations
 
 
@@ -25,7 +25,7 @@ class visions_categorical(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

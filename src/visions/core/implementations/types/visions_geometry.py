@@ -30,13 +30,13 @@ def to_geometry(series: pd.Series) -> pd.Series:
     return pd.Series([wkt.loads(value) for value in series])
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_string, visions_object
 
     relations = [
-        IdentityRelation(visions_geometry, visions_object),
+        IdentityRelation(cls, visions_object),
         InferenceRelation(
-            visions_geometry,
+            cls,
             visions_string,
             relationship=string_is_geometry,
             transformer=to_geometry,
@@ -58,7 +58,7 @@ class visions_geometry(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

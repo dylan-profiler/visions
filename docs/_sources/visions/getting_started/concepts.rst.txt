@@ -6,27 +6,38 @@ This page introduces the concepts `visions` uses.
 Types
 -----
 
-A data type is a logical abstraction constraining the types of values data can be composed from. For example,
-`integers` can only consist of values like `1`, `2`, `3` but never `4.5`.
+A data type is a logical abstraction constraining the set of values data can be composed from.
+For example, `integers` can consist of values like 1, 2, and 3 but never 4.5.
 
-Within the `visions` framework, Types represent a logical abstraction over sequences of data
-(i.e. python: Tuples/Lists, pandas: Series, numpy: array, etc...). These types might correspond
-to every day notions like integers, floats, strings, datetimes, etc... or more complicated,
-user configured ideas like geometries, fruits, or files.
+Within the `visions` framework, types represent a logical abstraction over sequences of data
+like python lists, numpy arrays, or pandas series.
+These types might correspond to every day notions like integers, floats, strings, and datetimes or more complicated,
+user configured ideas like geometries, fruits, or files. These logical, or semantic notions of type are
+distinct from the physical representations of that data found on disk where, for example, the file
+abstraction is physically represented as a string.
+
+We use the terms *semantic type* and *physical type* to denote this difference.
 
 .. seealso:: If you want a deeper understanding of data types, see :doc:`data type view <../thinker/data_type_view>`.
 
 Typeset
 -------
 
-Typesets represent a mechanism to perform work over groups of types. Typesets contain types
-in a way comparable to a namespace for code or a virtual environment for dependencies.
-Flexible groupings of types allow different users to solve different problems in a manner specific
-to their circumstances.
+Typesets represent a mechanism to perform work over collections of types and contain
+types in a way comparable to a namespace for code or a virtual environment for dependencies.
+Flexible groupings of types allow different users to solve different problems in a manner specific to their circumstances.
 
 
 Relational mapping
 ------------------
 
-A relational mapping represents the relationships between types.
-Visions creates a graph of these relationships within a typeset as a mechanism to perform type inference on data.
+A relational mapping encodes the relationships between various types. These relationships come in
+the form of two functions:
+
+1. A relation function to test whether a mapping is possible between data of two types.
+2. A mapping function defining the transformation between data of two types.
+
+Each type is required to declare the set of potential relational mappings to itself upon
+instantiation. Because types are purely self contained, it's possible to dynamically construct a
+traversible graph of potential relations for any given typeset. This graph is then the mechanism used
+to perform type inference on data.

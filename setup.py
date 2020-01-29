@@ -16,25 +16,6 @@ install_requires = [
     "attrs",
 ]
 
-extras_requires = {
-    "type_geometry": type_geometry_requires,
-    "type_image_path": type_image_path_requires,
-    "network_plot": ["pydot", "pygraphviz", "matplotlib"],
-    "dev": [
-        "black",
-        "mypy",
-        "recommonmark",
-        "sphinx_rtd_theme",
-        "sphinx-autodoc-typehints",
-    ],
-}
-
-extras_requires["all"] = install_requires + [
-    dependency
-    for dependencies in extras_requires.values()
-    for dependency in dependencies
-]
-
 test_requires = [
     "mypy",
     "pytest>=5.2.0",
@@ -46,6 +27,28 @@ test_requires = [
     "pytest-mypy",
     "pytest-black",
 ]
+
+extras_requires = {
+    "type_geometry": type_geometry_requires,
+    "type_image_path": type_image_path_requires,
+    "plotting": ["pydot", "pygraphviz", "matplotlib"],
+    "dev": [
+        "black",
+        "mypy",
+        "recommonmark",
+        "sphinx_rtd_theme",
+        "sphinx-autodoc-typehints",
+    ],
+    "test": test_requires,
+}
+
+extras_requires["all"] = install_requires + [
+    dependency
+    for name, dependencies in extras_requires.items()
+    if name.startswith("type_") or name == "plotting"
+    for dependency in dependencies
+]
+
 
 # Read the contents of README file
 source_root = Path(".")

@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABCMeta
+from functools import partial
 from typing import Sequence, Type, Callable
 
 import attr
@@ -35,6 +36,14 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     @abstractmethod
     def contains_op(cls, series: pd.Series) -> bool:
         raise NotImplementedError
+
+    @classmethod
+    def extend_relations(cls, type_name, relations_func):
+        return type(
+            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+            (cls,),
+            {"get_relations": relations_func, "contains_op": cls.contains_op},
+        )
 
 
 @attr.s(frozen=True)
@@ -73,8 +82,3 @@ class TypeRelation:
 
     def transform(self, series: pd.Series) -> pd.Series:
         return self.transformer(series)
-
-    def __repr__(self) -> str:
-        return "TypeRelation({related_type} -> {own_type})".format(
-            related_type=self.related_type, own_type=self.type
-        )

@@ -1,6 +1,8 @@
 import pandas as pd
+from visions import visions_string, visions_datetime
 
 from visions.core.model import TypeRelation
+from visions.core.model.relations import InferenceRelation
 from visions.utils.coercion import test_utils
 
 
@@ -26,9 +28,39 @@ def to_datetime_year_week(series):
     return pd.to_datetime(series + "0", format="%Y/%U%w")
 
 
-def string_to_datetime_year_week():
-    return TypeRelation(
-        inferential=True,
-        relationship=test_utils.coercion_test(to_datetime_year_week),
-        transformer=to_datetime_year_week,
+def to_datetime_year_month_day(series):
+    """Convert a series of the format YYYYMMDD (year, month, day) to datetime.
+
+    Args:
+        series: the Series to parse
+
+    Returns:
+        A datetime series
+
+    Examples:
+        >>> series = pd.Series(['20181201', '20181202', '20181203'])
+        >>> parsed_series = to_datetime_year_week(series)
+        >>> print(parsed_series.dt.day)
+        0    1
+        1    2
+        2    3
+        dtype: int64
+    """
+    return pd.to_datetime(series, format="%Y%m%d")
+
+
+def get_string_datetime_type_relation(func):
+    return InferenceRelation(
+        relationship=test_utils.coercion_test(func),
+        transformer=func,
+        related_type=visions_string,
+        type=visions_datetime,
     )
+
+
+def string_to_datetime_year_week():
+    return get_string_datetime_type_relation(to_datetime_year_week)
+
+
+def string_to_datetime_year_month_day():
+    return get_string_datetime_type_relation(to_datetime_year_month_day)

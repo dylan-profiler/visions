@@ -29,7 +29,7 @@ In practice this looks like
     >>> test_series in visions_integer
     False
 
-.. seealso:: :doc:`Membership example <examples/membership>`
+.. seealso:: :doc:`Membership example <../getting_started/examples/membership>`
 
 
 Relations

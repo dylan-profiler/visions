@@ -20,13 +20,13 @@ def to_complex(series: pd.Series) -> bool:
     return series.apply(complex)
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_generic, visions_string
 
     relations = [
-        IdentityRelation(visions_complex, visions_generic),
+        IdentityRelation(cls, visions_generic),
         InferenceRelation(
-            visions_complex,
+            cls,
             visions_string,
             relationship=test_string_is_complex,
             transformer=to_complex,
@@ -47,7 +47,7 @@ class visions_complex(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

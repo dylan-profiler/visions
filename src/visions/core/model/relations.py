@@ -1,4 +1,5 @@
 import pandas as pd
+import attr
 
 from visions.core.model import TypeRelation
 
@@ -7,35 +8,22 @@ def identity_relation(series: pd.Series) -> pd.Series:
     return series
 
 
+@attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
-    def __init__(self, type, related_type, relationship=None):
-        relationship = type.__contains__ if relationship is None else relationship
-        super().__init__(
-            type,
-            related_type,
-            relationship=relationship,
-            transformer=identity_relation,
-            inferential=False,
-        )
+    inferential = attr.ib(default=False)
+    transformer = attr.ib(default=identity_relation)
+    relationship = attr.ib()
 
-    def __repr__(self) -> str:
-        return "IdentityRelation({related_type} -> {own_type})".format(
-            related_type=self.related_type, own_type=self.type
-        )
+    @relationship.default
+    def make_relationship(self):
+        return self.type.__contains__
 
 
+@attr.s(frozen=True)
 class InferenceRelation(TypeRelation):
-    def __init__(self, type, related_type, transformer, relationship=None):
-        relationship = type.__contains__ if relationship is None else relationship
-        super().__init__(
-            type,
-            related_type,
-            relationship=relationship,
-            transformer=transformer,
-            inferential=True,
-        )
+    inferential = attr.ib(default=True)
+    relationship = attr.ib()
 
-    def __repr__(self) -> str:
-        return "InferenceRelation({related_type} -> {own_type})".format(
-            related_type=self.related_type, own_type=self.type
-        )
+    @relationship.default
+    def make_relationship(self):
+        return self.type.__contains__

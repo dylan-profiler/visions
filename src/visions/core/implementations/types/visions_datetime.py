@@ -13,13 +13,13 @@ def to_datetime(series: pd.Series) -> pd.Series:
     return pd.to_datetime(series)
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_generic
 
     relations = [
-        IdentityRelation(visions_datetime, visions_generic),
+        IdentityRelation(cls, visions_generic),
         InferenceRelation(
-            visions_datetime,
+            cls,
             visions_string,
             relationship=test_utils.coercion_test(to_datetime),
             transformer=to_datetime,
@@ -39,7 +39,7 @@ class visions_datetime(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

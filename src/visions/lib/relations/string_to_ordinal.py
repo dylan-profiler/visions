@@ -14,12 +14,9 @@ def is_ordinal_str(s) -> bool:
         return False
 
 
-def string_to_ordinal() -> InferenceRelation:
-    from visions.core.implementations.types import visions_ordinal, visions_string
+def string_to_ordinal(cls) -> InferenceRelation:
+    from visions.core.implementations.types import visions_string
 
     return InferenceRelation(
-        visions_ordinal,
-        visions_string,
-        relationship=is_ordinal_str,
-        transformer=to_ordinal,
+        cls, visions_string, relationship=is_ordinal_str, transformer=to_ordinal
     )

@@ -18,13 +18,13 @@ def to_url(series: pd.Series) -> pd.Series:
     return series.apply(urlparse)
 
 
-def _get_relations() -> Sequence[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.core.implementations.types import visions_string, visions_object
 
     relations = [
-        IdentityRelation(visions_url, visions_object),
+        IdentityRelation(cls, visions_object),
         InferenceRelation(
-            visions_url, visions_string, relationship=test_url, transformer=to_url
+            cls, visions_string, relationship=test_url, transformer=to_url
         ),
     ]
     return relations
@@ -44,7 +44,7 @@ class visions_url(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations()
+        return _get_relations(cls)
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:

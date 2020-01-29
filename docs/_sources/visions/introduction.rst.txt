@@ -68,24 +68,25 @@ Essentially, `visions` does the following:
 - It extends the data types in Pandas to solve storage and implementation issues.
 - On top of that it models typesets as graphs (networkx) and provides graph traversal algorithms for type detection, inference and conversion.
 
-How to navigate
----------------
+..
+   How to navigate
+   ---------------
 
-This documentation is subdivided with the following audiences in mind (you can decide which one you are at any moment):
+   This documentation is subdivided with the following audiences in mind (you can decide which one you are at any moment):
 
-**The New Kid On The Block**
-    The basic information you need to setup and start
+   **The New Kid On The Block**
+       The basic information you need to setup and start
 
-    :doc:`Read more <getting_started/installation>`
-**The Practitioner**
-    Providing practical information to use type's and typeset's features quickly, with plenty of code examples
+       :doc:`Read more <getting_started/installation>`
+   **The Practitioner**
+       Providing practical information to use type's and typeset's features quickly, with plenty of code examples
 
-    :doc:`Read more <practitioner/>`
-**The Thinker**
-    Providing a deeper understanding of concepts behind `visions`
+       :doc:`Read more <practitioner/>`
+   **The Thinker**
+       Providing a deeper understanding of concepts behind `visions`
 
-    :doc:`Read more <thinker/>`
-**The Creator**
-    Providing ways to extend for your use case or contribute to the community
+       :doc:`Read more <thinker/>`
+   **The Creator**
+       Providing ways to extend for your use case or contribute to the community
 
-    :doc:`Read more <creator/>`
+       :doc:`Read more <creator/>`

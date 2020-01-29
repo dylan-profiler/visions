@@ -4,7 +4,6 @@ from typing import Type, Tuple, List, Dict, Iterable
 import pandas as pd
 import networkx as nx
 
-from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 from visions.core.model.visions_generic import visions_generic
 
@@ -21,13 +20,6 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
-
-    def get_relations(node, nodes):
-        return (
-            relation
-            for relation in node.get_relations()
-            if relation.related_type in nodes
-        )
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -194,31 +186,6 @@ def traverse_graph_inference_sample(
     return path, series
 
 
-# TODO: remove or use
-# def cast_along_path(
-#     series: pd.Series, path: List[Type[VisionsBaseType]], graph: nx.DiGraph
-# ) -> pd.Series:
-#     """Successively cast series along a path of visions types.
-#
-#     Args:
-#         series: the Series to cast
-#         path: the path to follow
-#         graph: the graph
-#
-#     Returns:
-#         The casted series
-#     """
-#     if len(path) <= 1:
-#         raise ValueError("path should at least contain 2 values")
-#
-#     new_series = series.copy()
-#
-#     for from_type, to_type in zip(path, path[1:]):
-#         new_series = graph[from_type][to_type]["relationship"].transform(new_series)
-#
-#     return new_series
-
-
 def infer_type_path(
     series: pd.Series,
     G: nx.DiGraph,
@@ -345,7 +312,9 @@ class VisionsTypeset(object):
         """
         return pd.DataFrame({col: self.cast_series(df[col]) for col in df.columns})
 
-    def cast_and_infer_series(self, series: pd.Series) -> pd.Series:
+    def cast_and_infer_series(
+        self, series: pd.Series
+    ) -> Tuple[Type[VisionsBaseType], pd.Series]:
         """Cast Series to its inferred type.
 
         Args:
@@ -361,7 +330,7 @@ class VisionsTypeset(object):
         )
         return path[-1], new_series
 
-    def cast_and_infer_frame(self, df: pd.DataFrame) -> pd.DataFrame:
+    def cast_and_infer_frame(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, dict]:
         """Cast to DataFrame, simple wrapper around cast_series.
 
         Args:
@@ -434,9 +403,19 @@ class VisionsTypeset(object):
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types | other_types)
 
+    def __iadd__(self, other):
+        return self.__add__(other)
+
     def __sub__(self, other):
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types - other_types)
+
+    def __isub__(self, other):
+        return self.__sub__(other)
+
+    def replace(self, old, new):
+        # TODO: overwrite all relations
+        return self.__sub__(old).__add__(new)
 
     def __repr__(self):
         return self.__class__.__name__
