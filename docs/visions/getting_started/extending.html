@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Extending</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#another-example">Another example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-types-extend-a-type">Custom Types (extend a type)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
@@ -238,6 +239,14 @@ This is convenient when you only change a single relation.</p>
 <p>Your custom type might be helpful for others, in which case you can choose to contribute it to <cite>visions</cite>.
 Read more on <a class="reference internal" href="../contributing/type.html"><span class="doc">how to contribute</span></a>.</p>
 </div>
+</div>
+<div class="section" id="another-example">
+<h2>Another example<a class="headerlink" href="#another-example" title="Permalink to this headline">¶</a></h2>
+<p>The default typesets in <cite>visions</cite> consider <cite>boolean</cite> and <cite>categorical</cite> to be distinct types.
+In fact, <cite>boolean</cite> is a special case of <cite>categorical</cite> where the number of categories is 2 and contains the values “True” and “False” (“Man” and “Woman” wouldn’t be binary).</p>
+<p>Note that for data analysis, the distinction makes sense.
+For a boolean we could the true/false ratio for example.</p>
+<p>See: <cite>examples/data_analysis</cite> for an example.</p>
 </div>
 <div class="section" id="custom-types-extend-a-type">
 <h2>Custom Types (extend a type)<a class="headerlink" href="#custom-types-extend-a-type" title="Permalink to this headline">¶</a></h2>

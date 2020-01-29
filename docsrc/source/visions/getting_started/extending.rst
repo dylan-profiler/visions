@@ -66,6 +66,9 @@ Another example
 The default typesets in `visions` consider `boolean` and `categorical` to be distinct types.
 In fact, `boolean` is a special case of `categorical` where the number of categories is 2 and contains the values "True" and "False" ("Man" and "Woman" wouldn't be binary).
 
+Note that for data analysis, the distinction makes sense.
+For a boolean we could the true/false ratio for example.
+
 See: `examples/data_analysis` for an example.
 
 Custom Types (extend a type)
