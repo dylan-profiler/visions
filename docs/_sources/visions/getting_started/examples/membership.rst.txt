@@ -4,7 +4,7 @@ Membership example
 The following example demonstrates the membership of various series.
 
 
-.. literalinclude:: ../../../../../notebooks/examples/membership.py
+.. literalinclude:: ../../../../../examples/functions/membership.py
     :language: python
     :caption: membership_example.py
     :name: membership_example

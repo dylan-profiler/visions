@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data Validation &mdash; visions 0.1.1 documentation</title>
+  <title>Data Validation &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
 </ul>
@@ -102,17 +102,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -184,13 +182,13 @@
   <div class="section" id="data-validation">
 <h1>Data Validation<a class="headerlink" href="#data-validation" title="Permalink to this headline">¶</a></h1>
 <p>Data validation is intended to provide automated guarantees over the input data, validating whether the data are meaningful, correct, accurate, consistent or complete.
-In data analysis, we often expect certain assumption to be invariant over time regardless how the dataset is manipulated.
+In data analysis, we often expect certain assumption to be invariant over time regardless of how the dataset is manipulated.
 For example, we might expect a field to always be unique (identifier) or a number to range between one and five (ratings).
-Tight coupling causes the same problem as discussed above, because the user often designs validation rules that are grounded in the meaning of the data.</p>
+Tight coupling causes the same problem as discussed above because the user often designs validation rules that are grounded in the meaning of the data.</p>
 <p>A variety of software packages have been developed to facilitate this workflow <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, <a class="footnote-reference brackets" href="#f2" id="id2">2</a>, <a class="footnote-reference brackets" href="#f3" id="id3">3</a>, <a class="footnote-reference brackets" href="#f4" id="id4">4</a>, <a class="footnote-reference brackets" href="#f5" id="id5">5</a>, <a class="footnote-reference brackets" href="#f6" id="id6">6</a>.
 These packages can benefit from decoupling semantic and physical types.</p>
 <p>The part of data validation that depends on physical types, the validation methods, should have to focus of such a package.
-For example, the software could have helper functions to assert if an float is approximately the reference value (see <cite>pytest.approx</cite> in <a class="reference internal" href="#pytest" id="id7"><span>[pytest]</span></a>).
+For example, the software could have helper functions to assert if a float is approximately the reference value (see <cite>pytest.approx</cite> in <a class="reference internal" href="#pytest" id="id7"><span>[pytest]</span></a>).
 The other part, defining and checking properties of the data depends on semantic types.
 For example, the International Standard Book Number (ISBN) has a <a class="reference external" href="https://en.wikipedia.org/wiki/Check_digit">check digit</a>, which only makes sense to validate when a stored number is representing the ISBN.
 A key observation is that this highly overlaps with the data summarization example discussed above.
@@ -244,7 +242,7 @@ Krekel et al., <a class="reference external" href="https://github.com/pytest-dev
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

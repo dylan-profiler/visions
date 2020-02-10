@@ -339,7 +339,9 @@ class VisionsTypeset(object):
         Returns:
             A copy of the DataFrame with cast
         """
-        inferred_values = {col: self.cast_series(df[col]) for col in df.columns}
+        inferred_values = {
+            col: self.cast_and_infer_series(df[col]) for col in df.columns
+        }
         inferred_types = {
             col: inf_type for col, (inf_type, _) in inferred_values.items()
         }

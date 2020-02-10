@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.implementations.types.visions_bool &mdash; visions 0.1.1 documentation</title>
+  <title>visions.core.implementations.types.visions_bool &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -81,10 +81,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/getting_started/extending.html">Extending</a></li>
 </ul>
@@ -100,17 +100,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -178,20 +176,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.core.implementations.types.visions_bool</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">IdentityRelation</span><span class="p">,</span>
-    <span class="n">InferenceRelation</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="kn">import</span> <span class="n">TypeRelation</span>
-<span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.lib.relations.string_to_bool</span> <span class="kn">import</span> <span class="n">get_boolean_coercions</span>
-<span class="kn">from</span> <span class="nn">visions.utils.coercion.test_utils</span> <span class="kn">import</span> <span class="n">coercion_map_test</span><span class="p">,</span> <span class="n">coercion_map</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.relations</span> <span class="k">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span>
+<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span> <span class="nn">visions.lib.relations.string_to_bool</span> <span class="k">import</span> <span class="n">get_boolean_coercions</span>
+<span class="kn">from</span> <span class="nn">visions.utils.coercion.test_utils</span> <span class="k">import</span> <span class="n">coercion_map_test</span><span class="p">,</span> <span class="n">coercion_map</span>
 
 
 <span class="k">def</span> <span class="nf">to_bool</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
@@ -201,11 +196,15 @@
         <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;Bool&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">unsupported_values</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="o">~</span><span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Values not supported </span><span class="si">{unsupported_values}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Values not supported </span><span class="si">{unsupported_values}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">unsupported_values</span><span class="o">=</span><span class="n">unsupported_values</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="p">(</span>
         <span class="n">visions_generic</span><span class="p">,</span>
         <span class="n">visions_string</span><span class="p">,</span>
         <span class="n">visions_integer</span><span class="p">,</span>
@@ -213,9 +212,9 @@
     <span class="p">)</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_bool</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
+        <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions_generic</span><span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_string</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">coercion_map_test</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">string_coercions</span><span class="p">)(</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -225,13 +224,13 @@
             <span class="p">),</span>
         <span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_integer</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="n">visions_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span>
             <span class="n">visions_object</span><span class="p">,</span>
             <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">bool</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
             <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
@@ -270,7 +269,7 @@
             <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{cls.__name__}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
             <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
             <span class="p">{</span>
                 <span class="s2">&quot;string_coercions&quot;</span><span class="p">:</span> <span class="n">string_coercions</span><span class="p">,</span>
@@ -291,7 +290,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

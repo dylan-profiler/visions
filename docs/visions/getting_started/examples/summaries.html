@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Summaries example &mdash; visions 0.1.1 documentation</title>
+  <title>Summaries example &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="membership.html">Membership example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="casting.html">Casting example</a></li>
@@ -107,17 +107,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -193,7 +191,7 @@
 <p>The following example demonstrates the summary of several <cite>visions_string</cite> types.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">summaries_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_frame</span>
 <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
@@ -225,19 +223,19 @@
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;| </span><span class="si">{h1: &lt;15}</span><span class="s2">| </span><span class="si">{h2: &lt;17}</span><span class="s2">| </span><span class="si">{h3: &lt;84}</span><span class="s2">| </span><span class="si">{h4: &lt;25}</span><span class="s2">|&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="k">print</span><span class="p">(</span>
+    <span class="s2">&quot;| {h1: &lt;15}| {h2: &lt;17}| {h3: &lt;84}| {h4: &lt;25}|&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">h1</span><span class="o">=</span><span class="s2">&quot;Column&quot;</span><span class="p">,</span> <span class="n">h2</span><span class="o">=</span><span class="s2">&quot;Scripts&quot;</span><span class="p">,</span> <span class="n">h3</span><span class="o">=</span><span class="s2">&quot;Categories&quot;</span><span class="p">,</span> <span class="n">h4</span><span class="o">=</span><span class="s2">&quot;Blocks&quot;</span>
     <span class="p">)</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{e:-&lt;17}</span><span class="s2">+</span><span class="si">{e:-&lt;18}</span><span class="s2">+</span><span class="si">{e:-&lt;85}</span><span class="s2">+</span><span class="si">{e:-&lt;26}</span><span class="s2">+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;{e:-&lt;17}+{e:-&lt;18}+{e:-&lt;85}+{e:-&lt;26}+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">variable_summary</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;series&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">scripts</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_summary</span><span class="p">[</span><span class="s2">&quot;script_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
     <span class="n">categories</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
     <span class="n">blocks</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 
-    <span class="nb">print</span><span class="p">(</span>
-        <span class="s2">&quot;| </span><span class="si">{column: &lt;15}</span><span class="s2">| </span><span class="si">{scripts: &lt;17}</span><span class="s2">| </span><span class="si">{categories: &lt;84}</span><span class="s2">| </span><span class="si">{blocks: &lt;25}</span><span class="s2">|&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="k">print</span><span class="p">(</span>
+        <span class="s2">&quot;| {column: &lt;15}| {scripts: &lt;17}| {categories: &lt;84}| {blocks: &lt;25}|&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">scripts</span><span class="o">=</span><span class="n">scripts</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">,</span> <span class="n">blocks</span><span class="o">=</span><span class="n">blocks</span>
         <span class="p">)</span>
     <span class="p">)</span>
@@ -281,7 +279,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

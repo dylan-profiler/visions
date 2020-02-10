@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_timedelta
    
       ~visions_timedelta.__init__
       ~visions_timedelta.contains_op
+      ~visions_timedelta.extend_relations
       ~visions_timedelta.get_relations
    
    

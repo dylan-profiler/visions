@@ -1,7 +1,7 @@
 Concepts
 ========
 
-This page introduces the concepts `visions` uses.
+This page introduces the key concepts `visions` uses: types, typesets and type relations.
 
 Types
 -----
@@ -18,7 +18,7 @@ abstraction is physically represented as a string.
 
 We use the terms *semantic type* and *physical type* to denote this difference.
 
-.. seealso:: If you want a deeper understanding of data types, see :doc:`data type view <../thinker/data_type_view>`.
+.. seealso:: If you want a deeper understanding of data types, see :doc:`data type view <../background/data_type_view>`.
 
 Typeset
 -------

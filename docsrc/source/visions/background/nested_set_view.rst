@@ -1,38 +1,19 @@
 Nested set view
 ===============
 
-This section discusses viewing the concepts of `visions` as `nested sets <https://en.wikipedia.org/wiki/Hereditarily_finite_set>`_.
-We find this view intuitive to create understanding of:
+Sets are an excellent way to reason about types, as the definition of a type is literally constraining the possible values the data can have. We find this view intuitive to create understanding of where the the exclusivity constraint in membership relation comes from, but it is limited in understanding relational mappings (see the graph view).
 
-- where the constraints in the graph view come from
+Below we see a `circle packing <https://en.wikipedia.org/wiki/Circle_packing>`_ representation of the data types in the complete set.
+Each circle represents the subset of all possible values that is denoted as that type.
+For example, the boolean type has the possible values :math:`\{True, False, None\}`.
+There is one root type, `visions_generic`, of which represents all possible values.
 
-It is limited in:
+When we perform type inference of a set of values, we find the narrowest circle that contains all values.
+For example, a set :math:`\{'2020-01-01', '2020-02-02'\}` is a member of `visions_generic`, `visions_datetime` and `visions_date`.
+`visions_date` is the narrowest circle, hence the type.
+Similarly, the membership relation is true when the circle includes all values.
 
-- visualising larger typesets and relational mappings (see the graph view).
 
-The nested set structure
-------------------------
-
-The subset view is a way of thinking about types, typesets and relations and builds on the graph view.
-
-Membership: plot set of values over the nested plot, take narrowest set that contains all values.
-Constraints (e.g. narrowest set)
-
-Note: an empty series is always generic. (e.g. corresponds to everyplace in the graph)
-
-Root type
----------
-
-There is one root type, `visions_generic`, of which all values :math:`V` are member.
-
-A type :math:`T` is associated with a parent type :math:`p`, and a subset of all the parent's values :math:`V_p`.
-
-For example, the boolean type values :math:`\{True, False, None\} \in V`
-
-Inference: the narrowest possible type for a set of values.
-
-Complete Set
-------------
 
 .. raw:: html
     :file: ../../../../src/visions/visualisation/circular_packing.html
@@ -41,7 +22,7 @@ Complete Set
 .. raw:: html
 
     <p class="caption">
-        <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circular packing</a> of the <em>visions_complete_set</em>.</span>
+        <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circle packing</a> of the <em>visions_complete_set</em>.</span>
         <a class="headerlink" href="#id1" title="Permalink to this image">
         </a>
     </p>

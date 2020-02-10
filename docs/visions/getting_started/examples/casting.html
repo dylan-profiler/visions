@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Casting example &mdash; visions 0.1.1 documentation</title>
+  <title>Casting example &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="membership.html">Membership example</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Casting example</a></li>
@@ -107,17 +107,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -190,7 +188,72 @@
             
   <div class="section" id="casting-example">
 <h1>Casting example<a class="headerlink" href="#casting-example" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+<p>We shortly introduced casting at the <a class="reference internal" href="../usage/typesets.html"><span class="doc">usage of typesets</span></a>. This example demonstrates how to cast a DataFrame at once.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">casting_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">type_cast_and_infer_frame</span><span class="p">,</span>
+    <span class="n">type_cast_frame</span><span class="p">,</span>
+    <span class="n">type_detect_frame</span><span class="p">,</span>
+    <span class="n">type_inference_frame</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">visions.core.implementations</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
+
+
+<span class="c1"># Create a DataFrame from our data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;numbers_with_nan&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;http://www.cwi.nl:80/</span><span class="si">%7E</span><span class="s2">guido/Python.html&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;https://numpy.org/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;https://github.com/pandas-profiling/pandas-profiling&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0b8a22ca-80ad-4df5-85ac-fa49c44b7ede&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aaa381d6-8442-4f63-88c8-7c900e9a23c6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;00000000-0000-0000-0000-000000000000&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+
+<span class="c1"># Choose the complete typeset, which includes URLs</span>
+<span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
+
+
+<span class="c1"># Detect the type (without casting)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">type_detect_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
+<span class="c1"># {&#39;numbers_with_nan&#39;: visions_float, &#39;url&#39;: visions_string, &#39;uuid&#39;: visions_string}</span>
+
+<span class="c1"># Cast the dataframe to inferred types</span>
+<span class="n">cast_df</span> <span class="o">=</span> <span class="n">type_cast_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cast_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="c1">#    numbers_with_nan                                                url                                  uuid</span>
+<span class="c1"># 0                 3  (http, www.cwi.nl:80, /%7Eguido/Python.html, ,...  0b8a22ca-80ad-4df5-85ac-fa49c44b7ede</span>
+<span class="c1"># 1                 7                        (https, numpy.org, /, , , )  aaa381d6-8442-4f63-88c8-7c900e9a23c6</span>
+<span class="c1"># 2               NaN  (https, github.com, /pandas-profiling/pandas-p...  00000000-0000-0000-0000-000000000000</span>
+
+<span class="c1"># Print the inferred types</span>
+<span class="k">print</span><span class="p">(</span><span class="n">type_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
+<span class="c1"># {&#39;numbers_with_nan&#39;: visions_integer, &#39;url&#39;: visions_url, &#39;uuid&#39;: visions_uuid}</span>
+
+<span class="c1"># We can also choose to do this in one step</span>
+<span class="n">cast_df</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="n">type_cast_and_infer_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">visions_complete_set</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cast_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+
+<span class="c1">#    numbers_with_nan                                                url                                  uuid</span>
+<span class="c1"># 0                 3  (http, www.cwi.nl:80, /%7Eguido/Python.html, ,...  0b8a22ca-80ad-4df5-85ac-fa49c44b7ede</span>
+<span class="c1"># 1                 7                        (https, numpy.org, /, , , )  aaa381d6-8442-4f63-88c8-7c900e9a23c6</span>
+<span class="c1"># 2               NaN  (https, github.com, /pandas-profiling/pandas-p...  00000000-0000-0000-0000-000000000000</span>
+<span class="c1"># {&#39;numbers_with_nan&#39;: visions_integer, &#39;url&#39;: visions_url, &#39;uuid&#39;: visions_uuid}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -213,7 +276,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

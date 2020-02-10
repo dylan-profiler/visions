@@ -1,23 +1,8 @@
 Graph view
 ==========
 
-What about this view?
----------------------
 
-In `visions` relationships between types are formalized through the language of graphs.
-
-Additionally, this graph view can guide our intuition around:
-
-- how types relate
-- how operations on types are performed
-
-It is limited for:
-
-- intuitive understanding of membership constraints (see the nested set view).
-
-
-The base data structure
------------------------
+In `visions` relationships between types are formalized through graph.
 The base data structure of a typeset is a `directed rooted tree <https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree>`_ (graph).
 Each node represents a `data type <../getting_started/concepts.html#type>`_.
 The root note is `visions_generic`.
@@ -40,7 +25,21 @@ This is the same as saying sets of any two pairs of data types with the same par
 For example, the `Path` and `URL` data type both have the parent data type `Object` i.e.
 :math:`\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset`.
 
-For the `visions_complete_set`, this base structure can be visualised as:
+For the three default typesets, this base structure can be visualised as:
+
+.. figure:: ../../../../src/visions/visualisation/typesets/typeset_standard_base.svg
+   :width: 700 px
+   :align: center
+   :alt: Visualisation of the base data structure of the *visions_standard_set*.
+
+   Visualisation of the base data structure of the *visions_standard_set*.
+
+.. figure:: ../../../../src/visions/visualisation/typesets/typeset_geometry_base.svg
+   :width: 700 px
+   :align: center
+   :alt: Visualisation of the base data structure of the *visions_geometry_set*.
+
+   Visualisation of the base data structure of the *visions_geometry_set*.
 
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_complete_base.svg
    :width: 700 px
@@ -59,8 +58,6 @@ Hence detection (and inference) return the narrowest possible type.
 
 Relational mapping extensions
 -----------------------------
-
-TODO: Identity transformation and note in practice we don't check this...
 
 We extend the data structure to support mappings from one data type to another.
 Relational mappings are very similar to the edges in the base data structure.

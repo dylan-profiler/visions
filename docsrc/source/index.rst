@@ -4,14 +4,14 @@ Visions
 
 Welcome to `visions`, a system for extendable, performant data types in Python.
 
-    And you could define your own types, and that's where I got very interested.
+    *And you could define your own types, and that's where I got very interested.*
     (..)
-    For me the key idea was that I could basically get my own types.
+    *For me the key idea was that I could basically get my own types.*
 
-    [In] C++, where I can get better types and more flexible types and more efficient types.
-    Its still the fundamental idea when I want to write a program, I want to write it with my types
-    that is appropriate to my problem and under the constraints I'm under with hardware, software, environment etc.
-    and that's the key idea
+    *I can get better types and more flexible types and more efficient types.*
+    *It's still the fundamental idea when I want to write a program, I want to write it with my types*
+    *that is appropriate to my problem and under the constraints I'm under with hardware, software, environment etc.*
+    *and that's the key idea.*
 
     -- Bjarne Stroustrup, creator of C++
 
@@ -23,10 +23,10 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
    :caption: Getting started
    :hidden:
 
-   visions/introduction
+   visions/getting_started/introduction
    visions/getting_started/installation
    visions/getting_started/concepts
-   visions/practitioner
+   visions/getting_started/usage
    visions/getting_started/examples
    visions/getting_started/extending
 
@@ -49,20 +49,18 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
    :hidden:
 
    visions/contributing/contributing
+   visions/contributing/type
 
 .. toctree::
    :maxdepth: 3
    :caption: Background
    :hidden:
 
-   visions/background/goals
-   visions/background/motivation
+   visions/background/background
    visions/background/theory
-   visions/background/data_type_view
-   visions/background/engineering_view
    visions/background/nested_set_view
    visions/background/graph_view
-   visions/about
+   visions/background/about
 
 
 .. toctree::
@@ -77,4 +75,6 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
+
+..  Comment
+    * :ref:`modindex`

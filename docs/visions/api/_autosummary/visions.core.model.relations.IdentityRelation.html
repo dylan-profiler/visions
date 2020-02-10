@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.model.relations.IdentityRelation &mdash; visions 0.1.1 documentation</title>
+  <title>visions.core.model.relations.IdentityRelation &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/extending.html">Extending</a></li>
 </ul>
@@ -102,17 +102,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -202,11 +200,16 @@
 <h1>visions.core.model.relations.IdentityRelation<a class="headerlink" href="#visions-core-model-relations-identityrelation" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="visions.core.model.relations.IdentityRelation">
-<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.relations.</code><code class="sig-name descname">IdentityRelation</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">relationship=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/relations.html#IdentityRelation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.relations.IdentityRelation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">visions.core.model.relations.</code><code class="sig-name descname">IdentityRelation</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">inferential=False</em>, <em class="sig-param">transformer=&lt;function identity_relation&gt;</em>, <em class="sig-param">relationship=NOTHING</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/relations.html#IdentityRelation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.relations.IdentityRelation" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="visions.core.model.relations.IdentityRelation.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">relationship=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/core/model/relations.html#IdentityRelation.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.model.relations.IdentityRelation.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">inferential=False</em>, <em class="sig-param">transformer=&lt;function identity_relation&gt;</em>, <em class="sig-param">relationship=NOTHING</em><span class="sig-paren">)</span><a class="headerlink" href="#visions.core.model.relations.IdentityRelation.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -216,7 +219,7 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.relations.IdentityRelation.__init__" title="visions.core.model.relations.IdentityRelation.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(type, related_type[, relationship])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#visions.core.model.relations.IdentityRelation.__init__" title="visions.core.model.relations.IdentityRelation.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(type, related_type[, inferential, …])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_relation</span></code>(series)</p></td>
@@ -227,7 +230,10 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(series)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_relationship</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">rtype</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -261,7 +267,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data Discovery and Data Integration &mdash; visions 0.1.1 documentation</title>
+  <title>Data Discovery and Data Integration &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
 </ul>
@@ -102,17 +102,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -183,10 +181,37 @@
             
   <div class="section" id="data-discovery-and-data-integration">
 <h1>Data Discovery and Data Integration<a class="headerlink" href="#data-discovery-and-data-integration" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p>Data discovery (=finding data sets relevant to their task at hand): [&#64;stonebraker2018data]</p></li>
-<li><p>Data integration: the NY office uses $, the Amsterdam office €, we want to merge the two data sets. [&#64;stonebraker2018data]</p></li>
-</ul>
+<p>Data discovery is the task of finding data sets relevant to their task at hand.
+Data integration is the task of combining those data sets.
+<em>“No data scientist we have talked to reports spending less than 80% of his time on discovery and integration.”</em> Stonebraker et al. report <a class="reference internal" href="#stonebraker2018dataintegration" id="id1"><span>[stonebraker2018dataintegration]</span></a>.</p>
+<p>The semantic types of data sets are critical for both tasks.</p>
+<p>Data discovery can be supported by information retrieval systems.
+Some queries like <em>“find a file with the extension CSV that contains ‘url’”</em> and <em>“find a dataset that is under a public license matching ‘titanic’”</em> are possible within current solutions based on full-text search and metadata standards <a class="footnote-reference brackets" href="#f1" id="id2">1</a>, <a class="footnote-reference brackets" href="#f2" id="id3">2</a>, <a class="footnote-reference brackets" href="#f3" id="id4">3</a>.
+However, queries based on the semantics of the data sets are out of reach of such approaches.
+Semantic types could support systems, such as the knowledge-graph-based <a class="reference internal" href="#aurum2018datadiscovery" id="id5"><span>[aurum2018datadiscovery]</span></a>, to allow for queries as “find tables that contain a column with name ‘ID’ and have at least one column that looks like an input column”.</p>
+<p>Providing types and their relations can provide additional support for common operations in data integration.
+Consider integrating two data sets, one coming from the office in New York, another from the same company but the one Amsterdam office.
+Without proper typing, the “wages” column in the first data set might be in dollar, while the second one in euro.</p>
+<dl class="citation">
+<dt class="label" id="stonebraker2018dataintegration"><span class="brackets"><a class="fn-backref" href="#id1">stonebraker2018dataintegration</a></span></dt>
+<dd><p>Stonebraker, M., &amp; Ilyas, I. F. (2018). Data Integration: The Current Status and the Way Forward. IEEE Data Eng. Bull., 41(2), 3-9.</p>
+</dd>
+<dt class="label" id="aurum2018datadiscovery"><span class="brackets"><a class="fn-backref" href="#id5">aurum2018datadiscovery</a></span></dt>
+<dd><p>Fernandez, R. C., Abedjan, Z., Koko, F., Yuan, G., Madden, S., &amp; Stonebraker, M. (2018, April). Aurum: A data discovery system. In 2018 IEEE 34th International Conference on Data Engineering (ICDE) (pp. 1001-1012). IEEE.</p>
+</dd>
+</dl>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="https://schema.org/Dataset">https://schema.org/Dataset</a></p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference external" href="https://developers.google.com/search/docs/data-types/dataset">https://developers.google.com/search/docs/data-types/dataset</a></p>
+</dd>
+<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p><a class="reference external" href="https://datasetsearch.research.google.com/">https://datasetsearch.research.google.com/</a></p>
+</dd>
+</dl>
 </div>
 
 
@@ -209,7 +234,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

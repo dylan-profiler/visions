@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_url
    
       ~visions_url.__init__
       ~visions_url.contains_op
+      ~visions_url.extend_relations
       ~visions_url.get_relations
    
    

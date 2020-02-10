@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nested set view &mdash; visions 0.1.1 documentation</title>
+  <title>Nested set view &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Graph view" href="graph_view.html" />
-    <link rel="prev" title="Design decisions" href="engineering_view.html" /> 
+    <link rel="prev" title="Theory" href="theory.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
 </ul>
@@ -102,22 +102,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="engineering_view.html">Design decisions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Nested set view</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-nested-set-structure">The nested set structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#root-type">Root type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#complete-set">Complete Set</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -188,31 +181,15 @@
             
   <div class="section" id="nested-set-view">
 <h1>Nested set view<a class="headerlink" href="#nested-set-view" title="Permalink to this headline">¶</a></h1>
-<p>This section discusses viewing the concepts of <cite>visions</cite> as <a class="reference external" href="https://en.wikipedia.org/wiki/Hereditarily_finite_set">nested sets</a>.
-We find this view intuitive to create understanding of:</p>
-<ul class="simple">
-<li><p>where the constraints in the graph view come from</p></li>
-</ul>
-<p>It is limited in:</p>
-<ul class="simple">
-<li><p>visualising larger typesets and relational mappings (see the graph view).</p></li>
-</ul>
-<div class="section" id="the-nested-set-structure">
-<h2>The nested set structure<a class="headerlink" href="#the-nested-set-structure" title="Permalink to this headline">¶</a></h2>
-<p>The subset view is a way of thinking about types, typesets and relations and builds on the graph view.</p>
-<p>Membership: plot set of values over the nested plot, take narrowest set that contains all values.
-Constraints (e.g. narrowest set)</p>
-<p>Note: an empty series is always generic. (e.g. corresponds to everyplace in the graph)</p>
-</div>
-<div class="section" id="root-type">
-<h2>Root type<a class="headerlink" href="#root-type" title="Permalink to this headline">¶</a></h2>
-<p>There is one root type, <cite>visions_generic</cite>, of which all values <span class="math notranslate nohighlight">\(V\)</span> are member.</p>
-<p>A type <span class="math notranslate nohighlight">\(T\)</span> is associated with a parent type <span class="math notranslate nohighlight">\(p\)</span>, and a subset of all the parent’s values <span class="math notranslate nohighlight">\(V_p\)</span>.</p>
-<p>For example, the boolean type values <span class="math notranslate nohighlight">\(\{True, False, None\} \in V\)</span></p>
-<p>Inference: the narrowest possible type for a set of values.</p>
-</div>
-<div class="section" id="complete-set">
-<h2>Complete Set<a class="headerlink" href="#complete-set" title="Permalink to this headline">¶</a></h2>
+<p>Sets are an excellent way to reason about types, as the definition of a type is literally constraining the possible values the data can have. We find this view intuitive to create understanding of where the the exclusivity constraint in membership relation comes from, but it is limited in understanding relational mappings (see the graph view).</p>
+<p>Below we see a <a class="reference external" href="https://en.wikipedia.org/wiki/Circle_packing">circle packing</a> representation of the data types in the complete set.
+Each circle represents the subset of all possible values that is denoted as that type.
+For example, the boolean type has the possible values <span class="math notranslate nohighlight">\(\{True, False, None\}\)</span>.
+There is one root type, <cite>visions_generic</cite>, of which represents all possible values.</p>
+<p>When we perform type inference of a set of values, we find the narrowest circle that contains all values.
+For example, a set <span class="math notranslate nohighlight">\(\{'2020-01-01', '2020-02-02'\}\)</span> is a member of <cite>visions_generic</cite>, <cite>visions_datetime</cite> and <cite>visions_date</cite>.
+<cite>visions_date</cite> is the narrowest circle, hence the type.
+Similarly, the membership relation is true when the circle includes all values.</p>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -267,7 +244,7 @@ Constraints (e.g. narrowest set)</p>
     // d3.json("typesets/typeset_complete_base.json", function (error, root) {
     //    if (error) throw error;
     // START-REPLACE
-	root = {"children": [{"name": "visions_count", "size": 1}, {"children": [{"name": "visions_ordinal", "size": 1}], "name": "visions_categorical"}, {"name": "visions_float", "size": 1}, {"name": "visions_timedelta", "size": 1}, {"name": "visions_integer", "size": 1}, {"children": [{"name": "visions_time", "size": 1}, {"name": "visions_date", "size": 1}], "name": "visions_datetime"}, {"name": "visions_bool", "size": 1}, {"name": "visions_complex", "size": 1}, {"children": [{"name": "visions_geometry", "size": 1}, {"name": "visions_uuid", "size": 1}, {"name": "visions_url", "size": 1}, {"children": [{"children": [{"name": "visions_image_path", "size": 1}], "name": "visions_existing_path"}], "name": "visions_path"}, {"name": "visions_string", "size": 1}, {"name": "visions_ip", "size": 1}], "name": "visions_object"}], "name": "visions_generic"}
+	root = {"children": [{"name": "visions_bool", "size": 1}, {"children": [{"name": "visions_time", "size": 1}, {"name": "visions_date", "size": 1}], "name": "visions_datetime"}, {"name": "visions_integer", "size": 1}, {"name": "visions_complex", "size": 1}, {"children": [{"name": "visions_ordinal", "size": 1}], "name": "visions_categorical"}, {"name": "visions_timedelta", "size": 1}, {"children": [{"name": "visions_uuid", "size": 1}, {"children": [{"children": [{"name": "visions_image_path", "size": 1}], "name": "visions_existing_path"}], "name": "visions_path"}, {"name": "visions_ip", "size": 1}, {"name": "visions_string", "size": 1}, {"name": "visions_url", "size": 1}, {"name": "visions_geometry", "size": 1}], "name": "visions_object"}, {"name": "visions_count", "size": 1}, {"name": "visions_float", "size": 1}], "name": "visions_generic"};
 	// END-REPLACE
         root = d3.hierarchy(root)
             .sum(function (d) {
@@ -287,7 +264,10 @@ Constraints (e.g. narrowest set)</p>
           .append('g')
           .attr('transform', function(d) {return 'translate(' + [d.x, d.y] + ')'})
             .on("click", function (d) {
-                if (focus !== d) zoom(d), d3.event.stopPropagation();
+                if (focus !== d) {
+                    zoom(d);
+                    d3.event.stopPropagation();
+                }
             });
 
         nodes
@@ -306,13 +286,13 @@ Constraints (e.g. narrowest set)</p>
                 var parent = d3.select(this.parentNode);
                 var c = parent.select('circle');
 
-                return d.children ? - 0.9 * c.attr('r') + 10 : 0;
+                return d.children ? - 0.95 * c.attr("r") + 10 : 0;
             })
           .attr("class", "label")
             .style('font-size', function(d){
                 var parent = d3.select(this.parentNode);
                 var c = parent.select('circle');
-                return Math.round(8 + 0.5 * c.attr('r') / 10).toString() + 'px';
+                return Math.round(8 + 0.75 * c.attr('r') / 10).toString() + 'px';
             })
           .text(function(d) {
               return d.data.name;
@@ -347,34 +327,29 @@ Constraints (e.g. narrowest set)</p>
             var k = diameter / v[2];
             view = v;
 
-
-            // TODO: different translation for text without children
             node.attr("transform", function (d) {
                 return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
             });
 
-            /*
+            circle.attr("r", function (d) {
+                return d.r * k;
+            });
+
             text.attr("y", function(d){
                 var parent = d3.select(this.parentNode);
                 var c = parent.select('circle');
 
-                return d.children ? - (0.9 * c.attr('r') + 10) * k : 0;
-            });
-            */
-
-            circle.attr("r", function (d) {
-                return d.r * k;
+                return d.children ? - 0.95 * c.attr("r") + 10 : 0;
             });
         }
     //});
 </script>
 </body>
 </html><p class="caption">
-    <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circular packing</a> of the <em>visions_complete_set</em>.</span>
+    <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circle packing</a> of the <em>visions_complete_set</em>.</span>
     <a class="headerlink" href="#id1" title="Permalink to this image">
     </a>
 </p></div>
-</div>
 
 
            </div>
@@ -387,7 +362,7 @@ Constraints (e.g. narrowest set)</p>
         <a href="graph_view.html" class="btn btn-neutral float-right" title="Graph view" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="engineering_view.html" class="btn btn-neutral float-left" title="Design decisions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="theory.html" class="btn btn-neutral float-left" title="Theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -396,7 +371,7 @@ Constraints (e.g. narrowest set)</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

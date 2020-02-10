@@ -23,7 +23,7 @@ def write_json(data):
 
 
 def write_html(data):
-    string = "\n\troot = {jdata}\n\t".format(jdata=json.dumps(data))
+    string = "\n\troot = {jdata};\n\t".format(jdata=json.dumps(data))
 
     file_name = Path("circular_packing.html")
     fc = file_name.read_text()

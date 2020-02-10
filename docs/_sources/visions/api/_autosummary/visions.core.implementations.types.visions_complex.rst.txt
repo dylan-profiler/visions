@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_complex
    
       ~visions_complex.__init__
       ~visions_complex.contains_op
+      ~visions_complex.extend_relations
       ~visions_complex.get_relations
    
    

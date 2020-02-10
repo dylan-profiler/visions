@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_geometry
    
       ~visions_geometry.__init__
       ~visions_geometry.contains_op
+      ~visions_geometry.extend_relations
       ~visions_geometry.get_relations
    
    

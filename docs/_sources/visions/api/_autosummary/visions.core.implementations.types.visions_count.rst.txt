@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_count
    
       ~visions_count.__init__
       ~visions_count.contains_op
+      ~visions_count.extend_relations
       ~visions_count.get_relations
    
    

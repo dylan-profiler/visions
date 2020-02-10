@@ -24,6 +24,7 @@ visions.core.model.typeset.VisionsTypeset
       ~VisionsTypeset.infer_series_type
       ~VisionsTypeset.output_graph
       ~VisionsTypeset.plot_graph
+      ~VisionsTypeset.replace
    
    
 

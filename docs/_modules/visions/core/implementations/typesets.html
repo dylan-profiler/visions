@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.implementations.typesets &mdash; visions 0.1.1 documentation</title>
+  <title>visions.core.implementations.typesets &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -81,10 +81,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/getting_started/extending.html">Extending</a></li>
 </ul>
@@ -100,17 +100,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../visions/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../visions/background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -178,8 +176,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.core.implementations.typesets</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
-<span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="k">import</span> <span class="n">VisionsTypeset</span>
+<span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="k">import</span> <span class="o">*</span>
 
 
 <div class="viewcode-block" id="visions_standard_set"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_standard_set.html#visions.core.implementations.typesets.visions_standard_set">[docs]</a><span class="k">class</span> <span class="nc">visions_standard_set</span><span class="p">(</span><span class="n">VisionsTypeset</span><span class="p">):</span>
@@ -199,7 +197,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="visions_standard_set.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_standard_set.html#visions.core.implementations.typesets.visions_standard_set.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="visions_standard_set.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_standard_set.html#visions.core.implementations.typesets.visions_standard_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">visions_object</span><span class="p">,</span>
             <span class="n">visions_bool</span><span class="p">,</span>
@@ -232,7 +230,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="visions_geometry_set.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_geometry_set.html#visions.core.implementations.typesets.visions_geometry_set.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="visions_geometry_set.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_geometry_set.html#visions.core.implementations.typesets.visions_geometry_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">visions_bool</span><span class="p">,</span>
             <span class="n">visions_float</span><span class="p">,</span>
@@ -272,10 +270,11 @@
 <span class="sd">    - visions_image_path</span>
 <span class="sd">    - visions_url</span>
 <span class="sd">    - visions_ip</span>
+<span class="sd">    - visions_uuid</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="visions_complete_set.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_complete_set.html#visions.core.implementations.typesets.visions_complete_set.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="visions_complete_set.__init__"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.core.implementations.typesets.visions_complete_set.html#visions.core.implementations.typesets.visions_complete_set.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">visions_bool</span><span class="p">,</span>
             <span class="n">visions_float</span><span class="p">,</span>
@@ -296,6 +295,7 @@
             <span class="n">visions_existing_path</span><span class="p">,</span>
             <span class="n">visions_image_path</span><span class="p">,</span>
             <span class="n">visions_ip</span><span class="p">,</span>
+            <span class="n">visions_uuid</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span></div></div>
 </pre></div>
@@ -310,7 +310,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>
