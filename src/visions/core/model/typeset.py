@@ -1,5 +1,5 @@
 import warnings
-from typing import Type, Tuple, List, Dict, Iterable
+from typing import Type, Tuple, List, Dict, Iterable, Optional
 
 import pandas as pd
 import networkx as nx
@@ -350,13 +350,13 @@ class VisionsTypeset(object):
         }
         return pd.DataFrame(inferred_series), inferred_types
 
-    def output_graph(self, file_name: str, base_only: bool = False) -> None:
+    def output_graph(self, file_name: str, base_only: bool = False, dpi: Optional[int] = None) -> None:
         """Write the type graph to a file.
 
         Args:
             file_name: the file to save the output to
             base_only: if True, plot the graph without relation mapping edges
-
+            dpi: set the dpi of the output image
         """
         from visions.utils.graph import output_graph
 
@@ -366,6 +366,8 @@ class VisionsTypeset(object):
             graph = self.relation_graph.copy()
 
         graph.graph["node"] = {"shape": "box", "color": "red"}
+        if dpi is not None:
+            graph.graph["graph"] = {"dpi": dpi}
 
         output_graph(graph, file_name)
 

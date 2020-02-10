@@ -543,6 +543,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
+        <span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;graph&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dpi&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">}</span>
         <span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
 
         <span class="n">output_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
