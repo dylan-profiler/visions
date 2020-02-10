@@ -68,7 +68,7 @@ In this way, users gain a consistent mechanism for detecting, inferring, and cas
 
 A rich library of pre-defined types is available in the package alongside an expressive API for third-party contributions.
 
-![Visions' Standard Typeset](https://raw.githubusercontent.com/dylan-profiler/visions/revision-/paper/images/typeset_standard.png?sanitize=true)
+![Visions' Standard Typeset](https://raw.githubusercontent.com/dylan-profiler/visions/revision-/paper/images/typeset_standard.png)
 _Figure 1: an example of semantic types and their hierarchical relations in the standard typeset.
 Solid edges denote inference relations where no casting is required, dashed edges denote that casting is required to traverse the edge._
 
