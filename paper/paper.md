@@ -82,7 +82,7 @@ This enables users to define, relate, modify and share types to solve data tasks
 It further paves the way for exciting future opportunities to identify and understand semantically useful data abstractions across a variety of potential domains. 
 
 `visions` builds on `pandas` [@mckinney2010data] and `numpy` [@van2011numpy] for physical types. 
-Other work has created specific semantic data types for pandas, namely `cyberpandas` <sup><cite> [1]_, [2]_, [3]_ </cite></sup> and `geopandas` [@kelsey_jordahl_2019_3545747].
+Other work has created specific semantic data types for pandas, namely `cyberpandas` <sup><cite> [1], [2], [3] </cite></sup> and `geopandas` [@kelsey_jordahl_2019_3545747].
 Moreover, `networkx` [@SciPyProceedings_11] is employed to construct type relation graphs.
 
 ## Potential Applications
@@ -115,3 +115,4 @@ This work was supported by SIDN Fonds under project number 191118.
 [1]:https://tomaugspurger.github.io/pandas-extension-arrays.html
 [2]:https://www.anaconda.com/cyberpandas-extending-pandas-with-richer-types/
 [3]:https://github.com/ContinuumIO/cyberpandas
+
