@@ -12,7 +12,7 @@ authors:
     affiliation: "1"
   - name: Ian Eaves*
     orcid: 0000-0001-6788-8188
-    affiliation "2"
+    affiliation: "2"
 affiliations:
  - name: Radboud University
    index: 1
