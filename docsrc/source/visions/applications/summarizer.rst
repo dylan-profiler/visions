@@ -8,15 +8,19 @@ An effective summary of the dataset goes beyond the *physical* types of the data
 If a variable stores a URL as a string, we might be interested if every URL has the "https" scheme.
 There is also overlap between physical types, where `min`, `max` and `range` are sensible statistics for real values as well as dates.
 
-Currently visions contains code for type summarization.
-`pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_ is a dedicated package that provides a user interface for these summarizations.
+
+.. warning::
+    Currently, the visions package contains the code for type summarization for demonstration purposes.
+    Note that the core functionality for visions is type inference.
+    The summarization functionality might be spun off in the future.
+    Please use `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_, a dedicated package that provides these summarizations.
 
 How does it work?
 -----------------
 
 Summaries are designed as *summary functions* on top of a `visions` typeset.
 Each type in the set can be associated with a set of these functions.
-The summary of a variable is the union of the output of the summary functions associated with it's type or any of it's super types.
+The summary of a variable is the union of the output of the summary functions associated with its type or any of its supertypes.
 
 Examples from Integer, Datetime and String types are given below.
 
@@ -32,8 +36,8 @@ Integer summary
 
 .. literalinclude:: ../../../../examples/summaries/integer_example.py
    :language: python
-   :lines: 5-
-   :lineno-start: 5
+   :lines: 7-
+   :lineno-start: 7
    :linenos:
    :caption: Integer Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/integer_example.py>`__)
 
@@ -74,14 +78,14 @@ String summary
    :linenos:
    :caption: String Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/string_example.py>`__)
 
-Notably, the `text_summary` obtains awesome unicode statistics from another package within this project: `tangled up in unicode <https://github.com/dylan-profiler/tangled-up-in-unicode>`_.
+Notably, the `text_summary` obtains awesome Unicode statistics from another package within this project: `tangled up in unicode <https://github.com/dylan-profiler/tangled-up-in-unicode>`_.
 If you are working with text data, you definitely want to check it out.
 
 
 Typeset summary graphs
 ----------------------
 
-We can visualise the summary functions for the a typeset, too.
+We can visualise the summary functions of a typeset as a tree.
 
 Complete Typeset
 ~~~~~~~~~~~~~~~~
@@ -97,4 +101,4 @@ Complete Typeset
 .. seealso:: :doc:`Summaries example <../getting_started/examples/summaries>`
 
 .. note:: Because `visions` types are nullable by default, they all inherit the same missing value summaries (`na_count`).
-   New visions types :doc:`can be created <../creator/extending>` at will if you prefer to produce your own summaries or extend your analysis to other types of objects.
+   New visions types :doc:`can be created <../getting_started/extending>` at will if you prefer to produce your own summaries or extend your analysis to other types of objects.

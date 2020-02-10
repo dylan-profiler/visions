@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data Summarization &mdash; visions 0.1.1 documentation</title>
+  <title>Data Summarization &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
 </ul>
@@ -114,17 +114,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -200,13 +198,18 @@ This is an essential step when working with a new dataset, and therefore is wort
 <p>An effective summary of the dataset goes beyond the <em>physical</em> types of the dataset.
 If a variable stores a URL as a string, we might be interested if every URL has the “https” scheme.
 There is also overlap between physical types, where <cite>min</cite>, <cite>max</cite> and <cite>range</cite> are sensible statistics for real values as well as dates.</p>
-<p>Currently visions contains code for type summarization.
-<a class="reference external" href="https://github.com/pandas-profiling/pandas-profiling">pandas-profiling</a> is a dedicated package that provides a user interface for these summarizations.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently, the visions package contains the code for type summarization for demonstration purposes.
+Note that the core functionality for visions is type inference.
+The summarization functionality might be spun off in the future.
+Please use <a class="reference external" href="https://github.com/pandas-profiling/pandas-profiling">pandas-profiling</a>, a dedicated package that provides these summarizations.</p>
+</div>
 <div class="section" id="how-does-it-work">
 <h2>How does it work?<a class="headerlink" href="#how-does-it-work" title="Permalink to this headline">¶</a></h2>
 <p>Summaries are designed as <em>summary functions</em> on top of a <cite>visions</cite> typeset.
 Each type in the set can be associated with a set of these functions.
-The summary of a variable is the union of the output of the summary functions associated with it’s type or any of it’s super types.</p>
+The summary of a variable is the union of the output of the summary functions associated with its type or any of its supertypes.</p>
 <p>Examples from Integer, Datetime and String types are given below.</p>
 <div class="section" id="integer-summary">
 <h3>Integer summary<a class="headerlink" href="#integer-summary" title="Permalink to this headline">¶</a></h3>
@@ -216,9 +219,7 @@ The summary of a variable is the union of the output of the summary functions as
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Integer Example (<a class="reference external" href="https://github.com/dylan-profiler/visions/tree/master/examples/summaries/integer_example.py">view source</a>)</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 5
- 6
- 7
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 7
  8
  9
 10
@@ -255,13 +256,11 @@ The summary of a variable is the union of the output of the summary functions as
 41
 42
 43
-44</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.application.summaries.summary</span> <span class="kn">import</span> <span class="n">CompleteSummary</span>
-
-<span class="n">integer_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">100000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;Int64&quot;</span><span class="p">)</span>
+44</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">integer_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">100000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;Int64&quot;</span><span class="p">)</span>
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">,</span> <span class="n">visions_integer</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
 <span class="c1"># {</span>
@@ -347,7 +346,7 @@ The summary of a variable is the union of the output of the summary functions as
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">datetime_series</span><span class="p">,</span> <span class="n">visions_datetime</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
 <span class="c1"># {</span>
@@ -463,7 +462,7 @@ The summary of a variable is the union of the output of the summary functions as
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">string_series</span><span class="p">,</span> <span class="n">visions_string</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
 <span class="c1"># {</span>
@@ -544,13 +543,13 @@ The summary of a variable is the union of the output of the summary functions as
 </pre></div>
 </td></tr></table></div>
 </div>
-<p>Notably, the <cite>text_summary</cite> obtains awesome unicode statistics from another package within this project: <a class="reference external" href="https://github.com/dylan-profiler/tangled-up-in-unicode">tangled up in unicode</a>.
+<p>Notably, the <cite>text_summary</cite> obtains awesome Unicode statistics from another package within this project: <a class="reference external" href="https://github.com/dylan-profiler/tangled-up-in-unicode">tangled up in unicode</a>.
 If you are working with text data, you definitely want to check it out.</p>
 </div>
 </div>
 <div class="section" id="typeset-summary-graphs">
 <h2>Typeset summary graphs<a class="headerlink" href="#typeset-summary-graphs" title="Permalink to this headline">¶</a></h2>
-<p>We can visualise the summary functions for the a typeset, too.</p>
+<p>We can visualise the summary functions of a typeset as a tree.</p>
 <div class="section" id="complete-typeset">
 <h3>Complete Typeset<a class="headerlink" href="#complete-typeset" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-center" id="id7">
@@ -564,7 +563,7 @@ If you are working with text data, you definitely want to check it out.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Because <cite>visions</cite> types are nullable by default, they all inherit the same missing value summaries (<cite>na_count</cite>).
-New visions types <span class="xref std std-doc">can be created</span> at will if you prefer to produce your own summaries or extend your analysis to other types of objects.</p>
+New visions types <a class="reference internal" href="../getting_started/extending.html"><span class="doc">can be created</span></a> at will if you prefer to produce your own summaries or extend your analysis to other types of objects.</p>
 </div>
 </div>
 </div>
@@ -590,7 +589,7 @@ New visions types <span class="xref std std-doc">can be created</span> at will i
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

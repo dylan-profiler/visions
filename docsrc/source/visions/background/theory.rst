@@ -24,9 +24,7 @@ Open Challenges
 
 1. Finding a minimal representation of semantic types
 2. Detecting the semantic type of a sequence
-3. `visions` is interested in the semantic meaning of data and therefore should be able
-to infer the "intended" type of a sequence regardless of it's physical representation (e.g.
-the string `'1.0'` should be recognized as the number `1`).
+3. `visions` is interested in the semantic meaning of data and therefore should be able to infer the "intended" type of a sequence regardless of it's physical representation (e.g. the string `'1.0'` should be recognized as the number `1`).
 
 
 We want to do all of this while keeping types easy to use, performant, and deterministic.

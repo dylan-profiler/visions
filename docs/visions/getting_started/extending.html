@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Extending &mdash; visions 0.1.1 documentation</title>
+  <title>Extending &mdash; visions 0.2.1 documentation</title>
   
 
   
@@ -83,10 +83,10 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Visions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practitioner.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Extending</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
@@ -109,17 +109,15 @@
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/theory.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/graph_view.html">Graph view</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -262,7 +260,7 @@ This is useful for small changes, such as adding a single relation.</p>
  <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
  <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">visions_integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
 
- <span class="nb">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
+ <span class="k">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
  <span class="c1"># Prints: visions_integer[with_datetime]</span>
 </pre></div>
 </div>
@@ -271,7 +269,7 @@ This is useful for small changes, such as adding a single relation.</p>
 <p class="admonition-title">Hint</p>
 <p>While developing new type relations, you can use this helper function to debug:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
-     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{column}</span><span class="s2"> was </span><span class="si">{type_before}</span><span class="s2"> is </span><span class="si">{type_after}</span><span class="s2">&quot;</span><span class="p">)</span>
+     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{column} was {type_before} is {type_after}&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -365,7 +363,7 @@ in any way imaginable:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Ian Eaves and Simon Brugman
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>

@@ -3,7 +3,7 @@ Summaries example
 
 The following example demonstrates the summary of several `visions_string` types.
 
-.. literalinclude:: ../../../../../notebooks/examples/summarize_strings.py
+.. literalinclude:: ../../../../../examples/functions/summarize_strings.py
     :language: python
     :caption: summaries_example.py
     :name: summaries_example

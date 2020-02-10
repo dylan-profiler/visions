@@ -12,6 +12,7 @@
 #
 import os
 import sys
+from datetime import date
 
 sys.path.insert(0, os.path.join("..", "..", "src"))
 sys.path.insert(0, os.path.join("..", "..", "src", "visions"))
@@ -20,7 +21,8 @@ sys.path.insert(0, os.path.join("..", "..", "src", "visions"))
 # -- Project information -----------------------------------------------------
 
 project = "visions"
-copyright = "2019, Ian Eaves and Simon Brugman"
+year = date.today().year
+copyright = f"{year}, Ian Eaves and Simon Brugman"
 author = "Simon Brugman and Ian Eaves"
 
 # The full version, including alpha/beta/rc tags
@@ -56,7 +58,7 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+exclude_patterns = ["_build", "_templates"]
 
 master_doc = "index"
 
@@ -76,5 +78,3 @@ html_static_path = ["_static"]
 autodoc_mock_imports = ["networkx"]
 autoclass_content = "both"
 autosummary_generate = True
-
-exclude_patterns = ["_build", "_templates"]

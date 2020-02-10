@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_existing\_path
    
       ~visions_existing_path.__init__
       ~visions_existing_path.contains_op
+      ~visions_existing_path.extend_relations
       ~visions_existing_path.get_relations
    
    

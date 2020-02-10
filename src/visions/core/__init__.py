@@ -1,3 +1,4 @@
+"""Core functionality"""
 from visions.core import model
 from visions.core import implementations
 from visions.core.functional import (

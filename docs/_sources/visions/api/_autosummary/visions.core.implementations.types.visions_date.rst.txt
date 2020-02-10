@@ -15,6 +15,7 @@ visions.core.implementations.types.visions\_date
    
       ~visions_date.__init__
       ~visions_date.contains_op
+      ~visions_date.extend_relations
       ~visions_date.get_relations
    
    
