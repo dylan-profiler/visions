@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.implementations.types.visions_object &mdash; visions 0.2.1 documentation</title>
+  <title>visions.core.implementations.types.visions_object &mdash; visions 0.1.1 documentation</title>
   
 
   
@@ -107,6 +107,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../background/goals.html">Goals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/theory.html">Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/data_type_view.html">Data Type View</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../background/nested_set_view.html">Nested set view</a></li>
@@ -139,7 +140,6 @@
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_url.html">visions.core.implementations.types.visions_url</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_ip.html">visions.core.implementations.types.visions_ip</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_count.html">visions.core.implementations.types.visions_count</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.core.implementations.types.visions_uuid.html">visions.core.implementations.types.visions_uuid</a></li>
 </ul>
 </li>
 </ul>
@@ -226,7 +226,7 @@
 <em class="property">class </em><code class="sig-prename descclassname">visions.core.implementations.types.</code><code class="sig-name descname">visions_object</code><a class="reference internal" href="../../../_modules/visions/core/implementations/types/visions_object.html#visions_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.core.implementations.types.visions_object" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Object</strong> implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">visions.core.model.type.VisionsBaseType</span></code>.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="ow">in</span> <span class="n">visions_object</span>
 <span class="go">True</span>
 </pre></div>

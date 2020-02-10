@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data Summarization &mdash; visions 0.2.1 documentation</title>
+  <title>Data Summarization &mdash; visions 0.1.1 documentation</title>
   
 
   
@@ -119,6 +119,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../background/goals.html">Goals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/theory.html">Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/data_type_view.html">Data Type View</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../background/nested_set_view.html">Nested set view</a></li>
@@ -260,7 +261,7 @@ The summary of a variable is the union of the output of the summary functions as
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">,</span> <span class="n">visions_integer</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
 <span class="c1"># {</span>
@@ -346,7 +347,7 @@ The summary of a variable is the union of the output of the summary functions as
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">datetime_series</span><span class="p">,</span> <span class="n">visions_datetime</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
 <span class="c1"># {</span>
@@ -462,7 +463,7 @@ The summary of a variable is the union of the output of the summary functions as
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">string_series</span><span class="p">,</span> <span class="n">visions_string</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
 <span class="c1"># {</span>

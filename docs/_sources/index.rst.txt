@@ -57,6 +57,7 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
 
    visions/background/goals
    visions/background/motivation
+   visions/background/theory
    visions/background/data_type_view
    visions/background/engineering_view
    visions/background/nested_set_view

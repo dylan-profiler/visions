@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.core.functional &mdash; visions 0.2.1 documentation</title>
+  <title>visions.core.functional &mdash; visions 0.1.1 documentation</title>
   
 
   
@@ -105,6 +105,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/background/goals.html">Goals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/background/motivation.html">Open challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/background/theory.html">Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/background/data_type_view.html">Data Type View</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/background/engineering_view.html">Design decisions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/background/nested_set_view.html">Nested set view</a></li>
@@ -177,12 +178,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.core.functional</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="k">import</span> <span class="n">VisionsTypeset</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
 
 
 <div class="viewcode-block" id="type_cast_frame"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.core.functional.type_cast_frame.html#visions.core.functional.type_cast_frame">[docs]</a><span class="k">def</span> <span class="nf">type_cast_frame</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -300,67 +301,6 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span></div>
-
-
-<span class="k">def</span> <span class="nf">compare_detect_inference_frame</span><span class="p">(</span>
-    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]]]:</span>
-    <span class="sd">&quot;&quot;&quot;Compare the types given by inference on the base graph and the relational graph</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        df: the DataFrame to detect types on</span>
-<span class="sd">        typeset: the Typeset that provides the type context</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; for column, type_before, type_after in compare_detect_inference_frame(df, typeset):</span>
-<span class="sd">        &gt;&gt;&gt;    print(f&quot;{column} was {type_before} is {type_after}&quot;)</span>
-
-<span class="sd">    See Also:</span>
-<span class="sd">        `type_inference_report_frame`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">comparisons</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">detected_types</span> <span class="o">=</span> <span class="n">type_detect_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-    <span class="n">inferred_types</span> <span class="o">=</span> <span class="n">type_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">detected_types</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">inferred_types</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">detected_types</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">inferred_types</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
-    <span class="k">return</span> <span class="n">comparisons</span>
-
-
-<span class="k">def</span> <span class="nf">type_inference_report_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Print formatted report of the output of `compare_detect_inference_frame`.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        df: the DataFrame to detect types on</span>
-<span class="sd">        typeset: the Typeset that provides the type context</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Text-based comparative type inference report</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">padding</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="n">max_column_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span> <span class="o">+</span> <span class="n">padding</span>
-    <span class="n">max_type_length</span> <span class="o">=</span> <span class="mi">30</span>
-
-    <span class="n">report</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">change_count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
-        <span class="n">changed</span> <span class="o">=</span> <span class="n">type_before</span> <span class="o">!=</span> <span class="n">type_after</span>
-        <span class="k">if</span> <span class="n">changed</span><span class="p">:</span>
-            <span class="n">fill</span> <span class="o">=</span> <span class="s2">&quot;!=&quot;</span>
-            <span class="n">change_count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">fill</span> <span class="o">=</span> <span class="s2">&quot;==&quot;</span>
-        <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;{column: &lt;</span><span class="si">{max_column_length}</span><span class="s2">} {type_before: &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="si">{fill}</span><span class="s2"> {type_after: &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span>
-            <span class="n">max_column_length</span><span class="o">=</span><span class="n">max_column_length</span><span class="p">,</span>
-            <span class="n">type_before</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">type_before</span><span class="p">),</span>
-            <span class="n">type_after</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">type_after</span><span class="p">),</span>
-            <span class="n">max_type_length</span><span class="o">=</span><span class="n">max_type_length</span><span class="p">,</span>
-            <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;In total </span><span class="si">{change_count}</span><span class="s2"> out of </span><span class="si">{type_count}</span><span class="s2"> types were changed.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">change_count</span><span class="o">=</span><span class="n">change_count</span><span class="p">,</span> <span class="n">type_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">report</span>
 </pre></div>
 
            </div>
