@@ -74,7 +74,7 @@ Solid edges denote inference relations where no casting is required, dashed edge
 
 ## Research purpose and Contributions
 
-The need to capture semantic and physical type distinctions has been a key challenge facing the development of pandas 2.0 where tight coupling has limited type-level expressivity for users and lead to code complexity where type inference heuristics are expanded to support multiple divergent needs [@pandas2-docs].
+The need to capture semantic and physical type distinctions has been a key challenge facing the development of pandas 2.0 where tight coupling has limited type-level expressivity for users and lead to code complexity where type inference heuristics are expanded to support multiple divergent needs [pandas2-docs].
 
 `visions` was designed to be used by researchers and practitioners to experiment with more flexible data workflows.
 The package aims to make defining and relating data types simple while maximizing expressive capability.
