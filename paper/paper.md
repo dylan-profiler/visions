@@ -27,7 +27,7 @@ bibliography: paper.bib
 ## Introduction
 
 Many common data workflows such as loading tabular data from plain text files, data compression, and machine learning data processing rely on *semantically* meaningful representations of the data's type. 
-Most type inference algorithms, including those used by <cite>[pandas][pandas]</cite> and within the <cite>[tidyverse][tidyverse]</cite> employ rule-based heuristics tightly coupled to the *physical* type implementation used by the library. 
+Most type inference algorithms, including those used by [pandas][pandas] and within the [tidyverse][tidyverse] employ rule-based heuristics tightly coupled to the *physical* type implementation used by the library. 
 In practice these two representations are distinct. 
 For example, while the set of real numbers between 0 and 1 are *physically* represented on disk as float, their *semantics* might instead be a probability.
 
@@ -82,7 +82,7 @@ This enables users to define, relate, modify and share types to solve data tasks
 It further paves the way for exciting future opportunities to identify and understand semantically useful data abstractions across a variety of potential domains. 
 
 `visions` builds on `pandas` [@mckinney2010data] and `numpy` [@van2011numpy] for physical types. 
-Other work has created specific semantic data types for pandas, namely `cyberpandas` <sup><cite> [1], [2], [3] </cite></sup> and `geopandas` [@kelsey_jordahl_2019_3545747].
+Other work has created specific semantic data types for pandas, namely `cyberpandas` [1; 2; 3] and `geopandas` [@kelsey_jordahl_2019_3545747].
 Moreover, `networkx` [@SciPyProceedings_11] is employed to construct type relation graphs.
 
 ## Potential Applications
