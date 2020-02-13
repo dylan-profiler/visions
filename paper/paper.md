@@ -22,8 +22,6 @@ date: 1 February 2020
 bibliography: paper.bib
 ---
 
-# Visions: An Open-Source Library for Semantic Data
-
 ## Introduction
 
 Many common data workflows such as loading tabular data from plain text files, data compression, and machine learning data processing rely on *semantically* meaningful representations of the data's type. 
