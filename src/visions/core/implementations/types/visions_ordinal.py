@@ -1,15 +1,16 @@
-import pandas.api.types as pdt
-import pandas as pd
 from typing import Sequence
 
-from visions.core.model.relations import IdentityRelation, InferenceRelation
+import pandas.api.types as pdt
+import pandas as pd
+
+from visions.core.model.relations import IdentityRelation
 from visions.core.model import TypeRelation
 from visions.core.model.type import VisionsBaseType
 
 
-def to_ordinal(series: pd.Series) -> pd.Series:
-    return pd.Series(
-        pd.Categorical(series, categories=sorted(series.unique()), ordered=True)
+def to_ordinal(series: pd.Series) -> pd.Categorical:
+    return pd.Categorical(
+        series, categories=sorted(series.dropna().unique()), ordered=True
     )
 
 

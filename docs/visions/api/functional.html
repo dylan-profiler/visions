@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Functional API &mdash; visions 0.2.1 documentation</title>
+  <title>Functional API &mdash; visions 0.2.4 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Utils" href="utils.html" />
+    <link rel="next" title="visions.core.functional.compare_detect_inference_frame" href="_autosummary/visions.core.functional.compare_detect_inference_frame.html" />
     <link rel="prev" title="visions.application.summaries.functional.summarize_series" href="_autosummary/visions.application.summaries.functional.summarize_series.html" /> 
 </head>
 
@@ -129,6 +129,11 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_series.html">visions.core.functional.type_cast_series</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_and_infer_frame.html">visions.core.functional.type_cast_and_infer_frame</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_and_infer_series.html">visions.core.functional.type_cast_and_infer_series</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#type-changes">Type changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.functional.compare_detect_inference_frame.html">visions.core.functional.compare_detect_inference_frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.core.functional.type_inference_report_frame.html">visions.core.functional.type_inference_report_frame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#summaries">Summaries</a><ul>
@@ -224,45 +229,44 @@
 <td><p>Detect the type in the base graph</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_detect_series.html#visions.core.functional.type_detect_series" title="visions.core.functional.type_detect_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_detect_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Detect the type in the base graph</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_inference_frame.html#visions.core.functional.type_inference_frame" title="visions.core.functional.type_inference_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_frame</span></code></a>(df, typeset)</p></td>
 <td><p>Infer the current types of each column in the DataFrame given the typeset.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_inference_series.html#visions.core.functional.type_inference_series" title="visions.core.functional.type_inference_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Infer the current type of the series given the typeset.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_frame.html#visions.core.functional.type_cast_frame" title="visions.core.functional.type_cast_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_frame</span></code></a>(df, typeset)</p></td>
 <td><p>Casts a DataFrame into a typeset by first performing column wise type inference against a provided typeset</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_series.html#visions.core.functional.type_cast_series" title="visions.core.functional.type_cast_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Casts the series</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_and_infer_frame.html#visions.core.functional.type_cast_and_infer_frame" title="visions.core.functional.type_cast_and_infer_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_and_infer_frame</span></code></a>(df, typeset)</p></td>
 <td><p>Casts a DataFrame into a typeset by first performing column wise type inference against a provided typeset</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_cast_and_infer_series.html#visions.core.functional.type_cast_and_infer_series" title="visions.core.functional.type_cast_and_infer_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_and_infer_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<td><p>Cast the series and perform type inference</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="type-changes">
+<h2>Type changes<a class="headerlink" href="#type-changes" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.compare_detect_inference_frame.html#visions.core.functional.compare_detect_inference_frame" title="visions.core.functional.compare_detect_inference_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_detect_inference_frame</span></code></a>(df, typeset)</p></td>
+<td><p>Compare the types given by inference on the base graph and the relational graph</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.core.functional.type_inference_report_frame.html#visions.core.functional.type_inference_report_frame" title="visions.core.functional.type_inference_report_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_report_frame</span></code></a>(df, typeset)</p></td>
+<td><p>Return formatted report of the output of <cite>compare_detect_inference_frame</cite>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -299,7 +303,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="_autosummary/visions.core.functional.compare_detect_inference_frame.html" class="btn btn-neutral float-right" title="visions.core.functional.compare_detect_inference_frame" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="_autosummary/visions.application.summaries.functional.summarize_series.html" class="btn btn-neutral float-left" title="visions.application.summaries.functional.summarize_series" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

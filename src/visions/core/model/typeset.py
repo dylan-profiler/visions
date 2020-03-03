@@ -420,7 +420,6 @@ class VisionsTypeset(object):
         return self.__sub__(other)
 
     def replace(self, old, new):
-        # TODO: overwrite all relations
         return self.__sub__(old).__add__(new)
 
     def __repr__(self):

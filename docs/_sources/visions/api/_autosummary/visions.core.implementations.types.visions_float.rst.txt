@@ -15,7 +15,7 @@ visions.core.implementations.types.visions\_float
    
       ~visions_float.__init__
       ~visions_float.contains_op
-      ~visions_float.extend_relations
+      ~visions_float.evolve_relations
       ~visions_float.get_relations
    
    

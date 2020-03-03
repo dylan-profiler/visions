@@ -1,12 +1,11 @@
 import pandas as pd
-from visions import visions_string, visions_datetime
+from visions import visions_string
 
-from visions.core.model import TypeRelation
 from visions.core.model.relations import InferenceRelation
 from visions.utils.coercion import test_utils
 
 
-def to_datetime_year_week(series):
+def to_datetime_year_week(series: pd.Series) -> pd.Series:
     """Convert a series of the format YYYY/UU (year, week) to datetime.
     A '0' is added as day dummy value, as pandas requires a day value to parse.
 
@@ -28,7 +27,7 @@ def to_datetime_year_week(series):
     return pd.to_datetime(series + "0", format="%Y/%U%w")
 
 
-def to_datetime_year_month_day(series):
+def to_datetime_year_month_day(series: pd.Series) -> pd.Series:
     """Convert a series of the format YYYYMMDD (year, month, day) to datetime.
 
     Args:
@@ -49,18 +48,18 @@ def to_datetime_year_month_day(series):
     return pd.to_datetime(series, format="%Y%m%d")
 
 
-def get_string_datetime_type_relation(func):
+def get_string_datetime_type_relation(cls, func) -> InferenceRelation:
     return InferenceRelation(
         relationship=test_utils.coercion_test(func),
         transformer=func,
         related_type=visions_string,
-        type=visions_datetime,
+        type=cls,
     )
 
 
-def string_to_datetime_year_week():
-    return get_string_datetime_type_relation(to_datetime_year_week)
+def string_to_datetime_year_week(cls) -> InferenceRelation:
+    return get_string_datetime_type_relation(cls, to_datetime_year_week)
 
 
-def string_to_datetime_year_month_day():
-    return get_string_datetime_type_relation(to_datetime_year_month_day)
+def string_to_datetime_year_month_day(cls) -> InferenceRelation:
+    return get_string_datetime_type_relation(cls, to_datetime_year_month_day)

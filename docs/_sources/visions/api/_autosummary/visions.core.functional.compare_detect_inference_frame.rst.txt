@@ -1,0 +1,6 @@
+visions.core.functional.compare\_detect\_inference\_frame
+=========================================================
+
+.. currentmodule:: visions.core.functional
+
+.. autofunction:: compare_detect_inference_frame

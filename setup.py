@@ -1,32 +1,23 @@
 from pathlib import Path
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
-from setuptools import find_packages
 
+# Read the contents of README file
+source_root = Path(".")
+with (source_root / "README.rst").open(encoding="utf-8") as f:
+    long_description = f.read()
+
+# Read the requirements
+with (source_root / "requirements.txt").open(encoding="utf8") as f:
+    requirements = f.readlines()
+
+with (source_root / "requirements_test.txt").open(encoding="utf8") as f:
+    test_requirements = f.readlines()
 
 type_geometry_requires = ["shapely"]
 type_image_path_requires = ["imagehash", "Pillow"]
 
-install_requires = [
-    "numpy",
-    "pandas>=0.25.3",
-    "networkx",
-    "tangled_up_in_unicode>=0.0.3",
-    "attrs",
-]
-
-test_requires = [
-    "mypy",
-    "pytest>=5.2.0",
-    "pytest-ordering",
-    "pytest-rerunfailures",
-    "pytest-sugar",
-    "pytest-tldr",
-    "pytest-runner",
-    "pytest-mypy",
-    "pytest-black",
-]
 
 extras_requires = {
     "type_geometry": type_geometry_requires,
@@ -39,33 +30,27 @@ extras_requires = {
         "sphinx_rtd_theme",
         "sphinx-autodoc-typehints",
     ],
-    "test": test_requires,
+    "test": test_requirements,
 }
 
-extras_requires["all"] = install_requires + [
+extras_requires["all"] = requirements + [
     dependency
     for name, dependencies in extras_requires.items()
     if name.startswith("type_") or name == "plotting"
     for dependency in dependencies
 ]
 
-
-# Read the contents of README file
-source_root = Path(".")
-with (source_root / "README.rst").open(encoding="utf-8") as f:
-    long_description = f.read()
-
 setup(
     name="visions",
-    version="0.2.3",
+    version="0.2.4",
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    install_requires=install_requires,
+    install_requires=requirements,
     include_package_data=True,
     extras_require=extras_requires,
-    tests_require=test_requires,
+    tests_require=test_requirements,
     python_requires=">=3.5",
     long_description=long_description,
     long_description_content_type="text/x-rst",

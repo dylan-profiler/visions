@@ -18,7 +18,7 @@ We encourage you to cite the package when using it for a publication.
     @misc{visions2019,
       author = "Brugman, Simon and Eaves, Ian",
       title = "{visions}: a type system for data analysis in Python",
-      year = "2019",
+      year = "2020",
       howpublished = "https://github.com/dylan-profiler/visions",
       note = "Version: X.Y.Z, Accessed: INSERT_DATE_HERE"
     }

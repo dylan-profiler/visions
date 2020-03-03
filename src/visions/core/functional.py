@@ -21,14 +21,14 @@ def type_cast_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
 
 
 def type_cast_series(series: pd.Series, typeset: VisionsTypeset) -> pd.Series:
-    """
+    """Casts the series
 
     Args:
-        series:
-        typeset:
+        series: the Series to infer the type of
+        typeset: the Typeset that provides the type context
 
     Returns:
-
+        The converted series
     """
     return typeset.cast_series(series)
 
@@ -49,15 +49,17 @@ def type_cast_and_infer_frame(
     return typeset.cast_and_infer_frame(df)
 
 
-def type_cast_and_infer_series(series: pd.Series, typeset: VisionsTypeset) -> pd.Series:
-    """
+def type_cast_and_infer_series(
+    series: pd.Series, typeset: VisionsTypeset
+) -> Tuple[Type[VisionsBaseType], pd.Series]:
+    """Cast the series and perform type inference
 
     Args:
-        series:
-        typeset:
+        series: the Series to infer the type of
+        typeset: the Typeset that provides the type context
 
     Returns:
-
+        The inferred type and the converted series
     """
     return typeset.cast_and_infer_series(series)
 
@@ -81,14 +83,14 @@ def type_inference_frame(
 def type_inference_series(
     series: pd.Series, typeset: VisionsTypeset
 ) -> Type[VisionsBaseType]:
-    """
+    """Infer the current type of the series given the typeset.
 
     Args:
-        series:
-        typeset:
+        series: the Series to infer the type of
+        typeset: the Typeset that provides the type context
 
     Returns:
-
+        The inferred type of the series
     """
     return typeset.infer_series_type(series)
 
@@ -111,14 +113,14 @@ def type_detect_frame(
 def type_detect_series(
     series: pd.Series, typeset: VisionsTypeset
 ) -> Type[VisionsBaseType]:
-    """
+    """Detect the type in the base graph
 
     Args:
-        series:
-        typeset:
+        series: the Series to detect the type of
+        typeset: the Typeset that provides the type context
 
     Returns:
-
+        The detected type
     """
     return typeset.detect_series_type(series)
 
@@ -137,7 +139,7 @@ def compare_detect_inference_frame(
         >>>    print(f"{column} was {type_before} is {type_after}")
 
     See Also:
-        `type_inference_report_frame`
+        :doc:`type_inference_report_frame <visions.core.functional.type_inference_report_frame>`: Formatted report of the output of this function
     """
     comparisons = []
     detected_types = type_detect_frame(df, typeset)
@@ -148,7 +150,7 @@ def compare_detect_inference_frame(
 
 
 def type_inference_report_frame(df, typeset) -> str:
-    """Print formatted report of the output of `compare_detect_inference_frame`.
+    """Return formatted report of the output of `compare_detect_inference_frame`.
 
     Args:
         df: the DataFrame to detect types on
@@ -156,6 +158,17 @@ def type_inference_report_frame(df, typeset) -> str:
 
     Returns:
         Text-based comparative type inference report
+
+    Examples:
+        >>> import pandas as pd
+        >>> from visions.core.functional import type_inference_report_frame
+        >>> from visions.core.implementations import visions_standard_set
+        >>>
+        >>> typeset = visions_standard_set()
+        >>> df = pd.read_csv('dataset.csv')
+        >>>
+        >>> report = type_inference_report_frame(df, typeset)
+        >>> print(report)
     """
     padding = 5
     max_column_length = max([len(column) for column in df.columns]) + padding

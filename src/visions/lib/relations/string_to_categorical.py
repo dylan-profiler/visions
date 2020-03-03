@@ -1,4 +1,4 @@
-from visions import visions_string, visions_categorical
+from visions import visions_string
 from visions.core.model import TypeRelation
 from visions.core.model.relations import InferenceRelation
 

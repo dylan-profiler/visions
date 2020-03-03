@@ -15,7 +15,7 @@ visions.core.implementations.types.visions\_bool
    
       ~visions_bool.__init__
       ~visions_bool.contains_op
-      ~visions_bool.extend_relations
+      ~visions_bool.evolve_relations
       ~visions_bool.get_relations
       ~visions_bool.make_string_coercion
    

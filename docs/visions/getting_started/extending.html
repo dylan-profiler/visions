@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Extending &mdash; visions 0.2.1 documentation</title>
+  <title>Extending &mdash; visions 0.2.4 documentation</title>
   
 
   
@@ -254,14 +254,14 @@ This is useful for small changes, such as adding a single relation.</p>
 <p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.core.implementations.types.visions_integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_integer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.core.implementations.types.visions_datetime</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_datetime</span>
  <span class="kn">from</span> <span class="nn">visions.lib.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
 
- <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
- <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">visions_integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
+ <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">(</span><span class="bp">cls</span><span class="p">)]</span>
+ <span class="n">visions_datetime_int</span> <span class="o">=</span> <span class="n">visions_datetime</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;int_yyyymmdd&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
 
- <span class="k">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
- <span class="c1"># Prints: visions_integer[with_datetime]</span>
+ <span class="k">print</span><span class="p">(</span><span class="n">visions_datetime_int</span><span class="p">)</span>
+ <span class="c1"># Prints: visions_datetime[int_yyyymmdd]</span>
 </pre></div>
 </div>
 </div>
@@ -272,6 +272,7 @@ This is useful for small changes, such as adding a single relation.</p>
      <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{column} was {type_before} is {type_after}&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Please read the <cite>Type changes</cite> section in the <a class="reference internal" href="../api/functional.html"><span class="doc">functional API documentation</span></a> for more details.</p>
 </div>
 </div>
 <div class="section" id="custom-typesets-from-scratch">
@@ -322,6 +323,9 @@ based on simple manipulations to pre-existing sets.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
+
+<span class="c1"># Alternatively</span>
+<span class="n">typeset</span> <span class="o">=</span> <span class="n">typeset</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">visions_time</span><span class="p">,</span> <span class="n">visions_date</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

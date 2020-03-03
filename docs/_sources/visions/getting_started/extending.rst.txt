@@ -82,14 +82,14 @@ Each type has the method `extend_relations` for this purpose.
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
 
-    from visions.core.implementations.types.visions_integer import _get_relations, visions_integer
+    from visions.core.implementations.types.visions_datetime import _get_relations, visions_datetime
     from visions.lib.relations.integer_to_datetime import integer_to_datetime_year_month_day
 
-    compose_relations = lambda: _get_relations() + [integer_to_datetime_year_month_day()]
-    visions_integer_ddt = visions_integer.extend_relations('with_datetime', compose_relations)
+    compose_relations = lambda cls: _get_relations(cls) + [integer_to_datetime_year_month_day(cls)]
+    visions_datetime_int = visions_datetime.extend_relations('int_yyyymmdd', compose_relations)
 
-    print(visions_integer_ddt)
-    # Prints: visions_integer[with_datetime]
+    print(visions_datetime_int)
+    # Prints: visions_datetime[int_yyyymmdd]
 
 .. hint::
 
@@ -99,6 +99,8 @@ Each type has the method `extend_relations` for this purpose.
 
        for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
             print(f"{column} was {type_before} is {type_after}")
+
+    Please read the `Type changes` section in the :doc:`functional API documentation <../api/functional>` for more details.
 
 
 Custom Typesets (from scratch)
@@ -157,6 +159,8 @@ based on simple manipulations to pre-existing sets.
 
     typeset = visions_complete_set() - visions_time + visions_date
 
+    # Alternatively
+    typeset = typeset.replace(visions_time, visions_date)
 
 Just like addition and subtraction elsewhere in Python, you can split these operations up
 in any way imaginable:

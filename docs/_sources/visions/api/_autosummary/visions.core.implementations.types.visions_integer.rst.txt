@@ -15,7 +15,7 @@ visions.core.implementations.types.visions\_integer
    
       ~visions_integer.__init__
       ~visions_integer.contains_op
-      ~visions_integer.extend_relations
+      ~visions_integer.evolve_relations
       ~visions_integer.get_relations
    
    

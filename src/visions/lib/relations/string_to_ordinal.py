@@ -18,5 +18,8 @@ def string_to_ordinal(cls) -> InferenceRelation:
     from visions.core.implementations.types import visions_string
 
     return InferenceRelation(
-        cls, visions_string, relationship=is_ordinal_str, transformer=to_ordinal
+        relationship=is_ordinal_str,
+        transformer=to_ordinal,
+        related_type=visions_string,
+        type=cls,
     )
