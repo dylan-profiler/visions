@@ -1,8 +1,8 @@
 import pandas as pd
 
-from visions.core.functional import type_detect_frame
-from visions.core.implementations.typesets import visions_complete_set
-from visions.application.summaries.summary import CompleteSummary
+from visions.functional import type_detect_frame
+from visions.typesets import visions_complete_set
+from visions.application.summaries import CompleteSummary
 
 # Create a DataFrame with various string columns
 df = pd.DataFrame(

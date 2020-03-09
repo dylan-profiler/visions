@@ -15,10 +15,10 @@ Let's inspect the source code for `visions_ordinal` to gather intuition.
     :caption: visions_ordinal.py
     :name: visions_ordinal
 
-    from visions.core.models import VisionsBaseType
+    from visions.types.type import VisionsBaseType
 
     def _get_relations():
-        from visions.core.implementations.types import visions_categorical
+        from visions.types import visions_categorical
 
         relations = [IdentityRelation(visions_ordinal, visions_categorical)]
         return relations
@@ -82,8 +82,8 @@ Each type has the method `extend_relations` for this purpose.
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
 
-    from visions.core.implementations.types.visions_integer import _get_relations, visions_integer
-    from visions.lib.relations.integer_to_datetime import integer_to_datetime_year_month_day
+    from visions.types.visions_integer import _get_relations, visions_integer
+    from visions.relations.integer_to_datetime import integer_to_datetime_year_month_day
 
     compose_relations = lambda: _get_relations() + [integer_to_datetime_year_month_day()]
     visions_integer_ddt = visions_integer.extend_relations('with_datetime', compose_relations)

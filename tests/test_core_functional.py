@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from visions.core.functional import (
+from visions.functional import (
     type_inference_frame,
     type_detect_frame,
     type_detect_series,
@@ -9,16 +9,13 @@ from visions.core.functional import (
     type_cast_series,
     type_cast_frame,
 )
-from visions.core.implementations.types import (
+from visions.types import (
     visions_string,
     visions_integer,
     visions_datetime,
     visions_complex,
 )
-from visions.core.implementations.typesets import (
-    visions_complete_set,
-    visions_standard_set,
-)
+from visions.typesets import visions_complete_set, visions_standard_set
 
 
 def test_type_inference_frame():

@@ -9,7 +9,7 @@ These type grouping are called typesets.
 
 .. code-block:: python
 
-    >>> from visions.core.implementations.typesets import visions_standard_set
+    >>> from visions.typesets import visions_standard_set
     >>> typeset = visions_standard_set()
     >>> typeset.types
     {visions_datetime, visions_string, visions_generic, visions_timedelta,
@@ -36,12 +36,12 @@ Type detection attempts to answer the question: `What type is my data right now?
 .. code-block:: python
 
     # Functional
-    >>> from visions.core.functional import type_detect_series
+    >>> from visions.functional import type_detect_series
     >>> type_detect_series(test_series, typeset)
     visions_string
 
     # Object Oriented
-    >>> from visions.core.implementations.typesets import visions_complete_set
+    >>> from visions.typesets import visions_complete_set
     >>> typeset.detect_type_series(test_series)
     visions_string
 
@@ -53,7 +53,7 @@ Type inference attempts to answer the question: `What type is my data best repre
 
 .. code-block:: python
 
-    >>> from visions.core.functional import type_detect_series, type_inference_series
+    >>> from visions.functional import type_detect_series, type_inference_series
     >>> type_detect_series(test_series, typeset)
     visions_string
 
@@ -64,8 +64,6 @@ As you can see, visions was able to infer that the test_series was really an int
 Integer detection is a fairly simple use case but visions supports arbitrarily complex types from geometries to URLs to file paths and beyond.
 
 
-
-
 Cast
 ====
 
@@ -73,7 +71,7 @@ Type casting is the process of converting a series or dataframe from one type to
 
 .. code-block:: python
 
-  >>> from visions.core.functional import type_cast_series
+  >>> from visions.functional import type_cast_series
   >>> type_cast_series(test_series, typeset)
   pd.Series([1, 2, 3])
 
@@ -92,7 +90,7 @@ from which all other types can be related.
 
 .. code-block:: Python
 
-  >>> from visions.core.model.typeset import VisionsTypeset
+  >>> from visions.typesets import VisionsTypeset
   >>> my_typeset = VisionsTypeset([])
   >>> my_typeset.types
   {visions_generic}
@@ -109,7 +107,7 @@ Let's take the example of two typesets: one including the integer type and one w
 
 .. code-block:: Python
 
-  >>> from visions.core.model.typeset import VisionsTypeset
+  >>> from visions.typesets import VisionsTypeset
   >>>
   >>> typeset_1 = VisionsTypeset([visions_integer, visions_float])
   >>> typeset_2 = VisionsTypeset([visions_float])

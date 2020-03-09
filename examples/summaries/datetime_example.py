@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 
-from visions.application.summaries.summary import CompleteSummary, visions_datetime
+from visions import visions_datetime
+from visions.application.summaries import CompleteSummary
 
 datetime_series = pd.Series(
     [

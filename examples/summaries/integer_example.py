@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from visions import visions_integer
-from visions.application.summaries.summary import CompleteSummary
+from visions.application.summaries import CompleteSummary
 
 integer_series = pd.Series([1, 2, 3, 4, 5, -100000, np.nan], dtype="Int64")
 

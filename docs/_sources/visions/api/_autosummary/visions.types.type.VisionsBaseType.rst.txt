@@ -1,0 +1,25 @@
+visions.types.type.VisionsBaseType
+==================================
+
+.. currentmodule:: visions.types.type
+
+.. autoclass:: VisionsBaseType
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~VisionsBaseType.__init__
+      ~VisionsBaseType.contains_op
+      ~VisionsBaseType.extend_relations
+      ~VisionsBaseType.get_relations
+   
+   
+
+   
+   
+   

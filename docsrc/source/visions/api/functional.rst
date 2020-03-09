@@ -5,7 +5,7 @@ Functional API
 Typesets
 ==============
 
-.. currentmodule:: visions.core.functional
+.. currentmodule:: visions.functional
 .. toctree::
 
 .. autosummary::

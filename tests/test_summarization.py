@@ -4,8 +4,8 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from visions.core.implementations.types import *
-from visions.application.summaries.summary import CompleteSummary
+from visions.types import *
+from visions.application.summaries import CompleteSummary
 
 
 @pytest.fixture(scope="class")

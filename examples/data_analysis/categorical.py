@@ -3,10 +3,13 @@ import pandas as pd
 import numpy as np
 from typing import Sequence, List
 
-from visions import visions_string, visions_integer, visions_object
-from visions.core.model.relations import IdentityRelation, InferenceRelation
-from visions.core.model import TypeRelation
-from visions.core.model.type import VisionsBaseType
+from visions.types import (
+    visions_string,
+    visions_integer,
+    visions_object,
+    VisionsBaseType,
+)
+from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
 
 
@@ -25,7 +28,7 @@ def to_category(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> List[TypeRelation]:
-    from visions.core.implementations.types import visions_generic
+    from visions.types import visions_generic
 
     relations = [
         IdentityRelation(cls, visions_generic),

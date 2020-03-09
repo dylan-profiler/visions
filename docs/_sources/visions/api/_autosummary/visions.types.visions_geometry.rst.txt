@@ -1,0 +1,25 @@
+visions.types.visions\_geometry
+===============================
+
+.. currentmodule:: visions.types
+
+.. autoclass:: visions_geometry
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~visions_geometry.__init__
+      ~visions_geometry.contains_op
+      ~visions_geometry.extend_relations
+      ~visions_geometry.get_relations
+   
+   
+
+   
+   
+   

@@ -13,7 +13,7 @@ def base_summary(series: pd.Series) -> dict:
     summary = {
         "frequencies": series.value_counts().to_dict(),
         "n_records": series.shape[0],
-        "memory_size": series.memory_usage(index=True, deep=True),
+        "memory_size": series.memory_usage(deep=True),
         "dtype": series.dtype,
         "types": series.map(lambda x: type(x).__name__).value_counts().to_dict(),
     }

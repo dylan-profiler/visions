@@ -1,7 +1,7 @@
 import pandas as pd
 
 from visions import visions_string
-from visions.application.summaries.summary import CompleteSummary
+from visions.application.summaries import CompleteSummary
 
 string_series = pd.Series(["orange", "apple", "pear", "🂶", "🃁", "🂻"])
 

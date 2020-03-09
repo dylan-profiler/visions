@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.core.implementations.typesets import visions_complete_set
+from visions.typesets import visions_complete_set
 
 
 def test_cast_copy():

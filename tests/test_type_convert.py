@@ -2,9 +2,7 @@ import sys
 
 import pytest
 
-from visions.core.implementations.typesets import visions_complete_set
-from visions.core.model import TypeRelation
-
+from visions.typesets import visions_complete_set
 from tests.series import get_series, get_convert_map
 
 

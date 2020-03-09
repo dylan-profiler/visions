@@ -6,8 +6,8 @@ from visions.application.summaries.functional import (
     summarize_series,
     summarize,
 )
-from visions.application.summaries.summary import CompleteSummary
-from visions.core.implementations.types import visions_string, visions_integer
+from visions.application.summaries import CompleteSummary
+from visions.types import visions_string, visions_integer
 
 
 def test_summarize_frame():

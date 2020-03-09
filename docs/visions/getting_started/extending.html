@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Extending &mdash; visions 0.2.1 documentation</title>
+  <title>Extending &mdash; visions 0.3.0 documentation</title>
   
 
   
@@ -198,10 +198,10 @@
 <p>Let’s inspect the source code for <cite>visions_ordinal</cite> to gather intuition.</p>
 <div class="literal-block-wrapper docutils container" id="visions-ordinal">
 <div class="code-block-caption"><span class="caption-text">visions_ordinal.py</span><a class="headerlink" href="#visions-ordinal" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.core.models</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">():</span>
-    <span class="kn">from</span> <span class="nn">visions.core.implementations.types</span> <span class="kn">import</span> <span class="n">visions_categorical</span>
+    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">visions_categorical</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_ordinal</span><span class="p">,</span> <span class="n">visions_categorical</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">relations</span>
@@ -254,8 +254,8 @@ This is useful for small changes, such as adding a single relation.</p>
 <p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.core.implementations.types.visions_integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_integer</span>
- <span class="kn">from</span> <span class="nn">visions.lib.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.visions_integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_integer</span>
+ <span class="kn">from</span> <span class="nn">visions.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
 
  <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
  <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">visions_integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>

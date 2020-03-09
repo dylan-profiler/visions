@@ -3,8 +3,8 @@ from pprint import pprint
 import pandas as pd
 import numpy as np
 
-from visions.application.summaries.summary import CompleteSummary
-from visions.core.implementations.types import visions_datetime
+from visions.application.summaries import CompleteSummary
+from visions.types import visions_datetime
 
 datetime_series = pd.Series(
     [

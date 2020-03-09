@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 
-from visions.core.functional import (
+from visions.functional import (
     type_cast_and_infer_frame,
     type_cast_frame,
     type_detect_frame,
     type_inference_frame,
 )
-from visions.core.implementations import visions_complete_set
+from visions.typesets import visions_complete_set
 
 
 # Create a DataFrame from our data

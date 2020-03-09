@@ -1,12 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from visions.core.implementations.types import (
-    visions_bool,
-    visions_generic,
-    visions_integer,
-    visions_object,
-)
+from visions.types import visions_bool, visions_generic, visions_integer, visions_object
 
 print(pd.Series([True, False]) in visions_bool)  # True
 print(pd.Series([True, False]) in visions_generic)  # True

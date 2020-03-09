@@ -1,6 +1,8 @@
+from typing import Type
+
 import pandas as pd
 
-from visions.core.model import VisionsBaseType
+from visions.types import VisionsBaseType
 from visions.application.summaries.summary import Summary
 
 
@@ -9,7 +11,7 @@ def summarize_frame(df: pd.DataFrame, series_types: dict, summarizer: Summary):
 
 
 def summarize_series(
-    series: pd.Series, series_type: VisionsBaseType, summarizer: Summary
+    series: pd.Series, series_type: Type[VisionsBaseType], summarizer: Summary
 ):
     return summarizer.summarize_series(series, series_type)
 

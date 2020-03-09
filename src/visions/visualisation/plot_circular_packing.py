@@ -5,7 +5,7 @@ from pathlib import Path
 import networkx as nx
 from networkx.readwrite import json_graph
 
-from visions.core.implementations.typesets import visions_complete_set
+from visions.typesets import visions_complete_set
 
 
 def update(data):

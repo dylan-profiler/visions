@@ -1,0 +1,31 @@
+import pandas.api.types as pdt
+import pandas as pd
+from typing import Sequence
+
+from visions.relations import IdentityRelation, TypeRelation
+from visions.types import VisionsBaseType
+
+
+def _get_relations(cls) -> Sequence[TypeRelation]:
+    from visions.types import visions_generic
+
+    relations = [IdentityRelation(cls, visions_generic)]
+    return relations
+
+
+class visions_object(VisionsBaseType):
+    """**Object** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+
+    Examples:
+        >>> x = pd.Series(['a', 1, np.nan])
+        >>> x in visions_object
+        True
+    """
+
+    @classmethod
+    def get_relations(cls) -> Sequence[TypeRelation]:
+        return _get_relations(cls)
+
+    @classmethod
+    def contains_op(cls, series: pd.Series) -> bool:
+        return pdt.is_object_dtype(series)

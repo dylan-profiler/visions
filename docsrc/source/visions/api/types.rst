@@ -6,7 +6,7 @@ Types
 Abstract Types
 ==============
 
-.. currentmodule:: visions.core.model
+.. currentmodule:: visions.types.type
 .. toctree::
 
 .. autosummary::
@@ -14,11 +14,11 @@ Abstract Types
 
    VisionsBaseType
 
-=============
-Logical Types
-=============
+==============
+Semantic Types
+==============
 
-.. currentmodule:: visions.core.implementations.types
+.. currentmodule:: visions.types
 .. toctree::
 
 .. autosummary::

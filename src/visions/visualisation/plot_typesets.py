@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from visions.core.implementations.typesets import (
+from visions.typesets import (
     visions_complete_set,
     visions_standard_set,
     visions_geometry_set,
