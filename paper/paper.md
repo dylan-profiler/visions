@@ -25,17 +25,17 @@ bibliography: paper.bib
 ## Introduction
 
 Many common data workflows such as loading tabular data from plain text files, data compression, and machine learning data processing rely on *semantically* meaningful representations of the data's type. 
-Most type inference algorithms, including those used by [pandas][pandas] and within the [tidyverse][tidyverse] employ rule-based heuristics tightly coupled to the *physical* type implementation used by the library. 
+Most type inference algorithms, including those used by [pandas][pandas] and within the [tidyverse][tidyverse] employ rule-based heuristics tightly coupled to the *machine* type implementation used by the library. 
 In practice these two representations are distinct. 
-For example, while the set of real numbers between 0 and 1 are *physically* represented on disk as float, their *semantics* might instead be a probability.
+For example, while the set of real numbers between 0 and 1 are stored on the computer disk as float, their *semantics* might instead be a probability.
 
 `Visions` is an expressive, user-configurable framework for capturing the semantic relations between data types forming a development bedrock supporting a range of potential applications.
 
 ## Statement of Need
 
-While data processing libraries like pandas and the tidyverse are primarily focused on the physical representation of data on disk, there does not exist a systematic solution to expose semantic representations of data.
+While data processing libraries like pandas and the tidyverse are primarily focused on the machine representation of data on disk, there does not exist a systematic solution to expose semantic representations of data.
 Additionally, most current libraries solve the challenge of type inference through a suite of fixed heuristics.
-In practice, this restricts developers to the limited set of physical types embedded within the libraries implementation.
+In practice, this restricts developers to the limited set of machine type representations embedded within the libraries implementation.
 
 These heuristics usually consist of rules like "if the series can be cast to integer then do so, otherwise try float," which fail to support the myriad, often hierarchical, semantic representations deployed by users in real-world cases. 
 Virtually every data practitioner has experienced the frustration of reading a column of integers with trailing decimal zeros as float. 
@@ -44,7 +44,7 @@ We refer to `visions` [documentation](https://dylan-profiler.github.io/visions/i
 
 Providing a general solution to customized data types is subtly more difficult than it might first appear.
 
-The usual approach is to define a type inference strategy for each physical type where a sequence of potential coercions is applied until one succeeds or the options are exhausted.
+The usual approach is to define a type inference strategy for each machine type where a sequence of potential coercions is applied until one succeeds or the options are exhausted.
 For example, the string value `'1.0'` might first be cast to integer, which would naively fail, before being cast to float.
 The heuristic would not provide further inference, as coercion already succeeded.
 
@@ -72,14 +72,14 @@ Solid edges denote inference relations where no casting is required, dashed edge
 
 ## Research purpose and Contributions
 
-The need to capture semantic and physical type distinctions has been a key challenge facing the development of pandas 2.0 where tight coupling has limited type-level expressivity for users and lead to code complexity where type inference heuristics are expanded to support multiple divergent needs [pandas2-docs].
+The need to capture semantic and machine type distinctions has been a key challenge facing the development of pandas 2.0 where tight coupling has limited type-level expressivity for users and lead to code complexity where type inference heuristics are expanded to support multiple divergent needs [pandas2-docs].
 
 `visions` was designed to be used by researchers and practitioners to experiment with more flexible data workflows.
 The package aims to make defining and relating data types simple while maximizing expressive capability.
 This enables users to define, relate, modify and share types to solve data tasks and has direct applications to exploratory data analytics (EDA) problem such as those found in [@pandasprofiling] where the appropriate statistics for data of different types varies greatly.
 It further paves the way for exciting future opportunities to identify and understand semantically useful data abstractions across a variety of potential domains. 
 
-`visions` builds on `pandas` [@mckinney2010data] and `numpy` [@van2011numpy] for physical types. 
+`visions` builds on `pandas` [@mckinney2010data] and `numpy` [@van2011numpy] for machine type representations. 
 Other work has created specific semantic data types for pandas, namely `cyberpandas` ([1], [2], [3]) and `geopandas` [@kelsey_jordahl_2019_3545747].
 Moreover, `networkx` [@SciPyProceedings_11] is employed to construct type relation graphs.
 
@@ -87,13 +87,13 @@ Moreover, `networkx` [@SciPyProceedings_11] is employed to construct type relati
 ### Data summarization
 
 Producing highly representative descriptive statistics, also known as data summarization is a critical first step in most exploratory data analysis (EDA). 
-However, physical type representations are rarely sufficiently informative to fully guide initial, exploratory, steps. 
+However, machine type representations are rarely sufficiently informative to fully guide initial, exploratory, steps. 
 Consider the 5-star movie rating scale - although numeric, measures like simple means fail to capture the statistical characteristics of the measure. 
 Work on the automated EDA tool [@pandasprofiling] regularly faced this challenge and served as initial motivation for developing `visions`.
 
 ### Simplifying Data Workflows with `visions`
 
-Decoupling semantic and physical types allows programmers to reuse type-specific logic in many subsequent tasks and hence can be used to simplify data workflows.
+Decoupling semantic and machine types allows programmers to reuse type-specific logic in many subsequent tasks and hence can be used to simplify data workflows.
 For example, [data validation](https://dylan-profiler.github.io/visions/visions/applications/validation.html) covering meaningful properties of the data, has to include some form of [data summarization](https://dylan-profiler.github.io/visions/visions/applications/summarizer.html), which in turn relies on meaningful types.
 Similarly, in [machine learning](https://dylan-profiler.github.io/visions/visions/applications/machine_learning.html) the encoding of variables depends on their [statistical data type](https://en.wikipedia.org/wiki/Statistical_data_type), which are also used for [data summarization](https://dylan-profiler.github.io/visions/visions/applications/summarizer.html).
 Potential workflows that could be simplified range from general data workflows to domain-specific applications including machine learning. 

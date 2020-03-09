@@ -7,7 +7,7 @@ underlying in-memory implementation.
 
 To make this distinction more concrete we can imagine the sequence `['Apple', 'Orange', 'Pear']`.
 
-At a logical level these are of the type `Fruit` while under the hood each element is physically represented as `String`.
+At a logical level these are of the type `Fruit` while under the hood each element is represented by the machine as `String`.
 
 Types have two basic capabilities:
 

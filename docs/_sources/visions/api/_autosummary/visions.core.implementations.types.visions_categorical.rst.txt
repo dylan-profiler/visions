@@ -15,7 +15,7 @@ visions.core.implementations.types.visions\_categorical
    
       ~visions_categorical.__init__
       ~visions_categorical.contains_op
-      ~visions_categorical.extend_relations
+      ~visions_categorical.evolve_relations
       ~visions_categorical.get_relations
    
    

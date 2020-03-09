@@ -13,10 +13,10 @@ Within the `visions` framework, types represent a logical abstraction over seque
 like python lists, numpy arrays, or pandas series.
 These types might correspond to every day notions like integers, floats, strings, and datetimes or more complicated,
 user configured ideas like geometries, fruits, or files. These logical, or semantic notions of type are
-distinct from the physical representations of that data found on disk where, for example, the file
-abstraction is physically represented as a string.
+distinct from the machine representations of that data found on disk where, for example, the file
+abstraction is represented on the computer as a string.
 
-We use the terms *semantic type* and *physical type* to denote this difference.
+We use the terms *semantic type* and *machine type* to denote this difference.
 
 .. seealso:: If you want a deeper understanding of data types, see :doc:`data type view <../background/data_type_view>`.
 

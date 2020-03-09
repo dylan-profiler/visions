@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data Compression &mdash; visions 0.2.1 documentation</title>
+  <title>Data Compression &mdash; visions 0.2.3 documentation</title>
   
 
   
@@ -184,9 +184,9 @@
 <p>Decoupling <em>semantic</em> data types from <em>physical</em> data types makes it easier to compress variables.
 For this example, we restrict ourselves to in-memory compression.
 Our task is to automatically obtain an efficient in-memory representation, to minimize the RAM used while preserving the same semantic type.</p>
-<p>A typical task is data compression, where the user seeks to minimize memory utilization of the <em>physical</em> type while preserving the <em>semantic</em> type of their data.
+<p>A typical task is data compression, where the user seeks to minimize memory utilization of the <em>machine</em> type representation while preserving the <em>semantic</em> type of their data.
 We consider a dataset with one variable consisting of “Yes” and “No” values.
-As the variable has only two distinct values, the <em>physical</em> storage needed can be optimally stored as a bool using only one byte per value as opposed to a pandas object using approximately 66 bytes.
+As the variable has only two distinct values, the <em>machine</em> type storage needed can be optimally stored as a bool using only one byte per value as opposed to a pandas object using approximately 66 bytes.
 There are infinite potential ways to denote “Yes” and “No” values within a dataset, consequently, we cannot rely on a static rule-based system for inference in general-purpose software.
 However, that does not mean that this is “just data munging” and we cannot do this and other tasks more effectively.
 We observe that some patterns occur more often (“Yes”, “No” over “Arr” or “Nay”) and there are other indicators that can help a system to decide what to do (the variable two distinct values).

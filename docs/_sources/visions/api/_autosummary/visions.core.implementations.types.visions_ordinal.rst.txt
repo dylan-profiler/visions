@@ -15,7 +15,7 @@ visions.core.implementations.types.visions\_ordinal
    
       ~visions_ordinal.__init__
       ~visions_ordinal.contains_op
-      ~visions_ordinal.extend_relations
+      ~visions_ordinal.evolve_relations
       ~visions_ordinal.get_relations
    
    
