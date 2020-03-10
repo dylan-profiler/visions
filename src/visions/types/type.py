@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABCMeta
+from types import FunctionType
 from typing import Sequence, Callable, Type
 
 import pandas as pd
@@ -45,11 +46,6 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     ):
         """Make a copy of the type with the relations extended by the TypeRelation returned by `relations_func`.
 
-        Notes:
-            This function utilizes the importlib to dynamically import the `_get_relations` function that
-            specifies the default relations of a type. We plan on updating the structure to allow for a
-            more robust implementation for this functionality.
-
         Args:
             type_name: the new type suffix, the type name will be `type[type_name]`
             relations_func: a function returning the additional TypeRelations for the new type
@@ -57,13 +53,10 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         Returns:
             A new type
         """
-        import importlib
-        import re
-
-        pattern = re.compile(r"(?<!^)(?=[A-Z])")
-        snake = pattern.sub("_", str(cls)).lower()
-        type_module = importlib.import_module("visions.types." + snake)
-        default_relations = type_module._get_relations
+        f = cls.get_relations
+        default_relations = FunctionType(
+            f.__code__, f.__globals__, f.__name__, f.__defaults__, f.__closure__
+        )
         return cls.evolve_replace_relations(
             type_name, lambda c: default_relations(c) + [relations_func(c)]
         )
