@@ -24,4 +24,4 @@ for name, tsc in [
     tsc.output_graph(typesets_dir / "{name}_base.svg".format(name=name), base_only=True)
 
     # Plot the graph (png)
-    tsc.output_graph(typesets_dir / "{name}.png".format(name=name), dpi=300)
+    tsc.output_graph(typesets_dir / "{name}.png".format(name=name), dpi=150)
