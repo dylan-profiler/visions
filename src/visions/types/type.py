@@ -38,9 +38,12 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         raise NotImplementedError
 
     @classmethod
-    def extend_relations(cls, type_name, relations_func):
+    def evole_relations(cls, type_name, relations_func):
         return type(
             "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
             (cls,),
-            {"get_relations": relations_func, "contains_op": cls.contains_op},
+            {
+                "get_relations": classmethod(relations_func),
+                "contains_op": cls.contains_op,
+            },
         )

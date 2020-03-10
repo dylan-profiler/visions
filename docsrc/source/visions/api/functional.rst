@@ -1,9 +1,9 @@
 Functional API
 **************
 
-==============
+========
 Typesets
-==============
+========
 
 .. currentmodule:: visions.functional
 .. toctree::
@@ -20,9 +20,22 @@ Typesets
    type_cast_and_infer_frame
    type_cast_and_infer_series
 
-=================
+============
+Type changes
+============
+
+.. currentmodule:: visions.core.functional
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+   compare_detect_inference_frame
+   type_inference_report_frame
+
+=========
 Summaries
-=================
+=========
 
 .. currentmodule:: visions.application.summaries.functional
 .. toctree::
