@@ -5,17 +5,17 @@ Visions is opinionated, so what are the main opinions?
 
 .. Point, Example, Solution
 
-#1: Don't mix physical and semantic type logic
+#1: Don't mix machine and semantic type logic
 ----------------------------------------------
 Example `pandas.read_csv <https://pandas.pydata.org/pandas-docs/version/1.0.0/user_guide/io.html#io-read-csv-table>`_
 
-The pandas.read_csv functionality is an excellent example where physical and semantic type logic is (currently) mixed.
-The physical logic concerns how columns are stored and encoded.
+The pandas.read_csv functionality is an excellent example where machine and semantic type logic is (currently) mixed.
+The machine type logic concerns how columns are stored and encoded.
 Arguments as `delimeter`, `header`, `nrows`, `compression` are related to that.
 
 The semantic type logic is also included: `thousands`, `converters`, `date_parser`, `dayfirst`.
 
-Our hope: physical and semantic type logic will be decoupled.
+Our hope: machine and semantic type logic will be decoupled.
 
 note that the pandas docs agree
 
@@ -54,7 +54,7 @@ https://github.com/h2oai/h2o-3/blob/61275cf63d981d332220fa3aef157989fcef3305/h2o
 
 
 Combating the beliefs that:
-- There is no difference between physical and semantic types
+- There is no difference between machine and semantic types
 - One static typeset is enough for your application
 - Not all users have to be able to add types
 - We can shortcut types and make ad-hoc implementations

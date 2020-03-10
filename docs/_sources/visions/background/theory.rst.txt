@@ -6,13 +6,13 @@ Background
 
 `visions` primary goal is to develop a robust mechanism for defining and using
 *semantic* data types. These represent conceptual or logical notions of meaning
-and is distinct from the physical representation of data on disk. For example,
+and is distinct from the machine representation of data on disk. For example,
 we might say sequence :math:`S` is of semantic type `probability` when
-:math:`S \in [0, 1]` or `date` when each element is physically a
+:math:`S \in [0, 1]` or `date` when each element is stored on the computer as a
 `datetime.datetime` object with all time components identically `0`.
 
 Most data analytics libraries users are already familiar with have their own data
-types builtin, usually tightly coupled with the physical representation of the data
+types builtin, usually tightly coupled with the machine representation of the data
 used by the library. We wanted to give users as much flexibility to design and work
 in the representations specific to their problems and domain and in order to do that
 we had to give users the freedom to make their own types. This left a few key
@@ -24,7 +24,7 @@ Open Challenges
 
 1. Finding a minimal representation of semantic types
 2. Detecting the semantic type of a sequence
-3. `visions` is interested in the semantic meaning of data and therefore should be able to infer the "intended" type of a sequence regardless of it's physical representation (e.g. the string `'1.0'` should be recognized as the number `1`).
+3. `visions` is interested in the semantic meaning of data and therefore should be able to infer the "intended" type of a sequence regardless of it's machine representation (e.g. the string `'1.0'` should be recognized as the number `1`).
 
 
 We want to do all of this while keeping types easy to use, performant, and deterministic.
@@ -57,9 +57,9 @@ integer while 1.1 cannot), the second is a surjective function responsible for
 actually performing the mapping.
 
 In practice, we distinguish `relations` into two categories as well, the first
-called `Identity Relations` require no transformation to the underlying physical
+called `Identity Relations` require no transformation to the underlying machine
 type of the data (float(1.1) -> probability(1.1) where the second, `Inference Relations`,
-have to coerce the sequence between physical types ('1.1' -> 1.1).
+have to coerce the sequence between machine types ('1.1' -> 1.1).
 
 
 Why it works
@@ -78,7 +78,7 @@ are mappings *to* a type, not *from*.
 Following this, we can construct a relation graph from *any* collection of provided
 types and associated relations. We define our dual objective of type detection and
 type inference as the task of determining the most unique possible type
-specification available to the typeset either with coercion of physical types (inference),
+specification available to the typeset either with coercion of machine types (inference),
 or without (detection).
 
 Both tasks are akin to simple traversal of the relation graph. In order to guarantee

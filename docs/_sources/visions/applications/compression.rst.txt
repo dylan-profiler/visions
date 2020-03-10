@@ -5,9 +5,9 @@ Decoupling *semantic* data types from *physical* data types makes it easier to c
 For this example, we restrict ourselves to in-memory compression.
 Our task is to automatically obtain an efficient in-memory representation, to minimize the RAM used while preserving the same semantic type.
 
-A typical task is data compression, where the user seeks to minimize memory utilization of the *physical* type while preserving the *semantic* type of their data.
+A typical task is data compression, where the user seeks to minimize memory utilization of the *machine* type representation while preserving the *semantic* type of their data.
 We consider a dataset with one variable consisting of "Yes" and "No" values.
-As the variable has only two distinct values, the *physical* storage needed can be optimally stored as a bool using only one byte per value as opposed to a pandas object using approximately 66 bytes.
+As the variable has only two distinct values, the *machine* type storage needed can be optimally stored as a bool using only one byte per value as opposed to a pandas object using approximately 66 bytes.
 There are infinite potential ways to denote "Yes" and "No" values within a dataset, consequently, we cannot rely on a static rule-based system for inference in general-purpose software.
 However, that does not mean that this is "just data munging" and we cannot do this and other tasks more effectively.
 We observe that some patterns occur more often ("Yes", "No" over "Arr" or "Nay") and there are other indicators that can help a system to decide what to do (the variable two distinct values).

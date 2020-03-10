@@ -17,7 +17,6 @@ __pycache__/
 # Distribution / packaging
 .Python
 docs/build/
-docsrc/build/
 develop-eggs/
 dist/
 downloads/
@@ -112,3 +111,4 @@ venv.bak/
 .mypy_cache/
 !/docsrc/build/
 /playground/
+/docs/.buildinfo

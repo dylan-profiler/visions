@@ -44,7 +44,7 @@ In this example, ordinal declares a single `IdentityRelation` from categorical. 
 of `IdentityRelation` is not particularly important in this case, just know it means the mapping
 function between categorical and ordinal is the identity function.
 
-We can also see the `contains_op` requires the sequence to be an ordered categorical physical type.
+We can also see the `contains_op` requires the sequence to be an ordered categorical machine type representation.
 
 Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.
