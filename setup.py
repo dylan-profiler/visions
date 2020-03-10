@@ -57,7 +57,7 @@ with (source_root / "README.rst").open(encoding="utf-8") as f:
 
 setup(
     name="visions",
-    version="0.2.3",
+    version="0.3.0",
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     packages=find_packages("src"),

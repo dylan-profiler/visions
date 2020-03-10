@@ -17,8 +17,8 @@ By default, `visions` installs the complete set of dependencies, including for s
 This is great for experimenting, however once you have settled on a set of types, it is recommended to slim down the dependencies.
 It is possible to obtain a more lightweight installation by installing only the specific dependencies you really need:
 
-* `type_geometry` for `visions_geometry`
-* `type_image_path` for `visions_image_path`
+* `type_geometry` for `Geometry`
+* `type_image_path` for `ImagePath`
 
 .. code-block:: console
 

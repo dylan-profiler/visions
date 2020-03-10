@@ -1,7 +1,7 @@
 Relations
 *********
 
-.. currentmodule:: visions.core.model.relations
+.. currentmodule:: visions.relations.relations
 .. toctree::
 
 .. autosummary::

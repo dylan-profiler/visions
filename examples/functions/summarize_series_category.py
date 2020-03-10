@@ -3,8 +3,8 @@ from pprint import pprint
 import pandas as pd
 import numpy as np
 
-from visions.application.summaries.summary import CompleteSummary
-from visions.core.implementations.types import visions_categorical
+import visions as v
+from visions.application.summaries import CompleteSummary
 
 category_series = pd.Series(
     pd.Categorical(
@@ -14,6 +14,6 @@ category_series = pd.Series(
 
 # Generate a summary
 summarizer = CompleteSummary()
-summary = summarizer.summarize_series(category_series, visions_categorical)
+summary = summarizer.summarize_series(category_series, v.Categorical)
 
 pprint(summary)

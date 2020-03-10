@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.base_summary &mdash; visions 0.2.3 documentation</title>
+  <title>visions.application.summaries.series.base_summary &mdash; visions 0.3.0 documentation</title>
   
 
   
@@ -191,7 +191,7 @@
     <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;frequencies&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
         <span class="s2">&quot;n_records&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="s2">&quot;memory_size&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s2">&quot;memory_size&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
         <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
     <span class="p">}</span>

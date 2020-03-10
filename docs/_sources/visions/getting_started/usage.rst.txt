@@ -9,6 +9,7 @@ Furthermore, it provides plenty of examples.
     :maxdepth: 1
     :hidden:
 
+    usage/import
     usage/types
     usage/relations
     usage/typesets

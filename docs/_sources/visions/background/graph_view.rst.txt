@@ -5,7 +5,7 @@ Graph view
 In `visions` relationships between types are formalized through graph.
 The base data structure of a typeset is a `directed rooted tree <https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree>`_ (graph).
 Each node represents a `data type <../getting_started/concepts.html#type>`_.
-The root note is `visions_generic`.
+The root note is `Generic`.
 
 Each data type is associated with a set.
 The root node is associated with the universal set
@@ -30,23 +30,23 @@ For the three default typesets, this base structure can be visualised as:
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_standard_base.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the base data structure of the *visions_standard_set*.
+   :alt: Visualisation of the base data structure of the *StandardSet*.
 
-   Visualisation of the base data structure of the *visions_standard_set*.
+   Visualisation of the base data structure of the *StandardSet*.
 
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_geometry_base.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the base data structure of the *visions_geometry_set*.
+   :alt: Visualisation of the base data structure of the *GeometrySet*.
 
-   Visualisation of the base data structure of the *visions_geometry_set*.
+   Visualisation of the base data structure of the *GeometrySet*.
 
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_complete_base.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the base data structure of the *visions_complete_set*.
+   :alt: Visualisation of the base data structure of the *CompleteSet*.
 
-   Visualisation of the base data structure of the *visions_complete_set*.
+   Visualisation of the base data structure of the *CompleteSet*.
 
 Type detection
 ^^^^^^^^^^^^^^
@@ -72,25 +72,25 @@ We can also visualise the extended structure:
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_standard.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the graph structure of the *visions_standard_set*.
+   :alt: Visualisation of the graph structure of the *StandardSet*.
 
-   Visualisation of the graph structure of the *visions_standard_set*.
+   Visualisation of the graph structure of the *StandardSet*.
 
 
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_geometry.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the graph structure of the *visions_geometry_set*.
+   :alt: Visualisation of the graph structure of the *GeometrySet*.
 
-   Visualisation of the graph structure of the *visions_geometry_set*.
+   Visualisation of the graph structure of the *GeometrySet*.
 
 
 .. figure:: ../../../../src/visions/visualisation/typesets/typeset_complete.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the graph structure of the *visions_complete_set*.
+   :alt: Visualisation of the graph structure of the *CompleteSet*.
 
-   Visualisation of the graph structure of the *visions_complete_set*.
+   Visualisation of the graph structure of the *CompleteSet*.
 
 Type inference
 ^^^^^^^^^^^^^^

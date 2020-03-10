@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Types &mdash; visions 0.2.3 documentation</title>
+  <title>Types &mdash; visions 0.3.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Type Relations" href="relations.html" />
-    <link rel="prev" title="Usage" href="../usage.html" /> 
+    <link rel="prev" title="Importing the module" href="import.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../usage.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="import.html">Importing the module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#membership">Membership</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#relations">Relations</a></li>
@@ -207,12 +208,13 @@ underlying in-memory implementation.</p>
 <h2>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h2>
 <p>Type membership is an important component of every visions type, membership checks answer the question <cite>is my sequence of a type?</cite>
 In practice this looks like</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Orange&#39;</span><span class="p">,</span> <span class="s1">&#39;Pear&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="ow">in</span> <span class="n">visions_string</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Orange&#39;</span><span class="p">,</span> <span class="s1">&#39;Pear&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test_series</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">String</span>
+<span class="bp">True</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="ow">in</span> <span class="n">visions_integer</span>
-<span class="go">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test_series</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span>
+<span class="bp">False</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
@@ -224,11 +226,11 @@ In practice this looks like</p>
 <h2>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h2>
 <p>Types also have special knowledge about their relations with other types. A relation
 represents a mapping between types. Let’s take the example of an integer</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions</span> <span class="kn">import</span> <span class="n">visions_integer</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">visions_integer</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
-<span class="go">[IdentityRelation(visions_generic -&gt; visions_integer),</span>
-<span class="go"> InferenceRelation(visions_float -&gt; visions_integer),</span>
-<span class="go"> InferenceRelation(visions_string -&gt; visions_integer)]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
+<span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Generic</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">),</span>
+ <span class="n">InferenceRelation</span><span class="p">(</span><span class="n">Float</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">),</span>
+ <span class="n">InferenceRelation</span><span class="p">(</span><span class="n">String</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>As we can see, there are three relations defined on the integer type. Each represents
@@ -254,7 +256,7 @@ A to B.</p>
         <a href="relations.html" class="btn btn-neutral float-right" title="Type Relations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="import.html" class="btn btn-neutral float-left" title="Importing the module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

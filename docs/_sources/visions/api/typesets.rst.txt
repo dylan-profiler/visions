@@ -6,7 +6,7 @@ Typesets
 Abstract Typesets
 =================
 
-.. currentmodule:: visions.core.model.typeset
+.. currentmodule:: visions.typesets
 .. toctree::
 
 .. autosummary::
@@ -18,21 +18,21 @@ Abstract Typesets
 Concrete Typesets
 =================
 
-.. currentmodule:: visions.core.implementations.typesets
+.. currentmodule:: visions.typesets
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   visions_standard_set
-   visions_geometry_set
-   visions_complete_set
+   standard_set
+   geometry_set
+   complete_set
 
 ==============
 Functional API
 ==============
 
-.. currentmodule:: visions.core.functional
+.. currentmodule:: visions.functional
 .. toctree::
 
 .. autosummary::

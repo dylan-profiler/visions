@@ -4,8 +4,19 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from visions.core.implementations.types import *
-from visions.application.summaries.summary import CompleteSummary
+from visions.types import (
+    Integer,
+    Float,
+    Boolean,
+    Categorical,
+    Complex,
+    DateTime,
+    Object,
+    Geometry,
+    String,
+    URL,
+)
+from visions.application.summaries import CompleteSummary
 
 
 @pytest.fixture(scope="class")
@@ -27,7 +38,7 @@ def validate_summary_output(test_series, visions_type, correct_output, summary):
         )
 
 
-def test_integer_summary(summary, visions_type=visions_integer):
+def test_integer_summary(summary, visions_type=Integer):
     test_series = pd.Series([0, 1, 2, 3, 4])
     correct_output = {
         "n_unique": 5,
@@ -43,7 +54,7 @@ def test_integer_summary(summary, visions_type=visions_integer):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_integer_missing_summary(summary, visions_type=visions_integer):
+def test_integer_missing_summary(summary, visions_type=Integer):
     test_series = pd.Series([0, 1, 2, 3, 4])
     correct_output = {
         "n_unique": 5,
@@ -60,7 +71,7 @@ def test_integer_missing_summary(summary, visions_type=visions_integer):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_float_missing_summary(summary, visions_type=visions_float):
+def test_float_missing_summary(summary, visions_type=Float):
     test_series = pd.Series([0.0, 1.0, 2.0, 3.0, 4.0, np.nan])
     correct_output = {
         "n_unique": 5,
@@ -77,14 +88,14 @@ def test_float_missing_summary(summary, visions_type=visions_float):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_bool_missing_summary(summary, visions_type=visions_bool):
+def test_bool_missing_summary(summary, visions_type=Boolean):
     test_series = pd.Series([True, False, True, True, np.nan])
     correct_output = {"n_records": 5, "na_count": 1}
 
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_categorical_missing_summary(summary, visions_type=visions_categorical):
+def test_categorical_missing_summary(summary, visions_type=Categorical):
     test_series = pd.Series(
         pd.Categorical(
             [True, False, np.nan, "test"],
@@ -103,14 +114,14 @@ def test_categorical_missing_summary(summary, visions_type=visions_categorical):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_complex_missing_summary(summary, visions_type=visions_complex):
+def test_complex_missing_summary(summary, visions_type=Complex):
     test_series = pd.Series([0 + 0j, 0 + 1j, 1 + 0j, 1 + 1j, np.nan])
     correct_output = {"n_unique": 4, "mean": 0.5 + 0.5j, "na_count": 1, "n_records": 5}
 
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_datetime_missing_summary(summary, visions_type=visions_datetime):
+def test_datetime_missing_summary(summary, visions_type=DateTime):
     test_series = pd.Series(
         [
             pd.datetime(2010, 1, 1),
@@ -131,7 +142,7 @@ def test_datetime_missing_summary(summary, visions_type=visions_datetime):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_object_missing_summary(summary, visions_type=visions_object):
+def test_object_missing_summary(summary, visions_type=Object):
     test_series = pd.Series([pd.datetime(2010, 1, 1), "test", 3, np.nan])
     correct_output = {
         "n_unique": 3,
@@ -143,28 +154,28 @@ def test_object_missing_summary(summary, visions_type=visions_object):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_geometry_missing_summary(summary, visions_type=visions_geometry):
+def test_geometry_missing_summary(summary, visions_type=Geometry):
     test_series = pd.Series([np.nan])
     correct_output = {"na_count": 1, "n_records": 1}
 
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_string_missing_summary(summary, visions_type=visions_string):
+def test_string_missing_summary(summary, visions_type=String):
     test_series = pd.Series(["apple", "orange", "bike", np.nan])
     correct_output = {"na_count": 1, "n_unique": 3, "n_records": 4}
 
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_string_summary(summary, visions_type=visions_string):
+def test_string_summary(summary, visions_type=String):
     test_series = pd.Series(["http://ru.nl", "http://ru.nl", "http://nl.ru"])
     correct_output = {"n_unique": 2, "n_records": 3}
 
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
-def test_url_summary(summary, visions_type=visions_url):
+def test_url_summary(summary, visions_type=URL):
     test_series = pd.Series(
         [urlparse("http://ru.nl"), urlparse("http://ru.nl"), urlparse("http://nl.ru")]
     )

@@ -6,7 +6,7 @@ Types
 Abstract Types
 ==============
 
-.. currentmodule:: visions.core.model
+.. currentmodule:: visions.types.type
 .. toctree::
 
 .. autosummary::
@@ -14,34 +14,34 @@ Abstract Types
 
    VisionsBaseType
 
-=============
-Logical Types
-=============
+==============
+Semantic Types
+==============
 
-.. currentmodule:: visions.core.implementations.types
+.. currentmodule:: visions.types
 .. toctree::
 
 .. autosummary::
    :toctree: _autosummary
 
-   visions_generic
-   visions_integer
-   visions_float
-   visions_bool
-   visions_categorical
-   visions_ordinal
-   visions_complex
-   visions_datetime
-   visions_timedelta
-   visions_date
-   visions_time
-   visions_object
-   visions_string
-   visions_geometry
-   visions_path
-   visions_existing_path
-   visions_image_path
-   visions_url
-   visions_ip
-   visions_count
-   visions_uuid
+   generic
+   integer
+   float
+   boolean
+   categorical
+   ordinal
+   complex
+   date_time
+   time_delta
+   date
+   time
+   object
+   string
+   geometry
+   path
+   existing_path
+   image_path
+   url
+   ip_address
+   count
+   uuid

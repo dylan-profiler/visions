@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pytest
 
-from visions.core.dtypes.boolean import BoolDtype
+from visions.dtypes.boolean import BoolDtype
 
 
 @pytest.mark.parametrize(

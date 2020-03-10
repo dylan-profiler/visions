@@ -1,0 +1,6 @@
+visions.functional.type\_cast\_frame
+====================================
+
+.. currentmodule:: visions.functional
+
+.. autofunction:: type_cast_frame
