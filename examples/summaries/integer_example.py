@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 
-from visions import visions_integer
-from visions.application.summaries.summary import CompleteSummary
+import visions.types as vt
+from visions.application.summaries import CompleteSummary
 
 integer_series = pd.Series([1, 2, 3, 4, 5, -100000, np.nan], dtype="Int64")
 
 summarizer = CompleteSummary()
-summary = summarizer.summarize_series(integer_series, visions_integer)
+summary = summarizer.summarize_series(integer_series, vt.Integer)
 print(summary)
 
 # Output:

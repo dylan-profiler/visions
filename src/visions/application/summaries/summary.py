@@ -3,9 +3,7 @@ from typing import Type
 import pandas as pd
 import networkx as nx
 
-from visions.core.implementations.typesets import visions_complete_set
-from visions.core.model.type import VisionsBaseType
-from visions.core.implementations.types import *
+from visions.types import VisionsBaseType
 from visions.application.summaries import *
 from visions.application.summaries.frame.dataframe_series_summary import (
     dataframe_series_summary,
@@ -124,41 +122,3 @@ class Summary(object):
                 )
 
         output_graph(G, file_name)
-
-
-class CompleteSummary(Summary):
-    def __init__(self):
-        type_summary_ops = {
-            visions_bool: [],
-            visions_categorical: [category_summary, unique_summary],
-            visions_complex: [
-                infinite_summary,
-                numerical_basic_summary,
-                unique_summary_complex,
-            ],
-            visions_datetime: [range_summary, unique_summary],
-            visions_date: [],
-            visions_existing_path: [existing_path_summary, path_summary, text_summary],
-            visions_float: [
-                infinite_summary,
-                numerical_summary,
-                zero_summary,
-                unique_summary,
-            ],
-            visions_geometry: [],
-            visions_image_path: [],
-            visions_integer: [
-                infinite_summary,
-                numerical_summary,
-                zero_summary,
-                unique_summary,
-            ],
-            visions_object: [unique_summary],
-            visions_path: [path_summary, text_summary],
-            visions_string: [text_summary, unique_summary],
-            visions_time: [],
-            visions_timedelta: [],
-            visions_url: [url_summary, unique_summary],
-            visions_generic: [base_summary, missing_summary],
-        }
-        super().__init__(type_summary_ops, visions_complete_set())

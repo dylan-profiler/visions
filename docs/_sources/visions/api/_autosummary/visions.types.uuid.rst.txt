@@ -1,0 +1,5 @@
+visions.types.uuid
+==================
+
+.. automodule:: visions.types.uuid
+    :members:

@@ -1,12 +1,12 @@
 import pandas as pd
 
-from visions import visions_string
-from visions.application.summaries.summary import CompleteSummary
+import visions as v
+from visions.application.summaries import CompleteSummary
 
 string_series = pd.Series(["orange", "apple", "pear", "🂶", "🃁", "🂻"])
 
 summarizer = CompleteSummary()
-summary = summarizer.summarize_series(string_series, visions_string)
+summary = summarizer.summarize_series(string_series, v.String)
 print(summary)
 
 # Output:

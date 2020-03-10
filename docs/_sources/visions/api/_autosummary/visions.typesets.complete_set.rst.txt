@@ -1,0 +1,5 @@
+visions.typesets.complete_set
+=============================
+
+.. automodule:: visions.typesets.complete_set
+    :members:

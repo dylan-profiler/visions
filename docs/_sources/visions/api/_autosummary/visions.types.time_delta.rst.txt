@@ -1,0 +1,5 @@
+visions.types.time_delta
+========================
+
+.. automodule:: visions.types.time_delta
+    :members:

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Typesets &mdash; visions 0.2.1 documentation</title>
+  <title>Typesets &mdash; visions 0.3.0 documentation</title>
   
 
   
@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../usage.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="import.html">Importing the module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relations.html">Type Relations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Typesets</a><ul>
@@ -204,11 +205,10 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Groups of types can be combined to perform analysis over data sequences like pandas series or dataframes.
 These type grouping are called typesets.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_standard_set</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_standard_set</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">StandardSet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span> <span class="o">=</span> <span class="n">StandardSet</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span><span class="o">.</span><span class="n">types</span>
-<span class="go">{visions_datetime, visions_string, visions_generic, visions_timedelta,</span>
-<span class="go">visions_integer, visions_complex, visions_bool, visions_object, visions_categorical, visions_float}</span>
+<span class="go">{DateTime, String, Generic, TimeDelta, Integer, Complex, Boolean, Object, Categorical, Float}</span>
 </pre></div>
 </div>
 <p>The standard typeset includes all baseline visions types; a
@@ -224,26 +224,26 @@ and type casting.</p>
 <h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
 <p>Type detection attempts to answer the question: <cite>What type is my data right now?</cite></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">type_detect_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-<span class="n">visions_string</span>
+<span class="n">String</span>
 
 <span class="c1"># Object Oriented</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.implementations.typesets</span> <span class="kn">import</span> <span class="n">visions_complete_set</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">CompleteSet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_type_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
-<span class="n">visions_string</span>
+<span class="n">String</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="inference">
 <h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
 <p>Type inference attempts to answer the question: <cite>What type is my data best represented as?`</cite></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span><span class="p">,</span> <span class="n">type_inference_series</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">type_detect_series</span><span class="p">,</span> <span class="n">type_inference_series</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">type_detect_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-<span class="go">visions_string</span>
+<span class="go">String</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">type_inference_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-<span class="go">visions_integer</span>
+<span class="go">Integer</span>
 </pre></div>
 </div>
 <p>As you can see, visions was able to infer that the test_series was really an integer series rather than string.
@@ -252,7 +252,7 @@ Integer detection is a fairly simple use case but visions supports arbitrarily c
 <div class="section" id="cast">
 <h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline">¶</a></h2>
 <p>Type casting is the process of converting a series or dataframe from one type to another, for example, from strings to integers.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.core.functional</span> <span class="kn">import</span> <span class="n">type_cast_series</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">type_cast_series</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">type_cast_series</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 <span class="go">pd.Series([1, 2, 3])</span>
 </pre></div>
@@ -266,13 +266,13 @@ Integer detection is a fairly simple use case but visions supports arbitrarily c
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-generic-typeset">
 <h3>The Generic Typeset<a class="headerlink" href="#the-generic-typeset" title="Permalink to this headline">¶</a></h3>
-<p>All typesets include the <cite>visions_generic</cite> type at their base. The generic represents a catch all type
+<p>All typesets include the <cite>Generic</cite> type at their base. The generic represents a catch all type
 to which all sequences belong. This means an “empty” typeset would still include a generic at it’s root
 from which all other types can be related.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">my_typeset</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">my_typeset</span><span class="o">.</span><span class="n">types</span>
-<span class="p">{</span><span class="n">visions_generic</span><span class="p">}</span>
+<span class="p">{</span><span class="n">Generic</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -282,10 +282,11 @@ from which all other types can be related.</p>
 used to invoke the operation. In practice this means two different typesets might infer or detect
 different types for the same series.</p>
 <p>Let’s take the example of two typesets: one including the integer type and one without.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.core.model.typeset</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
 <span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_1</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">visions_integer</span><span class="p">,</span> <span class="n">visions_float</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_2</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">visions_float</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_1</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Float</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_2</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">Float</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 </pre></div>
@@ -293,12 +294,12 @@ different types for the same series.</p>
 <p>Logically we can see the series should be an integer but what happens when attempting inference
 with the two different typesets?</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_1</span><span class="o">.</span><span class="n">detect_type_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-<span class="n">visions_integer</span>
+<span class="n">Integer</span>
 </pre></div>
 </div>
 <p>Excellent, we got what we expected! What about the second typeset which omits the integer type?</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_2</span><span class="o">.</span><span class="n">detect_type_series</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-<span class="n">visions_generic</span>
+<span class="n">Generic</span>
 </pre></div>
 </div>
 <p>Because integers weren’t included in the typeset we didn’t detect them. Instead, the closest
@@ -307,8 +308,8 @@ matching type included in the typeset was returned.</p>
 for any specific typeset will vary based on the relations implemented on each type included in
 the typeset.</p>
 <div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../../../_images/typeset_complete_base1.svg"><img alt="Visualisation of the base data structure of the *visions_complete_set*." src="../../../_images/typeset_complete_base1.svg" width="700px" /></a>
-<p class="caption"><span class="caption-text">Visualisation of the base data structure of the <em>visions_complete_set</em>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../../_images/typeset_complete_base1.svg"><img alt="Visualisation of the base data structure of the *CompleteSet*." src="../../../_images/typeset_complete_base1.svg" width="700px" /></a>
+<p class="caption"><span class="caption-text">Visualisation of the base data structure of the <em>CompleteSet</em>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>

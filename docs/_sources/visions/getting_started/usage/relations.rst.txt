@@ -9,20 +9,20 @@ Going back to our integer example.
 
 .. code-block:: python
 
-    >>> from visions import visions_integer
-    >>> visions_integer.get_relations()
-    [IdentityRelation(visions_generic -> visions_integer),
-     InferenceRelation(visions_float -> visions_integer),
-     InferenceRelation(visions_string -> visions_integer)]
+	>>> import visions as v
+    >>> v.Integer.get_relations()
+    [IdentityRelation(Generic -> Integer),
+     InferenceRelation(Float -> Integer),
+     InferenceRelation(String -> Integer)]
 
 Now imagine a series of floats like `[1.0, 2.0, 3.0]`.
 
 .. code-block:: python
 
-    >>> float_int_relation = visions_integer.get_relations()[1]
+    >>> float_int_relation = v.Integer.get_relations()[1]
     >>> series = pd.Series([1.0, 2.0, 3.0])
 
-    >>> series in visions_integer
+    >>> series in v.Integer
     False
 
     >>> float_int_relation.is_relation(series)
@@ -34,7 +34,7 @@ Not yet an integer, but it can be mapped to one!
 
     >>> transformed_series = float_int_relation.transform(series)
 
-    >>> transformed_series in visions_integer
+    >>> transformed_series in v.Integer
     True
 
 ... and the `transform` method is how.

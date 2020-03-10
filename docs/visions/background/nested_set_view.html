@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nested set view &mdash; visions 0.2.1 documentation</title>
+  <title>Nested set view &mdash; visions 0.3.0 documentation</title>
   
 
   
@@ -185,10 +185,10 @@
 <p>Below we see a <a class="reference external" href="https://en.wikipedia.org/wiki/Circle_packing">circle packing</a> representation of the data types in the complete set.
 Each circle represents the subset of all possible values that is denoted as that type.
 For example, the boolean type has the possible values <span class="math notranslate nohighlight">\(\{True, False, None\}\)</span>.
-There is one root type, <cite>visions_generic</cite>, of which represents all possible values.</p>
+There is one root type, <cite>Generic</cite>, of which represents all possible values.</p>
 <p>When we perform type inference of a set of values, we find the narrowest circle that contains all values.
-For example, a set <span class="math notranslate nohighlight">\(\{'2020-01-01', '2020-02-02'\}\)</span> is a member of <cite>visions_generic</cite>, <cite>visions_datetime</cite> and <cite>visions_date</cite>.
-<cite>visions_date</cite> is the narrowest circle, hence the type.
+For example, a set <span class="math notranslate nohighlight">\(\{'2020-01-01', '2020-02-02'\}\)</span> is a member of <cite>Generic</cite>, <cite>DateTime</cite> and <cite>Date</cite>.
+<cite>Date</cite> is the narrowest circle, hence the type.
 Similarly, the membership relation is true when the circle includes all values.</p>
 <!DOCTYPE html>
 <html lang="en">
@@ -244,7 +244,7 @@ Similarly, the membership relation is true when the circle includes all values.<
     // d3.json("typesets/typeset_complete_base.json", function (error, root) {
     //    if (error) throw error;
     // START-REPLACE
-	root = {"children": [{"name": "visions_timedelta", "size": 1}, {"children": [{"name": "visions_time", "size": 1}, {"name": "visions_date", "size": 1}], "name": "visions_datetime"}, {"name": "visions_float", "size": 1}, {"name": "visions_integer", "size": 1}, {"name": "visions_complex", "size": 1}, {"name": "visions_count", "size": 1}, {"children": [{"name": "visions_url", "size": 1}, {"children": [{"children": [{"name": "visions_image_path", "size": 1}], "name": "visions_existing_path"}], "name": "visions_path"}, {"name": "visions_uuid", "size": 1}, {"name": "visions_geometry", "size": 1}, {"name": "visions_ip", "size": 1}, {"name": "visions_string", "size": 1}], "name": "visions_object"}, {"children": [{"name": "visions_ordinal", "size": 1}], "name": "visions_categorical"}, {"name": "visions_bool", "size": 1}], "name": "visions_generic"};
+	root = {"children": [{"name": "Boolean", "size": 1}, {"name": "Complex", "size": 1}, {"children": [{"name": "Geometry", "size": 1}, {"name": "UUID", "size": 1}, {"name": "String", "size": 1}, {"name": "IPAddress", "size": 1}, {"children": [{"children": [{"name": "ImagePath", "size": 1}], "name": "ExistingPath"}], "name": "Path"}, {"name": "URL", "size": 1}], "name": "Object"}, {"name": "Count", "size": 1}, {"children": [{"name": "Time", "size": 1}, {"name": "Date", "size": 1}], "name": "DateTime"}, {"children": [{"name": "Ordinal", "size": 1}], "name": "Categorical"}, {"name": "Float", "size": 1}, {"name": "TimeDelta", "size": 1}, {"name": "Integer", "size": 1}], "name": "Generic"};
 	// END-REPLACE
         root = d3.hierarchy(root)
             .sum(function (d) {
@@ -346,7 +346,7 @@ Similarly, the membership relation is true when the circle includes all values.<
 </script>
 </body>
 </html><p class="caption">
-    <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circle packing</a> of the <em>visions_complete_set</em>.</span>
+    <span class="caption-text"><a href="https://bl.ocks.org/fdlk/076469462d00ba39960f854df9acda56">Circle packing</a> of the <em>CompleteSet</em>.</span>
     <a class="headerlink" href="#id1" title="Permalink to this image">
     </a>
 </p></div>

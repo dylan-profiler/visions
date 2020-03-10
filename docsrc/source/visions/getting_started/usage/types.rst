@@ -23,11 +23,12 @@ In practice this looks like
 
 .. code-block:: python
 
+	>>> import visions as v
     >>> test_series = pd.Series(['Apple', 'Orange', 'Pear'])
-    >>> test_series in visions_string
+    >>> test_series in v.String
     True
 
-    >>> test_series in visions_integer
+    >>> test_series in v.Integer
     False
 
 .. seealso:: :doc:`Membership example <../examples/membership>`
@@ -41,11 +42,11 @@ represents a mapping between types. Let's take the example of an integer
 
 .. code-block:: python
 
-    >>> from visions import visions_integer
-    >>> visions_integer.get_relations()
-    [IdentityRelation(visions_generic -> visions_integer),
-     InferenceRelation(visions_float -> visions_integer),
-     InferenceRelation(visions_string -> visions_integer)]
+	>>> import visions as v
+    >>> v.Integer.get_relations()
+    [IdentityRelation(Generic -> Integer),
+     InferenceRelation(Float -> Integer),
+     InferenceRelation(String -> Integer)]
 
 As we can see, there are three relations defined on the integer type. Each represents
 a mapping from another type to integer. This characteristic is generally true for all

@@ -5,7 +5,7 @@ from pathlib import Path
 import networkx as nx
 from networkx.readwrite import json_graph
 
-from visions.core.implementations.typesets import visions_complete_set
+from visions.typesets import CompleteSet
 
 
 def update(data):
@@ -37,11 +37,11 @@ def write_html(data):
 
 
 def main():
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
     graph = typeset.base_graph.copy()
     nx.relabel_nodes(graph, {n: str(n) for n in graph.nodes}, copy=False)
 
-    data = json_graph.tree_data(graph, root="visions_generic")
+    data = json_graph.tree_data(graph, root="Generic")
 
     data = update(data)
 

@@ -1,0 +1,5 @@
+visions.types.image_path
+========================
+
+.. automodule:: visions.types.image_path
+    :members:

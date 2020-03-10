@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.functional &mdash; visions 0.2.1 documentation</title>
+  <title>visions.application.summaries.functional &mdash; visions 0.3.0 documentation</title>
   
 
   
@@ -176,9 +176,11 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.application.summaries.functional</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Type</span>
 
-<span class="kn">from</span> <span class="nn">visions.core.model</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">visions.types</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.application.summaries.summary</span> <span class="k">import</span> <span class="n">Summary</span>
 
 
@@ -187,7 +189,7 @@
 
 
 <div class="viewcode-block" id="summarize_series"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.application.summaries.functional.summarize_series.html#visions.application.summaries.functional.summarize_series">[docs]</a><span class="k">def</span> <span class="nf">summarize_series</span><span class="p">(</span>
-    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">series_type</span><span class="p">:</span> <span class="n">VisionsBaseType</span><span class="p">,</span> <span class="n">summarizer</span><span class="p">:</span> <span class="n">Summary</span>
+    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">series_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">summarizer</span><span class="p">:</span> <span class="n">Summary</span>
 <span class="p">):</span>
     <span class="k">return</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">series_type</span><span class="p">)</span></div>
 

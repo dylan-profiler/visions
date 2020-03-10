@@ -1,0 +1,5 @@
+visions.types.integer
+=====================
+
+.. automodule:: visions.types.integer
+    :members:

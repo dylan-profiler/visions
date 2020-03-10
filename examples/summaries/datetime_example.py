@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 
-from visions.application.summaries.summary import CompleteSummary, visions_datetime
+from visions import types as v
+from visions.application.summaries import CompleteSummary
 
 datetime_series = pd.Series(
     [
@@ -13,7 +14,7 @@ datetime_series = pd.Series(
 )
 
 summarizer = CompleteSummary()
-summary = summarizer.summarize_series(datetime_series, visions_datetime)
+summary = summarizer.summarize_series(datetime_series, v.DateTime)
 print(summary)
 
 # Output:

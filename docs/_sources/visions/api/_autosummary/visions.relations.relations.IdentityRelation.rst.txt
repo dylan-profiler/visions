@@ -1,0 +1,25 @@
+visions.relations.relations.IdentityRelation
+============================================
+
+.. currentmodule:: visions.relations.relations
+
+.. autoclass:: IdentityRelation
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~IdentityRelation.__init__
+      ~IdentityRelation.is_relation
+      ~IdentityRelation.make_relationship
+      ~IdentityRelation.transform
+   
+   
+
+   
+   
+   

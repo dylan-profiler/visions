@@ -1,0 +1,6 @@
+visions.functional.type\_inference\_series
+==========================================
+
+.. currentmodule:: visions.functional
+
+.. autofunction:: type_inference_series

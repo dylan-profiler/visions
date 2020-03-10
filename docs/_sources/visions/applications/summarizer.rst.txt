@@ -49,16 +49,16 @@ Datetime summary
 .. figure:: ../../../../src/visions/visualisation/summaries/summary_datetime.svg
    :width: 200 px
    :align: center
-   :alt: Datetime Summary Graph
+   :alt: DateTime Summary Graph
 
-   Datetime Summary Graph
+   DateTime Summary Graph
 
 .. literalinclude:: ../../../../examples/summaries/datetime_example.py
    :language: python
    :lines: 6-
    :lineno-start: 6
    :linenos:
-   :caption: Datetime Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/datetime_example.py>`__)
+   :caption: DateTime Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/datetime_example.py>`__)
 
 String summary
 ~~~~~~~~~~~~~~

@@ -2,14 +2,12 @@ import sys
 
 import pytest
 
-from visions.core.implementations.typesets import visions_complete_set
-from visions.core.model import TypeRelation
-
+from visions.typesets import CompleteSet
 from tests.series import get_series, get_convert_map
 
 
 def all_relations_tested(series_map):
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
 
     # Convert data structure for mapping
     series_map_lookup = {}
@@ -100,7 +98,7 @@ def test_relations(source_type, relation_type, series):
 
 @pytest.mark.run(order=10)
 def test_consistency(series):
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
 
     if (
         series.name
@@ -131,7 +129,7 @@ def test_consistency(series):
 def test_side_effects(series):
     reference = series.copy()
 
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
     typeset.detect_series_type(series)
     typeset.infer_series_type(series)
 
@@ -147,7 +145,7 @@ def test_multiple_inference(series):
     Notes:
         Copy to prevent possible side effects only for testing.
     """
-    ts = visions_complete_set()
+    ts = CompleteSet()
 
     inferred_type = ts.infer_series_type(series)
 
