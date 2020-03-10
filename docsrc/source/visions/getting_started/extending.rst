@@ -71,7 +71,7 @@ Custom Types (extend a type)
 Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.
 
-Each type has the method `evolve_relations` for this purpose.
+Each type has the method `evolve_extend_relations` for this purpose.
 
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
@@ -79,7 +79,7 @@ Each type has the method `evolve_relations` for this purpose.
     from visions.types.date_time import DateTime
     from visions.relations.integer_to_datetime import integer_to_datetime_year_month_day
 
-    DateTimeIntYYYYMMDD = DateTime.evolve_relations('int_yyyymmdd', integer_to_datetime_year_month_day)
+    DateTimeIntYYYYMMDD = DateTime.evolve_extend_relations('int_yyyymmdd', integer_to_datetime_year_month_day)
 
     print(DateTimeIntYYYYMMDD)
     # Prints: DateTime[int_yyyymmdd]
