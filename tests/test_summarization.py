@@ -4,7 +4,18 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from visions.types import *
+from visions.types import (
+    Integer,
+    Float,
+    Boolean,
+    Categorical,
+    Complex,
+    DateTime,
+    Object,
+    Geometry,
+    String,
+    URL,
+)
 from visions.application.summaries import CompleteSummary
 
 
