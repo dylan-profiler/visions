@@ -1,8 +1,7 @@
 import pandas as pd
-from visions import visions_string, visions_datetime
 
-from visions.core.model import TypeRelation
-from visions.core.model.relations import InferenceRelation
+from visions import String
+from visions.relations import InferenceRelation
 from visions.utils.coercion import test_utils
 
 
@@ -49,18 +48,18 @@ def to_datetime_year_month_day(series):
     return pd.to_datetime(series, format="%Y%m%d")
 
 
-def get_string_datetime_type_relation(func):
+def get_string_datetime_type_relation(cls, func):
     return InferenceRelation(
         relationship=test_utils.coercion_test(func),
         transformer=func,
-        related_type=visions_string,
-        type=visions_datetime,
+        related_type=String,
+        type=cls,
     )
 
 
-def string_to_datetime_year_week():
-    return get_string_datetime_type_relation(to_datetime_year_week)
+def string_to_datetime_year_week(cls):
+    return get_string_datetime_type_relation(cls, to_datetime_year_week)
 
 
-def string_to_datetime_year_month_day():
-    return get_string_datetime_type_relation(to_datetime_year_month_day)
+def string_to_datetime_year_month_day(cls):
+    return get_string_datetime_type_relation(cls, to_datetime_year_month_day)

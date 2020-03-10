@@ -1,0 +1,5 @@
+visions.types.categorical
+=========================
+
+.. automodule:: visions.types.categorical
+    :members:

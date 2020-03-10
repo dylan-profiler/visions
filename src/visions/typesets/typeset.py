@@ -5,7 +5,7 @@ import pandas as pd
 import networkx as nx
 
 from visions.types.type import VisionsBaseType
-from visions.types.visions_generic import visions_generic
+from visions.types.generic import Generic
 
 
 def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
@@ -69,7 +69,7 @@ def check_isolates(graph: nx.DiGraph) -> None:
 
     """
     nodes = set(graph.nodes)
-    isolates = list(set(nx.isolates(graph)) - {visions_generic})  # root can be isolate
+    isolates = list(set(nx.isolates(graph)) - {Generic})  # root can be isolate
     graph.remove_nodes_from(isolates)
     orphaned_nodes = nodes - set(graph.nodes)
     if orphaned_nodes:
@@ -96,7 +96,7 @@ def check_cycles(graph: nx.DiGraph) -> None:
 
 
 def traverse_graph(
-    series: pd.Series, graph: nx.DiGraph, node: Type[VisionsBaseType] = visions_generic
+    series: pd.Series, graph: nx.DiGraph, node: Type[VisionsBaseType] = Generic
 ) -> Type[VisionsBaseType]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
@@ -189,7 +189,7 @@ def traverse_graph_inference_sample(
 def infer_type_path(
     series: pd.Series,
     G: nx.DiGraph,
-    base_type: Type[VisionsBaseType] = visions_generic,
+    base_type: Type[VisionsBaseType] = Generic,
     sample_size: int = 10,
 ) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
     # TODO: Try sample, Except do this
@@ -232,9 +232,7 @@ class VisionsTypeset(object):
         if not isinstance(types, Iterable):
             raise ValueError("types should be iterable")
 
-        self.relation_graph, self.base_graph = build_graph(
-            set(types) | {visions_generic}
-        )
+        self.relation_graph, self.base_graph = build_graph(set(types) | {Generic})
         self.types = set(self.relation_graph.nodes)
 
     def detect_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
@@ -270,7 +268,7 @@ class VisionsTypeset(object):
             The visions data type
         """
         inferred_path, _ = traverse_graph_inference(
-            visions_generic, series, self.relation_graph
+            Generic, series, self.relation_graph
         )
         return inferred_path[-1]
 
@@ -390,6 +388,7 @@ class VisionsTypeset(object):
             self.output_graph(temp_file.name)
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
+            plt.axis("off")
             plt.imshow(img)
 
     def _get_other_type(self, other):

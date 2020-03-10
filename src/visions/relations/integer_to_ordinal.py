@@ -1,5 +1,5 @@
 from visions.relations import InferenceRelation
-from visions.types.visions_ordinal import to_ordinal
+from visions.types.ordinal import to_ordinal
 
 
 def check_consecutive(l) -> bool:
@@ -15,12 +15,9 @@ def is_ordinal_int(s) -> bool:
     )
 
 
-def integer_to_ordinal() -> InferenceRelation:
-    from visions.types import visions_ordinal, visions_integer
+def integer_to_ordinal(cls) -> InferenceRelation:
+    from visions.types import Integer
 
     return InferenceRelation(
-        visions_ordinal,
-        visions_integer,
-        relationship=is_ordinal_int,
-        transformer=to_ordinal,
+        cls, Integer, relationship=is_ordinal_int, transformer=to_ordinal
     )

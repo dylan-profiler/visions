@@ -5,7 +5,7 @@ from visions.dtypes.boolean import BoolDtype
 
 from visions import types, typesets
 
-from visions.types import *
+from visions.types.__init__ import *
 from visions.functional import (
     type_cast_frame,
     type_inference_frame,

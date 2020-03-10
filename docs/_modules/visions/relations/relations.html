@@ -186,7 +186,7 @@
 
 <div class="viewcode-block" id="TypeRelation"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.relations.relations.TypeRelation.html#visions.relations.relations.TypeRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TypeRelation</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`</span>
+    <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`visions.types.type.VisionsBaseType`</span>
 
 <span class="sd">    Defines a one to one relationship between two VisionsBaseType implementations,</span>
 <span class="sd">    A and B, with respect to an underlying data series. In order to define a relationship we need</span>
@@ -199,9 +199,9 @@
 <span class="sd">    floats but in reality they are all integers.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from visions.types import visions_integer, visions_float</span>
+<span class="sd">        &gt;&gt;&gt; from visions.types import Integer, Float</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.0, 3.0])</span>
-<span class="sd">        &gt;&gt;&gt; relation = TypeRelation(visions_integer, visions_float)</span>
+<span class="sd">        &gt;&gt;&gt; relation = TypeRelation(Integer, Float)</span>
 <span class="sd">        &gt;&gt;&gt; relation.is_relation(x)</span>
 <span class="sd">        True</span>
 

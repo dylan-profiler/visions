@@ -1,10 +1,6 @@
 from pathlib import Path
 
-from visions.typesets import (
-    visions_complete_set,
-    visions_standard_set,
-    visions_geometry_set,
-)
+from visions.typesets import CompleteSet, StandardSet, GeometrySet
 
 # Windows Note
 # Tip for Python3/64-bit compatible version of pygraphviz
@@ -16,9 +12,9 @@ typesets_dir.mkdir(exist_ok=True)
 
 # Initialize typeset
 for name, tsc in [
-    ("typeset_complete", visions_complete_set()),
-    ("typeset_geometry", visions_geometry_set()),
-    ("typeset_standard", visions_standard_set()),
+    ("typeset_complete", CompleteSet()),
+    ("typeset_geometry", GeometrySet()),
+    ("typeset_standard", StandardSet()),
 ]:
     # Write graph to dot
     tsc.output_graph(typesets_dir / "{name}.dot".format(name=name))

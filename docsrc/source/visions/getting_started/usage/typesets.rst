@@ -9,11 +9,10 @@ These type grouping are called typesets.
 
 .. code-block:: python
 
-    >>> from visions.typesets import visions_standard_set
-    >>> typeset = visions_standard_set()
+    >>> from visions.typesets import StandardSet
+    >>> typeset = StandardSet()
     >>> typeset.types
-    {visions_datetime, visions_string, visions_generic, visions_timedelta,
-    visions_integer, visions_complex, visions_bool, visions_object, visions_categorical, visions_float}
+    {DateTime, String, Generic, TimeDelta, Integer, Complex, Boolean, Object, Categorical, Float}
 
 The standard typeset includes all baseline visions types; a
 complete list of default typesets is available in the API documentation.
@@ -38,12 +37,12 @@ Type detection attempts to answer the question: `What type is my data right now?
     # Functional
     >>> from visions.functional import type_detect_series
     >>> type_detect_series(test_series, typeset)
-    visions_string
+    String
 
     # Object Oriented
-    >>> from visions.typesets import visions_complete_set
+    >>> from visions.typesets import CompleteSet
     >>> typeset.detect_type_series(test_series)
-    visions_string
+    String
 
 
 Inference
@@ -55,10 +54,10 @@ Type inference attempts to answer the question: `What type is my data best repre
 
     >>> from visions.functional import type_detect_series, type_inference_series
     >>> type_detect_series(test_series, typeset)
-    visions_string
+    String
 
     >>> type_inference_series(test_series, typeset)
-    visions_integer
+    Integer
 
 As you can see, visions was able to infer that the test_series was really an integer series rather than string.
 Integer detection is a fairly simple use case but visions supports arbitrarily complex types from geometries to URLs to file paths and beyond.
@@ -84,7 +83,7 @@ Details
 The Generic Typeset
 -------------------
 
-All typesets include the `visions_generic` type at their base. The generic represents a catch all type
+All typesets include the `Generic` type at their base. The generic represents a catch all type
 to which all sequences belong. This means an "empty" typeset would still include a generic at it's root
 from which all other types can be related.
 
@@ -93,7 +92,7 @@ from which all other types can be related.
   >>> from visions.typesets import VisionsTypeset
   >>> my_typeset = VisionsTypeset([])
   >>> my_typeset.types
-  {visions_generic}
+  {Generic}
 
 
 Multiple Typesets
@@ -107,10 +106,11 @@ Let's take the example of two typesets: one including the integer type and one w
 
 .. code-block:: Python
 
+  >>> import visions as v
   >>> from visions.typesets import VisionsTypeset
   >>>
-  >>> typeset_1 = VisionsTypeset([visions_integer, visions_float])
-  >>> typeset_2 = VisionsTypeset([visions_float])
+  >>> typeset_1 = VisionsTypeset([v.Integer, v.Float])
+  >>> typeset_2 = VisionsTypeset([v.Float])
   >>>
   >>> series = pd.Series([1, 2, 3])
 
@@ -120,14 +120,14 @@ with the two different typesets?
 .. code-block:: Python
 
   >>> typeset_1.detect_type_series(series)
-  visions_integer
+  Integer
 
 Excellent, we got what we expected! What about the second typeset which omits the integer type?
 
 .. code-block:: Python
 
   >>> typeset_2.detect_type_series(series)
-  visions_generic
+  Generic
 
 Because integers weren't included in the typeset we didn't detect them. Instead, the closest
 matching type included in the typeset was returned.
@@ -139,6 +139,6 @@ the typeset.
 .. figure:: ../../../../../src/visions/visualisation/typesets/typeset_complete_base.svg
    :width: 700 px
    :align: center
-   :alt: Visualisation of the base data structure of the *visions_complete_set*.
+   :alt: Visualisation of the base data structure of the *CompleteSet*.
 
-   Visualisation of the base data structure of the *visions_complete_set*.
+   Visualisation of the base data structure of the *CompleteSet*.

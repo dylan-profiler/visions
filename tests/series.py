@@ -7,7 +7,29 @@ import pandas as pd
 import numpy as np
 from shapely import wkt
 
-from visions.types import *
+from visions.types import (
+    Boolean,
+    Categorical,
+    Complex,
+    Count,
+    Date,
+    DateTime,
+    ExistingPath,
+    Float,
+    Generic,
+    Geometry,
+    ImagePath,
+    Integer,
+    IPAddress,
+    Object,
+    Ordinal,
+    Path,
+    String,
+    Time,
+    TimeDelta,
+    URL,
+    UUID,
+)
 
 
 def get_series():
@@ -51,7 +73,7 @@ def get_series():
         pd.Series([1.0, 2.5, np.nan], name="float_nan_series"),
         pd.Series([1.0, 2.0, 3.0, 4.0], name="float_series2"),
         pd.Series(np.array([1.2, 2, 3, 4], dtype=np.float), name="float_series3"),
-        pd.Series([1, 2, 3.05, 4], dtype=float, name="float_series4"),
+        pd.Series([1, 2, 3.05, 4], dtype=np.float, name="float_series4"),
         pd.Series([np.nan, 1.2], name="float_series5"),
         pd.Series([np.nan, 1.1], dtype=np.single, name="float_series6"),
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
@@ -254,17 +276,17 @@ def get_series():
 
 def get_contains_map():
     series_map = {
-        visions_integer: [
+        Integer: [
             "int_series",
             "Int64_int_series",
             "int_range",
             "Int64_int_nan_series",
             "int_series_boolean",
         ],
-        visions_count: ["np_uint32"],
-        visions_path: ["path_series_linux", "path_series_windows"],
-        visions_url: ["url_series"],
-        visions_float: [
+        Count: ["np_uint32"],
+        Path: ["path_series_linux", "path_series_windows"],
+        URL: ["url_series"],
+        Float: [
             "float_series",
             "float_series2",
             "float_series3",
@@ -278,7 +300,7 @@ def get_contains_map():
             "float_with_inf",
             "float_series6",
         ],
-        visions_categorical: [
+        Categorical: [
             "categorical_int_series",
             "categorical_float_series",
             "categorical_string_series",
@@ -286,13 +308,13 @@ def get_contains_map():
             "categorical_char",
             "ordinal",
         ],
-        visions_bool: [
+        Boolean: [
             "bool_series",
             "bool_series2",
             "bool_series3",
             "nullable_bool_series",
         ],
-        visions_complex: [
+        Complex: [
             "complex_series",
             "complex_series_py",
             "complex_series_nan",
@@ -300,16 +322,16 @@ def get_contains_map():
             "complex_series_nan_2",
             "complex_series_float",
         ],
-        visions_datetime: [
+        DateTime: [
             "timestamp_series",
             "timestamp_aware_series",
             "datetime",
             "timestamp_series_nat",
             "date_series_nat",
         ],
-        visions_date: ["datetime", "date_series_nat"],
-        visions_timedelta: ["timedelta_series", "timedelta_series_nat"],
-        visions_string: [
+        Date: ["datetime", "date_series_nat"],
+        TimeDelta: ["timedelta_series", "timedelta_series_nat"],
+        String: [
             "timestamp_string_series",
             "string_series",
             "geometry_string_series",
@@ -332,111 +354,111 @@ def get_contains_map():
             "str_complex",
             "uuid_series_str",
         ],
-        visions_geometry: ["geometry_series"],
-        visions_ip: ["ip"],
-        visions_ordinal: ["ordinal"],
-        visions_uuid: ["uuid_series"],
+        Geometry: ["geometry_series"],
+        IPAddress: ["ip"],
+        Ordinal: ["ordinal"],
+        UUID: ["uuid_series"],
     }
 
-    series_map[visions_object] = (
+    series_map[Object] = (
         ["mixed_list[str,int]", "mixed_dict", "callable", "module", "bool_nan_series"]
-        + series_map[visions_string]
-        + series_map[visions_geometry]
-        + series_map[visions_path]
-        + series_map[visions_url]
-        + series_map[visions_ip]
-        + series_map[visions_uuid]
+        + series_map[String]
+        + series_map[Geometry]
+        + series_map[Path]
+        + series_map[URL]
+        + series_map[IPAddress]
+        + series_map[UUID]
     )
 
     # Empty series
     all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
     for key, values in series_map.items():
         all += values
-    series_map[visions_generic] = list(set(all))
+    series_map[Generic] = list(set(all))
 
     return series_map
 
 
 def infer_series_type_map():
     return {
-        "int_series": visions_integer,
-        "categorical_int_series": visions_categorical,
-        "int_nan_series": visions_integer,
-        "Int64_int_series": visions_integer,
-        "Int64_int_nan_series": visions_integer,
-        "np_uint32": visions_count,
-        "int_range": visions_integer,
-        "float_series": visions_float,
-        "float_nan_series": visions_float,
-        "int_series_boolean": visions_bool,
-        "float_series2": visions_integer,
-        "float_series3": visions_float,
-        "float_series4": visions_float,
-        "float_series5": visions_float,
-        "float_series6": visions_float,
-        "complex_series_float": visions_integer,
-        "categorical_float_series": visions_categorical,
-        "float_with_inf": visions_float,
-        "inf_series": visions_float,
-        "nan_series": visions_float,
-        "nan_series_2": visions_float,
-        "string_series": visions_string,
-        "categorical_string_series": visions_categorical,
-        "timestamp_string_series": visions_date,
-        "string_unicode_series": visions_string,
-        "string_np_unicode_series": visions_string,
-        "string_num_nan": visions_integer,
-        "string_num": visions_integer,
-        "string_flt_nan": visions_float,
-        "string_flt": visions_float,
-        "string_str_nan": visions_string,
-        "string_bool_nan": visions_bool,
-        "int_str_range": visions_integer,
-        "string_date": visions_date,
-        "str_url": visions_url,
-        "bool_series": visions_bool,
-        "bool_nan_series": visions_bool,
-        "nullable_bool_series": visions_bool,
-        "bool_series2": visions_bool,
-        "bool_series3": visions_bool,
-        "complex_series": visions_complex,
-        "complex_series_nan": visions_complex,
-        "complex_series_nan_2": visions_complex,
-        "complex_series_py_nan": visions_complex,
-        "complex_series_py": visions_complex,
-        "categorical_complex_series": visions_categorical,
-        "timestamp_series": visions_datetime,
-        "timestamp_series_nat": visions_datetime,
-        "timestamp_aware_series": visions_datetime,
-        "datetime": visions_date,
-        "timedelta_series": visions_timedelta,
-        "timedelta_series_nat": visions_timedelta,
-        "geometry_string_series": visions_geometry,
-        "geometry_series": visions_geometry,
-        "path_series_linux": visions_path,
-        "path_series_linux_str": visions_path,
-        "path_series_windows": visions_path,
-        "path_series_windows_str": visions_path,
-        "url_series": visions_url,
-        "mixed_list[str,int]": visions_object,
-        "mixed_dict": visions_object,
-        "callable": visions_object,
-        "module": visions_object,
-        "textual_float": visions_float,
-        "textual_float_nan": visions_float,
-        "empty": visions_generic,
-        "empty_object": visions_generic,
-        "empty_float": visions_generic,
-        "empty_bool": visions_generic,
-        "empty_int64": visions_generic,
-        "ip": visions_ip,
-        "ip_str": visions_ip,
-        "date_series_nat": visions_date,
-        "categorical_char": visions_categorical,
-        "ordinal": visions_ordinal,
-        "str_complex": visions_complex,
-        "uuid_series": visions_uuid,
-        "uuid_series_str": visions_uuid,
+        "int_series": Integer,
+        "categorical_int_series": Categorical,
+        "int_nan_series": Integer,
+        "Int64_int_series": Integer,
+        "Int64_int_nan_series": Integer,
+        "np_uint32": Count,
+        "int_range": Integer,
+        "float_series": Float,
+        "float_nan_series": Float,
+        "int_series_boolean": Boolean,
+        "float_series2": Integer,
+        "float_series3": Float,
+        "float_series4": Float,
+        "float_series5": Float,
+        "float_series6": Float,
+        "complex_series_float": Integer,
+        "categorical_float_series": Categorical,
+        "float_with_inf": Float,
+        "inf_series": Float,
+        "nan_series": Float,
+        "nan_series_2": Float,
+        "string_series": String,
+        "categorical_string_series": Categorical,
+        "timestamp_string_series": Date,
+        "string_unicode_series": String,
+        "string_np_unicode_series": String,
+        "string_num_nan": Integer,
+        "string_num": Integer,
+        "string_flt_nan": Float,
+        "string_flt": Float,
+        "string_str_nan": String,
+        "string_bool_nan": Boolean,
+        "int_str_range": Integer,
+        "string_date": Date,
+        "str_url": URL,
+        "bool_series": Boolean,
+        "bool_nan_series": Boolean,
+        "nullable_bool_series": Boolean,
+        "bool_series2": Boolean,
+        "bool_series3": Boolean,
+        "complex_series": Complex,
+        "complex_series_nan": Complex,
+        "complex_series_nan_2": Complex,
+        "complex_series_py_nan": Complex,
+        "complex_series_py": Complex,
+        "categorical_complex_series": Categorical,
+        "timestamp_series": DateTime,
+        "timestamp_series_nat": DateTime,
+        "timestamp_aware_series": DateTime,
+        "datetime": Date,
+        "timedelta_series": TimeDelta,
+        "timedelta_series_nat": TimeDelta,
+        "geometry_string_series": Geometry,
+        "geometry_series": Geometry,
+        "path_series_linux": Path,
+        "path_series_linux_str": Path,
+        "path_series_windows": Path,
+        "path_series_windows_str": Path,
+        "url_series": URL,
+        "mixed_list[str,int]": Object,
+        "mixed_dict": Object,
+        "callable": Object,
+        "module": Object,
+        "textual_float": Float,
+        "textual_float_nan": Float,
+        "empty": Generic,
+        "empty_object": Generic,
+        "empty_float": Generic,
+        "empty_bool": Generic,
+        "empty_int64": Generic,
+        "ip": IPAddress,
+        "ip_str": IPAddress,
+        "date_series_nat": Date,
+        "categorical_char": Categorical,
+        "ordinal": Ordinal,
+        "str_complex": Complex,
+        "uuid_series": UUID,
+        "uuid_series_str": UUID,
     }
 
 
@@ -444,12 +466,12 @@ def get_convert_map():
     # Conversions in one single step
     series_map = [
         # Model type, Relation type
-        (visions_integer, visions_float, ["int_nan_series", "float_series2"]),
-        (visions_integer, visions_string, ["int_str_range"]),
-        (visions_complex, visions_string, ["str_complex"]),
+        (Integer, Float, ["int_nan_series", "float_series2"]),
+        (Integer, String, ["int_str_range"]),
+        (Complex, String, ["str_complex"]),
         (
-            visions_float,
-            visions_string,
+            Float,
+            String,
             [
                 "string_flt",
                 "string_num_nan",
@@ -460,20 +482,16 @@ def get_convert_map():
                 "int_str_range",
             ],
         ),
-        (visions_datetime, visions_string, ["timestamp_string_series", "string_date"]),
-        (visions_geometry, visions_string, ["geometry_string_series"]),
-        (visions_bool, visions_string, ["string_bool_nan"]),
-        (visions_ip, visions_string, ["ip_str"]),
-        (visions_url, visions_string, ["str_url"]),
-        (
-            visions_path,
-            visions_string,
-            ["path_series_windows_str", "path_series_linux_str"],
-        ),
-        (visions_float, visions_complex, ["complex_series_float"]),
-        (visions_bool, visions_integer, ["int_series_boolean"]),
-        (visions_bool, visions_object, ["bool_nan_series"]),
-        (visions_uuid, visions_string, ["uuid_series_str"]),
+        (DateTime, String, ["timestamp_string_series", "string_date"]),
+        (Geometry, String, ["geometry_string_series"]),
+        (Boolean, String, ["string_bool_nan"]),
+        (IPAddress, String, ["ip_str"]),
+        (URL, String, ["str_url"]),
+        (Path, String, ["path_series_windows_str", "path_series_linux_str"]),
+        (Float, Complex, ["complex_series_float"]),
+        (Boolean, Integer, ["int_series_boolean"]),
+        (Boolean, Object, ["bool_nan_series"]),
+        (UUID, String, ["uuid_series_str"]),
     ]
 
     return series_map

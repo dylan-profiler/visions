@@ -3,12 +3,7 @@ import pandas as pd
 import numpy as np
 from typing import Sequence, List
 
-from visions.types import (
-    visions_string,
-    visions_integer,
-    visions_object,
-    VisionsBaseType,
-)
+from visions.types import String, Integer, Object, VisionsBaseType
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
 
@@ -28,13 +23,13 @@ def to_category(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> List[TypeRelation]:
-    from visions.types import visions_generic
+    from visions.types import Generic
 
     relations = [
-        IdentityRelation(cls, visions_generic),
+        IdentityRelation(cls, Generic),
         InferenceRelation(
             cls,
-            visions_string,
+            String,
             relationship=lambda s: coercion_map_test(cls.string_coercions)(
                 s.str.lower()
             ),
@@ -44,13 +39,13 @@ def _get_relations(cls) -> List[TypeRelation]:
         ),
         InferenceRelation(
             cls,
-            visions_integer,
+            Integer,
             relationship=lambda s: s.isin({0, 1, np.nan}).all(),
             transformer=to_category,
         ),
         InferenceRelation(
             cls,
-            visions_object,
+            Object,
             relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
             transformer=to_category,
         ),
@@ -58,12 +53,12 @@ def _get_relations(cls) -> List[TypeRelation]:
     return relations
 
 
-class visions_category(VisionsBaseType):
-    """**Categorical** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+class Category(VisionsBaseType):
+    """**Categorical** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
         >>> x = pd.Series([True, False, 1], dtype='category')
-        >>> x in visions_category
+        >>> x in visions.Category
         True
     """
 

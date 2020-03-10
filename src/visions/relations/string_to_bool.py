@@ -19,8 +19,8 @@ def get_boolean_coercions(id: str) -> List[Dict]:
 
 
 def get_language_bool(language_code: str):
-    from visions.types.visions_bool import visions_bool
+    from visions.types.boolean import Boolean
 
-    return visions_bool.make_string_coercion(
+    return Boolean.make_string_coercion(
         language_code, get_boolean_coercions(language_code)
     )

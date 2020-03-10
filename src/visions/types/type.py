@@ -9,9 +9,9 @@ from visions.relations import TypeRelation
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
         if series.empty:
-            from visions.types import visions_generic
+            from visions.types import Generic
 
-            return cls == visions_generic
+            return cls == Generic
         return cls.contains_op(series)  # type: ignore
 
     def __str__(cls) -> str:

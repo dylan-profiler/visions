@@ -1,4 +1,4 @@
-from visions import visions_string
+from visions import String
 from visions.relations.relations import TypeRelation, InferenceRelation
 
 
@@ -12,6 +12,6 @@ def string_to_categorical_distinct_count(cls) -> TypeRelation:
     return InferenceRelation(
         relationship=lambda s: s.nunique() / len(s) < 0.5,
         transformer=lambda s: s.astype("category"),
-        related_type=visions_string,
+        related_type=String,
         type=cls,
     )

@@ -1,0 +1,5 @@
+visions.types.float
+===================
+
+.. automodule:: visions.types.float
+    :members:

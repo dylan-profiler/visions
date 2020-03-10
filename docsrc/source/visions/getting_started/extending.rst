@@ -9,25 +9,25 @@ Each `visions` type is a subclass of  `VisionsBaseType` requiring a unique imple
 1. `get_relations`. Returns the set of relations mapping from another type to the current type.
 2. `contains_op`. Checks whether a series is of the type visions_type, returns Bool.
 
-Let's inspect the source code for `visions_ordinal` to gather intuition.
+Let's inspect the source code for `Ordinal` to gather intuition.
 
 .. code-block:: python
-    :caption: visions_ordinal.py
-    :name: visions_ordinal
+    :caption: visions.types.ordinal.py
+    :name: Ordinal
 
     from visions.types.type import VisionsBaseType
 
     def _get_relations():
-        from visions.types import visions_categorical
+        from visions.types import Categorical
 
-        relations = [IdentityRelation(visions_ordinal, visions_categorical)]
+        relations = [IdentityRelation(Ordinal, Categorical)]
         return relations
 
-    class visions_ordinal(VisionsBaseType):
-        """**Ordinal** implementation of :class:`visions.core.model.type.VisionsBaseType`.
+    class Ordinal(VisionsBaseType):
+        """**Ordinal** implementation of :class:`visions.types.VisionsBaseType`.
         Examples:
             >>> x = pd.Series([1, 2, 3, 1, 1], dtype='category')
-            >>> x in visions_ordinal
+            >>> x in visions.Ordinal
             True
         """
 
@@ -49,12 +49,6 @@ We can also see the `contains_op` requires the sequence to be an ordered categor
 Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.
 
-.. code-block:: python
-
-    visions
-
-
-
 .. note::
 
     Your custom type might be helpful for others, in which case you can choose to contribute it to `visions`.
@@ -63,8 +57,8 @@ This is convenient when you only change a single relation.
 Another example
 ---------------
 
-The default typesets in `visions` consider `boolean` and `categorical` to be distinct types.
-In fact, `boolean` is a special case of `categorical` where the number of categories is 2 and contains the values "True" and "False" ("Man" and "Woman" wouldn't be binary).
+The default typesets in `visions` consider `Boolean` and `Categorical` to be distinct types.
+In fact, `Boolean` is a special case of `Categorical` where the number of categories is 2 and contains the values "True" and "False" ("Man" and "Woman" wouldn't be binary).
 
 Note that for data analysis, the distinction makes sense.
 For a boolean we could the true/false ratio for example.
@@ -82,14 +76,14 @@ Each type has the method `extend_relations` for this purpose.
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
 
-    from visions.types.visions_integer import _get_relations, visions_integer
+    from visions.types.integer import _get_relations, Integer
     from visions.relations.integer_to_datetime import integer_to_datetime_year_month_day
 
     compose_relations = lambda: _get_relations() + [integer_to_datetime_year_month_day()]
-    visions_integer_ddt = visions_integer.extend_relations('with_datetime', compose_relations)
+    visions_integer_ddt = Integer.extend_relations('with_datetime', compose_relations)
 
     print(visions_integer_ddt)
-    # Prints: visions_integer[with_datetime]
+    # Prints: Integer[with_datetime]
 
 .. hint::
 
@@ -119,19 +113,19 @@ For example, you could define a custom typeset with only time specific types as 
 
         Includes support for the following types:
 
-        - visions_datetime
-        - visions_timedelta
-        - visions_date
-        - visions_time
+        - DateTime
+        - TimeDelta
+        - Date
+        - Time
 
         """
 
         def __init__(self):
             types = [
-                visions_datetime,
-                visions_timedelta,
-                visions_date,
-                visions_time,
+                DateTime,
+                TimeDelta,
+                Date,
+                Time,
             ]
             super().__init__(types)
 
@@ -142,7 +136,8 @@ or even more simply,
 .. code-block:: python
     :caption: Custom time typeset (simplified)
 
-    types = [visions_datetime, visions_timedelta, visions_date, visions_time]
+    import visions as v
+    types = [v.DateTime, v.TimeDelta, v.Date, v.Time]
     visions_custom_set = VisionTypeset(types)
 
 
@@ -155,7 +150,8 @@ based on simple manipulations to pre-existing sets.
 .. code-block:: python
     :caption: Custom time typeset
 
-    typeset = visions_complete_set() - visions_time + visions_date
+    import visions as v
+    typeset = CompleteSet() - v.Time + v.Date
 
 
 Just like addition and subtraction elsewhere in Python, you can split these operations up
@@ -163,12 +159,11 @@ in any way imaginable:
 
 .. code-block:: python
 
-    rdw_typeset = visions_complete_set()
-    rdw_typeset -= visions_bool
-    rdw_typeset += visions_bool_nl
-    rdw_typeset -= visions_integer
-    rdw_typeset += visions_integer_ddt
-    rdw_typeset -= visions_categorical
-    rdw_typeset += visions_categorical_str
-
-.. seealso:: Engineer view on constraint checking
+    import visions as v
+    rdw_typeset = CompleteSet()
+    rdw_typeset -= v.Boolean
+    rdw_typeset += bool_nl
+    rdw_typeset -= v.Integer
+    rdw_typeset += integer_ddt
+    rdw_typeset -= v.Categorical
+    rdw_typeset += categorical_str

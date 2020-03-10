@@ -1,5 +1,5 @@
 from visions.relations.relations import InferenceRelation
-from visions.types.visions_ordinal import to_ordinal
+from visions.types.ordinal import to_ordinal
 
 
 def check_consecutive(l) -> bool:
@@ -16,8 +16,8 @@ def is_ordinal_cat(c) -> bool:
 
 
 def categorical_to_ordinal(cls) -> InferenceRelation:
-    from visions.types import visions_categorical
+    from visions.types import Categorical
 
     return InferenceRelation(
-        cls, visions_categorical, relationship=is_ordinal_cat, transformer=to_ordinal
+        cls, Categorical, relationship=is_ordinal_cat, transformer=to_ordinal
     )

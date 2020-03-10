@@ -1,5 +1,5 @@
 from visions.relations.relations import InferenceRelation
-from visions.types.visions_ordinal import to_ordinal
+from visions.types.ordinal import to_ordinal
 
 
 def check_consecutive(l) -> bool:
@@ -15,8 +15,8 @@ def is_ordinal_str(s) -> bool:
 
 
 def string_to_ordinal(cls) -> InferenceRelation:
-    from visions.types import visions_string
+    from visions.types import String
 
     return InferenceRelation(
-        cls, visions_string, relationship=is_ordinal_str, transformer=to_ordinal
+        cls, String, relationship=is_ordinal_str, transformer=to_ordinal
     )

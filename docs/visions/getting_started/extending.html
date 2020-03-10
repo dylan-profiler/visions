@@ -195,22 +195,22 @@
 <li><p><cite>get_relations</cite>. Returns the set of relations mapping from another type to the current type.</p></li>
 <li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
 </ol>
-<p>Let’s inspect the source code for <cite>visions_ordinal</cite> to gather intuition.</p>
-<div class="literal-block-wrapper docutils container" id="visions-ordinal">
-<div class="code-block-caption"><span class="caption-text">visions_ordinal.py</span><a class="headerlink" href="#visions-ordinal" title="Permalink to this code">¶</a></div>
+<p>Let’s inspect the source code for <cite>Ordinal</cite> to gather intuition.</p>
+<div class="literal-block-wrapper docutils container" id="ordinal">
+<div class="code-block-caption"><span class="caption-text">visions.types.ordinal.py</span><a class="headerlink" href="#ordinal" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">():</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">visions_categorical</span>
+    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Categorical</span>
 
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions_ordinal</span><span class="p">,</span> <span class="n">visions_categorical</span><span class="p">)]</span>
+    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Ordinal</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">relations</span>
 
-<span class="k">class</span> <span class="nc">visions_ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.core.model.type.VisionsBaseType`.</span>
+<span class="k">class</span> <span class="nc">Ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.types.VisionsBaseType`.</span>
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1, 2, 3, 1, 1], dtype=&#39;category&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; x in visions_ordinal</span>
+<span class="sd">        &gt;&gt;&gt; x in visions.Ordinal</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -230,9 +230,6 @@ function between categorical and ordinal is the identity function.</p>
 <p>We can also see the <cite>contains_op</cite> requires the sequence to be an ordered categorical physical type.</p>
 <p>Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visions</span>
-</pre></div>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Your custom type might be helpful for others, in which case you can choose to contribute it to <cite>visions</cite>.
@@ -241,8 +238,8 @@ Read more on <a class="reference internal" href="../contributing/type.html"><spa
 </div>
 <div class="section" id="another-example">
 <h2>Another example<a class="headerlink" href="#another-example" title="Permalink to this headline">¶</a></h2>
-<p>The default typesets in <cite>visions</cite> consider <cite>boolean</cite> and <cite>categorical</cite> to be distinct types.
-In fact, <cite>boolean</cite> is a special case of <cite>categorical</cite> where the number of categories is 2 and contains the values “True” and “False” (“Man” and “Woman” wouldn’t be binary).</p>
+<p>The default typesets in <cite>visions</cite> consider <cite>Boolean</cite> and <cite>Categorical</cite> to be distinct types.
+In fact, <cite>Boolean</cite> is a special case of <cite>Categorical</cite> where the number of categories is 2 and contains the values “True” and “False” (“Man” and “Woman” wouldn’t be binary).</p>
 <p>Note that for data analysis, the distinction makes sense.
 For a boolean we could the true/false ratio for example.</p>
 <p>See: <cite>examples/data_analysis</cite> for an example.</p>
@@ -254,14 +251,14 @@ This is useful for small changes, such as adding a single relation.</p>
 <p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.visions_integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">visions_integer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">Integer</span>
  <span class="kn">from</span> <span class="nn">visions.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
 
  <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
- <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">visions_integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
+ <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
 
  <span class="k">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
- <span class="c1"># Prints: visions_integer[with_datetime]</span>
+ <span class="c1"># Prints: Integer[with_datetime]</span>
 </pre></div>
 </div>
 </div>
@@ -288,19 +285,19 @@ typesets or define your own from scratch.</p>
 
 <span class="sd">    Includes support for the following types:</span>
 
-<span class="sd">    - visions_datetime</span>
-<span class="sd">    - visions_timedelta</span>
-<span class="sd">    - visions_date</span>
-<span class="sd">    - visions_time</span>
+<span class="sd">    - DateTime</span>
+<span class="sd">    - TimeDelta</span>
+<span class="sd">    - Date</span>
+<span class="sd">    - Time</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">visions_datetime</span><span class="p">,</span>
-            <span class="n">visions_timedelta</span><span class="p">,</span>
-            <span class="n">visions_date</span><span class="p">,</span>
-            <span class="n">visions_time</span><span class="p">,</span>
+            <span class="n">DateTime</span><span class="p">,</span>
+            <span class="n">TimeDelta</span><span class="p">,</span>
+            <span class="n">Date</span><span class="p">,</span>
+            <span class="n">Time</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
@@ -309,7 +306,8 @@ typesets or define your own from scratch.</p>
 <p>or even more simply,</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset (simplified)</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">visions_datetime</span><span class="p">,</span> <span class="n">visions_timedelta</span><span class="p">,</span> <span class="n">visions_date</span><span class="p">,</span> <span class="n">visions_time</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">TimeDelta</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span><span class="p">]</span>
 <span class="n">visions_custom_set</span> <span class="o">=</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -321,24 +319,22 @@ typesets or define your own from scratch.</p>
 based on simple manipulations to pre-existing sets.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span> <span class="o">-</span> <span class="n">visions_time</span> <span class="o">+</span> <span class="n">visions_date</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<span class="n">typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span>
 </pre></div>
 </div>
 </div>
 <p>Just like addition and subtraction elsewhere in Python, you can split these operations up
 in any way imaginable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">visions_complete_set</span><span class="p">()</span>
-<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_bool</span>
-<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_bool_nl</span>
-<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_integer</span>
-<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_integer_ddt</span>
-<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">visions_categorical</span>
-<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">visions_categorical_str</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Boolean</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">bool_nl</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">integer_ddt</span>
+<span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Categorical</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">categorical_str</span>
 </pre></div>
-</div>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Engineer view on constraint checking</p>
 </div>
 </div>
 </div>

@@ -9,13 +9,8 @@ from visions.functional import (
     type_cast_series,
     type_cast_frame,
 )
-from visions.types import (
-    visions_string,
-    visions_integer,
-    visions_datetime,
-    visions_complex,
-)
-from visions.typesets import visions_complete_set, visions_standard_set
+from visions.types import String, Integer, DateTime, Complex
+from visions.typesets import CompleteSet, StandardSet
 
 
 def test_type_inference_frame():
@@ -36,30 +31,30 @@ def test_type_inference_frame():
     )
 
     # Initialize the typeset
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
 
     # Infer the column type
     types = type_inference_frame(df, typeset)
     assert types == {
-        "latin": visions_string,
-        "cyrillic": visions_string,
-        "mixed": visions_string,
-        "burmese": visions_string,
-        "digits": visions_integer,
-        "specials": visions_string,
-        "whitespace": visions_string,
-        "jiddisch": visions_string,
-        "arabic": visions_string,
-        "playing_cards": visions_string,
+        "latin": String,
+        "cyrillic": String,
+        "mixed": String,
+        "burmese": String,
+        "digits": Integer,
+        "specials": String,
+        "whitespace": String,
+        "jiddisch": String,
+        "arabic": String,
+        "playing_cards": String,
     }
 
 
 def test_type_inference_series():
     string_series = pd.Series(["(12.0+10.0j)", "(-4.0+6.2j)", "(8.0+2.0j)"])
 
-    typeset = visions_standard_set()
+    typeset = StandardSet()
     detected_type = type_inference_series(string_series, typeset)
-    assert detected_type == visions_complex
+    assert detected_type == Complex
 
 
 def test_type_cast_frame():
@@ -78,7 +73,7 @@ def test_type_cast_frame():
         }
     )
 
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
     new_df = type_cast_frame(df, typeset)
     assert new_df["digits"].iloc[1] - 3 == 121220
     assert new_df["latin"].iloc[1] + "1" == "apple1"
@@ -87,7 +82,7 @@ def test_type_cast_frame():
 def test_type_cast_series():
     string_series = pd.Series(["(12.0+10.0j)", "(-4.0+6.2j)", "(8.0+2.0j)"])
 
-    typeset = visions_standard_set()
+    typeset = StandardSet()
     new_series = type_cast_series(string_series, typeset)
     assert new_series.iloc[1].real == -4.0
 
@@ -110,21 +105,21 @@ def test_type_detect_frame():
     )
 
     # Initialize the typeset
-    typeset = visions_complete_set()
+    typeset = CompleteSet()
 
     # Infer the column type
     types = type_detect_frame(df, typeset)
     assert types == {
-        "latin": visions_string,
-        "cyrillic": visions_string,
-        "mixed": visions_string,
-        "burmese": visions_string,
-        "digits": visions_string,
-        "specials": visions_string,
-        "whitespace": visions_string,
-        "jiddisch": visions_string,
-        "arabic": visions_string,
-        "playing_cards": visions_string,
+        "latin": String,
+        "cyrillic": String,
+        "mixed": String,
+        "burmese": String,
+        "digits": String,
+        "specials": String,
+        "whitespace": String,
+        "jiddisch": String,
+        "arabic": String,
+        "playing_cards": String,
     }
 
 
@@ -138,6 +133,6 @@ def test_type_detect_series():
         ]
     )
 
-    typeset = visions_standard_set()
+    typeset = StandardSet()
     detected_type = type_detect_series(datetime_series, typeset)
-    assert detected_type == visions_datetime
+    assert detected_type == DateTime

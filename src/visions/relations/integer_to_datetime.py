@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.types import visions_datetime
+from visions.types import DateTime
 from visions.relations import InferenceRelation
 from visions.relations.string_to_datetime import to_datetime_year_month_day
 from visions.utils.coercion import test_utils
@@ -15,7 +15,7 @@ def integer_to_datetime(cls):
     return InferenceRelation(
         relationship=test_utils.coercion_test(lambda s: to_datetime(s.astype(str))),
         transformer=to_datetime,
-        type=visions_datetime,
+        type=DateTime,
         related_type=cls,
     )
 
@@ -26,6 +26,6 @@ def integer_to_datetime_year_month_day(cls):
             lambda s: to_datetime_year_month_day(s.astype(str))
         ),
         transformer=to_datetime,
-        type=visions_datetime,
+        type=DateTime,
         related_type=cls,
     )

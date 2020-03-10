@@ -259,7 +259,7 @@ The summary of a variable is the union of the output of the summary functions as
 44</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">integer_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">100000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;Int64&quot;</span><span class="p">)</span>
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
-<span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">,</span> <span class="n">visions_integer</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">integer_series</span><span class="p">,</span> <span class="n">vt</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
@@ -301,11 +301,11 @@ The summary of a variable is the union of the output of the summary functions as
 <div class="section" id="datetime-summary">
 <h3>Datetime summary<a class="headerlink" href="#datetime-summary" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="../../_images/summary_datetime.svg"><img alt="Datetime Summary Graph" src="../../_images/summary_datetime.svg" width="200px" /></a>
-<p class="caption"><span class="caption-text">Datetime Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<a class="reference internal image-reference" href="../../_images/summary_datetime.svg"><img alt="DateTime Summary Graph" src="../../_images/summary_datetime.svg" width="200px" /></a>
+<p class="caption"><span class="caption-text">DateTime Summary Graph</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Datetime Example (<a class="reference external" href="https://github.com/dylan-profiler/visions/tree/master/examples/summaries/datetime_example.py">view source</a>)</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">DateTime Example (<a class="reference external" href="https://github.com/dylan-profiler/visions/tree/master/examples/summaries/datetime_example.py">view source</a>)</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 6
  7
  8
@@ -347,7 +347,7 @@ The summary of a variable is the union of the output of the summary functions as
 <span class="p">)</span>
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
-<span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">datetime_series</span><span class="p">,</span> <span class="n">visions_datetime</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">datetime_series</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>
@@ -463,7 +463,7 @@ The summary of a variable is the union of the output of the summary functions as
 87</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">string_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;pear&quot;</span><span class="p">,</span> <span class="s2">&quot;🂶&quot;</span><span class="p">,</span> <span class="s2">&quot;🃁&quot;</span><span class="p">,</span> <span class="s2">&quot;🂻&quot;</span><span class="p">])</span>
 
 <span class="n">summarizer</span> <span class="o">=</span> <span class="n">CompleteSummary</span><span class="p">()</span>
-<span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">string_series</span><span class="p">,</span> <span class="n">visions_string</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_series</span><span class="p">(</span><span class="n">string_series</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">String</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
 
 <span class="c1"># Output:</span>

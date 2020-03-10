@@ -3,8 +3,8 @@ from pprint import pprint
 import pandas as pd
 import numpy as np
 
+import visions as v
 from visions.application.summaries import CompleteSummary
-from visions.types import visions_datetime
 
 datetime_series = pd.Series(
     [
@@ -17,6 +17,6 @@ datetime_series = pd.Series(
 
 # Generate a summary
 summarizer = CompleteSummary()
-summary = summarizer.summarize_series(datetime_series, visions_datetime)
+summary = summarizer.summarize_series(datetime_series, v.DateTime)
 
 pprint(summary)

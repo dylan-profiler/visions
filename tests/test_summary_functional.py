@@ -7,7 +7,7 @@ from visions.application.summaries.functional import (
     summarize,
 )
 from visions.application.summaries import CompleteSummary
-from visions.types import visions_string, visions_integer
+from visions.types import String, Integer
 
 
 def test_summarize_frame():
@@ -19,7 +19,7 @@ def test_summarize_frame():
         columns=["Brand", "Price"],
     )
     summary = summarize_frame(
-        df, {"Brand": visions_string, "Price": visions_integer}, CompleteSummary()
+        df, {"Brand": String, "Price": Integer}, CompleteSummary()
     )
     summary.pop("type_counts")
     assert summary == {
@@ -34,7 +34,7 @@ def test_summarize_frame():
 def test_summarize_series():
     brand_series = pd.Series(["Honda Civic", "Toyota Corolla", "Ford Focus", "Audi A4"])
 
-    summary = summarize_series(brand_series, visions_string, CompleteSummary())
+    summary = summarize_series(brand_series, String, CompleteSummary())
     assert summary == {
         "n_unique": 4,
         "length": {7: 1, 14: 1, 11: 1, 10: 1},
@@ -163,7 +163,7 @@ def test_summarize_series():
 
     price_series = pd.Series([22000, 25000, 27000, 35000])
 
-    summary = summarize_series(price_series, visions_integer, CompleteSummary())
+    summary = summarize_series(price_series, Integer, CompleteSummary())
     assert summary == {
         "inf_count": 0,
         "mean": 27250.0,
@@ -205,8 +205,6 @@ def test_summarize():
         },
         columns=["Brand", "Price"],
     )
-    summary = summarize(
-        df, {"Brand": visions_string, "Price": visions_integer}, CompleteSummary()
-    )
+    summary = summarize(df, {"Brand": String, "Price": Integer}, CompleteSummary())
 
-    assert summary["types"] == {"Brand": visions_string, "Price": visions_integer}
+    assert summary["types"] == {"Brand": String, "Price": Integer}

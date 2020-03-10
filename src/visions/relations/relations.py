@@ -8,7 +8,7 @@ def identity_relation(series: pd.Series) -> pd.Series:
 
 @attr.s(frozen=True)
 class TypeRelation:
-    """Relationship encoder between implementations of :class:`visions.core.models.VisionsBaseType`
+    """Relationship encoder between implementations of :class:`visions.types.type.VisionsBaseType`
 
     Defines a one to one relationship between two VisionsBaseType implementations,
     A and B, with respect to an underlying data series. In order to define a relationship we need
@@ -21,9 +21,9 @@ class TypeRelation:
     floats but in reality they are all integers.
 
     Examples:
-        >>> from visions.types import visions_integer, visions_float
+        >>> from visions.types import Integer, Float
         >>> x = pd.Series([1.0, 2.0, 3.0])
-        >>> relation = TypeRelation(visions_integer, visions_float)
+        >>> relation = TypeRelation(Integer, Float)
         >>> relation.is_relation(x)
         True
 

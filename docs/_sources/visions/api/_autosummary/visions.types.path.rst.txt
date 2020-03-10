@@ -1,0 +1,5 @@
+visions.types.path
+==================
+
+.. automodule:: visions.types.path
+    :members:

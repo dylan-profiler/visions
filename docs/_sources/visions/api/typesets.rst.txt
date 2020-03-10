@@ -24,9 +24,9 @@ Concrete Typesets
 .. autosummary::
    :toctree: _autosummary
 
-   visions_standard_set
-   visions_geometry_set
-   visions_complete_set
+   standard_set
+   geometry_set
+   complete_set
 
 ==============
 Functional API
