@@ -26,6 +26,10 @@ def count_duplicate_hashes(image_descriptions: dict) -> int:
     return counts.sum() - len(counts)
 
 
+def get_exit_values() -> Dict[str, List]:
+    return {}
+
+
 def extract_exif_series(image_exifs: list) -> dict:
     """
 
@@ -36,7 +40,7 @@ def extract_exif_series(image_exifs: list) -> dict:
 
     """
     exif_keys = []
-    exif_values: Dict[str, List] = {}
+    exif_values = get_exit_values()
 
     for image_exif in image_exifs:
         # Extract key
