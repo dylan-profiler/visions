@@ -75,3 +75,15 @@ class CompleteSet(VisionsTypeset):
             UUID,
         }
         super().__init__(types)
+
+        try:
+            import shapely
+            import imagehash
+            import PIL
+        except ImportError as e:
+            raise ImportError(
+                "This typeset requires dependencies that are currently not installed ({}). "
+                "You can follow the installation instructions to resolve this issue: "
+                "https://dylan-profiler.github.io/visions/visions/getting_started/installation.html"
+                "".format(str(e))
+            )
