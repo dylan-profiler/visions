@@ -5,12 +5,12 @@ from visions.dtypes.boolean import BoolDtype
 
 from visions import types, typesets
 
-from visions.types.__init__ import *
+from visions.types import *
 from visions.functional import (
-    type_cast_frame,
-    type_inference_frame,
-    type_detect_frame,
-    type_cast_series,
-    type_inference_series,
-    type_detect_series,
+    cast_frame,
+    infer_frame_type,
+    detect_frame_type,
+    cast_series,
+    infer_series_type,
+    detect_series_type,
 )

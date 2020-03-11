@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABCMeta
-from typing import Sequence
+from typing import Sequence, Callable, Type, Optional
 
+import attr
 import pandas as pd
 
 from visions.relations import TypeRelation
@@ -13,6 +14,12 @@ class VisionsBaseTypeMeta(ABCMeta):
 
             return cls == Generic
         return cls.contains_op(series)  # type: ignore
+
+    @property
+    def relations(cls) -> Optional[Sequence[TypeRelation]]:
+        if cls._relations is None:
+            cls._relations = cls.get_relations()
+        return cls._relations
 
     def __str__(cls) -> str:
         return str(cls.__name__)
@@ -28,6 +35,17 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     """
 
     @classmethod
+    def _gr(cls) -> Optional[Sequence[TypeRelation]]:
+        return None
+
+    def __new__(cls, *args, **kwargs):
+        cls._relations = cls._gr()
+        super.__new__(cls)
+
+    def __init__(self):
+        raise ValueError("Types cannot be initialized")
+
+    @classmethod
     @abstractmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
         raise NotImplementedError
@@ -38,9 +56,45 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         raise NotImplementedError
 
     @classmethod
-    def extend_relations(cls, type_name, relations_func):
-        return type(
+    def evolve_type(
+        cls,
+        type_name: str,
+        relations_generator: Optional[
+            Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
+        ] = None,
+        replace: bool = False,
+    ):
+        """Make a copy of the type
+
+        Args:
+            type_name: the new type suffix, the type name will be `type[type_name]`
+            relations_generator: a function returning all TypeRelations for the new type
+            replace: if True, do not include the existing relations
+
+        Returns:
+            A new type
+        """
+
+        def get_new_relations() -> Sequence[TypeRelation]:
+            return relations
+
+        new_type = type(
             "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
             (cls,),
-            {"get_relations": relations_func, "contains_op": cls.contains_op},
+            {"get_relations": get_new_relations, "contains_op": cls.contains_op},
         )
+        new_relations = (
+            list(relations_generator(new_type)) if relations_generator else []
+        )
+        if replace:
+            assert (
+                relations_generator is not None
+            ), "When calling evolve_type with `replace=True`, a `relations_generator` is required."
+            relations = new_relations
+        else:
+            old_relations = [
+                attr.evolve(relation, type=new_type) for relation in cls.get_relations()
+            ]
+            relations = old_relations + new_relations
+
+        return new_type

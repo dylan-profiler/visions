@@ -54,15 +54,14 @@ def pytest_generate_tests(metafunc):
                             source_type=source_type,
                         )
                     }
-                    if item.name not in series_list:
-                        args["marks"] = pytest.mark.xfail(raises=ValueError)
-
+                    member = item.name in series_list
                     argsvalues.append(
-                        pytest.param(source_type, relation_type, item, **args)
+                        pytest.param(source_type, relation_type, item, member, **args)
                     )
 
         metafunc.parametrize(
-            argnames=["source_type", "relation_type", "series"], argvalues=argsvalues
+            argnames=["source_type", "relation_type", "series", "member"],
+            argvalues=argsvalues,
         )
     if metafunc.function.__name__ in [
         "test_consistency",
@@ -77,14 +76,21 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
 
 
-@pytest.mark.run(order=9)
-def test_relations(source_type, relation_type, series):
+def test_relations(source_type, relation_type, series, member):
     relation_gen = (
         rel for rel in source_type.get_relations() if rel.related_type == relation_type
     )
     relation = next(relation_gen)
+
+    is_relation = relation.is_relation(series)
+
+    if not member:
+        assert not is_relation
+    else:
+        assert is_relation
     if relation.is_relation(series):
         cast_series = relation.transform(series)
+
         assert (
             cast_series in source_type
         ), "Relationship {relation} cast {series_values} to {cast_values}".format(
@@ -92,11 +98,8 @@ def test_relations(source_type, relation_type, series):
             series_values=series.values,
             cast_values=cast_series.values,
         )
-    else:
-        raise ValueError("No relation.")
 
 
-@pytest.mark.run(order=10)
 def test_consistency(series):
     typeset = CompleteSet()
 
@@ -125,7 +128,6 @@ def test_consistency(series):
         ).all()
 
 
-@pytest.mark.run(order=11)
 def test_side_effects(series):
     reference = series.copy()
 
@@ -139,7 +141,6 @@ def test_side_effects(series):
     assert series[series.notna()].eq(reference[reference.notna()]).all()
 
 
-@pytest.mark.run(order=12)
 def test_multiple_inference(series):
     """
     Notes:

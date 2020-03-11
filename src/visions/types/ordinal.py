@@ -1,14 +1,15 @@
+from typing import Sequence
+
 import pandas.api.types as pdt
 import pandas as pd
-from typing import Sequence
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types import VisionsBaseType
 
 
-def to_ordinal(series: pd.Series) -> pd.Series:
-    return pd.Series(
-        pd.Categorical(series, categories=sorted(series.unique()), ordered=True)
+def to_ordinal(series: pd.Series) -> pd.Categorical:
+    return pd.Categorical(
+        series, categories=sorted(series.dropna().unique()), ordered=True
     )
 
 

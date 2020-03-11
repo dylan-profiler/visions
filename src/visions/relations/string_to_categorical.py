@@ -1,8 +1,8 @@
 from visions import String
-from visions.relations.relations import TypeRelation, InferenceRelation
+from visions.relations.relations import InferenceRelation
 
 
-def string_to_categorical_distinct_count(cls) -> TypeRelation:
+def string_to_categorical_distinct_count(cls) -> InferenceRelation:
     """Convert string to categorical when it has fewer than 50% unique values.
 
     Returns:

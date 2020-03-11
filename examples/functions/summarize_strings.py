@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.functional import type_detect_frame
+from visions.functional import detect_frame_type
 from visions.typesets import CompleteSet
 from visions.application.summaries import CompleteSummary
 
@@ -24,7 +24,7 @@ df = pd.DataFrame(
 typeset = CompleteSet()
 
 # Infer the column type
-types = type_detect_frame(df, typeset)
+types = detect_frame_type(df, typeset)
 
 # Generate a summary
 summarizer = CompleteSummary()

@@ -1,5 +1,6 @@
 import warnings
-from typing import Type, Tuple, List, Dict, Iterable, Optional
+from pathlib import Path
+from typing import Type, Tuple, List, Dict, Iterable, Optional, Union
 
 import pandas as pd
 import networkx as nx
@@ -349,7 +350,10 @@ class VisionsTypeset(object):
         return pd.DataFrame(inferred_series), inferred_types
 
     def output_graph(
-        self, file_name: str, base_only: bool = False, dpi: Optional[int] = None
+        self,
+        file_name: Union[str, Path],
+        base_only: bool = False,
+        dpi: Optional[int] = None,
     ) -> None:
         """Write the type graph to a file.
 
@@ -419,7 +423,6 @@ class VisionsTypeset(object):
         return self.__sub__(other)
 
     def replace(self, old, new):
-        # TODO: overwrite all relations
         return self.__sub__(old).__add__(new)
 
     def __repr__(self):

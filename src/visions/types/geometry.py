@@ -1,7 +1,8 @@
-import pandas as pd
 import sys
 import os
 from typing import Sequence
+
+import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import VisionsBaseType

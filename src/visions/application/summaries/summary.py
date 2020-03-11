@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, Dict, Any
 
 import pandas as pd
 import networkx as nx
@@ -54,7 +54,7 @@ class Summary(object):
 
     def summarize_series(
         self, series: pd.Series, summary_type: Type[VisionsBaseType]
-    ) -> dict:
+    ) -> Dict[str, Any]:
         """
 
         Args:

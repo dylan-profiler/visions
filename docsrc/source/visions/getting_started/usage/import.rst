@@ -46,8 +46,3 @@ Alternatively, you could use the following syntax:
     from visions.types import Integer, Path
 
 This loads the types in the current namespace. One gotcha is that pathlib also has an object path: pathlib.Path will conflict with visions.Path.
-
-.. warning::
-
-	Don't import using `from visions.types import *`. This will load the modules that define types into the local namespace, overwriting reserved keywords as `complex` and `float`. `from visions import *` would work, but is discouraged. If you are unfamiliar with wildcard imports, please read this `stackoverflow answer <https://stackoverflow.com/a/2360808/470433>`_.
-

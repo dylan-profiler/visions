@@ -71,19 +71,18 @@ Custom Types (extend a type)
 Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.
 
-Each type has the method `extend_relations` for this purpose.
+Each type has the method `evolve_type` for this purpose.
 
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
 
-    from visions.types.integer import _get_relations, Integer
+    from visions.types.date_time import DateTime
     from visions.relations.integer_to_datetime import integer_to_datetime_year_month_day
 
-    compose_relations = lambda: _get_relations() + [integer_to_datetime_year_month_day()]
-    visions_integer_ddt = Integer.extend_relations('with_datetime', compose_relations)
+    DateTimeIntYYYYMMDD = DateTime.evolve_type('int_yyyymmdd', lambda cls: [integer_to_datetime_year_month_day(cls)])
 
-    print(visions_integer_ddt)
-    # Prints: Integer[with_datetime]
+    print(DateTimeIntYYYYMMDD)
+    # Prints: DateTime[int_yyyymmdd]
 
 .. hint::
 
@@ -93,6 +92,9 @@ Each type has the method `extend_relations` for this purpose.
 
        for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
             print(f"{column} was {type_before} is {type_after}")
+
+
+    Please read the `Type changes` section in the :doc:`functional API documentation <../api/functional>` for more details.
 
 
 Custom Typesets (from scratch)
@@ -108,7 +110,7 @@ For example, you could define a custom typeset with only time specific types as 
 .. code-block:: python
     :caption: Custom time typeset
 
-    class visions_custom_set(VisionTypeset):
+    class CustomSet(VisionTypeset):
         """Typeset that exclusively supports time related types
 
         Includes support for the following types:
@@ -138,7 +140,7 @@ or even more simply,
 
     import visions as v
     types = [v.DateTime, v.TimeDelta, v.Date, v.Time]
-    visions_custom_set = VisionTypeset(types)
+    CustomSet = VisionTypeset(types)
 
 
 Custom typesets (extend typeset)
@@ -153,6 +155,9 @@ based on simple manipulations to pre-existing sets.
     import visions as v
     typeset = CompleteSet() - v.Time + v.Date
 
+    # Alternatively
+    typeset = typeset.replace(v.Time, v.Date)
+
 
 Just like addition and subtraction elsewhere in Python, you can split these operations up
 in any way imaginable:
@@ -162,8 +167,8 @@ in any way imaginable:
     import visions as v
     rdw_typeset = CompleteSet()
     rdw_typeset -= v.Boolean
-    rdw_typeset += bool_nl
+    rdw_typeset += BooleanNL
     rdw_typeset -= v.Integer
-    rdw_typeset += integer_ddt
+    rdw_typeset += DateTimeIntYYYYMMDD
     rdw_typeset -= v.Categorical
-    rdw_typeset += categorical_str
+    rdw_typeset += CategoricalStr

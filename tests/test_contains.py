@@ -28,14 +28,14 @@ def pytest_generate_tests(metafunc):
                         item_name=item.name, item_type=type
                     )
                 }
-                if item.name not in series_list:
-                    args["marks"] = pytest.mark.xfail(raises=AssertionError)
 
-                argsvalues.append(pytest.param(item, type, **args))
+                member = item.name in series_list
+                argsvalues.append(pytest.param(item, type, member, **args))
 
-        metafunc.parametrize(argnames=["series", "type"], argvalues=argsvalues)
+        metafunc.parametrize(
+            argnames=["series", "type", "member"], argvalues=argsvalues
+        )
 
 
-@pytest.mark.run(order=7)
-def test_contains(series, type):
-    assert series in type
+def test_contains(series, type, member):
+    assert member == (series in type)

@@ -1,7 +1,8 @@
+from typing import Sequence, List
+
 import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
-from typing import Sequence, List
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import VisionsBaseType

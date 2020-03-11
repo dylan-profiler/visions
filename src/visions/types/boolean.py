@@ -1,7 +1,8 @@
+from typing import Sequence
+
 import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
-from typing import Sequence
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.relations.string_to_bool import get_boolean_coercions

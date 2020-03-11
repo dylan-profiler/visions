@@ -1,6 +1,7 @@
-import pandas as pd
 from typing import Sequence
 from urllib.parse import urlparse, ParseResult
+
+import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType

@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 
 from visions.functional import (
-    type_cast_and_infer_frame,
-    type_cast_frame,
-    type_detect_frame,
-    type_inference_frame,
+    cast_and_infer_frame,
+    cast_frame,
+    detect_frame_type,
+    infer_frame_type,
 )
 from visions.typesets import CompleteSet
 
@@ -33,11 +33,11 @@ typeset = CompleteSet()
 
 
 # Detect the type (without casting)
-print(type_detect_frame(df, typeset))
+print(detect_frame_type(df, typeset))
 # {'numbers_with_nan': Float, 'url': String, 'uuid': String}
 
 # Cast the dataframe to inferred types
-cast_df = type_cast_frame(df, typeset)
+cast_df = cast_frame(df, typeset)
 print(cast_df.to_string())
 #    numbers_with_nan                                                url                                  uuid
 # 0                 3  (http, www.cwi.nl:80, /%7Eguido/Python.html, ,...  0b8a22ca-80ad-4df5-85ac-fa49c44b7ede
@@ -45,11 +45,11 @@ print(cast_df.to_string())
 # 2               NaN  (https, github.com, /pandas-profiling/pandas-p...  00000000-0000-0000-0000-000000000000
 
 # Print the inferred types
-print(type_inference_frame(df, typeset))
+print(infer_frame_type(df, typeset))
 # {'numbers_with_nan': Integer, 'url': URL, 'uuid': UUID}
 
 # We can also choose to do this in one step
-cast_df, types = type_cast_and_infer_frame(df, CompleteSet())
+cast_df, types = cast_and_infer_frame(df, CompleteSet())
 print(cast_df.to_string())
 print(types)
 

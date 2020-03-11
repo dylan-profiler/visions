@@ -1,6 +1,8 @@
 from pathlib import Path
+from typing import Dict, List, Any
 
 import pandas as pd
+
 from visions.utils.images.image_utils import (
     open_image,
     is_image_truncated,
@@ -24,6 +26,10 @@ def count_duplicate_hashes(image_descriptions: dict) -> int:
     return counts.sum() - len(counts)
 
 
+def get_exit_values() -> Dict[str, List]:
+    return {}
+
+
 def extract_exif_series(image_exifs: list) -> dict:
     """
 
@@ -34,7 +40,7 @@ def extract_exif_series(image_exifs: list) -> dict:
 
     """
     exif_keys = []
-    exif_values = {}
+    exif_values = get_exit_values()
 
     for image_exif in image_exifs:
         # Extract key
@@ -55,6 +61,10 @@ def extract_exif_series(image_exifs: list) -> dict:
     return series
 
 
+def get_information() -> Dict[Any, Any]:
+    return {}
+
+
 def extract_image_information(path: Path) -> dict:
     """Extracts all image information per file, as opening files is slow
 
@@ -64,10 +74,10 @@ def extract_image_information(path: Path) -> dict:
     Returns:
         A dict containing image information
     """
-    information = {}
+    information = get_information()
     image = open_image(path)
     information["opened"] = image is not None
-    if information["opened"]:
+    if image is not None:
         information["truncated"] = is_image_truncated(image)
         if not information["truncated"]:
             information["size"] = image.size
