@@ -61,6 +61,10 @@ def extract_exif_series(image_exifs: list) -> dict:
     return series
 
 
+def get_information() -> Dict[Any, Any]:
+    return {}
+
+
 def extract_image_information(path: Path) -> dict:
     """Extracts all image information per file, as opening files is slow
 
@@ -70,7 +74,7 @@ def extract_image_information(path: Path) -> dict:
     Returns:
         A dict containing image information
     """
-    information: Dict[Any, Any] = {}
+    information = get_information()
     image = open_image(path)
     information["opened"] = image is not None
     if image is not None:
