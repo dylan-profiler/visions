@@ -30,15 +30,16 @@ def pytest_generate_tests(metafunc):
                         expected=test_type == expected_type,
                     )
                 }
-                if test_type != expected_type:
-                    args["marks"] = pytest.mark.xfail(raises=AssertionError)
-                argsvalues.append(pytest.param(series, test_type, typeset, **args))
+                difference = test_type != expected_type
+                argsvalues.append(
+                    pytest.param(series, test_type, typeset, difference, **args)
+                )
         metafunc.parametrize(
-            argnames=["series", "expected_type", "typeset"], argvalues=argsvalues
+            argnames=["series", "expected_type", "typeset", "difference"],
+            argvalues=argsvalues,
         )
 
 
-@pytest.mark.run(order=4)
 def test_consistency(series):
     assert series in typeset.detect_series_type(series)
 
@@ -61,12 +62,10 @@ def _traverse_relation_graph(series, G, node=Generic):
 
 
 # What does this test? It doesn't explicitly invoke the actual traversal code.
-@pytest.mark.run(order=13)
 def test_traversal_mutex(series):
     _traverse_relation_graph(series, typeset.relation_graph)
 
 
-@pytest.mark.run(order=6)
-def test_inference(series, expected_type, typeset):
-    infered_type = typeset.infer_series_type(series)
-    assert infered_type == expected_type
+def test_inference(series, expected_type, typeset, difference):
+    inferred_type = typeset.infer_series_type(series)
+    assert (inferred_type == expected_type) != difference

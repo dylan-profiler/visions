@@ -35,13 +35,13 @@ Type detection attempts to answer the question: `What type is my data right now?
 .. code-block:: python
 
     # Functional
-    >>> from visions.functional import type_detect_series
-    >>> type_detect_series(test_series, typeset)
+    >>> from visions.functional import detect_series_type
+    >>> detect_series_type(test_series, typeset)
     String
 
     # Object Oriented
     >>> from visions.typesets import CompleteSet
-    >>> typeset.detect_type_series(test_series)
+    >>> typeset.detect_series_type(test_series)
     String
 
 
@@ -52,11 +52,11 @@ Type inference attempts to answer the question: `What type is my data best repre
 
 .. code-block:: python
 
-    >>> from visions.functional import type_detect_series, type_inference_series
-    >>> type_detect_series(test_series, typeset)
+    >>> from visions.functional import detect_series_type, infer_series_type
+    >>> detect_series_type(test_series, typeset)
     String
 
-    >>> type_inference_series(test_series, typeset)
+    >>> infer_series_type(test_series, typeset)
     Integer
 
 As you can see, visions was able to infer that the test_series was really an integer series rather than string.
@@ -70,8 +70,8 @@ Type casting is the process of converting a series or dataframe from one type to
 
 .. code-block:: python
 
-  >>> from visions.functional import type_cast_series
-  >>> type_cast_series(test_series, typeset)
+  >>> from visions.functional import cast_series
+  >>> cast_series(test_series, typeset)
   pd.Series([1, 2, 3])
 
 .. seealso:: This returns a copy of your data object, please read the :doc:`engineering view <../../background/engineering_view>` document for more information.
@@ -119,14 +119,14 @@ with the two different typesets?
 
 .. code-block:: Python
 
-  >>> typeset_1.detect_type_series(series)
+  >>> typeset_1.detect_series_type(series)
   Integer
 
 Excellent, we got what we expected! What about the second typeset which omits the integer type?
 
 .. code-block:: Python
 
-  >>> typeset_2.detect_type_series(series)
+  >>> typeset_2.detect_series_type(series)
   Generic
 
 Because integers weren't included in the typeset we didn't detect them. Instead, the closest

@@ -1,5 +1,4 @@
 from abc import abstractmethod, ABCMeta
-from types import FunctionType
 from typing import Sequence, Callable, Type, Optional
 
 import attr
@@ -67,7 +66,8 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
         Args:
             type_name: the new type suffix, the type name will be `type[type_name]`
-            relations_func: a function returning all TypeRelations for the new type
+            relations_generator: a function returning all TypeRelations for the new type
+            replace: ...
 
         Returns:
             A new type

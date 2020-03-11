@@ -1,6 +1,7 @@
-import pandas as pd
 from ipaddress import _BaseAddress, ip_address
 from typing import Sequence
+
+import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import VisionsBaseType

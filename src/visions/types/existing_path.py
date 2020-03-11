@@ -1,6 +1,7 @@
+from typing import Sequence
+
 import pathlib
 import pandas as pd
-from typing import Sequence
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types import VisionsBaseType

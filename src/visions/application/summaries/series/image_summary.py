@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Dict, List, Any
+
 import pandas as pd
+
 from visions.utils.images.image_utils import (
     open_image,
     is_image_truncated,
