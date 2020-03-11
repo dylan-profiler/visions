@@ -1,6 +1,0 @@
-visions.functional.type\_detect\_frame
-======================================
-
-.. currentmodule:: visions.functional
-
-.. autofunction:: type_detect_frame

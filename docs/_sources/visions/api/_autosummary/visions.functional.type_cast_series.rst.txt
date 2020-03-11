@@ -1,6 +1,0 @@
-visions.functional.type\_cast\_series
-=====================================
-
-.. currentmodule:: visions.functional
-
-.. autofunction:: type_cast_series

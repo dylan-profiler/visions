@@ -304,7 +304,7 @@
     <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_series_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">compare_detect_inference_frame</span><span class="p">(</span>
+<div class="viewcode-block" id="compare_detect_inference_frame"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.compare_detect_inference_frame.html#visions.functional.compare_detect_inference_frame">[docs]</a><span class="k">def</span> <span class="nf">compare_detect_inference_frame</span><span class="p">(</span>
     <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]]]:</span>
     <span class="sd">&quot;&quot;&quot;Compare the types given by inference on the base graph and the relational graph</span>
@@ -325,10 +325,10 @@
     <span class="n">inferred_types</span> <span class="o">=</span> <span class="n">infer_frame_type</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">detected_types</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">inferred_types</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">detected_types</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">inferred_types</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
-    <span class="k">return</span> <span class="n">comparisons</span>
+    <span class="k">return</span> <span class="n">comparisons</span></div>
 
 
-<span class="k">def</span> <span class="nf">type_inference_report_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="type_inference_report_frame"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.type_inference_report_frame.html#visions.functional.type_inference_report_frame">[docs]</a><span class="k">def</span> <span class="nf">type_inference_report_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return formatted report of the output of `compare_detect_inference_frame`.</span>
 
 <span class="sd">    Args:</span>
@@ -373,7 +373,7 @@
     <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;In total </span><span class="si">{change_count}</span><span class="s2"> out of </span><span class="si">{type_count}</span><span class="s2"> types were changed.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">change_count</span><span class="o">=</span><span class="n">change_count</span><span class="p">,</span> <span class="n">type_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">report</span>
+    <span class="k">return</span> <span class="n">report</span></div>
 </pre></div>
 
            </div>

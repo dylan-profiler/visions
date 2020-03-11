@@ -24,7 +24,7 @@ Typesets
 Type changes
 ============
 
-.. currentmodule:: visions.core.functional
+.. currentmodule:: visions.functional
 .. toctree::
 
 .. autosummary::
