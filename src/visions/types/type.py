@@ -15,6 +15,12 @@ class VisionsBaseTypeMeta(ABCMeta):
             return cls == Generic
         return cls.contains_op(series)  # type: ignore
 
+    @property
+    def relations(cls):
+        if not hasattr(cls, '_relations'):
+            cls._relations = cls.get_relations()
+        return cls._relations
+
     def __str__(cls) -> str:
         return str(cls.__name__)
 
@@ -62,10 +68,10 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         )
 
     @classmethod
-    def evolve_replace_relations(
+    def evolve_relations(
         cls,
         type_name: str,
-        relations_func: Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]],
+        new_relations: Sequence[TypeRelation],
     ):
         """Make a copy of the type with the relations replaced by the relations return by `relations_func`.
 
@@ -76,11 +82,5 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         Returns:
             A new type
         """
-        return type(
-            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
-            (cls,),
-            {
-                "get_relations": classmethod(relations_func),
-                "contains_op": cls.contains_op,
-            },
-        )
+        old_relations = [attr.evolve(relation, type=type_name) for relation in cls.relations]
+        return old_relations + list(new_relations)
