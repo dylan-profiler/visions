@@ -48,6 +48,7 @@ Welcome to `visions`, a system for extendable, performant data types in Python.
    :caption: Contribution
    :hidden:
 
+   visions/contributing/support
    visions/contributing/contributing
    visions/contributing/type
 
