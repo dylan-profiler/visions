@@ -75,13 +75,16 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             A new type
         """
 
-        def get_new_relations() -> Sequence[TypeRelation]:
+        def get_new_relations(cls) -> Sequence[TypeRelation]:
             return relations
 
         new_type = type(
             "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
             (cls,),
-            {"get_relations": get_new_relations, "contains_op": cls.contains_op},
+            {
+                "get_relations": classmethod(get_new_relations),
+                "contains_op": cls.contains_op,
+            },
         )
         new_relations = (
             list(relations_generator(new_type)) if relations_generator else []
