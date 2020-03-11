@@ -1,12 +1,12 @@
 import pandas.api.types as pdt
 import pandas as pd
-from typing import Sequence, List
+from typing import Sequence, Type
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types import VisionsBaseType
 
 
-def _get_relations(cls) -> List[TypeRelation]:
+def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.types import Generic
 
     relations = [IdentityRelation(cls, Generic)]

@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from typing import Dict, List, Any
 import pandas as pd
 from visions.utils.images.image_utils import (
     open_image,
@@ -34,7 +34,7 @@ def extract_exif_series(image_exifs: list) -> dict:
 
     """
     exif_keys = []
-    exif_values = {}
+    exif_values: Dict[str, List] = {}
 
     for image_exif in image_exifs:
         # Extract key
@@ -64,10 +64,10 @@ def extract_image_information(path: Path) -> dict:
     Returns:
         A dict containing image information
     """
-    information = {}
+    information: Dict[Any, Any] = {}
     image = open_image(path)
     information["opened"] = image is not None
-    if information["opened"]:
+    if image is not None:
         information["truncated"] = is_image_truncated(image)
         if not information["truncated"]:
             information["size"] = image.size

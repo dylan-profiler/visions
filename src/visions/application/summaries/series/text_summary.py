@@ -1,5 +1,5 @@
 from collections import Counter
-
+from typing import Dict
 import pandas as pd
 
 from tangled_up_in_unicode import category, category_long, script, block, block_abbr
@@ -18,7 +18,7 @@ def text_summary(series: pd.Series) -> dict:
     summary = {"length": series.map(lambda x: len(str(x))).value_counts().to_dict()}
 
     # Unicode Character Summaries (category and script name)
-    character_counts = dict(Counter(series.str.cat()))
+    character_counts: Dict[str, int] = dict(Counter(series.str.cat()))
 
     summary["category_short_values"] = {
         key: category(key) for key in character_counts.keys()
