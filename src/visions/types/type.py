@@ -17,7 +17,7 @@ class VisionsBaseTypeMeta(ABCMeta):
 
     @property
     def relations(cls):
-        if not hasattr(cls, '_relations'):
+        if clas._relations is None:
             cls._relations = cls.get_relations()
         return cls._relations
 
@@ -33,6 +33,10 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     Provides a common API for building custom visions data types.
     """
+    _relations : Optional[Sequence] = None
+
+    def __init__(self):
+        raise ValueError('Types cannot be initialized')
 
     @classmethod
     @abstractmethod
@@ -43,6 +47,10 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     @abstractmethod
     def contains_op(cls, series: pd.Series) -> bool:
         raise NotImplementedError
+
+    @property
+    def relations(self):
+        return type(self).relations
 
     @classmethod
     def evolve_extend_relations(
@@ -82,5 +90,6 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         Returns:
             A new type
         """
+        def get_new_relations(c)
         old_relations = [attr.evolve(relation, type=type_name) for relation in cls.relations]
         return old_relations + list(new_relations)
