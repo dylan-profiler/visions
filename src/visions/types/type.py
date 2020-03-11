@@ -90,7 +90,9 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             ), "When calling evolve_type with `replace=True`, a `relations_generator` is required."
             relations = new_relations
         else:
-            old_relations = [attr.evolve(relation, type=new_type) for relation in cls.get_relations()]
+            old_relations = [
+                attr.evolve(relation, type=new_type) for relation in cls.get_relations()
+            ]
             relations = old_relations + new_relations
 
         return new_type
