@@ -15,7 +15,7 @@ visions.types.type.VisionsBaseType
    
       ~VisionsBaseType.__init__
       ~VisionsBaseType.contains_op
-      ~VisionsBaseType.extend_relations
+      ~VisionsBaseType.evolve_relations
       ~VisionsBaseType.get_relations
    
    

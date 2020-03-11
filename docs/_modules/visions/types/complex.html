@@ -99,6 +99,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -176,10 +177,11 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.complex</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
+
+<span class="kn">import</span> <span class="nn">pandas.api.types</span> <span class="k">as</span> <span class="nn">pdt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
 <span class="kn">from</span> <span class="nn">visions.types.float</span> <span class="k">import</span> <span class="n">test_string_is_float</span>
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="k">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
@@ -189,7 +191,6 @@
 
 <span class="k">def</span> <span class="nf">test_string_is_complex</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">coerced_series</span> <span class="o">=</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">to_complex</span><span class="p">)(</span><span class="n">series</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="n">coerced_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">test_string_is_float</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 
 

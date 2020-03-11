@@ -99,6 +99,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -177,8 +178,9 @@
             
   <h1>Source code for visions.types.type</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Optional</span>
 
+<span class="kn">import</span> <span class="nn">attr</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="k">import</span> <span class="n">TypeRelation</span>
@@ -191,6 +193,12 @@
 
             <span class="k">return</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">Generic</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_relations</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_relations</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_relations</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
@@ -206,6 +214,17 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_gr</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_relations</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_gr</span><span class="p">()</span>
+        <span class="nb">super</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VisionsBaseType.__init__"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Types cannot be initialized&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
@@ -216,12 +235,48 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">extend_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">relations_func</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">evolve_type</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">relations_generator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+            <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseTypeMeta</span><span class="p">]],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]]</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make a copy of the type</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            type_name: the new type suffix, the type name will be `type[type_name]`</span>
+<span class="sd">            relations_generator: a function returning all TypeRelations for the new type</span>
+<span class="sd">            replace: if True, do not include the existing relations</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">get_new_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">relations</span>
+
+        <span class="n">new_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
             <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
             <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
-            <span class="p">{</span><span class="s2">&quot;get_relations&quot;</span><span class="p">:</span> <span class="n">relations_func</span><span class="p">,</span> <span class="s2">&quot;contains_op&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">},</span>
-        <span class="p">)</span></div>
+            <span class="p">{</span><span class="s2">&quot;get_relations&quot;</span><span class="p">:</span> <span class="n">get_new_relations</span><span class="p">,</span> <span class="s2">&quot;contains_op&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">contains_op</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">new_relations</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">relations_generator</span><span class="p">(</span><span class="n">new_type</span><span class="p">))</span> <span class="k">if</span> <span class="n">relations_generator</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">replace</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">relations_generator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">),</span> <span class="s2">&quot;When calling evolve_type with `replace=True`, a `relations_generator` is required.&quot;</span>
+            <span class="n">relations</span> <span class="o">=</span> <span class="n">new_relations</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">old_relations</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">attr</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">relation</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">new_type</span><span class="p">)</span> <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
+            <span class="p">]</span>
+            <span class="n">relations</span> <span class="o">=</span> <span class="n">old_relations</span> <span class="o">+</span> <span class="n">new_relations</span>
+
+        <span class="k">return</span> <span class="n">new_type</span></div>
 </pre></div>
 
            </div>

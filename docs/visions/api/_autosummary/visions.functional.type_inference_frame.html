@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.functional.type_inference_series" href="visions.functional.type_inference_series.html" />
-    <link rel="prev" title="visions.functional.type_detect_series" href="visions.functional.type_detect_series.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -101,6 +99,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -113,31 +112,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../types.html">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../relations.html">Relations</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../typesets.html">Typesets</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../typesets.html#abstract-typesets">Abstract Typesets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../typesets.html#concrete-typesets">Concrete Typesets</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../typesets.html#functional-api">Functional API</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_detect_frame.html">visions.functional.type_detect_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_detect_series.html">visions.functional.type_detect_series</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.functional.type_inference_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_inference_series.html">visions.functional.type_inference_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_cast_frame.html">visions.functional.type_cast_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_cast_series.html">visions.functional.type_cast_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_cast_and_infer_frame.html">visions.functional.type_cast_and_infer_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_cast_and_infer_series.html">visions.functional.type_cast_and_infer_series</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
 </ul>
 
             
@@ -183,10 +159,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../api.html">API</a> &raquo;</li>
-        
-          <li><a href="../typesets.html">Typesets</a> &raquo;</li>
-        
       <li>visions.functional.type_inference_frame</li>
     
     
@@ -208,26 +180,6 @@
             
   <div class="section" id="visions-functional-type-inference-frame">
 <h1>visions.functional.type_inference_frame<a class="headerlink" href="#visions-functional-type-inference-frame" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="visions.functional.type_inference_frame">
-<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">type_inference_frame</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">typeset</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#type_inference_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.type_inference_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Infer the current types of each column in the DataFrame given the typeset.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – the DataFrame to infer types on</p></li>
-<li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset that provides the type context</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A dictionary with a mapping from column name to type</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
@@ -235,15 +187,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="visions.functional.type_inference_series.html" class="btn btn-neutral float-right" title="visions.functional.type_inference_series" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="visions.functional.type_detect_series.html" class="btn btn-neutral float-left" title="visions.functional.type_detect_series" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

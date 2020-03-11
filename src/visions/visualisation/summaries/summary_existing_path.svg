@@ -38,37 +38,18 @@
 <text text-anchor="middle" x="432.5" y="-225.8" font-family="Times New Roman,serif" font-size="14.00">base_summary</text>
 <text text-anchor="middle" x="432.5" y="-210.8" font-family="Times New Roman,serif" font-size="14.00">missing_summary</text>
 </g>
-<!-- ExistingPath -->
-<g id="node2" class="node"><title>ExistingPath</title>
-<polygon fill="none" stroke="red" points="86,-153 0,-153 0,-117 86,-117 86,-153"/>
-<text text-anchor="middle" x="43" y="-131.3" font-family="Times New Roman,serif" font-size="14.00">ExistingPath</text>
-</g>
-<!-- ExistingPath&#45;&gt;summary -->
-<g id="edge4" class="edge"><title>ExistingPath&#45;&gt;summary</title>
-<path fill="none" stroke="black" d="M24.0412,-116.736C19.5571,-111.523 15.3879,-105.455 13,-99 6.06108,-80.2423 0.121519,-69.3018 13,-54 32.7135,-30.5771 117.151,-22.8291 170.422,-20.2664"/>
-<polygon fill="black" stroke="black" points="170.795,-23.7535 180.632,-19.8199 170.489,-16.7602 170.795,-23.7535"/>
-<text text-anchor="middle" x="79.5" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">existing_path_summary</text>
-<text text-anchor="middle" x="79.5" y="-72.8" font-family="Times New Roman,serif" font-size="14.00">path_summary</text>
-<text text-anchor="middle" x="79.5" y="-57.8" font-family="Times New Roman,serif" font-size="14.00">text_summary</text>
-</g>
 <!-- Path -->
-<g id="node4" class="node"><title>Path</title>
+<g id="node2" class="node"><title>Path</title>
 <polygon fill="none" stroke="red" points="187,-240 133,-240 133,-204 187,-204 187,-240"/>
 <text text-anchor="middle" x="160" y="-218.3" font-family="Times New Roman,serif" font-size="14.00">Path</text>
 </g>
-<!-- Object&#45;&gt;Path -->
-<g id="edge2" class="edge"><title>Object&#45;&gt;Path</title>
-<path fill="none" stroke="black" d="M244.413,-276.994C229.693,-267.579 211.209,-255.755 195.293,-245.575"/>
-<polygon fill="black" stroke="black" points="197.065,-242.554 186.755,-240.114 193.293,-248.45 197.065,-242.554"/>
-</g>
-<!-- Object&#45;&gt;summary -->
-<g id="edge5" class="edge"><title>Object&#45;&gt;summary</title>
-<path fill="none" stroke="black" d="M271.475,-276.868C271.96,-244.924 271.141,-174.311 257,-117 250.741,-91.6327 238.615,-64.4457 228.995,-45.1578"/>
-<polygon fill="black" stroke="black" points="232.038,-43.4205 224.375,-36.1049 225.804,-46.603 232.038,-43.4205"/>
-<text text-anchor="middle" x="316" y="-174.8" font-family="Times New Roman,serif" font-size="14.00">unique_summary</text>
+<!-- ExistingPath -->
+<g id="node4" class="node"><title>ExistingPath</title>
+<polygon fill="none" stroke="red" points="86,-153 0,-153 0,-117 86,-117 86,-153"/>
+<text text-anchor="middle" x="43" y="-131.3" font-family="Times New Roman,serif" font-size="14.00">ExistingPath</text>
 </g>
 <!-- Path&#45;&gt;ExistingPath -->
-<g id="edge3" class="edge"><title>Path&#45;&gt;ExistingPath</title>
+<g id="edge2" class="edge"><title>Path&#45;&gt;ExistingPath</title>
 <path fill="none" stroke="black" d="M136.323,-203.799C118.641,-190.953 94.2849,-173.258 74.8888,-159.167"/>
 <polygon fill="black" stroke="black" points="76.789,-156.221 66.6415,-153.175 72.6747,-161.885 76.789,-156.221"/>
 </g>
@@ -78,6 +59,25 @@
 <polygon fill="black" stroke="black" points="204.96,-46.7393 206.163,-36.2129 198.658,-43.6916 204.96,-46.7393"/>
 <text text-anchor="middle" x="215.5" y="-138.8" font-family="Times New Roman,serif" font-size="14.00">path_summary</text>
 <text text-anchor="middle" x="215.5" y="-123.8" font-family="Times New Roman,serif" font-size="14.00">text_summary</text>
+</g>
+<!-- Object&#45;&gt;Path -->
+<g id="edge3" class="edge"><title>Object&#45;&gt;Path</title>
+<path fill="none" stroke="black" d="M244.413,-276.994C229.693,-267.579 211.209,-255.755 195.293,-245.575"/>
+<polygon fill="black" stroke="black" points="197.065,-242.554 186.755,-240.114 193.293,-248.45 197.065,-242.554"/>
+</g>
+<!-- Object&#45;&gt;summary -->
+<g id="edge5" class="edge"><title>Object&#45;&gt;summary</title>
+<path fill="none" stroke="black" d="M271.475,-276.868C271.96,-244.924 271.141,-174.311 257,-117 250.741,-91.6327 238.615,-64.4457 228.995,-45.1578"/>
+<polygon fill="black" stroke="black" points="232.038,-43.4205 224.375,-36.1049 225.804,-46.603 232.038,-43.4205"/>
+<text text-anchor="middle" x="316" y="-174.8" font-family="Times New Roman,serif" font-size="14.00">unique_summary</text>
+</g>
+<!-- ExistingPath&#45;&gt;summary -->
+<g id="edge4" class="edge"><title>ExistingPath&#45;&gt;summary</title>
+<path fill="none" stroke="black" d="M24.0412,-116.736C19.5571,-111.523 15.3879,-105.455 13,-99 6.06108,-80.2423 0.121519,-69.3018 13,-54 32.7135,-30.5771 117.151,-22.8291 170.422,-20.2664"/>
+<polygon fill="black" stroke="black" points="170.795,-23.7535 180.632,-19.8199 170.489,-16.7602 170.795,-23.7535"/>
+<text text-anchor="middle" x="79.5" y="-87.8" font-family="Times New Roman,serif" font-size="14.00">existing_path_summary</text>
+<text text-anchor="middle" x="79.5" y="-72.8" font-family="Times New Roman,serif" font-size="14.00">path_summary</text>
+<text text-anchor="middle" x="79.5" y="-57.8" font-family="Times New Roman,serif" font-size="14.00">text_summary</text>
 </g>
 </g>
 </svg>

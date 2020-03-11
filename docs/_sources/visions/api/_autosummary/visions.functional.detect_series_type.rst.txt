@@ -1,0 +1,6 @@
+visions.functional.detect\_series\_type
+=======================================
+
+.. currentmodule:: visions.functional
+
+.. autofunction:: detect_series_type

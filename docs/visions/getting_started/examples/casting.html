@@ -106,6 +106,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -195,10 +196,10 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">type_cast_and_infer_frame</span><span class="p">,</span>
-    <span class="n">type_cast_frame</span><span class="p">,</span>
-    <span class="n">type_detect_frame</span><span class="p">,</span>
-    <span class="n">type_inference_frame</span><span class="p">,</span>
+    <span class="n">cast_and_infer_frame</span><span class="p">,</span>
+    <span class="n">cast_frame</span><span class="p">,</span>
+    <span class="n">detect_frame_type</span><span class="p">,</span>
+    <span class="n">infer_frame_type</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">CompleteSet</span>
 
@@ -226,11 +227,11 @@
 
 
 <span class="c1"># Detect the type (without casting)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">type_detect_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">detect_frame_type</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
 <span class="c1"># {&#39;numbers_with_nan&#39;: Float, &#39;url&#39;: String, &#39;uuid&#39;: String}</span>
 
 <span class="c1"># Cast the dataframe to inferred types</span>
-<span class="n">cast_df</span> <span class="o">=</span> <span class="n">type_cast_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
+<span class="n">cast_df</span> <span class="o">=</span> <span class="n">cast_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">cast_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 <span class="c1">#    numbers_with_nan                                                url                                  uuid</span>
 <span class="c1"># 0                 3  (http, www.cwi.nl:80, /%7Eguido/Python.html, ,...  0b8a22ca-80ad-4df5-85ac-fa49c44b7ede</span>
@@ -238,11 +239,11 @@
 <span class="c1"># 2               NaN  (https, github.com, /pandas-profiling/pandas-p...  00000000-0000-0000-0000-000000000000</span>
 
 <span class="c1"># Print the inferred types</span>
-<span class="k">print</span><span class="p">(</span><span class="n">type_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">infer_frame_type</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
 <span class="c1"># {&#39;numbers_with_nan&#39;: Integer, &#39;url&#39;: URL, &#39;uuid&#39;: UUID}</span>
 
 <span class="c1"># We can also choose to do this in one step</span>
-<span class="n">cast_df</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="n">type_cast_and_infer_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">CompleteSet</span><span class="p">())</span>
+<span class="n">cast_df</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="n">cast_and_infer_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">CompleteSet</span><span class="p">())</span>
 <span class="k">print</span><span class="p">(</span><span class="n">cast_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 <span class="k">print</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 

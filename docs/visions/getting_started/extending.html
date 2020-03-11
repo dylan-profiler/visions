@@ -108,6 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -248,17 +249,16 @@ For a boolean we could the true/false ratio for example.</p>
 <h2>Custom Types (extend a type)<a class="headerlink" href="#custom-types-extend-a-type" title="Permalink to this headline">¶</a></h2>
 <p>Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.</p>
-<p>Each type has the method <cite>extend_relations</cite> for this purpose.</p>
+<p>Each type has the method <cite>evolve_type</cite> for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.integer</span> <span class="kn">import</span> <span class="n">_get_relations</span><span class="p">,</span> <span class="n">Integer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
  <span class="kn">from</span> <span class="nn">visions.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
 
- <span class="n">compose_relations</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_get_relations</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">()]</span>
- <span class="n">visions_integer_ddt</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="n">extend_relations</span><span class="p">(</span><span class="s1">&#39;with_datetime&#39;</span><span class="p">,</span> <span class="n">compose_relations</span><span class="p">)</span>
+ <span class="n">DateTimeIntYYYYMMDD</span> <span class="o">=</span> <span class="n">DateTime</span><span class="o">.</span><span class="n">evolve_type</span><span class="p">(</span><span class="s1">&#39;int_yyyymmdd&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="bp">cls</span><span class="p">:</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">(</span><span class="bp">cls</span><span class="p">)])</span>
 
- <span class="k">print</span><span class="p">(</span><span class="n">visions_integer_ddt</span><span class="p">)</span>
- <span class="c1"># Prints: Integer[with_datetime]</span>
+ <span class="k">print</span><span class="p">(</span><span class="n">DateTimeIntYYYYMMDD</span><span class="p">)</span>
+ <span class="c1"># Prints: DateTime[int_yyyymmdd]</span>
 </pre></div>
 </div>
 </div>
@@ -269,6 +269,7 @@ This is useful for small changes, such as adding a single relation.</p>
      <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{column} was {type_before} is {type_after}&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Please read the <cite>Type changes</cite> section in the <a class="reference internal" href="../api/functional.html"><span class="doc">functional API documentation</span></a> for more details.</p>
 </div>
 </div>
 <div class="section" id="custom-typesets-from-scratch">
@@ -280,7 +281,7 @@ typesets or define your own from scratch.</p>
 <p>For example, you could define a custom typeset with only time specific types as follows:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">visions_custom_set</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomSet</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
 
 <span class="sd">    Includes support for the following types:</span>
@@ -308,7 +309,7 @@ typesets or define your own from scratch.</p>
 <div class="code-block-caption"><span class="caption-text">Custom time typeset (simplified)</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
 <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">TimeDelta</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span><span class="p">]</span>
-<span class="n">visions_custom_set</span> <span class="o">=</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+<span class="n">CustomSet</span> <span class="o">=</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -321,6 +322,9 @@ based on simple manipulations to pre-existing sets.</p>
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
 <span class="n">typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span>
+
+<span class="c1"># Alternatively</span>
+<span class="n">typeset</span> <span class="o">=</span> <span class="n">typeset</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">Time</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -329,11 +333,11 @@ in any way imaginable:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
 <span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span>
 <span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Boolean</span>
-<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">bool_nl</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">BooleanNL</span>
 <span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span>
-<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">integer_ddt</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">DateTimeIntYYYYMMDD</span>
 <span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Categorical</span>
-<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">categorical_str</span>
+<span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">CategoricalStr</span>
 </pre></div>
 </div>
 </div>

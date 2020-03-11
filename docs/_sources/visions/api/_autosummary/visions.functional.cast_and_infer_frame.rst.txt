@@ -1,0 +1,6 @@
+visions.functional.cast\_and\_infer\_frame
+==========================================
+
+.. currentmodule:: visions.functional
+
+.. autofunction:: cast_and_infer_frame

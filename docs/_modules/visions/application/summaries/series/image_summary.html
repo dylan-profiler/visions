@@ -99,6 +99,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../visions/contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../visions/contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -177,8 +178,10 @@
             
   <h1>Source code for visions.application.summaries.series.image_summary</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
 <span class="kn">from</span> <span class="nn">visions.utils.images.image_utils</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">open_image</span><span class="p">,</span>
     <span class="n">is_image_truncated</span><span class="p">,</span>
@@ -202,6 +205,10 @@
     <span class="k">return</span> <span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">get_exit_values</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{}</span>
+
+
 <span class="k">def</span> <span class="nf">extract_exif_series</span><span class="p">(</span><span class="n">image_exifs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -212,7 +219,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">exif_keys</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">exif_values</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">exif_values</span> <span class="o">=</span> <span class="n">get_exit_values</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">image_exif</span> <span class="ow">in</span> <span class="n">image_exifs</span><span class="p">:</span>
         <span class="c1"># Extract key</span>
@@ -233,6 +240,10 @@
     <span class="k">return</span> <span class="n">series</span>
 
 
+<span class="k">def</span> <span class="nf">get_information</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{}</span>
+
+
 <span class="k">def</span> <span class="nf">extract_image_information</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Extracts all image information per file, as opening files is slow</span>
 
@@ -242,10 +253,10 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A dict containing image information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">information</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">information</span> <span class="o">=</span> <span class="n">get_information</span><span class="p">()</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">information</span><span class="p">[</span><span class="s2">&quot;opened&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">information</span><span class="p">[</span><span class="s2">&quot;opened&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">information</span><span class="p">[</span><span class="s2">&quot;truncated&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">is_image_truncated</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">information</span><span class="p">[</span><span class="s2">&quot;truncated&quot;</span><span class="p">]:</span>
             <span class="n">information</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>

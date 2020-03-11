@@ -1,0 +1,6 @@
+visions.functional.cast\_series
+===============================
+
+.. currentmodule:: visions.functional
+
+.. autofunction:: cast_series

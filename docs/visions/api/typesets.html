@@ -101,6 +101,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
@@ -128,15 +129,7 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.typesets.complete_set.html">visions.typesets.complete_set</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#functional-api">Functional API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_detect_frame.html">visions.functional.type_detect_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_detect_series.html">visions.functional.type_detect_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_inference_frame.html">visions.functional.type_inference_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_inference_series.html">visions.functional.type_inference_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_cast_frame.html">visions.functional.type_cast_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_cast_series.html">visions.functional.type_cast_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_cast_and_infer_frame.html">visions.functional.type_cast_and_infer_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.type_cast_and_infer_series.html">visions.functional.type_cast_and_infer_series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functional-api">Functional API</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -262,49 +255,29 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_detect_frame.html#visions.functional.type_detect_frame" title="visions.functional.type_detect_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_detect_frame</span></code></a>(df, typeset)</p></td>
-<td><p>Detect the type in the base graph</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_detect_frame</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_detect_series.html#visions.functional.type_detect_series" title="visions.functional.type_detect_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_detect_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_detect_series</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_inference_frame.html#visions.functional.type_inference_frame" title="visions.functional.type_inference_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_frame</span></code></a>(df, typeset)</p></td>
-<td><p>Infer the current types of each column in the DataFrame given the typeset.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_frame</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_inference_series.html#visions.functional.type_inference_series" title="visions.functional.type_inference_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_inference_series</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_cast_frame.html#visions.functional.type_cast_frame" title="visions.functional.type_cast_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_frame</span></code></a>(df, typeset)</p></td>
-<td><p>Casts a DataFrame into a typeset by first performing column wise type inference against a provided typeset</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_frame</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_cast_series.html#visions.functional.type_cast_series" title="visions.functional.type_cast_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_series</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_cast_and_infer_frame.html#visions.functional.type_cast_and_infer_frame" title="visions.functional.type_cast_and_infer_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_and_infer_frame</span></code></a>(df, typeset)</p></td>
-<td><p>Casts a DataFrame into a typeset by first performing column wise type inference against a provided typeset</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_and_infer_frame</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.functional.type_cast_and_infer_series.html#visions.functional.type_cast_and_infer_series" title="visions.functional.type_cast_and_infer_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_and_infer_series</span></code></a>(series, typeset)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">type series</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
-</dd>
-</dl>
-</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_cast_and_infer_series</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
