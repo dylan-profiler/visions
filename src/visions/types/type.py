@@ -34,7 +34,13 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     Provides a common API for building custom visions data types.
     """
 
-    _relations: Optional[Sequence[TypeRelation]] = None
+    @classmethod
+    def _gr(cls) -> Optional[Sequence[TypeRelation]]:
+        return None
+
+    def __new__(cls, *args, **kwargs):
+        cls._relations = cls._gr()
+        super.__new__(cls)
 
     def __init__(self):
         raise ValueError("Types cannot be initialized")
