@@ -1,7 +1,8 @@
 from abc import abstractmethod, ABCMeta
 from types import FunctionType
-from typing import Sequence, Callable, Type
+from typing import Sequence, Callable, Type, Optional
 
+import attr
 import pandas as pd
 
 from visions.relations import TypeRelation
@@ -53,33 +54,11 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         return type(self).relations
 
     @classmethod
-    def evolve_extend_relations(
+    def evolve_type(
         cls,
         type_name: str,
-        relations_func: Callable[[Type[VisionsBaseTypeMeta]], TypeRelation],
-    ):
-        """Make a copy of the type with the relations extended by the TypeRelation returned by `relations_func`.
-
-        Args:
-            type_name: the new type suffix, the type name will be `type[type_name]`
-            relations_func: a function returning the additional TypeRelations for the new type
-
-        Returns:
-            A new type
-        """
-        f = cls.get_relations
-        default_relations = FunctionType(
-            f.__code__, f.__globals__, f.__name__, f.__defaults__, f.__closure__
-        )
-        return cls.evolve_replace_relations(
-            type_name, lambda c: default_relations(c) + [relations_func(c)]
-        )
-
-    @classmethod
-    def evolve_relations(
-        cls,
-        type_name: str,
-        new_relations: Sequence[TypeRelation],
+        relations_generator: Optional[Callable] = None,
+        replace: bool = False
     ):
         """Make a copy of the type with the relations replaced by the relations return by `relations_func`.
 
@@ -90,6 +69,20 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         Returns:
             A new type
         """
-        def get_new_relations(c)
-        old_relations = [attr.evolve(relation, type=type_name) for relation in cls.relations]
-        return old_relations + list(new_relations)
+        new_type = type(
+                    "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+                    (cls,),
+                    {
+                        "get_relations": classmethod(lambda _: NotImplemented),
+                        "contains_op": cls.contains_op,
+                    },
+        )
+        new_relations = list(relations_generator(new_type)) if relations_generator else []
+        if replace:
+            assert relations_generator is not None, "When calling evolve_type with `replace=True`, a `relations_generator` is required."
+            relations_method = classmethod(lambda _: new_relations)
+        else:
+            old_relations = [attr.evolve(x, type=new_type) for x in cls.get_relations()]
+            relations_method = classmethod(lambda _: old_relations + new_relations)
+        new_type.get_relations = relations_method
+        return new_type
