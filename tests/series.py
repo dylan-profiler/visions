@@ -236,7 +236,7 @@ def get_series():
             [
                 urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
                 urlparse("https://github.com/dylan-profiling/hurricane"),
-                np.nan
+                np.nan,
             ],
             name="url_nan_series",
         ),
