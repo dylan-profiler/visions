@@ -6,7 +6,7 @@ mypy
 pydot
 pytest>=5.2.0
 pytest-rerunfailures
-pytest-sugar
+# pytest-sugar
 pytest-tldr
 pytest-runner
 pytest-mypy
