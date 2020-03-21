@@ -25,18 +25,30 @@ def float_is_int(series: pd.Series) -> bool:
     return check_equality(series.dropna() if series.hasnans else series)
 
 
+def test_string_is_int(series) -> bool:
+    coerced_series = test_utils.option_coercion_evaluator(string_to_int)(series)
+    return coerced_series is not None and coerced_series in Integer
+
+
+def string_to_int(series: pd.Series) -> pd.Series:
+    if any(',' in x for x in series.dropna()):
+        series = series.str.replace(',', '')
+
+    return to_int(series)
+
+
 def _get_relations(cls) -> List[TypeRelation]:
     from visions.types import String, Generic, Float
 
     relations = [
         IdentityRelation(cls, Generic),
         InferenceRelation(cls, Float, relationship=float_is_int, transformer=to_int),
-        InferenceRelation(
-            cls,
-            String,
-            relationship=test_utils.coercion_test(to_int),
-            transformer=to_int,
-        ),
+        #InferenceRelation(
+        #    cls,
+        #    String,
+        #    relationship=test_string_is_int,
+        #    transformer=string_to_int,
+        #),
     ]
     return relations
 

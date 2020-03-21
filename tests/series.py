@@ -79,6 +79,7 @@ def get_series():
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
         pd.Series([np.inf, np.NINF, np.Infinity, np.PINF], name="inf_series"),
         pd.Series([1, 2, np.nan], name="int_nan_series"),
+        pd.Series(['1,000', '2,000,000'], name='string_with_sep_int_series'),
         # Nan Series
         pd.Series([np.nan], name="nan_series"),
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
@@ -91,6 +92,7 @@ def get_series():
             name="string_np_unicode_series",
         ),
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
+        pd.Series(["1,000.0", "2.1", np.nan], name="string_with_sep_num_nan"),
         pd.Series(["1.0", "2.0", "3.0"], name="string_num"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
@@ -333,6 +335,8 @@ def get_contains_map():
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
             "timestamp_string_series",
+            "string_with_sep_int_series",
+            "string_with_sep_num_nan",
             "string_series",
             "geometry_string_series",
             "string_unicode_series",
@@ -405,6 +409,8 @@ def infer_series_type_map():
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
+        "string_with_sep_int_series": Integer,
+        "string_with_sep_num_nan": Float,
         "string_unicode_series": String,
         "string_np_unicode_series": String,
         "string_num_nan": Integer,
@@ -467,7 +473,7 @@ def get_convert_map():
     series_map = [
         # Model type, Relation type
         (Integer, Float, ["int_nan_series", "float_series2"]),
-        (Integer, String, ["int_str_range"]),
+        (Integer, String, ["int_str_range", "string_with_sep_int_series"]),
         (Complex, String, ["str_complex"]),
         (
             Float,
@@ -480,6 +486,7 @@ def get_convert_map():
                 "textual_float",
                 "textual_float_nan",
                 "int_str_range",
+                "string_with_sep_num_nan",
             ],
         ),
         (DateTime, String, ["timestamp_string_series", "string_date"]),

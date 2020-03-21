@@ -11,11 +11,25 @@ from visions.utils.warning_handling import suppress_warnings
 
 
 def test_string_is_float(series) -> bool:
+    coerced_series = test_utils.option_coercion_evaluator(string_to_float)(series)
+    return coerced_series is not None and coerced_series in Float
+
+
+def string_to_float(series: pd.Series) -> pd.Series:
+    # Slightly faster to check for the character if it's not present than to
+    # attempt the replacement
+    if any(',' in x for x in series.dropna()):
+        series = series.str.replace(',', '')
+
+    return to_float(series)
+
+
+def test_is_float(series: pd.Series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(to_float)(series)
     return coerced_series is not None and coerced_series in Float
 
 
-def to_float(series: pd.Series) -> bool:
+def to_float(series: pd.Series) -> pd.Series:
     return series.astype(float)
 
 
@@ -25,7 +39,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     relations = [
         IdentityRelation(cls, Generic),
         InferenceRelation(
-            cls, String, relationship=test_string_is_float, transformer=to_float
+            cls, String, relationship=test_string_is_float, transformer=string_to_float
         ),
         InferenceRelation(
             cls,

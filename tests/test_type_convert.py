@@ -85,7 +85,7 @@ def test_relations(source_type, relation_type, series, member):
     is_relation = relation.is_relation(series)
 
     if not member:
-        assert not is_relation
+        assert not is_relation, f'{source_type}, {relation}, {member}, {series.name}, {series[0]}'
     else:
         assert is_relation
     if relation.is_relation(series):
