@@ -195,7 +195,3 @@ def type_inference_report_frame(df, typeset) -> str:
         change_count=change_count, type_count=len(df.columns)
     )
     return report
-
-
-def infer_frame_converters(frame: pd.DataFrame) -> dict:
-    return {}
