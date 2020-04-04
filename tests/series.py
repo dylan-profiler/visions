@@ -169,7 +169,11 @@ def get_series():
             name="timestamp_series",
         ),
         pd.Series(
-            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4, 3, 2, 0), pd.NaT],
+            [
+                datetime.datetime(2017, 3, 5),
+                datetime.datetime(2019, 12, 4, 3, 2, 0),
+                pd.NaT,
+            ],
             name="timestamp_series_nat",
         ),
         pd.Series(
@@ -479,7 +483,7 @@ def get_convert_map():
     series_map = [
         # Model type, Relation type
         (Integer, Float, ["int_nan_series", "float_series2"]),
-        #(Integer, String, ["int_str_range", "string_with_sep_int_series"]),
+        # (Integer, String, ["int_str_range", "string_with_sep_int_series"]),
         (Complex, String, ["str_complex"]),
         (
             Float,
