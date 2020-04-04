@@ -5,6 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import nullable_series_contains
 
 
 def test_url(series) -> bool:
@@ -45,6 +46,7 @@ class URL(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         return all(
             isinstance(x, ParseResult) and all((x.netloc, x.scheme)) for x in series

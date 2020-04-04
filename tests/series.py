@@ -234,6 +234,14 @@ def get_series():
             ],
             name="url_series",
         ),
+        pd.Series(
+            [
+                urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
+                urlparse("https://github.com/dylan-profiling/hurricane"),
+                np.nan,
+            ],
+            name="url_nan_series",
+        ),
         # UUID Series
         pd.Series(
             [
@@ -287,7 +295,7 @@ def get_contains_map():
         ],
         Count: ["np_uint32"],
         Path: ["path_series_linux", "path_series_windows"],
-        URL: ["url_series"],
+        URL: ["url_series", "url_nan_series"],
         Float: [
             "float_series",
             "float_series2",
@@ -446,6 +454,7 @@ def infer_series_type_map():
         "path_series_windows": Path,
         "path_series_windows_str": Path,
         "url_series": URL,
+        "url_nan_series": URL,
         "mixed_list[str,int]": Object,
         "mixed_dict": Object,
         "callable": Object,
