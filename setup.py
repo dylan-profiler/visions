@@ -15,7 +15,6 @@ with (source_root / "requirements.txt").open(encoding="utf8") as f:
 with (source_root / "requirements_test.txt").open(encoding="utf8") as f:
     test_requirements = f.readlines()
 
-
 type_geometry_requires = ["shapely"]
 type_image_path_requires = ["imagehash", "Pillow"]
 
@@ -43,7 +42,7 @@ extras_requires["all"] = requirements + [
 
 setup(
     name="visions",
-    version="0.3.0",
+    version="0.4.0",
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     packages=find_packages("src"),
@@ -52,7 +51,7 @@ setup(
     include_package_data=True,
     extras_require=extras_requires,
     tests_require=test_requirements,
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     classifiers=[
