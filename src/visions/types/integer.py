@@ -43,12 +43,6 @@ def _get_relations(cls) -> List[TypeRelation]:
     relations = [
         IdentityRelation(cls, Generic),
         InferenceRelation(cls, Float, relationship=float_is_int, transformer=to_int),
-        #InferenceRelation(
-        #    cls,
-        #    String,
-        #    relationship=test_string_is_int,
-        #    transformer=string_to_int,
-        #),
     ]
     return relations
 

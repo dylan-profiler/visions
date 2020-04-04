@@ -78,7 +78,7 @@ def pytest_generate_tests(metafunc):
 
 def test_relations(source_type, relation_type, series, member):
     relation_gen = (
-        rel for rel in source_type.get_relations() if rel.related_type == relation_type
+        rel for rel in source_type.relations if rel.related_type == relation_type
     )
     relation = next(relation_gen)
 
