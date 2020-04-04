@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import datetime
 from visions.functional import (
     infer_frame_type,
     infer_series_type,
@@ -126,9 +126,9 @@ def test_type_detect_frame():
 def test_type_detect_series():
     datetime_series = pd.Series(
         [
-            pd.datetime(2010, 1, 1),
-            pd.datetime(2010, 8, 2),
-            pd.datetime(2011, 2, 1),
+            datetime.datetime(2010, 1, 1),
+            datetime.datetime(2010, 8, 2),
+            datetime.datetime(2011, 2, 1),
             np.datetime64("NaT"),
         ]
     )

@@ -165,15 +165,15 @@ def get_series():
         ),
         # Datetime Series
         pd.Series(
-            [pd.datetime(2017, 3, 5, 12, 2), pd.datetime(2019, 12, 4)],
+            [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
             name="timestamp_series",
         ),
         pd.Series(
-            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4, 3, 2, 0), pd.NaT],
+            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4, 3, 2, 0), pd.NaT],
             name="timestamp_series_nat",
         ),
         pd.Series(
-            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4), pd.NaT],
+            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
             name="date_series_nat",
         ),
         pd.Series(
