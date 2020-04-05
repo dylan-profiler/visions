@@ -31,8 +31,8 @@ def test_string_is_int(series) -> bool:
 
 
 def string_to_int(series: pd.Series) -> pd.Series:
-    if any(',' in x for x in series.dropna()):
-        series = series.str.replace(',', '')
+    if any("," in x for x in series.dropna()):
+        series = series.str.replace(",", "")
 
     return to_int(series)
 
