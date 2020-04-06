@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.type &mdash; visions 0.3.0 documentation</title>
+  <title>visions.types.type &mdash; visions 0.4.1 documentation</title>
   
 
   
@@ -213,13 +213,7 @@
 <span class="sd">    Provides a common API for building custom visions data types.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_gr</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]]:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_relations</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_gr</span><span class="p">()</span>
-        <span class="nb">super</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+    <span class="n">_relations</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="VisionsBaseType.__init__"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Types cannot be initialized&quot;</span><span class="p">)</span></div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.integer &mdash; visions 0.3.0 documentation</title>
+  <title>visions.types.integer &mdash; visions 0.4.1 documentation</title>
   
 
   
@@ -204,18 +204,24 @@
     <span class="k">return</span> <span class="n">check_equality</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">hasnans</span> <span class="k">else</span> <span class="n">series</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">test_string_is_int</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">coerced_series</span> <span class="o">=</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">string_to_int</span><span class="p">)(</span><span class="n">series</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">coerced_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">coerced_series</span> <span class="ow">in</span> <span class="n">Integer</span>
+
+
+<span class="k">def</span> <span class="nf">string_to_int</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="c1"># if any(&quot;,&quot; in x for x in series.dropna()):</span>
+    <span class="c1">#     series = series.str.replace(&quot;,&quot;, &quot;&quot;)</span>
+
+    <span class="k">return</span> <span class="n">to_int</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="k">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Float</span>
+    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="k">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Float</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Generic</span><span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">float_is_int</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_int</span><span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span>
-            <span class="n">String</span><span class="p">,</span>
-            <span class="n">relationship</span><span class="o">=</span><span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="n">to_int</span><span class="p">),</span>
-            <span class="n">transformer</span><span class="o">=</span><span class="n">to_int</span><span class="p">,</span>
-        <span class="p">),</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">relations</span>
 
