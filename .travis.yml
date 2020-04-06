@@ -7,10 +7,15 @@ python:
   - "3.7"
   - "3.8"
 
-install:
+before_install:
+  - python -m pip install --upgrade pip setuptools wheel
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
-  - pip install -e .
+
+install:
+  - check-manifest
+  - python setup.py sdist bdist_wheel
+  - twine check dist/*
 
 script:
 #  - pytest --cov=. tests/

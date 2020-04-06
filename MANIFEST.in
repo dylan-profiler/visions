@@ -1,4 +1,26 @@
 include LICENSE
 include README.md
-include requirements.txt
-include requirements_test.txt
+include SIDNfonds.png
+include requirements*.txt
+exclude Makefile make.bat
+recursive-include src *.py
+
+# Include tests
+include tox.ini pytest.ini mypy.ini
+recursive-include tests *.py
+
+# Include examples
+recursive-include examples *.py
+recursive-include examples *.ipynb
+
+# Exclude visualisation data
+exclude src/visions/visualisation/summaries src/visions/visualisation/typesets
+recursive-exclude src/visions/visualisation/summaries *
+recursive-exclude src/visions/visualisation/typesets *
+recursive-exclude src/visions/visualisation *.html
+
+# Exclude directories
+exclude docs docsrc paper
+recursive-exclude docs *
+recursive-exclude docsrc *
+recursive-exclude paper *

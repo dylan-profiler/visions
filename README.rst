@@ -49,9 +49,7 @@ More information can be found `here <https://dylan-profiler.github.io/visions/vi
 This work was partially supported by `SIDN Fonds <https://www.sidnfonds.nl/projecten/dylan-data-analysis-leveraging-automatisation>`_.
 
 
-.. raw:: html
-
-   <img src="SIDNfonds.png" width="200" />
+.. image:: SIDNfonds.png
 
 .. |PythonBadge| image:: https://img.shields.io/pypi/pyversions/visions
 .. |PyPiDownloadsBadge| image:: https://pepy.tech/badge/visions

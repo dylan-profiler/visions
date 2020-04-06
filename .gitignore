@@ -5,6 +5,7 @@ docsrc/source/visions/_autosummary/
 docsrc/source/visions/api/_autosummary/
 docsrc/build/
 plots/*/
+playground/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
