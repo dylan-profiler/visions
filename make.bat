@@ -24,9 +24,10 @@ IF "%1" == "plots" (
 
 IF "%1" == "pypi_package" (
 	make install
+    check-manifest
     python setup.py sdist
     twine check dist/*
-    twine upload dist/*
+    twine upload --skip-existing dist/*
     ECHO "PyPi package completed"
     GOTO end
 )

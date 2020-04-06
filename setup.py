@@ -45,6 +45,8 @@ setup(
     version="0.4.0",
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
+    author="Dylan Profiler",
+    author_email="visions@ictopzee.nl",
     packages=find_packages("src"),
     package_dir={"": "src"},
     install_requires=requirements,
@@ -56,7 +58,6 @@ setup(
     long_description_content_type="text/x-rst",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",

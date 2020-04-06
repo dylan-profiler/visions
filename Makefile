@@ -17,8 +17,10 @@ test:
 ## Upload package to pypi
 pypi_package:
 	make install
+	check-manifest
 	python setup.py sdist
-	twine upload dist/*
+	twine check dist/*
+	twine upload --skip-existing dist/*
 	ECHO "PyPi package completed"
 
 ## Run black linting
