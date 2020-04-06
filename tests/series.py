@@ -91,6 +91,7 @@ def get_series():
             name="string_np_unicode_series",
         ),
         pd.Series(["1.0", "2.0", np.nan], name="string_num_nan"),
+        pd.Series(["1,000.0", "2.1", np.nan], name="string_with_sep_num_nan"),
         pd.Series(["1.0", "2.0", "3.0"], name="string_num"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
@@ -164,15 +165,19 @@ def get_series():
         ),
         # Datetime Series
         pd.Series(
-            [pd.datetime(2017, 3, 5, 12, 2), pd.datetime(2019, 12, 4)],
+            [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
             name="timestamp_series",
         ),
         pd.Series(
-            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4, 3, 2, 0), pd.NaT],
+            [
+                datetime.datetime(2017, 3, 5),
+                datetime.datetime(2019, 12, 4, 3, 2, 0),
+                pd.NaT,
+            ],
             name="timestamp_series_nat",
         ),
         pd.Series(
-            [pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4), pd.NaT],
+            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
             name="date_series_nat",
         ),
         pd.Series(
@@ -341,6 +346,7 @@ def get_contains_map():
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
             "timestamp_string_series",
+            "string_with_sep_num_nan",
             "string_series",
             "geometry_string_series",
             "string_unicode_series",
@@ -413,6 +419,7 @@ def infer_series_type_map():
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
+        "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
         "string_unicode_series": String,
         "string_np_unicode_series": String,
         "string_num_nan": Integer,
@@ -476,7 +483,6 @@ def get_convert_map():
     series_map = [
         # Model type, Relation type
         (Integer, Float, ["int_nan_series", "float_series2"]),
-        (Integer, String, ["int_str_range"]),
         (Complex, String, ["str_complex"]),
         (
             Float,
@@ -489,6 +495,7 @@ def get_convert_map():
                 "textual_float",
                 "textual_float_nan",
                 "int_str_range",
+                # "string_with_sep_num_nan",
             ],
         ),
         (DateTime, String, ["timestamp_string_series", "string_date"]),

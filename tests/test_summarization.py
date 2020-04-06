@@ -1,5 +1,5 @@
 from urllib.parse import urlparse
-
+import datetime
 import pytest
 import pandas as pd
 import numpy as np
@@ -124,16 +124,16 @@ def test_complex_missing_summary(summary, visions_type=Complex):
 def test_datetime_missing_summary(summary, visions_type=DateTime):
     test_series = pd.Series(
         [
-            pd.datetime(2010, 1, 1),
-            pd.datetime(2010, 8, 2),
-            pd.datetime(2011, 2, 1),
+            datetime.datetime(2010, 1, 1),
+            datetime.datetime(2010, 8, 2),
+            datetime.datetime(2011, 2, 1),
             np.nan,
         ]
     )
     correct_output = {
         "n_unique": 3,
-        "max": pd.datetime(2011, 2, 1),
-        "min": pd.datetime(2010, 1, 1),
+        "max": datetime.datetime(2011, 2, 1),
+        "min": datetime.datetime(2010, 1, 1),
         "n_records": 4,
         "na_count": 1,
         "range": test_series.max() - test_series.min(),
@@ -143,10 +143,10 @@ def test_datetime_missing_summary(summary, visions_type=DateTime):
 
 
 def test_object_missing_summary(summary, visions_type=Object):
-    test_series = pd.Series([pd.datetime(2010, 1, 1), "test", 3, np.nan])
+    test_series = pd.Series([datetime.datetime(2010, 1, 1), "test", 3, np.nan])
     correct_output = {
         "n_unique": 3,
-        "frequencies": {"test": 1, 3: 1, pd.datetime(2010, 1, 1): 1},
+        "frequencies": {"test": 1, 3: 1, datetime.datetime(2010, 1, 1): 1},
         "n_records": 4,
         "na_count": 1,
     }

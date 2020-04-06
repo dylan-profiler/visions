@@ -4,7 +4,7 @@ import pandas.api.types as pdt
 import pandas as pd
 import numpy as np
 
-from visions.types.float import test_string_is_float
+from visions.types.float import test_is_float
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import VisionsBaseType
 from visions.utils.coercion import test_utils
@@ -12,7 +12,7 @@ from visions.utils.coercion import test_utils
 
 def test_string_is_complex(series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(to_complex)(series)
-    return coerced_series is not None and not test_string_is_float(series)
+    return coerced_series is not None and not test_is_float(series)
 
 
 def to_complex(series: pd.Series) -> bool:

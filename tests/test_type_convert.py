@@ -19,7 +19,7 @@ def all_relations_tested(series_map):
 
     missing_relations = set()
     for node in typeset.types:
-        for relation in node.get_relations():
+        for relation in node.relations:
             from_type, to_type = relation.related_type, relation.type
             if relation.inferential and (
                 to_type not in series_map_lookup
@@ -78,14 +78,16 @@ def pytest_generate_tests(metafunc):
 
 def test_relations(source_type, relation_type, series, member):
     relation_gen = (
-        rel for rel in source_type.get_relations() if rel.related_type == relation_type
+        rel for rel in source_type.relations if rel.related_type == relation_type
     )
     relation = next(relation_gen)
 
     is_relation = relation.is_relation(series)
 
     if not member:
-        assert not is_relation
+        assert (
+            not is_relation
+        ), f"{source_type}, {relation}, {member}, {series.name}, {series[0]}"
     else:
         assert is_relation
     if relation.is_relation(series):
