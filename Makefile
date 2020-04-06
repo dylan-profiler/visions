@@ -18,7 +18,7 @@ test:
 pypi_package:
 	make install
 	check-manifest
-	python setup.py sdist
+	python setup.py sdist bdist_wheel
 	twine check dist/*
 	twine upload --skip-existing dist/*
 	ECHO "PyPi package completed"
