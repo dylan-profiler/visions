@@ -19,7 +19,7 @@ def all_relations_tested(series_map):
 
     missing_relations = set()
     for node in typeset.types:
-        for relation in node.get_relations():
+        for relation in node.relations:
             from_type, to_type = relation.related_type, relation.type
             if relation.inferential and (
                 to_type not in series_map_lookup

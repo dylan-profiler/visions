@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime
+
 from visions.functional import (
     infer_frame_type,
     infer_series_type,

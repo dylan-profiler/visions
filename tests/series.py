@@ -419,7 +419,7 @@ def infer_series_type_map():
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
-        "string_with_sep_num_nan": Float,
+        "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
         "string_unicode_series": String,
         "string_np_unicode_series": String,
         "string_num_nan": Integer,
@@ -483,7 +483,6 @@ def get_convert_map():
     series_map = [
         # Model type, Relation type
         (Integer, Float, ["int_nan_series", "float_series2"]),
-        # (Integer, String, ["int_str_range", "string_with_sep_int_series"]),
         (Complex, String, ["str_complex"]),
         (
             Float,
@@ -496,7 +495,7 @@ def get_convert_map():
                 "textual_float",
                 "textual_float_nan",
                 "int_str_range",
-                "string_with_sep_num_nan",
+                # "string_with_sep_num_nan",
             ],
         ),
         (DateTime, String, ["timestamp_string_series", "string_date"]),

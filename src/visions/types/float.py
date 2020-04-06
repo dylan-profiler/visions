@@ -18,8 +18,8 @@ def test_string_is_float(series) -> bool:
 def string_to_float(series: pd.Series) -> pd.Series:
     # Slightly faster to check for the character if it's not present than to
     # attempt the replacement
-    if any("," in x for x in series.dropna()):
-        series = series.str.replace(",", "")
+    # if any("," in x for x in series.dropna()):
+    #     series = series.str.replace(",", "")
 
     return to_float(series)
 

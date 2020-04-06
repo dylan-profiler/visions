@@ -31,14 +31,14 @@ def test_string_is_int(series) -> bool:
 
 
 def string_to_int(series: pd.Series) -> pd.Series:
-    if any("," in x for x in series.dropna()):
-        series = series.str.replace(",", "")
+    # if any("," in x for x in series.dropna()):
+    #     series = series.str.replace(",", "")
 
     return to_int(series)
 
 
 def _get_relations(cls) -> List[TypeRelation]:
-    from visions.types import String, Generic, Float
+    from visions.types import Generic, Float
 
     relations = [
         IdentityRelation(cls, Generic),
