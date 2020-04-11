@@ -7,10 +7,10 @@ tags:
   - data integration
   - machine learning
 authors:
-  - name: Simon Brugman*
+  - name: Simon Brugman^[Both authors contributed equally to this paper]
     orcid: 0000-0001-9866-7767
     affiliation: "1"
-  - name: Ian Eaves*
+  - name: Ian Eaves
     orcid: 0000-0001-6788-8188
     affiliation: "2"
 affiliations:
