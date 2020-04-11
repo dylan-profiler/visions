@@ -3,13 +3,21 @@ from typing import Sequence, Callable, Type, Optional
 
 import attr
 import pandas as pd
+import numpy as np
 
 from visions.relations import TypeRelation
 
 
+def non_informative_series(series: pd.Series) -> bool:
+    try:
+        return all((x is None or pd.isna(x) or np.isnan(x)) for x in series)
+    except (TypeError, ValueError):
+        return False
+
+
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
-        if series.empty:
+        if series.empty or non_informative_series(series):
             from visions.types import Generic
 
             return cls == Generic

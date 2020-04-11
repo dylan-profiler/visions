@@ -79,9 +79,6 @@ def get_series():
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
         pd.Series([np.inf, np.NINF, np.Infinity, np.PINF], name="inf_series"),
         pd.Series([1, 2, np.nan], name="int_nan_series"),
-        # Nan Series
-        pd.Series([np.nan], name="nan_series"),
-        pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
@@ -284,11 +281,26 @@ def get_series():
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
         pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
+        # Non-informative series
+        pd.Series([np.nan], name="nan_series"),
+        pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
+        pd.Series([None, None], name="non_informative_none"),
+        pd.Series([np.nan, np.nan], name="non_informative_nan"),
+        pd.Series([pd.NaT, pd.NaT], name="non_informative_nat"),
+        pd.Series([None, np.nan], name="non_informative_mixed"),
     ]
 
 
 def get_contains_map():
     series_map = {
+        Generic: [
+            "non_informative_none",
+            "non_informative_nan",
+            "non_informative_nat",
+            "non_informative_mixed",
+            "nan_series",
+            "nan_series_2",
+        ],
         Integer: [
             "int_series",
             "Int64_int_series",
@@ -305,11 +317,9 @@ def get_contains_map():
             "float_series3",
             "float_series4",
             "inf_series",
-            "nan_series",
             "float_nan_series",
             "float_series5",
             "int_nan_series",
-            "nan_series_2",
             "float_with_inf",
             "float_series6",
         ],
@@ -395,6 +405,10 @@ def get_contains_map():
 
 def infer_series_type_map():
     return {
+        "non_informative_none": Generic,
+        "non_informative_nan": Generic,
+        "non_informative_nat": Generic,
+        "non_informative_mixed": Generic,
         "int_series": Integer,
         "categorical_int_series": Categorical,
         "int_nan_series": Integer,
@@ -414,8 +428,8 @@ def infer_series_type_map():
         "categorical_float_series": Categorical,
         "float_with_inf": Float,
         "inf_series": Float,
-        "nan_series": Float,
-        "nan_series_2": Float,
+        "nan_series": Generic,
+        "nan_series_2": Generic,
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
