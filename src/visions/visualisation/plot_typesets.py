@@ -22,7 +22,9 @@ def generate_typeset_plots():
 
         # Plot the graph (svg)
         tsc.output_graph(typesets_dir / "{name}.svg".format(name=name))
-        tsc.output_graph(typesets_dir / "{name}_base.svg".format(name=name), base_only=True)
+        tsc.output_graph(
+            typesets_dir / "{name}_base.svg".format(name=name), base_only=True
+        )
 
         # Plot the graph (png)
         tsc.output_graph(typesets_dir / "{name}.png".format(name=name), dpi=150)
