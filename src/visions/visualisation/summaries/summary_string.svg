@@ -31,33 +31,20 @@
 <text text-anchor="middle" x="52.9375" y="-72.8" font-family="Times,serif" font-size="14.00" fill="#000000">text_summary</text>
 <text text-anchor="middle" x="52.9375" y="-57.8" font-family="Times,serif" font-size="14.00" fill="#000000">unique_summary</text>
 </g>
-<!-- Object -->
-<g id="node2" class="node">
-<title>Object</title>
-<polygon fill="none" stroke="#ff0000" points="141.9375,-240 87.9375,-240 87.9375,-204 141.9375,-204 141.9375,-240"/>
-<text text-anchor="middle" x="114.9375" y="-218.3" font-family="Times,serif" font-size="14.00" fill="#000000">Object</text>
-</g>
-<!-- Object&#45;&gt;String -->
-<g id="edge1" class="edge">
-<title>Object&#45;&gt;String</title>
-<path fill="none" stroke="#000000" d="M99.3837,-203.7644C85.6512,-187.6643 65.4749,-164.0093 50.0626,-145.9397"/>
-<polygon fill="#000000" stroke="#000000" points="52.5092,-143.4147 43.3567,-138.0777 47.1833,-147.9574 52.5092,-143.4147"/>
-</g>
-<!-- Object&#45;&gt;summary -->
-<g id="edge3" class="edge">
-<title>Object&#45;&gt;summary</title>
-<path fill="none" stroke="#000000" d="M114.9375,-203.8964C114.9375,-168.2839 114.9375,-88.8929 114.9375,-46.2972"/>
-<polygon fill="#000000" stroke="#000000" points="118.4376,-46.063 114.9375,-36.0631 111.4376,-46.0631 118.4376,-46.063"/>
-<text text-anchor="middle" x="162.9375" y="-116.3" font-family="Times,serif" font-size="14.00" fill="#000000">unique_summary</text>
-</g>
 <!-- Generic -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>Generic</title>
 <polygon fill="none" stroke="#ff0000" points="206.4375,-313 147.4375,-313 147.4375,-277 206.4375,-277 206.4375,-313"/>
 <text text-anchor="middle" x="176.9375" y="-291.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
 </g>
+<!-- Object -->
+<g id="node3" class="node">
+<title>Object</title>
+<polygon fill="none" stroke="#ff0000" points="141.9375,-240 87.9375,-240 87.9375,-204 141.9375,-204 141.9375,-240"/>
+<text text-anchor="middle" x="114.9375" y="-218.3" font-family="Times,serif" font-size="14.00" fill="#000000">Object</text>
+</g>
 <!-- Generic&#45;&gt;Object -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>Generic&#45;&gt;Object</title>
 <path fill="none" stroke="#000000" d="M161.6117,-276.9551C154.1597,-268.1809 145.0678,-257.4759 136.8949,-247.853"/>
 <polygon fill="#000000" stroke="#000000" points="139.4431,-245.4466 130.302,-240.0904 134.1077,-249.9781 139.4431,-245.4466"/>
@@ -69,6 +56,19 @@
 <polygon fill="#000000" stroke="#000000" points="159.4743,-38.5525 149.1718,-36.0807 155.6841,-44.4377 159.4743,-38.5525"/>
 <text text-anchor="middle" x="275.9375" y="-174.8" font-family="Times,serif" font-size="14.00" fill="#000000">base_summary</text>
 <text text-anchor="middle" x="275.9375" y="-159.8" font-family="Times,serif" font-size="14.00" fill="#000000">missing_summary</text>
+</g>
+<!-- Object&#45;&gt;String -->
+<g id="edge2" class="edge">
+<title>Object&#45;&gt;String</title>
+<path fill="none" stroke="#000000" d="M99.3837,-203.7644C85.6512,-187.6643 65.4749,-164.0093 50.0626,-145.9397"/>
+<polygon fill="#000000" stroke="#000000" points="52.5092,-143.4147 43.3567,-138.0777 47.1833,-147.9574 52.5092,-143.4147"/>
+</g>
+<!-- Object&#45;&gt;summary -->
+<g id="edge3" class="edge">
+<title>Object&#45;&gt;summary</title>
+<path fill="none" stroke="#000000" d="M114.9375,-203.8964C114.9375,-168.2839 114.9375,-88.8929 114.9375,-46.2972"/>
+<polygon fill="#000000" stroke="#000000" points="118.4376,-46.063 114.9375,-36.0631 111.4376,-46.0631 118.4376,-46.063"/>
+<text text-anchor="middle" x="162.9375" y="-116.3" font-family="Times,serif" font-size="14.00" fill="#000000">unique_summary</text>
 </g>
 </g>
 </svg>

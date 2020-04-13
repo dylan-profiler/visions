@@ -245,7 +245,7 @@ Similarly, the membership relation is true when the circle includes all values.<
     // d3.json("typesets/typeset_complete_base.json", function (error, root) {
     //    if (error) throw error;
     // START-REPLACE
-	root = {"children": [{"children": [{"name": "Ordinal", "size": 1}], "name": "Categorical"}, {"name": "Float", "size": 1}, {"name": "Count", "size": 1}, {"name": "Boolean", "size": 1}, {"name": "Integer", "size": 1}, {"children": [{"name": "Date", "size": 1}, {"name": "Time", "size": 1}], "name": "DateTime"}, {"name": "TimeDelta", "size": 1}, {"children": [{"name": "String", "size": 1}, {"name": "UUID", "size": 1}, {"name": "Geometry", "size": 1}, {"name": "IPAddress", "size": 1}, {"name": "URL", "size": 1}, {"children": [{"children": [{"name": "ImagePath", "size": 1}], "name": "ExistingPath"}], "name": "Path"}], "name": "Object"}, {"name": "Complex", "size": 1}], "name": "Generic"};
+	root = {"children": [{"name": "Complex", "size": 1}, {"name": "TimeDelta", "size": 1}, {"name": "Float", "size": 1}, {"children": [{"name": "Ordinal", "size": 1}], "name": "Categorical"}, {"name": "Count", "size": 1}, {"name": "Boolean", "size": 1}, {"name": "Integer", "size": 1}, {"children": [{"name": "Time", "size": 1}, {"name": "Date", "size": 1}], "name": "DateTime"}, {"children": [{"children": [{"children": [{"name": "ImagePath", "size": 1}], "name": "ExistingPath"}], "name": "Path"}, {"name": "Geometry", "size": 1}, {"name": "String", "size": 1}, {"name": "UUID", "size": 1}, {"name": "IPAddress", "size": 1}, {"name": "URL", "size": 1}], "name": "Object"}], "name": "Generic"};
 	// END-REPLACE
         root = d3.hierarchy(root)
             .sum(function (d) {
