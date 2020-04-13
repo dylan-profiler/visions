@@ -1,6 +1,7 @@
 Visions
 =======
 
+|JossPaper|
 |PyPiDownloadsBadge|
 |PyPiDownloadsMonthlyBadge|
 |PyPiVersionBadge|
@@ -51,7 +52,18 @@ This work was partially supported by `SIDN Fonds <https://www.sidnfonds.nl/proje
 
 .. image:: https://github.com/dylan-profiler/visions/raw/master/SIDNfonds.png
 
+
+.. |JossPaper| image:: https://joss.theoj.org/papers/10.21105/joss.02145/status.svg
+    :target: https://doi.org/10.21105/joss.02145
+    
 .. |PythonBadge| image:: https://img.shields.io/pypi/pyversions/visions
+    :target: https://pypi.org/project/visions/
+    
 .. |PyPiDownloadsBadge| image:: https://pepy.tech/badge/visions
+    :target: https://pypi.org/project/visions/
+    
 .. |PyPiDownloadsMonthlyBadge| image:: https://pepy.tech/badge/visions/month
+    :target: https://pypi.org/project/visions/
+    
 .. |PyPiVersionBadge| image:: https://badge.fury.io/py/visions.svg
+    :target: https://pypi.org/project/visions/
