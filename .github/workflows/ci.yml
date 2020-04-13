@@ -56,17 +56,17 @@ jobs:
         git add -u
         git commit -m "Black code formatting" -a || true
 
+    - name: Install the package
+      run: pip install -e .
+
     - name: Updating plots
       run: |
          cd src/visions/visualisation/ && python plot_circular_packing.py
          cd src/visions/visualisation/ && python plot_summary.py
          cd src/visions/visualisation/ && python plot_typesets.py
 
-    # Runs a set of commands using the runners shell
     - name: Build the documentation
-      run: |
-          pip install -e .
-          cd docsrc/ && make github
+      run: cd docsrc/ && make github
 
     - name: Commit documentation changes
       run: |
