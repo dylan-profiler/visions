@@ -77,7 +77,7 @@ jobs:
          cd ../../../
 
     - name: Build the documentation
-      run: cd docsrc/ && make github && ../
+      run: cd docsrc/ && make github && cd ../
 
     - name: Commit documentation changes
       run: |
