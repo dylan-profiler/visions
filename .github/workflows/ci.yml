@@ -63,7 +63,7 @@ jobs:
     - name: Commit documentation changes
       run: |
         git add -u
-        git commit -m "Black code formatting" -a || true
+        git commit -m "[skip ci] Black code formatting" -a || true
 
     - name: Install the package
       run: pip install -e .
@@ -82,7 +82,7 @@ jobs:
     - name: Commit documentation changes
       run: |
         git add docs/
-        git commit -m "Updating documentation" -a || true
+        git commit -m "[skip ci] Updating documentation" -a || true
 
     - name: Push changes
       uses: ad-m/github-push-action@master
