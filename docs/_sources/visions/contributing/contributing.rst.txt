@@ -51,11 +51,15 @@ Which is equivalent to:
 
    black .
 
-Docs
-----
+Documentation
+-------------
 
-The documentation needs to be generated after each contribution, because the API reference is automatically generated.
-You can do this by:
+Software should provide adequate documentation for beginning and advanced users.
+When you contribute, please check if your contribution requires some additional documentation.
+
+The documentation is automatically generated after each contribution by our `Github Actions <https://github.com/dylan-profiler/visions/actions>` workflow.
+
+If you like, you can manually generate the documentation by running:
 
 .. code-block:: console
 
