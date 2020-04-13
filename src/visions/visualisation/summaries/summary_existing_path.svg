@@ -9,11 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 390)">
 <title>%3</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-390 483,-390 483,4 -4,4"/>
-<!-- ExistingPath -->
+<!-- Path -->
 <g id="node1" class="node">
+<title>Path</title>
+<polygon fill="none" stroke="#ff0000" points="183,-240 129,-240 129,-204 183,-204 183,-240"/>
+<text text-anchor="middle" x="156" y="-218.3" font-family="Times,serif" font-size="14.00" fill="#000000">Path</text>
+</g>
+<!-- ExistingPath -->
+<g id="node2" class="node">
 <title>ExistingPath</title>
 <polygon fill="none" stroke="#ff0000" points="86,-153 0,-153 0,-117 86,-117 86,-153"/>
 <text text-anchor="middle" x="43" y="-131.3" font-family="Times,serif" font-size="14.00" fill="#000000">ExistingPath</text>
+</g>
+<!-- Path&#45;&gt;ExistingPath -->
+<g id="edge1" class="edge">
+<title>Path&#45;&gt;ExistingPath</title>
+<path fill="none" stroke="#000000" d="M132.5863,-203.9735C115.7684,-191.0253 92.9118,-173.4276 74.4952,-159.2485"/>
+<polygon fill="#000000" stroke="#000000" points="76.4425,-156.3306 66.3837,-153.0034 72.1721,-161.8772 76.4425,-156.3306"/>
 </g>
 <!-- summary -->
 <g id="node5" class="node">
@@ -23,6 +35,14 @@
 <polyline fill="none" stroke="#ff0000" points="245,-30 239,-30 "/>
 <text text-anchor="middle" x="211" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">summary</text>
 </g>
+<!-- Path&#45;&gt;summary -->
+<g id="edge6" class="edge">
+<title>Path&#45;&gt;summary</title>
+<path fill="none" stroke="#000000" d="M156.9825,-203.8852C158.4568,-182.7326 161.9798,-146.8369 170,-117 176.7338,-91.9488 188.2962,-64.8156 197.4291,-45.3011"/>
+<polygon fill="#000000" stroke="#000000" points="200.6674,-46.6418 201.8151,-36.1093 194.3498,-43.6272 200.6674,-46.6418"/>
+<text text-anchor="middle" x="211" y="-138.8" font-family="Times,serif" font-size="14.00" fill="#000000">path_summary</text>
+<text text-anchor="middle" x="211" y="-123.8" font-family="Times,serif" font-size="14.00" fill="#000000">text_summary</text>
+</g>
 <!-- ExistingPath&#45;&gt;summary -->
 <g id="edge4" class="edge">
 <title>ExistingPath&#45;&gt;summary</title>
@@ -31,26 +51,6 @@
 <text text-anchor="middle" x="76" y="-87.8" font-family="Times,serif" font-size="14.00" fill="#000000">existing_path_summary</text>
 <text text-anchor="middle" x="76" y="-72.8" font-family="Times,serif" font-size="14.00" fill="#000000">path_summary</text>
 <text text-anchor="middle" x="76" y="-57.8" font-family="Times,serif" font-size="14.00" fill="#000000">text_summary</text>
-</g>
-<!-- Path -->
-<g id="node2" class="node">
-<title>Path</title>
-<polygon fill="none" stroke="#ff0000" points="183,-240 129,-240 129,-204 183,-204 183,-240"/>
-<text text-anchor="middle" x="156" y="-218.3" font-family="Times,serif" font-size="14.00" fill="#000000">Path</text>
-</g>
-<!-- Path&#45;&gt;ExistingPath -->
-<g id="edge1" class="edge">
-<title>Path&#45;&gt;ExistingPath</title>
-<path fill="none" stroke="#000000" d="M132.5863,-203.9735C115.7684,-191.0253 92.9118,-173.4276 74.4952,-159.2485"/>
-<polygon fill="#000000" stroke="#000000" points="76.4425,-156.3306 66.3837,-153.0034 72.1721,-161.8772 76.4425,-156.3306"/>
-</g>
-<!-- Path&#45;&gt;summary -->
-<g id="edge6" class="edge">
-<title>Path&#45;&gt;summary</title>
-<path fill="none" stroke="#000000" d="M156.9825,-203.8852C158.4568,-182.7326 161.9798,-146.8369 170,-117 176.7338,-91.9488 188.2962,-64.8156 197.4291,-45.3011"/>
-<polygon fill="#000000" stroke="#000000" points="200.6674,-46.6418 201.8151,-36.1093 194.3498,-43.6272 200.6674,-46.6418"/>
-<text text-anchor="middle" x="211" y="-138.8" font-family="Times,serif" font-size="14.00" fill="#000000">path_summary</text>
-<text text-anchor="middle" x="211" y="-123.8" font-family="Times,serif" font-size="14.00" fill="#000000">text_summary</text>
 </g>
 <!-- Object -->
 <g id="node3" class="node">
