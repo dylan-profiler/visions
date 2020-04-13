@@ -22,7 +22,7 @@
 <text text-anchor="middle" x="108" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">DateTime</text>
 </g>
 <!-- Time -->
-<g id="node6" class="node">
+<g id="node16" class="node">
 <title>Time</title>
 <polygon fill="none" stroke="#ff0000" points="99,-180 45,-180 45,-144 99,-144 99,-180"/>
 <text text-anchor="middle" x="72" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Time</text>
@@ -64,37 +64,31 @@
 <text text-anchor="middle" x="433" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">UUID</text>
 </g>
 <!-- IPAddress -->
-<g id="node7" class="node">
+<g id="node6" class="node">
 <title>IPAddress</title>
 <polygon fill="none" stroke="#ff0000" points="551.5,-180 478.5,-180 478.5,-144 551.5,-144 551.5,-180"/>
 <text text-anchor="middle" x="515" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">IPAddress</text>
 </g>
 <!-- Geometry -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>Geometry</title>
 <polygon fill="none" stroke="#ff0000" points="640.5,-180 569.5,-180 569.5,-144 640.5,-144 640.5,-180"/>
 <text text-anchor="middle" x="605" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Geometry</text>
 </g>
 <!-- Ordinal -->
-<g id="node9" class="node">
+<g id="node8" class="node">
 <title>Ordinal</title>
 <polygon fill="none" stroke="#ff0000" points="388,-180 330,-180 330,-144 388,-144 388,-180"/>
 <text text-anchor="middle" x="359" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Ordinal</text>
 </g>
 <!-- String -->
-<g id="node10" class="node">
+<g id="node9" class="node">
 <title>String</title>
 <polygon fill="none" stroke="#ff0000" points="713,-180 659,-180 659,-144 713,-144 713,-180"/>
 <text text-anchor="middle" x="686" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">String</text>
 </g>
-<!-- ImagePath -->
-<g id="node11" class="node">
-<title>ImagePath</title>
-<polygon fill="none" stroke="#ff0000" points="795.5,-36 720.5,-36 720.5,0 795.5,0 795.5,-36"/>
-<text text-anchor="middle" x="758" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">ImagePath</text>
-</g>
 <!-- Path -->
-<g id="node12" class="node">
+<g id="node10" class="node">
 <title>Path</title>
 <polygon fill="none" stroke="#ff0000" points="785,-180 731,-180 731,-144 785,-144 785,-180"/>
 <text text-anchor="middle" x="758" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Path</text>
@@ -111,20 +105,26 @@
 <path fill="none" stroke="#000000" d="M758,-143.8314C758,-136.131 758,-126.9743 758,-118.4166"/>
 <polygon fill="#000000" stroke="#000000" points="761.5001,-118.4132 758,-108.4133 754.5001,-118.4133 761.5001,-118.4132"/>
 </g>
+<!-- ImagePath -->
+<g id="node11" class="node">
+<title>ImagePath</title>
+<polygon fill="none" stroke="#ff0000" points="795.5,-36 720.5,-36 720.5,0 795.5,0 795.5,-36"/>
+<text text-anchor="middle" x="758" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">ImagePath</text>
+</g>
 <!-- TimeDelta -->
-<g id="node13" class="node">
+<g id="node12" class="node">
 <title>TimeDelta</title>
 <polygon fill="none" stroke="#ff0000" points="382.5,-252 307.5,-252 307.5,-216 382.5,-216 382.5,-252"/>
 <text text-anchor="middle" x="345" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">TimeDelta</text>
 </g>
 <!-- Boolean -->
-<g id="node14" class="node">
+<g id="node13" class="node">
 <title>Boolean</title>
 <polygon fill="none" stroke="#ff0000" points="462,-252 400,-252 400,-216 462,-216 462,-252"/>
 <text text-anchor="middle" x="431" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Boolean</text>
 </g>
 <!-- Categorical -->
-<g id="node15" class="node">
+<g id="node14" class="node">
 <title>Categorical</title>
 <polygon fill="none" stroke="#ff0000" points="559.5,-252 480.5,-252 480.5,-216 559.5,-216 559.5,-252"/>
 <text text-anchor="middle" x="520" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Categorical</text>
@@ -136,7 +136,7 @@
 <polygon fill="#000000" stroke="#000000" points="398.5568,-176.8117 388.0061,-175.8446 395.6509,-183.18 398.5568,-176.8117"/>
 </g>
 <!-- URL -->
-<g id="node16" class="node">
+<g id="node15" class="node">
 <title>URL</title>
 <polygon fill="none" stroke="#ff0000" points="857,-180 803,-180 803,-144 857,-144 857,-180"/>
 <text text-anchor="middle" x="830" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">URL</text>
