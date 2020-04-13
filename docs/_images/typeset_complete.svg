@@ -100,7 +100,7 @@
 <polygon fill="#000000" stroke="#000000" points="512.775,-261.0521 518.5397,-252.1628 508.4898,-255.5171 512.775,-261.0521"/>
 </g>
 <!-- DateTime -->
-<g id="node19" class="node">
+<g id="node20" class="node">
 <title>DateTime</title>
 <polygon fill="none" stroke="#ff0000" points="782.5,-252 711.5,-252 711.5,-216 782.5,-216 782.5,-252"/>
 <text text-anchor="middle" x="747" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">DateTime</text>
@@ -154,7 +154,7 @@
 <text text-anchor="middle" x="309" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">Categorical</text>
 </g>
 <!-- Ordinal -->
-<g id="node20" class="node">
+<g id="node19" class="node">
 <title>Ordinal</title>
 <polygon fill="none" stroke="#ff0000" points="58,-324 0,-324 0,-288 58,-288 58,-324"/>
 <text text-anchor="middle" x="29" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">Ordinal</text>
