@@ -21,27 +21,27 @@
 <polygon fill="none" stroke="#ff0000" points="143.5,-252 72.5,-252 72.5,-216 143.5,-216 143.5,-252"/>
 <text text-anchor="middle" x="108" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">DateTime</text>
 </g>
-<!-- Time -->
+<!-- Date -->
 <g id="node16" class="node">
-<title>Time</title>
+<title>Date</title>
 <polygon fill="none" stroke="#ff0000" points="99,-180 45,-180 45,-144 99,-144 99,-180"/>
-<text text-anchor="middle" x="72" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Time</text>
+<text text-anchor="middle" x="72" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Date</text>
 </g>
-<!-- DateTime&#45;&gt;Time -->
+<!-- DateTime&#45;&gt;Date -->
 <g id="edge1" class="edge">
-<title>DateTime&#45;&gt;Time</title>
+<title>DateTime&#45;&gt;Date</title>
 <path fill="none" stroke="#000000" d="M98.9157,-215.8314C94.9385,-207.8771 90.1845,-198.369 85.7861,-189.5723"/>
 <polygon fill="#000000" stroke="#000000" points="88.8093,-187.7923 81.2066,-180.4133 82.5483,-190.9228 88.8093,-187.7923"/>
 </g>
-<!-- Date -->
+<!-- Time -->
 <g id="node21" class="node">
-<title>Date</title>
+<title>Time</title>
 <polygon fill="none" stroke="#ff0000" points="171,-180 117,-180 117,-144 171,-144 171,-180"/>
-<text text-anchor="middle" x="144" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Date</text>
+<text text-anchor="middle" x="144" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Time</text>
 </g>
-<!-- DateTime&#45;&gt;Date -->
+<!-- DateTime&#45;&gt;Time -->
 <g id="edge2" class="edge">
-<title>DateTime&#45;&gt;Date</title>
+<title>DateTime&#45;&gt;Time</title>
 <path fill="none" stroke="#000000" d="M117.0843,-215.8314C121.0615,-207.8771 125.8155,-198.369 130.2139,-189.5723"/>
 <polygon fill="#000000" stroke="#000000" points="133.4517,-190.9228 134.7934,-180.4133 127.1907,-187.7923 133.4517,-190.9228"/>
 </g>
@@ -87,8 +87,14 @@
 <polygon fill="none" stroke="#ff0000" points="713,-180 659,-180 659,-144 713,-144 713,-180"/>
 <text text-anchor="middle" x="686" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">String</text>
 </g>
-<!-- Path -->
+<!-- ImagePath -->
 <g id="node10" class="node">
+<title>ImagePath</title>
+<polygon fill="none" stroke="#ff0000" points="795.5,-36 720.5,-36 720.5,0 795.5,0 795.5,-36"/>
+<text text-anchor="middle" x="758" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">ImagePath</text>
+</g>
+<!-- Path -->
+<g id="node11" class="node">
 <title>Path</title>
 <polygon fill="none" stroke="#ff0000" points="785,-180 731,-180 731,-144 785,-144 785,-180"/>
 <text text-anchor="middle" x="758" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Path</text>
@@ -104,12 +110,6 @@
 <title>Path&#45;&gt;ExistingPath</title>
 <path fill="none" stroke="#000000" d="M758,-143.8314C758,-136.131 758,-126.9743 758,-118.4166"/>
 <polygon fill="#000000" stroke="#000000" points="761.5001,-118.4132 758,-108.4133 754.5001,-118.4133 761.5001,-118.4132"/>
-</g>
-<!-- ImagePath -->
-<g id="node11" class="node">
-<title>ImagePath</title>
-<polygon fill="none" stroke="#ff0000" points="795.5,-36 720.5,-36 720.5,0 795.5,0 795.5,-36"/>
-<text text-anchor="middle" x="758" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">ImagePath</text>
 </g>
 <!-- TimeDelta -->
 <g id="node12" class="node">
