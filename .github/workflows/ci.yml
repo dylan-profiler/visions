@@ -30,23 +30,7 @@ jobs:
       name: Cache pip dependencies
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - uses: actions/cache@v1
-      name: Cache pip dev dependencies
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements_dev.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - uses: actions/cache@v1
-      name: Cache pip test dependencies
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements_test.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
