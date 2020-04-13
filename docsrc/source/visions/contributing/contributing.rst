@@ -56,8 +56,10 @@ Documentation
 
 Software should provide adequate documentation for beginning and advanced users.
 When you contribute, please check if your contribution requires some additional documentation.
+Documentation is written in ReStructuredText (.rst).
+You can find the source files in `docsrc\source\visions\`.
 
-The documentation is automatically generated after each contribution by our `Github Actions <https://github.com/dylan-profiler/visions/actions>` workflow.
+The documentation is automatically generated after each contribution by our `Github Actions <https://github.com/dylan-profiler/visions/actions>`_ workflow.
 
 If you like, you can manually generate the documentation by running:
 
