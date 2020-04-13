@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -283,7 +283,7 @@ from which all other types can be related.</p>
 used to invoke the operation. In practice this means two different typesets might infer or detect
 different types for the same series.</p>
 <p>Let’s take the example of two typesets: one including the integer type and one without.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
 <span class="o">&gt;&gt;&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_1</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Float</span><span class="p">])</span>
