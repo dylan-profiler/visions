@@ -36,7 +36,7 @@ def write_html(data):
     file_name.write_text(fc)
 
 
-def main():
+def write_circular_packing_files():
     typeset = CompleteSet()
     graph = typeset.base_graph.copy()
     nx.relabel_nodes(graph, {n: str(n) for n in graph.nodes}, copy=False)
@@ -50,4 +50,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    write_circular_packing_files()
