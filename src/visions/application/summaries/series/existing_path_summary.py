@@ -14,7 +14,7 @@ def existing_path_summary(series: pd.Series) -> dict:
     return summary
 
 
-def existing_path_hash_summary(series: pd.Series, hash_algorithm='md5') -> dict:
+def existing_path_hash_summary(series: pd.Series, hash_algorithm="md5") -> dict:
     """Include hash to summary
 
     Args:
@@ -31,7 +31,7 @@ def existing_path_hash_summary(series: pd.Series, hash_algorithm='md5') -> dict:
         hash = hashlib.new(hash_algorithm)
         chunk_size = 64000
         try:
-            with open(file_name, 'rb') as file:
+            with open(file_name, "rb") as file:
                 file_buffer = file.read(chunk_size)
                 while file_buffer:
                     hash.update(file_buffer)
@@ -40,5 +40,9 @@ def existing_path_hash_summary(series: pd.Series, hash_algorithm='md5') -> dict:
         except IOError:
             raise
 
-    summary = {"hashes_{}".format(hash_algorithm): series.map(lambda x: hash_file(x, hash_algorithm))}
+    summary = {
+        "hashes_{}".format(hash_algorithm): series.map(
+            lambda x: hash_file(x, hash_algorithm)
+        )
+    }
     return summary
