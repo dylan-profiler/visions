@@ -21,6 +21,9 @@ def get_character_counts(series) -> Counter:
 
 
 def counter_to_series(counter: Counter) -> pd.Series:
+    if not counter:
+        return pd.Series()
+    
     counter_as_tuples = counter.most_common()
     items, counts = zip(*counter_as_tuples)
     return pd.Series(counts, index=items)
