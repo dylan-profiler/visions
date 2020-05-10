@@ -37,7 +37,7 @@ def test_summarize_series():
     summary = summarize_series(brand_series, String, CompleteSummary())
 
     assert summary["n_unique"] == 4
-    assert summary["length"].to_dict() == {0: 11, 1:14, 2:10, 3: 7}
+    assert summary["length"].to_dict() == {0: 11, 1: 14, 2: 10, 3: 7}
     assert summary["max_length"] == 14
     assert summary["min_length"] == 7
     assert summary["mean_length"] == 10.5
@@ -45,35 +45,34 @@ def test_summarize_series():
     assert summary["n_characters"] == 20
 
     assert summary["category_alias_values"] == {
-            "H": "Uppercase_Letter",
-            "o": "Lowercase_Letter",
-            "n": "Lowercase_Letter",
-            "d": "Lowercase_Letter",
-            "a": "Lowercase_Letter",
-            " ": "Space_Separator",
-            "C": "Uppercase_Letter",
-            "i": "Lowercase_Letter",
-            "v": "Lowercase_Letter",
-            "c": "Lowercase_Letter",
-            "T": "Uppercase_Letter",
-            "y": "Lowercase_Letter",
-            "t": "Lowercase_Letter",
-            "r": "Lowercase_Letter",
-            "l": "Lowercase_Letter",
-            "F": "Uppercase_Letter",
-            "u": "Lowercase_Letter",
-            "s": "Lowercase_Letter",
-            "A": "Uppercase_Letter",
-            "4": "Decimal_Number",
-        }
+        "H": "Uppercase_Letter",
+        "o": "Lowercase_Letter",
+        "n": "Lowercase_Letter",
+        "d": "Lowercase_Letter",
+        "a": "Lowercase_Letter",
+        " ": "Space_Separator",
+        "C": "Uppercase_Letter",
+        "i": "Lowercase_Letter",
+        "v": "Lowercase_Letter",
+        "c": "Lowercase_Letter",
+        "T": "Uppercase_Letter",
+        "y": "Lowercase_Letter",
+        "t": "Lowercase_Letter",
+        "r": "Lowercase_Letter",
+        "l": "Lowercase_Letter",
+        "F": "Uppercase_Letter",
+        "u": "Lowercase_Letter",
+        "s": "Lowercase_Letter",
+        "A": "Uppercase_Letter",
+        "4": "Decimal_Number",
+    }
 
     assert summary["frequencies"] == {
-            "Audi A4": 1,
-            "Honda Civic": 1,
-            "Ford Focus": 1,
-            "Toyota Corolla": 1,
-        }
-
+        "Audi A4": 1,
+        "Honda Civic": 1,
+        "Ford Focus": 1,
+        "Toyota Corolla": 1,
+    }
 
     price_series = pd.Series([22000, 25000, 27000, 35000])
 

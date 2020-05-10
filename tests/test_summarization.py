@@ -32,7 +32,7 @@ def validate_summary_output(test_series, visions_type, correct_output, summary):
             metric=metric
         )
 
-        if isinstance(trial_output[metric] , pd.Series):
+        if isinstance(trial_output[metric], pd.Series):
             trial_output[metric] = trial_output[metric].to_dict()
 
         assert (
