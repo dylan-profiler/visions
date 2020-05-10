@@ -15,8 +15,8 @@ from visions.types import (
     Path,
     Date,
     Time,
-    ExistingPath,
-    ImagePath,
+    File,
+    Image,
     IPAddress,
     UUID,
 )
@@ -43,8 +43,8 @@ class CompleteSet(VisionsTypeset):
     - TimeDelta
     - Geometry
     - Path
-    - ExistingPath
-    - ImagePath
+    - File
+    - Image
     - URL
     - IPAddress
     - UUID
@@ -69,8 +69,8 @@ class CompleteSet(VisionsTypeset):
             Path,
             Date,
             Time,
-            ExistingPath,
-            ImagePath,
+            File,
+            Image,
             IPAddress,
             UUID,
         }

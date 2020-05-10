@@ -31,6 +31,10 @@ def validate_summary_output(test_series, visions_type, correct_output, summary):
         assert metric in trial_output, "Metric `{metric}` is missing".format(
             metric=metric
         )
+
+        if isinstance(trial_output[metric] , pd.Series):
+            trial_output[metric] = trial_output[metric].to_dict()
+
         assert (
             trial_output[metric] == result
         ), "Expected value {result} for metric `{metric}`, got {output}".format(

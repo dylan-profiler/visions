@@ -8,10 +8,10 @@ from visions.types.complex import Complex
 from visions.types.count import Count
 from visions.types.date import Date
 from visions.types.date_time import DateTime
-from visions.types.existing_path import ExistingPath
+from visions.types.file import File
 from visions.types.float import Float
 from visions.types.geometry import Geometry
-from visions.types.image_path import ImagePath
+from visions.types.image import Image
 from visions.types.integer import Integer
 from visions.types.ip_address import IPAddress
 from visions.types.object import Object
@@ -32,10 +32,10 @@ __all__ = [
     "Count",
     "Date",
     "DateTime",
-    "ExistingPath",
+    "File",
     "Float",
     "Geometry",
-    "ImagePath",
+    "Image",
     "Integer",
     "IPAddress",
     "Object",
