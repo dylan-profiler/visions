@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.url_summary &mdash; visions 0.4.1 documentation</title>
+  <title>visions.application.summaries.series.url_summary &mdash; visions 0.4.2 documentation</title>
   
 
   
@@ -189,14 +189,13 @@
 <span class="sd">    Returns:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scheme&quot;</span><span class="p">,</span> <span class="s2">&quot;netloc&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;fragment&quot;</span><span class="p">]</span>
-    <span class="n">url_parts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">series</span><span class="p">)))</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">url_parts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_counts&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-        <span class="p">)</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;scheme_counts&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+        <span class="s2">&quot;netloc_counts&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+        <span class="s2">&quot;path_counts&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+        <span class="s2">&quot;query_counts&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+        <span class="s2">&quot;fragment_counts&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fragment</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+    <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">summary</span></div>
 </pre></div>
