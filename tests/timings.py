@@ -3,6 +3,7 @@ from visions.utils.profiling import profile_type
 
 from tests.series import get_series, get_contains_map, get_convert_map
 
+
 def performance_report():
     series_dict = {s.name: s for s in get_series()}
     conv_map = get_contains_map()
