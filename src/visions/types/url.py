@@ -46,8 +46,9 @@ class URL(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    # TODO: find less expensive way of doing this
     @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         return all(
-            isinstance(x, ParseResult) and all((x.netloc, x.scheme)) for x in series
+            isinstance(x, ParseResult) and x.netloc and x.scheme for x in series
         )
