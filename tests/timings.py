@@ -1,6 +1,6 @@
 import pandas as pd
 from visions.utils.profiling import profile_type
-
+from visions import Generic
 from tests.series import get_series, get_contains_map, get_convert_map
 
 
@@ -12,4 +12,9 @@ def performance_report():
         test_series = {name: series_dict[name] for name in series_names}
         performance_list.extend(profile_type(type, test_series))
 
-    return pd.DataFrame.from_records(performance_list)
+    df = pd.DataFrame.from_records(performance_list)
+    df["type"] = df["type"].astype(str)
+    df["normed run time"] = (
+        df["average run time"] / df.loc[df["type"] != Generic, "average run time"].min()
+    )
+    return df
