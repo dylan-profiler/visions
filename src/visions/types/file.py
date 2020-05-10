@@ -14,12 +14,13 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     return relations
 
 
-class ExistingPath(VisionsBaseType):
-    """**Existing Path** implementation of :class:`visions.types.type.VisionsBaseType`.
+class File(VisionsBaseType):
+    """**File** implementation of :class:`visions.types.type.VisionsBaseType`.
+    (i.e. existing path)
 
     Examples:
         >>> x = pd.Series([pathlib.Path('/home/user/file.txt'), pathlib.Path('/home/user/test2.txt')])
-        >>> x in visions.ExistingPath
+        >>> x in visions.File
         True
     """
 
