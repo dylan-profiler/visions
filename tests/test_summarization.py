@@ -179,6 +179,13 @@ def test_string_summary(summary, visions_type=String):
     validate_summary_output(test_series, visions_type, correct_output, summary)
 
 
+def test_string_empty_summary(summary, visions_type=String):
+    test_series = pd.Series(["", "", ""])
+    correct_output = {"n_unique": 1, "n_records": 3}
+
+    validate_summary_output(test_series, visions_type, correct_output, summary)
+
+
 def test_url_summary(summary, visions_type=URL):
     test_series = pd.Series(
         [urlparse("http://ru.nl"), urlparse("http://ru.nl"), urlparse("http://nl.ru")]
