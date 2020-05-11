@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.text_summary &mdash; visions 0.4.3 documentation</title>
+  <title>visions.application.summaries.series.text_summary &mdash; visions 0.4.4 documentation</title>
   
 
   
@@ -277,6 +277,13 @@
     <span class="k">return</span> <span class="n">summary</span>
 
 
+<span class="k">def</span> <span class="nf">length_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">}</span>
+    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">named_aggregate_summary</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">summary</span>
+
+
 <div class="viewcode-block" id="text_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.text_summary.html#visions.application.summaries.series.text_summary">[docs]</a><span class="k">def</span> <span class="nf">text_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -287,11 +294,8 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Distribution of length</span>
-    <span class="n">length</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
-
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">}</span>
-
-    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">named_aggregate_summary</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">))</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">length_summary</span><span class="p">(</span><span class="n">series</span><span class="p">))</span>
     <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">unicode_summary</span><span class="p">(</span><span class="n">series</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">summary</span></div>
