@@ -98,6 +98,13 @@ def unicode_summary(series: pd.Series) -> dict:
     return summary
 
 
+def length_summary(series: pd.Series) -> dict:
+    length = series.str.len()
+    summary = {"length": length}
+    summary.update(named_aggregate_summary(length, "length"))
+    return summary
+
+
 def text_summary(series: pd.Series) -> dict:
     """
 
@@ -108,11 +115,8 @@ def text_summary(series: pd.Series) -> dict:
 
     """
     # Distribution of length
-    length = series.str.len()
-
-    summary = {"length": length}
-
-    summary.update(named_aggregate_summary(length, "length"))
+    summary = {}
+    summary.update(length_summary(series))
     summary.update(unicode_summary(series))
 
     return summary
