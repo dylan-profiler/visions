@@ -415,8 +415,8 @@ def get_contains_map():
         IPAddress: ["ip", "ip_mixed_v4andv6"],
         Ordinal: ["ordinal"],
         UUID: ["uuid_series"],
-        ExistingPath: ["file_test_py", "file_mixed_ext", "image_png"],
-        ImagePath: ["image_png"],
+        File: ["file_test_py", "file_mixed_ext", "image_png"],
+        Image: ["image_png"],
     }
 
     series_map[Object] = (
@@ -521,9 +521,9 @@ def infer_series_type_map():
         "uuid_series": UUID,
         "uuid_series_str": UUID,
         "ip_mixed_v4andv6": IPAddress,
-        "file_test_py": ExistingPath,
-        "file_mixed_ext": ExistingPath,
-        "image_png": ImagePath,
+        "file_test_py": File,
+        "file_mixed_ext": File,
+        "image_png": Image,
     }
 
 
