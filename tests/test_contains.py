@@ -38,4 +38,4 @@ def pytest_generate_tests(metafunc):
 
 
 def test_contains(series, type, member):
-    assert member == (series in type)
+    assert (series in type) == member

@@ -1,6 +1,7 @@
 import datetime
+import pathlib
 import uuid
-from ipaddress import IPv4Address
+from ipaddress import IPv4Address, IPv6Address
 from pathlib import PureWindowsPath, PurePosixPath
 from urllib.parse import urlparse
 import pandas as pd
@@ -283,7 +284,43 @@ def get_series():
         pd.Series([], name="empty_bool", dtype=bool),
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(
+            [IPv6Address("0:0:0:0:0:0:0:1"), IPv4Address("127.0.0.1")],
+            name="ip_mixed_v4andv6",
+        ),
         pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
+        # File
+        pd.Series(
+            [
+                pathlib.Path("series.py").absolute(),
+                pathlib.Path("test_contains.py").absolute(),
+                pathlib.Path("test_copy.py").absolute(),
+            ],
+            name="file_test_py",
+        ),
+        pd.Series(
+            [
+                pathlib.Path("../make.bat").absolute(),
+                pathlib.Path("../README.rst").absolute(),
+                pathlib.Path("test_copy.py").absolute(),
+            ],
+            name="file_mixed_ext",
+        ),
+        # Image
+        pd.Series(
+            [
+                pathlib.Path(
+                    r"../src/visions/visualisation/typesets/typeset_complete.png"
+                ).absolute(),
+                pathlib.Path(
+                    r"../src/visions/visualisation/typesets/typeset_standard.png"
+                ).absolute(),
+                pathlib.Path(
+                    r"../src/visions/visualisation/typesets/typeset_geometry.png"
+                ).absolute(),
+            ],
+            name="image_png",
+        ),
     ]
 
 
@@ -297,7 +334,13 @@ def get_contains_map():
             "int_series_boolean",
         ],
         Count: ["np_uint32"],
-        Path: ["path_series_linux", "path_series_windows"],
+        Path: [
+            "path_series_linux",
+            "path_series_windows",
+            "file_test_py",
+            "file_mixed_ext",
+            "image_png",
+        ],
         URL: ["url_series", "url_nan_series"],
         Float: [
             "float_series",
@@ -369,9 +412,11 @@ def get_contains_map():
             "uuid_series_str",
         ],
         Geometry: ["geometry_series"],
-        IPAddress: ["ip"],
+        IPAddress: ["ip", "ip_mixed_v4andv6"],
         Ordinal: ["ordinal"],
         UUID: ["uuid_series"],
+        ExistingPath: ["file_test_py", "file_mixed_ext", "image_png"],
+        ImagePath: ["image_png"],
     }
 
     series_map[Object] = (
@@ -475,6 +520,10 @@ def infer_series_type_map():
         "str_complex": Complex,
         "uuid_series": UUID,
         "uuid_series_str": UUID,
+        "ip_mixed_v4andv6": IPAddress,
+        "file_test_py": ExistingPath,
+        "file_mixed_ext": ExistingPath,
+        "image_png": ImagePath,
     }
 
 
