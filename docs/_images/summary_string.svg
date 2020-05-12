@@ -16,7 +16,7 @@
 <text text-anchor="middle" x="176.9375" y="-291.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
 </g>
 <!-- Object -->
-<g id="node2" class="node">
+<g id="node3" class="node">
 <title>Object</title>
 <polygon fill="none" stroke="#ff0000" points="141.9375,-240 87.9375,-240 87.9375,-204 141.9375,-204 141.9375,-240"/>
 <text text-anchor="middle" x="114.9375" y="-218.3" font-family="Times,serif" font-size="14.00" fill="#000000">Object</text>
@@ -44,10 +44,18 @@
 <text text-anchor="middle" x="275.9375" y="-159.8" font-family="Times,serif" font-size="14.00" fill="#000000">missing_summary</text>
 </g>
 <!-- String -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>String</title>
 <polygon fill="none" stroke="#ff0000" points="54.9375,-138 .9375,-138 .9375,-102 54.9375,-102 54.9375,-138"/>
 <text text-anchor="middle" x="27.9375" y="-116.3" font-family="Times,serif" font-size="14.00" fill="#000000">String</text>
+</g>
+<!-- String&#45;&gt;summary -->
+<g id="edge4" class="edge">
+<title>String&#45;&gt;summary</title>
+<path fill="none" stroke="#000000" d="M13.088,-101.8598C3.4828,-87.7934 -5.4603,-68.3435 4.9375,-54 12.9899,-42.892 43.7504,-33.3912 70.7021,-26.9436"/>
+<polygon fill="#000000" stroke="#000000" points="71.828,-30.2761 80.7898,-24.625 70.2599,-23.454 71.828,-30.2761"/>
+<text text-anchor="middle" x="52.9375" y="-72.8" font-family="Times,serif" font-size="14.00" fill="#000000">text_summary</text>
+<text text-anchor="middle" x="52.9375" y="-57.8" font-family="Times,serif" font-size="14.00" fill="#000000">unique_summary</text>
 </g>
 <!-- Object&#45;&gt;String -->
 <g id="edge2" class="edge">
@@ -61,14 +69,6 @@
 <path fill="none" stroke="#000000" d="M114.9375,-203.8964C114.9375,-168.2839 114.9375,-88.8929 114.9375,-46.2972"/>
 <polygon fill="#000000" stroke="#000000" points="118.4376,-46.063 114.9375,-36.0631 111.4376,-46.0631 118.4376,-46.063"/>
 <text text-anchor="middle" x="162.9375" y="-116.3" font-family="Times,serif" font-size="14.00" fill="#000000">unique_summary</text>
-</g>
-<!-- String&#45;&gt;summary -->
-<g id="edge4" class="edge">
-<title>String&#45;&gt;summary</title>
-<path fill="none" stroke="#000000" d="M13.088,-101.8598C3.4828,-87.7934 -5.4603,-68.3435 4.9375,-54 12.9899,-42.892 43.7504,-33.3912 70.7021,-26.9436"/>
-<polygon fill="#000000" stroke="#000000" points="71.828,-30.2761 80.7898,-24.625 70.2599,-23.454 71.828,-30.2761"/>
-<text text-anchor="middle" x="52.9375" y="-72.8" font-family="Times,serif" font-size="14.00" fill="#000000">text_summary</text>
-<text text-anchor="middle" x="52.9375" y="-57.8" font-family="Times,serif" font-size="14.00" fill="#000000">unique_summary</text>
 </g>
 </g>
 </svg>

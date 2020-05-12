@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.unique_summary &mdash; visions 0.4.1 documentation</title>
+  <title>visions.application.summaries.series.unique_summary &mdash; visions 0.4.4 documentation</title>
   
 
   
@@ -189,8 +189,7 @@
 <span class="sd">    Returns:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">nunique</span><span class="p">()})</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">nunique</span><span class="p">()}</span>
     <span class="k">return</span> <span class="n">summary</span></div>
 
 
@@ -200,15 +199,17 @@
 <span class="sd">    Args:</span>
 <span class="sd">        series: series to summarize</span>
 
+<span class="sd">    Notes:</span>
+<span class="sd">        Until complex bug is fixed:</span>
+<span class="sd">        - https://github.com/pandas-dev/pandas/issues/17927</span>
+<span class="sd">        - https://github.com/pandas-dev/pandas/pull/27599</span>
+
 <span class="sd">    Returns:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="c1"># Until complex bug is fixed:</span>
-    <span class="c1"># https://github.com/pandas-dev/pandas/issues/17927</span>
-    <span class="c1"># https://github.com/pandas-dev/pandas/pull/27599</span>
+
     <span class="n">n_unique</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
-    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">n_unique</span><span class="p">})</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">n_unique</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">summary</span>
 </pre></div>
 

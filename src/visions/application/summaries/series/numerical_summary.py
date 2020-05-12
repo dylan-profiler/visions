@@ -2,6 +2,17 @@ import numpy as np
 import pandas as pd
 
 
+def named_aggregate_summary(series: pd.Series, key: str):
+    summary = {
+        f"max_{key}": np.max(series),
+        f"mean_{key}": np.mean(series),
+        f"median_{key}": np.median(series),
+        f"min_{key}": np.min(series),
+    }
+
+    return summary
+
+
 def numerical_summary(series: pd.Series) -> dict:
     """
 

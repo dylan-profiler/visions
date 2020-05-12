@@ -31,6 +31,10 @@ def validate_summary_output(test_series, visions_type, correct_output, summary):
         assert metric in trial_output, "Metric `{metric}` is missing".format(
             metric=metric
         )
+
+        if isinstance(trial_output[metric], pd.Series):
+            trial_output[metric] = trial_output[metric].to_dict()
+
         assert (
             trial_output[metric] == result
         ), "Expected value {result} for metric `{metric}`, got {output}".format(
@@ -171,6 +175,13 @@ def test_string_missing_summary(summary, visions_type=String):
 def test_string_summary(summary, visions_type=String):
     test_series = pd.Series(["http://ru.nl", "http://ru.nl", "http://nl.ru"])
     correct_output = {"n_unique": 2, "n_records": 3}
+
+    validate_summary_output(test_series, visions_type, correct_output, summary)
+
+
+def test_string_empty_summary(summary, visions_type=String):
+    test_series = pd.Series(["", "", ""])
+    correct_output = {"n_unique": 1, "n_records": 3}
 
     validate_summary_output(test_series, visions_type, correct_output, summary)
 

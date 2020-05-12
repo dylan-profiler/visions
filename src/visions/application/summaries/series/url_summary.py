@@ -10,13 +10,12 @@ def url_summary(series: pd.Series) -> dict:
     Returns:
 
     """
-    summary = {}
-
-    keys = ["scheme", "netloc", "path", "query", "fragment"]
-    url_parts = dict(zip(keys, zip(*series)))
-    for name, part in url_parts.items():
-        summary["{}_counts".format(name.lower())] = (
-            pd.Series(part).value_counts().to_dict()
-        )
+    summary = {
+        "scheme_counts": series.map(lambda x: x.scheme).value_counts(),
+        "netloc_counts": series.map(lambda x: x.netloc).value_counts(),
+        "path_counts": series.map(lambda x: x.path).value_counts(),
+        "query_counts": series.map(lambda x: x.query).value_counts(),
+        "fragment_counts": series.map(lambda x: x.fragment).value_counts(),
+    }
 
     return summary

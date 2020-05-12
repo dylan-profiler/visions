@@ -16,10 +16,10 @@ class CompleteSummary(Summary):
             ],
             DateTime: [range_summary, unique_summary],
             Date: [],
-            ExistingPath: [existing_path_summary, path_summary, text_summary],
+            File: [file_summary, path_summary, text_summary],
             Float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
             Geometry: [],
-            ImagePath: [],
+            Image: [image_summary],
             Integer: [
                 infinite_summary,
                 numerical_summary,
