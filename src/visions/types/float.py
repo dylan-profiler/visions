@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
-from visions.types import VisionsBaseType
+from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.warning_handling import suppress_warnings
 

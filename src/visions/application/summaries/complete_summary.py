@@ -1,7 +1,7 @@
-from visions.application.summaries import *
-from visions.application.summaries.summary import Summary
 from visions.types import *
 from visions.typesets import CompleteSet
+from visions.application.summaries import *
+from visions.application.summaries.summary import Summary
 
 
 class CompleteSummary(Summary):
@@ -16,10 +16,10 @@ class CompleteSummary(Summary):
             ],
             DateTime: [range_summary, unique_summary],
             Date: [],
-            ExistingPath: [existing_path_summary, path_summary, text_summary],
+            File: [file_summary, path_summary, text_summary],
             Float: [infinite_summary, numerical_summary, zero_summary, unique_summary],
             Geometry: [],
-            ImagePath: [],
+            Image: [image_summary],
             Integer: [
                 infinite_summary,
                 numerical_summary,

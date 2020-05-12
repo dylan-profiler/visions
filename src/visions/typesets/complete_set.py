@@ -7,10 +7,11 @@ from visions.types import (
     Count,
     Date,
     DateTime,
-    ExistingPath,
+    EmailAddress,
+    File,
     Float,
     Geometry,
-    ImagePath,
+    Image,
     Integer,
     IPAddress,
     Object,
@@ -43,8 +44,8 @@ class CompleteSet(VisionsTypeset):
     - TimeDelta
     - Geometry
     - Path
-    - ExistingPath
-    - ImagePath
+    - File
+    - Image
     - URL
     - IPAddress
     - UUID
@@ -69,8 +70,8 @@ class CompleteSet(VisionsTypeset):
             Path,
             Date,
             Time,
-            ExistingPath,
-            ImagePath,
+            File,
+            Image,
             IPAddress,
             UUID,
         }

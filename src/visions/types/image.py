@@ -4,22 +4,23 @@ from typing import Sequence
 
 import pandas as pd
 from visions.relations import IdentityRelation, TypeRelation
-from visions.types import VisionsBaseType
+from visions.types.type import VisionsBaseType
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import ExistingPath
+    from visions.types import File
 
-    relations = [IdentityRelation(cls, ExistingPath)]
+    relations = [IdentityRelation(cls, File)]
     return relations
 
 
-class ImagePath(VisionsBaseType):
-    """**Image Path** implementation of :class:`visions.types.type.VisionsBaseType`.
+class Image(VisionsBaseType):
+    """**Image** implementation of :class:`visions.types.type.VisionsBaseType`.
+    (i.e. series with all image files)
 
     Examples:
         >>> x = pd.Series([Path('/home/user/file.png'), Path('/home/user/test2.jpg')])
-        >>> x in visions.ImagePath
+        >>> x in visions.Image
         True
     """
 

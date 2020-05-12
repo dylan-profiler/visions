@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
-from visions.types import VisionsBaseType
 from visions.types.float import test_is_float
+from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 

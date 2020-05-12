@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from visions.application.summaries.complete_summary import CompleteSummary
-from visions.types import DateTime, ExistingPath, Integer, String
+from visions.types import DateTime, File, Integer, String
 
 
 def generate_summary_plots():
@@ -17,7 +17,7 @@ def generate_summary_plots():
     summary.plot(summaries_dir / "summary_integer.svg", Integer)
     summary.plot(summaries_dir / "summary_string.svg", String)
     summary.plot(summaries_dir / "summary_datetime.svg", DateTime)
-    summary.plot(summaries_dir / "summary_existing_path.svg", ExistingPath)
+    summary.plot(summaries_dir / "summary_file.svg", File)
 
 
 if __name__ == "__main__":
