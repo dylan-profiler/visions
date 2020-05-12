@@ -13,7 +13,11 @@ def performance_report(membership=True):
             test_series = {name: series_dict[name] for name in series_names}
         else:
             # False: "series in type"
-            test_series = {name: series_dict[name] for name in series_dict.keys() if name not in series_names}
+            test_series = {
+                name: series_dict[name]
+                for name in series_dict.keys()
+                if name not in series_names
+            }
         performance_list.extend(profile_type(type, test_series))
 
     df = pd.DataFrame.from_records(performance_list)
