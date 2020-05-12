@@ -1,8 +1,7 @@
 from typing import Sequence
-from urllib.parse import urlparse, ParseResult
+from urllib.parse import ParseResult, urlparse
 
 import pandas as pd
-
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import nullable_series_contains

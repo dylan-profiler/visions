@@ -1,7 +1,7 @@
+from visions.application.summaries import *
+from visions.application.summaries.summary import Summary
 from visions.types import *
 from visions.typesets import CompleteSet
-from visions.application.summaries.summary import Summary
-from visions.application.summaries import *
 
 
 class CompleteSummary(Summary):

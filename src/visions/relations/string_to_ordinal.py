@@ -1,5 +1,4 @@
 import pandas as pd
-
 from visions.relations.relations import InferenceRelation
 from visions.types.ordinal import to_ordinal
 

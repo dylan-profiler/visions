@@ -1,12 +1,11 @@
 import warnings
 from pathlib import Path
-from typing import Type, Tuple, List, Dict, Iterable, Optional, Union
+from typing import Dict, Iterable, List, Optional, Tuple, Type, Union
 
-import pandas as pd
 import networkx as nx
-
-from visions.types.type import VisionsBaseType
+import pandas as pd
 from visions.types.generic import Generic
+from visions.types.type import VisionsBaseType
 
 
 def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:

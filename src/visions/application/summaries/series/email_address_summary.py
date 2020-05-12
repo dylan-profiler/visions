@@ -10,12 +10,7 @@ def email_address_summary(series: pd.Series) -> dict:
         local.append(v.local)
         fqdn.append(v.fqdn)
 
-    summary["local_counts"] = (
-        pd.Series(local).value_counts().to_dict()
-    )
-    summary["fqdn_counts"] = (
-        pd.Series(fqdn).value_counts().to_dict()
-    )
+    summary["local_counts"] = pd.Series(local).value_counts().to_dict()
+    summary["fqdn_counts"] = pd.Series(fqdn).value_counts().to_dict()
 
     return summary
-

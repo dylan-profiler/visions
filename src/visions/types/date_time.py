@@ -1,8 +1,7 @@
 from typing import Sequence
 
-import pandas.api.types as pdt
 import pandas as pd
-
+import pandas.api.types as pdt
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import VisionsBaseType
 from visions.utils.coercion import test_utils

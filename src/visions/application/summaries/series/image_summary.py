@@ -1,13 +1,12 @@
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 import pandas as pd
-
 from visions.utils.images.image_utils import (
-    open_image,
-    is_image_truncated,
     extract_exif,
     hash_image,
+    is_image_truncated,
+    open_image,
 )
 
 

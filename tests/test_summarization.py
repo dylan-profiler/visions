@@ -1,22 +1,22 @@
-from urllib.parse import urlparse
 import datetime
-import pytest
-import pandas as pd
-import numpy as np
+from urllib.parse import urlparse
 
+import numpy as np
+import pandas as pd
+import pytest
+from visions.application.summaries import CompleteSummary
 from visions.types import (
-    Integer,
-    Float,
+    URL,
     Boolean,
     Categorical,
     Complex,
     DateTime,
-    Object,
+    Float,
     Geometry,
+    Integer,
+    Object,
     String,
-    URL,
 )
-from visions.application.summaries import CompleteSummary
 
 
 @pytest.fixture(scope="class")

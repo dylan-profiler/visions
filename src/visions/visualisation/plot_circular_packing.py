@@ -4,7 +4,6 @@ from pathlib import Path
 
 import networkx as nx
 from networkx.readwrite import json_graph
-
 from visions.typesets import CompleteSet
 
 

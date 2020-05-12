@@ -1,7 +1,6 @@
-from typing import Dict, Type, List, Tuple
+from typing import Dict, List, Tuple, Type
 
 import pandas as pd
-
 from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 

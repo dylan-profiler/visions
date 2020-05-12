@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
-
-from visions.types import Integer
 from visions.relations.relations import InferenceRelation
+from visions.types import Integer
 
 
 def is_unsigned_int(series: pd.Series) -> bool:

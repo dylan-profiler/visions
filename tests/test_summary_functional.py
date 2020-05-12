@@ -1,13 +1,12 @@
-import pandas as pd
 import numpy as np
-
+import pandas as pd
+from visions.application.summaries import CompleteSummary
 from visions.application.summaries.functional import (
+    summarize,
     summarize_frame,
     summarize_series,
-    summarize,
 )
-from visions.application.summaries import CompleteSummary
-from visions.types import String, Integer
+from visions.types import Integer, String
 
 
 def test_summarize_frame():

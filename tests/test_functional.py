@@ -1,16 +1,16 @@
-import pandas as pd
-import numpy as np
 import datetime
 
+import numpy as np
+import pandas as pd
 from visions.functional import (
-    infer_frame_type,
-    infer_series_type,
     cast_frame,
     cast_series,
     detect_frame_type,
     detect_series_type,
+    infer_frame_type,
+    infer_series_type,
 )
-from visions.types import String, Integer, DateTime, Complex
+from visions.types import Complex, DateTime, Integer, String
 from visions.typesets import CompleteSet, StandardSet
 
 

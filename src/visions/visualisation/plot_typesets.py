@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from visions.typesets import CompleteSet, StandardSet, GeometrySet
+from visions.typesets import CompleteSet, GeometrySet, StandardSet
 
 # Windows Note
 # Tip for Python3/64-bit compatible version of pygraphviz

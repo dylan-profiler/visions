@@ -1,12 +1,11 @@
 from typing import Sequence
 
-import pandas.api.types as pdt
-import pandas as pd
 import numpy as np
-
-from visions.types.float import test_is_float
+import pandas as pd
+import pandas.api.types as pdt
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import VisionsBaseType
+from visions.types.float import test_is_float
 from visions.utils.coercion import test_utils
 
 

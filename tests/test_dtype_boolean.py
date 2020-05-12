@@ -1,7 +1,6 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 import pytest
-
 from visions.dtypes.boolean import BoolDtype
 
 
