@@ -13,10 +13,11 @@ def to_date(series):
     # time_val_map = {"hour": 0, "minute": 0, "second": 0}
     # return all(
     #     type(v) == date for v in temp_series
-        # all(getattr(temp_series, time_part).eq(val))
-        # for time_part, val in time_val_map.items()
+    # all(getattr(temp_series, time_part).eq(val))
+    # for time_part, val in time_val_map.items()
     # )
     return series
+
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions.types import DateTime
@@ -55,6 +56,4 @@ class Date(VisionsBaseType):
             return False
 
         temp_series = series.dropna()
-        return all(
-            type(v) == date for v in temp_series
-        )
+        return all(type(v) == date for v in temp_series)

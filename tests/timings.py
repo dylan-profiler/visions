@@ -14,7 +14,10 @@ def performance_report():
 
     df = pd.DataFrame.from_records(performance_list)
     df["type"] = df["type"].astype(str)
-    df["normed run time"] = (
-        df["average run time"] / df.loc[df["type"] != Generic, "average run time"].min()
-    )
+    slow_df = df.groupby("type").min().reset_index()[["type", "series"]]
+    slow_df.rename(columns={"series": "slowest test"}, inplace=True)
+
+    df["normed run time"] = df["average run time"] / df["average run time"].min()
+    df = df.groupby("type")["normed run time"].describe().sort_values("50%")
+    df = pd.merge(df, slow_df, on="type", how="left")
     return df
