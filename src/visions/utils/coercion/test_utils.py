@@ -5,6 +5,17 @@ from typing import Callable, Union, List, Dict, Optional
 import pandas as pd
 
 
+def isinstance_attrs(series, class_name, attrs: list, sample_size=1):
+    # Head or Sample
+    if not all(isinstance(x, class_name) for x in series.head(sample_size)):
+        return False
+
+    try:
+        return all(all(getattr(x, attr) for attr in attrs) for x in series)
+    except AttributeError:
+        return False
+
+
 def option_coercion_evaluator(method: Callable) -> Callable:
     """A coercion test evaluator
 
