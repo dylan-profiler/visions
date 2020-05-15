@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-import big_o
 from visions.utils.profiling import (
     profile_type,
     profile_relation_is_relation,
@@ -9,7 +7,6 @@ from visions.utils.profiling import (
 from tests.series import (
     get_series,
     get_contains_map,
-    infer_series_type_map,
     get_convert_map,
 )
 
@@ -26,7 +23,7 @@ def performance_report(membership=True):
         else:
             # False: "series in type"
             test_series = {
-                s.name: s for s in series_dict.values() if s.name not in names
+                s.name: s for s in series_dict.values() if s.name not in series_names
             }
 
         performance_list.extend(profile_type(type, test_series))
