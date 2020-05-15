@@ -1,23 +1,17 @@
 import pandas as pd
 import numpy as np
 import big_o
-from visions.utils.profiling import profile_type
-from tests.series import get_series, get_contains_map
-
-
-def big_o_tester(type):
-    def inner(test_series):
-        try:
-            res = big_o.big_o(
-                lambda x: x in type,
-                lambda n: test_series[0:n],
-                max_n=test_series.shape[0],
-            )
-            return res[0]
-        except np.linalg.LinAlgError:
-            return np.nan
-
-    return inner
+from visions.utils.profiling import (
+    profile_type,
+    profile_relation_is_relation,
+    profile_relation_transform,
+)
+from tests.series import (
+    get_series,
+    get_contains_map,
+    infer_series_type_map,
+    get_convert_map,
+)
 
 
 def performance_report(membership=True):
@@ -32,10 +26,9 @@ def performance_report(membership=True):
         else:
             # False: "series in type"
             test_series = {
-                name: series_dict[name]
-                for name in series_dict.keys()
-                if name not in series_names
+                s.name: s for s in series_dict.values() if s.name not in names
             }
+
         performance_list.extend(profile_type(type, test_series))
 
     df = pd.DataFrame.from_records(performance_list)
@@ -55,4 +48,72 @@ def performance_report(membership=True):
     df["normed run time"] = df["average run time"] / df["average run time"].min()
     df = df.groupby("type")["normed run time"].describe().sort_values("50%")
     df = pd.merge(df, agg_df, on="type", how="left")
+    return df
+
+
+def get_relation(to_type, from_type):
+    return next(
+        relation for relation in to_type.relations if relation.related_type is from_type
+    )
+
+
+def relations_is_relation_test():
+    convert_map = get_convert_map()
+    relation_tests = {
+        get_relation(*conversions[0:2]): conversions[2] for conversions in convert_map
+    }
+
+    series_dict = {s.name: s for s in get_series()}
+    performance_list = []
+    for relation, names in relation_tests.items():
+        test_series = {name: series_dict[name] for name in names}
+        performance_list.extend(profile_relation_is_relation(relation, test_series))
+    df = pd.DataFrame.from_records(performance_list)
+    grouper = "relation"
+    df[grouper] = df[grouper].astype(str)
+    aggs = ["min", "max"]
+    agg_labels = ["worst", "best"]
+    summary_cols = ["series", "big O"]
+    agg_df = df.groupby(grouper).agg(aggs).reset_index()[[grouper] + summary_cols]
+    agg_df.columns = ["_".join(col).strip("_") for col in agg_df.columns]
+    colrenames = {
+        f"{name}_{agg}": f"{rename} {name}"
+        for name in summary_cols
+        for agg, rename in zip(aggs, agg_labels)
+    }
+    agg_df.rename(columns=colrenames, inplace=True)
+    df["normed run time"] = df["average run time"] / df["average run time"].min()
+    df = df.groupby(grouper)["normed run time"].describe().sort_values("50%")
+    df = pd.merge(df, agg_df, on=grouper, how="left")
+    return df
+
+
+def relations_transform_test():
+    convert_map = get_convert_map()
+    relation_tests = {
+        get_relation(*conversions[0:2]): conversions[2] for conversions in convert_map
+    }
+
+    series_dict = {s.name: s for s in get_series()}
+    performance_list = []
+    for relation, names in relation_tests.items():
+        test_series = {name: series_dict[name] for name in names}
+        performance_list.extend(profile_relation_transform(relation, test_series))
+    df = pd.DataFrame.from_records(performance_list)
+    grouper = "relation"
+    df[grouper] = df[grouper].astype(str)
+    aggs = ["min", "max"]
+    agg_labels = ["worst", "best"]
+    summary_cols = ["series", "big O"]
+    agg_df = df.groupby(grouper).agg(aggs).reset_index()[[grouper] + summary_cols]
+    agg_df.columns = ["_".join(col).strip("_") for col in agg_df.columns]
+    colrenames = {
+        f"{name}_{agg}": f"{rename} {name}"
+        for name in summary_cols
+        for agg, rename in zip(aggs, agg_labels)
+    }
+    agg_df.rename(columns=colrenames, inplace=True)
+    df["normed run time"] = df["average run time"] / df["average run time"].min()
+    df = df.groupby(grouper)["normed run time"].describe().sort_values("50%")
+    df = pd.merge(df, agg_df, on=grouper, how="left")
     return df
