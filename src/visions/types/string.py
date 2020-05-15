@@ -32,6 +32,9 @@ class String(VisionsBaseType):
         if not pdt.is_object_dtype(series):
             return False
 
+        if pdt.is_string_dtype(series):
+            return True
+
         # TODO: also short-circuit with NaNs
         if series.hasnans:
             series = series.dropna()

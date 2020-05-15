@@ -52,4 +52,10 @@ class URL(VisionsBaseType):
             if series.empty:
                 return False
 
-        return all(isinstance(x, ParseResult) and x.netloc and x.scheme for x in series)
+        # return all(isinstance(x, ParseResult) and x.netloc and x.scheme for x in series)
+        try:
+            return isinstance(series.iloc[0], ParseResult) and all(
+                x.netloc and x.scheme for x in series
+            )
+        except AttributeError:
+            return False

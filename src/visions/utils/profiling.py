@@ -7,10 +7,10 @@ import big_o
 def big_o_tester(test_func):
     def inner(test_series):
         try:
-            res = big_o.big_o(
+            best, _ = big_o.big_o(
                 test_func, lambda n: test_series[0:n], max_n=test_series.shape[0]
             )
-            return res[0]
+            return best
         except np.linalg.LinAlgError:
             return np.nan
 
