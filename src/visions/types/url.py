@@ -10,7 +10,7 @@ from visions.utils.series_utils import nullable_series_contains
 
 def test_url(series) -> bool:
     try:
-        return to_url(series).apply(lambda x: all((x.netloc, x.scheme))).all()
+        return to_url(series).apply(lambda x: x.netloc and x.scheme).all()
     except AttributeError:
         return False
 

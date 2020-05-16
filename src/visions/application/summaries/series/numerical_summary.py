@@ -13,7 +13,17 @@ def named_aggregate_summary(series: pd.Series, key: str):
     return summary
 
 
-def numerical_summary(series: pd.Series) -> dict:
+def mad(arr, m=None):
+    """ Median Absolute Deviation: a "Robust" version of standard deviation.
+        Indices variability of the sample.
+        https://en.wikipedia.org/wiki/Median_absolute_deviation
+    """
+    if m is None:
+        m = np.median(arr)
+    return np.median(np.abs(arr - m))
+
+
+def numerical_summary(series: pd.Series, quantiles=(0.05, 0.25, 0.5, 0.75, 0.95), count=None, is_unique=None) -> dict:
     """
 
     Args:
@@ -22,35 +32,40 @@ def numerical_summary(series: pd.Series) -> dict:
     Returns:
 
     """
-    aggregates = [
-        "mean",
-        "std",
-        "var",
-        "max",
-        "min",
-        "median",
-        "kurt",
-        "skew",
-        "sum",
-        "mad",
-    ]
-    summary = series.agg(aggregates).to_dict()
 
-    quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
+    values = series.values
+    present_values = values[~np.isnan(values)]
+    finite_mask = np.isfinite(present_values)
+    finite_values = present_values[finite_mask]
+
+    summary = {
+        "mean": np.mean(present_values),
+        "std": np.std(present_values, ddof=1),
+        "min": np.min(present_values),
+        "max": np.max(present_values),
+        # Unbiased kurtosis obtained using Fisher's definition (kurtosis of normal == 0.0). Normalized by N-1.
+        "kurtosis": series.kurt(),
+        # Unbiased skew normalized by N-1
+        "skewness": series.skew(),
+        "sum": np.sum(present_values),
+        "n_infinite": (~finite_mask).sum(),
+        "n_zeros": (count - np.count_nonzero(present_values)),
+    }
+
     for percentile, value in series.quantile(quantiles).to_dict().items():
         summary["quantile_{:d}".format(int(percentile * 100))] = value
     summary["iqr"] = summary["quantile_75"] - summary["quantile_25"]
 
-    summary["range"] = summary["max"] - summary["min"]
+    summary["mad"] = mad(present_values, summary["quantile_50"])
+    summary["variance"] = summary["std"] ** 2
     summary["cv"] = summary["std"] / summary["mean"] if summary["mean"] else np.NaN
+    summary["range"] = summary["max"] - summary["min"]
 
     summary["monotonic_increase"] = series.is_monotonic_increasing
     summary["monotonic_decrease"] = series.is_monotonic_decreasing
 
-    # TODO: need access to n_unique
-    # summary['monotonic_increase_strict'] = summary['monotonic_increase'] and summary['unique']
-    # summary['monotonic_decrease_strict'] = summary['monotonic_increase'] and summary['unique']
+    if is_unique is not None:
+        summary['monotonic_increase_strict'] = summary['monotonic_increase'] and is_unique
+        summary['monotonic_decrease_strict'] = summary['monotonic_increase'] and is_unique
 
-    # TODO: only calculations for histogram, not the plotting
-    # summary['image'] = plotting.histogram(series)
-    return summary
+    return summary, finite_values
