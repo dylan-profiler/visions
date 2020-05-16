@@ -23,7 +23,12 @@ def mad(arr, m=None):
     return np.median(np.abs(arr - m))
 
 
-def numerical_summary(series: pd.Series, quantiles=(0.05, 0.25, 0.5, 0.75, 0.95), count=None, is_unique=None) -> dict:
+def numerical_summary(
+    series: pd.Series,
+    quantiles=(0.05, 0.25, 0.5, 0.75, 0.95),
+    count=None,
+    is_unique=None,
+) -> dict:
     """
 
     Args:
@@ -65,7 +70,11 @@ def numerical_summary(series: pd.Series, quantiles=(0.05, 0.25, 0.5, 0.75, 0.95)
     summary["monotonic_decrease"] = series.is_monotonic_decreasing
 
     if is_unique is not None:
-        summary['monotonic_increase_strict'] = summary['monotonic_increase'] and is_unique
-        summary['monotonic_decrease_strict'] = summary['monotonic_increase'] and is_unique
+        summary["monotonic_increase_strict"] = (
+            summary["monotonic_increase"] and is_unique
+        )
+        summary["monotonic_decrease_strict"] = (
+            summary["monotonic_increase"] and is_unique
+        )
 
     return summary, finite_values
