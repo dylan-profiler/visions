@@ -3,7 +3,9 @@ from typing import Any, Dict, Type
 import networkx as nx
 import pandas as pd
 
-from visions.application.summaries import *
+from visions.application.summaries.frame.dataframe_summary import (
+    dataframe_summary,
+)
 from visions.application.summaries.frame.dataframe_series_summary import (
     dataframe_series_summary,
 )

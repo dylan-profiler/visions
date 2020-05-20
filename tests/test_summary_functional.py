@@ -78,17 +78,17 @@ def test_summarize_series():
 
     summary = summarize_series(price_series, Integer, CompleteSummary())
     assert summary == {
-        "inf_count": 0,
+        "n_infinite": 0,
         "mean": 27250.0,
         "std": 5560.275772537426,
-        "var": 30916666.666666668,
+        "variance": 30916666.666666668,
         "max": 35000.0,
         "min": 22000.0,
         "median": 26000.0,
         "kurt": 1.8192544372679649,
         "skew": 1.19978923754086,
         "sum": 109000.0,
-        "mad": 3875.0,
+        "mad": 2500.0,
         "quantile_5": 22450.0,
         "quantile_25": 24250.0,
         "quantile_50": 26000.0,
@@ -98,6 +98,7 @@ def test_summarize_series():
         "range": 13000.0,
         "cv": 0.20404681734082297,
         "n_zeros": 0,
+        "is_unique": True,
         "n_unique": 4,
         "frequencies": {27000: 1, 35000: 1, 25000: 1, 22000: 1},
         "n_records": 4,
@@ -106,7 +107,9 @@ def test_summarize_series():
         "types": {"int": 4},
         "na_count": 0,
         "monotonic_decrease": False,
+        "monotonic_decrease_strict": False,
         "monotonic_increase": True,
+        "monotonic_increase_strict": True,
     }
 
 

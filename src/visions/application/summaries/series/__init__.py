@@ -2,7 +2,6 @@ from visions.application.summaries.series.base_summary import base_summary
 from visions.application.summaries.series.category_summary import category_summary
 from visions.application.summaries.series.file_summary import file_summary
 from visions.application.summaries.series.image_summary import image_summary
-from visions.application.summaries.series.infinite_summary import infinite_summary
 from visions.application.summaries.series.missing_summary import missing_summary
 from visions.application.summaries.series.numerical_basic_summary import (
     numerical_basic_summary,
