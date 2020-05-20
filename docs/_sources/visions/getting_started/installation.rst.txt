@@ -18,7 +18,7 @@ This is great for experimenting, however once you have settled on a set of types
 It is possible to obtain a more lightweight installation by installing only the specific dependencies you really need:
 
 * `type_geometry` for `Geometry`
-* `type_image_path` for `Image`
+* `type_image_path` for `ImagePath`
 
 .. code-block:: console
 

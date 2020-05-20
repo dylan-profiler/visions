@@ -16,7 +16,7 @@
 <text text-anchor="middle" x="55.5" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
 </g>
 <!-- Integer -->
-<g id="node2" class="node">
+<g id="node1" class="node">
 <title>Integer</title>
 <polygon fill="none" stroke="#ff0000" points="55,-108 0,-108 0,-72 55,-72 55,-108"/>
 <text text-anchor="middle" x="27.5" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">Integer</text>
@@ -44,6 +44,26 @@
 <title>Integer&#45;&gt;summary</title>
 <path fill="none" stroke="#000000" d="M34.5656,-71.8314C37.626,-63.9617 41.2779,-54.5712 44.6682,-45.8533"/>
 <polygon fill="#000000" stroke="#000000" points="47.9768,-47.0019 48.3393,-36.4133 41.4527,-44.4647 47.9768,-47.0019"/>
+</g>
+<!-- Generic -->
+<g id="node2" class="node">
+<title>Generic</title>
+<polygon fill="none" stroke="#ff0000" points="134.3173,-241 75.3173,-241 75.3173,-205 134.3173,-205 134.3173,-241"/>
+<text text-anchor="middle" x="104.8173" y="-219.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
+</g>
+<!-- Generic&#45;&gt;Integer -->
+<g id="edge1" class="edge">
+<title>Generic&#45;&gt;Integer</title>
+<path fill="none" stroke="#000000" d="M88.9971,-204.9551C81.3047,-196.1809 71.9195,-185.4759 63.483,-175.853"/>
+<polygon fill="#000000" stroke="#000000" points="65.9015,-173.3024 56.6774,-168.0904 60.6379,-177.9171 65.9015,-173.3024"/>
+</g>
+<!-- Generic&#45;&gt;summary -->
+<g id="edge3" class="edge">
+<title>Generic&#45;&gt;summary</title>
+<path fill="none" stroke="#000000" d="M113.0376,-204.7632C126.3188,-172.3954 148.5414,-103.6455 122.8173,-54 120.4474,-49.4262 117.1993,-45.3098 113.481,-41.6386"/>
+<polygon fill="#000000" stroke="#000000" points="115.7341,-38.9601 105.858,-35.1242 111.1865,-44.2817 115.7341,-38.9601"/>
+<text text-anchor="middle" x="183.8173" y="-153.8" font-family="Times,serif" font-size="14.00" fill="#000000">base_summary</text>
+<text text-anchor="middle" x="183.8173" y="-138.8" font-family="Times,serif" font-size="14.00" fill="#000000">missing_summary</text>
 </g>
 </g>
 </svg>

@@ -1,6 +1,6 @@
 import pytest
 
-from tests.series import get_series, get_contains_map
+from tests.series import get_contains_map, get_series
 
 
 def all_series_included(series_list, series_map):

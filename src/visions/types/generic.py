@@ -2,8 +2,8 @@ from typing import Sequence
 
 import pandas as pd
 
-from visions.types import VisionsBaseType
 from visions.relations import TypeRelation
+from visions.types.type import VisionsBaseType
 
 
 class Generic(VisionsBaseType):

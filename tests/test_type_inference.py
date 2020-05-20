@@ -1,11 +1,12 @@
 import pytest
 
-from visions.typesets import CompleteSet
-from visions.types import Generic
 from tests.series import get_series, infer_series_type_map
-
+from visions import EmailAddress
+from visions.types import Generic
+from visions.typesets import CompleteSet
 
 typeset = CompleteSet()
+typeset += EmailAddress
 
 
 def pytest_generate_tests(metafunc):

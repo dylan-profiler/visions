@@ -1,6 +1,6 @@
-from visions.types.date_time import DateTime
 from visions.relations import IdentityRelation, TypeRelation
 from visions.relations.integer_to_datetime import integer_to_datetime_year_month_day
+from visions.types.date_time import DateTime
 from visions.types.integer import Integer
 
 

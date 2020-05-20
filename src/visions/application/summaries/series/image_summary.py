@@ -2,15 +2,15 @@ from functools import partial
 from pathlib import Path
 
 import pandas as pd
+
 from visions.application.summaries.series.numerical_summary import (
     named_aggregate_summary,
 )
-
 from visions.utils.images.image_utils import (
-    open_image,
-    is_image_truncated,
     extract_exif,
     hash_image,
+    is_image_truncated,
+    open_image,
 )
 
 
