@@ -7,9 +7,8 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 from shapely import wkt
+
 from visions.types import (
-    URL,
-    UUID,
     Boolean,
     Categorical,
     Complex,
@@ -30,6 +29,8 @@ from visions.types import (
     String,
     Time,
     TimeDelta,
+    URL,
+    UUID,
 )
 from visions.types.email_address import FQDA
 
@@ -277,6 +278,18 @@ def get_series():
         pd.Series([pd, wkt, np], name="module"),
         pd.Series(["1.1", "2"], name="textual_float"),
         pd.Series(["1.1", "2", "NAN"], name="textual_float_nan"),
+        # Object (Mixed, https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.api.types.infer_dtype.html)
+        pd.Series(["a", 1], name="mixed_integer"),
+        pd.Series([True, False, np.nan], name="mixed"),
+        pd.Series([[True], [False], [False]], name="mixed_list"),
+        pd.Series([[1, ""], [2, "Rubin"], [3, "Carter"]], name="mixed_list[str,int]"),
+        pd.Series(
+            [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
+            name="mixed_dict",
+        ),
+        # IP
+        pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
         # Empty
         pd.Series([], name="empty"),
         pd.Series([], name="empty_float", dtype=float),
@@ -473,6 +486,9 @@ def infer_series_type_map():
         "url_nan_series": URL,
         "mixed_list[str,int]": Object,
         "mixed_dict": Object,
+        "mixed_integer": Object,
+        "mixed_list": Object,
+        "mixed": Object,
         "callable": Object,
         "module": Object,
         "textual_float": Float,
