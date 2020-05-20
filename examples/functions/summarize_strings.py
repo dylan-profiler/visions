@@ -1,4 +1,5 @@
 import pandas as pd
+
 from visions.application.summaries import CompleteSummary
 from visions.functional import detect_frame_type
 from visions.typesets import CompleteSet

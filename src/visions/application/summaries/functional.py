@@ -1,6 +1,7 @@
 from typing import Type
 
 import pandas as pd
+
 from visions.application.summaries.summary import Summary
 from visions.types import VisionsBaseType
 

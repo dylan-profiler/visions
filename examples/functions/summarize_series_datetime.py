@@ -2,6 +2,7 @@ from pprint import pprint
 
 import numpy as np
 import pandas as pd
+
 import visions as v
 from visions.application.summaries import CompleteSummary
 

@@ -3,6 +3,7 @@ from typing import Callable, Optional, Sequence, Type
 
 import attr
 import pandas as pd
+
 from visions.relations import TypeRelation
 
 

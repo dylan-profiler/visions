@@ -4,6 +4,7 @@ from typing import Dict, Iterable, List, Optional, Tuple, Type, Union
 
 import networkx as nx
 import pandas as pd
+
 from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
 

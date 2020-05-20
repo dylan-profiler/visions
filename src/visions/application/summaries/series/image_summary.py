@@ -2,6 +2,7 @@ from functools import partial
 from pathlib import Path
 
 import pandas as pd
+
 from visions.application.summaries.series.numerical_summary import (
     named_aggregate_summary,
 )

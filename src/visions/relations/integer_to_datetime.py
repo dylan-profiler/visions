@@ -1,4 +1,5 @@
 import pandas as pd
+
 from visions.relations import InferenceRelation
 from visions.relations.string_to_datetime import to_datetime_year_month_day
 from visions.types import Integer

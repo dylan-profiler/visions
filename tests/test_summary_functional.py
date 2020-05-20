@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+
 from visions.application.summaries import CompleteSummary
 from visions.application.summaries.functional import (
     summarize,

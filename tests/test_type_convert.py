@@ -1,9 +1,9 @@
 import sys
 
 import pytest
-from visions.typesets import CompleteSet
 
 from tests.series import get_convert_map, get_series
+from visions.typesets import CompleteSet
 
 
 def all_relations_tested(series_map):

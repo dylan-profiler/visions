@@ -1,4 +1,5 @@
 import pandas as pd
+
 import visions as v
 from visions.application.summaries import CompleteSummary
 

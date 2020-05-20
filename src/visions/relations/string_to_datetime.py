@@ -1,4 +1,5 @@
 import pandas as pd
+
 from visions import String
 from visions.relations import InferenceRelation
 from visions.utils.coercion import test_utils

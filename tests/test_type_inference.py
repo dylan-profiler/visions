@@ -1,9 +1,9 @@
 import pytest
+
+from tests.series import get_series, infer_series_type_map
 from visions import EmailAddress
 from visions.types import Generic
 from visions.typesets import CompleteSet
-
-from tests.series import get_series, infer_series_type_map
 
 typeset = CompleteSet()
 typeset += EmailAddress

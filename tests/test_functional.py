@@ -2,6 +2,7 @@ import datetime
 
 import numpy as np
 import pandas as pd
+
 from visions.functional import (
     cast_frame,
     cast_series,

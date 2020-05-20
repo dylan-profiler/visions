@@ -3,6 +3,7 @@ import sys
 from typing import Sequence
 
 import pandas as pd
+
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 

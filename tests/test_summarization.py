@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 import pytest
+
 from visions.application.summaries import CompleteSummary
 from visions.types import (
     URL,

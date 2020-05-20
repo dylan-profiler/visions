@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+
 from visions import types as v
 from visions.application.summaries import CompleteSummary
 

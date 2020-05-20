@@ -1,4 +1,5 @@
 import pandas as pd
+
 from visions.typesets import CompleteSet
 
 

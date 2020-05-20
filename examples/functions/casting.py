@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+
 from visions.functional import (
     cast_and_infer_frame,
     cast_frame,

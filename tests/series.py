@@ -9,6 +9,8 @@ import pandas as pd
 from shapely import wkt
 
 from visions.types import (
+    URL,
+    UUID,
     Boolean,
     Categorical,
     Complex,
@@ -29,8 +31,6 @@ from visions.types import (
     String,
     Time,
     TimeDelta,
-    URL,
-    UUID,
 )
 from visions.types.email_address import FQDA
 
