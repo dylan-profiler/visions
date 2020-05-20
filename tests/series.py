@@ -402,7 +402,16 @@ def get_contains_map():
     }
 
     series_map[Object] = (
-        ["mixed_list[str,int]", "mixed_dict", "callable", "module", "bool_nan_series"]
+        [
+            "mixed_list[str,int]",
+            "mixed_dict",
+            "callable",
+            "module",
+            "bool_nan_series",
+            "mixed_integer",
+            "mixed_list",
+            "mixed",
+        ]
         + series_map[String]
         + series_map[Geometry]
         + series_map[Path]
