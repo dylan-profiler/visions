@@ -128,6 +128,8 @@ def get_series():
             [r"/home/user/file.txt", r"/home/user/test2.txt"],
             name="path_series_linux_str",
         ),
+        pd.Series(["0011", "12"], name="str_int_leading_zeros"),
+        pd.Series(["11111111111", ""], name="str_datetime_overflow"),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, None], name="bool_nan_series"),
@@ -487,6 +489,8 @@ def get_contains_map():
             "string_flt_nan",
             "str_complex",
             "uuid_series_str",
+            "str_datetime_overflow",
+            "str_int_leading_zeros",
         ],
         Geometry: ["geometry_series", "geometry_series_missing"],
         IPAddress: ["ip", "ip_mixed_v4andv6", "ip_missing"],
@@ -599,6 +603,8 @@ def infer_series_type_map():
         "ip_str": IPAddress,
         "ip_missing": IPAddress,
         "date_series_nat": Date,
+        "date": Date,
+        "time": Time,
         "categorical_char": Categorical,
         "ordinal": Ordinal,
         "str_complex": Complex,
@@ -611,6 +617,8 @@ def infer_series_type_map():
         "file_mixed_ext": File,
         "image_png": Image,
         "image_png_missing": Image,
+        "str_int_leading_zeros": String,
+        "str_datetime_overflow": String,
     }
 
 
