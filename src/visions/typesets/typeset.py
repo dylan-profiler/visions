@@ -24,7 +24,7 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
-    relation_graph.add_nodes_from(sorted(nodes, key=lambda x: str(x)))
+    relation_graph.add_nodes_from(nodes)
 
     noninferential_edges = []
 
