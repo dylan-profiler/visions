@@ -45,25 +45,5 @@
 <path fill="none" stroke="#000000" d="M73.0446,-143.7012C75.8965,-133.3353 79.0681,-120.0653 80.5,-108 82.3856,-92.1115 82.3856,-87.8885 80.5,-72 79.4932,-63.5166 77.6264,-54.4376 75.6153,-46.1913"/>
 <polygon fill="#000000" stroke="#000000" points="78.9472,-45.0971 73.0446,-36.2988 72.1722,-46.8576 78.9472,-45.0971"/>
 </g>
-<!-- Generic -->
-<g id="node2" class="node">
-<title>Generic</title>
-<polygon fill="none" stroke="#ff0000" points="120,-211 61,-211 61,-175 120,-175 120,-211"/>
-<text text-anchor="middle" x="90.5" y="-189.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
-</g>
-<!-- Generic&#45;&gt;DateTime -->
-<g id="edge1" class="edge">
-<title>Generic&#45;&gt;DateTime</title>
-<path fill="none" stroke="#000000" d="M76.9045,-174.9551C70.3599,-166.2686 62.3896,-155.6898 55.196,-146.142"/>
-<polygon fill="#000000" stroke="#000000" points="57.9427,-143.9711 49.1297,-138.0904 52.3518,-148.1834 57.9427,-143.9711"/>
-</g>
-<!-- Generic&#45;&gt;summary -->
-<g id="edge3" class="edge">
-<title>Generic&#45;&gt;summary</title>
-<path fill="none" stroke="#000000" d="M99.6097,-174.9981C112.1225,-147.6106 131.0808,-94.3987 112.5,-54 110.7882,-50.2782 108.4808,-46.7972 105.8238,-43.5801"/>
-<polygon fill="#000000" stroke="#000000" points="108.1032,-40.9021 98.639,-36.1398 103.0678,-45.7646 108.1032,-40.9021"/>
-<text text-anchor="middle" x="170.5" y="-123.8" font-family="Times,serif" font-size="14.00" fill="#000000">base_summary</text>
-<text text-anchor="middle" x="170.5" y="-108.8" font-family="Times,serif" font-size="14.00" fill="#000000">missing_summary</text>
-</g>
 </g>
 </svg>

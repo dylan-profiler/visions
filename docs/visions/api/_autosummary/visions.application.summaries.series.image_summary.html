@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.image_summary &mdash; visions 0.4.1 documentation</title>
+  <title>visions.application.summaries.series.image_summary &mdash; visions 0.4.4 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.application.summaries.series.infinite_summary" href="visions.application.summaries.series.infinite_summary.html" />
-    <link rel="prev" title="visions.application.summaries.series.existing_path_summary" href="visions.application.summaries.series.existing_path_summary.html" /> 
+    <link rel="next" title="visions.application.summaries.series.missing_summary" href="visions.application.summaries.series.missing_summary.html" />
+    <link rel="prev" title="visions.application.summaries.series.range_summary" href="visions.application.summaries.series.range_summary.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -124,9 +124,7 @@
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.base_summary.html">visions.application.summaries.series.base_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.category_summary.html">visions.application.summaries.series.category_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.range_summary.html">visions.application.summaries.series.range_summary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.existing_path_summary.html">visions.application.summaries.series.existing_path_summary</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">visions.application.summaries.series.image_summary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.infinite_summary.html">visions.application.summaries.series.infinite_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.missing_summary.html">visions.application.summaries.series.missing_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.numerical_summary.html">visions.application.summaries.series.numerical_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="visions.application.summaries.series.numerical_basic_summary.html">visions.application.summaries.series.numerical_basic_summary</a></li>
@@ -217,10 +215,14 @@
 <h1>visions.application.summaries.series.image_summary<a class="headerlink" href="#visions-application-summaries-series-image-summary" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="visions.application.summaries.series.image_summary">
-<code class="sig-prename descclassname">visions.application.summaries.series.</code><code class="sig-name descname">image_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/application/summaries/series/image_summary.html#image_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.application.summaries.series.image_summary" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.application.summaries.series.</code><code class="sig-name descname">image_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series</span></em>, <em class="sig-param"><span class="n">exif</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">hash</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/application/summaries/series/image_summary.html#image_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.application.summaries.series.image_summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>series</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – series to summarize</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – series to summarize</p></li>
+<li><p><strong>exif</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – extract exif information</p></li>
+<li><p><strong>hash</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – calculate hash (for duplicate detection)</p></li>
+</ul>
 </dd>
 </dl>
 <p>Returns:</p>
@@ -241,10 +243,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.application.summaries.series.infinite_summary.html" class="btn btn-neutral float-right" title="visions.application.summaries.series.infinite_summary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="visions.application.summaries.series.missing_summary.html" class="btn btn-neutral float-right" title="visions.application.summaries.series.missing_summary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.application.summaries.series.existing_path_summary.html" class="btn btn-neutral float-left" title="visions.application.summaries.series.existing_path_summary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.application.summaries.series.range_summary.html" class="btn btn-neutral float-left" title="visions.application.summaries.series.range_summary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
