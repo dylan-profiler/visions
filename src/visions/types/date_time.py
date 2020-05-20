@@ -20,7 +20,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             String,
-            relationship=test_utils.coercion_test(to_datetime),
+            relationship=test_utils.coercion_test(to_datetime, [OverflowError]),
             transformer=to_datetime,
         ),
     ]

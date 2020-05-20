@@ -83,6 +83,7 @@ def get_series():
         pd.Series([np.nan], name="nan_series"),
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
+        pd.Series(['11111111111', ''], name="string_series_broke_date"),
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
@@ -371,6 +372,7 @@ def get_contains_map():
             "string_flt_nan",
             "str_complex",
             "uuid_series_str",
+            "string_series_broke_date",
         ],
         Geometry: ["geometry_series"],
         IPAddress: ["ip"],
@@ -435,6 +437,7 @@ def infer_series_type_map():
         "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
         "string_unicode_series": String,
         "string_np_unicode_series": String,
+        "string_series_broke_date": Integer,
         "string_num_nan": Integer,
         "string_num": Integer,
         "string_flt_nan": Float,

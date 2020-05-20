@@ -43,6 +43,9 @@ class TypeRelation:
     def transform(self, series: pd.Series) -> pd.Series:
         return self.transformer(series)
 
+    def __str__(self):
+        return f"{self.related_type}->{self.type}"
+
 
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
