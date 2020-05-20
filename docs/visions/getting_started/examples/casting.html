@@ -192,8 +192,8 @@
 <p>We shortly introduced casting at the <a class="reference internal" href="../usage/typesets.html"><span class="doc">usage of typesets</span></a>. This example demonstrates how to cast a DataFrame at once.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">casting_example.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">cast_and_infer_frame</span><span class="p">,</span>
@@ -202,7 +202,6 @@
     <span class="n">infer_frame_type</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">CompleteSet</span>
-
 
 <span class="c1"># Create a DataFrame from our data</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>

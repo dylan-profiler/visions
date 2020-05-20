@@ -1,11 +1,11 @@
-import sys
 import os
+import sys
 from typing import Sequence
 
 import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
-from visions.types import VisionsBaseType
+from visions.types.type import VisionsBaseType
 
 
 def string_is_geometry(series: pd.Series) -> bool:

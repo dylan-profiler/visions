@@ -2,19 +2,23 @@ import datetime
 import pathlib
 import uuid
 from ipaddress import IPv4Address, IPv6Address
-from pathlib import PureWindowsPath, PurePosixPath
+from pathlib import PurePosixPath, PureWindowsPath
 from urllib.parse import urlparse
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 from shapely import wkt
 
 from visions.types import (
+    URL,
+    UUID,
     Boolean,
     Categorical,
     Complex,
     Count,
     Date,
     DateTime,
+    EmailAddress,
     File,
     Float,
     Generic,
@@ -28,9 +32,8 @@ from visions.types import (
     String,
     Time,
     TimeDelta,
-    URL,
-    UUID,
 )
+from visions.types.email_address import FQDA
 
 
 def get_series():
@@ -330,6 +333,18 @@ def get_series():
         pd.Series([pd, wkt, np], name="module"),
         pd.Series(["1.1", "2"], name="textual_float"),
         pd.Series(["1.1", "2", "NAN"], name="textual_float_nan"),
+        # Object (Mixed, https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.api.types.infer_dtype.html)
+        pd.Series(["a", 1], name="mixed_integer"),
+        pd.Series([True, False, np.nan], name="mixed"),
+        pd.Series([[True], [False], [False]], name="mixed_list"),
+        pd.Series([[1, ""], [2, "Rubin"], [3, "Carter"]], name="mixed_list[str,int]"),
+        pd.Series(
+            [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
+            name="mixed_dict",
+        ),
+        # IP
+        pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
         # Empty
         pd.Series([], name="empty"),
         pd.Series([], name="empty_float", dtype=float),
@@ -405,6 +420,16 @@ def get_series():
             ],
             name="image_png_missing",
         ),
+        # Email
+        pd.Series(
+            [FQDA("test", "example.com"), FQDA("info", "example.eu")],
+            name="email_address",
+        ),
+        pd.Series(
+            [FQDA("test", "example.com"), FQDA("info", "example.eu"), None],
+            name="email_address_missing",
+        ),
+        pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
 
@@ -491,6 +516,7 @@ def get_contains_map():
             "uuid_series_str",
             "str_datetime_overflow",
             "str_int_leading_zeros",
+            "email_address_str",
         ],
         Geometry: ["geometry_series", "geometry_series_missing"],
         IPAddress: ["ip", "ip_mixed_v4andv6", "ip_missing"],
@@ -498,17 +524,28 @@ def get_contains_map():
         UUID: ["uuid_series", "uuid_series_missing"],
         File: ["file_test_py", "file_mixed_ext", "file_test_py_missing"],
         Image: ["image_png", "image_png_missing"],
+        EmailAddress: ["email_address", "email_address_missing"],
     }
 
     series_map[File] += series_map[Image]
     series_map[Path] += series_map[File]
 
     series_map[Object] = (
-        ["mixed_list[str,int]", "mixed_dict", "callable", "module", "bool_nan_series"]
+        [
+            "mixed_list[str,int]",
+            "mixed_dict",
+            "callable",
+            "module",
+            "bool_nan_series",
+            "mixed_integer",
+            "mixed_list",
+            "mixed",
+        ]
         + series_map[String]
         + series_map[Geometry]
         + series_map[Path]
         + series_map[URL]
+        + series_map[EmailAddress]
         + series_map[IPAddress]
         + series_map[UUID]
     )
@@ -590,6 +627,9 @@ def infer_series_type_map():
         "url_none_series": URL,
         "mixed_list[str,int]": Object,
         "mixed_dict": Object,
+        "mixed_integer": Object,
+        "mixed_list": Object,
+        "mixed": Object,
         "callable": Object,
         "module": Object,
         "textual_float": Float,
@@ -619,6 +659,9 @@ def infer_series_type_map():
         "image_png_missing": Image,
         "str_int_leading_zeros": String,
         "str_datetime_overflow": String,
+        "email_address": EmailAddress,
+        "email_address_missing": EmailAddress,
+        "email_address_str": EmailAddress,
     }
 
 
@@ -648,6 +691,7 @@ def get_convert_map():
         (IPAddress, String, ["ip_str"]),
         (URL, String, ["str_url"]),
         (Path, String, ["path_series_windows_str", "path_series_linux_str"]),
+        (EmailAddress, String, ["email_address_str"]),
         (Float, Complex, ["complex_series_float"]),
         (Boolean, Integer, ["int_series_boolean"]),
         (Boolean, Object, ["bool_nan_series"]),

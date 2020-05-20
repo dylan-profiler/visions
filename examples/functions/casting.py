@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from visions.functional import (
     cast_and_infer_frame,
@@ -8,7 +8,6 @@ from visions.functional import (
     infer_frame_type,
 )
 from visions.typesets import CompleteSet
-
 
 # Create a DataFrame from our data
 df = pd.DataFrame(

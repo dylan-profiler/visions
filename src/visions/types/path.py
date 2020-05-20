@@ -1,5 +1,5 @@
-from typing import Sequence
 import pathlib
+from typing import Sequence
 
 import pandas as pd
 

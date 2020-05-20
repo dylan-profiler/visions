@@ -5,7 +5,7 @@ import pandas as pd
 import pandas.api.types as pdt
 
 from visions.relations import IdentityRelation, TypeRelation, InferenceRelation
-from visions.types import VisionsBaseType
+from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from visions.types import Integer, File, String, DateTime
 from visions.application.summaries.complete_summary import CompleteSummary
+from visions.types import DateTime, File, Integer, String
 
 
 def generate_summary_plots():
