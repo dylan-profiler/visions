@@ -45,17 +45,17 @@ def to_json_tree_sorted(G, root):
             return []
         children_ = []
         for child in nbrs:
-            d = dict(chain(G.nodes[child].items(), [('id', child)]))
+            d = dict(chain(G.nodes[child].items(), [("id", child)]))
             c = add_children(child, G)
             if c:
-                d['children'] = c
+                d["children"] = c
             children_.append(d)
 
-        children_ = sorted(children_, key=lambda x: x['id'])
+        children_ = sorted(children_, key=lambda x: x["id"])
         return children_
 
-    data = dict(chain(G.nodes[root].items(), [('id', root)]))
-    data['children'] = add_children(root, G)
+    data = dict(chain(G.nodes[root].items(), [("id", root)]))
+    data["children"] = add_children(root, G)
     return data
 
 

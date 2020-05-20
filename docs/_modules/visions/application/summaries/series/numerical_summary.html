@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.numerical_summary &mdash; visions 0.4.1 documentation</title>
+  <title>visions.application.summaries.series.numerical_summary &mdash; visions 0.4.4 documentation</title>
   
 
   
@@ -181,7 +181,33 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="numerical_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.numerical_summary.html#visions.application.summaries.series.numerical_summary">[docs]</a><span class="k">def</span> <span class="nf">numerical_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">named_aggregate_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s2">&quot;max_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">series</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;mean_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">series</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;median_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">series</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;min_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">series</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">summary</span>
+
+
+<span class="k">def</span> <span class="nf">mad</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Median Absolute Deviation: a &quot;Robust&quot; version of standard deviation.</span>
+<span class="sd">        Indices variability of the sample.</span>
+<span class="sd">        https://en.wikipedia.org/wiki/Median_absolute_deviation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">arr</span> <span class="o">-</span> <span class="n">m</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="numerical_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.numerical_summary.html#visions.application.summaries.series.numerical_summary">[docs]</a><span class="k">def</span> <span class="nf">numerical_summary</span><span class="p">(</span>
+    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">quantiles</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span>
+    <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">is_unique</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Args:</span>
@@ -190,38 +216,47 @@
 <span class="sd">    Returns:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">aggregates</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;std&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;var&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;max&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;min&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;median&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;kurt&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;skew&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;mad&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">aggregates</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 
-    <span class="n">quantiles</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">present_values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span>
+    <span class="n">finite_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">present_values</span><span class="p">)</span>
+    <span class="n">finite_values</span> <span class="o">=</span> <span class="n">present_values</span><span class="p">[</span><span class="n">finite_mask</span><span class="p">]</span>
+
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">present_values</span><span class="p">),</span>
+        <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">present_values</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">present_values</span><span class="p">),</span>
+        <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">present_values</span><span class="p">),</span>
+        <span class="c1"># Unbiased kurtosis obtained using Fisher&#39;s definition (kurtosis of normal == 0.0). Normalized by N-1.</span>
+        <span class="s2">&quot;kurtosis&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">kurt</span><span class="p">(),</span>
+        <span class="c1"># Unbiased skew normalized by N-1</span>
+        <span class="s2">&quot;skewness&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span>
+        <span class="s2">&quot;sum&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">present_values</span><span class="p">),</span>
+        <span class="s2">&quot;n_infinite&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">~</span><span class="n">finite_mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="s2">&quot;n_zeros&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">count</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">present_values</span><span class="p">)),</span>
+    <span class="p">}</span>
+
     <span class="k">for</span> <span class="n">percentile</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">quantiles</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;quantile_</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">percentile</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;iqr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;quantile_75&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;quantile_25&quot;</span><span class="p">]</span>
 
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;mad&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mad</span><span class="p">(</span><span class="n">present_values</span><span class="p">,</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;quantile_50&quot;</span><span class="p">])</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;variance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;cv&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span>
 
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;monotonic_increase&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">is_monotonic_increasing</span>
     <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;monotonic_decrease&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">is_monotonic_decreasing</span>
 
-    <span class="c1"># TODO: need access to n_unique</span>
-    <span class="c1"># summary[&#39;monotonic_increase_strict&#39;] = summary[&#39;monotonic_increase&#39;] and summary[&#39;unique&#39;]</span>
-    <span class="c1"># summary[&#39;monotonic_decrease_strict&#39;] = summary[&#39;monotonic_increase&#39;] and summary[&#39;unique&#39;]</span>
+    <span class="k">if</span> <span class="n">is_unique</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;monotonic_increase_strict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;monotonic_increase&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">is_unique</span>
+        <span class="p">)</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;monotonic_decrease_strict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;monotonic_increase&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">is_unique</span>
+        <span class="p">)</span>
 
-    <span class="c1"># TODO: only calculations for histogram, not the plotting</span>
-    <span class="c1"># summary[&#39;image&#39;] = plotting.histogram(series)</span>
-    <span class="k">return</span> <span class="n">summary</span></div>
+    <span class="k">return</span> <span class="n">summary</span><span class="p">,</span> <span class="n">finite_values</span></div>
 </pre></div>
 
            </div>
