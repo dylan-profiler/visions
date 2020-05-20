@@ -18,7 +18,7 @@ def update(data):
 
 def write_json(data):
     with Path("typesets/typeset_complete_base.json").open("w") as f:
-        json.dump(data, f, sort_keys=True)
+        json.dump(data, f)
 
 
 def write_html(data):
