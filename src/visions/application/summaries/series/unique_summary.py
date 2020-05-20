@@ -10,10 +10,7 @@ def unique_summary(series: pd.Series) -> dict:
     Returns:
 
     """
-    summary = {
-        "n_unique": series.nunique(),
-        "is_unique": series.is_unique
-    }
+    summary = {"n_unique": series.nunique(), "is_unique": series.is_unique}
     return summary
 
 
@@ -33,8 +30,5 @@ def unique_summary_complex(series: pd.Series) -> dict:
     """
 
     n_unique = len(set(series[series.notna()].values))
-    summary = {
-        "n_unique": n_unique,
-        "is_unique": series.is_unique
-    }
+    summary = {"n_unique": n_unique, "is_unique": series.is_unique}
     return summary
