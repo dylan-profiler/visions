@@ -202,6 +202,24 @@ def get_series():
                 name="datetime",
             )
         ),
+        # Date series
+        pd.Series(
+            [
+                datetime.date(2011, 1, 1),
+                datetime.date(2012, 1, 2),
+                datetime.date(2013, 1, 1),
+            ],
+            name="date",
+        ),
+        # Time series
+        pd.Series(
+            [
+                datetime.time(8, 43, 12),
+                datetime.time(9, 43, 12),
+                datetime.time(10, 43, 12),
+            ],
+            name="time",
+        ),
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),
         pd.Series(
@@ -367,7 +385,8 @@ def get_contains_map():
             "timestamp_series_nat",
             "date_series_nat",
         ],
-        Date: ["datetime", "date_series_nat"],
+        Date: ["date_series_nat", "date"],
+        Time: ["time"],
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
             "timestamp_string_series",
@@ -510,6 +529,8 @@ def infer_series_type_map():
         "ip": IPAddress,
         "ip_str": IPAddress,
         "date_series_nat": Date,
+        "date": Date,
+        "time": Time,
         "categorical_char": Categorical,
         "ordinal": Ordinal,
         "str_complex": Complex,
