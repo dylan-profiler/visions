@@ -14,6 +14,16 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     return relations
 
 
+def string_pandas_checker():
+    if hasattr(pdt, 'is_string_dtype'):
+        return pdt.is_string_dtype
+    else:
+        return pdt.is_object_dtype
+
+
+string_check = string_pandas_checker()
+
+
 class String(VisionsBaseType):
     """**String** implementation of :class:`visions.types.type.VisionsBaseType`.
 
@@ -30,9 +40,10 @@ class String(VisionsBaseType):
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         # TODO: without the object check this passes string categories... is there a better way?
-        if not pdt.is_object_dtype(series):
+        if not string_check(series) or pdt.is_categorical_dtype(series):
             return False
-        elif series.hasnans:
+
+        if series.hasnans:
             series = series.dropna()
             if series.empty:
                 return False
