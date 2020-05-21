@@ -1,8 +1,8 @@
 from collections import Counter
 
 import pandas as pd
+from tangled_up_in_unicode import block, block_abbr, category, category_long, script
 
-from tangled_up_in_unicode import category, category_long, script, block, block_abbr
 from visions.application.summaries.series.numerical_summary import (
     named_aggregate_summary,
 )

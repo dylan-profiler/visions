@@ -33,6 +33,7 @@ IF "%1" == "pypi_package" (
 )
 
 IF "%1" == "lint" (
+    isort -y -o visions
     black .
     GOTO end
 )

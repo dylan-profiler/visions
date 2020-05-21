@@ -177,12 +177,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.utils.images.image_utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">import</span> <span class="nn">imghdr</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
 <span class="kn">import</span> <span class="nn">imagehash</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ExifTags</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ExifTags</span><span class="p">,</span> <span class="n">Image</span>
+
 <span class="kn">from</span> <span class="nn">visions.utils.monkeypatches.imghdr_patch</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">imghdr</span>
 
 
 <div class="viewcode-block" id="open_image"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.images.image_utils.html#visions.utils.images.image_utils.open_image">[docs]</a><span class="k">def</span> <span class="nf">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">]:</span>

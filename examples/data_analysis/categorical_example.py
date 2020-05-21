@@ -1,10 +1,9 @@
 import pandas as pd
 
-from visions.functional import detect_series_type
-from visions.typesets import StandardSet
-from visions.types import Categorical, Boolean
-
 from examples.data_analysis.categorical import Category
+from visions.functional import detect_series_type
+from visions.types import Boolean, Categorical
+from visions.typesets import StandardSet
 
 ts = StandardSet()
 ts -= Boolean

@@ -1,12 +1,12 @@
 import warnings
 from pathlib import Path
-from typing import Type, Tuple, List, Dict, Iterable, Optional, Union
+from typing import Dict, Iterable, List, Optional, Tuple, Type, Union
 
-import pandas as pd
 import networkx as nx
+import pandas as pd
 
-from visions.types.type import VisionsBaseType
 from visions.types.generic import Generic
+from visions.types.type import VisionsBaseType
 
 
 def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
@@ -48,7 +48,9 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
                 noninferential_edges.append((relation.related_type, relation.type))
 
     check_graph_constraints(relation_graph)
-    return relation_graph, relation_graph.edge_subgraph(noninferential_edges)
+
+    base_graph = relation_graph.edge_subgraph(noninferential_edges)
+    return relation_graph, base_graph
 
 
 def check_graph_constraints(relation_graph: nx.DiGraph) -> None:

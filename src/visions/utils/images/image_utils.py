@@ -1,9 +1,11 @@
-from pathlib import Path
-from typing import Tuple, Optional, Union
-import imagehash
-from PIL import Image, ExifTags
-from visions.utils.monkeypatches.imghdr_patch import *
 import imghdr
+from pathlib import Path
+from typing import Optional, Tuple, Union
+
+import imagehash
+from PIL import ExifTags, Image
+
+from visions.utils.monkeypatches.imghdr_patch import *
 
 
 def open_image(path: Path) -> Optional[Image.Image]:

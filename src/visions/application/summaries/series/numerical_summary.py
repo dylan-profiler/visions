@@ -28,6 +28,7 @@ def numerical_summary(
     quantiles=(0.05, 0.25, 0.5, 0.75, 0.95),
     count=None,
     is_unique=None,
+    return_values=False,
 ) -> dict:
     """
 
@@ -37,6 +38,9 @@ def numerical_summary(
     Returns:
 
     """
+
+    if count is None:
+        count = series.count()
 
     values = series.values
     present_values = values[~np.isnan(values)]
@@ -49,9 +53,9 @@ def numerical_summary(
         "min": np.min(present_values),
         "max": np.max(present_values),
         # Unbiased kurtosis obtained using Fisher's definition (kurtosis of normal == 0.0). Normalized by N-1.
-        "kurtosis": series.kurt(),
+        "kurt": series.kurt(),
         # Unbiased skew normalized by N-1
-        "skewness": series.skew(),
+        "skew": series.skew(),
         "sum": np.sum(present_values),
         "n_infinite": (~finite_mask).sum(),
         "n_zeros": (count - np.count_nonzero(present_values)),
@@ -59,6 +63,7 @@ def numerical_summary(
 
     for percentile, value in series.quantile(quantiles).to_dict().items():
         summary["quantile_{:d}".format(int(percentile * 100))] = value
+    summary["median"] = summary["quantile_50"]
     summary["iqr"] = summary["quantile_75"] - summary["quantile_25"]
 
     summary["mad"] = mad(present_values, summary["quantile_50"])
@@ -69,12 +74,14 @@ def numerical_summary(
     summary["monotonic_increase"] = series.is_monotonic_increasing
     summary["monotonic_decrease"] = series.is_monotonic_decreasing
 
-    if is_unique is not None:
-        summary["monotonic_increase_strict"] = (
-            summary["monotonic_increase"] and is_unique
-        )
-        summary["monotonic_decrease_strict"] = (
-            summary["monotonic_increase"] and is_unique
-        )
+    summary["monotonic_increase_strict"] = (
+        summary["monotonic_increase"] and series.is_unique
+    )
+    summary["monotonic_decrease_strict"] = (
+        summary["monotonic_decrease"] and series.is_unique
+    )
 
-    return summary, finite_values
+    if return_values:
+        return summary, finite_values
+
+    return summary

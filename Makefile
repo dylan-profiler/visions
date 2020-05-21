@@ -22,6 +22,7 @@ pypi_package:
 
 ## Run black linting
 lint:
+	isort -y -o visions
 	black .
 
 ## Run type checking
