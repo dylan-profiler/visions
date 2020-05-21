@@ -6,7 +6,7 @@ import pandas as pd
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
-from visions.utils.series_utils import nullable_series_contains
+from visions.utils.series_utils import nullable_series_contains, isinstance_attrs
 
 
 def str_to_email(s):
@@ -69,5 +69,4 @@ class EmailAddress(VisionsBaseType):
     @classmethod
     @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
-        # TODO: x.local and x.fqdn for all, isinstance for a sample
-        return all(isinstance(x, FQDA) and all((x.local, x.fqdn)) for x in series)
+        return isinstance_attrs(series, FQDA, ["local", "fqdn"])
