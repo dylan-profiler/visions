@@ -5,6 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.coercion.test_utils import isinstance_attrs
 
 
 def test_uuid(series) -> bool:
@@ -53,4 +54,4 @@ class UUID(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(isinstance(x, uuid.UUID) for x in series)
+        return isinstance_attrs(series, uuid.UUID, ["time_low", "hex"])
