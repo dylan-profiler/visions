@@ -1,11 +1,12 @@
-import pandas.api.types as pdt
-import pandas as pd
-import numpy as np
-from typing import Sequence, List
+from typing import List, Sequence
 
-from visions.types import String, Integer, Object, VisionsBaseType
+import numpy as np
+import pandas as pd
+import pandas.api.types as pdt
+
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
-from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
+from visions.types import Integer, Object, String, VisionsBaseType
+from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
 
 
 def to_category(series: pd.Series) -> pd.Series:

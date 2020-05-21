@@ -1,7 +1,7 @@
 from typing import Sequence
 
-import pandas.api.types as pdt
 import pandas as pd
+import pandas.api.types as pdt
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
@@ -31,8 +31,12 @@ class Time(VisionsBaseType):
     def contains_op(cls, series: pd.Series) -> bool:
         if not pdt.is_datetime64_any_dtype(series):
             return False
+        elif series.hasnans:
+            series = series.dropna()
+            if series.empty:
+                return False
 
-        temp_series = series.dropna().dt
+        temp_series = series.dt
 
         time_val_map = {"day": 1, "month": 1, "year": 1}
         return all(

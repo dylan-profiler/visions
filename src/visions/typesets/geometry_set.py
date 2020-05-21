@@ -1,14 +1,14 @@
 from visions.types import (
     Boolean,
-    Float,
-    Object,
-    Complex,
     Categorical,
+    Complex,
     DateTime,
-    TimeDelta,
-    Integer,
-    String,
+    Float,
     Geometry,
+    Integer,
+    Object,
+    String,
+    TimeDelta,
 )
 from visions.typesets.typeset import VisionsTypeset
 

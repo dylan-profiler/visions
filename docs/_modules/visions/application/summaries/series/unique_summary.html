@@ -189,7 +189,7 @@
 <span class="sd">    Returns:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">nunique</span><span class="p">()}</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="s2">&quot;is_unique&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">is_unique</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">summary</span></div>
 
 
@@ -209,7 +209,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">n_unique</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">series</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">n_unique</span><span class="p">}</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_unique&quot;</span><span class="p">:</span> <span class="n">n_unique</span><span class="p">,</span> <span class="s2">&quot;is_unique&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">is_unique</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">summary</span>
 </pre></div>
 

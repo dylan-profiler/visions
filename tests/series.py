@@ -1,19 +1,23 @@
 import datetime
 import uuid
 from ipaddress import IPv4Address
-from pathlib import PureWindowsPath, PurePosixPath
+from pathlib import PurePosixPath, PureWindowsPath
 from urllib.parse import urlparse
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 from shapely import wkt
 
 from visions.types import (
+    URL,
+    UUID,
     Boolean,
     Categorical,
     Complex,
     Count,
     Date,
     DateTime,
+    EmailAddress,
     File,
     Float,
     Generic,
@@ -27,9 +31,8 @@ from visions.types import (
     String,
     Time,
     TimeDelta,
-    URL,
-    UUID,
 )
+from visions.types.email_address import FQDA
 
 
 def get_series():
@@ -264,6 +267,11 @@ def get_series():
             name="uuid_series_str",
         ),
         # Object Series
+        pd.Series([[1, ""], [2, "Rubin"], [3, "Carter"]], name="mixed_list[str,int]"),
+        pd.Series(
+            [{"why": "did you"}, {"bring him": "in for he"}, {"aint": "the guy"}],
+            name="mixed_dict",
+        ),
         pd.Series(
             [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle],
             name="callable",
@@ -289,6 +297,19 @@ def get_series():
         pd.Series([], name="empty_int64", dtype="Int64"),
         pd.Series([], name="empty_object", dtype="object"),
         pd.Series([], name="empty_bool", dtype=bool),
+        # IP
+        pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
+        # Email
+        pd.Series(
+            [FQDA("test", "example.com"), FQDA("info", "example.eu")],
+            name="email_address",
+        ),
+        pd.Series(
+            [FQDA("test", "example.com"), FQDA("info", "example.eu"), None],
+            name="email_address_missing",
+        ),
+        pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
 
@@ -372,12 +393,14 @@ def get_contains_map():
             "string_flt_nan",
             "str_complex",
             "uuid_series_str",
+            "email_address_str",
             "string_series_broke_date",
         ],
         Geometry: ["geometry_series"],
         IPAddress: ["ip"],
         Ordinal: ["ordinal"],
         UUID: ["uuid_series"],
+        EmailAddress: ["email_address", "email_address_missing"],
     }
 
     series_map[Object] = (
@@ -387,14 +410,15 @@ def get_contains_map():
             "callable",
             "module",
             "bool_nan_series",
-            "mixed",
             "mixed_integer",
             "mixed_list",
+            "mixed",
         ]
         + series_map[String]
         + series_map[Geometry]
         + series_map[Path]
         + series_map[URL]
+        + series_map[EmailAddress]
         + series_map[IPAddress]
         + series_map[UUID]
     )
@@ -494,6 +518,9 @@ def infer_series_type_map():
         "str_complex": Complex,
         "uuid_series": UUID,
         "uuid_series_str": UUID,
+        "email_address": EmailAddress,
+        "email_address_missing": EmailAddress,
+        "email_address_str": EmailAddress,
     }
 
 
@@ -523,6 +550,7 @@ def get_convert_map():
         (IPAddress, String, ["ip_str"]),
         (URL, String, ["str_url"]),
         (Path, String, ["path_series_windows_str", "path_series_linux_str"]),
+        (EmailAddress, String, ["email_address_str"]),
         (Float, Complex, ["complex_series_float"]),
         (Boolean, Integer, ["int_series_boolean"]),
         (Boolean, Object, ["bool_nan_series"]),

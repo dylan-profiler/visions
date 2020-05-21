@@ -1,5 +1,5 @@
-from abc import abstractmethod, ABCMeta
-from typing import Sequence, Callable, Type, Optional
+from abc import ABCMeta, abstractmethod
+from typing import Callable, Optional, Sequence, Type
 
 import attr
 import pandas as pd

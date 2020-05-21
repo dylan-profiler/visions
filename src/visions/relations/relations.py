@@ -1,5 +1,5 @@
-import pandas as pd
 import attr
+import pandas as pd
 
 
 def identity_relation(series: pd.Series) -> pd.Series:
