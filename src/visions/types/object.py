@@ -14,7 +14,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     return relations
 
 
-pandas_has_string_dtype_flag = hasattr(pdt, 'is_string_dtype')
+pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
 
 
 class Object(VisionsBaseType):
