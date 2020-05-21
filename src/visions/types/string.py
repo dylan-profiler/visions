@@ -29,6 +29,7 @@ class String(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
+        # TODO: without the object check this passes string categories... is there a better way?
         if not pdt.is_object_dtype(series):
             return False
         elif series.hasnans:

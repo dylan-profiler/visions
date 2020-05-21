@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Sequence
 
 import pandas as pd
