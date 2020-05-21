@@ -16,7 +16,7 @@ def test_uuid(series) -> bool:
 
 
 def to_uuid(series: pd.Series) -> pd.Series:
-    return series.apply(lambda e: uuid.UUID(e))
+    return series.apply(uuid.UUID)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:

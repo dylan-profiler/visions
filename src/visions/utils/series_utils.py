@@ -22,6 +22,6 @@ def isinstance_attrs(series, class_name, attrs: list, sample_size=1):
         return False
 
     try:
-        return all(all(getattr(x, attr) for attr in attrs) for x in series)
+        return all(all(hasattr(x, attr) for attr in attrs) for x in series)
     except AttributeError:
         return False
