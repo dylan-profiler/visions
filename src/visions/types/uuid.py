@@ -5,7 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion.test_utils import isinstance_attrs
+from visions.utils.series_utils import isinstance_attrs
 
 
 def test_uuid(series) -> bool:
