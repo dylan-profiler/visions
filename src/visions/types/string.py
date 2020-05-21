@@ -8,20 +8,14 @@ from visions.types.type import VisionsBaseType
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Object
+    from visions.types import Object, Generic
 
     relations = [IdentityRelation(cls, Object)]
+
     return relations
 
 
-def string_pandas_checker():
-    if hasattr(pdt, 'is_string_dtype'):
-        return pdt.is_string_dtype
-    else:
-        return pdt.is_object_dtype
-
-
-string_check = string_pandas_checker()
+pandas_has_string_dtype_flag = hasattr(pdt, 'is_string_dtype')
 
 
 class String(VisionsBaseType):
@@ -40,7 +34,11 @@ class String(VisionsBaseType):
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
         # TODO: without the object check this passes string categories... is there a better way?
-        if not string_check(series) or pdt.is_categorical_dtype(series):
+        if pdt.is_categorical_dtype(series):
+            return False
+        elif not pdt.is_object_dtype(series):
+            if pandas_has_string_dtype_flag and pdt.is_string_dtype(series):
+                return True
             return False
 
         if series.hasnans:

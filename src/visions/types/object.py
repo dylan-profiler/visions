@@ -14,6 +14,9 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     return relations
 
 
+pandas_has_string_dtype_flag = hasattr(pdt, 'is_string_dtype')
+
+
 class Object(VisionsBaseType):
     """**Object** implementation of :class:`visions.types.type.VisionsBaseType`.
 
@@ -29,4 +32,8 @@ class Object(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_object_dtype(series)
+        is_object = pdt.is_object_dtype(series)
+        if is_object:
+            return True
+        elif pandas_has_string_dtype_flag:
+            return pdt.is_string_dtype(series) and not pdt.is_categorical_dtype(series)
