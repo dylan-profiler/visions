@@ -5,12 +5,13 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import nullable_series_contains
 
 
 def test_url(series) -> bool:
     try:
         return to_url(series).apply(lambda x: x.netloc and x.scheme).all()
-    except AttributeError:
+    except (AttributeError, TypeError):
         return False
 
 
@@ -45,17 +46,8 @@ class URL(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
-        # TODO: also short-circuit with NaNs
-        if series.hasnans:
-            series = series.dropna()
-            if series.empty:
-                return False
-
-        # return all(isinstance(x, ParseResult) and x.netloc and x.scheme for x in series)
-        try:
-            return isinstance(series.iloc[0], ParseResult) and all(
-                x.netloc and x.scheme for x in series
-            )
-        except AttributeError:
-            return False
+        return all(
+            isinstance(x, ParseResult) and all((x.netloc, x.scheme)) for x in series
+        )

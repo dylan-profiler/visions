@@ -29,7 +29,6 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
 class DateTime(VisionsBaseType):
     """**Datetime** implementation of :class:`visions.types.type.VisionsBaseType`.
-    All values are should be datetime.datetime or missing
 
     Examples:
         >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])

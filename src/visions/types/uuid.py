@@ -53,8 +53,4 @@ class UUID(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        # return all(isinstance(x, uuid.UUID) for x in series)
-        try:
-            return all(x.time_low and x.hex for x in series)
-        except AttributeError:
-            return False
+        return all(isinstance(x, uuid.UUID) for x in series)
