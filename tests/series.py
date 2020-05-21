@@ -367,6 +367,7 @@ def get_contains_map():
             "timestamp_series_nat",
             "date_series_nat",
         ],
+        Date: ["datetime", "date_series_nat"],
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
             "timestamp_string_series",
@@ -396,6 +397,7 @@ def get_contains_map():
         Geometry: ["geometry_series"],
         IPAddress: ["ip"],
         Ordinal: ["ordinal"],
+        UUID: ["uuid_series"],
         EmailAddress: ["email_address", "email_address_missing"],
     }
 
