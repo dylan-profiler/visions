@@ -46,4 +46,4 @@ class String(VisionsBaseType):
             if series.empty:
                 return False
 
-        return all(type(v) is str for v in series)
+        return all(isinstance(v, str) for v in series)
