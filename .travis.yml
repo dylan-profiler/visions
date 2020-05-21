@@ -12,10 +12,15 @@ jobs:
   allow_failures:
     - python: 3.9-dev
 
+env:
+  - PANDAS="<1"
+  - PANDAS=">=1.0.3"
+
 before_install:
   - python -m pip install --upgrade pip setuptools wheel
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
+  - pip install "pandas$PANDAS"
 
 install:
   - check-manifest
