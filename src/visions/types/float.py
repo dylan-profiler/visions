@@ -8,11 +8,20 @@ from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.warning_handling import suppress_warnings
+from visions.utils.series_utils import func_nullable_series_contains
 
 
-def test_string_is_float(series) -> bool:
+@func_nullable_series_contains
+def test_string_leading_zeros(series: pd.Series):
+    return not any(s[0] == "0" and s != "0" for s in series)
+
+
+def test_string_is_float(series: pd.Series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(string_to_float)(series)
-    return coerced_series is not None and coerced_series in Float
+    if coerced_series is not None and coerced_series in Float:
+        return test_string_leading_zeros(series)
+
+    return False
 
 
 def string_to_float(series: pd.Series) -> pd.Series:

@@ -13,3 +13,15 @@ def nullable_series_contains(fn: Callable) -> Callable:
         return fn(cls, series)
 
     return inner
+
+
+def func_nullable_series_contains(fn: Callable) -> Callable:
+    def inner(series: pd.Series) -> bool:
+        if series.hasnans:
+            series = series.dropna()
+            if series.empty:
+                return False
+
+        return fn(series)
+
+    return inner

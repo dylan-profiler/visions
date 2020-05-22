@@ -376,29 +376,48 @@ def get_series():
         # Image
         pd.Series(
             [
-                pathlib.Path(os.path.join(base_path, "../src/visions/visualisation/typesets/typeset_complete.png")
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        "../src/visions/visualisation/typesets/typeset_complete.png",
+                    )
                 ).absolute(),
-                pathlib.Path(os.path.join(base_path,
-                    r"../src/visions/visualisation/typesets/typeset_standard.png"
-                )).absolute(),
-                pathlib.Path(os.path.join(base_path,
-                    r"../src/visions/visualisation/typesets/typeset_geometry.png"
-                )).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                    )
+                ).absolute(),
             ],
             name="image_png",
         ),
         pd.Series(
             [
-                pathlib.Path(os.path.join(base_path,
-                    r"../src/visions/visualisation/typesets/typeset_complete.png"
-                )).absolute(),
-                pathlib.Path(os.path.join(base_path,
-                    r"../src/visions/visualisation/typesets/typeset_standard.png"
-                )).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_complete.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                    )
+                ).absolute(),
                 None,
-                pathlib.Path(os.path.join(base_path,
-                    r"../src/visions/visualisation/typesets/typeset_geometry.png"
-                )).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                    )
+                ).absolute(),
                 None,
             ],
             name="image_png_missing",
@@ -503,7 +522,13 @@ def get_contains_map():
         IPAddress: ["ip", "ip_mixed_v4andv6", "ip_missing"],
         Ordinal: ["ordinal"],
         UUID: ["uuid_series", "uuid_series_missing"],
-        File: ["file_test_py", "file_mixed_ext", "file_test_py_missing", "image_png", "image_png_missing"],
+        File: [
+            "file_test_py",
+            "file_mixed_ext",
+            "file_test_py_missing",
+            "image_png",
+            "image_png_missing",
+        ],
         Image: ["image_png", "image_png_missing"],
         EmailAddress: ["email_address", "email_address_missing"],
     }
