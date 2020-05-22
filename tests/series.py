@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 from shapely import wkt
+import os
 
 from visions.types import (
     URL,
@@ -34,6 +35,8 @@ from visions.types import (
     TimeDelta,
 )
 from visions.types.email_address import FQDA
+
+base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_series():
@@ -346,57 +349,56 @@ def get_series():
         # File
         pd.Series(
             [
-                pathlib.Path("series.py").absolute(),
-                pathlib.Path("test_contains.py").absolute(),
-                pathlib.Path("test_copy.py").absolute(),
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_contains.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
             ],
             name="file_test_py",
         ),
         pd.Series(
             [
-                pathlib.Path("../make.bat").absolute(),
-                pathlib.Path("../README.rst").absolute(),
-                pathlib.Path("test_copy.py").absolute(),
+                pathlib.Path(os.path.join(base_path, "..", "make.bat")).absolute(),
+                pathlib.Path(os.path.join(base_path, "..", "README.rst")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
             ],
             name="file_mixed_ext",
         ),
         pd.Series(
             [
-                pathlib.Path("series.py").absolute(),
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
                 None,
-                pathlib.Path("test_contains.py").absolute(),
+                pathlib.Path(os.path.join(base_path, "test_contains.py")).absolute(),
                 None,
-                pathlib.Path("test_copy.py").absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
             ],
             name="file_test_py_missing",
         ),
         # Image
         pd.Series(
             [
-                pathlib.Path(
-                    r"../src/visions/visualisation/typesets/typeset_complete.png"
+                pathlib.Path(os.path.join(base_path, "../src/visions/visualisation/typesets/typeset_complete.png")
                 ).absolute(),
-                pathlib.Path(
+                pathlib.Path(os.path.join(base_path,
                     r"../src/visions/visualisation/typesets/typeset_standard.png"
-                ).absolute(),
-                pathlib.Path(
+                )).absolute(),
+                pathlib.Path(os.path.join(base_path,
                     r"../src/visions/visualisation/typesets/typeset_geometry.png"
-                ).absolute(),
+                )).absolute(),
             ],
             name="image_png",
         ),
         pd.Series(
             [
-                pathlib.Path(
+                pathlib.Path(os.path.join(base_path,
                     r"../src/visions/visualisation/typesets/typeset_complete.png"
-                ).absolute(),
-                pathlib.Path(
+                )).absolute(),
+                pathlib.Path(os.path.join(base_path,
                     r"../src/visions/visualisation/typesets/typeset_standard.png"
-                ).absolute(),
+                )).absolute(),
                 None,
-                pathlib.Path(
+                pathlib.Path(os.path.join(base_path,
                     r"../src/visions/visualisation/typesets/typeset_geometry.png"
-                ).absolute(),
+                )).absolute(),
                 None,
             ],
             name="image_png_missing",
@@ -501,7 +503,7 @@ def get_contains_map():
         IPAddress: ["ip", "ip_mixed_v4andv6", "ip_missing"],
         Ordinal: ["ordinal"],
         UUID: ["uuid_series", "uuid_series_missing"],
-        File: ["file_test_py", "file_mixed_ext", "file_test_py_missing"],
+        File: ["file_test_py", "file_mixed_ext", "file_test_py_missing", "image_png", "image_png_missing"],
         Image: ["image_png", "image_png_missing"],
         EmailAddress: ["email_address", "email_address_missing"],
     }

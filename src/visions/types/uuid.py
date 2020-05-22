@@ -5,6 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import nullable_series_contains
 
 
 def test_uuid(series) -> bool:
@@ -52,5 +53,6 @@ class UUID(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         return all(isinstance(x, uuid.UUID) for x in series)
