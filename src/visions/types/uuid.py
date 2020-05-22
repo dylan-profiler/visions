@@ -22,7 +22,12 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
     relations = [
         IdentityRelation(cls, Object),
-        InferenceRelation(cls, String, relationship=test_utils.coercion_test(test_uuid), transformer=to_uuid),
+        InferenceRelation(
+            cls,
+            String,
+            relationship=test_utils.coercion_test(test_uuid),
+            transformer=to_uuid,
+        ),
     ]
     return relations
 
