@@ -19,7 +19,7 @@ def str_to_email(s):
     elif isinstance(s, str):
         return FQDA(*s.split("@", maxsplit=1))
     else:
-        raise TypeError('Only strings supported')
+        raise TypeError("Only strings supported")
 
 
 def to_email(series: pd.Series) -> pd.Series:
