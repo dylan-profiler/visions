@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -177,14 +177,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.url</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">ParseResult</span><span class="p">,</span> <span class="n">urlparse</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">ParseResult</span><span class="p">,</span> <span class="n">urlparse</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
-<span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">nullable_series_contains</span>
+<span class="kn">from</span> <span class="nn">visions.relations</span> <span class="k">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="k">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="k">import</span> <span class="n">nullable_series_contains</span>
 
 
 <span class="k">def</span> <span class="nf">test_url</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -199,7 +199,7 @@
 
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Object</span>
+    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="k">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Object</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
