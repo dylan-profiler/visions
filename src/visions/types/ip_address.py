@@ -4,7 +4,7 @@ from typing import Sequence
 import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
-from visions.types import VisionsBaseType
+from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 

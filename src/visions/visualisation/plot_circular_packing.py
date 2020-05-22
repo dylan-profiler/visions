@@ -3,7 +3,6 @@ import re
 from pathlib import Path
 
 import networkx as nx
-from networkx.readwrite import json_graph
 
 from visions.typesets import CompleteSet
 
@@ -36,13 +35,36 @@ def write_html(data):
     file_name.write_text(fc)
 
 
+def to_json_tree_sorted(G, root):
+    # json_graph.tree_data with sorting
+    from itertools import chain
+
+    def add_children(n, G):
+        nbrs = G[n]
+        if len(nbrs) == 0:
+            return []
+        children_ = []
+        for child in nbrs:
+            d = dict(chain(G.nodes[child].items(), [("id", child)]))
+            c = add_children(child, G)
+            if c:
+                d["children"] = c
+            children_.append(d)
+
+        children_ = sorted(children_, key=lambda x: x["id"])
+        return children_
+
+    data = dict(chain(G.nodes[root].items(), [("id", root)]))
+    data["children"] = add_children(root, G)
+    return data
+
+
 def write_circular_packing_files():
     typeset = CompleteSet()
     graph = typeset.base_graph.copy()
     nx.relabel_nodes(graph, {n: str(n) for n in graph.nodes}, copy=False)
 
-    data = json_graph.tree_data(graph, root="Generic")
-
+    data = to_json_tree_sorted(graph, root="Generic")
     data = update(data)
 
     write_json(data)

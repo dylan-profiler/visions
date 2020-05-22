@@ -1,7 +1,8 @@
 """
 A selection of testing utilities for visions.
 """
-from typing import Callable, Union, List, Dict, Optional
+from typing import Callable, Dict, List, Optional, Union
+
 import pandas as pd
 
 
