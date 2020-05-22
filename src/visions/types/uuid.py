@@ -6,13 +6,11 @@ import pandas as pd
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import isinstance_attrs
+from visions.utils.coercion import test_utils
 
 
 def test_uuid(series) -> bool:
-    try:
-        return to_uuid(series).all()
-    except (ValueError, AttributeError):
-        return False
+    return to_uuid(series).all()
 
 
 def to_uuid(series: pd.Series) -> pd.Series:
@@ -24,7 +22,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
     relations = [
         IdentityRelation(cls, Object),
-        InferenceRelation(cls, String, relationship=test_uuid, transformer=to_uuid),
+        InferenceRelation(cls, String, relationship=test_utils.coercion_test(test_uuid), transformer=to_uuid),
     ]
     return relations
 

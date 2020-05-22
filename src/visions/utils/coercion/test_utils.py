@@ -20,7 +20,7 @@ def option_coercion_evaluator(
         The coerced series if the coercion succeeds otherwise None.
     """
 
-    error_list = [ValueError, TypeError, AttributeError, SystemError]
+    error_list = [ValueError, TypeError, AttributeError]
     if extra_errors:
         error_list.extend(extra_errors)
     error_list = tuple(error_list)
