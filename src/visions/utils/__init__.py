@@ -7,4 +7,5 @@ from visions.utils.warning_handling import suppress_warnings
 from visions.utils.series_utils import (
     nullable_series_contains,
     func_nullable_series_contains,
+    isinstance_attrs,
 )
