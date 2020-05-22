@@ -1,6 +1,11 @@
 """Core functionality"""
+import pandas as pd
+
 from visions import types, typesets, utils
-from visions.dtypes.boolean import BoolDtype
+
+if pd.__version__.split(".")[0] == 0:
+    from visions.dtypes.boolean import BoolDtype
+
 from visions.functional import (
     cast_frame,
     cast_series,

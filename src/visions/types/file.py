@@ -3,14 +3,28 @@ from typing import Sequence
 
 import pandas as pd
 
-from visions.relations import IdentityRelation, TypeRelation
+from visions.relations import IdentityRelation, TypeRelation, InferenceRelation
 from visions.types.type import VisionsBaseType
+from visions.dtypes.stringdtype_alias import create_alias
+
+
+create_alias("file")
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Path
+    from visions.types import Path, String
 
-    relations = [IdentityRelation(cls, Path)]
+    relations = [
+        IdentityRelation(cls, String),
+        InferenceRelation(
+            cls,
+            Path,
+            relationship=lambda series: all(
+                isinstance(p, pathlib.Path) and p.exists() for p in series
+            ),
+            transformer=lambda series: series.astype("file"),
+        ),
+    ]
     return relations
 
 
@@ -30,4 +44,4 @@ class File(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(isinstance(p, pathlib.Path) and p.exists() for p in series)
+        return series.dtype == "file"
