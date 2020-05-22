@@ -1,0 +1,78 @@
+name: CI Dev
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install GraphViz
+      run: sudo apt-get install graphviz
+
+    - uses: actions/checkout@v2
+
+    - name: Configurating Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - uses: actions/cache@v1
+      name: Cache pip dependencies
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install pip dependencies
+      run: |
+         pip install --upgrade pip
+         pip install -r requirements.txt
+         pip install -r requirements_dev.txt
+         pip install -r requirements_test.txt
+
+    - name: Code formatting using black
+      run: black .
+
+    - name: Commit documentation changes
+      run: |
+        git add -u
+        git commit -m "[skip ci] Black code formatting" -a || true
+
+    - name: Install the package
+      run: pip install -e .
+
+    - name: Updating plots
+      run: |
+         cd src/visions/visualisation/
+         python plot_circular_packing.py
+         python plot_summary.py
+         python plot_typesets.py
+         cd ../../../
+
+    - name: Build the documentation
+      run: cd docsrc/ && make github && cd ../
+
+    - name: Commit documentation changes
+      run: |
+        git add docs/
+        git commit -m "[skip ci] Updating documentation" -a || true
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ github.ref }}
+        directory: docs/
+        github_token: ${{ secrets.GITHUB_TOKEN }}

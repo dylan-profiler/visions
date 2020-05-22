@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.text_summary &mdash; visions 0.4.1 documentation</title>
+  <title>visions.application.summaries.series.text_summary &mdash; visions 0.4.4 documentation</title>
   
 
   
@@ -178,14 +178,16 @@
             
   <h1>Source code for visions.application.summaries.series.text_summary</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tangled_up_in_unicode</span> <span class="k">import</span> <span class="n">block</span><span class="p">,</span> <span class="n">block_abbr</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">category_long</span><span class="p">,</span> <span class="n">script</span>
 
-<span class="kn">from</span> <span class="nn">tangled_up_in_unicode</span> <span class="k">import</span> <span class="n">category</span><span class="p">,</span> <span class="n">category_long</span><span class="p">,</span> <span class="n">script</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">block_abbr</span>
+<span class="kn">from</span> <span class="nn">visions.application.summaries.series.numerical_summary</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">named_aggregate_summary</span><span class="p">,</span>
+<span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_character_counts</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_character_counts</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Counter</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Function to return the character counts</span>
 
 <span class="sd">    Args:</span>
@@ -194,7 +196,92 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A dict with character counts</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">()))</span>
+    <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">counter_to_series</span><span class="p">(</span><span class="n">counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">counter</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+
+    <span class="n">counter_as_tuples</span> <span class="o">=</span> <span class="n">counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+    <span class="n">items</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">counter_as_tuples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">unicode_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="c1"># Unicode Character Summaries (category and script name)</span>
+    <span class="n">character_counts</span> <span class="o">=</span> <span class="n">get_character_counts</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+    <span class="n">character_counts_series</span> <span class="o">=</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">character_counts</span><span class="p">)</span>
+
+    <span class="n">character_counts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">character_counts</span><span class="p">)</span>
+
+    <span class="n">char_to_block</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">block</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">char_to_category_short</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">category</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">char_to_script</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">script</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;n_characters&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">character_counts_series</span><span class="p">),</span>
+        <span class="s2">&quot;character_counts&quot;</span><span class="p">:</span> <span class="n">character_counts_series</span><span class="p">,</span>
+        <span class="s2">&quot;category_alias_values&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">category_long</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">char_to_category_short</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;block_alias_values&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">block_abbr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">char_to_block</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Retrieve original distribution</span>
+    <span class="n">block_alias_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+    <span class="n">per_block_char_counts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">Counter</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">char</span><span class="p">,</span> <span class="n">n_char</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">block_name</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_values&quot;</span><span class="p">][</span><span class="n">char</span><span class="p">]</span>
+        <span class="n">block_alias_counts</span><span class="p">[</span><span class="n">block_name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">n_char</span>
+        <span class="n">per_block_char_counts</span><span class="p">[</span><span class="n">block_name</span><span class="p">][</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_char</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">block_alias_counts</span><span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_char_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">per_block_char_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">script_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+    <span class="n">per_script_char_counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">Counter</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">char_to_script</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span>
+    <span class="k">for</span> <span class="n">char</span><span class="p">,</span> <span class="n">n_char</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">script_name</span> <span class="o">=</span> <span class="n">char_to_script</span><span class="p">[</span><span class="n">char</span><span class="p">]</span>
+        <span class="n">script_counts</span><span class="p">[</span><span class="n">script_name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">n_char</span>
+        <span class="n">per_script_char_counts</span><span class="p">[</span><span class="n">script_name</span><span class="p">][</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_char</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;script_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">script_counts</span><span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;script_char_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">per_script_char_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">category_alias_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+    <span class="n">per_category_alias_char_counts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">Counter</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">char</span><span class="p">,</span> <span class="n">n_char</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">category_alias_name</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">][</span><span class="n">char</span><span class="p">]</span>
+        <span class="n">category_alias_counts</span><span class="p">[</span><span class="n">category_alias_name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">n_char</span>
+        <span class="n">per_category_alias_char_counts</span><span class="p">[</span><span class="n">category_alias_name</span><span class="p">][</span><span class="n">char</span><span class="p">]</span> <span class="o">+=</span> <span class="n">n_char</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">category_alias_counts</span><span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_char_counts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="n">counter_to_series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">per_category_alias_char_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Unique counts</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;n_category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_counts&quot;</span><span class="p">])</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;n_scripts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;script_counts&quot;</span><span class="p">])</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;n_block_alias&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_counts&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">summary</span>
+
+
+<span class="k">def</span> <span class="nf">length_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">}</span>
+    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">named_aggregate_summary</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">summary</span>
 
 
 <div class="viewcode-block" id="text_summary"><a class="viewcode-back" href="../../../../../visions/api/_autosummary/visions.application.summaries.series.text_summary.html#visions.application.summaries.series.text_summary">[docs]</a><span class="k">def</span> <span class="nf">text_summary</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -207,23 +294,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Distribution of length</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span>
-
-    <span class="c1"># Unicode Character Summaries (category and script name)</span>
-    <span class="n">character_counts</span> <span class="o">=</span> <span class="n">get_character_counts</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_short_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">key</span><span class="p">:</span> <span class="n">category</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-    <span class="p">}</span>
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_alias_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">key</span><span class="p">:</span> <span class="n">category_long</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;category_short_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-    <span class="p">}</span>
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;script_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">script</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">block</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">character_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_alias_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">key</span><span class="p">:</span> <span class="n">block_abbr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;block_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-    <span class="p">}</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">length_summary</span><span class="p">(</span><span class="n">series</span><span class="p">))</span>
+    <span class="n">summary</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">unicode_summary</span><span class="p">(</span><span class="n">series</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">summary</span></div>
 </pre></div>

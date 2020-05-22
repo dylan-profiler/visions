@@ -1,18 +1,24 @@
 from pathlib import Path
 
-from visions.types import Integer, ExistingPath, String, DateTime
 from visions.application.summaries.complete_summary import CompleteSummary
+from visions.types import DateTime, File, Integer, String
 
-summaries_dir = Path("summaries/")
-summaries_dir.mkdir(exist_ok=True)
 
-summary = CompleteSummary()
+def generate_summary_plots():
+    summaries_dir = Path("summaries/")
+    summaries_dir.mkdir(exist_ok=True)
 
-# For a typeset
-summary.plot(summaries_dir / "summary_complete.svg")
+    summary = CompleteSummary()
 
-# For specific types
-summary.plot(summaries_dir / "summary_integer.svg", Integer)
-summary.plot(summaries_dir / "summary_string.svg", String)
-summary.plot(summaries_dir / "summary_datetime.svg", DateTime)
-summary.plot(summaries_dir / "summary_existing_path.svg", ExistingPath)
+    # For a typeset
+    summary.plot(summaries_dir / "summary_complete.svg")
+
+    # For specific types
+    summary.plot(summaries_dir / "summary_integer.svg", Integer)
+    summary.plot(summaries_dir / "summary_string.svg", String)
+    summary.plot(summaries_dir / "summary_datetime.svg", DateTime)
+    summary.plot(summaries_dir / "summary_file.svg", File)
+
+
+if __name__ == "__main__":
+    generate_summary_plots()

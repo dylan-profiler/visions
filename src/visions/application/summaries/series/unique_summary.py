@@ -10,8 +10,7 @@ def unique_summary(series: pd.Series) -> dict:
     Returns:
 
     """
-    summary = {}
-    summary.update({"n_unique": series.nunique()})
+    summary = {"n_unique": series.nunique(), "is_unique": series.is_unique}
     return summary
 
 
@@ -21,13 +20,15 @@ def unique_summary_complex(series: pd.Series) -> dict:
     Args:
         series: series to summarize
 
+    Notes:
+        Until complex bug is fixed:
+        - https://github.com/pandas-dev/pandas/issues/17927
+        - https://github.com/pandas-dev/pandas/pull/27599
+
     Returns:
 
     """
-    summary = {}
-    # Until complex bug is fixed:
-    # https://github.com/pandas-dev/pandas/issues/17927
-    # https://github.com/pandas-dev/pandas/pull/27599
+
     n_unique = len(set(series[series.notna()].values))
-    summary.update({"n_unique": n_unique})
+    summary = {"n_unique": n_unique, "is_unique": series.is_unique}
     return summary

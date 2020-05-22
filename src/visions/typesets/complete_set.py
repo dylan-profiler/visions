@@ -1,24 +1,25 @@
 from visions.types import (
-    Boolean,
-    Float,
-    Object,
-    Complex,
-    Categorical,
-    Ordinal,
-    DateTime,
-    TimeDelta,
-    Integer,
-    Count,
-    String,
-    Geometry,
     URL,
-    Path,
-    Date,
-    Time,
-    ExistingPath,
-    ImagePath,
-    IPAddress,
     UUID,
+    Boolean,
+    Categorical,
+    Complex,
+    Count,
+    Date,
+    DateTime,
+    EmailAddress,
+    File,
+    Float,
+    Geometry,
+    Image,
+    Integer,
+    IPAddress,
+    Object,
+    Ordinal,
+    Path,
+    String,
+    Time,
+    TimeDelta,
 )
 from visions.typesets.typeset import VisionsTypeset
 
@@ -43,8 +44,8 @@ class CompleteSet(VisionsTypeset):
     - TimeDelta
     - Geometry
     - Path
-    - ExistingPath
-    - ImagePath
+    - File
+    - Image
     - URL
     - IPAddress
     - UUID
@@ -69,8 +70,8 @@ class CompleteSet(VisionsTypeset):
             Path,
             Date,
             Time,
-            ExistingPath,
-            ImagePath,
+            File,
+            Image,
             IPAddress,
             UUID,
         }

@@ -1,13 +1,12 @@
 import numbers
-from typing import Type
 import warnings
+from typing import Type
 
 import numpy as np
-
 from pandas._libs import lib
 from pandas.compat import set_function_name
-from pandas.util._decorators import cache_readonly
-
+from pandas.core import nanops, ops
+from pandas.core.arrays import ExtensionArray, ExtensionOpsMixin
 from pandas.core.dtypes.base import ExtensionDtype
 from pandas.core.dtypes.cast import astype_nansafe
 from pandas.core.dtypes.common import (
@@ -23,10 +22,8 @@ from pandas.core.dtypes.common import (
 from pandas.core.dtypes.dtypes import register_extension_dtype
 from pandas.core.dtypes.generic import ABCIndexClass, ABCSeries
 from pandas.core.dtypes.missing import isna, notna
-
-from pandas.core import nanops, ops
-from pandas.core.arrays import ExtensionArray, ExtensionOpsMixin
 from pandas.core.tools.numeric import to_numeric
+from pandas.util._decorators import cache_readonly
 
 
 class _BoolDtype(ExtensionDtype):

@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Dict, List
 
 
 def get_boolean_coercions(id: str) -> List[Dict]:

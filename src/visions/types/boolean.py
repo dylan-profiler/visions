@@ -6,8 +6,8 @@ import pandas.api.types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.relations.string_to_bool import get_boolean_coercions
-from visions.types import VisionsBaseType
-from visions.utils.coercion.test_utils import coercion_map_test, coercion_map
+from visions.types.type import VisionsBaseType
+from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
 
 
 def to_bool(series: pd.Series) -> pd.Series:

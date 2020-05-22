@@ -7,12 +7,10 @@
 ## Create and update the documentation
 docs:
 	cd docsrc/ && make github
-	ECHO "Docs updated!"
 
 ## Execute unit tests
 test:
 	pytest tests/
-	ECHO "Tests completed!"
 
 ## Upload package to pypi
 pypi_package:
@@ -21,10 +19,10 @@ pypi_package:
 	python setup.py sdist bdist_wheel
 	twine check dist/*
 	twine upload --skip-existing dist/*
-	ECHO "PyPi package completed"
 
 ## Run black linting
 lint:
+	isort -y -o visions
 	black .
 
 ## Run type checking

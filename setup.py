@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 # Read the contents of README file
 source_root = Path(".")
@@ -11,6 +10,9 @@ with (source_root / "README.rst").open(encoding="utf-8") as f:
 # Read the requirements
 with (source_root / "requirements.txt").open(encoding="utf8") as f:
     requirements = f.readlines()
+
+with (source_root / "requirements_dev.txt").open(encoding="utf8") as f:
+    dev_requirements = f.readlines()
 
 with (source_root / "requirements_test.txt").open(encoding="utf8") as f:
     test_requirements = f.readlines()
@@ -22,13 +24,7 @@ extras_requires = {
     "type_geometry": type_geometry_requires,
     "type_image_path": type_image_path_requires,
     "plotting": ["pydot", "pygraphviz", "matplotlib"],
-    "dev": [
-        "black",
-        "mypy",
-        "recommonmark",
-        "sphinx_rtd_theme",
-        "sphinx-autodoc-typehints",
-    ],
+    "dev": dev_requirements,
     "test": test_requirements,
 }
 
@@ -42,7 +38,7 @@ extras_requires["all"] = requirements + [
 
 setup(
     name="visions",
-    version="0.4.1",
+    version="0.4.4",
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     author="Dylan Profiler",

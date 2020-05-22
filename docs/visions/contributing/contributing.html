@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Community contributions &mdash; visions 0.4.1 documentation</title>
+  <title>Community contributions &mdash; visions 0.4.4 documentation</title>
   
 
   
@@ -106,7 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#installing-dependencies">Installing dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linting">Linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#docs">Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#all-together">All together</a></li>
 </ul>
 </li>
@@ -225,10 +225,14 @@ abide by the guidelines outlined below.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="docs">
-<h2>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h2>
-<p>The documentation needs to be generated after each contribution, because the API reference is automatically generated.
-You can do this by:</p>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Software should provide adequate documentation for beginning and advanced users.
+When you contribute, please check if your contribution requires some additional documentation.
+Documentation is written in ReStructuredText (.rst).
+You can find the source files in <a href="#id1"><span class="problematic" id="id2">`</span></a>docsrcsourcevisions`.</p>
+<p>The documentation is automatically generated after each contribution by our <a class="reference external" href="https://github.com/dylan-profiler/visions/actions">Github Actions</a> workflow.</p>
+<p>If you like, you can manually generate the documentation by running:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make docs</span>
 </pre></div>
 </div>

@@ -52,7 +52,7 @@
     // d3.json("typesets/typeset_complete_base.json", function (error, root) {
     //    if (error) throw error;
     // START-REPLACE
-	root = {"children": [{"name": "TimeDelta", "size": 1}, {"name": "Count", "size": 1}, {"name": "Boolean", "size": 1}, {"name": "Complex", "size": 1}, {"children": [{"name": "Ordinal", "size": 1}], "name": "Categorical"}, {"children": [{"name": "Geometry", "size": 1}, {"name": "UUID", "size": 1}, {"name": "URL", "size": 1}, {"name": "String", "size": 1}, {"children": [{"children": [{"name": "ImagePath", "size": 1}], "name": "ExistingPath"}], "name": "Path"}, {"name": "IPAddress", "size": 1}], "name": "Object"}, {"name": "Integer", "size": 1}, {"children": [{"name": "Time", "size": 1}, {"name": "Date", "size": 1}], "name": "DateTime"}, {"name": "Float", "size": 1}], "name": "Generic"};
+	root = {"children": [{"name": "Boolean", "size": 1}, {"children": [{"name": "Ordinal", "size": 1}], "name": "Categorical"}, {"name": "Complex", "size": 1}, {"name": "Count", "size": 1}, {"children": [{"name": "Date", "size": 1}, {"name": "Time", "size": 1}], "name": "DateTime"}, {"name": "Float", "size": 1}, {"name": "Integer", "size": 1}, {"children": [{"name": "Geometry", "size": 1}, {"name": "IPAddress", "size": 1}, {"children": [{"children": [{"name": "Image", "size": 1}], "name": "File"}], "name": "Path"}, {"name": "String", "size": 1}, {"name": "URL", "size": 1}, {"name": "UUID", "size": 1}], "name": "Object"}, {"name": "TimeDelta", "size": 1}], "name": "Generic"};
 	// END-REPLACE
         root = d3.hierarchy(root)
             .sum(function (d) {
