@@ -220,6 +220,16 @@ def get_series():
             ],
             name="time",
         ),
+        pd.Series(
+            [
+                datetime.datetime(year=1, month=1, day=1, hour=8, minute=43, second=12),
+                datetime.datetime(year=1, month=1, day=1, hour=9, minute=43, second=12),
+                datetime.datetime(
+                    year=1, month=1, day=1, hour=10, minute=43, second=12
+                ),
+            ],
+            name="datetime_to_time",
+        ),
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),
         pd.Series(
@@ -384,8 +394,9 @@ def get_contains_map():
             "datetime",
             "timestamp_series_nat",
             "date_series_nat",
+            "datetime_to_time",
         ],
-        Date: ["date_series_nat", "date"],
+        Date: ["date"],
         Time: ["time"],
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
@@ -531,6 +542,7 @@ def infer_series_type_map():
         "date_series_nat": Date,
         "date": Date,
         "time": Time,
+        "datetime_to_time": Time,
         "categorical_char": Categorical,
         "ordinal": Ordinal,
         "str_complex": Complex,
@@ -562,6 +574,8 @@ def get_convert_map():
                 # "string_with_sep_num_nan",
             ],
         ),
+        (Date, DateTime, ["date_series_nat"]),
+        (Time, DateTime, ["datetime_to_time"]),
         (DateTime, String, ["timestamp_string_series", "string_date"]),
         (Geometry, String, ["geometry_string_series"]),
         (Boolean, String, ["string_bool_nan"]),

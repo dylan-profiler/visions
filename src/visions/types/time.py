@@ -1,16 +1,39 @@
+from datetime import time, date
+
 from typing import Sequence
 
 import pandas as pd
-import pandas.api.types as pdt
 
-from visions.relations import IdentityRelation, TypeRelation
+from visions.relations import IdentityRelation, TypeRelation, InferenceRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import (
+    nullable_series_contains,
+    class_name_attrs,
+)
+from visions.utils.coercion import test_utils
+
+
+def test_time(series):
+    dtseries = series.copy().dropna().dt.date
+    return all(v == date(1, 1, 1) for v in dtseries)
+
+
+def to_time(series):
+    return series.dt.time
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import DateTime
+    from visions.types import DateTime, Generic
 
-    relations = [IdentityRelation(cls, DateTime)]
+    relations = [
+        IdentityRelation(cls, Generic),
+        InferenceRelation(
+            cls,
+            DateTime,
+            relationship=test_utils.coercion_test(test_time),
+            transformer=to_time,
+        ),
+    ]
     return relations
 
 
@@ -18,7 +41,7 @@ class Time(VisionsBaseType):
     """**Time** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+        >>> x = pd.Series([datetime.time(10, 8, 4), datetime.time(21, 17, 0)])
         >>> x in visions.Time
         True
     """
@@ -28,18 +51,6 @@ class Time(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
-        if not pdt.is_datetime64_any_dtype(series):
-            return False
-        elif series.hasnans:
-            series = series.dropna()
-            if series.empty:
-                return False
-
-        temp_series = series.dt
-
-        time_val_map = {"day": 1, "month": 1, "year": 1}
-        return all(
-            getattr(temp_series, time_part).eq(val).all()
-            for time_part, val in time_val_map.items()
-        )
+        return class_name_attrs(series, time, ["microsecond", "hour"])
