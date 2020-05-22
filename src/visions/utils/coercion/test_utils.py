@@ -6,7 +6,9 @@ from typing import Callable, Dict, List, Optional, Union
 import pandas as pd
 
 
-def option_coercion_evaluator(method: Callable, extra_errors: Optional[List[Exception]] = None) -> Callable:
+def option_coercion_evaluator(
+    method: Callable, extra_errors: Optional[List[Exception]] = None
+) -> Callable:
     """A coercion test evaluator
 
     Evaluates a coercion method and optionally returns the coerced series.
@@ -32,7 +34,9 @@ def option_coercion_evaluator(method: Callable, extra_errors: Optional[List[Exce
     return f
 
 
-def coercion_test(method: Callable, extra_errors: Optional[List[Exception]] = None) -> Callable:
+def coercion_test(
+    method: Callable, extra_errors: Optional[List[Exception]] = None
+) -> Callable:
     """A coercion test generator
 
     Creates a coercion test based on a provided coercion method.
