@@ -1,3 +1,5 @@
+import ntpath
+import posixpath
 import pathlib
 from typing import Sequence
 
@@ -9,25 +11,22 @@ from visions.types.type import VisionsBaseType
 
 def string_is_path(series) -> bool:
     try:
-        s = to_path(series.copy())
-        return s.apply(lambda x: x.is_absolute()).all()
+        return all(posixpath.isabs(x) for x in series) or all(
+            ntpath.isabs(x) for x in series
+        )
     except TypeError:
         return False
 
 
-def to_path(series: pd.Series) -> pd.Series:
-    s = series.copy().apply(pathlib.PureWindowsPath)
-    if not s.apply(lambda x: x.is_absolute()).all():
-        return series.apply(pathlib.PurePosixPath)
-    else:
-        return s
+def to_path(series):
+    return series.astype("path")
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Object, String
+    from visions.types import String
 
     relations = [
-        IdentityRelation(cls, Object),
+        IdentityRelation(cls, String),
         InferenceRelation(
             cls, String, relationship=string_is_path, transformer=to_path
         ),
@@ -51,4 +50,4 @@ class Path(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(isinstance(x, pathlib.PurePath) and x.is_absolute() for x in series)
+        return series.dtype == "path"

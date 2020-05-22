@@ -1,3 +1,5 @@
+import os
+
 import pathlib
 from typing import Sequence
 
@@ -19,9 +21,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             Path,
-            relationship=lambda series: all(
-                isinstance(p, pathlib.Path) and p.exists() for p in series
-            ),
+            relationship=lambda series: all(os.path.exists(p) for p in series),
             transformer=lambda series: series.astype("file"),
         ),
     ]

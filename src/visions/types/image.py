@@ -4,14 +4,26 @@ from typing import Sequence
 
 import pandas as pd
 
-from visions.relations import IdentityRelation, TypeRelation
+from visions.relations import IdentityRelation, TypeRelation, InferenceRelation
 from visions.types.type import VisionsBaseType
+from visions.dtypes.stringdtype_alias import create_alias
+
+
+ImageDtype = create_alias("image")
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import File
+    from visions.types import File, String
 
-    relations = [IdentityRelation(cls, File)]
+    relations = [
+        IdentityRelation(cls, String),
+        InferenceRelation(
+            cls,
+            File,
+            relationship=lambda series: all(imghdr.what(p) for p in series),
+            transformer=lambda series: series.astype("image"),
+        ),
+    ]
     return relations
 
 
@@ -31,6 +43,4 @@ class Image(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(
-            isinstance(p, Path) and p.exists() and imghdr.what(p) for p in series
-        )
+        return series.dtype == "image"

@@ -5,25 +5,28 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains
+from visions.dtypes.stringdtype_alias import create_alias
+
+
+UrlDtype = create_alias("url")
 
 
 def test_url(series) -> bool:
     try:
-        return to_url(series).apply(lambda x: x.netloc and x.scheme).all()
+        return all(urlparse(x) and x.netloc and x.scheme for x in series)
     except AttributeError:
         return False
 
 
 def to_url(series: pd.Series) -> pd.Series:
-    return series.apply(urlparse)
+    return series.astype("url")
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import String, Object
+    from visions.types import String
 
     relations = [
-        IdentityRelation(cls, Object),
+        IdentityRelation(cls, String),
         InferenceRelation(cls, String, relationship=test_url, transformer=to_url),
     ]
     return relations
@@ -46,8 +49,5 @@ class URL(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
-        return all(
-            isinstance(x, ParseResult) and all((x.netloc, x.scheme)) for x in series
-        )
+        return series.dtype == "url"
