@@ -15,10 +15,8 @@ EmailDtype = create_alias("email")
 def str_to_email(s):
     if isinstance(s, FQDA):
         return s
-
     if isinstance(s, str):
         return FQDA(*s.split("@", maxsplit=1))
-
     return None
 
 
