@@ -8,9 +8,16 @@ import numpy as np
 from visions.relations import TypeRelation
 
 
+def non_informative_series_head(series: pd.Series, n_items=1) -> bool:
+    try:
+        return all((x is None or pd.isna(x) or np.isnan(x)) for x in series.head(n_items))
+    except (TypeError, ValueError):
+        return False
+
+
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
-        if series.empty or series.dropna().empty:
+        if series.empty or (non_informative_series_head(series) and series.dropna().empty):
             from visions.types import Generic
 
             return cls == Generic
