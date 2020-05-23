@@ -11,10 +11,16 @@ from visions.utils.warning_handling import suppress_warnings
 from visions.utils.series_utils import func_nullable_series_contains
 
 
-@func_nullable_series_contains
 def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
-    return not any(s[0] == '0' for s in series[coerced_series > 1])
-    #return not any(s[0] == "0" and s != "0" for s in series)
+    if coerced_series.hasnans:
+        notna = coerced_series.notna()
+        coerced_series = coerced_series[notna]
+
+        if coerced_series.empty:
+            return False
+        series = series[notna]
+
+    return not any(s[0] == "0" for s in series[coerced_series > 1])
 
 
 def test_string_is_float(series: pd.Series) -> bool:
