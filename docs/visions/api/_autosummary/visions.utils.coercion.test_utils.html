@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -203,9 +203,9 @@
   <div class="section" id="module-visions.utils.coercion.test_utils">
 <span id="visions-utils-coercion-test-utils"></span><h1>visions.utils.coercion.test_utils<a class="headerlink" href="#module-visions.utils.coercion.test_utils" title="Permalink to this headline">¶</a></h1>
 <p>A selection of testing utilities for visions.</p>
-<dl class="py function">
+<dl class="function">
 <dt id="visions.utils.coercion.test_utils.coercion_equality_test">
-<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_equality_test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_equality_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_equality_test" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_equality_test</code><span class="sig-paren">(</span><em class="sig-param">method</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_equality_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_equality_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>A coercion equality test generator</p>
 <p>Creates a coercion test based on a provided coercion method which also enforces
 equality constraints on the output. This is useful when you want to change the
@@ -224,9 +224,9 @@ when converting an integer to a float.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="visions.utils.coercion.test_utils.coercion_map">
-<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapping</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_map</code><span class="sig-paren">(</span><em class="sig-param">mapping</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maps a series given a mapping</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -241,9 +241,9 @@ when converting an integer to a float.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="visions.utils.coercion.test_utils.coercion_map_test">
-<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_map_test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapping</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_map_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_map_test" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_map_test</code><span class="sig-paren">(</span><em class="sig-param">mapping</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_map_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_map_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a testing function for a single mapping or a list of mappings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -257,7 +257,7 @@ when converting an integer to a float.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coercion_map_test</span><span class="p">({</span><span class="s2">&quot;Yes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coercion_map_test</span><span class="p">({</span><span class="s2">&quot;Yes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coercion_map_test</span><span class="p">(</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="p">[</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="p">{</span><span class="s2">&quot;Yes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
@@ -268,9 +268,9 @@ when converting an integer to a float.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="visions.utils.coercion.test_utils.coercion_test">
-<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_test" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_test</code><span class="sig-paren">(</span><em class="sig-param">method</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>A coercion test generator</p>
 <p>Creates a coercion test based on a provided coercion method.</p>
 <dl class="field-list simple">
@@ -286,9 +286,9 @@ when converting an integer to a float.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="visions.utils.coercion.test_utils.option_coercion_evaluator">
-<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">option_coercion_evaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#option_coercion_evaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.option_coercion_evaluator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">option_coercion_evaluator</code><span class="sig-paren">(</span><em class="sig-param">method</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#option_coercion_evaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.option_coercion_evaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>A coercion test evaluator</p>
 <p>Evaluates a coercion method and optionally returns the coerced series.</p>
 <dl class="field-list simple">

@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -199,7 +199,7 @@
             
   <div class="section" id="visions-relations-relations-typerelation">
 <h1>visions.relations.relations.TypeRelation<a class="headerlink" href="#visions-relations-relations-typerelation" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="visions.relations.relations.TypeRelation">
 <em class="property">class </em><code class="sig-prename descclassname">visions.relations.relations.</code><code class="sig-name descname">TypeRelation</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">inferential</em>, <em class="sig-param">transformer</em>, <em class="sig-param">relationship=&lt;function TypeRelation.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/relations/relations.html#TypeRelation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.relations.relations.TypeRelation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Relationship encoder between implementations of <a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.types.type.VisionsBaseType</span></code></a></p>
@@ -215,18 +215,18 @@ two methods:</p>
 <p>For example, the series <cite>pd.Series([1.0, 2.0, 3.0])</cite> is encoded as a sequence of
 floats but in reality they are all integers.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.types</span> <span class="k">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span> <span class="o">=</span> <span class="n">TypeRelation</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span><span class="o">.</span><span class="n">is_relation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">relation</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">pd.Series([1, 2, 3])</span>
 </pre></div>
 </div>
-<dl class="py method">
+<dl class="method">
 <dt id="visions.relations.relations.TypeRelation.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">related_type</em>, <em class="sig-param">inferential</em>, <em class="sig-param">transformer</em>, <em class="sig-param">relationship=&lt;function TypeRelation.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#visions.relations.relations.TypeRelation.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
