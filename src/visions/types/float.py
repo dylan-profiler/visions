@@ -12,14 +12,15 @@ from visions.utils.series_utils import func_nullable_series_contains
 
 
 @func_nullable_series_contains
-def test_string_leading_zeros(series: pd.Series):
-    return not any(s[0] == "0" and s != "0" for s in series)
+def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
+    return not any(s[0] == '0' for s in series[coerced_series > 1])
+    #return not any(s[0] == "0" and s != "0" for s in series)
 
 
 def test_string_is_float(series: pd.Series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(string_to_float)(series)
     if coerced_series is not None and coerced_series in Float:
-        return test_string_leading_zeros(series)
+        return test_string_leading_zeros(series, coerced_series)
 
     return False
 

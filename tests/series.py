@@ -136,7 +136,7 @@ def get_series():
         ),
         pd.Series(["0011", "12"], name="str_int_leading_zeros"),
         pd.Series(["0.0", "0.04", "0"], name="str_float_non_leading_zeros"),
-        pd.Series(["0.0", "0.000", "0"], name="str_int_zeros"),
+        pd.Series(["0.0", "0.000", "0", "2"], name="str_int_zeros"),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, None], name="bool_nan_series"),
