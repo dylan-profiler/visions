@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -257,7 +257,7 @@ This is useful for small changes, such as adding a single relation.</p>
 
  <span class="n">DateTimeIntYYYYMMDD</span> <span class="o">=</span> <span class="n">DateTime</span><span class="o">.</span><span class="n">evolve_type</span><span class="p">(</span><span class="s1">&#39;int_yyyymmdd&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="bp">cls</span><span class="p">:</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">(</span><span class="bp">cls</span><span class="p">)])</span>
 
- <span class="nb">print</span><span class="p">(</span><span class="n">DateTimeIntYYYYMMDD</span><span class="p">)</span>
+ <span class="k">print</span><span class="p">(</span><span class="n">DateTimeIntYYYYMMDD</span><span class="p">)</span>
  <span class="c1"># Prints: DateTime[int_yyyymmdd]</span>
 </pre></div>
 </div>
@@ -266,7 +266,7 @@ This is useful for small changes, such as adding a single relation.</p>
 <p class="admonition-title">Hint</p>
 <p>While developing new type relations, you can use this helper function to debug:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
-     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> was </span><span class="si">{</span><span class="n">type_before</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">type_after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{column} was {type_before} is {type_after}&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Please read the <cite>Type changes</cite> section in the <a class="reference internal" href="../api/functional.html"><span class="doc">functional API documentation</span></a> for more details.</p>
@@ -307,7 +307,7 @@ typesets or define your own from scratch.</p>
 <p>or even more simply,</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset (simplified)</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
 <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">TimeDelta</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span><span class="p">]</span>
 <span class="n">CustomSet</span> <span class="o">=</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
@@ -320,7 +320,7 @@ typesets or define your own from scratch.</p>
 based on simple manipulations to pre-existing sets.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
 <span class="n">typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span>
 
 <span class="c1"># Alternatively</span>
@@ -330,7 +330,7 @@ based on simple manipulations to pre-existing sets.</p>
 </div>
 <p>Just like addition and subtraction elsewhere in Python, you can split these operations up
 in any way imaginable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="kn">as</span> <span class="nn">v</span>
 <span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span>
 <span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Boolean</span>
 <span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">BooleanNL</span>
