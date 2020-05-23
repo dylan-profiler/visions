@@ -86,7 +86,7 @@ def get_series():
         pd.Series([np.nan], name="nan_series"),
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
-        pd.Series(['11111111111', ''], name="string_series_broke_date"),
+        pd.Series(["11111111111", ""], name="string_series_broke_date"),
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
