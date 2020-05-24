@@ -5,16 +5,13 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, TypeRelation, InferenceRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import (
-    nullable_series_contains,
-    class_name_attrs,
-)
+from visions.utils.series_utils import nullable_series_contains, class_name_attrs
 from visions.utils.coercion import test_utils
 
 
 def test_date(series):
     dtseries = series.copy().dropna().dt.time
-    return all(v == time(0, 0, 0, 0) for v in dtseries)
+    return True if all(v == time(0, 0) for v in dtseries) else None
 
 
 def to_date(series):

@@ -174,25 +174,31 @@ def get_series():
             name="complex_series_float",
         ),
         # Datetime Series
-        pd.Series(
-            [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
-            name="timestamp_series",
+        pd.to_datetime(
+            pd.Series(
+                [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
+                name="timestamp_series",
+            )
         ),
-        pd.Series(
-            [
-                datetime.datetime(2017, 3, 5),
-                datetime.datetime(2019, 12, 4, 3, 2, 0),
-                pd.NaT,
-            ],
-            name="timestamp_series_nat",
+        pd.to_datetime(
+            pd.Series(
+                [
+                    datetime.datetime(2017, 3, 5),
+                    datetime.datetime(2019, 12, 4, 3, 2, 0),
+                    pd.NaT,
+                ],
+                name="timestamp_series_nat",
+            )
         ),
-        pd.Series(
-            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
-            name="date_series_nat",
+        pd.to_datetime(
+            pd.Series(
+                [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
+                name="date_series_nat",
+            )
         ),
         pd.Series(
             pd.date_range(
-                start="2013-05-18 12:00:00",
+                start="2013-05-18 12:00:01",
                 periods=2,
                 freq="H",
                 tz="Europe/Brussels",
@@ -227,16 +233,19 @@ def get_series():
             ],
             name="time",
         ),
-        pd.Series(
-            [
-                datetime.datetime(year=1, month=1, day=1, hour=8, minute=43, second=12),
-                datetime.datetime(year=1, month=1, day=1, hour=9, minute=43, second=12),
-                datetime.datetime(
-                    year=1, month=1, day=1, hour=10, minute=43, second=12
-                ),
-            ],
-            name="datetime_to_time",
-        ),
+        # http://pandas-docs.github.io/pandas-docs-travis/user_guide/timeseries.html#timestamp-limitations
+        # pd.to_datetime(
+        #     pd.Series(
+        #         [
+        #             datetime.datetime(year=1, month=1, day=1, hour=8, minute=43, second=12),
+        #             datetime.datetime(year=1, month=1, day=1, hour=9, minute=43, second=12),
+        #             datetime.datetime(
+        #                 year=1, month=1, day=1, hour=10, minute=43, second=12
+        #             ),
+        #         ],
+        #         name="datetime_to_time",
+        #     )
+        # ),
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),
         pd.Series(
@@ -519,7 +528,6 @@ def get_contains_map():
             "datetime",
             "timestamp_series_nat",
             "date_series_nat",
-            "datetime_to_time",
         ],
         Date: ["date"],
         Time: ["time"],
@@ -650,7 +658,7 @@ def infer_series_type_map():
         "complex_series_py_nan": Complex,
         "complex_series_py": Complex,
         "categorical_complex_series": Categorical,
-        "timestamp_series": Date,
+        "timestamp_series": DateTime,
         "timestamp_series_nat": DateTime,
         "timestamp_aware_series": DateTime,
         "datetime": Date,
@@ -687,7 +695,6 @@ def infer_series_type_map():
         "date_series_nat": Date,
         "date": Date,
         "time": Time,
-        "datetime_to_time": Time,
         "categorical_char": Categorical,
         "ordinal": Ordinal,
         "str_complex": Complex,
@@ -731,8 +738,7 @@ def get_convert_map():
                 # "string_with_sep_num_nan",
             ],
         ),
-        (Date, DateTime, ["date_series_nat"]),
-        (Time, DateTime, ["datetime_to_time"]),
+        (Date, DateTime, ["date_series_nat", "datetime"]),
         (DateTime, String, ["timestamp_string_series", "string_date"]),
         (Geometry, String, ["geometry_string_series"]),
         (Boolean, String, ["string_bool_nan"]),

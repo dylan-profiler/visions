@@ -4,18 +4,14 @@ from typing import Sequence
 
 import pandas as pd
 
-from visions.relations import IdentityRelation, TypeRelation, InferenceRelation
+from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import (
-    nullable_series_contains,
-    class_name_attrs,
-)
-from visions.utils.coercion import test_utils
+from visions.utils.series_utils import nullable_series_contains, class_name_attrs
 
 
 def test_time(series):
     dtseries = series.copy().dropna().dt.date
-    return all(v == date(1, 1, 1) for v in dtseries)
+    return True if all(v == date(1, 1, 1) for v in dtseries) else None
 
 
 def to_time(series):
@@ -23,17 +19,9 @@ def to_time(series):
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import DateTime, Object
+    from visions.types import Object
 
-    relations = [
-        IdentityRelation(cls, Object),
-        InferenceRelation(
-            cls,
-            DateTime,
-            relationship=test_utils.coercion_test(test_time),
-            transformer=to_time,
-        ),
-    ]
+    relations = [IdentityRelation(cls, Object)]
     return relations
 
 
