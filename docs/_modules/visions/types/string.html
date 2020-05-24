@@ -190,7 +190,11 @@
     <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Object</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">)]</span>
+
     <span class="k">return</span> <span class="n">relations</span>
+
+
+<span class="n">pandas_has_string_dtype_flag</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pdt</span><span class="p">,</span> <span class="s2">&quot;is_string_dtype&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="String"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.string.html#visions.types.string.String">[docs]</a><span class="k">class</span> <span class="nc">String</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
@@ -209,9 +213,14 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="c1"># TODO: without the object check this passes string categories... is there a better way?</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_object_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">elif</span> <span class="n">series</span><span class="o">.</span><span class="n">hasnans</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_object_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pandas_has_string_dtype_flag</span> <span class="ow">and</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_string_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">hasnans</span><span class="p">:</span>
             <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
