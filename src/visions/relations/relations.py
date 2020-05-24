@@ -2,6 +2,10 @@ import attr
 import pandas as pd
 
 
+def func_repr(func):
+    return func.__name__ if hasattr(func, "__name__") else str("lambda")
+
+
 def identity_relation(series: pd.Series) -> pd.Series:
     return series
 
@@ -34,8 +38,8 @@ class TypeRelation:
     type = attr.ib()
     related_type = attr.ib()
     inferential = attr.ib()
-    transformer = attr.ib()
-    relationship = attr.ib(default=lambda x: False)
+    transformer = attr.ib(repr=func_repr)
+    relationship = attr.ib(default=lambda x: False, repr=func_repr)
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)
@@ -47,8 +51,8 @@ class TypeRelation:
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
     inferential = attr.ib(default=False)
-    transformer = attr.ib(default=identity_relation)
-    relationship = attr.ib()
+    transformer = attr.ib(default=identity_relation, repr=func_repr)
+    relationship = attr.ib(repr=func_repr)
 
     @relationship.default
     def make_relationship(self):
@@ -58,7 +62,7 @@ class IdentityRelation(TypeRelation):
 @attr.s(frozen=True)
 class InferenceRelation(TypeRelation):
     inferential = attr.ib(default=True)
-    relationship = attr.ib()
+    relationship = attr.ib(repr=func_repr)
 
     @relationship.default
     def make_relationship(self):
