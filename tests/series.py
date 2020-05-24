@@ -455,11 +455,9 @@ def get_contains_map():
             "float_series3",
             "float_series4",
             "inf_series",
-            "nan_series",
             "float_nan_series",
             "float_series5",
             "int_nan_series",
-            "nan_series_2",
             "float_with_inf",
             "float_series6",
         ],
@@ -562,6 +560,9 @@ def get_contains_map():
 
     # Empty series
     all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
+
+    # Non informative series
+    all += ['nan_series', 'nan_series_2']
     for key, values in series_map.items():
         all += values
     series_map[Generic] = list(set(all))
@@ -590,8 +591,8 @@ def infer_series_type_map():
         "categorical_float_series": Categorical,
         "float_with_inf": Float,
         "inf_series": Float,
-        "nan_series": Float,
-        "nan_series_2": Float,
+        "nan_series": Generic,
+        "nan_series_2": Generic,
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
