@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
 
@@ -177,15 +177,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.application.summaries.series.image_summary</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">visions.application.summaries.series.numerical_summary</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">visions.application.summaries.series.numerical_summary</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">named_aggregate_summary</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">visions.utils.images.image_utils</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">visions.utils.images.image_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">extract_exif</span><span class="p">,</span>
     <span class="n">hash_image</span><span class="p">,</span>
     <span class="n">is_image_truncated</span><span class="p">,</span>

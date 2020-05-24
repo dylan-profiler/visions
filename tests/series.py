@@ -1,12 +1,14 @@
 import datetime
+import pathlib
 import uuid
-from ipaddress import IPv4Address
+from ipaddress import IPv4Address, IPv6Address
 from pathlib import PurePosixPath, PureWindowsPath
 from urllib.parse import urlparse
 
 import numpy as np
 import pandas as pd
 from shapely import wkt
+import os
 
 from visions.types import (
     URL,
@@ -33,6 +35,8 @@ from visions.types import (
     TimeDelta,
 )
 from visions.types.email_address import FQDA
+
+base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_series():
@@ -82,6 +86,9 @@ def get_series():
         pd.Series([np.inf, np.NINF, np.PINF, 1000000.0, 5.5], name="float_with_inf"),
         pd.Series([np.inf, np.NINF, np.Infinity, np.PINF], name="inf_series"),
         pd.Series([1, 2, np.nan], name="int_nan_series"),
+        # Nan Series
+        pd.Series([np.nan], name="nan_series"),
+        pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
@@ -127,6 +134,9 @@ def get_series():
             [r"/home/user/file.txt", r"/home/user/test2.txt"],
             name="path_series_linux_str",
         ),
+        pd.Series(["0011", "12"], name="str_int_leading_zeros"),
+        pd.Series(["0.0", "0.04", "0"], name="str_float_non_leading_zeros"),
+        pd.Series(["0.0", "0.000", "0", "2"], name="str_int_zeros"),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, None], name="bool_nan_series"),
@@ -214,6 +224,15 @@ def get_series():
             ],
             name="geometry_series",
         ),
+        pd.Series(
+            [
+                wkt.loads("POINT (-92 42)"),
+                wkt.loads("POINT (-92 42.1)"),
+                wkt.loads("POINT (-92 42.2)"),
+                None,
+            ],
+            name="geometry_series_missing",
+        ),
         # Path Series
         pd.Series(
             [
@@ -221,6 +240,14 @@ def get_series():
                 PurePosixPath("/home/user/test2.txt"),
             ],
             name="path_series_linux",
+        ),
+        pd.Series(
+            [
+                PurePosixPath("/home/user/file.txt"),
+                PurePosixPath("/home/user/test2.txt"),
+                None,
+            ],
+            name="path_series_linux_missing",
         ),
         pd.Series(
             [
@@ -245,6 +272,14 @@ def get_series():
             ],
             name="url_nan_series",
         ),
+        pd.Series(
+            [
+                urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
+                urlparse("https://github.com/dylan-profiling/hurricane"),
+                None,
+            ],
+            name="url_none_series",
+        ),
         # UUID Series
         pd.Series(
             [
@@ -253,6 +288,15 @@ def get_series():
                 uuid.UUID("00000000-0000-0000-0000-000000000000"),
             ],
             name="uuid_series",
+        ),
+        pd.Series(
+            [
+                uuid.UUID("0b8a22ca-80ad-4df5-85ac-fa49c44b7ede"),
+                uuid.UUID("aaa381d6-8442-4f63-88c8-7c900e9a23c6"),
+                uuid.UUID("00000000-0000-0000-0000-000000000000"),
+                None,
+            ],
+            name="uuid_series_missing",
         ),
         pd.Series(
             [
@@ -295,14 +339,91 @@ def get_series():
         pd.Series([], name="empty_bool", dtype=bool),
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(
+            [IPv4Address("127.0.0.1"), None, IPv4Address("127.0.0.1")],
+            name="ip_missing",
+        ),
+        pd.Series(
+            [IPv6Address("0:0:0:0:0:0:0:1"), IPv4Address("127.0.0.1")],
+            name="ip_mixed_v4andv6",
+        ),
         pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
-        # Non-informative series
-        pd.Series([np.nan], name="nan_series"),
-        pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
-        pd.Series([None, None], name="non_informative_none"),
-        pd.Series([np.nan, np.nan], name="non_informative_nan"),
-        pd.Series([pd.NaT, pd.NaT], name="non_informative_nat"),
-        pd.Series([None, np.nan], name="non_informative_mixed"),
+        # File
+        pd.Series(
+            [
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_contains.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+            ],
+            name="file_test_py",
+        ),
+        pd.Series(
+            [
+                pathlib.Path(os.path.join(base_path, "..", "make.bat")).absolute(),
+                pathlib.Path(os.path.join(base_path, "..", "README.rst")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+            ],
+            name="file_mixed_ext",
+        ),
+        pd.Series(
+            [
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
+                None,
+                pathlib.Path(os.path.join(base_path, "test_contains.py")).absolute(),
+                None,
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+            ],
+            name="file_test_py_missing",
+        ),
+        # Image
+        pd.Series(
+            [
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        "../src/visions/visualisation/typesets/typeset_complete.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                    )
+                ).absolute(),
+            ],
+            name="image_png",
+        ),
+        pd.Series(
+            [
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_complete.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                    )
+                ).absolute(),
+                None,
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                    )
+                ).absolute(),
+                None,
+            ],
+            name="image_png_missing",
+        ),
         # Email
         pd.Series(
             [FQDA("test", "example.com"), FQDA("info", "example.eu")],
@@ -318,14 +439,6 @@ def get_series():
 
 def get_contains_map():
     series_map = {
-        Generic: [
-            "non_informative_none",
-            "non_informative_nan",
-            "non_informative_nat",
-            "non_informative_mixed",
-            "nan_series",
-            "nan_series_2",
-        ],
         Integer: [
             "int_series",
             "Int64_int_series",
@@ -334,17 +447,19 @@ def get_contains_map():
             "int_series_boolean",
         ],
         Count: ["np_uint32"],
-        Path: ["path_series_linux", "path_series_windows"],
-        URL: ["url_series", "url_nan_series"],
+        Path: ["path_series_linux", "path_series_linux_missing", "path_series_windows"],
+        URL: ["url_series", "url_nan_series", "url_none_series"],
         Float: [
             "float_series",
             "float_series2",
             "float_series3",
             "float_series4",
             "inf_series",
+            "nan_series",
             "float_nan_series",
             "float_series5",
             "int_nan_series",
+            "nan_series_2",
             "float_with_inf",
             "float_series6",
         ],
@@ -402,14 +517,28 @@ def get_contains_map():
             "string_flt_nan",
             "str_complex",
             "uuid_series_str",
+            "str_int_leading_zeros",
             "email_address_str",
+            "str_float_non_leading_zeros",
+            "str_int_zeros",
         ],
-        Geometry: ["geometry_series"],
-        IPAddress: ["ip"],
+        Geometry: ["geometry_series", "geometry_series_missing"],
+        IPAddress: ["ip", "ip_mixed_v4andv6", "ip_missing"],
         Ordinal: ["ordinal"],
-        UUID: ["uuid_series"],
+        UUID: ["uuid_series", "uuid_series_missing"],
+        File: [
+            "file_test_py",
+            "file_mixed_ext",
+            "file_test_py_missing",
+            "image_png",
+            "image_png_missing",
+        ],
+        Image: ["image_png", "image_png_missing"],
         EmailAddress: ["email_address", "email_address_missing"],
     }
+
+    series_map[File] += series_map[Image]
+    series_map[Path] += series_map[File]
 
     series_map[Object] = (
         [
@@ -442,10 +571,6 @@ def get_contains_map():
 
 def infer_series_type_map():
     return {
-        "non_informative_none": Generic,
-        "non_informative_nan": Generic,
-        "non_informative_nat": Generic,
-        "non_informative_mixed": Generic,
         "int_series": Integer,
         "categorical_int_series": Categorical,
         "int_nan_series": Integer,
@@ -465,8 +590,8 @@ def infer_series_type_map():
         "categorical_float_series": Categorical,
         "float_with_inf": Float,
         "inf_series": Float,
-        "nan_series": Generic,
-        "nan_series_2": Generic,
+        "nan_series": Float,
+        "nan_series_2": Float,
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
@@ -500,13 +625,16 @@ def infer_series_type_map():
         "timedelta_series": TimeDelta,
         "timedelta_series_nat": TimeDelta,
         "geometry_string_series": Geometry,
+        "geometry_series_missing": Geometry,
         "geometry_series": Geometry,
         "path_series_linux": Path,
+        "path_series_linux_missing": Path,
         "path_series_linux_str": Path,
         "path_series_windows": Path,
         "path_series_windows_str": Path,
         "url_series": URL,
         "url_nan_series": URL,
+        "url_none_series": URL,
         "mixed_list[str,int]": Object,
         "mixed_dict": Object,
         "mixed_integer": Object,
@@ -523,12 +651,23 @@ def infer_series_type_map():
         "empty_int64": Generic,
         "ip": IPAddress,
         "ip_str": IPAddress,
+        "ip_missing": IPAddress,
         "date_series_nat": Date,
         "categorical_char": Categorical,
         "ordinal": Ordinal,
         "str_complex": Complex,
         "uuid_series": UUID,
         "uuid_series_str": UUID,
+        "uuid_series_missing": UUID,
+        "ip_mixed_v4andv6": IPAddress,
+        "file_test_py": File,
+        "file_test_py_missing": File,
+        "file_mixed_ext": File,
+        "image_png": Image,
+        "image_png_missing": Image,
+        "str_int_leading_zeros": String,
+        "str_float_non_leading_zeros": Float,
+        "str_int_zeros": Integer,
         "email_address": EmailAddress,
         "email_address_missing": EmailAddress,
         "email_address_str": EmailAddress,
@@ -552,6 +691,8 @@ def get_convert_map():
                 "textual_float",
                 "textual_float_nan",
                 "int_str_range",
+                "str_float_non_leading_zeros",
+                "str_int_zeros",
                 # "string_with_sep_num_nan",
             ],
         ),
