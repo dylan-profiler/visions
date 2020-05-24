@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -219,7 +219,7 @@
             
   <div class="section" id="module-visions.types.uuid">
 <span id="visions-types-uuid"></span><h1>visions.types.uuid<a class="headerlink" href="#module-visions.types.uuid" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="visions.types.uuid.UUID">
 <em class="property">class </em><code class="sig-prename descclassname">visions.types.uuid.</code><code class="sig-name descname">UUID</code><a class="reference internal" href="../../../_modules/visions/types/uuid.html#UUID"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.uuid.UUID" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>UUID</strong> implementation of <a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.types.type.VisionsBaseType</span></code></a>.</p>
@@ -229,7 +229,7 @@
 <p>Python standard library:
 <a class="reference external" href="https://docs.python.org/3/library/uuid.html">https://docs.python.org/3/library/uuid.html</a></p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">uuid</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uuids</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0b8a22ca-80ad-4df5-85ac-fa49c44b7ede&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa381d6-8442-4f63-88c8-7c900e9a23c6&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">uuid_str</span><span class="p">)</span> <span class="k">for</span> <span class="n">uuid_str</span> <span class="ow">in</span> <span class="n">uuids</span><span class="p">])</span>
