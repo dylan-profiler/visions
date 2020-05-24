@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -203,9 +203,9 @@
             
   <div class="section" id="visions-functional-type-inference-report-frame">
 <h1>visions.functional.type_inference_report_frame<a class="headerlink" href="#visions-functional-type-inference-report-frame" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="visions.functional.type_inference_report_frame">
-<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">type_inference_report_frame</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">typeset</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#type_inference_report_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.type_inference_report_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">type_inference_report_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#type_inference_report_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.type_inference_report_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return formatted report of the output of <cite>compare_detect_inference_frame</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -222,9 +222,9 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="k">import</span> <span class="n">type_inference_report_frame</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="k">import</span> <span class="n">StandardSet</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">type_inference_report_frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">StandardSet</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span> <span class="o">=</span> <span class="n">StandardSet</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset.csv&#39;</span><span class="p">)</span>
