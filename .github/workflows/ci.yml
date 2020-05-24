@@ -2,7 +2,9 @@ name: CI Dev
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -71,6 +73,6 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        branch: master
+        branch: ${{ github.ref }}
         directory: docs/
         github_token: ${{ secrets.GITHUB_TOKEN }}
