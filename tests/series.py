@@ -40,7 +40,7 @@ base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_series():
-    return [
+    test_series = [
         # Int Series
         pd.Series([1, 2, 3], name="int_series"),
         pd.Series(range(10), name="int_range"),
@@ -436,6 +436,16 @@ def get_series():
         pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
+    if int(pd.__version__[0]) >= 1:
+        pandas_1_series = [
+            pd.Series(
+                ["Patty", "Valentine"], dtype="string", name="string_dtype_series"
+            )
+        ]
+        test_series.extend(pandas_1_series)
+
+    return test_series
+
 
 def get_contains_map():
     series_map = {
@@ -540,6 +550,9 @@ def get_contains_map():
     series_map[File] += series_map[Image]
     series_map[Path] += series_map[File]
 
+    if int(pd.__version__[0]) >= 1:
+        series_map[String].extend(["string_dtype_series"])
+
     series_map[Object] = (
         [
             "mixed_list[str,int]",
@@ -570,7 +583,7 @@ def get_contains_map():
 
 
 def infer_series_type_map():
-    return {
+    inference_map = {
         "int_series": Integer,
         "categorical_int_series": Categorical,
         "int_nan_series": Integer,
@@ -672,6 +685,9 @@ def infer_series_type_map():
         "email_address_missing": EmailAddress,
         "email_address_str": EmailAddress,
     }
+    if int(pd.__version__[0]) >= 1:
+        inference_map["string_dtype_series"] = String
+    return inference_map
 
 
 def get_convert_map():
