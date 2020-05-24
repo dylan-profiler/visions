@@ -40,7 +40,7 @@ base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_series():
-    return [
+    test_series = [
         # Int Series
         pd.Series([1, 2, 3], name="int_series"),
         pd.Series(range(10), name="int_range"),
@@ -90,7 +90,6 @@ def get_series():
         pd.Series([np.nan], name="nan_series"),
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
-        pd.Series(["Patty", "Valentine"], dtype="string", name="string_dtype_series"),
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
@@ -437,6 +436,16 @@ def get_series():
         pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
+    if int(pd.__version__[0]) >= 1:
+        pandas_1_series = [
+            pd.Series(
+                ["Patty", "Valentine"], dtype="string", name="string_dtype_series"
+            )
+        ]
+        test_series.extend(pandas_1_series)
+
+    return test_series
+
 
 def get_contains_map():
     series_map = {
@@ -496,7 +505,6 @@ def get_contains_map():
         Date: ["datetime", "date_series_nat"],
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
-            "string_dtype_series",
             "timestamp_string_series",
             "string_with_sep_num_nan",
             "string_series",
@@ -542,6 +550,9 @@ def get_contains_map():
     series_map[File] += series_map[Image]
     series_map[Path] += series_map[File]
 
+    if int(pd.__version__[0]) >= 1:
+        series_map[String].extend(["string_dtype_series"])
+
     series_map[Object] = (
         [
             "mixed_list[str,int]",
@@ -572,7 +583,7 @@ def get_contains_map():
 
 
 def infer_series_type_map():
-    return {
+    inference_map = {
         "int_series": Integer,
         "categorical_int_series": Categorical,
         "int_nan_series": Integer,
@@ -597,7 +608,6 @@ def infer_series_type_map():
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
-        "string_dtype_series": String,
         "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
         "string_unicode_series": String,
         "string_np_unicode_series": String,
@@ -675,6 +685,9 @@ def infer_series_type_map():
         "email_address_missing": EmailAddress,
         "email_address_str": EmailAddress,
     }
+    if int(pd.__version__[0]) >= 1:
+        inference_map["string_dtype_series"] = String
+    return inference_map
 
 
 def get_convert_map():
