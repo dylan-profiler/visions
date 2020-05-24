@@ -9,14 +9,17 @@ from visions.utils.coercion import test_utils
 from visions.utils.series_utils import nullable_series_contains, isinstance_attrs
 
 
+def test_email(series):
+    return to_email(series).apply(lambda x: x.local and x.fqdn).all()
+
+
 def str_to_email(s):
     if isinstance(s, FQDA):
         return s
-
-    if isinstance(s, str):
+    elif isinstance(s, str):
         return FQDA(*s.split("@", maxsplit=1))
-
-    return None
+    else:
+        raise TypeError("Only strings supported")
 
 
 def to_email(series: pd.Series) -> pd.Series:
@@ -31,7 +34,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             String,
-            relationship=test_utils.coercion_test(to_email),
+            relationship=test_utils.coercion_test(test_email),
             transformer=to_email,
         ),
     ]
@@ -57,7 +60,7 @@ class EmailAddress(VisionsBaseType):
         This type
 
     Examples:
-        >>> x = pd.Series([FQDA('example@gmail.com'), FQDA('example@protonmail.com')])
+        >>> x = pd.Series([FQDA('example','gmail.com'), FQDA.from_str('example@protonmail.com')])
         >>> x in visions.EmailAddress
         True
     """
