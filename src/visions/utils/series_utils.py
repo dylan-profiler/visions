@@ -4,13 +4,25 @@ import pandas as pd
 
 
 def nullable_series_contains(fn: Callable) -> Callable:
-    def inner(cls, series: pd.Series) -> bool:
+    def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()
             if series.empty:
                 return False
 
-        return fn(cls, series)
+        return fn(cls, series, *args, **kwargs)
+
+    return inner
+
+
+def func_nullable_series_contains(fn: Callable) -> Callable:
+    def inner(series: pd.Series, *args, **kwargs) -> bool:
+        if series.hasnans:
+            series = series.dropna()
+            if series.empty:
+                return False
+
+        return fn(series, *args, **kwargs)
 
     return inner
 

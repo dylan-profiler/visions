@@ -142,37 +142,37 @@
 <text text-anchor="middle" x="376" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
 </g>
 <!-- Generic&#45;&gt;Boolean -->
-<g id="edge14" class="edge">
+<g id="edge10" class="edge">
 <title>Generic&#45;&gt;Boolean</title>
 <path fill="none" stroke="#000000" d="M346.4129,-375.2212C292.9285,-369.6777 176.7251,-355.2479 71.937,-323.889"/>
 <polygon fill="#000000" stroke="#000000" points="72.7449,-320.4762 62.1586,-320.9024 70.7,-327.1709 72.7449,-320.4762"/>
 </g>
 <!-- Generic&#45;&gt;Categorical -->
-<g id="edge13" class="edge">
+<g id="edge11" class="edge">
 <title>Generic&#45;&gt;Categorical</title>
 <path fill="none" stroke="#000000" d="M346.4035,-370.6857C306.8994,-360.7868 234.8469,-342.2559 174,-324 172.5506,-323.5651 171.0814,-323.1179 169.6,-322.6613"/>
 <polygon fill="#000000" stroke="#000000" points="170.3147,-319.2168 159.725,-319.5446 168.2078,-325.8922 170.3147,-319.2168"/>
 </g>
 <!-- Generic&#45;&gt;Complex -->
-<g id="edge16" class="edge">
+<g id="edge12" class="edge">
 <title>Generic&#45;&gt;Complex</title>
 <path fill="none" stroke="#000000" d="M346.4188,-375.267C312.7616,-370.5727 258.4075,-357.9154 227,-324 193.8315,-288.183 188.5298,-261.187 207,-216 211.4592,-205.0907 219.3025,-195.1954 227.6103,-186.9434"/>
 <polygon fill="#000000" stroke="#000000" points="230.0045,-189.4965 234.9572,-180.1305 225.2448,-184.3637 230.0045,-189.4965"/>
 </g>
 <!-- Generic&#45;&gt;Count -->
-<g id="edge17" class="edge">
+<g id="edge13" class="edge">
 <title>Generic&#45;&gt;Count</title>
 <path fill="none" stroke="#000000" d="M347.4853,-359.8314C332.7009,-350.4112 314.4963,-338.8118 298.7763,-328.7955"/>
 <polygon fill="#000000" stroke="#000000" points="300.6505,-325.8396 290.3361,-323.4177 296.8889,-331.7431 300.6505,-325.8396"/>
 </g>
 <!-- Generic&#45;&gt;DateTime -->
-<g id="edge10" class="edge">
+<g id="edge14" class="edge">
 <title>Generic&#45;&gt;DateTime</title>
 <path fill="none" stroke="#000000" d="M367.925,-359.8314C364.3898,-351.8771 360.164,-342.369 356.2544,-333.5723"/>
 <polygon fill="#000000" stroke="#000000" points="359.4435,-332.1299 352.1837,-324.4133 353.0468,-334.9729 359.4435,-332.1299"/>
 </g>
 <!-- Generic&#45;&gt;Float -->
-<g id="edge12" class="edge">
+<g id="edge15" class="edge">
 <title>Generic&#45;&gt;Float</title>
 <path fill="none" stroke="#000000" d="M380.4955,-359.5159C383.0193,-349.092 386.2121,-335.8258 389,-324 406.4994,-249.7714 426.5607,-162.1517 436.5886,-118.1744"/>
 <polygon fill="#000000" stroke="#000000" points="440.048,-118.7461 438.8574,-108.2183 433.2229,-117.1907 440.048,-118.7461"/>
@@ -184,7 +184,7 @@
 <text text-anchor="middle" x="490" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">Integer</text>
 </g>
 <!-- Generic&#45;&gt;Integer -->
-<g id="edge18" class="edge">
+<g id="edge16" class="edge">
 <title>Generic&#45;&gt;Integer</title>
 <path fill="none" stroke="#000000" d="M394.2008,-359.6557C403.3822,-349.7044 414.1952,-336.8386 422,-324 448.9241,-279.711 445.6945,-263.6876 466,-216 469.6399,-207.4517 473.708,-198.1936 477.4458,-189.7977"/>
 <polygon fill="#000000" stroke="#000000" points="480.747,-190.9893 481.6366,-180.4318 474.3575,-188.1302 480.747,-190.9893"/>
@@ -196,7 +196,7 @@
 <text text-anchor="middle" x="682" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">Object</text>
 </g>
 <!-- Generic&#45;&gt;Object -->
-<g id="edge15" class="edge">
+<g id="edge17" class="edge">
 <title>Generic&#45;&gt;Object</title>
 <path fill="none" stroke="#000000" d="M405.6186,-371.0309C461.6242,-357.8531 582.9395,-329.3083 644.517,-314.8195"/>
 <polygon fill="#000000" stroke="#000000" points="645.6475,-318.1492 654.58,-312.4518 644.0442,-311.3353 645.6475,-318.1492"/>
@@ -208,7 +208,7 @@
 <text text-anchor="middle" x="765" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">TimeDelta</text>
 </g>
 <!-- Generic&#45;&gt;TimeDelta -->
-<g id="edge11" class="edge">
+<g id="edge18" class="edge">
 <title>Generic&#45;&gt;TimeDelta</title>
 <path fill="none" stroke="#000000" d="M405.7116,-375.4186C464.021,-369.905 597.4761,-355.0769 717.5368,-323.8093"/>
 <polygon fill="#000000" stroke="#000000" points="718.49,-327.1776 727.2598,-321.2327 716.6969,-320.4111 718.49,-327.1776"/>
@@ -244,7 +244,7 @@
 <polygon fill="#000000" stroke="#000000" points="576.7464,-45.1244 582.3012,-36.1025 572.3327,-39.6913 576.7464,-45.1244"/>
 </g>
 <!-- Object&#45;&gt;Geometry -->
-<g id="edge27" class="edge">
+<g id="edge22" class="edge">
 <title>Object&#45;&gt;Geometry</title>
 <path fill="none" stroke="#000000" d="M654.7461,-294.5914C628.0484,-283.4156 586.882,-266.1832 555.2664,-252.9487"/>
 <polygon fill="#000000" stroke="#000000" points="556.3638,-249.6139 545.7878,-248.981 553.6608,-256.0709 556.3638,-249.6139"/>
@@ -262,7 +262,7 @@
 <text text-anchor="middle" x="682" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Path</text>
 </g>
 <!-- Object&#45;&gt;Path -->
-<g id="edge22" class="edge">
+<g id="edge24" class="edge">
 <title>Object&#45;&gt;Path</title>
 <path fill="none" stroke="#000000" d="M682,-287.8314C682,-280.131 682,-270.9743 682,-262.4166"/>
 <polygon fill="#000000" stroke="#000000" points="685.5001,-262.4132 682,-252.4133 678.5001,-262.4133 685.5001,-262.4132"/>
@@ -274,7 +274,7 @@
 <text text-anchor="middle" x="737" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">String</text>
 </g>
 <!-- Object&#45;&gt;String -->
-<g id="edge24" class="edge">
+<g id="edge25" class="edge">
 <title>Object&#45;&gt;String</title>
 <path fill="none" stroke="#000000" d="M697.3651,-287.7075C704.8574,-277.7703 713.2558,-264.9015 718,-252 734.4199,-207.3472 737.4711,-151.5299 737.6286,-118.4343"/>
 <polygon fill="#000000" stroke="#000000" points="741.1275,-118.1161 737.5863,-108.1306 734.1275,-118.1449 741.1275,-118.1161"/>
@@ -286,7 +286,7 @@
 <text text-anchor="middle" x="792" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">URL</text>
 </g>
 <!-- Object&#45;&gt;URL -->
-<g id="edge25" class="edge">
+<g id="edge26" class="edge">
 <title>Object&#45;&gt;URL</title>
 <path fill="none" stroke="#000000" d="M709.1467,-289.3211C723.0428,-279.7391 739.4237,-266.699 751,-252 765.678,-233.3626 776.4552,-208.6264 783.2666,-189.8037"/>
 <polygon fill="#000000" stroke="#000000" points="786.5933,-190.8926 786.5544,-180.2979 779.9779,-188.6045 786.5933,-190.8926"/>
@@ -298,7 +298,7 @@
 <text text-anchor="middle" x="830" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">UUID</text>
 </g>
 <!-- Object&#45;&gt;UUID -->
-<g id="edge26" class="edge">
+<g id="edge27" class="edge">
 <title>Object&#45;&gt;UUID</title>
 <path fill="none" stroke="#000000" d="M709.1455,-292.7941C732.8544,-281.26 767.464,-264.4229 793.5764,-251.7196"/>
 <polygon fill="#000000" stroke="#000000" points="795.3152,-254.7659 802.7764,-247.2439 792.2529,-248.4713 795.3152,-254.7659"/>

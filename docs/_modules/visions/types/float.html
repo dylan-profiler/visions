@@ -187,11 +187,27 @@
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.utils.coercion</span> <span class="kn">import</span> <span class="n">test_utils</span>
 <span class="kn">from</span> <span class="nn">visions.utils.warning_handling</span> <span class="kn">import</span> <span class="n">suppress_warnings</span>
+<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">func_nullable_series_contains</span>
 
 
-<span class="k">def</span> <span class="nf">test_string_is_float</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">test_string_leading_zeros</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">coerced_series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">coerced_series</span><span class="o">.</span><span class="n">hasnans</span><span class="p">:</span>
+        <span class="n">notna</span> <span class="o">=</span> <span class="n">coerced_series</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+        <span class="n">coerced_series</span> <span class="o">=</span> <span class="n">coerced_series</span><span class="p">[</span><span class="n">notna</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">coerced_series</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">notna</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">series</span><span class="p">[</span><span class="n">coerced_series</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">test_string_is_float</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">coerced_series</span> <span class="o">=</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">string_to_float</span><span class="p">)(</span><span class="n">series</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">coerced_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">coerced_series</span> <span class="ow">in</span> <span class="n">Float</span>
+    <span class="k">if</span> <span class="n">coerced_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">coerced_series</span> <span class="ow">in</span> <span class="n">Float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">test_string_leading_zeros</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">coerced_series</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="k">def</span> <span class="nf">string_to_float</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
