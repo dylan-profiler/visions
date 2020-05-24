@@ -22,10 +22,10 @@ def to_date(series):
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import DateTime, Generic
+    from visions.types import DateTime, Object
 
     relations = [
-        IdentityRelation(cls, Generic),
+        IdentityRelation(cls, Object),
         InferenceRelation(
             cls,
             DateTime,

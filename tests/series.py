@@ -588,6 +588,8 @@ def get_contains_map():
         + series_map[EmailAddress]
         + series_map[IPAddress]
         + series_map[UUID]
+        + series_map[Time]
+        + series_map[Date]
     )
 
     # Empty series
@@ -648,7 +650,7 @@ def infer_series_type_map():
         "complex_series_py_nan": Complex,
         "complex_series_py": Complex,
         "categorical_complex_series": Categorical,
-        "timestamp_series": DateTime,
+        "timestamp_series": Date,
         "timestamp_series_nat": DateTime,
         "timestamp_aware_series": DateTime,
         "datetime": Date,
