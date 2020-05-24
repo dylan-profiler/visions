@@ -6,7 +6,9 @@ from typing import Callable, Dict, List, Optional, Union
 import pandas as pd
 
 
-def option_coercion_evaluator(method: Callable) -> Callable:
+def option_coercion_evaluator(
+    method: Callable, extra_errors: Optional[List[Exception]] = None
+) -> Callable:
     """A coercion test evaluator
 
     Evaluates a coercion method and optionally returns the coerced series.
@@ -18,16 +20,23 @@ def option_coercion_evaluator(method: Callable) -> Callable:
         The coerced series if the coercion succeeds otherwise None.
     """
 
+    error_list = [ValueError, TypeError, AttributeError]
+    if extra_errors:
+        error_list.extend(extra_errors)
+    error_list = tuple(error_list)
+
     def f(series: pd.Series) -> Optional[pd.Series]:
         try:
             return method(series)
-        except (ValueError, TypeError, AttributeError, SystemError):
+        except error_list:
             return None
 
     return f
 
 
-def coercion_test(method: Callable) -> Callable:
+def coercion_test(
+    method: Callable, extra_errors: Optional[List[Exception]] = None
+) -> Callable:
     """A coercion test generator
 
     Creates a coercion test based on a provided coercion method.
@@ -40,7 +49,7 @@ def coercion_test(method: Callable) -> Callable:
 
     """
     # Returns True or False if the coercion succeeds
-    tester = option_coercion_evaluator(method)
+    tester = option_coercion_evaluator(method, extra_errors)
 
     def f(series: pd.Series) -> bool:
         result = tester(series)
