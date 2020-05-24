@@ -90,6 +90,7 @@ def get_series():
         pd.Series([np.nan], name="nan_series"),
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
+        pd.Series(["Patty", "Valentine"], dtype="string", name="string_dtype_series"),
         pd.Series(["Patty", "Valentine"], name="string_series"),
         pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
@@ -495,6 +496,7 @@ def get_contains_map():
         Date: ["datetime", "date_series_nat"],
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
+            "string_dtype_series",
             "timestamp_string_series",
             "string_with_sep_num_nan",
             "string_series",
@@ -595,6 +597,7 @@ def infer_series_type_map():
         "string_series": String,
         "categorical_string_series": Categorical,
         "timestamp_string_series": Date,
+        "string_dtype_series": String,
         "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
         "string_unicode_series": String,
         "string_np_unicode_series": String,
