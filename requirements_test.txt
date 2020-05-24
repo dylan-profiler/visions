@@ -10,4 +10,3 @@ pytest>=5.2.0
 pytest-mypy
 pytest-black
 check-manifest>=0.41
-git+https://github.com/ieaves/big_O
