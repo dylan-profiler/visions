@@ -5,12 +5,14 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import isinstance_attrs
-from visions.utils.coercion import test_utils
+from visions.utils.series_utils import nullable_series_contains, isinstance_attrs
 
 
 def test_uuid(series) -> bool:
-    return to_uuid(series).all()
+    try:
+        return to_uuid(series).all()
+    except (ValueError, AttributeError):
+        return False
 
 
 def to_uuid(series: pd.Series) -> pd.Series:
@@ -22,12 +24,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
     relations = [
         IdentityRelation(cls, Object),
-        InferenceRelation(
-            cls,
-            String,
-            relationship=test_utils.coercion_test(test_uuid),
-            transformer=to_uuid,
-        ),
+        InferenceRelation(cls, String, relationship=test_uuid, transformer=to_uuid),
     ]
     return relations
 
@@ -56,5 +53,6 @@ class UUID(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         return isinstance_attrs(series, uuid.UUID, ["time_low", "hex"])

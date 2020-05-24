@@ -5,6 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import nullable_series_contains
 
 
 def string_is_path(series) -> bool:
@@ -50,5 +51,6 @@ class Path(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         return all(isinstance(x, pathlib.PurePath) and x.is_absolute() for x in series)
