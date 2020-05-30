@@ -40,7 +40,7 @@ base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_series():
-    return [
+    test_series = [
         # Int Series
         pd.Series([1, 2, 3], name="int_series"),
         pd.Series(range(10), name="int_range"),
@@ -174,25 +174,31 @@ def get_series():
             name="complex_series_float",
         ),
         # Datetime Series
-        pd.Series(
-            [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
-            name="timestamp_series",
+        pd.to_datetime(
+            pd.Series(
+                [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
+                name="timestamp_series",
+            )
         ),
-        pd.Series(
-            [
-                datetime.datetime(2017, 3, 5),
-                datetime.datetime(2019, 12, 4, 3, 2, 0),
-                pd.NaT,
-            ],
-            name="timestamp_series_nat",
+        pd.to_datetime(
+            pd.Series(
+                [
+                    datetime.datetime(2017, 3, 5),
+                    datetime.datetime(2019, 12, 4, 3, 2, 0),
+                    pd.NaT,
+                ],
+                name="timestamp_series_nat",
+            )
         ),
-        pd.Series(
-            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
-            name="date_series_nat",
+        pd.to_datetime(
+            pd.Series(
+                [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
+                name="date_series_nat",
+            )
         ),
         pd.Series(
             pd.date_range(
-                start="2013-05-18 12:00:00",
+                start="2013-05-18 12:00:01",
                 periods=2,
                 freq="H",
                 tz="Europe/Brussels",
@@ -209,6 +215,37 @@ def get_series():
                 name="datetime",
             )
         ),
+        # Date series
+        pd.Series(
+            [
+                datetime.date(2011, 1, 1),
+                datetime.date(2012, 1, 2),
+                datetime.date(2013, 1, 1),
+            ],
+            name="date",
+        ),
+        # Time series
+        pd.Series(
+            [
+                datetime.time(8, 43, 12),
+                datetime.time(9, 43, 12),
+                datetime.time(10, 43, 12),
+            ],
+            name="time",
+        ),
+        # http://pandas-docs.github.io/pandas-docs-travis/user_guide/timeseries.html#timestamp-limitations
+        # pd.to_datetime(
+        #     pd.Series(
+        #         [
+        #             datetime.datetime(year=1, month=1, day=1, hour=8, minute=43, second=12),
+        #             datetime.datetime(year=1, month=1, day=1, hour=9, minute=43, second=12),
+        #             datetime.datetime(
+        #                 year=1, month=1, day=1, hour=10, minute=43, second=12
+        #             ),
+        #         ],
+        #         name="datetime_to_time",
+        #     )
+        # ),
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),
         pd.Series(
@@ -436,6 +473,16 @@ def get_series():
         pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
+    if int(pd.__version__[0]) >= 1:
+        pandas_1_series = [
+            pd.Series(
+                ["Patty", "Valentine"], dtype="string", name="string_dtype_series"
+            )
+        ]
+        test_series.extend(pandas_1_series)
+
+    return test_series
+
 
 def get_contains_map():
     series_map = {
@@ -492,7 +539,8 @@ def get_contains_map():
             "timestamp_series_nat",
             "date_series_nat",
         ],
-        Date: ["datetime", "date_series_nat"],
+        Date: ["date"],
+        Time: ["time"],
         TimeDelta: ["timedelta_series", "timedelta_series_nat"],
         String: [
             "timestamp_string_series",
@@ -540,6 +588,9 @@ def get_contains_map():
     series_map[File] += series_map[Image]
     series_map[Path] += series_map[File]
 
+    if int(pd.__version__[0]) >= 1:
+        series_map[String].extend(["string_dtype_series"])
+
     series_map[Object] = (
         [
             "mixed_list[str,int]",
@@ -558,6 +609,8 @@ def get_contains_map():
         + series_map[EmailAddress]
         + series_map[IPAddress]
         + series_map[UUID]
+        + series_map[Time]
+        + series_map[Date]
     )
 
     # Empty series
@@ -570,7 +623,7 @@ def get_contains_map():
 
 
 def infer_series_type_map():
-    return {
+    inference_map = {
         "int_series": Integer,
         "categorical_int_series": Categorical,
         "int_nan_series": Integer,
@@ -653,6 +706,8 @@ def infer_series_type_map():
         "ip_str": IPAddress,
         "ip_missing": IPAddress,
         "date_series_nat": Date,
+        "date": Date,
+        "time": Time,
         "categorical_char": Categorical,
         "ordinal": Ordinal,
         "str_complex": Complex,
@@ -672,6 +727,9 @@ def infer_series_type_map():
         "email_address_missing": EmailAddress,
         "email_address_str": EmailAddress,
     }
+    if int(pd.__version__[0]) >= 1:
+        inference_map["string_dtype_series"] = String
+    return inference_map
 
 
 def get_convert_map():
@@ -696,6 +754,7 @@ def get_convert_map():
                 # "string_with_sep_num_nan",
             ],
         ),
+        (Date, DateTime, ["date_series_nat", "datetime"]),
         (DateTime, String, ["timestamp_string_series", "string_date"]),
         (Geometry, String, ["geometry_string_series"]),
         (Boolean, String, ["string_bool_nan"]),
