@@ -3,7 +3,7 @@ imagehash
 Pillow
 shapely
 mypy
-big_O @ git+git://github.com/ieaves/big_O.git#egg=big_O
+big_o>=0.10.1
 twine>=3.1.1
 pydot
 pytest>=5.2.0
