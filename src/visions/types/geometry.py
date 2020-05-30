@@ -32,7 +32,7 @@ def to_geometry(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import String, Object
+    from visions.types import Object, String
 
     relations = [
         IdentityRelation(cls, Object),

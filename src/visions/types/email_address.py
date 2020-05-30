@@ -6,7 +6,7 @@ import pandas as pd
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
-from visions.utils.series_utils import nullable_series_contains, isinstance_attrs
+from visions.utils.series_utils import isinstance_attrs, nullable_series_contains
 
 
 def test_email(series):

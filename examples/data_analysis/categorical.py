@@ -2,7 +2,7 @@ from typing import List, Sequence
 
 import numpy as np
 import pandas as pd
-import pandas.api.types as pdt
+from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types import Integer, Object, String, VisionsBaseType

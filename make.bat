@@ -23,7 +23,7 @@ IF "%1" == "plots" (
 )
 
 IF "%1" == "pypi_package" (
-	make install
+    make install
     check-manifest
     python setup.py sdist bdist_wheel
     twine check dist/*
@@ -33,7 +33,7 @@ IF "%1" == "pypi_package" (
 )
 
 IF "%1" == "lint" (
-    isort -y -o visions
+    isort --profile black --project visions .
     black .
     GOTO end
 )

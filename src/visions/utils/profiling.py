@@ -1,7 +1,8 @@
 import timeit
-import pandas as pd
-import numpy as np
+
 import big_o
+import numpy as np
+import pandas as pd
 
 
 def big_o_tester(test_func):

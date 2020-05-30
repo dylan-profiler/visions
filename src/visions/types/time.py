@@ -1,12 +1,11 @@
-from datetime import time, date
-
+from datetime import date, time
 from typing import Sequence
 
 import pandas as pd
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains, class_name_attrs
+from visions.utils.series_utils import class_name_attrs, nullable_series_contains
 
 
 def test_time(series):

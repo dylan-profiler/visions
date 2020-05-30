@@ -14,8 +14,8 @@ Type implementation:
 
 Tests:
 
-- add series to `tests/series.py` that test the type
-- add series to `tests/series.py` that test the each relation
+- add tests to `tests/typesets/test_[your_typeset].py` (use one of the other typesets as template).
+- optionally add series to `tests/series.py`
 
 Documentation:
 
