@@ -1,4 +1,5 @@
 import datetime
+import os
 import pathlib
 import uuid
 from ipaddress import IPv4Address, IPv6Address
@@ -8,7 +9,6 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 from shapely import wkt
-import os
 
 from visions.types import (
     URL,

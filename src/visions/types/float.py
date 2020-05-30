@@ -7,8 +7,8 @@ import pandas.api.types as pdt
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
-from visions.utils.warning_handling import suppress_warnings
 from visions.utils.series_utils import func_nullable_series_contains
+from visions.utils.warning_handling import suppress_warnings
 
 
 def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
