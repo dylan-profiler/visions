@@ -1,4 +1,5 @@
 import datetime
+import os
 import pathlib
 import uuid
 from ipaddress import IPv4Address, IPv6Address
@@ -8,32 +9,7 @@ from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 from shapely import wkt
-import os
 
-from visions.types import (
-    URL,
-    UUID,
-    Boolean,
-    Categorical,
-    Complex,
-    Count,
-    Date,
-    DateTime,
-    EmailAddress,
-    File,
-    Float,
-    Generic,
-    Geometry,
-    Image,
-    Integer,
-    IPAddress,
-    Object,
-    Ordinal,
-    Path,
-    String,
-    Time,
-    TimeDelta,
-)
 from visions.types.email_address import FQDA
 
 base_path = os.path.abspath(os.path.dirname(__file__))
@@ -251,6 +227,16 @@ def get_series():
         pd.Series(
             [pd.Timedelta(days=i) for i in range(3)] + [pd.NaT],
             name="timedelta_series_nat",
+        ),
+        pd.Series(
+            [
+                pd.Timedelta("1 days 00:03:43"),
+                pd.Timedelta("5 days 12:33:57"),
+                pd.Timedelta("0 days 01:25:07"),
+                pd.Timedelta("-2 days 13:46:56"),
+                pd.Timedelta("1 days 23:49:25"),
+            ],
+            name="timedelta_negative",
         ),
         # Geometry Series
         pd.Series(
@@ -482,290 +468,3 @@ def get_series():
         test_series.extend(pandas_1_series)
 
     return test_series
-
-
-def get_contains_map():
-    series_map = {
-        Integer: [
-            "int_series",
-            "Int64_int_series",
-            "int_range",
-            "Int64_int_nan_series",
-            "int_series_boolean",
-        ],
-        Count: ["np_uint32"],
-        Path: ["path_series_linux", "path_series_linux_missing", "path_series_windows"],
-        URL: ["url_series", "url_nan_series", "url_none_series"],
-        Float: [
-            "float_series",
-            "float_series2",
-            "float_series3",
-            "float_series4",
-            "inf_series",
-            "nan_series",
-            "float_nan_series",
-            "float_series5",
-            "int_nan_series",
-            "nan_series_2",
-            "float_with_inf",
-            "float_series6",
-        ],
-        Categorical: [
-            "categorical_int_series",
-            "categorical_float_series",
-            "categorical_string_series",
-            "categorical_complex_series",
-            "categorical_char",
-            "ordinal",
-        ],
-        Boolean: [
-            "bool_series",
-            "bool_series2",
-            "bool_series3",
-            "nullable_bool_series",
-        ],
-        Complex: [
-            "complex_series",
-            "complex_series_py",
-            "complex_series_nan",
-            "complex_series_py_nan",
-            "complex_series_nan_2",
-            "complex_series_float",
-        ],
-        DateTime: [
-            "timestamp_series",
-            "timestamp_aware_series",
-            "datetime",
-            "timestamp_series_nat",
-            "date_series_nat",
-        ],
-        Date: ["date"],
-        Time: ["time"],
-        TimeDelta: ["timedelta_series", "timedelta_series_nat"],
-        String: [
-            "timestamp_string_series",
-            "string_with_sep_num_nan",
-            "string_series",
-            "geometry_string_series",
-            "string_unicode_series",
-            "string_np_unicode_series",
-            "path_series_linux_str",
-            "path_series_windows_str",
-            "int_str_range",
-            "string_date",
-            "textual_float",
-            "textual_float_nan",
-            "ip_str",
-            "string_flt",
-            "string_num",
-            "str_url",
-            "string_str_nan",
-            "string_num_nan",
-            "string_bool_nan",
-            "string_flt_nan",
-            "str_complex",
-            "uuid_series_str",
-            "str_int_leading_zeros",
-            "email_address_str",
-            "str_float_non_leading_zeros",
-            "str_int_zeros",
-        ],
-        Geometry: ["geometry_series", "geometry_series_missing"],
-        IPAddress: ["ip", "ip_mixed_v4andv6", "ip_missing"],
-        Ordinal: ["ordinal"],
-        UUID: ["uuid_series", "uuid_series_missing"],
-        File: [
-            "file_test_py",
-            "file_mixed_ext",
-            "file_test_py_missing",
-            "image_png",
-            "image_png_missing",
-        ],
-        Image: ["image_png", "image_png_missing"],
-        EmailAddress: ["email_address", "email_address_missing"],
-    }
-
-    series_map[File] += series_map[Image]
-    series_map[Path] += series_map[File]
-
-    if int(pd.__version__[0]) >= 1:
-        series_map[String].extend(["string_dtype_series"])
-
-    series_map[Object] = (
-        [
-            "mixed_list[str,int]",
-            "mixed_dict",
-            "callable",
-            "module",
-            "bool_nan_series",
-            "mixed_integer",
-            "mixed_list",
-            "mixed",
-        ]
-        + series_map[String]
-        + series_map[Geometry]
-        + series_map[Path]
-        + series_map[URL]
-        + series_map[EmailAddress]
-        + series_map[IPAddress]
-        + series_map[UUID]
-        + series_map[Time]
-        + series_map[Date]
-    )
-
-    # Empty series
-    all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
-    for key, values in series_map.items():
-        all += values
-    series_map[Generic] = list(set(all))
-
-    return series_map
-
-
-def infer_series_type_map():
-    inference_map = {
-        "int_series": Integer,
-        "categorical_int_series": Categorical,
-        "int_nan_series": Integer,
-        "Int64_int_series": Integer,
-        "Int64_int_nan_series": Integer,
-        "np_uint32": Count,
-        "int_range": Integer,
-        "float_series": Float,
-        "float_nan_series": Float,
-        "int_series_boolean": Boolean,
-        "float_series2": Integer,
-        "float_series3": Float,
-        "float_series4": Float,
-        "float_series5": Float,
-        "float_series6": Float,
-        "complex_series_float": Integer,
-        "categorical_float_series": Categorical,
-        "float_with_inf": Float,
-        "inf_series": Float,
-        "nan_series": Float,
-        "nan_series_2": Float,
-        "string_series": String,
-        "categorical_string_series": Categorical,
-        "timestamp_string_series": Date,
-        "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
-        "string_unicode_series": String,
-        "string_np_unicode_series": String,
-        "string_num_nan": Integer,
-        "string_num": Integer,
-        "string_flt_nan": Float,
-        "string_flt": Float,
-        "string_str_nan": String,
-        "string_bool_nan": Boolean,
-        "int_str_range": Integer,
-        "string_date": Date,
-        "str_url": URL,
-        "bool_series": Boolean,
-        "bool_nan_series": Boolean,
-        "nullable_bool_series": Boolean,
-        "bool_series2": Boolean,
-        "bool_series3": Boolean,
-        "complex_series": Complex,
-        "complex_series_nan": Complex,
-        "complex_series_nan_2": Complex,
-        "complex_series_py_nan": Complex,
-        "complex_series_py": Complex,
-        "categorical_complex_series": Categorical,
-        "timestamp_series": DateTime,
-        "timestamp_series_nat": DateTime,
-        "timestamp_aware_series": DateTime,
-        "datetime": Date,
-        "timedelta_series": TimeDelta,
-        "timedelta_series_nat": TimeDelta,
-        "geometry_string_series": Geometry,
-        "geometry_series_missing": Geometry,
-        "geometry_series": Geometry,
-        "path_series_linux": Path,
-        "path_series_linux_missing": Path,
-        "path_series_linux_str": Path,
-        "path_series_windows": Path,
-        "path_series_windows_str": Path,
-        "url_series": URL,
-        "url_nan_series": URL,
-        "url_none_series": URL,
-        "mixed_list[str,int]": Object,
-        "mixed_dict": Object,
-        "mixed_integer": Object,
-        "mixed_list": Object,
-        "mixed": Object,
-        "callable": Object,
-        "module": Object,
-        "textual_float": Float,
-        "textual_float_nan": Float,
-        "empty": Generic,
-        "empty_object": Generic,
-        "empty_float": Generic,
-        "empty_bool": Generic,
-        "empty_int64": Generic,
-        "ip": IPAddress,
-        "ip_str": IPAddress,
-        "ip_missing": IPAddress,
-        "date_series_nat": Date,
-        "date": Date,
-        "time": Time,
-        "categorical_char": Categorical,
-        "ordinal": Ordinal,
-        "str_complex": Complex,
-        "uuid_series": UUID,
-        "uuid_series_str": UUID,
-        "uuid_series_missing": UUID,
-        "ip_mixed_v4andv6": IPAddress,
-        "file_test_py": File,
-        "file_test_py_missing": File,
-        "file_mixed_ext": File,
-        "image_png": Image,
-        "image_png_missing": Image,
-        "str_int_leading_zeros": String,
-        "str_float_non_leading_zeros": Float,
-        "str_int_zeros": Integer,
-        "email_address": EmailAddress,
-        "email_address_missing": EmailAddress,
-        "email_address_str": EmailAddress,
-    }
-    if int(pd.__version__[0]) >= 1:
-        inference_map["string_dtype_series"] = String
-    return inference_map
-
-
-def get_convert_map():
-    # Conversions in one single step
-    series_map = [
-        # Model type, Relation type
-        (Integer, Float, ["int_nan_series", "float_series2"]),
-        (Complex, String, ["str_complex"]),
-        (
-            Float,
-            String,
-            [
-                "string_flt",
-                "string_num_nan",
-                "string_num",
-                "string_flt_nan",
-                "textual_float",
-                "textual_float_nan",
-                "int_str_range",
-                "str_float_non_leading_zeros",
-                "str_int_zeros",
-                # "string_with_sep_num_nan",
-            ],
-        ),
-        (Date, DateTime, ["date_series_nat", "datetime"]),
-        (DateTime, String, ["timestamp_string_series", "string_date"]),
-        (Geometry, String, ["geometry_string_series"]),
-        (Boolean, String, ["string_bool_nan"]),
-        (IPAddress, String, ["ip_str"]),
-        (URL, String, ["str_url"]),
-        (Path, String, ["path_series_windows_str", "path_series_linux_str"]),
-        (EmailAddress, String, ["email_address_str"]),
-        (Float, Complex, ["complex_series_float"]),
-        (Boolean, Integer, ["int_series_boolean"]),
-        (Boolean, Object, ["bool_nan_series"]),
-        (UUID, String, ["uuid_series_str"]),
-    ]
-
-    return series_map
