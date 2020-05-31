@@ -6,6 +6,7 @@ Visions
 |PyPiDownloadsMonthlyBadge|
 |PyPiVersionBadge|
 |PythonBadge|
+|BinderBadge|
 
 ..
 
@@ -52,7 +53,9 @@ This work was partially supported by `SIDN Fonds <https://www.sidnfonds.nl/proje
 
 .. image:: https://github.com/dylan-profiler/visions/raw/master/SIDNfonds.png
 
-
+.. |BinderBadge| image:: https://mybinder.org/badge_logo.svg
+    :target: https://mybinder.org/v2/gh/dylan-profiler/visions/master
+ 
 .. |JossPaper| image:: https://joss.theoj.org/papers/10.21105/joss.02145/status.svg
     :target: https://doi.org/10.21105/joss.02145
     
