@@ -386,9 +386,10 @@ class VisionsTypeset(object):
         Returns:
             Shows the image
         """
-        import matplotlib.pyplot as plt
-        import matplotlib.image as mpimg
         import tempfile
+
+        from matplotlib import image as mpimg
+        from matplotlib import pyplot as plt
 
         with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
             self.output_graph(temp_file.name)

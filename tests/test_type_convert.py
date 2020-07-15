@@ -2,7 +2,7 @@ import sys
 
 import pytest
 
-from tests.series import get_convert_map, get_series
+from tests.series import get_series
 from visions.typesets import CompleteSet
 
 
@@ -38,31 +38,6 @@ def all_relations_tested(series_map):
 
 def pytest_generate_tests(metafunc):
     _test_suite = get_series()
-    if metafunc.function.__name__ == "test_relations":
-        _series_map = get_convert_map()
-
-        all_relations_tested(_series_map)
-
-        argsvalues = []
-        for item in _test_suite:
-            for source_type, relation_type, series_list in _series_map:
-                if item in relation_type:
-                    args = {
-                        "id": "{name}: {relation_type} -> {source_type}".format(
-                            name=item.name,
-                            relation_type=relation_type,
-                            source_type=source_type,
-                        )
-                    }
-                    member = item.name in series_list
-                    argsvalues.append(
-                        pytest.param(source_type, relation_type, item, member, **args)
-                    )
-
-        metafunc.parametrize(
-            argnames=["source_type", "relation_type", "series", "member"],
-            argvalues=argsvalues,
-        )
     if metafunc.function.__name__ in [
         "test_consistency",
         "test_side_effects",
@@ -74,32 +49,6 @@ def pytest_generate_tests(metafunc):
             argsvalues.append(pytest.param(series, **args))
 
         metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
-
-
-def test_relations(source_type, relation_type, series, member):
-    relation_gen = (
-        rel for rel in source_type.relations if rel.related_type == relation_type
-    )
-    relation = next(relation_gen)
-
-    is_relation = relation.is_relation(series)
-
-    if not member:
-        assert (
-            not is_relation
-        ), f"{source_type}, {relation}, {member}, {series.name}, {series[0]}"
-    else:
-        assert is_relation
-    if relation.is_relation(series):
-        cast_series = relation.transform(series)
-
-        assert (
-            cast_series in source_type
-        ), "Relationship {relation} cast {series_values} to {cast_values}".format(
-            relation=relation,
-            series_values=series.values,
-            cast_values=cast_series.values,
-        )
 
 
 def test_consistency(series):

@@ -1,10 +1,11 @@
 import pandas as pd
+
+from tests.series import get_contains_map, get_convert_map, get_series
 from visions.utils.profiling import (
-    profile_type,
     profile_relation_is_relation,
     profile_relation_transform,
+    profile_type,
 )
-from tests.series import get_series, get_contains_map, get_convert_map
 
 
 def performance_report(membership=True):

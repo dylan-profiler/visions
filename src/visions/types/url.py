@@ -5,7 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains, isinstance_attrs
+from visions.utils.series_utils import isinstance_attrs, nullable_series_contains
 
 
 def test_url(series) -> bool:
@@ -20,7 +20,7 @@ def to_url(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import String, Object
+    from visions.types import Object, String
 
     relations = [
         IdentityRelation(cls, Object),

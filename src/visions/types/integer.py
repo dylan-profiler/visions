@@ -2,7 +2,7 @@ from typing import List, Sequence
 
 import numpy as np
 import pandas as pd
-import pandas.api.types as pdt
+from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
@@ -38,7 +38,7 @@ def string_to_int(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> List[TypeRelation]:
-    from visions.types import Generic, Float
+    from visions.types import Float, Generic
 
     relations = [
         IdentityRelation(cls, Generic),

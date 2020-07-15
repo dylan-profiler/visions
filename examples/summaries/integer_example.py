@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-import visions.types as vt
+from visions import types as vt
 from visions.application.summaries import CompleteSummary
 
 integer_series = pd.Series([1, 2, 3, 4, 5, -100000, np.nan], dtype="Int64")
