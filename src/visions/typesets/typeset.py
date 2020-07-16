@@ -36,16 +36,16 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
                         related_type=relation.related_type, own_type=relation.type
                     )
                 )
+            else:
+                relation_graph.add_edge(
+                    relation.related_type,
+                    relation.type,
+                    relationship=relation,
+                    style=style_map[relation.inferential],
+                )
 
-            relation_graph.add_edge(
-                relation.related_type,
-                relation.type,
-                relationship=relation,
-                style=style_map[relation.inferential],
-            )
-
-            if not relation.inferential:
-                noninferential_edges.append((relation.related_type, relation.type))
+                if not relation.inferential:
+                    noninferential_edges.append((relation.related_type, relation.type))
 
     check_graph_constraints(relation_graph)
 
