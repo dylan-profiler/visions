@@ -12,7 +12,7 @@ class VisionsBaseTypeMeta(ABCMeta):
         if series.empty:
             from visions.types import Generic
 
-            return cls == Generic
+            return issubclass(cls, Generic)
         return cls.contains_op(series)  # type: ignore
 
     @property

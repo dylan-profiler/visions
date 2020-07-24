@@ -9,7 +9,7 @@ from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
 
 
-def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
+def build_graph(nodes: set, root_node) -> Tuple[nx.DiGraph, nx.DiGraph]:
     """Constructs a traversable relation graph between visions types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -21,6 +21,8 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
+
+    nodes |= {root_node}
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -47,24 +49,24 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
                 if not relation.inferential:
                     noninferential_edges.append((relation.related_type, relation.type))
 
-    check_graph_constraints(relation_graph)
+    check_graph_constraints(relation_graph, root_node)
 
     base_graph = relation_graph.edge_subgraph(noninferential_edges)
     return relation_graph, base_graph
 
 
-def check_graph_constraints(relation_graph: nx.DiGraph) -> None:
+def check_graph_constraints(relation_graph: nx.DiGraph, root_node) -> None:
     """Validates a relation_graph is appropriately constructed
 
     Args:
         relation_graph: A directed graph representing the set of relations between type nodes.
 
     """
-    check_isolates(relation_graph)
+    check_isolates(relation_graph, root_node)
     check_cycles(relation_graph)
 
 
-def check_isolates(graph: nx.DiGraph) -> None:
+def check_isolates(graph: nx.DiGraph, root_node) -> None:
     """Check for orphaned nodes.
 
     Args:
@@ -72,7 +74,7 @@ def check_isolates(graph: nx.DiGraph) -> None:
 
     """
     nodes = set(graph.nodes)
-    isolates = list(set(nx.isolates(graph)) - {Generic})  # root can be isolate
+    isolates = list(set(nx.isolates(graph)) - {root_node})  # root can be isolate
     graph.remove_nodes_from(isolates)
     orphaned_nodes = nodes - set(graph.nodes)
     if orphaned_nodes:
@@ -99,7 +101,7 @@ def check_cycles(graph: nx.DiGraph) -> None:
 
 
 def traverse_graph(
-    series: pd.Series, graph: nx.DiGraph, node: Type[VisionsBaseType] = Generic
+    series: pd.Series, graph: nx.DiGraph, node: Type[VisionsBaseType]
 ) -> Type[VisionsBaseType]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
@@ -192,7 +194,7 @@ def traverse_graph_inference_sample(
 def infer_type_path(
     series: pd.Series,
     G: nx.DiGraph,
-    base_type: Type[VisionsBaseType] = Generic,
+    base_type: Type[VisionsBaseType],
     sample_size: int = 10,
 ) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
     # TODO: Try sample, Except do this
@@ -227,16 +229,21 @@ class VisionsTypeset(object):
         relation_graph: the graph with relations to the parent types and mapping relations
     """
 
-    def __init__(self, types: set):
+    def __init__(self, types: set, root_node=Generic):
         """
         Args:
             types: a set of types
+            root_node: the base type
         """
         if not isinstance(types, Iterable):
             raise ValueError("types should be iterable")
 
-        self.relation_graph, self.base_graph = build_graph(set(types) | {Generic})
+        if not issubclass(root_node, Generic):
+            raise ValueError("`root_node` should be a subclass of Generic")
+
+        self.relation_graph, self.base_graph = build_graph(set(types), root_node)
         self.types = set(self.relation_graph.nodes)
+        self.root_node = root_node
 
     def detect_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
         """Get the series type (without casting).
@@ -247,7 +254,7 @@ class VisionsTypeset(object):
         Returns:
             The visions data type
         """
-        base_type = traverse_graph(series, self.base_graph)
+        base_type = traverse_graph(series, self.base_graph, self.root_node)
         return base_type
 
     def detect_frame_type(self, df: pd.DataFrame) -> Dict[str, Type[VisionsBaseType]]:
@@ -271,7 +278,7 @@ class VisionsTypeset(object):
             The visions data type
         """
         inferred_path, _ = traverse_graph_inference(
-            Generic, series, self.relation_graph
+            self.root_node, series, self.relation_graph
         )
         return inferred_path[-1]
 
