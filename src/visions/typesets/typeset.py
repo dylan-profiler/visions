@@ -9,7 +9,7 @@ from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
 
 
-def build_graph(nodes: set, root_node) -> Tuple[nx.DiGraph, nx.DiGraph]:
+def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
     """Constructs a traversable relation graph between visions types
     Builds a type relation graph from a collection of root and derivative nodes. Usually
     root nodes correspond to the baseline numpy types found in pandas while derivative
@@ -21,8 +21,6 @@ def build_graph(nodes: set, root_node) -> Tuple[nx.DiGraph, nx.DiGraph]:
     Returns:
         A directed graph of type relations for the provided nodes.
     """
-
-    nodes |= {root_node}
 
     style_map = {True: "dashed", False: "solid"}
     relation_graph = nx.DiGraph()
@@ -49,24 +47,24 @@ def build_graph(nodes: set, root_node) -> Tuple[nx.DiGraph, nx.DiGraph]:
                 if not relation.inferential:
                     noninferential_edges.append((relation.related_type, relation.type))
 
-    check_graph_constraints(relation_graph, root_node)
+    check_graph_constraints(relation_graph)
 
     base_graph = relation_graph.edge_subgraph(noninferential_edges)
     return relation_graph, base_graph
 
 
-def check_graph_constraints(relation_graph: nx.DiGraph, root_node) -> None:
+def check_graph_constraints(relation_graph: nx.DiGraph) -> None:
     """Validates a relation_graph is appropriately constructed
 
     Args:
         relation_graph: A directed graph representing the set of relations between type nodes.
 
     """
-    check_isolates(relation_graph, root_node)
+    check_isolates(relation_graph)
     check_cycles(relation_graph)
 
 
-def check_isolates(graph: nx.DiGraph, root_node) -> None:
+def check_isolates(graph: nx.DiGraph) -> None:
     """Check for orphaned nodes.
 
     Args:
@@ -74,6 +72,8 @@ def check_isolates(graph: nx.DiGraph, root_node) -> None:
 
     """
     nodes = set(graph.nodes)
+    root_node = next(nx.topological_sort(graph))
+
     isolates = list(set(nx.isolates(graph)) - {root_node})  # root can be isolate
     graph.remove_nodes_from(isolates)
     orphaned_nodes = nodes - set(graph.nodes)
@@ -229,21 +229,35 @@ class VisionsTypeset(object):
         relation_graph: the graph with relations to the parent types and mapping relations
     """
 
-    def __init__(self, types: set, root_node=Generic):
+    def __init__(self, types: set):
         """
         Args:
             types: a set of types
-            root_node: the base type
         """
+        self._root_node = None
+
         if not isinstance(types, Iterable):
             raise ValueError("types should be iterable")
 
-        if not issubclass(root_node, Generic):
+        self.relation_graph, self.base_graph = build_graph(set(types))
+
+        if not issubclass(self.root_node, Generic):
             raise ValueError("`root_node` should be a subclass of Generic")
 
-        self.relation_graph, self.base_graph = build_graph(set(types), root_node)
         self.types = set(self.relation_graph.nodes)
-        self.root_node = root_node
+
+    @property
+    def root_node(self):
+        """Returns a cached copy of the relation_graphs root node
+        
+        Args:
+
+        Returns:
+            A cached copy of the relation_graphs root node.
+        """
+        if self._root_node is None:
+            self._root_node = next(nx.topological_sort(self.relation_graph))
+        return self._root_node
 
     def detect_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
         """Get the series type (without casting).

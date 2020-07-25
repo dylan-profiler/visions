@@ -1,4 +1,5 @@
 from visions.types import (
+    Generic,
     URL,
     UUID,
     Boolean,
@@ -55,6 +56,7 @@ class CompleteSet(VisionsTypeset):
 
     def __init__(self):
         types = {
+            Generic,
             Boolean,
             Float,
             Object,

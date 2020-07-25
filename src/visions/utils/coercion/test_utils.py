@@ -1,13 +1,13 @@
 """
 A selection of testing utilities for visions.
 """
-from typing import Callable, Dict, List, Optional, Union
+from typing import Callable, Dict, List, Optional, Union, Type
 
 import pandas as pd
 
 
 def option_coercion_evaluator(
-    method: Callable, extra_errors: Optional[List[Exception]] = None
+    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
 ) -> Callable:
     """A coercion test evaluator
 

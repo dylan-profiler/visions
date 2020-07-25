@@ -17,8 +17,8 @@ class VisionsBaseTypeMeta(ABCMeta):
 
     @property
     def relations(cls) -> Optional[Sequence[TypeRelation]]:
-        if cls._relations is None:
-            cls._relations = cls.get_relations()
+        if cls._relations is None:  # type: ignore
+            cls._relations = cls.get_relations()  # type: ignore
         return cls._relations
 
     def __str__(cls) -> str:
@@ -34,7 +34,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     Provides a common API for building custom visions data types.
     """
 
-    _relations = None
+    _relations: Optional[Sequence[TypeRelation]] = None
 
     def __init__(self):
         raise ValueError("Types cannot be initialized")

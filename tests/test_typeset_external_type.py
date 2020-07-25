@@ -14,6 +14,7 @@ class ExampleTypeSet(VisionsTypeset):
 
     def __init__(self):
         types = {
+            Generic,
             Categorical,
             Boolean,
             Float,

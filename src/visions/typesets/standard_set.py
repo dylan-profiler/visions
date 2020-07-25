@@ -1,4 +1,5 @@
 from visions.types import (
+    Generic,
     Boolean,
     Categorical,
     Complex,
@@ -31,6 +32,7 @@ class StandardSet(VisionsTypeset):
 
     def __init__(self):
         types = {
+            Generic,
             Boolean,
             Float,
             Object,
