@@ -387,16 +387,18 @@ class VisionsTypeset(object):
             Shows the image
         """
         import tempfile
+        import os
 
         from matplotlib import image as mpimg
         from matplotlib import pyplot as plt
 
-        with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
             self.output_graph(temp_file.name)
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
             plt.axis("off")
             plt.imshow(img)
+        os.unlink(temp_file.name)
 
     def _get_other_type(self, other):
         if issubclass(other.__class__, VisionsTypeset):
