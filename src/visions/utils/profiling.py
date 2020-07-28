@@ -7,6 +7,7 @@ import pandas as pd
 
 def big_o_tester(test_func):
     import big_o
+
     def inner(test_series):
         try:
             best, _ = big_o.big_o(
