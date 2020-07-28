@@ -3,6 +3,7 @@ imagehash
 Pillow
 shapely
 mypy
+big_o>=0.10.1
 twine>=3.1.1
 pydot
 pytest>=5.2.0

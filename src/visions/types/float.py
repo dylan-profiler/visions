@@ -2,17 +2,33 @@ from typing import Sequence
 
 import numpy as np
 import pandas as pd
-import pandas.api.types as pdt
+from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
+from visions.utils.series_utils import func_nullable_series_contains
 from visions.utils.warning_handling import suppress_warnings
 
 
-def test_string_is_float(series) -> bool:
+def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
+    if coerced_series.hasnans:
+        notna = coerced_series.notna()
+        coerced_series = coerced_series[notna]
+
+        if coerced_series.empty:
+            return False
+        series = series[notna]
+
+    return not any(s[0] == "0" for s in series[coerced_series > 1])
+
+
+def test_string_is_float(series: pd.Series) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(string_to_float)(series)
-    return coerced_series is not None and coerced_series in Float
+    if coerced_series is not None and coerced_series in Float:
+        return test_string_leading_zeros(series, coerced_series)
+
+    return False
 
 
 def string_to_float(series: pd.Series) -> pd.Series:
@@ -34,7 +50,7 @@ def to_float(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic, String, Complex
+    from visions.types import Complex, Generic, String
 
     relations = [
         IdentityRelation(cls, Generic),

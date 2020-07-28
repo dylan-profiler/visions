@@ -64,19 +64,19 @@
 <text text-anchor="middle" x="195.1337" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">Generic</text>
 </g>
 <!-- Generic&#45;&gt;Boolean -->
-<g id="edge5" class="edge">
+<g id="edge3" class="edge">
 <title>Generic&#45;&gt;Boolean</title>
 <path fill="none" stroke="#000000" d="M165.5119,-444.5498C121.1648,-435.7944 40.6262,-417.3923 21.1337,-396 -6.4011,-365.7817 2.1337,-346.8816 2.1337,-306 2.1337,-306 2.1337,-306 2.1337,-162 2.1337,-99.6172 202.7392,-46.9743 291.1354,-26.8055"/>
 <polygon fill="#000000" stroke="#000000" points="292.1015,-30.1757 301.0881,-24.564 290.5634,-23.3467 292.1015,-30.1757"/>
 </g>
 <!-- Generic&#45;&gt;Categorical -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>Generic&#45;&gt;Categorical</title>
 <path fill="none" stroke="#000000" d="M165.5104,-432.937C149.157,-423.5174 128.6055,-411.6797 110.7713,-401.4072"/>
 <polygon fill="#000000" stroke="#000000" points="112.1417,-398.1576 101.7295,-396.1992 108.6478,-404.2233 112.1417,-398.1576"/>
 </g>
 <!-- Generic&#45;&gt;Complex -->
-<g id="edge8" class="edge">
+<g id="edge5" class="edge">
 <title>Generic&#45;&gt;Complex</title>
 <path fill="none" stroke="#000000" d="M198.7259,-431.9555C206.2193,-394.3144 223.5641,-307.1867 232.5348,-262.1246"/>
 <polygon fill="#000000" stroke="#000000" points="236.0016,-262.636 234.5215,-252.1451 229.1363,-261.2692 236.0016,-262.636"/>
@@ -88,13 +88,13 @@
 <polygon fill="#000000" stroke="#000000" points="312.3117,-262.394 314.4212,-252.0113 306.2974,-258.8123 312.3117,-262.394"/>
 </g>
 <!-- Generic&#45;&gt;Float -->
-<g id="edge4" class="edge">
+<g id="edge7" class="edge">
 <title>Generic&#45;&gt;Float</title>
 <path fill="none" stroke="#000000" d="M191.1666,-431.7141C183.2556,-391.3824 168.4602,-292.3167 195.1337,-216 198.7294,-205.7121 205.1965,-195.9193 212.0412,-187.568"/>
 <polygon fill="#000000" stroke="#000000" points="214.6839,-189.863 218.6381,-180.0337 209.4173,-185.2517 214.6839,-189.863"/>
 </g>
 <!-- Generic&#45;&gt;Integer -->
-<g id="edge10" class="edge">
+<g id="edge8" class="edge">
 <title>Generic&#45;&gt;Integer</title>
 <path fill="none" stroke="#000000" d="M182.7655,-431.8166C166.0014,-405.3548 138.1337,-354.1283 138.1337,-306 138.1337,-306 138.1337,-306 138.1337,-234 138.1337,-185.1047 177.5115,-140.8706 206.8466,-114.7017"/>
 <polygon fill="#000000" stroke="#000000" points="209.168,-117.3214 214.4351,-108.1285 204.5849,-112.0304 209.168,-117.3214"/>
@@ -106,7 +106,7 @@
 <text text-anchor="middle" x="389.1337" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">Object</text>
 </g>
 <!-- Generic&#45;&gt;Object -->
-<g id="edge7" class="edge">
+<g id="edge9" class="edge">
 <title>Generic&#45;&gt;Object</title>
 <path fill="none" stroke="#000000" d="M225.021,-438.9078C259.3648,-426.1617 315.7243,-405.2447 352.6323,-391.5469"/>
 <polygon fill="#000000" stroke="#000000" points="353.8739,-394.8195 362.0312,-388.0586 351.4382,-388.2568 353.8739,-394.8195"/>
@@ -118,7 +118,7 @@
 <text text-anchor="middle" x="472.1337" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">TimeDelta</text>
 </g>
 <!-- Generic&#45;&gt;TimeDelta -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>Generic&#45;&gt;TimeDelta</title>
 <path fill="none" stroke="#000000" d="M224.8834,-444.3551C267.2392,-436.0303 347.4368,-419.2045 424.6873,-395.9186"/>
 <polygon fill="#000000" stroke="#000000" points="426.0394,-399.1652 434.5799,-392.8955 423.9936,-392.4708 426.0394,-399.1652"/>
@@ -136,13 +136,13 @@
 <polygon fill="#000000" stroke="#000000" points="302.6106,-45.0222 308.4211,-36.1628 298.354,-39.4651 302.6106,-45.0222"/>
 </g>
 <!-- Object&#45;&gt;Boolean -->
-<g id="edge13" class="edge">
+<g id="edge12" class="edge">
 <title>Object&#45;&gt;Boolean</title>
 <path fill="none" stroke="#000000" d="M416.1739,-361.6802C463.212,-332.335 555.1337,-270.3396 555.1337,-234 555.1337,-234 555.1337,-234 555.1337,-162 555.1337,-76.2594 437.3542,-39.0871 372.9867,-25.1742"/>
 <polygon fill="#000000" stroke="#000000" points="373.6426,-21.7358 363.1409,-23.1371 372.2243,-28.5906 373.6426,-21.7358"/>
 </g>
 <!-- Object&#45;&gt;Geometry -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>Object&#45;&gt;Geometry</title>
 <path fill="none" stroke="#000000" d="M402.0521,-359.7623C419.8328,-334.66 451.9616,-289.3017 472.3862,-260.4671"/>
 <polygon fill="#000000" stroke="#000000" points="475.3961,-262.273 478.3202,-252.0896 469.6839,-258.2268 475.3961,-262.273"/>
@@ -160,31 +160,31 @@
 <polygon fill="#000000" stroke="#000000" points="392.6338,-334.4132 389.1337,-324.4133 385.6338,-334.4133 392.6338,-334.4132"/>
 </g>
 <!-- String&#45;&gt;Boolean -->
-<g id="edge17" class="edge">
+<g id="edge15" class="edge">
 <title>String&#45;&gt;Boolean</title>
 <path fill="none" stroke="#000000" d="M391.6298,-287.9622C393.7119,-269.714 395.8004,-240.7437 392.1337,-216 382.8932,-153.6438 358.1238,-83.7288 343.4599,-45.9247"/>
 <polygon fill="#000000" stroke="#000000" points="346.5312,-44.171 339.6132,-36.1465 340.0171,-46.7336 346.5312,-44.171"/>
 </g>
 <!-- String&#45;&gt;Complex -->
-<g id="edge19" class="edge">
+<g id="edge16" class="edge">
 <title>String&#45;&gt;Complex</title>
 <path fill="none" stroke="#000000" d="M361.7887,-292.9613C339.308,-282.242 307.0512,-266.8613 281.1199,-254.4967"/>
 <polygon fill="#000000" stroke="#000000" points="282.4151,-251.2368 271.8823,-250.092 279.4022,-257.5553 282.4151,-251.2368"/>
 </g>
 <!-- String&#45;&gt;DateTime -->
-<g id="edge18" class="edge">
+<g id="edge17" class="edge">
 <title>String&#45;&gt;DateTime</title>
 <path fill="none" stroke="#000000" d="M372.9838,-287.8314C365.462,-279.3694 356.3772,-269.1489 348.1533,-259.8971"/>
 <polygon fill="#000000" stroke="#000000" points="350.7607,-257.5621 341.501,-252.4133 345.5288,-262.2127 350.7607,-257.5621"/>
 </g>
 <!-- String&#45;&gt;Float -->
-<g id="edge16" class="edge">
+<g id="edge18" class="edge">
 <title>String&#45;&gt;Float</title>
 <path fill="none" stroke="#000000" d="M389.797,-287.9904C389.5676,-268.1405 386.2352,-236.3351 369.1337,-216 345.552,-187.9594 305.0681,-174.2683 275.3314,-167.7212"/>
 <polygon fill="#000000" stroke="#000000" points="275.8024,-164.2456 265.3066,-165.6915 274.4132,-171.1064 275.8024,-164.2456"/>
 </g>
 <!-- String&#45;&gt;Geometry -->
-<g id="edge15" class="edge">
+<g id="edge19" class="edge">
 <title>String&#45;&gt;Geometry</title>
 <path fill="none" stroke="#000000" d="M414.8726,-287.8314C427.6774,-278.7927 443.3246,-267.7476 457.1056,-258.0198"/>
 <polygon fill="#000000" stroke="#000000" points="459.2517,-260.7891 465.403,-252.1628 455.2149,-255.0703 459.2517,-260.7891"/>

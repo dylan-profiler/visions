@@ -24,7 +24,7 @@ def output_graph(G: nx.DiGraph, file_name: Union[Path, str], sort: bool = True) 
         G_sorted = nx.DiGraph()
         G_sorted.graph["node"] = {"shape": "box", "color": "red"}
         G_sorted.add_nodes_from(sorted(G.nodes, key=lambda x: str(x)))
-        G_sorted.add_edges_from(G.edges)
+        G_sorted.add_edges_from(sorted(G.edges, key=lambda x: (str(x[0]), str(x[1]))))
         G = G_sorted
 
     p = nx.drawing.nx_pydot.to_pydot(G)

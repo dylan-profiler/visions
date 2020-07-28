@@ -1,6 +1,8 @@
 import datetime
+import os
+import pathlib
 import uuid
-from ipaddress import IPv4Address
+from ipaddress import IPv4Address, IPv6Address
 from pathlib import PurePosixPath, PureWindowsPath
 from urllib.parse import urlparse
 
@@ -8,35 +10,13 @@ import numpy as np
 import pandas as pd
 from shapely import wkt
 
-from visions.types import (
-    URL,
-    UUID,
-    Boolean,
-    Categorical,
-    Complex,
-    Count,
-    Date,
-    DateTime,
-    EmailAddress,
-    File,
-    Float,
-    Generic,
-    Geometry,
-    Image,
-    Integer,
-    IPAddress,
-    Object,
-    Ordinal,
-    Path,
-    String,
-    Time,
-    TimeDelta,
-)
 from visions.types.email_address import FQDA
+
+base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_series():
-    return [
+    test_series = [
         # Int Series
         pd.Series([1, 2, 3], name="int_series"),
         pd.Series(range(10), name="int_range"),
@@ -130,6 +110,9 @@ def get_series():
             [r"/home/user/file.txt", r"/home/user/test2.txt"],
             name="path_series_linux_str",
         ),
+        pd.Series(["0011", "12"], name="str_int_leading_zeros"),
+        pd.Series(["0.0", "0.04", "0"], name="str_float_non_leading_zeros"),
+        pd.Series(["0.0", "0.000", "0", "2"], name="str_int_zeros"),
         # Bool Series
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, None], name="bool_nan_series"),
@@ -167,25 +150,31 @@ def get_series():
             name="complex_series_float",
         ),
         # Datetime Series
-        pd.Series(
-            [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
-            name="timestamp_series",
+        pd.to_datetime(
+            pd.Series(
+                [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
+                name="timestamp_series",
+            )
         ),
-        pd.Series(
-            [
-                datetime.datetime(2017, 3, 5),
-                datetime.datetime(2019, 12, 4, 3, 2, 0),
-                pd.NaT,
-            ],
-            name="timestamp_series_nat",
+        pd.to_datetime(
+            pd.Series(
+                [
+                    datetime.datetime(2017, 3, 5),
+                    datetime.datetime(2019, 12, 4, 3, 2, 0),
+                    pd.NaT,
+                ],
+                name="timestamp_series_nat",
+            )
         ),
-        pd.Series(
-            [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
-            name="date_series_nat",
+        pd.to_datetime(
+            pd.Series(
+                [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4), pd.NaT],
+                name="date_series_nat",
+            )
         ),
         pd.Series(
             pd.date_range(
-                start="2013-05-18 12:00:00",
+                start="2013-05-18 12:00:01",
                 periods=2,
                 freq="H",
                 tz="Europe/Brussels",
@@ -202,11 +191,52 @@ def get_series():
                 name="datetime",
             )
         ),
+        # Date series
+        pd.Series(
+            [
+                datetime.date(2011, 1, 1),
+                datetime.date(2012, 1, 2),
+                datetime.date(2013, 1, 1),
+            ],
+            name="date",
+        ),
+        # Time series
+        pd.Series(
+            [
+                datetime.time(8, 43, 12),
+                datetime.time(9, 43, 12),
+                datetime.time(10, 43, 12),
+            ],
+            name="time",
+        ),
+        # http://pandas-docs.github.io/pandas-docs-travis/user_guide/timeseries.html#timestamp-limitations
+        # pd.to_datetime(
+        #     pd.Series(
+        #         [
+        #             datetime.datetime(year=1, month=1, day=1, hour=8, minute=43, second=12),
+        #             datetime.datetime(year=1, month=1, day=1, hour=9, minute=43, second=12),
+        #             datetime.datetime(
+        #                 year=1, month=1, day=1, hour=10, minute=43, second=12
+        #             ),
+        #         ],
+        #         name="datetime_to_time",
+        #     )
+        # ),
         # Timedelta Series
         pd.Series([pd.Timedelta(days=i) for i in range(3)], name="timedelta_series"),
         pd.Series(
             [pd.Timedelta(days=i) for i in range(3)] + [pd.NaT],
             name="timedelta_series_nat",
+        ),
+        pd.Series(
+            [
+                pd.Timedelta("1 days 00:03:43"),
+                pd.Timedelta("5 days 12:33:57"),
+                pd.Timedelta("0 days 01:25:07"),
+                pd.Timedelta("-2 days 13:46:56"),
+                pd.Timedelta("1 days 23:49:25"),
+            ],
+            name="timedelta_negative",
         ),
         # Geometry Series
         pd.Series(
@@ -217,6 +247,15 @@ def get_series():
             ],
             name="geometry_series",
         ),
+        pd.Series(
+            [
+                wkt.loads("POINT (-92 42)"),
+                wkt.loads("POINT (-92 42.1)"),
+                wkt.loads("POINT (-92 42.2)"),
+                None,
+            ],
+            name="geometry_series_missing",
+        ),
         # Path Series
         pd.Series(
             [
@@ -224,6 +263,14 @@ def get_series():
                 PurePosixPath("/home/user/test2.txt"),
             ],
             name="path_series_linux",
+        ),
+        pd.Series(
+            [
+                PurePosixPath("/home/user/file.txt"),
+                PurePosixPath("/home/user/test2.txt"),
+                None,
+            ],
+            name="path_series_linux_missing",
         ),
         pd.Series(
             [
@@ -248,6 +295,14 @@ def get_series():
             ],
             name="url_nan_series",
         ),
+        pd.Series(
+            [
+                urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
+                urlparse("https://github.com/dylan-profiling/hurricane"),
+                None,
+            ],
+            name="url_none_series",
+        ),
         # UUID Series
         pd.Series(
             [
@@ -256,6 +311,15 @@ def get_series():
                 uuid.UUID("00000000-0000-0000-0000-000000000000"),
             ],
             name="uuid_series",
+        ),
+        pd.Series(
+            [
+                uuid.UUID("0b8a22ca-80ad-4df5-85ac-fa49c44b7ede"),
+                uuid.UUID("aaa381d6-8442-4f63-88c8-7c900e9a23c6"),
+                uuid.UUID("00000000-0000-0000-0000-000000000000"),
+                None,
+            ],
+            name="uuid_series_missing",
         ),
         pd.Series(
             [
@@ -298,7 +362,91 @@ def get_series():
         pd.Series([], name="empty_bool", dtype=bool),
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
+        pd.Series(
+            [IPv4Address("127.0.0.1"), None, IPv4Address("127.0.0.1")],
+            name="ip_missing",
+        ),
+        pd.Series(
+            [IPv6Address("0:0:0:0:0:0:0:1"), IPv4Address("127.0.0.1")],
+            name="ip_mixed_v4andv6",
+        ),
         pd.Series(["127.0.0.1", "127.0.0.1"], name="ip_str"),
+        # File
+        pd.Series(
+            [
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "__init__.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+            ],
+            name="file_test_py",
+        ),
+        pd.Series(
+            [
+                pathlib.Path(os.path.join(base_path, "..", "make.bat")).absolute(),
+                pathlib.Path(os.path.join(base_path, "..", "README.rst")).absolute(),
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+            ],
+            name="file_mixed_ext",
+        ),
+        pd.Series(
+            [
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
+                None,
+                pathlib.Path(os.path.join(base_path, "__init__.py")).absolute(),
+                None,
+                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+            ],
+            name="file_test_py_missing",
+        ),
+        # Image
+        pd.Series(
+            [
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        "../src/visions/visualisation/typesets/typeset_complete.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                    )
+                ).absolute(),
+            ],
+            name="image_png",
+        ),
+        pd.Series(
+            [
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_complete.png",
+                    )
+                ).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                    )
+                ).absolute(),
+                None,
+                pathlib.Path(
+                    os.path.join(
+                        base_path,
+                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                    )
+                ).absolute(),
+                None,
+            ],
+            name="image_png_missing",
+        ),
         # Email
         pd.Series(
             [FQDA("test", "example.com"), FQDA("info", "example.eu")],
@@ -311,247 +459,12 @@ def get_series():
         pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
-
-def get_contains_map():
-    series_map = {
-        Integer: [
-            "int_series",
-            "Int64_int_series",
-            "int_range",
-            "Int64_int_nan_series",
-            "int_series_boolean",
-        ],
-        Count: ["np_uint32"],
-        Path: ["path_series_linux", "path_series_windows"],
-        URL: ["url_series", "url_nan_series"],
-        Float: [
-            "float_series",
-            "float_series2",
-            "float_series3",
-            "float_series4",
-            "inf_series",
-            "nan_series",
-            "float_nan_series",
-            "float_series5",
-            "int_nan_series",
-            "nan_series_2",
-            "float_with_inf",
-            "float_series6",
-        ],
-        Categorical: [
-            "categorical_int_series",
-            "categorical_float_series",
-            "categorical_string_series",
-            "categorical_complex_series",
-            "categorical_char",
-            "ordinal",
-        ],
-        Boolean: [
-            "bool_series",
-            "bool_series2",
-            "bool_series3",
-            "nullable_bool_series",
-        ],
-        Complex: [
-            "complex_series",
-            "complex_series_py",
-            "complex_series_nan",
-            "complex_series_py_nan",
-            "complex_series_nan_2",
-            "complex_series_float",
-        ],
-        DateTime: [
-            "timestamp_series",
-            "timestamp_aware_series",
-            "datetime",
-            "timestamp_series_nat",
-            "date_series_nat",
-        ],
-        Date: ["datetime", "date_series_nat"],
-        TimeDelta: ["timedelta_series", "timedelta_series_nat"],
-        String: [
-            "timestamp_string_series",
-            "string_with_sep_num_nan",
-            "string_series",
-            "geometry_string_series",
-            "string_unicode_series",
-            "string_np_unicode_series",
-            "path_series_linux_str",
-            "path_series_windows_str",
-            "int_str_range",
-            "string_date",
-            "textual_float",
-            "textual_float_nan",
-            "ip_str",
-            "string_flt",
-            "string_num",
-            "str_url",
-            "string_str_nan",
-            "string_num_nan",
-            "string_bool_nan",
-            "string_flt_nan",
-            "str_complex",
-            "uuid_series_str",
-            "email_address_str",
-        ],
-        Geometry: ["geometry_series"],
-        IPAddress: ["ip"],
-        Ordinal: ["ordinal"],
-        UUID: ["uuid_series"],
-        EmailAddress: ["email_address", "email_address_missing"],
-    }
-
-    series_map[Object] = (
-        [
-            "mixed_list[str,int]",
-            "mixed_dict",
-            "callable",
-            "module",
-            "bool_nan_series",
-            "mixed_integer",
-            "mixed_list",
-            "mixed",
+    if int(pd.__version__[0]) >= 1:
+        pandas_1_series = [
+            pd.Series(
+                ["Patty", "Valentine"], dtype="string", name="string_dtype_series"
+            )
         ]
-        + series_map[String]
-        + series_map[Geometry]
-        + series_map[Path]
-        + series_map[URL]
-        + series_map[EmailAddress]
-        + series_map[IPAddress]
-        + series_map[UUID]
-    )
+        test_series.extend(pandas_1_series)
 
-    # Empty series
-    all = ["empty", "empty_bool", "empty_float", "empty_int64", "empty_object"]
-    for key, values in series_map.items():
-        all += values
-    series_map[Generic] = list(set(all))
-
-    return series_map
-
-
-def infer_series_type_map():
-    return {
-        "int_series": Integer,
-        "categorical_int_series": Categorical,
-        "int_nan_series": Integer,
-        "Int64_int_series": Integer,
-        "Int64_int_nan_series": Integer,
-        "np_uint32": Count,
-        "int_range": Integer,
-        "float_series": Float,
-        "float_nan_series": Float,
-        "int_series_boolean": Boolean,
-        "float_series2": Integer,
-        "float_series3": Float,
-        "float_series4": Float,
-        "float_series5": Float,
-        "float_series6": Float,
-        "complex_series_float": Integer,
-        "categorical_float_series": Categorical,
-        "float_with_inf": Float,
-        "inf_series": Float,
-        "nan_series": Float,
-        "nan_series_2": Float,
-        "string_series": String,
-        "categorical_string_series": Categorical,
-        "timestamp_string_series": Date,
-        "string_with_sep_num_nan": String,  # TODO: Introduce thousands separator
-        "string_unicode_series": String,
-        "string_np_unicode_series": String,
-        "string_num_nan": Integer,
-        "string_num": Integer,
-        "string_flt_nan": Float,
-        "string_flt": Float,
-        "string_str_nan": String,
-        "string_bool_nan": Boolean,
-        "int_str_range": Integer,
-        "string_date": Date,
-        "str_url": URL,
-        "bool_series": Boolean,
-        "bool_nan_series": Boolean,
-        "nullable_bool_series": Boolean,
-        "bool_series2": Boolean,
-        "bool_series3": Boolean,
-        "complex_series": Complex,
-        "complex_series_nan": Complex,
-        "complex_series_nan_2": Complex,
-        "complex_series_py_nan": Complex,
-        "complex_series_py": Complex,
-        "categorical_complex_series": Categorical,
-        "timestamp_series": DateTime,
-        "timestamp_series_nat": DateTime,
-        "timestamp_aware_series": DateTime,
-        "datetime": Date,
-        "timedelta_series": TimeDelta,
-        "timedelta_series_nat": TimeDelta,
-        "geometry_string_series": Geometry,
-        "geometry_series": Geometry,
-        "path_series_linux": Path,
-        "path_series_linux_str": Path,
-        "path_series_windows": Path,
-        "path_series_windows_str": Path,
-        "url_series": URL,
-        "url_nan_series": URL,
-        "mixed_list[str,int]": Object,
-        "mixed_dict": Object,
-        "mixed_integer": Object,
-        "mixed_list": Object,
-        "mixed": Object,
-        "callable": Object,
-        "module": Object,
-        "textual_float": Float,
-        "textual_float_nan": Float,
-        "empty": Generic,
-        "empty_object": Generic,
-        "empty_float": Generic,
-        "empty_bool": Generic,
-        "empty_int64": Generic,
-        "ip": IPAddress,
-        "ip_str": IPAddress,
-        "date_series_nat": Date,
-        "categorical_char": Categorical,
-        "ordinal": Ordinal,
-        "str_complex": Complex,
-        "uuid_series": UUID,
-        "uuid_series_str": UUID,
-        "email_address": EmailAddress,
-        "email_address_missing": EmailAddress,
-        "email_address_str": EmailAddress,
-    }
-
-
-def get_convert_map():
-    # Conversions in one single step
-    series_map = [
-        # Model type, Relation type
-        (Integer, Float, ["int_nan_series", "float_series2"]),
-        (Complex, String, ["str_complex"]),
-        (
-            Float,
-            String,
-            [
-                "string_flt",
-                "string_num_nan",
-                "string_num",
-                "string_flt_nan",
-                "textual_float",
-                "textual_float_nan",
-                "int_str_range",
-                # "string_with_sep_num_nan",
-            ],
-        ),
-        (DateTime, String, ["timestamp_string_series", "string_date"]),
-        (Geometry, String, ["geometry_string_series"]),
-        (Boolean, String, ["string_bool_nan"]),
-        (IPAddress, String, ["ip_str"]),
-        (URL, String, ["str_url"]),
-        (Path, String, ["path_series_windows_str", "path_series_linux_str"]),
-        (EmailAddress, String, ["email_address_str"]),
-        (Float, Complex, ["complex_series_float"]),
-        (Boolean, Integer, ["int_series_boolean"]),
-        (Boolean, Object, ["bool_nan_series"]),
-        (UUID, String, ["uuid_series_str"]),
-    ]
-
-    return series_map
+    return test_series

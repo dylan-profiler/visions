@@ -1,4 +1,5 @@
 from visions.types import (
+    Generic,
     URL,
     UUID,
     Boolean,
@@ -48,12 +49,14 @@ class CompleteSet(VisionsTypeset):
     - Image
     - URL
     - IPAddress
+    - EmailAddress
     - UUID
 
     """
 
     def __init__(self):
         types = {
+            Generic,
             Boolean,
             Float,
             Object,
@@ -73,14 +76,15 @@ class CompleteSet(VisionsTypeset):
             File,
             Image,
             IPAddress,
+            EmailAddress,
             UUID,
         }
         super().__init__(types)
 
         try:
-            import shapely
             import imagehash
             import PIL
+            import shapely
         except ImportError as e:
             raise ImportError(
                 "This typeset requires dependencies that are currently not installed ({}). "

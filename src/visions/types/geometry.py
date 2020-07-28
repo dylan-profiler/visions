@@ -6,6 +6,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import nullable_series_contains
 
 
 def string_is_geometry(series: pd.Series) -> bool:
@@ -31,7 +32,7 @@ def to_geometry(series: pd.Series) -> pd.Series:
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import String, Object
+    from visions.types import Object, String
 
     relations = [
         IdentityRelation(cls, Object),
@@ -58,6 +59,7 @@ class Geometry(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         from shapely.geometry.base import BaseGeometry
 

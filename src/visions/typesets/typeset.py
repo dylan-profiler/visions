@@ -36,16 +36,16 @@ def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
                         related_type=relation.related_type, own_type=relation.type
                     )
                 )
+            else:
+                relation_graph.add_edge(
+                    relation.related_type,
+                    relation.type,
+                    relationship=relation,
+                    style=style_map[relation.inferential],
+                )
 
-            relation_graph.add_edge(
-                relation.related_type,
-                relation.type,
-                relationship=relation,
-                style=style_map[relation.inferential],
-            )
-
-            if not relation.inferential:
-                noninferential_edges.append((relation.related_type, relation.type))
+                if not relation.inferential:
+                    noninferential_edges.append((relation.related_type, relation.type))
 
     check_graph_constraints(relation_graph)
 
@@ -72,7 +72,9 @@ def check_isolates(graph: nx.DiGraph) -> None:
 
     """
     nodes = set(graph.nodes)
-    isolates = list(set(nx.isolates(graph)) - {Generic})  # root can be isolate
+    root_node = next(nx.topological_sort(graph))
+
+    isolates = list(set(nx.isolates(graph)) - {root_node})  # root can be isolate
     graph.remove_nodes_from(isolates)
     orphaned_nodes = nodes - set(graph.nodes)
     if orphaned_nodes:
@@ -99,7 +101,7 @@ def check_cycles(graph: nx.DiGraph) -> None:
 
 
 def traverse_graph(
-    series: pd.Series, graph: nx.DiGraph, node: Type[VisionsBaseType] = Generic
+    series: pd.Series, graph: nx.DiGraph, node: Type[VisionsBaseType]
 ) -> Type[VisionsBaseType]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
@@ -192,7 +194,7 @@ def traverse_graph_inference_sample(
 def infer_type_path(
     series: pd.Series,
     G: nx.DiGraph,
-    base_type: Type[VisionsBaseType] = Generic,
+    base_type: Type[VisionsBaseType],
     sample_size: int = 10,
 ) -> Tuple[List[Type[VisionsBaseType]], pd.Series]:
     # TODO: Try sample, Except do this
@@ -232,11 +234,30 @@ class VisionsTypeset(object):
         Args:
             types: a set of types
         """
+        self._root_node = None
+
         if not isinstance(types, Iterable):
             raise ValueError("types should be iterable")
 
-        self.relation_graph, self.base_graph = build_graph(set(types) | {Generic})
+        self.relation_graph, self.base_graph = build_graph(set(types))
+
+        if not issubclass(self.root_node, Generic):
+            raise ValueError("`root_node` should be a subclass of Generic")
+
         self.types = set(self.relation_graph.nodes)
+
+    @property
+    def root_node(self):
+        """Returns a cached copy of the relation_graphs root node
+        
+        Args:
+
+        Returns:
+            A cached copy of the relation_graphs root node.
+        """
+        if self._root_node is None:
+            self._root_node = next(nx.topological_sort(self.relation_graph))
+        return self._root_node
 
     def detect_series_type(self, series: pd.Series) -> Type[VisionsBaseType]:
         """Get the series type (without casting).
@@ -247,7 +268,7 @@ class VisionsTypeset(object):
         Returns:
             The visions data type
         """
-        base_type = traverse_graph(series, self.base_graph)
+        base_type = traverse_graph(series, self.base_graph, self.root_node)
         return base_type
 
     def detect_frame_type(self, df: pd.DataFrame) -> Dict[str, Type[VisionsBaseType]]:
@@ -271,7 +292,7 @@ class VisionsTypeset(object):
             The visions data type
         """
         inferred_path, _ = traverse_graph_inference(
-            Generic, series, self.relation_graph
+            self.root_node, series, self.relation_graph
         )
         return inferred_path[-1]
 
@@ -386,16 +407,19 @@ class VisionsTypeset(object):
         Returns:
             Shows the image
         """
-        import matplotlib.pyplot as plt
-        import matplotlib.image as mpimg
         import tempfile
+        import os
 
-        with tempfile.NamedTemporaryFile(suffix=".png") as temp_file:
+        from matplotlib import image as mpimg
+        from matplotlib import pyplot as plt
+
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
             self.output_graph(temp_file.name)
             img = mpimg.imread(temp_file.name)
             plt.figure(dpi=dpi)
             plt.axis("off")
             plt.imshow(img)
+        os.unlink(temp_file.name)
 
     def _get_other_type(self, other):
         if issubclass(other.__class__, VisionsTypeset):

@@ -6,6 +6,7 @@ import pandas as pd
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
+from visions.utils.series_utils import nullable_series_contains
 
 
 def to_ip(series: pd.Series) -> pd.Series:
@@ -39,5 +40,6 @@ class IPAddress(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @nullable_series_contains
     def contains_op(cls, series: pd.Series) -> bool:
         return all(isinstance(x, _BaseAddress) for x in series)

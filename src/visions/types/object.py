@@ -1,7 +1,7 @@
 from typing import Sequence
 
 import pandas as pd
-import pandas.api.types as pdt
+from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
@@ -12,6 +12,9 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
     relations = [IdentityRelation(cls, Generic)]
     return relations
+
+
+pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
 
 
 class Object(VisionsBaseType):
@@ -29,4 +32,11 @@ class Object(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_object_dtype(series)
+        is_object = pdt.is_object_dtype(series)
+        if is_object:
+            ret = True
+        elif pandas_has_string_dtype_flag:
+            ret = pdt.is_string_dtype(series) and not pdt.is_categorical_dtype(series)
+        else:
+            ret = False
+        return ret

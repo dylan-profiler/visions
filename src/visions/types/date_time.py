@@ -1,7 +1,7 @@
 from typing import Sequence
 
 import pandas as pd
-import pandas.api.types as pdt
+from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
@@ -20,7 +20,9 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             String,
-            relationship=test_utils.coercion_test(to_datetime),
+            relationship=test_utils.coercion_test(
+                to_datetime, [OverflowError, TypeError]
+            ),
             transformer=to_datetime,
         ),
     ]
