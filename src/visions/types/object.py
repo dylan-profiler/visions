@@ -34,6 +34,9 @@ class Object(VisionsBaseType):
     def contains_op(cls, series: pd.Series) -> bool:
         is_object = pdt.is_object_dtype(series)
         if is_object:
-            return True
+            ret = True
         elif pandas_has_string_dtype_flag:
-            return pdt.is_string_dtype(series) and not pdt.is_categorical_dtype(series)
+            ret = pdt.is_string_dtype(series) and not pdt.is_categorical_dtype(series)
+        else:
+            ret = False
+        return ret
