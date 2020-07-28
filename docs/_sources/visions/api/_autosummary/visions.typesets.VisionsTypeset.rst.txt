@@ -30,4 +30,10 @@ visions.typesets.VisionsTypeset
 
    
    
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~VisionsTypeset.root_node
+   
    
