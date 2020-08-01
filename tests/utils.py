@@ -76,7 +76,7 @@ def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
 
 
 def infers(series, expected_type, typeset, difference):
-    inferred_type = typeset.infer_series_type(series)
+    inferred_type = typeset.infer_type(series)
     return (
         (inferred_type == expected_type) != difference,
         f"inference of {series.name} expected {expected_type} to be {difference} (typeset={typeset})",

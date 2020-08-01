@@ -42,12 +42,6 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         ),
         InferenceRelation(
             cls,
-            Integer,
-            relationship=lambda s: s.isin({0, 1, np.nan}).all(),
-            transformer=to_bool,
-        ),
-        InferenceRelation(
-            cls,
             Object,
             relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
             transformer=to_bool,

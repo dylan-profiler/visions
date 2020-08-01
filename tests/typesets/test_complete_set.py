@@ -182,7 +182,7 @@ inference_map = {
     "int_range": Integer,
     "float_series": Float,
     "float_nan_series": Float,
-    "int_series_boolean": Boolean,
+    "int_series_boolean": Integer,
     "float_series2": Integer,
     "float_series3": Float,
     "float_series4": Float,
@@ -323,7 +323,6 @@ convert_map = [
     (Path, String, {"path_series_windows_str", "path_series_linux_str"}),
     (EmailAddress, String, {"email_address_str"}),
     (Float, Complex, {"complex_series_float"}),
-    (Boolean, Integer, {"int_series_boolean"}),
     (Boolean, Object, {"bool_nan_series"}),
     (UUID, String, {"uuid_series_str"}),
 ]

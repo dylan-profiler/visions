@@ -62,18 +62,18 @@ def test_consistency(series):
     ):
         pytest.skip("unsupported configuration")
 
-    initial_type = typeset.detect_series_type(series.copy(deep=True))
-    converted_type = typeset.infer_series_type(series.copy(deep=True))
+    initial_type = typeset.detect_type(series.copy(deep=True))
+    converted_type = typeset.infer_type(series.copy(deep=True))
 
     if initial_type != converted_type:
-        converted_series = typeset.cast_series(series.copy(deep=True))
+        converted_series, _ = typeset.infer_and_cast(series.copy(deep=True))
         assert series.dtype.kind != converted_series.dtype.kind or not (
             (
                 converted_series.eq(series) | (converted_series.isna() & series.isna())
             ).all()
         )
     else:
-        converted_series = typeset.cast_series(series.copy(deep=True))
+        converted_series, _ = typeset.infer_and_cast(series.copy(deep=True))
         assert (
             converted_series.eq(series) | (converted_series.isna() & series.isna())
         ).all()
@@ -83,8 +83,8 @@ def test_side_effects(series):
     reference = series.copy()
 
     typeset = CompleteSet()
-    typeset.detect_series_type(series)
-    typeset.infer_series_type(series)
+    typeset.detect_type(series)
+    typeset.infer_type(series)
 
     # Check if NaN mask is equal
     assert series.notna().eq(reference.notna()).all()
@@ -99,16 +99,16 @@ def test_multiple_inference(series):
     """
     ts = CompleteSet()
 
-    inferred_type = ts.infer_series_type(series)
+    inferred_type = ts.infer_type(series)
 
-    series_convert = ts.cast_series(series.copy(deep=True))
+    series_convert, _ = ts.infer_and_cast(series.copy(deep=True))
 
-    initial_type_after_convert = ts.detect_series_type(series_convert.copy(deep=True))
+    initial_type_after_convert = ts.detect_type(series_convert.copy(deep=True))
     assert inferred_type == initial_type_after_convert
 
-    series_convert2 = ts.cast_series(series_convert.copy(deep=True))
+    series_convert2, _ = ts.infer_and_cast(series_convert.copy(deep=True))
 
-    inferred_type_after_convert = ts.detect_series_type(series_convert2.copy(deep=True))
+    inferred_type_after_convert = ts.infer_type(series_convert2.copy(deep=True))
     assert initial_type_after_convert == inferred_type_after_convert
 
     assert series_convert.isna().eq(series_convert2.isna()).all()

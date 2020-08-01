@@ -21,7 +21,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
             cls,
             String,
             relationship=test_utils.coercion_test(
-                to_datetime, [OverflowError, TypeError]
+                to_datetime, [OverflowError, TypeError]  # type: ignore
             ),
             transformer=to_datetime,
         ),
