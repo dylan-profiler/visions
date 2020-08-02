@@ -180,14 +180,14 @@ def traverse_graph(
     raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
 
 
-@traverse_graph.register
+@traverse_graph.register(pd.Series)
 def _(
     series: pd.Series, root_node: Type[VisionsBaseType], graph: nx.DiGraph
 ) -> Tuple[pd.Series, List[Type[VisionsBaseType]]]:
     return traverse_graph_with_series(root_node, series, graph)
 
 
-@traverse_graph.register  # type: ignore
+@traverse_graph.register(pd.DataFrame)  # type: ignore
 def _(
     df: pd.DataFrame, root_node: Type[VisionsBaseType], graph: nx.DiGraph
 ) -> Tuple[pd.DataFrame, Dict[str, List[Type[VisionsBaseType]]]]:
@@ -206,17 +206,17 @@ def get_type_from_path(path_data: Any) -> pathTypes:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 
 
-@get_type_from_path.register  # type: ignore
+@get_type_from_path.register(dict)  # type: ignore
 def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
     return {k: get_type_from_path(v) for k, v in path_dict.items()}
 
 
-@get_type_from_path.register  # type: ignore
+@get_type_from_path.register(list)  # type: ignore
 def _(path_list: list) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
-@get_type_from_path.register  # type: ignore
+@get_type_from_path.register(tuple)  # type: ignore
 def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 
@@ -359,6 +359,17 @@ class VisionsTypeset(object):
         os.unlink(temp_file.name)
 
     def _get_other_type(self, other: TypeOrTypeset) -> Set[Type[VisionsBaseType]]:
+        """Converts input into a set of visions.VisionsBaseType
+
+        Args:
+            other: A visions.VisionsBaseType or visions.VisionsTypeset
+
+        Raises:
+            NotImplementedError:
+
+        Returns:
+            Set[Type[VisionsBaseType]]:
+        """
         if isinstance(other, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
@@ -395,7 +406,7 @@ class VisionsTypeset(object):
         Returns
             A VisionsTypeset
         """
-        other_types: Set[Type[VisionsBaseType]] = self._get_other_type(other)
+        other_types = self._get_other_type(other)
         return VisionsTypeset(self.types | other_types)
 
     def __iadd__(self, other: TypeOrTypeset) -> "VisionsTypeset":
