@@ -1,6 +1,6 @@
 import warnings
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Set
+from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Set, TypeVar
 from functools import singledispatch
 
 import networkx as nx
@@ -8,6 +8,12 @@ import pandas as pd
 
 from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
+
+pdT = TypeVar("pdT", pd.Series, pd.DataFrame)
+TypeOrTypeset = TypeVar("TypeOrTypeset", Type[VisionsBaseType], "VisionsTypeset")
+pathTypes = TypeVar(
+    "pathTypes", Type[VisionsBaseType], Dict[str, Type[VisionsBaseType]]
+)
 
 
 def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
@@ -169,8 +175,8 @@ def traverse_graph_with_sampled_series(
 
 @singledispatch
 def traverse_graph(
-    data: Any, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[Any, Any]:
+    data: pdT, root_node: Type[VisionsBaseType], graph: nx.DiGraph
+) -> Tuple[pdT, Any]:
     raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
 
 
@@ -181,7 +187,7 @@ def _(
     return traverse_graph_with_series(root_node, series, graph)
 
 
-@traverse_graph.register
+@traverse_graph.register  # type: ignore
 def _(
     df: pd.DataFrame, root_node: Type[VisionsBaseType], graph: nx.DiGraph
 ) -> Tuple[pd.DataFrame, Dict[str, List[Type[VisionsBaseType]]]]:
@@ -196,22 +202,22 @@ def _(
 
 
 @singledispatch
-def get_type_from_path(path_data: Any) -> Any:
+def get_type_from_path(path_data: Any) -> pathTypes:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 
 
-@get_type_from_path.register
+@get_type_from_path.register  # type: ignore
 def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
     return {k: get_type_from_path(v) for k, v in path_dict.items()}
 
 
-@get_type_from_path.register
-def _(path_list: List[Type[VisionsBaseType]]) -> Type[VisionsBaseType]:
+@get_type_from_path.register  # type: ignore
+def _(path_list: list) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
-@get_type_from_path.register
-def _(path_list: Tuple[Type[VisionsBaseType]]) -> Type[VisionsBaseType]:
+@get_type_from_path.register  # type: ignore
+def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
@@ -253,11 +259,9 @@ class VisionsTypeset(object):
         """
         if self._root_node is None:
             self._root_node = next(nx.topological_sort(self.relation_graph))
-        return self._root_node
+        return self._root_node  # type: ignore
 
-    def detect_type(
-        self, data: Union[pd.DataFrame, pd.Series]
-    ) -> Type[VisionsBaseType]:
+    def detect_type(self, data: pdT) -> pathTypes:
         """The inferred type found only considering IdentityRelations.
 
         Args:
@@ -269,7 +273,7 @@ class VisionsTypeset(object):
         _, paths = traverse_graph(data, self.root_node, self.base_graph)
         return get_type_from_path(paths)
 
-    def infer_type(self, data: Union[pd.DataFrame, pd.Series]) -> Type[VisionsBaseType]:
+    def infer_type(self, data: pdT) -> pathTypes:
         """The inferred type found using all type relations.
 
         Args:
@@ -281,9 +285,7 @@ class VisionsTypeset(object):
         _, paths = traverse_graph(data, self.root_node, self.relation_graph)
         return get_type_from_path(paths)
 
-    def cast(
-        self, data: Union[pd.DataFrame, pd.Series]
-    ) -> Union[pd.DataFrame, pd.Series]:
+    def cast(self, data: pdT) -> pdT:
         """Transforms input data into a canonical representation using only IdentityRelations
 
         Args:
@@ -295,9 +297,7 @@ class VisionsTypeset(object):
         data, _ = traverse_graph(data, self.root_node, self.base_graph)
         return data
 
-    def infer_and_cast(
-        self, data: Union[pd.DataFrame, pd.Series]
-    ) -> Tuple[Union[pd.DataFrame, pd.Series], Any]:
+    def infer_and_cast(self, data: pdT) -> Tuple[pdT, pathTypes]:
         """Transforms input data and returns it's corresponding new type relation using all relations.
         Args:
             data: a DataFrame or Series to determine types over
@@ -358,10 +358,8 @@ class VisionsTypeset(object):
             plt.imshow(img)
         os.unlink(temp_file.name)
 
-    def _get_other_type(
-        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
-    ) -> Set[Type[VisionsBaseType]]:
-        if issubclass(other.__class__, VisionsTypeset):
+    def _get_other_type(self, other: TypeOrTypeset) -> Set[Type[VisionsBaseType]]:
+        if isinstance(other, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
             other_types = {other}
@@ -373,9 +371,7 @@ class VisionsTypeset(object):
             )
         return other_types
 
-    def replace(
-        self, old: Type[VisionsBaseType], new: Type[VisionsBaseType]
-    ) -> "VisionsTypeset":
+    def replace(self, old: VisionsBaseType, new: VisionsBaseType) -> "VisionsTypeset":
         """Create a new typeset having replace one type with another.
 
         Args:
@@ -390,9 +386,7 @@ class VisionsTypeset(object):
         types.remove(old)
         return VisionsTypeset(types)
 
-    def __add__(
-        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
-    ) -> "VisionsTypeset":
+    def __add__(self, other: TypeOrTypeset) -> "VisionsTypeset":
         """Adds a type or typeset into the current typeset.
 
         Args:
@@ -401,12 +395,10 @@ class VisionsTypeset(object):
         Returns
             A VisionsTypeset
         """
-        other_types = self._get_other_type(other)
+        other_types: Set[Type[VisionsBaseType]] = self._get_other_type(other)
         return VisionsTypeset(self.types | other_types)
 
-    def __iadd__(
-        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
-    ) -> "VisionsTypeset":
+    def __iadd__(self, other: TypeOrTypeset) -> "VisionsTypeset":
         """Adds a type or typeset into the current typeset.
 
         Args:
@@ -417,9 +409,7 @@ class VisionsTypeset(object):
         """
         return self.__add__(other)
 
-    def __sub__(
-        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
-    ) -> "VisionsTypeset":
+    def __sub__(self, other: TypeOrTypeset) -> "VisionsTypeset":
         """Subtracts a type or typeset from the current typeset.
 
         Args:
@@ -431,9 +421,7 @@ class VisionsTypeset(object):
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types - other_types)
 
-    def __isub__(
-        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
-    ) -> "VisionsTypeset":
+    def __isub__(self, other: TypeOrTypeset) -> "VisionsTypeset":
         """Subtracts a type or typeset from the current typeset.
 
         Args:

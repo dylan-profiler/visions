@@ -23,19 +23,18 @@ def option_coercion_evaluator(
     error_list = [ValueError, TypeError, AttributeError]
     if extra_errors:
         error_list.extend(extra_errors)
-    error_list = tuple(error_list)
 
     def f(series: pd.Series) -> Optional[pd.Series]:
         try:
             return method(series)
-        except error_list:
+        except tuple(error_list):
             return None
 
     return f
 
 
 def coercion_test(
-    method: Callable, extra_errors: Optional[List[Exception]] = None
+    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
 ) -> Callable:
     """A coercion test generator
 

@@ -39,7 +39,7 @@ def extract_exif_series(image_exifs: list) -> dict:
 
     """
     exif_keys = []
-    exif_values = {}
+    exif_values: dict = {}
 
     for image_exif in image_exifs:
         # Extract key
@@ -73,7 +73,7 @@ def extract_image_information(
     Returns:
         A dict containing image information
     """
-    information = {}
+    information: dict = {}
     image = open_image(path)
     information["opened"] = image is not None
     if image is not None:

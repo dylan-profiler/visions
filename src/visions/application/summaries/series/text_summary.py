@@ -1,3 +1,4 @@
+from typing import Dict
 from collections import Counter
 
 import pandas as pd
@@ -8,7 +9,7 @@ from visions.application.summaries.series.numerical_summary import (
 )
 
 
-def get_character_counts(series) -> Counter:
+def get_character_counts(series: pd.Series) -> Counter:
     """Function to return the character counts
 
     Args:
@@ -35,8 +36,6 @@ def unicode_summary(series: pd.Series) -> dict:
 
     character_counts_series = counter_to_series(character_counts)
 
-    character_counts = dict(character_counts)
-
     char_to_block = {key: block(key) for key in character_counts.keys()}
     char_to_category_short = {key: category(key) for key in character_counts.keys()}
     char_to_script = {key: script(key) for key in character_counts.keys()}
@@ -53,8 +52,8 @@ def unicode_summary(series: pd.Series) -> dict:
     }
 
     # Retrieve original distribution
-    block_alias_counts = Counter()
-    per_block_char_counts = {
+    block_alias_counts: Counter = Counter()
+    per_block_char_counts: dict = {
         k: Counter() for k in summary["block_alias_values"].values()
     }
     for char, n_char in character_counts.items():
@@ -66,8 +65,8 @@ def unicode_summary(series: pd.Series) -> dict:
         k: counter_to_series(v) for k, v in per_block_char_counts.items()
     }
 
-    script_counts = Counter()
-    per_script_char_counts = {k: Counter() for k in char_to_script.values()}
+    script_counts: Counter = Counter()
+    per_script_char_counts: dict = {k: Counter() for k in char_to_script.values()}
     for char, n_char in character_counts.items():
         script_name = char_to_script[char]
         script_counts[script_name] += n_char
@@ -77,8 +76,8 @@ def unicode_summary(series: pd.Series) -> dict:
         k: counter_to_series(v) for k, v in per_script_char_counts.items()
     }
 
-    category_alias_counts = Counter()
-    per_category_alias_char_counts = {
+    category_alias_counts: Counter = Counter()
+    per_category_alias_char_counts: dict = {
         k: Counter() for k in summary["category_alias_values"].values()
     }
     for char, n_char in character_counts.items():
