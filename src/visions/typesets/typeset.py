@@ -1,6 +1,6 @@
 import warnings
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any
+from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Set
 from functools import singledispatch
 
 import networkx as nx
@@ -185,22 +185,22 @@ def _(
 
 
 @singledispatch
-def get_type_from_path(path_data):
+def get_type_from_path(path_data: Any) -> Any:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 
 
 @get_type_from_path.register
-def _(path_dict: dict):
+def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
     return {k: get_type_from_path(v) for k, v in path_dict.items()}
 
 
 @get_type_from_path.register
-def _(path_list: list):
+def _(path_list: List[Type[VisionsBaseType]]) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
 @get_type_from_path.register
-def _(path_list: tuple):
+def _(path_list: Tuple[Type[VisionsBaseType]]) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
@@ -214,7 +214,7 @@ class VisionsTypeset(object):
         relation_graph: the graph with relations to the parent types and mapping relations
     """
 
-    def __init__(self, types: set):
+    def __init__(self, types: Set[Type[VisionsBaseType]]) -> None:
         """
         Args:
             types: a set of types
@@ -232,7 +232,7 @@ class VisionsTypeset(object):
         self.types = set(self.relation_graph.nodes)
 
     @property
-    def root_node(self):
+    def root_node(self) -> Type[VisionsBaseType]:
         """Returns a cached copy of the relation_graphs root node
         
         Args:
@@ -315,7 +315,9 @@ class VisionsTypeset(object):
             plt.imshow(img)
         os.unlink(temp_file.name)
 
-    def _get_other_type(self, other):
+    def _get_other_type(
+        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
+    ) -> Set[Type[VisionsBaseType]]:
         if issubclass(other.__class__, VisionsTypeset):
             other_types = set(other.types)
         elif issubclass(other, VisionsBaseType):
@@ -336,19 +338,27 @@ class VisionsTypeset(object):
         types.remove(old)
         return VisionsTypeset(types)
 
-    def __add__(self, other):
+    def __add__(
+        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
+    ) -> "VisionsTypeset":
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types | other_types)
 
-    def __iadd__(self, other):
+    def __iadd__(
+        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
+    ) -> "VisionsTypeset":
         return self.__add__(other)
 
-    def __sub__(self, other):
+    def __sub__(
+        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
+    ) -> "VisionsTypeset":
         other_types = self._get_other_type(other)
         return VisionsTypeset(self.types - other_types)
 
-    def __isub__(self, other):
+    def __isub__(
+        self, other: Union[Type[VisionsBaseType], "VisionsTypeset"]
+    ) -> "VisionsTypeset":
         return self.__sub__(other)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__class__.__name__

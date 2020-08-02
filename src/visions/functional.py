@@ -87,7 +87,7 @@ def compare_detect_inference_frame(
     inferred_types = infer_type(df, typeset)
     for key in detected_types.keys() & inferred_types.keys():  # type: ignore
         comparisons.append(
-            (key, detected_types[key], inferred_types[key])
+            (key, detected_types[key], inferred_types[key])  # type: ignore
         )  # type: ignore
     return comparisons
 
