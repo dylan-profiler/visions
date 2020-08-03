@@ -11,14 +11,10 @@ Typesets
 .. autosummary::
    :toctree: _autosummary
 
-   detect_frame_type
-   detect_series_type
-   infer_frame_type
-   infer_series_type
-   cast_frame
-   cast_series
-   cast_and_infer_frame
-   cast_and_infer_series
+   detect_type
+   infer_type
+   cast
+   cast_and_infer
 
 ============
 Type changes
