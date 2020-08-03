@@ -43,7 +43,7 @@ setup(
     description="Visions",
     author="Dylan Profiler",
     author_email="visions@ictopzee.nl",
-    package_data={find_packages("src"): ["py.typed"]}
+    package_data={find_packages("src"): ["py.typed"]},
     packages=find_packages("src"),
     package_dir={"": "src"},
     install_requires=requirements,
