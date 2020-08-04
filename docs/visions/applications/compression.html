@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data Compression &mdash; visions 0.4.5 documentation</title>
+  <title>Data Compression &mdash; visions 0.4.6 documentation</title>
   
 
   
@@ -99,7 +99,10 @@
 <li class="toctree-l1"><a class="reference internal" href="summarizer.html">Data Summarization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Data Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="machine_learning.html">Machine Learning</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Compression</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Compression</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compressio">Compressio</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Data Discovery and Data Integration</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
@@ -196,6 +199,12 @@ There are infinite potential ways to denote “Yes” and “No” values within
 However, that does not mean that this is “just data munging” and we cannot do this and other tasks more effectively.
 We observe that some patterns occur more often (“Yes”, “No” over “Arr” or “Nay”) and there are other indicators that can help a system to decide what to do (the variable two distinct values).
 We note that a rule-based system that trivially encodes each variable with two distinct values as boolean is no solution, as the encoding loses part of it’s meaning (e.g. encoding “Male”, “Female”).</p>
+<div class="section" id="compressio">
+<h2>Compressio<a class="headerlink" href="#compressio" title="Permalink to this headline">¶</a></h2>
+<p>Compressio performs this lossless in-memory compression of pandas DataFrames and Series powered by the visions type system.
+This may yield up to 10x less RAM usage for the same data.</p>
+<p>For the code, examples and an analysis of pandas’ types, you can visit the <a class="reference external" href="https://github.com/dylan-profiler/compressio">Project Homepage</a>.</p>
+</div>
 </div>
 
 
