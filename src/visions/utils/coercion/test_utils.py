@@ -2,6 +2,7 @@
 A selection of testing utilities for visions.
 """
 from typing import Callable, Dict, List, Optional, Union, Type
+import functools
 
 import pandas as pd
 

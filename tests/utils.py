@@ -57,7 +57,6 @@ def contains(series, type, member):
 
 def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
     argsvalues = []
-    inferred_series_type_map = inferred_series_type_map
     for series in _test_suite:
         expected_type = inferred_series_type_map[series.name]
         for test_type in typeset.types:

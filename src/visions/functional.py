@@ -6,7 +6,9 @@ from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 
 
-def cast(data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset) -> pd.DataFrame:
+def cast_to_detected(
+    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
+) -> pd.DataFrame:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -17,10 +19,10 @@ def cast(data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset) -> pd.Da
     Returns:
         A tuple of the casted DataFrame and the types to which the columns were cast
     """
-    return typeset.cast(data)
+    return typeset.cast_to_detected(data)
 
 
-def infer_and_cast(
+def cast_to_inferred(
     data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
 ) -> Tuple[pd.DataFrame, dict]:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
@@ -33,7 +35,7 @@ def infer_and_cast(
     Returns:
         A tuple of the casted DataFrame and the types to which the columns were cast
     """
-    return typeset.infer_and_cast(data)
+    return typeset.cast_to_inferred(data)
 
 
 def infer_type(

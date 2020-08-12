@@ -66,14 +66,14 @@ def test_consistency(series):
     converted_type = typeset.infer_type(series.copy(deep=True))
 
     if initial_type != converted_type:
-        converted_series, _ = typeset.infer_and_cast(series.copy(deep=True))
+        converted_series = typeset.cast_to_inferred(series.copy(deep=True))
         assert series.dtype.kind != converted_series.dtype.kind or not (
             (
                 converted_series.eq(series) | (converted_series.isna() & series.isna())
             ).all()
         )
     else:
-        converted_series, _ = typeset.infer_and_cast(series.copy(deep=True))
+        converted_series = typeset.cast_to_inferred(series.copy(deep=True))
         assert (
             converted_series.eq(series) | (converted_series.isna() & series.isna())
         ).all()
@@ -101,12 +101,12 @@ def test_multiple_inference(series):
 
     inferred_type = ts.infer_type(series)
 
-    series_convert, _ = ts.infer_and_cast(series.copy(deep=True))
+    series_convert = ts.cast_to_inferred(series.copy(deep=True))
 
     initial_type_after_convert = ts.detect_type(series_convert.copy(deep=True))
     assert inferred_type == initial_type_after_convert
 
-    series_convert2, _ = ts.infer_and_cast(series_convert.copy(deep=True))
+    series_convert2 = ts.cast_to_inferred(series_convert.copy(deep=True))
 
     inferred_type_after_convert = ts.infer_type(series_convert2.copy(deep=True))
     assert initial_type_after_convert == inferred_type_after_convert

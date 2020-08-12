@@ -1,7 +1,10 @@
 import warnings
 from pathlib import Path
+import sys
 from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Set, TypeVar
 from functools import singledispatch
+import functools
+from collections import OrderedDict
 
 import networkx as nx
 import pandas as pd
@@ -14,6 +17,62 @@ TypeOrTypeset = TypeVar("TypeOrTypeset", Type[VisionsBaseType], "VisionsTypeset"
 pathTypes = TypeVar(
     "pathTypes", Type[VisionsBaseType], Dict[str, Type[VisionsBaseType]]
 )
+
+
+class LRUCacher:
+    def __init__(self, hash_func, max_length, value_func):
+        self.hash_func = hash_func
+        self.max_length = max_length
+        self.value_func = value_func
+        self.cache = OrderedDict()
+
+    def __getitem__(self, key):
+        value = self.cache[key]
+        self.cache.move_to_end(key)
+        return value
+
+    def __setitem__(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.max_length:
+            oldest = next(iter(self.cache))
+            del self.cache[oldest]
+
+    def get_key(self, *args):
+        return self.hash_func(*args)
+
+    def get(self, *args):
+        id_key = self.get_key(*args)
+        if id_key not in self.cache:
+            self[id_key] = self.value_func(*args)
+        return self[id_key]
+
+
+def lru_cache(hash_func, max_length):
+    def func_inner(func):
+        cache = LRUCacher(hash_func, max_length, func)
+
+        @functools.wraps(func)
+        def inner(*args):
+            return cache.get(*args)
+
+        return inner
+
+    return func_inner
+
+
+def mutable_pseudo_hash(data, node, graph):
+    # return id((data, node, graph))
+    try:
+        if isinstance(data, pd.DataFrame):
+            data_hash = hash(hash(tuple(df[col])) for col in df.columns)
+        else:
+            data_hash = hash(tuple(data.values))
+    except:
+        return id((data, node, graph))
+
+    return hash((data_hash, node, graph))
 
 
 def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
@@ -113,9 +172,9 @@ def traverse_graph_with_series(
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
     Args:
+        base_type: Entry-point for graph to start  traversal
         series: the Series to check
         graph: the Graph to traverse
-        node: the current node
         path: the path so far
 
     Returns:
@@ -144,10 +203,10 @@ def traverse_graph_with_sampled_series(
     """Depth First Search traversal with sampling. There should be at most one successor that contains the series.
 
     Args:
+        base_type: Entry-point for graph to start  traversal
         series: the Series to check
         graph: the Graph to traverse
-        node: the current node
-        path: the path so far
+        sample_size: number of items used in heuristic traversal
 
     Returns:
         The most uniquely specified node matching the series.
@@ -261,6 +320,11 @@ class VisionsTypeset(object):
             self._root_node = next(nx.topological_sort(self.relation_graph))
         return self._root_node  # type: ignore
 
+    @staticmethod
+    # @lru_cache(mutable_pseudo_hash, 1)
+    def _traverse_graph(data: pdT, root_node, graph):
+        return traverse_graph(data, root_node, graph)
+
     def detect_type(self, data: pdT) -> pathTypes:
         """The inferred type found only considering IdentityRelations.
 
@@ -270,7 +334,7 @@ class VisionsTypeset(object):
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths = traverse_graph(data, self.root_node, self.base_graph)
+        _, paths = self._traverse_graph(data, self.root_node, self.base_graph)
         return get_type_from_path(paths)
 
     def infer_type(self, data: pdT) -> pathTypes:
@@ -282,10 +346,10 @@ class VisionsTypeset(object):
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths = traverse_graph(data, self.root_node, self.relation_graph)
+        _, paths = self._traverse_graph(data, self.root_node, self.relation_graph)
         return get_type_from_path(paths)
 
-    def cast(self, data: pdT) -> pdT:
+    def cast_to_detected(self, data: pdT) -> pdT:
         """Transforms input data into a canonical representation using only IdentityRelations
 
         Args:
@@ -294,11 +358,12 @@ class VisionsTypeset(object):
         Returns:
             new_data: The transformed DataFrame or Series.
         """
-        data, _ = traverse_graph(data, self.root_node, self.base_graph)
+        data, _ = self._traverse_graph(data, self.root_node, self.base_graph)
         return data
 
-    def infer_and_cast(self, data: pdT) -> Tuple[pdT, pathTypes]:
+    def cast_to_inferred(self, data: pdT) -> Tuple[pdT, pathTypes]:
         """Transforms input data and returns it's corresponding new type relation using all relations.
+
         Args:
             data: a DataFrame or Series to determine types over
 
@@ -306,8 +371,8 @@ class VisionsTypeset(object):
             new_data: The transformed DataFrame or Series.
             types: A dictionary of {name: type} pairs in the case of DataFrame input or a type.
         """
-        data, paths = traverse_graph(data, self.root_node, self.relation_graph)
-        return data, get_type_from_path(paths)
+        data, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
+        return data
 
     def output_graph(
         self,

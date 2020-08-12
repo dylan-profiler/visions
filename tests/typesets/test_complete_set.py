@@ -143,10 +143,10 @@ contains_map[Object] = {
     "mixed_dict",
     "callable",
     "module",
-    "bool_nan_series",
     "mixed_integer",
     "mixed_list",
     "mixed",
+    "bool_nan_series",
 }
 
 # Empty series
@@ -242,7 +242,7 @@ inference_map = {
     "mixed_dict": Object,
     "mixed_integer": Object,
     "mixed_list": Object,
-    "mixed": Object,
+    "mixed": Boolean,
     "callable": Object,
     "module": Object,
     "textual_float": Float,

@@ -8,21 +8,22 @@ from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.relations.string_to_bool import get_boolean_coercions
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
+from visions.utils import nullable_series_contains
 from visions.utils.series_utils import isinstance_attrs
 
 
 def to_bool(series: pd.Series) -> pd.Series:
-    if series.isin({True, False}).all():
-        return series.astype(bool)
-    elif series.isin({True, False, None, np.nan}).all():
-        return series.astype("Bool")
-    else:
-        unsupported_values = series[~series.isin({True, False, None, np.nan})].unique()
-        raise ValueError(
-            "Values not supported {unsupported_values}".format(
-                unsupported_values=unsupported_values
-            )
-        )
+    return series.astype("Bool" if series.hasnans else bool)
+
+
+def object_is_bool(series: pd.Series) -> bool:
+    bool_set = {True, False, None, np.nan}
+    try:
+        ret = all(item in bool_set for item in series)
+    except:
+        ret = False
+
+    return ret
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -41,10 +42,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
             ),
         ),
         InferenceRelation(
-            cls,
-            Object,
-            relationship=lambda s: s.apply(type).isin([type(None), bool]).all(),
-            transformer=to_bool,
+            cls, Object, relationship=object_is_bool, transformer=to_bool,
         ),
     ]
     return relations
@@ -71,7 +69,10 @@ class Boolean(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series)
+        if not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series):
+            return True
+
+        return False
 
     @classmethod
     def make_string_coercion(cls, type_name, string_coercions):
