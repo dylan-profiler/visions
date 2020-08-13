@@ -143,10 +143,10 @@ contains_map[Object] = {
     "mixed_dict",
     "callable",
     "module",
-    "bool_nan_series",
     "mixed_integer",
     "mixed_list",
     "mixed",
+    "bool_nan_series",
 }
 
 # Empty series
@@ -182,7 +182,7 @@ inference_map = {
     "int_range": Integer,
     "float_series": Float,
     "float_nan_series": Float,
-    "int_series_boolean": Boolean,
+    "int_series_boolean": Integer,
     "float_series2": Integer,
     "float_series3": Float,
     "float_series4": Float,
@@ -242,7 +242,7 @@ inference_map = {
     "mixed_dict": Object,
     "mixed_integer": Object,
     "mixed_list": Object,
-    "mixed": Object,
+    "mixed": Boolean,
     "callable": Object,
     "module": Object,
     "textual_float": Float,
@@ -323,8 +323,7 @@ convert_map = [
     (Path, String, {"path_series_windows_str", "path_series_linux_str"}),
     (EmailAddress, String, {"email_address_str"}),
     (Float, Complex, {"complex_series_float"}),
-    (Boolean, Integer, {"int_series_boolean"}),
-    (Boolean, Object, {"bool_nan_series"}),
+    (Boolean, Object, {"bool_nan_series", "mixed"}),
     (UUID, String, {"uuid_series_str"}),
 ]
 

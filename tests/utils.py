@@ -57,7 +57,6 @@ def contains(series, type, member):
 
 def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
     argsvalues = []
-    inferred_series_type_map = inferred_series_type_map
     for series in _test_suite:
         expected_type = inferred_series_type_map[series.name]
         for test_type in typeset.types:
@@ -76,7 +75,7 @@ def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
 
 
 def infers(series, expected_type, typeset, difference):
-    inferred_type = typeset.infer_series_type(series)
+    inferred_type = typeset.infer_type(series)
     return (
         (inferred_type == expected_type) != difference,
         f"inference of {series.name} expected {expected_type} to be {difference} (typeset={typeset})",

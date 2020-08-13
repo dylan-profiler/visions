@@ -43,6 +43,7 @@ setup(
     description="Visions",
     author="Dylan Profiler",
     author_email="visions@ictopzee.nl",
+    package_data={"vision": ["py.typed"]},
     packages=find_packages("src"),
     package_dir={"": "src"},
     install_requires=requirements,
@@ -52,6 +53,7 @@ setup(
     python_requires=">=3.6",
     long_description=long_description,
     long_description_content_type="text/x-rst",
+    zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",

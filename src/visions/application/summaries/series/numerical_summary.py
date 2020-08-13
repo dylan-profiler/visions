@@ -1,3 +1,5 @@
+from typing import Any, Tuple, Union
+
 import numpy as np
 import pandas as pd
 
@@ -29,7 +31,7 @@ def numerical_summary(
     count=None,
     is_unique=None,
     return_values=False,
-) -> dict:
+) -> Union[dict, Tuple[dict, Any]]:
     """
 
     Args:

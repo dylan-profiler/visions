@@ -49,6 +49,7 @@ Which is equivalent to:
 
 .. code-block:: console
 
+   isort --profile black --project visions .
    black .
 
 Documentation

@@ -14,7 +14,7 @@ def identity_relation(series: pd.Series) -> pd.Series:
 class TypeRelation:
     """Relationship encoder between implementations of :class:`visions.types.type.VisionsBaseType`
 
-    Defines a one to one relationship between two VisionsBaseType implementations,
+    Defines a one to one relationship between two :class:`visions.types.type.VisionsBaseType` implementations,
     A and B, with respect to an underlying data series. In order to define a relationship we need
     two methods:
 

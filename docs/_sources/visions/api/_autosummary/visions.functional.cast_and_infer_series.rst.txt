@@ -1,6 +1,0 @@
-visions.functional.cast\_and\_infer\_series
-===========================================
-
-.. currentmodule:: visions.functional
-
-.. autofunction:: cast_and_infer_series

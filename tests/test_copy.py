@@ -8,7 +8,7 @@ def test_cast_copy():
     id_s = hex(id(s))
 
     typeset = CompleteSet()
-    ns = typeset.cast_series(s)
+    ns = typeset.cast_to_inferred(s)
     id_ns = hex(id(ns))
     assert id_s != id_ns
 
@@ -18,6 +18,6 @@ def test_noncast_noncopy():
     id_s = hex(id(s))
 
     typeset = CompleteSet()
-    ns = typeset.cast_series(s)
+    ns = typeset.cast_to_detected(s)
     id_ns = hex(id(ns))
     assert id_s == id_ns

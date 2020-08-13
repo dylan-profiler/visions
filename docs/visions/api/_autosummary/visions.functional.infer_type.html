@@ -1,18 +1,15 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.functional.cast_frame &mdash; visions 0.4.6 documentation</title>
+  <title>visions.functional.infer_type &mdash; visions 0.4.6 documentation</title>
   
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
 
   
   
@@ -20,25 +17,27 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.functional.cast_series" href="visions.functional.cast_series.html" />
-    <link rel="prev" title="visions.functional.infer_series_type" href="visions.functional.infer_series_type.html" /> 
+    <link rel="next" title="Summaries" href="../summaries.html" />
+    <link rel="prev" title="visions.functional.detect_type" href="visions.functional.detect_type.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -52,7 +51,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> visions
+            <a href="../../../index.html" class="icon icon-home"> visions
           
 
           
@@ -75,7 +74,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -125,14 +123,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../typesets.html#abstract-typesets">Abstract Typesets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../typesets.html#concrete-typesets">Concrete Typesets</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../typesets.html#functional-api">Functional API</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_frame_type.html">visions.functional.detect_frame_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_series_type.html">visions.functional.detect_series_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.infer_frame_type.html">visions.functional.infer_frame_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.infer_series_type.html">visions.functional.infer_series_type</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.functional.cast_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_series.html">visions.functional.cast_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_and_infer_frame.html">visions.functional.cast_and_infer_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_and_infer_series.html">visions.functional.cast_and_infer_series</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_type.html">visions.functional.detect_type</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.functional.infer_type</a></li>
 </ul>
 </li>
 </ul>
@@ -147,7 +139,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -186,19 +177,19 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../api.html">API</a> &raquo;</li>
         
           <li><a href="../typesets.html">Typesets</a> &raquo;</li>
         
-      <li>visions.functional.cast_frame</li>
+      <li>visions.functional.infer_type</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/visions/api/_autosummary/visions.functional.cast_frame.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/visions/api/_autosummary/visions.functional.infer_type.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -211,25 +202,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="visions-functional-cast-frame">
-<h1>visions.functional.cast_frame<a class="headerlink" href="#visions-functional-cast-frame" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="visions.functional.cast_frame">
-<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">cast_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#cast_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.cast_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Casts a DataFrame into a typeset by first performing column wise type inference against
-a provided typeset</p>
+  <div class="section" id="visions-functional-infer-type">
+<h1>visions.functional.infer_type<a class="headerlink" href="#visions-functional-infer-type" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="visions.functional.infer_type">
+<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">infer_type</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">typeset</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#infer_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.infer_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer the current types of each column in the DataFrame given the typeset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – the DataFrame to cast</p></li>
-<li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset in which we cast</p></li>
+<li><p><strong>df</strong> – the DataFrame to infer types on</p></li>
+<li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset that provides the type context</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]], <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]</p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A tuple of the casted DataFrame and the types to which the columns were cast</p>
+<dd class="field-odd"><p>A dictionary with a mapping from column name to type</p>
 </dd>
 </dl>
 </dd></dl>
@@ -244,10 +234,10 @@ a provided typeset</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.functional.cast_series.html" class="btn btn-neutral float-right" title="visions.functional.cast_series" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../summaries.html" class="btn btn-neutral float-right" title="Summaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.functional.infer_series_type.html" class="btn btn-neutral float-left" title="visions.functional.infer_series_type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.functional.detect_type.html" class="btn btn-neutral float-left" title="visions.functional.detect_type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -256,19 +246,11 @@ a provided typeset</p>
 
   <div role="contentinfo">
     <p>
-        
         &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -279,6 +261,7 @@ a provided typeset</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

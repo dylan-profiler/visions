@@ -1,6 +1,0 @@
-visions.functional.infer\_frame\_type
-=====================================
-
-.. currentmodule:: visions.functional
-
-.. autofunction:: infer_frame_type

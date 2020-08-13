@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple, Type
+from typing import Dict, List, Tuple, Type, Union
 
 import pandas as pd
 
@@ -6,7 +6,9 @@ from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 
 
-def cast_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
+def cast_to_detected(
+    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
+) -> pd.DataFrame:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -17,24 +19,11 @@ def cast_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> pd.DataFrame:
     Returns:
         A tuple of the casted DataFrame and the types to which the columns were cast
     """
-    return typeset.cast_frame(df)
+    return typeset.cast_to_detected(data)
 
 
-def cast_series(series: pd.Series, typeset: VisionsTypeset) -> pd.Series:
-    """Casts the series
-
-    Args:
-        series: the Series to infer the type of
-        typeset: the Typeset that provides the type context
-
-    Returns:
-        The converted series
-    """
-    return typeset.cast_series(series)
-
-
-def cast_and_infer_frame(
-    df: pd.DataFrame, typeset: VisionsTypeset
+def cast_to_inferred(
+    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
 ) -> Tuple[pd.DataFrame, dict]:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
@@ -46,27 +35,12 @@ def cast_and_infer_frame(
     Returns:
         A tuple of the casted DataFrame and the types to which the columns were cast
     """
-    return typeset.cast_and_infer_frame(df)
+    return typeset.cast_to_inferred(data)
 
 
-def cast_and_infer_series(
-    series: pd.Series, typeset: VisionsTypeset
-) -> Tuple[Type[VisionsBaseType], pd.Series]:
-    """Cast the series and perform type inference
-
-    Args:
-        series: the Series to infer the type of
-        typeset: the Typeset that provides the type context
-
-    Returns:
-        The inferred type and the converted series
-    """
-    return typeset.cast_and_infer_series(series)
-
-
-def infer_frame_type(
-    df: pd.DataFrame, typeset: VisionsTypeset
-) -> Dict[str, Type[VisionsBaseType]]:
+def infer_type(
+    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
+) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Infer the current types of each column in the DataFrame given the typeset.
 
     Args:
@@ -76,28 +50,12 @@ def infer_frame_type(
     Returns:
         A dictionary with a mapping from column name to type
     """
-
-    return typeset.infer_frame_type(df)
-
-
-def infer_series_type(
-    series: pd.Series, typeset: VisionsTypeset
-) -> Type[VisionsBaseType]:
-    """Infer the current type of the series given the typeset
-
-    Args:
-        series: the Series to infer the type of
-        typeset: the Typeset that provides the type context
-
-    Returns:
-        The inferred type of the series
-    """
-    return typeset.infer_series_type(series)
+    return typeset.infer_type(data)
 
 
-def detect_frame_type(
-    df: pd.DataFrame, typeset: VisionsTypeset
-) -> Dict[str, Type[VisionsBaseType]]:
+def detect_type(
+    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
+) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Detect the type in the base graph
 
     Args:
@@ -107,22 +65,7 @@ def detect_frame_type(
     Returns:
         A dictionary with a mapping from column name to type
     """
-    return typeset.detect_frame_type(df)
-
-
-def detect_series_type(
-    series: pd.Series, typeset: VisionsTypeset
-) -> Type[VisionsBaseType]:
-    """Detect the type in the base graph
-
-    Args:
-        series: the Series to detect the type of
-        typeset: the Typeset that provides the type context
-
-    Returns:
-        The detected type
-    """
-    return typeset.detect_series_type(series)
+    return typeset.detect_type(data)
 
 
 def compare_detect_inference_frame(
@@ -142,10 +85,12 @@ def compare_detect_inference_frame(
         :doc:`type_inference_report_frame <visions.functional.type_inference_report_frame>`: Formatted report of the output of this function
     """
     comparisons = []
-    detected_types = detect_frame_type(df, typeset)
-    inferred_types = infer_frame_type(df, typeset)
-    for key in detected_types.keys() & inferred_types.keys():
-        comparisons.append((key, detected_types[key], inferred_types[key]))
+    detected_types = detect_type(df, typeset)
+    inferred_types = infer_type(df, typeset)
+    for key in detected_types.keys() & inferred_types.keys():  # type: ignore
+        comparisons.append(
+            (key, detected_types[key], inferred_types[key])  # type: ignore
+        )  # type: ignore
     return comparisons
 
 

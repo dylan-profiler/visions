@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type
+from typing import Any, Dict, List, Type
 
 import networkx as nx
 import pandas as pd
@@ -64,11 +64,11 @@ class Summary(object):
         Returns:
 
         """
-        summary = {}
+        summary: Dict[str, Any] = {}
 
         G = self.typeset.base_graph.copy()
 
-        done = []
+        done: List[Any] = []
         for base_type, summary_ops in self.summary_ops.items():
             if base_type not in done and nx.has_path(G, base_type, summary_type):
                 for op in summary_ops:

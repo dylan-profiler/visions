@@ -117,7 +117,8 @@ def get_series():
         pd.Series([True, False], name="bool_series"),
         pd.Series([True, False, None], name="bool_nan_series"),
         pd.Series([True, False, None], name="nullable_bool_series", dtype="Bool"),
-        pd.Series([True, False, False, True], dtype=bool, name="bool_series2"),
+        pd.Series([True, False, False, True], name="bool_series2", dtype=bool),
+        pd.Series([True, False, False, True], name="bool_series2", dtype=bool),
         pd.Series(np.array([1, 0, 0, 1], dtype=np.bool), name="bool_series3"),
         # Complex Series
         pd.Series(

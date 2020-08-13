@@ -1,6 +1,0 @@
-visions.functional.infer\_series\_type
-======================================
-
-.. currentmodule:: visions.functional
-
-.. autofunction:: infer_series_type
