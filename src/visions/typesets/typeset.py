@@ -3,8 +3,7 @@ from pathlib import Path
 import sys
 from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Set, TypeVar
 from functools import singledispatch
-import functools
-from collections import OrderedDict
+
 
 import networkx as nx
 import pandas as pd
@@ -19,70 +18,14 @@ pathTypes = TypeVar(
 )
 
 
-class LRUCacher:
-    def __init__(self, hash_func, max_length, value_func):
-        self.hash_func = hash_func
-        self.max_length = max_length
-        self.value_func = value_func
-        self.cache = OrderedDict()
-
-    def __getitem__(self, key):
-        value = self.cache[key]
-        self.cache.move_to_end(key)
-        return value
-
-    def __setitem__(self, key, value):
-        if key in self.cache:
-            self.cache.move_to_end(key)
-        self.cache[key] = value
-        if len(self.cache) > self.max_length:
-            oldest = next(iter(self.cache))
-            del self.cache[oldest]
-
-    def get_key(self, *args):
-        return self.hash_func(*args)
-
-    def get(self, *args):
-        id_key = self.get_key(*args)
-        if id_key not in self.cache:
-            self[id_key] = self.value_func(*args)
-        return self[id_key]
-
-
-def lru_cache(hash_func, max_length):
-    def func_inner(func):
-        cache = LRUCacher(hash_func, max_length, func)
-
-        @functools.wraps(func)
-        def inner(*args):
-            return cache.get(*args)
-
-        return inner
-
-    return func_inner
-
-
-def mutable_pseudo_hash(data, node, graph):
-    # return id((data, node, graph))
-    try:
-        if isinstance(data, pd.DataFrame):
-            data_hash = hash(hash(tuple(df[col])) for col in df.columns)
-        else:
-            data_hash = hash(tuple(data.values))
-    except:
-        return id((data, node, graph))
-
-    return hash((data_hash, node, graph))
-
-
-def build_graph(nodes: set) -> Tuple[nx.DiGraph, nx.DiGraph]:
+def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGraph]:
     """Constructs a traversable relation graph between visions types
-    Builds a type relation graph from a collection of root and derivative nodes. Usually
-    root nodes correspond to the baseline numpy types found in pandas while derivative
-    nodes correspond to subtypes with a defined relation.
+
+    Builds a type relation graph from a collection of :class:`visions.types.type.VisionsBaseType` where
+    each node corresponds to a type and each edge is a relation defined on the type.
 
     Args:
-        nodes:  A list of vision_types considered at the root of the relations graph.
+        nodes:  An iterable of :class:`visions.types.type.VisionsBaseType`
 
     Returns:
         A directed graph of type relations for the provided nodes.
@@ -172,7 +115,7 @@ def traverse_graph_with_series(
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
     Args:
-        base_type: Entry-point for graph to start  traversal
+        base_type: Entry-point for graph to start traversal
         series: the Series to check
         graph: the Graph to traverse
         path: the path so far
@@ -282,12 +225,12 @@ def _(path_list: tuple) -> Type[VisionsBaseType]:
 
 class VisionsTypeset(object):
     """
-    A set of visions types with an associated relationship map between them.
+    A collection of :class:`visions.types.type.VisionsBaseType` with  associated relationship map between them.
 
     Attributes:
-        types: The collection of vision types which are derived either from a base_type or themselves
-        base_graph: the graph with relations to parent types
-        relation_graph: the graph with relations to the parent types and mapping relations
+        types: The collection of Visions Types derived from :class:`visions.types.type.VisionsBaseType`
+        base_graph: The graph of relations composed exclusively of :class:`visions.relations.relations.IdentityRelation`
+        relation_graph: The full relation graph including both :class:`visions.relations.relations.IdentityRelation` and :class:`visions.relations.relations.InferenceRelation`
     """
 
     def __init__(self, types: Set[Type[VisionsBaseType]]) -> None:
@@ -321,7 +264,6 @@ class VisionsTypeset(object):
         return self._root_node  # type: ignore
 
     @staticmethod
-    # @lru_cache(mutable_pseudo_hash, 1)
     def _traverse_graph(data: pdT, root_node, graph):
         return traverse_graph(data, root_node, graph)
 
@@ -405,7 +347,7 @@ class VisionsTypeset(object):
 
         Args:
             dpi: dpi of the matplotlib figure.
-            base_only: Only plot the type graph corresponding to IdentityRelations.
+            base_only: Only display the typesets base_graph
         Returns:
             Displays the image
         """
@@ -424,10 +366,10 @@ class VisionsTypeset(object):
         os.unlink(temp_file.name)
 
     def _get_other_type(self, other: TypeOrTypeset) -> Set[Type[VisionsBaseType]]:
-        """Converts input into a set of visions.VisionsBaseType
+        """Converts input into a set of :class:`visions.types.type.VisionsBaseType`
 
         Args:
-            other: A visions.VisionsBaseType or visions.VisionsTypeset
+            other: A :class:`visions.types.type.VisionsBaseType` or :class:`visions.typesets.typeset.VisionsTypeset`
 
         Raises:
             NotImplementedError:
@@ -451,8 +393,8 @@ class VisionsTypeset(object):
         """Create a new typeset having replace one type with another.
 
         Args:
-            old: Type to replace.
-            new: Replacement type.
+            old: Visions type to replace.
+            new: Replacement visions type.
         
         Returns
             A VisionsTypeset
@@ -512,6 +454,6 @@ class VisionsTypeset(object):
         """Pretty representation of the typeset.
         
         Returns
-            A VisionsTypeset
+            A :class:`visions.typesets.typeset.VisionsTypeset`
         """
         return self.__class__.__name__

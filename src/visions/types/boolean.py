@@ -27,7 +27,7 @@ def object_is_bool(series: pd.Series) -> bool:
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic, Integer, Object, String
+    from visions.types import Generic, Object, String
 
     relations = [
         IdentityRelation(cls, Generic),
@@ -42,7 +42,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
             ),
         ),
         InferenceRelation(
-            cls, Object, relationship=object_is_bool, transformer=to_bool,
+            cls, Object, relationship=object_is_bool, transformer=to_bool
         ),
     ]
     return relations

@@ -1,12 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from visions.functional import (
-    cast_and_infer,
-    cast,
-    detect_type,
-    infer_type,
-)
+from visions.functional import cast_and_infer, cast_to_detected, detect_type, infer_type
 from visions.typesets import CompleteSet
 
 # Create a DataFrame from our data
@@ -36,7 +31,7 @@ print(detect_type(df, typeset))
 # {'numbers_with_nan': Float, 'url': String, 'uuid': String}
 
 # Cast the dataframe to inferred types
-cast_df = cast(df, typeset)
+cast_df = cast_to_detected(df, typeset)
 print(cast_df.to_string())
 #    numbers_with_nan                                                url                                  uuid
 # 0                 3  (http, www.cwi.nl:80, /%7Eguido/Python.html, ,...  0b8a22ca-80ad-4df5-85ac-fa49c44b7ede

@@ -323,7 +323,7 @@ convert_map = [
     (Path, String, {"path_series_windows_str", "path_series_linux_str"}),
     (EmailAddress, String, {"email_address_str"}),
     (Float, Complex, {"complex_series_float"}),
-    (Boolean, Object, {"bool_nan_series"}),
+    (Boolean, Object, {"bool_nan_series", "mixed"}),
     (UUID, String, {"uuid_series_str"}),
 ]
 

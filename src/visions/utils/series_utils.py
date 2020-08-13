@@ -1,9 +1,11 @@
 from typing import Callable
+import functools
 
 import pandas as pd
 
 
 def nullable_series_contains(fn: Callable) -> Callable:
+    @functools.wraps(fn)
     def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()
@@ -16,6 +18,7 @@ def nullable_series_contains(fn: Callable) -> Callable:
 
 
 def func_nullable_series_contains(fn: Callable) -> Callable:
+    @functools.wraps(fn)
     def inner(series: pd.Series, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()

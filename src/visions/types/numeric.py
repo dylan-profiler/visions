@@ -20,7 +20,7 @@ class Numeric(VisionsBaseType):
 
     Examples:
         >>> x = pd.Series([1, 2, 3])
-        >>> x in visions.Integer
+        >>> x in visions.Numeric
         True
     """
 

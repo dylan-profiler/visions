@@ -25,6 +25,7 @@ def option_coercion_evaluator(
     if extra_errors:
         error_list.extend(extra_errors)
 
+    @functools.wraps(method)
     def f(series: pd.Series) -> Optional[pd.Series]:
         try:
             return method(series)
@@ -51,6 +52,7 @@ def coercion_test(
     # Returns True or False if the coercion succeeds
     tester = option_coercion_evaluator(method, extra_errors)
 
+    @functools.wraps(method)
     def f(series: pd.Series) -> bool:
         result = tester(series)
         return True if result is not None else False
@@ -74,6 +76,7 @@ def coercion_equality_test(method: Callable) -> Callable:
     """
     tester = option_coercion_evaluator(method)
 
+    @functools.wraps(tester)
     def f(series: pd.Series) -> bool:
         result = tester(series)
         return False if result is None else series.eq(result).all()

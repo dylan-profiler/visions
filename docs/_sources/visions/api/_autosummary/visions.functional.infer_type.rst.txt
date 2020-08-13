@@ -1,6 +1,6 @@
-visions.functional.cast\_frame
+visions.functional.infer\_type
 ==============================
 
 .. currentmodule:: visions.functional
 
-.. autofunction:: cast_frame
+.. autofunction:: infer_type
