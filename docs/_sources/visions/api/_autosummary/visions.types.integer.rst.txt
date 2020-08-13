@@ -1,4 +1,4 @@
-visions.types.integer
+﻿visions.types.integer
 =====================
 
 .. automodule:: visions.types.integer

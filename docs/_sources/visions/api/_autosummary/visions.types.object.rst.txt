@@ -1,4 +1,4 @@
-visions.types.object
+﻿visions.types.object
 ====================
 
 .. automodule:: visions.types.object

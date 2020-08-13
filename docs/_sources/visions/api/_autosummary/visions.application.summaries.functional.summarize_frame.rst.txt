@@ -1,4 +1,4 @@
-visions.application.summaries.functional.summarize\_frame
+﻿visions.application.summaries.functional.summarize\_frame
 =========================================================
 
 .. currentmodule:: visions.application.summaries.functional

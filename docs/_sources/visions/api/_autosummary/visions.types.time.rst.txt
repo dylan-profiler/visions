@@ -1,4 +1,4 @@
-visions.types.time
+﻿visions.types.time
 ==================
 
 .. automodule:: visions.types.time

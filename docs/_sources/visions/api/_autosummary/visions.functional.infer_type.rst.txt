@@ -1,4 +1,4 @@
-visions.functional.infer\_type
+﻿visions.functional.infer\_type
 ==============================
 
 .. currentmodule:: visions.functional

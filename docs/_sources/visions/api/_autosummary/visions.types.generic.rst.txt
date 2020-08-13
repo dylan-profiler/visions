@@ -1,4 +1,4 @@
-visions.types.generic
+﻿visions.types.generic
 =====================
 
 .. automodule:: visions.types.generic

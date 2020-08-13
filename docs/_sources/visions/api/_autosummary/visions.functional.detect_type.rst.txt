@@ -1,4 +1,4 @@
-visions.functional.detect\_type
+﻿visions.functional.detect\_type
 ===============================
 
 .. currentmodule:: visions.functional

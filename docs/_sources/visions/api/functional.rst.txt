@@ -13,8 +13,8 @@ Typesets
 
    detect_type
    infer_type
-   cast
-   cast_and_infer
+   cast_to_detected
+   cast_to_inferred
 
 ============
 Type changes

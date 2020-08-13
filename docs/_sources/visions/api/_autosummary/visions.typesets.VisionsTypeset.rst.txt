@@ -1,4 +1,4 @@
-visions.typesets.VisionsTypeset
+﻿visions.typesets.VisionsTypeset
 ===============================
 
 .. currentmodule:: visions.typesets

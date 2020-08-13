@@ -1,0 +1,6 @@
+﻿visions.functional.cast\_to\_inferred
+=====================================
+
+.. currentmodule:: visions.functional
+
+.. autofunction:: cast_to_inferred

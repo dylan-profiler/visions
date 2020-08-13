@@ -1,4 +1,4 @@
-visions.types.time_delta
+﻿visions.types.time_delta
 ========================
 
 .. automodule:: visions.types.time_delta

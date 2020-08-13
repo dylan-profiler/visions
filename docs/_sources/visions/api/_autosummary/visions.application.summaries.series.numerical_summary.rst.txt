@@ -1,4 +1,4 @@
-visions.application.summaries.series.numerical\_summary
+﻿visions.application.summaries.series.numerical\_summary
 =======================================================
 
 .. currentmodule:: visions.application.summaries.series

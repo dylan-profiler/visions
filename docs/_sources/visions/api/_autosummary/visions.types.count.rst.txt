@@ -1,4 +1,4 @@
-visions.types.count
+﻿visions.types.count
 ===================
 
 .. automodule:: visions.types.count

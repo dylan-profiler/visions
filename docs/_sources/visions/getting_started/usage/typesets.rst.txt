@@ -70,8 +70,8 @@ Type casting is the process of converting a series or dataframe from one type to
 
 .. code-block:: python
 
-  >>> from visions.functional import cast
-  >>> cast(test_series, typeset)
+  >>> from visions.functional import cast_to_inferred
+  >>> cast_to_inferred(test_series, typeset)
   pd.Series([1, 2, 3])
 
 .. seealso:: This returns a copy of your data object, please read the :doc:`engineering view <../../background/engineering_view>` document for more information.

@@ -1,4 +1,4 @@
-visions.types.uuid
+﻿visions.types.uuid
 ==================
 
 .. automodule:: visions.types.uuid

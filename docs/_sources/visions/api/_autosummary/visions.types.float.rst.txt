@@ -1,4 +1,4 @@
-visions.types.float
+﻿visions.types.float
 ===================
 
 .. automodule:: visions.types.float

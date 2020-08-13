@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,31 +11,33 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="visions.functional.compare_detect_inference_frame" href="_autosummary/visions.functional.compare_detect_inference_frame.html" />
+    <link rel="next" title="Utils" href="utils.html" />
     <link rel="prev" title="visions.application.summaries.functional.summarize_series" href="_autosummary/visions.application.summaries.functional.summarize_series.html" /> 
 </head>
 
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> visions
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> visions
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -125,6 +127,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#typesets">Typesets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.detect_type.html">visions.functional.detect_type</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.infer_type.html">visions.functional.infer_type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.cast_to_detected.html">visions.functional.cast_to_detected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.functional.cast_to_inferred.html">visions.functional.cast_to_inferred</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#type-changes">Type changes</a><ul>
@@ -148,6 +152,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -186,7 +191,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../api.html">API</a> &raquo;</li>
         
@@ -227,11 +232,11 @@
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.functional.infer_type.html#visions.functional.infer_type" title="visions.functional.infer_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_type</span></code></a>(data, typeset)</p></td>
 <td><p>Infer the current types of each column in the DataFrame given the typeset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.functional.cast_to_detected.html#visions.functional.cast_to_detected" title="visions.functional.cast_to_detected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_detected</span></code></a>(data, typeset)</p></td>
+<td><p>Casts a DataFrame into a typeset by first performing column wise type inference against a provided typeset</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_and_infer</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.functional.cast_to_inferred.html#visions.functional.cast_to_inferred" title="visions.functional.cast_to_inferred"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred</span></code></a>(data, typeset)</p></td>
+<td><p>Casts a DataFrame into a typeset by first performing column wise type inference against a provided typeset</p></td>
 </tr>
 </tbody>
 </table>
@@ -287,7 +292,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="_autosummary/visions.functional.compare_detect_inference_frame.html" class="btn btn-neutral float-right" title="visions.functional.compare_detect_inference_frame" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="_autosummary/visions.application.summaries.functional.summarize_series.html" class="btn btn-neutral float-left" title="visions.application.summaries.functional.summarize_series" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -299,11 +304,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -314,7 +327,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

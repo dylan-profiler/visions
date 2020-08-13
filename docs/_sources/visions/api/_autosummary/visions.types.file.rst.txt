@@ -1,0 +1,5 @@
+﻿visions.types.file
+==================
+
+.. automodule:: visions.types.file
+    :members:

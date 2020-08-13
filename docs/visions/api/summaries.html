@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,32 +11,34 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="visions.application.summaries.series.base_summary" href="_autosummary/visions.application.summaries.series.base_summary.html" />
-    <link rel="prev" title="visions.functional.infer_type" href="_autosummary/visions.functional.infer_type.html" /> 
+    <link rel="prev" title="visions.functional.type_inference_report_frame" href="_autosummary/visions.functional.type_inference_report_frame.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> visions
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> visions
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -125,6 +127,7 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.base_summary.html">visions.application.summaries.series.base_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.category_summary.html">visions.application.summaries.series.category_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.range_summary.html">visions.application.summaries.series.range_summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.file_summary.html">visions.application.summaries.series.file_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.image_summary.html">visions.application.summaries.series.image_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.missing_summary.html">visions.application.summaries.series.missing_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.numerical_summary.html">visions.application.summaries.series.numerical_summary</a></li>
@@ -133,6 +136,7 @@
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.text_summary.html">visions.application.summaries.series.text_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.unique_summary.html">visions.application.summaries.series.unique_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.url_summary.html">visions.application.summaries.series.url_summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.email_address_summary.html">visions.application.summaries.series.email_address_summary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/visions.application.summaries.series.zero_summary.html">visions.application.summaries.series.zero_summary</a></li>
 </ul>
 </li>
@@ -157,6 +161,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -195,7 +200,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../api.html">API</a> &raquo;</li>
         
@@ -239,8 +244,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.range_summary.html#visions.application.summaries.series.range_summary" title="visions.application.summaries.series.range_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">range_summary</span></code></a>(series)</p></td>
 <td><p>Summarize min, max and calculate the range</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">existing_path_summary</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.file_summary.html#visions.application.summaries.series.file_summary" title="visions.application.summaries.series.file_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_summary</span></code></a>(series)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">type series</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
+</dd>
+</dl>
+</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.image_summary.html#visions.application.summaries.series.image_summary" title="visions.application.summaries.series.image_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image_summary</span></code></a>(series[, exif, hash])</p></td>
 <td><p><dl class="field-list simple">
@@ -250,13 +260,10 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infinite_summary</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.missing_summary.html#visions.application.summaries.series.missing_summary" title="visions.application.summaries.series.missing_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">missing_summary</span></code></a>(series)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.missing_summary.html#visions.application.summaries.series.missing_summary" title="visions.application.summaries.series.missing_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">missing_summary</span></code></a>(series)</p></td>
 <td><p>Counts the number of missing values</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.numerical_summary.html#visions.application.summaries.series.numerical_summary" title="visions.application.summaries.series.numerical_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerical_summary</span></code></a>(series[, quantiles, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.numerical_summary.html#visions.application.summaries.series.numerical_summary" title="visions.application.summaries.series.numerical_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerical_summary</span></code></a>(series[, quantiles, …])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type series</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -264,10 +271,10 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.numerical_basic_summary.html#visions.application.summaries.series.numerical_basic_summary" title="visions.application.summaries.series.numerical_basic_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerical_basic_summary</span></code></a>(series)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.numerical_basic_summary.html#visions.application.summaries.series.numerical_basic_summary" title="visions.application.summaries.series.numerical_basic_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerical_basic_summary</span></code></a>(series)</p></td>
 <td><p>Summary with basic aggregates</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.path_summary.html#visions.application.summaries.series.path_summary" title="visions.application.summaries.series.path_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">path_summary</span></code></a>(series)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.path_summary.html#visions.application.summaries.series.path_summary" title="visions.application.summaries.series.path_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">path_summary</span></code></a>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type series</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -275,7 +282,7 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.text_summary.html#visions.application.summaries.series.text_summary" title="visions.application.summaries.series.text_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_summary</span></code></a>(series)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.text_summary.html#visions.application.summaries.series.text_summary" title="visions.application.summaries.series.text_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_summary</span></code></a>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type series</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -283,7 +290,7 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.unique_summary.html#visions.application.summaries.series.unique_summary" title="visions.application.summaries.series.unique_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_summary</span></code></a>(series)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.unique_summary.html#visions.application.summaries.series.unique_summary" title="visions.application.summaries.series.unique_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_summary</span></code></a>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type series</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -291,10 +298,18 @@
 </dl>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.url_summary.html#visions.application.summaries.series.url_summary" title="visions.application.summaries.series.url_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">url_summary</span></code></a>(series)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.url_summary.html#visions.application.summaries.series.url_summary" title="visions.application.summaries.series.url_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">url_summary</span></code></a>(series)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type series</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.application.summaries.series.email_address_summary.html#visions.application.summaries.series.email_address_summary" title="visions.application.summaries.series.email_address_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">email_address_summary</span></code></a>(series)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 </dd>
 </dl>
 </p></td>
@@ -361,7 +376,7 @@
         <a href="_autosummary/visions.application.summaries.series.base_summary.html" class="btn btn-neutral float-right" title="visions.application.summaries.series.base_summary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="_autosummary/visions.functional.infer_type.html" class="btn btn-neutral float-left" title="visions.functional.infer_type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="_autosummary/visions.functional.type_inference_report_frame.html" class="btn btn-neutral float-left" title="visions.functional.type_inference_report_frame" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -370,11 +385,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -385,7 +408,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

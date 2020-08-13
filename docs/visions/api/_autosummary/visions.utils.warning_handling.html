@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="prev" title="visions.utils.graph" href="visions.utils.graph.html" /> 
@@ -50,7 +51,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> visions
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> visions
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,6 +139,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -175,7 +178,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../api.html">API</a> &raquo;</li>
         
@@ -202,9 +205,9 @@
             
   <div class="section" id="module-visions.utils.warning_handling">
 <span id="visions-utils-warning-handling"></span><h1>visions.utils.warning_handling<a class="headerlink" href="#module-visions.utils.warning_handling" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="visions.utils.warning_handling.discard_stderr">
-<code class="sig-prename descclassname">visions.utils.warning_handling.</code><code class="sig-name descname">discard_stderr</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/warning_handling.html#discard_stderr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.warning_handling.discard_stderr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.utils.warning_handling.</code><code class="sig-name descname">discard_stderr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/warning_handling.html#discard_stderr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.warning_handling.discard_stderr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shapely logs failures at a silly severity, just trying to suppress it’s output on failures.
 Only known way to get rid of sys output when wkt.loads hits a bad value</p>
 </dd></dl>
@@ -229,11 +232,19 @@ Only known way to get rid of sys output when wkt.loads hits a bad value</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -244,7 +255,6 @@ Only known way to get rid of sys output when wkt.loads hits a bad value</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

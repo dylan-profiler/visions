@@ -1,4 +1,4 @@
-visions.application.summaries.frame.dataframe\_summary
+﻿visions.application.summaries.frame.dataframe\_summary
 ======================================================
 
 .. currentmodule:: visions.application.summaries.frame
