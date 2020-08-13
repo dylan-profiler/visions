@@ -1,5 +1,5 @@
-import timeit
 import functools
+import timeit
 
 import numpy as np
 import pandas as pd

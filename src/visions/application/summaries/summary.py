@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, List
+from typing import Any, Dict, List, Type
 
 import networkx as nx
 import pandas as pd

@@ -1,10 +1,10 @@
 from visions.types import (
-    Generic,
     Boolean,
     Categorical,
     Complex,
     DateTime,
     Float,
+    Generic,
     Integer,
     Object,
     String,

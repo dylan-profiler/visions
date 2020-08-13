@@ -1,4 +1,5 @@
-from typing import Tuple, Union, Any
+from typing import Any, Tuple, Union
+
 import numpy as np
 import pandas as pd
 

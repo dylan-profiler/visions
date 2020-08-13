@@ -1,9 +1,7 @@
 import warnings
-from pathlib import Path
-import sys
-from typing import Dict, Iterable, List, Optional, Tuple, Type, Union, Any, Set, TypeVar
 from functools import singledispatch
-
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple, Type, TypeVar, Union
 
 import networkx as nx
 import pandas as pd
@@ -351,8 +349,8 @@ class VisionsTypeset(object):
         Returns:
             Displays the image
         """
-        import tempfile
         import os
+        import tempfile
 
         from matplotlib import image as mpimg
         from matplotlib import pyplot as plt

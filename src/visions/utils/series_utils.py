@@ -1,5 +1,5 @@
-from typing import Callable
 import functools
+from typing import Callable
 
 import pandas as pd
 

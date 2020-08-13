@@ -1,7 +1,7 @@
+import functools
 import os
 import sys
 import warnings
-import functools
 
 
 def suppress_warnings(func):

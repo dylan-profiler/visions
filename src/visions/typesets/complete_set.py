@@ -1,5 +1,4 @@
 from visions.types import (
-    Generic,
     URL,
     UUID,
     Boolean,
@@ -11,6 +10,7 @@ from visions.types import (
     EmailAddress,
     File,
     Float,
+    Generic,
     Geometry,
     Image,
     Integer,
