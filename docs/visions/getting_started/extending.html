@@ -1,7 +1,8 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -11,18 +12,12 @@
   
 
   
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-
-  
   
   
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -35,6 +30,10 @@
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Typeset testing" href="testing.html" />
@@ -52,7 +51,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> visions
+            <a href="../../index.html" class="icon icon-home"> visions
           
 
           
@@ -75,7 +74,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -131,7 +129,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -170,7 +167,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
         
       <li>Extending</li>
     
@@ -270,7 +267,7 @@ This is useful for small changes, such as adding a single relation.</p>
 <p class="admonition-title">Hint</p>
 <p>While developing new type relations, you can use this helper function to debug:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
-     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> was </span><span class="si">{</span><span class="n">type_before</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">type_after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{column}</span><span class="s2"> was </span><span class="si">{type_before}</span><span class="s2"> is </span><span class="si">{type_after}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Please read the <cite>Type changes</cite> section in the <a class="reference internal" href="../api/functional.html"><span class="doc">functional API documentation</span></a> for more details.</p>
@@ -367,19 +364,11 @@ in any way imaginable:</p>
 
   <div role="contentinfo">
     <p>
-        
         &copy; Copyright 2020, Ian Eaves and Simon Brugman
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -390,6 +379,7 @@ in any way imaginable:</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {
