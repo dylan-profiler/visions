@@ -18,7 +18,7 @@ def string_is_geometry(series: pd.Series) -> bool:
     sys.stderr = open(os.devnull, "w")
     try:
         result = all(wkt.loads(value) for value in series)
-    except (WKTReadingError, AttributeError, UnicodeEncodeError):
+    except (WKTReadingError, AttributeError, UnicodeEncodeError, TypeError):
         result = False
     finally:
         sys.stderr = sys.__stderr__
@@ -43,7 +43,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     return relations
 
 
-# https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
+# TODO: Evaluate https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
 class Geometry(VisionsBaseType):
     """**Geometry** implementation of :class:`visions.types.type.VisionsBaseType`.
 

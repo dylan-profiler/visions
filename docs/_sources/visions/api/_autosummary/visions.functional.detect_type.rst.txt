@@ -1,6 +1,6 @@
-visions.functional.cast\_series
+﻿visions.functional.detect\_type
 ===============================
 
 .. currentmodule:: visions.functional
 
-.. autofunction:: cast_series
+.. autofunction:: detect_type

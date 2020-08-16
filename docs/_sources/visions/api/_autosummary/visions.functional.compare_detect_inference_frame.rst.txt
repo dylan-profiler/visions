@@ -1,4 +1,4 @@
-visions.functional.compare\_detect\_inference\_frame
+﻿visions.functional.compare\_detect\_inference\_frame
 ====================================================
 
 .. currentmodule:: visions.functional

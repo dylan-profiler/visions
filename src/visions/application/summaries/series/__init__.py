@@ -1,5 +1,8 @@
 from visions.application.summaries.series.base_summary import base_summary
 from visions.application.summaries.series.category_summary import category_summary
+from visions.application.summaries.series.email_address_summary import (
+    email_address_summary,
+)
 from visions.application.summaries.series.file_summary import file_summary
 from visions.application.summaries.series.image_summary import image_summary
 from visions.application.summaries.series.missing_summary import missing_summary

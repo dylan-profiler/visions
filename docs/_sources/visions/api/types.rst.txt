@@ -39,8 +39,8 @@ Semantic Types
    string
    geometry
    path
-   existing_path
-   image_path
+   file
+   image
    url
    ip_address
    count

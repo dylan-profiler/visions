@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.time &mdash; visions 0.4.6 documentation</title>
+  <title>visions.types.time &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -192,7 +192,7 @@
 
 
 <span class="k">def</span> <span class="nf">test_time</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-    <span class="n">dtseries</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+    <span class="n">dtseries</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="n">value</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dtseries</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
 

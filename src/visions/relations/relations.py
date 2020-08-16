@@ -14,7 +14,7 @@ def identity_relation(series: pd.Series) -> pd.Series:
 class TypeRelation:
     """Relationship encoder between implementations of :class:`visions.types.type.VisionsBaseType`
 
-    Defines a one to one relationship between two VisionsBaseType implementations,
+    Defines a one to one relationship between two :class:`visions.types.type.VisionsBaseType` implementations,
     A and B, with respect to an underlying data series. In order to define a relationship we need
     two methods:
 
@@ -53,9 +53,9 @@ class TypeRelation:
 
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
-    inferential = attr.ib(default=False)
-    transformer = attr.ib(default=identity_relation, repr=func_repr)
     relationship = attr.ib(repr=func_repr)
+    transformer = attr.ib(default=identity_relation, repr=func_repr)
+    inferential = attr.ib(default=False)
 
     @relationship.default
     def make_relationship(self):
@@ -64,8 +64,8 @@ class IdentityRelation(TypeRelation):
 
 @attr.s(frozen=True)
 class InferenceRelation(TypeRelation):
-    inferential = attr.ib(default=True)
     relationship = attr.ib(repr=func_repr)
+    inferential = attr.ib(default=True)
 
     @relationship.default
     def make_relationship(self):

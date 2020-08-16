@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.application.summaries.series.image_summary &mdash; visions 0.4.6 documentation</title>
+  <title>visions.application.summaries.series.image_summary &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -222,7 +222,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">exif_keys</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">exif_values</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">exif_values</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">image_exif</span> <span class="ow">in</span> <span class="n">image_exifs</span><span class="p">:</span>
         <span class="c1"># Extract key</span>
@@ -256,7 +256,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A dict containing image information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">information</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">information</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">information</span><span class="p">[</span><span class="s2">&quot;opened&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

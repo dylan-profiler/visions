@@ -1,4 +1,4 @@
-visions.types.type.VisionsBaseType
+﻿visions.types.type.VisionsBaseType
 ==================================
 
 .. currentmodule:: visions.types.type

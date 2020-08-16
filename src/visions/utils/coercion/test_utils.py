@@ -1,7 +1,8 @@
 """
 A selection of testing utilities for visions.
 """
-from typing import Callable, Dict, List, Optional, Union, Type
+import functools
+from typing import Callable, Dict, List, Optional, Type, Union
 
 import pandas as pd
 
@@ -23,19 +24,19 @@ def option_coercion_evaluator(
     error_list = [ValueError, TypeError, AttributeError]
     if extra_errors:
         error_list.extend(extra_errors)
-    error_list = tuple(error_list)
 
+    @functools.wraps(method)
     def f(series: pd.Series) -> Optional[pd.Series]:
         try:
             return method(series)
-        except error_list:
+        except tuple(error_list):
             return None
 
     return f
 
 
 def coercion_test(
-    method: Callable, extra_errors: Optional[List[Exception]] = None
+    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
 ) -> Callable:
     """A coercion test generator
 
@@ -51,6 +52,7 @@ def coercion_test(
     # Returns True or False if the coercion succeeds
     tester = option_coercion_evaluator(method, extra_errors)
 
+    @functools.wraps(method)
     def f(series: pd.Series) -> bool:
         result = tester(series)
         return True if result is not None else False
@@ -74,6 +76,7 @@ def coercion_equality_test(method: Callable) -> Callable:
     """
     tester = option_coercion_evaluator(method)
 
+    @functools.wraps(tester)
     def f(series: pd.Series) -> bool:
         result = tester(series)
         return False if result is None else series.eq(result).all()

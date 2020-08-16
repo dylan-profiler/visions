@@ -1,4 +1,4 @@
-visions.typesets.standard_set
+﻿visions.typesets.standard_set
 =============================
 
 .. automodule:: visions.typesets.standard_set

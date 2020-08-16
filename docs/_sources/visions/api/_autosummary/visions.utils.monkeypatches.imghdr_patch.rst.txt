@@ -1,4 +1,4 @@
-visions.utils.monkeypatches.imghdr_patch
+﻿visions.utils.monkeypatches.imghdr_patch
 ========================================
 
 .. automodule:: visions.utils.monkeypatches.imghdr_patch

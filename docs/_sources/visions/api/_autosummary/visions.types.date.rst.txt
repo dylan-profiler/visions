@@ -1,4 +1,4 @@
-visions.types.date
+﻿visions.types.date
 ==================
 
 .. automodule:: visions.types.date

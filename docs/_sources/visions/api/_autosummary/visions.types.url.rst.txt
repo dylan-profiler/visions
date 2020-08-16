@@ -1,4 +1,4 @@
-visions.types.url
+﻿visions.types.url
 =================
 
 .. automodule:: visions.types.url

@@ -1,4 +1,4 @@
-visions.relations.relations.InferenceRelation
+﻿visions.relations.relations.InferenceRelation
 =============================================
 
 .. currentmodule:: visions.relations.relations

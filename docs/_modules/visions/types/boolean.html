@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.boolean &mdash; visions 0.4.6 documentation</title>
+  <title>visions.types.boolean &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -191,25 +191,24 @@
 <span class="kn">from</span> <span class="nn">visions.relations.string_to_bool</span> <span class="kn">import</span> <span class="n">get_boolean_coercions</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.utils.coercion.test_utils</span> <span class="kn">import</span> <span class="n">coercion_map</span><span class="p">,</span> <span class="n">coercion_map_test</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">isinstance_attrs</span>
 
 
 <span class="k">def</span> <span class="nf">to_bool</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">})</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;Bool&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">unsupported_values</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="o">~</span><span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Values not supported </span><span class="si">{unsupported_values}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">unsupported_values</span><span class="o">=</span><span class="n">unsupported_values</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;Bool&quot;</span> <span class="k">if</span> <span class="n">series</span><span class="o">.</span><span class="n">hasnans</span> <span class="k">else</span> <span class="nb">bool</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">object_is_bool</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">bool_set</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">item</span> <span class="ow">in</span> <span class="n">bool_set</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">series</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">ret</span>
 
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Object</span><span class="p">,</span> <span class="n">String</span>
+    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Object</span><span class="p">,</span> <span class="n">String</span>
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Generic</span><span class="p">),</span>
@@ -224,16 +223,7 @@
             <span class="p">),</span>
         <span class="p">),</span>
         <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span>
-            <span class="n">Integer</span><span class="p">,</span>
-            <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
-            <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span>
-            <span class="n">Object</span><span class="p">,</span>
-            <span class="n">relationship</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">bool</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
-            <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">object_is_bool</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_bool</span>
         <span class="p">),</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">relations</span>
@@ -260,7 +250,10 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_bool_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_bool_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">make_string_coercion</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">string_coercions</span><span class="p">):</span>

@@ -1,4 +1,4 @@
-visions.application.summaries.series.url\_summary
+﻿visions.application.summaries.series.url\_summary
 =================================================
 
 .. currentmodule:: visions.application.summaries.series

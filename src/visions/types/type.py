@@ -21,6 +21,14 @@ class VisionsBaseTypeMeta(ABCMeta):
             cls._relations = cls.get_relations()  # type: ignore
         return cls._relations
 
+    def __add__(cls, other):
+        from visions.types import Generic
+        from visions.typesets import VisionsTypeset
+
+        if not any(issubclass(x, Generic) for x in [cls, other]):
+            return VisionsTypeset([Generic, cls, other])
+        return VisionsTypeset([cls, other])
+
     def __str__(cls) -> str:
         return str(cls.__name__)
 

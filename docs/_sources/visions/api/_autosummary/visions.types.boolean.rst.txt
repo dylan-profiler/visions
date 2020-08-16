@@ -1,4 +1,4 @@
-visions.types.boolean
+﻿visions.types.boolean
 =====================
 
 .. automodule:: visions.types.boolean

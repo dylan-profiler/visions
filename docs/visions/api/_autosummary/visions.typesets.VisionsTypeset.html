@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.typesets.VisionsTypeset &mdash; visions 0.4.6 documentation</title>
+  <title>visions.typesets.VisionsTypeset &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -209,28 +209,28 @@
 <dl class="py class">
 <dt id="visions.typesets.VisionsTypeset">
 <em class="property">class </em><code class="sig-prename descclassname">visions.typesets.</code><code class="sig-name descname">VisionsTypeset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">types</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/typesets/typeset.html#VisionsTypeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.typesets.VisionsTypeset" title="Permalink to this definition">¶</a></dt>
-<dd><p>A set of visions types with an associated relationship map between them.</p>
+<dd><p>A collection of <a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.types.type.VisionsBaseType</span></code></a> with  associated relationship map between them.</p>
 <dl class="py attribute">
 <dt id="visions.typesets.VisionsTypeset.types">
 <code class="sig-name descname">types</code><a class="headerlink" href="#visions.typesets.VisionsTypeset.types" title="Permalink to this definition">¶</a></dt>
-<dd><p>The collection of vision types which are derived either from a base_type or themselves</p>
+<dd><p>The collection of Visions Types derived from <a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.types.type.VisionsBaseType</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="visions.typesets.VisionsTypeset.base_graph">
 <code class="sig-name descname">base_graph</code><a class="headerlink" href="#visions.typesets.VisionsTypeset.base_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>the graph with relations to parent types</p>
+<dd><p>The graph of relations composed exclusively of <a class="reference internal" href="visions.relations.relations.IdentityRelation.html#visions.relations.relations.IdentityRelation" title="visions.relations.relations.IdentityRelation"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.relations.relations.IdentityRelation</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="visions.typesets.VisionsTypeset.relation_graph">
 <code class="sig-name descname">relation_graph</code><a class="headerlink" href="#visions.typesets.VisionsTypeset.relation_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>the graph with relations to the parent types and mapping relations</p>
+<dd><p>The full relation graph including both <a class="reference internal" href="visions.relations.relations.IdentityRelation.html#visions.relations.relations.IdentityRelation" title="visions.relations.relations.IdentityRelation"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.relations.relations.IdentityRelation</span></code></a> and <a class="reference internal" href="visions.relations.relations.InferenceRelation.html#visions.relations.relations.InferenceRelation" title="visions.relations.relations.InferenceRelation"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.relations.relations.InferenceRelation</span></code></a></p>
 </dd></dl>
 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – a set of types</p>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]) – a set of types</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -238,7 +238,7 @@
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">types</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/typesets/typeset.html#VisionsTypeset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.typesets.VisionsTypeset.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – a set of types</p>
+<dd class="field-odd"><p><strong>types</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]) – a set of types</p>
 </dd>
 </dl>
 </dd></dl>
@@ -253,39 +253,27 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#visions.typesets.VisionsTypeset.__init__" title="visions.typesets.VisionsTypeset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(types)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type types</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]</p>
 </dd>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_and_infer_frame</span></code>(df)</p></td>
-<td><p>Cast to DataFrame, simple wrapper around cast_series.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_detected</span></code>(data)</p></td>
+<td><p>Transforms input data into a canonical representation using only IdentityRelations</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_and_infer_series</span></code>(series)</p></td>
-<td><p>Cast Series to its inferred type.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_to_inferred</span></code>(data)</p></td>
+<td><p>Transforms input data and returns it’s corresponding new type relation using all relations.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_frame</span></code>(df)</p></td>
-<td><p>Cast to DataFrame, simple wrapper around cast_series.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_type</span></code>(data)</p></td>
+<td><p>The inferred type found only considering IdentityRelations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cast_series</span></code>(series)</p></td>
-<td><p>Cast Series to its inferred type.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_frame_type</span></code>(df)</p></td>
-<td><p>Detect the types of the series in the DataFrame, simple wrapper around get_series type.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_series_type</span></code>(series)</p></td>
-<td><p>Get the series type (without casting).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_frame_type</span></code>(df)</p></td>
-<td><p>Infer the types of the series in the DataFrame, simple wrapper around get_series type.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_series_type</span></code>(series)</p></td>
-<td><p>Infer the series type (without casting).</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_type</span></code>(data)</p></td>
+<td><p>The inferred type found using all type relations.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_graph</span></code>(file_name[, base_only, dpi])</p></td>
 <td><p>Write the type graph to a file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_graph</span></code>([dpi, base_only])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">type dpi</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
@@ -294,7 +282,7 @@
 </p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace</span></code>(old, new)</p></td>
-<td><p></p></td>
+<td><p>Create a new typeset having replace one type with another.</p></td>
 </tr>
 </tbody>
 </table>

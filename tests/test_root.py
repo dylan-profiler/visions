@@ -1,6 +1,6 @@
 import pytest
 
-from visions import Float, Generic, VisionsTypeset, VisionsBaseType
+from visions import Float, Generic, VisionsBaseType, VisionsTypeset
 from visions.relations import IdentityRelation
 
 

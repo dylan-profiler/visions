@@ -1,4 +1,4 @@
-visions.types.string
+﻿visions.types.string
 ====================
 
 .. automodule:: visions.types.string

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.relations.relations &mdash; visions 0.4.6 documentation</title>
+  <title>visions.relations.relations &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -197,7 +197,7 @@
 <span class="k">class</span> <span class="nc">TypeRelation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Relationship encoder between implementations of :class:`visions.types.type.VisionsBaseType`</span>
 
-<span class="sd">    Defines a one to one relationship between two VisionsBaseType implementations,</span>
+<span class="sd">    Defines a one to one relationship between two :class:`visions.types.type.VisionsBaseType` implementations,</span>
 <span class="sd">    A and B, with respect to an underlying data series. In order to define a relationship we need</span>
 <span class="sd">    two methods:</span>
 
@@ -236,9 +236,9 @@
 
 <div class="viewcode-block" id="IdentityRelation"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.relations.relations.IdentityRelation.html#visions.relations.relations.IdentityRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">IdentityRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
-    <span class="n">inferential</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">transformer</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">identity_relation</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">)</span>
     <span class="n">relationship</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">)</span>
+    <span class="n">transformer</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">identity_relation</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">)</span>
+    <span class="n">inferential</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="nd">@relationship</span><span class="o">.</span><span class="n">default</span>
     <span class="k">def</span> <span class="nf">make_relationship</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -247,8 +247,8 @@
 
 <div class="viewcode-block" id="InferenceRelation"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.relations.relations.InferenceRelation.html#visions.relations.relations.InferenceRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">InferenceRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
-    <span class="n">inferential</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">relationship</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">)</span>
+    <span class="n">inferential</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="nd">@relationship</span><span class="o">.</span><span class="n">default</span>
     <span class="k">def</span> <span class="nf">make_relationship</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

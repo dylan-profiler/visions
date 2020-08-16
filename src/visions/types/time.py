@@ -9,7 +9,7 @@ from visions.utils.series_utils import class_name_attrs, nullable_series_contain
 
 
 def test_time(series):
-    dtseries = series.copy().dropna().dt.date
+    dtseries = series.dropna().dt.date
     value = date(1, 1, 1)
     return True if all(v == value for v in dtseries) else None
 

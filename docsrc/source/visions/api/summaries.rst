@@ -15,9 +15,8 @@ Series Summaries
    base_summary
    category_summary
    range_summary
-   existing_path_summary
+   file_summary
    image_summary
-   infinite_summary
    missing_summary
    numerical_summary
    numerical_basic_summary
@@ -25,6 +24,7 @@ Series Summaries
    text_summary
    unique_summary
    url_summary
+   email_address_summary
    zero_summary
 
 =================

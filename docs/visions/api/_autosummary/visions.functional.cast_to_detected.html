@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.functional.cast_series &mdash; visions 0.4.6 documentation</title>
+  <title>visions.functional.cast_to_detected &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.functional.cast_and_infer_frame" href="visions.functional.cast_and_infer_frame.html" />
-    <link rel="prev" title="visions.functional.cast_frame" href="visions.functional.cast_frame.html" /> 
+    <link rel="next" title="visions.functional.cast_to_inferred" href="visions.functional.cast_to_inferred.html" />
+    <link rel="prev" title="visions.functional.infer_type" href="visions.functional.infer_type.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -125,14 +125,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../typesets.html#abstract-typesets">Abstract Typesets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../typesets.html#concrete-typesets">Concrete Typesets</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../typesets.html#functional-api">Functional API</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_frame_type.html">visions.functional.detect_frame_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_series_type.html">visions.functional.detect_series_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.infer_frame_type.html">visions.functional.infer_frame_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.infer_series_type.html">visions.functional.infer_series_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_frame.html">visions.functional.cast_frame</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.functional.cast_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_and_infer_frame.html">visions.functional.cast_and_infer_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_and_infer_series.html">visions.functional.cast_and_infer_series</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_type.html">visions.functional.detect_type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.functional.infer_type.html">visions.functional.infer_type</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.functional.cast_to_detected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_to_inferred.html">visions.functional.cast_to_inferred</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.functional.compare_detect_inference_frame.html">visions.functional.compare_detect_inference_frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.functional.type_inference_report_frame.html">visions.functional.type_inference_report_frame</a></li>
 </ul>
 </li>
 </ul>
@@ -192,13 +190,13 @@
         
           <li><a href="../typesets.html">Typesets</a> &raquo;</li>
         
-      <li>visions.functional.cast_series</li>
+      <li>visions.functional.cast_to_detected</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/visions/api/_autosummary/visions.functional.cast_series.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/visions/api/_autosummary/visions.functional.cast_to_detected.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -211,24 +209,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="visions-functional-cast-series">
-<h1>visions.functional.cast_series<a class="headerlink" href="#visions-functional-cast-series" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="visions-functional-cast-to-detected">
+<h1>visions.functional.cast_to_detected<a class="headerlink" href="#visions-functional-cast-to-detected" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="visions.functional.cast_series">
-<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">cast_series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#cast_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.cast_series" title="Permalink to this definition">¶</a></dt>
-<dd><p>Casts the series</p>
+<dt id="visions.functional.cast_to_detected">
+<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">cast_to_detected</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#cast_to_detected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.cast_to_detected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Casts a DataFrame into a typeset by first performing column wise type inference against
+a provided typeset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>series</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – the Series to infer the type of</p></li>
-<li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset that provides the type context</p></li>
+<li><p><strong>df</strong> – the DataFrame to cast</p></li>
+<li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset in which we cast</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The converted series</p>
+<dd class="field-odd"><p>A tuple of the casted DataFrame and the types to which the columns were cast</p>
 </dd>
 </dl>
 </dd></dl>
@@ -243,10 +242,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.functional.cast_and_infer_frame.html" class="btn btn-neutral float-right" title="visions.functional.cast_and_infer_frame" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="visions.functional.cast_to_inferred.html" class="btn btn-neutral float-right" title="visions.functional.cast_to_inferred" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.functional.cast_frame.html" class="btn btn-neutral float-left" title="visions.functional.cast_frame" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.functional.infer_type.html" class="btn btn-neutral float-left" title="visions.functional.infer_type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

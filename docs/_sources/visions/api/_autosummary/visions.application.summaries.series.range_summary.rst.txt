@@ -1,4 +1,4 @@
-visions.application.summaries.series.range\_summary
+﻿visions.application.summaries.series.range\_summary
 ===================================================
 
 .. currentmodule:: visions.application.summaries.series

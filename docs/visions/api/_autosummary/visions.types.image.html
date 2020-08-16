@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.functional.infer_series_type &mdash; visions 0.4.6 documentation</title>
+  <title>visions.types.image &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.functional.cast_frame" href="visions.functional.cast_frame.html" />
-    <link rel="prev" title="visions.functional.infer_frame_type" href="visions.functional.infer_frame_type.html" /> 
+    <link rel="next" title="visions.types.url" href="visions.types.url.html" />
+    <link rel="prev" title="visions.types.file" href="visions.types.file.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -119,24 +119,36 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../types.html">Types</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../types.html#abstract-types">Abstract Types</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../types.html#semantic-types">Semantic Types</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="visions.types.generic.html">visions.types.generic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.integer.html">visions.types.integer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.float.html">visions.types.float</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.boolean.html">visions.types.boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.categorical.html">visions.types.categorical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.ordinal.html">visions.types.ordinal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.complex.html">visions.types.complex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.date_time.html">visions.types.date_time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.time_delta.html">visions.types.time_delta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.date.html">visions.types.date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.time.html">visions.types.time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.object.html">visions.types.object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.string.html">visions.types.string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.geometry.html">visions.types.geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.path.html">visions.types.path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.file.html">visions.types.file</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.types.image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.url.html">visions.types.url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.ip_address.html">visions.types.ip_address</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.count.html">visions.types.count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visions.types.uuid.html">visions.types.uuid</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../relations.html">Relations</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../typesets.html">Typesets</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../typesets.html#abstract-typesets">Abstract Typesets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../typesets.html#concrete-typesets">Concrete Typesets</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../typesets.html#functional-api">Functional API</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_frame_type.html">visions.functional.detect_frame_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.detect_series_type.html">visions.functional.detect_series_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.infer_frame_type.html">visions.functional.infer_frame_type</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">visions.functional.infer_series_type</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_frame.html">visions.functional.cast_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_series.html">visions.functional.cast_series</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_and_infer_frame.html">visions.functional.cast_and_infer_frame</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visions.functional.cast_and_infer_series.html">visions.functional.cast_and_infer_series</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../typesets.html">Typesets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
@@ -190,15 +202,15 @@
         
           <li><a href="../../api.html">API</a> &raquo;</li>
         
-          <li><a href="../typesets.html">Typesets</a> &raquo;</li>
+          <li><a href="../types.html">Types</a> &raquo;</li>
         
-      <li>visions.functional.infer_series_type</li>
+      <li>visions.types.image</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/visions/api/_autosummary/visions.functional.infer_series_type.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/visions/api/_autosummary/visions.types.image.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -211,26 +223,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="visions-functional-infer-series-type">
-<h1>visions.functional.infer_series_type<a class="headerlink" href="#visions-functional-infer-series-type" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="visions.functional.infer_series_type">
-<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">infer_series_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#infer_series_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.infer_series_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Infer the current type of the series given the typeset</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>series</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – the Series to infer the type of</p></li>
-<li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset that provides the type context</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The inferred type of the series</p>
-</dd>
-</dl>
+  <div class="section" id="module-visions.types.image">
+<span id="visions-types-image"></span><h1>visions.types.image<a class="headerlink" href="#module-visions.types.image" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="visions.types.image.Image">
+<em class="property">class </em><code class="sig-prename descclassname">visions.types.image.</code><code class="sig-name descname">Image</code><a class="reference internal" href="../../../_modules/visions/types/image.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.image.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Image</strong> implementation of <a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.types.type.VisionsBaseType</span></code></a>.
+(i.e. series with all image files)</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/home/user/file.png&#39;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/home/user/test2.jpg&#39;</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="ow">in</span> <span class="n">visions</span><span class="o">.</span><span class="n">Image</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -243,10 +248,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visions.functional.cast_frame.html" class="btn btn-neutral float-right" title="visions.functional.cast_frame" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="visions.types.url.html" class="btn btn-neutral float-right" title="visions.types.url" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="visions.functional.infer_frame_type.html" class="btn btn-neutral float-left" title="visions.functional.infer_frame_type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="visions.types.file.html" class="btn btn-neutral float-left" title="visions.types.file" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

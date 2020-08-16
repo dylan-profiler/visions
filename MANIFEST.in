@@ -2,6 +2,9 @@ include LICENSE
 include README.md
 include SIDNfonds.png
 include requirements*.txt
+include src/visions/py.typed
+include *.yaml
+
 exclude Makefile make.bat
 recursive-include src *.py
 

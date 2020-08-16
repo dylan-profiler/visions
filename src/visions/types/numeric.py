@@ -1,13 +1,11 @@
-from typing import List, Sequence
+from typing import Sequence
 
-import numpy as np
 import pandas as pd
-import pandas.api.types as pdt
+from pandas.api import types as pdt
 
+from visions.relations import IdentityRelation, TypeRelation
 from visions.types import Generic
-from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -20,7 +18,7 @@ class Numeric(VisionsBaseType):
 
     Examples:
         >>> x = pd.Series([1, 2, 3])
-        >>> x in visions.Integer
+        >>> x in visions.Numeric
         True
     """
 

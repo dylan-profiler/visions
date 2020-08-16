@@ -1,4 +1,4 @@
-visions.typesets.geometry_set
+﻿visions.typesets.geometry_set
 =============================
 
 .. automodule:: visions.typesets.geometry_set

@@ -1,4 +1,4 @@
-visions.functional.type\_inference\_report\_frame
+﻿visions.functional.type\_inference\_report\_frame
 =================================================
 
 .. currentmodule:: visions.functional

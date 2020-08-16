@@ -12,3 +12,11 @@ There are infinite potential ways to denote "Yes" and "No" values within a datas
 However, that does not mean that this is "just data munging" and we cannot do this and other tasks more effectively.
 We observe that some patterns occur more often ("Yes", "No" over "Arr" or "Nay") and there are other indicators that can help a system to decide what to do (the variable two distinct values).
 We note that a rule-based system that trivially encodes each variable with two distinct values as boolean is no solution, as the encoding loses part of it's meaning (e.g. encoding "Male", "Female").
+
+Compressio
+----------
+
+Compressio performs this lossless in-memory compression of pandas DataFrames and Series powered by the visions type system. 
+This may yield up to 10x less RAM usage for the same data.
+
+For the code, examples and an analysis of pandas' types, you can visit the `Project Homepage <https://github.com/dylan-profiler/compressio>`_.

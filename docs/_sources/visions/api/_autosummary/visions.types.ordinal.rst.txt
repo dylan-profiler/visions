@@ -1,4 +1,4 @@
-visions.types.ordinal
+﻿visions.types.ordinal
 =====================
 
 .. automodule:: visions.types.ordinal

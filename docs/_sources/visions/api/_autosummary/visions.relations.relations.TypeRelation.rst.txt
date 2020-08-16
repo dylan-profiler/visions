@@ -1,4 +1,4 @@
-visions.relations.relations.TypeRelation
+﻿visions.relations.relations.TypeRelation
 ========================================
 
 .. currentmodule:: visions.relations.relations

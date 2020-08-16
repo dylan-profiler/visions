@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.utils.coercion.test_utils &mdash; visions 0.4.6 documentation</title>
+  <title>visions.utils.coercion.test_utils &mdash; visions 0.5.0 documentation</title>
   
 
   
@@ -184,7 +184,8 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">A selection of testing utilities for visions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -206,19 +207,19 @@
     <span class="n">error_list</span> <span class="o">=</span> <span class="p">[</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">extra_errors</span><span class="p">:</span>
         <span class="n">error_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_errors</span><span class="p">)</span>
-    <span class="n">error_list</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">error_list</span><span class="p">)</span>
 
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">error_list</span><span class="p">:</span>
+        <span class="k">except</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">error_list</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">return</span> <span class="n">f</span></div>
 
 
 <div class="viewcode-block" id="coercion_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_test</span><span class="p">(</span>
-    <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">extra_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">extra_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion test generator</span>
 
@@ -234,6 +235,7 @@
     <span class="c1"># Returns True or False if the coercion succeeds</span>
     <span class="n">tester</span> <span class="o">=</span> <span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">extra_errors</span><span class="p">)</span>
 
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">tester</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span>
@@ -257,6 +259,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tester</span> <span class="o">=</span> <span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">tester</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">tester</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">series</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
