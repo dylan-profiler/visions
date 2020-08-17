@@ -2,16 +2,18 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from visions.dtypes.boolean import BoolDtype
+
 
 @pytest.mark.parametrize(
     "series,expected_values,expected_dtype",
     [
-        (pd.Series([True, False], dtype="boolean"), (True, False), "boolean"),
+        (pd.Series([True, False], dtype="Bool"), (True, False), "Bool"),
         (pd.Series([True, False], dtype=bool), (True, False), bool),
         (
-            pd.Series([True, False, None, True, False, None], dtype="boolean"),
+            pd.Series([True, False, None, True, False, None], dtype="Bool"),
             (True, False, None, True, False, None),
-            "boolean",
+            "Bool",
         ),
         (
             pd.Series([True, False, None, True, False, None], dtype=bool),
@@ -19,9 +21,9 @@ import pytest
             bool,
         ),
         (
-            pd.Series([True, False, np.nan, True, False, np.nan], dtype="boolean"),
+            pd.Series([True, False, np.nan, True, False, np.nan], dtype="Bool"),
             (True, False, None, True, False, None),
-            "boolean",
+            "Bool",
         ),
         (
             pd.Series([True, False, np.nan, True, False, np.nan], dtype=bool),
