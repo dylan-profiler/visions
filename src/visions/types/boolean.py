@@ -11,7 +11,12 @@ from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
 
 
 def to_bool(series: pd.Series) -> pd.Series:
-    return series.astype("Bool" if series.hasnans else bool)
+    if int(pd.__version__.split(".")[0]) >= 1:
+        type_name = "Bool"
+    else:
+        type_name = "boolean"
+
+    return series.astype(type_name if series.hasnans else bool)
 
 
 def object_is_bool(series: pd.Series) -> bool:
