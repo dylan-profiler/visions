@@ -11,7 +11,7 @@ from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
 
 
 def to_bool(series: pd.Series) -> pd.Series:
-    return series.astype("Bool" if series.hasnans else bool)
+    return series.astype("boolean" if hasattr(pd, "BooleanDtype") and series.hasnans else bool)
 
 
 def object_is_bool(series: pd.Series) -> bool:
