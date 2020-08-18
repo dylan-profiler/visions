@@ -48,7 +48,7 @@ contains_map = {
         "Int64_int_nan_series",
         "int_series_boolean",
     },
-    Count: {"np_uint32"},
+    Count: {"np_uint32", "pd_uint32"},
     Path: {"path_series_linux", "path_series_linux_missing", "path_series_windows"},
     URL: {"url_series", "url_nan_series", "url_none_series"},
     Float: {
@@ -179,6 +179,7 @@ inference_map = {
     "Int64_int_series": Integer,
     "Int64_int_nan_series": Integer,
     "np_uint32": Count,
+    "pd_uint32": Count,
     "int_range": Integer,
     "float_series": Float,
     "float_nan_series": Float,

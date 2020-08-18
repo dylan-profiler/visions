@@ -25,6 +25,7 @@ def get_series():
         pd.Series([1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0], name="int_series_boolean"),
         # Count
         pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name="np_uint32"),
+        pd.Series(np.array([1, 2, 3, 4], dtype="UInt32"), name="pd_uint32"),
         # Categorical
         pd.Series([1, 2, 3], name="categorical_int_series", dtype="category"),
         pd.Series(

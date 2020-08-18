@@ -11,7 +11,7 @@ from visions.utils.coercion import test_utils
 
 def to_int(series: pd.Series) -> pd.Series:
     try:
-        return series.astype(int)
+        return series.astype(np.int64)
     except ValueError:
         return series.astype("Int64")
 
@@ -62,4 +62,4 @@ class Integer(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_signed_integer_dtype(series)
+        return pdt.is_integer_dtype(series)
