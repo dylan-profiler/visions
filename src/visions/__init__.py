@@ -1,7 +1,7 @@
 """Core functionality"""
 import pandas as pd
 
-if int(pd.__version__.split(".")[0]) >= 1:
+if int(pd.__version__.split(".")[0]) < 1:
     from visions.dtypes.boolean import BoolDtype
 
 from visions import types, typesets, utils
