@@ -2,12 +2,7 @@ import pandas as pd
 import pytest
 
 from tests.series_sparse import get_sparse_series
-from tests.utils import (
-    contains,
-    get_contains_cases,
-    get_inference_cases,
-    infers,
-)
+from tests.utils import contains, get_contains_cases, get_inference_cases, infers
 from visions import StandardSet
 from visions.types import (
     Boolean,

@@ -51,7 +51,7 @@ def get_sparse_series():
             pd.Series(
                 ["Patty", "Valentine", "Upper", "", "", ""],
                 name="pd_string_sparse",
-                dtype=pd.SparseDtype(pd.StringDtype(), "")
+                dtype=pd.SparseDtype(pd.StringDtype(), ""),
             ),
             pd.Series(
                 [True, False, False, None],
