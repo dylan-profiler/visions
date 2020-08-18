@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+nan_value = pd.NA if hasattr(pd, "NA") else None
+
 
 def get_sparse_series():
     test_series = [
@@ -24,22 +26,39 @@ def get_sparse_series():
             dtype=pd.SparseDtype(np.bool, False),
         ),
         pd.Series(
-            [pd.NA, pd.NA, "gold", "black", "silver"],
+            [None, None, "gold", "black", "silver"],
             name="str_obj_sparse",
-            dtype=pd.SparseDtype(np.object, pd.NA),
+            dtype=pd.SparseDtype(np.object, None),
         ),
         # Pending https://github.com/pandas-dev/pandas/issues/35762
-        # pd.Series([pd.NaT, 0, 1, 2, 3, 4], name="datetime_sparse", dtype=pd.SparseDtype(np.datetime64)),
+        # pd.Series([NoneT, 0, 1, 2, 3, 4], name="datetime_sparse", dtype=pd.SparseDtype(np.datetime64)),
         # Pandas dtypes
-        pd.Series(
-            [True, False, False, pd.NA],
-            name="pd_bool_sparse",
-            dtype=pd.SparseDtype(pd.BooleanDtype(), pd.NA),
-        ),
         pd.Series(
             [0, 1, 2, 3, None],
             name="pd_int64_sparse",
             dtype=pd.SparseDtype(pd.Int64Dtype()),
         ),
+        # Pending ...
+        # pd.Series(
+        #     ["a", "b", "c", None],
+        #     name="pd_categorical_sparse",
+        #     dtype=pd.SparseDtype(pd.CategoricalDtype(['a', 'b', 'c', 'd']))
+        # )
     ]
+
+    if int(pd.__version__.split(".")[0]) >= 1:
+        pandas_1_series = [
+            pd.Series(
+                ["Patty", "Valentine", "Upper", "", "", ""],
+                name="pd_string_sparse",
+                dtype=pd.SparseDtype(pd.StringDtype(), "")
+            ),
+            pd.Series(
+                [True, False, False, None],
+                name="pd_bool_sparse",
+                dtype=pd.SparseDtype(pd.BooleanDtype(), None),
+            ),
+        ]
+        test_series.extend(pandas_1_series)
+
     return test_series

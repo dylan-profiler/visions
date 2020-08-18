@@ -1,3 +1,4 @@
+import pandas as pd
 import pytest
 
 from tests.series_sparse import get_sparse_series
@@ -30,14 +31,19 @@ contains_map = {
     # DateTime: {"datetime_sparse"},
     DateTime: set(),
     TimeDelta: set(),
+    # Categorical: {"pd_categorical_sparse"},
     Categorical: set(),
     Object: set(),
     Integer: {"int_sparse", "pd_int64_sparse"},
     Float: {"float_sparse"},
-    Boolean: {"bool_sparse", "pd_bool_sparse"},
+    Boolean: {"bool_sparse"},
     Complex: {"complex_sparse"},
     String: {"str_obj_sparse"},
 }
+
+if int(pd.__version__.split(".")[0]) >= 1:
+    contains_map[Boolean].add("pd_bool_sparse")
+    contains_map[String].add("pd_string_sparse")
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
@@ -61,8 +67,13 @@ inference_map = {
     "pd_bool_sparse": Boolean,
     "complex_sparse": Complex,
     "str_obj_sparse": String,
+    "pd_categorical_sparse": Categorical,
     # "datetime_sparse": DateTime,
 }
+
+if int(pd.__version__.split(".")[0]) >= 1:
+    inference_map["pd_bool_sparse"] = Boolean
+    inference_map["pd_string_sparse"] = String
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))

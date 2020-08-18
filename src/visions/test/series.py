@@ -443,7 +443,7 @@ def get_series():
         pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
-    if int(pd.__version__[0]) >= 1:
+    if int(pd.__version__.split(".")[0]) >= 1:
         pandas_1_series = [
             pd.Series(
                 ["Patty", "Valentine"], dtype="string", name="string_dtype_series"
