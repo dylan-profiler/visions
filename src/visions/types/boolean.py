@@ -9,14 +9,11 @@ from visions.relations.string_to_bool import get_boolean_coercions
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
 
+hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Bool"
+
 
 def to_bool(series: pd.Series) -> pd.Series:
-    if int(pd.__version__.split(".")[0]) >= 1:
-        type_name = "boolean"
-    else:
-        type_name = "Bool"
-
-    return series.astype(type_name if series.hasnans else bool)
+    return series.astype(hasnan_bool_name if series.hasnans else bool)
 
 
 def object_is_bool(series: pd.Series) -> bool:
