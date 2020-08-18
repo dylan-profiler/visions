@@ -38,7 +38,7 @@ def get_sparse_series():
             name="pd_int64_sparse",
             dtype=pd.SparseDtype(pd.Int64Dtype()),
         ),
-        # Pending ...
+        # Pending https://github.com/pandas-dev/pandas/issues/35793
         # pd.Series(
         #     ["a", "b", "c", None],
         #     name="pd_categorical_sparse",
