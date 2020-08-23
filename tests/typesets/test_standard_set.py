@@ -35,6 +35,8 @@ contains_map = {
         "int_range",
         "Int64_int_nan_series",
         "int_series_boolean",
+        "np_uint32",
+        "pd_uint32",
     },
     Float: {
         "float_series",
@@ -145,7 +147,6 @@ contains_map[Object] = {
 
 # Empty series
 contains_map[Generic] = {
-    "np_uint32",
     "empty",
     "empty_bool",
     "empty_float",
@@ -173,7 +174,8 @@ inference_map = {
     "int_nan_series": Integer,
     "Int64_int_series": Integer,
     "Int64_int_nan_series": Integer,
-    "np_uint32": Generic,
+    "np_uint32": Integer,
+    "pd_uint32": Integer,
     "int_range": Integer,
     "float_series": Float,
     "float_nan_series": Float,

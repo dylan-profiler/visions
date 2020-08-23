@@ -62,4 +62,4 @@ class Integer(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_signed_integer_dtype(series)
+        return pdt.is_integer_dtype(series)
