@@ -2,18 +2,22 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from visions.dtypes.boolean import BoolDtype
+from visions.types.boolean import hasnan_bool_name
 
 
 @pytest.mark.parametrize(
     "series,expected_values,expected_dtype",
     [
-        (pd.Series([True, False], dtype="Bool"), (True, False), "Bool"),
+        (
+            pd.Series([True, False], dtype=hasnan_bool_name),
+            (True, False),
+            hasnan_bool_name,
+        ),
         (pd.Series([True, False], dtype=bool), (True, False), bool),
         (
-            pd.Series([True, False, None, True, False, None], dtype="Bool"),
+            pd.Series([True, False, None, True, False, None], dtype=hasnan_bool_name),
             (True, False, None, True, False, None),
-            "Bool",
+            hasnan_bool_name,
         ),
         (
             pd.Series([True, False, None, True, False, None], dtype=bool),
@@ -21,9 +25,11 @@ from visions.dtypes.boolean import BoolDtype
             bool,
         ),
         (
-            pd.Series([True, False, np.nan, True, False, np.nan], dtype="Bool"),
+            pd.Series(
+                [True, False, np.nan, True, False, np.nan], dtype=hasnan_bool_name
+            ),
             (True, False, None, True, False, None),
-            "Bool",
+            hasnan_bool_name,
         ),
         (
             pd.Series([True, False, np.nan, True, False, np.nan], dtype=bool),
