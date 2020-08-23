@@ -11,7 +11,7 @@ from visions.utils.coercion import test_utils
 
 def to_int(series: pd.Series) -> pd.Series:
     try:
-        return series.astype(np.int64)
+        return series.astype(int)
     except ValueError:
         return series.astype("Int64")
 
