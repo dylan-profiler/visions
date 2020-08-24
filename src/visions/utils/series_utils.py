@@ -2,6 +2,20 @@ import functools
 from typing import Callable
 
 import pandas as pd
+from pandas.api import types as pdt
+
+
+def sparse_series_contains(fn: Callable):
+    @functools.wraps(fn)
+    def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
+        if pdt.is_sparse(series):
+            series = series.dtype.subtype
+        else:
+            series = series.dtype
+
+        return fn(cls, series, *args, **kwargs)
+
+    return inner
 
 
 def nullable_series_contains(fn: Callable) -> Callable:

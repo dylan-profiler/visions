@@ -30,11 +30,17 @@ def object_is_bool(series: pd.Series, state: dict) -> bool:
 
 
 def string_is_bool(series, state: dict, string_coercions):
-    return coercion_map_test(string_coercions)(series.str.lower())
+    try:
+        return coercion_map_test(string_coercions)(series.str.lower())
+    except:
+        return False
 
 
 def string_to_bool(series, state: dict, string_coercions):
-    return to_bool(coercion_map(string_coercions)(series.str.lower()), state)
+    try:
+        return to_bool(coercion_map(string_coercions)(series.str.lower()), state)
+    except:
+        return False
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
