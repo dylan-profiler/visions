@@ -11,9 +11,8 @@ def all_series_included(series_list, series_map):
     used_names = set([name for names in series_map.values() for name in names])
     names = set([series.name for series in series_list])
     if not names == used_names:
-        raise ValueError(
-            "Not all series are included {unused}".format(unused=names ^ used_names)
-        )
+        unused = names ^ used_names
+        raise ValueError(f"Not all series are included {unused}")
 
 
 def get_contains_cases(
@@ -60,13 +59,8 @@ def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
     for series in _test_suite:
         expected_type = inferred_series_type_map[series.name]
         for test_type in typeset.types:
-            args = {
-                "id": "{name} x {type} expected {expected}".format(
-                    name=series.name,
-                    type=test_type,
-                    expected=test_type == expected_type,
-                )
-            }
+            expected = test_type == expected_type
+            args = {"id": f"{series.name} x {test_type} expected {expected}"}
             difference = test_type != expected_type
             argsvalues.append(
                 pytest.param(series, test_type, typeset, difference, **args)
@@ -78,7 +72,7 @@ def infers(series, expected_type, typeset, difference):
     inferred_type = typeset.infer_type(series)
     return (
         (inferred_type == expected_type) != difference,
-        f"inference of {series.name} expected {expected_type} to be {difference} (typeset={typeset})",
+        f"inference of {series.name} expected {expected_type} to be {not difference} (typeset={typeset})",
     )
     # return series in inferred_type, f"series should be member of inferred type"
 
@@ -105,9 +99,7 @@ def all_relations_tested(series_map, typeset):
 
     if len(missing_relations) > 0:
         raise ValueError(
-            "Not all inferential relations are tested {missing_relations}".format(
-                missing_relations=missing_relations
-            )
+            f"Not all inferential relations are tested {missing_relations}"
         )
 
 
@@ -118,13 +110,7 @@ def get_convert_cases(_test_suite, _series_map, typeset):
     for item in _test_suite:
         for source_type, relation_type, series_list in _series_map:
             if item in relation_type:
-                args = {
-                    "id": "{name}: {relation_type} -> {source_type}".format(
-                        name=item.name,
-                        relation_type=relation_type,
-                        source_type=source_type,
-                    )
-                }
+                args = {"id": f"{item.name}: {relation_type} -> {source_type}"}
                 member = item.name in series_list
                 argsvalues.append(
                     pytest.param(source_type, relation_type, item, member, **args)
@@ -154,9 +140,5 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
 
         return (
             (is_relation and cast_series in source_type),
-            "Relationship {relation} cast {series_values} to {cast_values}".format(
-                relation=relation,
-                series_values=series.values,
-                cast_values=cast_series.values,
-            ),
+            f"Relationship {relation} cast {series.values} to {cast_series.values}",
         )
