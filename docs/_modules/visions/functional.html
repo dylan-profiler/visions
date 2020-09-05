@@ -319,8 +319,10 @@
             <span class="n">max_type_length</span><span class="o">=</span><span class="n">max_type_length</span><span class="p">,</span>
             <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;In total </span><span class="si">{change_count}</span><span class="s2"> out of </span><span class="si">{type_count}</span><span class="s2"> types were changed.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">change_count</span><span class="o">=</span><span class="n">change_count</span><span class="p">,</span> <span class="n">type_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">report</span> <span class="o">+=</span> <span class="p">(</span>
+        <span class="s2">&quot;In total </span><span class="si">{change_count}</span><span class="s2"> out of </span><span class="si">{type_count}</span><span class="s2"> types were changed.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">change_count</span><span class="o">=</span><span class="n">change_count</span><span class="p">,</span> <span class="n">type_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="p">)</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">report</span></div>
 </pre></div>

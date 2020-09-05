@@ -203,7 +203,8 @@
 <h2>Testing contains<a class="headerlink" href="#testing-contains" title="Permalink to this headline">¶</a></h2>
 <p>Defining your own test cases for the “contains” relation requires a simple mapping from each type to a set of series identifiers. All series in the provided list of series should be included the the mapping. If not, <code class="docutils literal notranslate"><span class="pre">get_contains_cases</span></code> will kindly tell you which ones are missing. The example below shows a minimal example.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
-<span class="kn">from</span> <span class="nn">tests.series</span> <span class="kn">import</span> <span class="n">get_series</span>
+<span class="kn">from</span> <span class="nn">visions.test.series</span> <span class="kn">import</span> <span class="n">get_series</span>
+<span class="kn">from</span> <span class="nn">visions.test.utils</span> <span class="kn">import</span> <span class="n">contains</span><span class="p">,</span> <span class="n">get_contains_cases</span>
 
 <span class="c1"># Mapping from type to series identifier</span>
 <span class="n">typeset</span> <span class="o">=</span> <span class="n">YourTypeset</span><span class="p">()</span>
