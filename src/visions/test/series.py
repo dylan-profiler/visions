@@ -359,15 +359,19 @@ def get_series():
             [
                 pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
                 pathlib.Path(os.path.join(base_path, "__init__.py")).absolute(),
-                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "utils.py")).absolute(),
             ],
             name="file_test_py",
         ),
         pd.Series(
             [
-                pathlib.Path(os.path.join(base_path, "..", "make.bat")).absolute(),
-                pathlib.Path(os.path.join(base_path, "..", "README.rst")).absolute(),
-                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "..", "py.typed")).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path, "..", "visualisation", "circular_packing.html"
+                    )
+                ).absolute(),
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
             ],
             name="file_mixed_ext",
         ),
@@ -377,7 +381,7 @@ def get_series():
                 None,
                 pathlib.Path(os.path.join(base_path, "__init__.py")).absolute(),
                 None,
-                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "utils.py")).absolute(),
             ],
             name="file_test_py_missing",
         ),
@@ -387,19 +391,19 @@ def get_series():
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        "../src/visions/visualisation/typesets/typeset_complete.png",
+                        "../visualisation/typesets/typeset_complete.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                        r"../visualisation/typesets/typeset_standard.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                        r"../visualisation/typesets/typeset_geometry.png",
                     )
                 ).absolute(),
             ],
@@ -410,20 +414,20 @@ def get_series():
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_complete.png",
+                        r"../visualisation/typesets/typeset_complete.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                        r"../visualisation/typesets/typeset_standard.png",
                     )
                 ).absolute(),
                 None,
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                        r"../visualisation/typesets/typeset_geometry.png",
                     )
                 ).absolute(),
                 None,

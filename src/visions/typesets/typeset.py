@@ -251,7 +251,7 @@ class VisionsTypeset(object):
     @property
     def root_node(self) -> Type[VisionsBaseType]:
         """Returns a cached copy of the relation_graphs root node
-        
+
         Args:
 
         Returns:
@@ -393,7 +393,7 @@ class VisionsTypeset(object):
         Args:
             old: Visions type to replace.
             new: Replacement visions type.
-        
+
         Returns
             A VisionsTypeset
         """
@@ -407,7 +407,7 @@ class VisionsTypeset(object):
 
         Args:
             other: Type or typeset to be added
-        
+
         Returns
             A VisionsTypeset
         """
@@ -419,7 +419,7 @@ class VisionsTypeset(object):
 
         Args:
             other: Type or typeset to be added
-        
+
         Returns
             A VisionsTypeset
         """
@@ -430,7 +430,7 @@ class VisionsTypeset(object):
 
         Args:
             other: Type or typeset to be removed
-        
+
         Returns
             A VisionsTypeset
         """
@@ -442,7 +442,7 @@ class VisionsTypeset(object):
 
         Args:
             other: Type or typeset to be removed
-        
+
         Returns
             A VisionsTypeset
         """
@@ -450,7 +450,7 @@ class VisionsTypeset(object):
 
     def __repr__(self) -> str:
         """Pretty representation of the typeset.
-        
+
         Returns
             A :class:`visions.typesets.typeset.VisionsTypeset`
         """
