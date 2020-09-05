@@ -1,6 +1,7 @@
 import pandas as pd
 
-from tests.series import get_contains_map, get_convert_map, get_series
+from tests.typesets.test_complete_set import convert_map
+from visions.test.series import get_series
 from visions.utils.profiling import (
     profile_relation_is_relation,
     profile_relation_transform,
@@ -10,7 +11,7 @@ from visions.utils.profiling import (
 
 def performance_report(membership=True):
     series_dict = {s.name: s for s in get_series()}
-    conv_map = get_contains_map()
+    conv_map = convert_map
     performance_list = []
 
     for type, series_names in conv_map.items():
@@ -52,7 +53,6 @@ def get_relation(to_type, from_type):
 
 
 def relations_is_relation_test():
-    convert_map = get_convert_map()
     relation_tests = {
         get_relation(*conversions[0:2]): conversions[2] for conversions in convert_map
     }
@@ -83,7 +83,6 @@ def relations_is_relation_test():
 
 
 def relations_transform_test():
-    convert_map = get_convert_map()
     relation_tests = {
         get_relation(*conversions[0:2]): conversions[2] for conversions in convert_map
     }

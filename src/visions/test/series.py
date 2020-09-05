@@ -8,7 +8,6 @@ from urllib.parse import urlparse
 
 import numpy as np
 import pandas as pd
-from shapely import wkt
 
 from visions.types.email_address import FQDA
 
@@ -240,24 +239,6 @@ def get_series():
             ],
             name="timedelta_negative",
         ),
-        # Geometry Series
-        pd.Series(
-            [
-                wkt.loads("POINT (-92 42)"),
-                wkt.loads("POINT (-92 42.1)"),
-                wkt.loads("POINT (-92 42.2)"),
-            ],
-            name="geometry_series",
-        ),
-        pd.Series(
-            [
-                wkt.loads("POINT (-92 42)"),
-                wkt.loads("POINT (-92 42.1)"),
-                wkt.loads("POINT (-92 42.2)"),
-                None,
-            ],
-            name="geometry_series_missing",
-        ),
         # Path Series
         pd.Series(
             [
@@ -341,7 +322,7 @@ def get_series():
             [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle],
             name="callable",
         ),
-        pd.Series([pd, wkt, np], name="module"),
+        pd.Series([pd, np], name="module"),
         pd.Series(["1.1", "2"], name="textual_float"),
         pd.Series(["1.1", "2", "NAN"], name="textual_float_nan"),
         # Object (Mixed, https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.api.types.infer_dtype.html)
@@ -470,3 +451,28 @@ def get_series():
         test_series.extend(pandas_1_series)
 
     return test_series
+
+
+def get_geometry_series():
+    from shapely import wkt
+
+    series = [
+        pd.Series(
+            [
+                wkt.loads("POINT (-92 42)"),
+                wkt.loads("POINT (-92 42.1)"),
+                wkt.loads("POINT (-92 42.2)"),
+            ],
+            name="geometry_series",
+        ),
+        pd.Series(
+            [
+                wkt.loads("POINT (-92 42)"),
+                wkt.loads("POINT (-92 42.1)"),
+                wkt.loads("POINT (-92 42.2)"),
+                None,
+            ],
+            name="geometry_series_missing",
+        ),
+    ]
+    return series
