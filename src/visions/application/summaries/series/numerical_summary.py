@@ -16,9 +16,9 @@ def named_aggregate_summary(series: pd.Series, key: str):
 
 
 def mad(arr, m=None):
-    """ Median Absolute Deviation: a "Robust" version of standard deviation.
-        Indices variability of the sample.
-        https://en.wikipedia.org/wiki/Median_absolute_deviation
+    """Median Absolute Deviation: a "Robust" version of standard deviation.
+    Indices variability of the sample.
+    https://en.wikipedia.org/wiki/Median_absolute_deviation
     """
     if m is None:
         m = np.median(arr)

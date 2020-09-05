@@ -1,8 +1,9 @@
 import pandas as pd
 import pytest
 
-from tests.series import get_series
-from tests.utils import (
+from visions import CompleteSet
+from visions.test.series import get_geometry_series, get_series
+from visions.test.utils import (
     contains,
     convert,
     get_contains_cases,
@@ -10,7 +11,6 @@ from tests.utils import (
     get_inference_cases,
     infers,
 )
-from visions import CompleteSet
 from visions.types import (
     URL,
     UUID,
@@ -36,7 +36,7 @@ from visions.types import (
     TimeDelta,
 )
 
-series = get_series()
+series = get_series() + get_geometry_series()
 
 typeset = CompleteSet()
 
