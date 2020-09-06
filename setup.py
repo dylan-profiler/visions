@@ -38,7 +38,7 @@ extras_requires["all"] = requirements + [
 
 setup(
     name="visions",
-    version="0.5.0",
+    version="0.5.1",
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     author="Dylan Profiler",
