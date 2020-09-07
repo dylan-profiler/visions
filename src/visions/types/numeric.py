@@ -28,4 +28,4 @@ class Numeric(VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_numeric(series)
+        return pdt.is_numeric_dtype(series)
