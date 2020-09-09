@@ -109,7 +109,8 @@ def traverse_graph_with_series(
     series: pd.Series,
     graph: nx.DiGraph,
     path: List[Type[VisionsBaseType]] = None,
-) -> Tuple[pd.Series, List[Type[VisionsBaseType]]]:
+    state: dict = dict(),
+) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
     Args:
@@ -128,11 +129,11 @@ def traverse_graph_with_series(
 
     for vision_type in graph.successors(base_type):
         relation = graph[base_type][vision_type]["relationship"]
-        if relation.is_relation(series):
-            series = relation.transform(series)
-            return traverse_graph_with_series(vision_type, series, graph, path)
+        if relation.is_relation(series, state):
+            series = relation.transform(series, state)
+            return traverse_graph_with_series(vision_type, series, graph, path, state)
 
-    return series, path
+    return series, path, state
 
 
 def traverse_graph_with_sampled_series(
@@ -140,7 +141,8 @@ def traverse_graph_with_sampled_series(
     series: pd.Series,
     graph: nx.DiGraph,
     sample_size: int = 10,
-) -> Tuple[pd.Series, List[Type[VisionsBaseType]]]:
+    state: dict = dict(),
+) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
     """Depth First Search traversal with sampling. There should be at most one successor that contains the series.
 
     Args:
@@ -154,51 +156,57 @@ def traverse_graph_with_sampled_series(
     """
 
     if (series.shape[0] < 1000) or (sample_size > series.shape[0]):
-        return traverse_graph_with_series(base_type, series, graph)
+        return traverse_graph_with_series(base_type, series, graph, state=state)
 
     series_sample = series.sample(sample_size)
-    _, path = traverse_graph_with_series(base_type, series_sample, graph)
+    _, path = traverse_graph_with_series(base_type, series_sample, graph, state=state)
     if len(path) == 1:
-        return series, path
+        return series, path, state
 
     # Cast the full series
     from_type = path[0]
     for i, to_type in enumerate(path[1:]):
         relation = graph[from_type][to_type]["relationship"]
-        if not relation.is_relation(series):
+        if not relation.is_relation(series, state):
             break
-        series = relation.transform(series)
+        series = relation.transform(series, state)
         from_type = to_type
 
-    return series, path[0 : (i + 2)]
+    return series, path[0 : (i + 2)], state
 
 
 @singledispatch
 def traverse_graph(
     data: pdT, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pdT, Any]:
+) -> Tuple[pdT, Any, dict]:
     raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
 
 
 @traverse_graph.register(pd.Series)
 def _(
     series: pd.Series, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pd.Series, List[Type[VisionsBaseType]]]:
+) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
     return traverse_graph_with_series(root_node, series, graph)
 
 
 @traverse_graph.register(pd.DataFrame)  # type: ignore
 def _(
     df: pd.DataFrame, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pd.DataFrame, Dict[str, List[Type[VisionsBaseType]]]]:
+) -> Tuple[pd.DataFrame, Dict[str, List[Type[VisionsBaseType]]], Dict[str, dict]]:
     inferred_values = {
         col: traverse_graph(df[col], root_node, graph) for col in df.columns
     }
-    inferred_paths = {col: inf_path for col, (_, inf_path) in inferred_values.items()}
+    # TODO: use zip here
+
+    inferred_paths = {col: inf_path for col, (_, inf_path, _) in inferred_values.items()}
     inferred_series = {
-        col: inf_series for col, (inf_series, _) in inferred_values.items()
+        col: inf_series for col, (inf_series, _, _) in inferred_values.items()
     }
-    return pd.DataFrame(inferred_series), inferred_paths
+    inferred_states = {
+        col: inf_state for col, (_, _, inf_state) in inferred_values.items()
+    }
+
+    return pd.DataFrame(inferred_series), inferred_paths, inferred_states
 
 
 @singledispatch
@@ -248,6 +256,11 @@ class VisionsTypeset(object):
 
         self.types = set(self.relation_graph.nodes)
 
+        # add references to the typeset on the type
+        # we use this for the __contains__ logic
+        for t in self.types:
+            t.typeset = self
+
     @property
     def root_node(self) -> Type[VisionsBaseType]:
         """Returns a cached copy of the relation_graphs root node
@@ -274,7 +287,7 @@ class VisionsTypeset(object):
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths = self._traverse_graph(data, self.root_node, self.base_graph)
+        _, paths, _ = self._traverse_graph(data, self.root_node, self.base_graph)
         return get_type_from_path(paths)
 
     def infer_type(self, data: pdT) -> pathTypes:
@@ -286,8 +299,32 @@ class VisionsTypeset(object):
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths = self._traverse_graph(data, self.root_node, self.relation_graph)
+        _, paths, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
         return get_type_from_path(paths)
+
+    def infer_type_path(self, data: pdT) -> pathTypes:
+        """The inferred type found using all type relations.
+
+        Args:
+            data: a DataFrame or Series to determine types over
+
+        Returns:
+            A dictionary of {name: type} pairs in the case of DataFrame input or a type
+        """
+        _, paths, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
+        return paths
+
+    def detect_type_path(self, data: pdT) -> pathTypes:
+        """The inferred type found using all type relations.
+
+        Args:
+            data: a DataFrame or Series to determine types over
+
+        Returns:
+            A dictionary of {name: type} pairs in the case of DataFrame input or a type
+        """
+        _, paths, _ = self._traverse_graph(data, self.root_node, self.base_graph)
+        return paths
 
     def cast_to_detected(self, data: pdT) -> pdT:
         """Transforms input data into a canonical representation using only IdentityRelations
@@ -298,7 +335,8 @@ class VisionsTypeset(object):
         Returns:
             new_data: The transformed DataFrame or Series.
         """
-        data, _ = self._traverse_graph(data, self.root_node, self.base_graph)
+        data, _, state = self._traverse_graph(data, self.root_node, self.base_graph)
+        # TODO: recover
         return data
 
     def cast_to_inferred(self, data: pdT) -> Tuple[pdT, pathTypes]:
@@ -311,8 +349,18 @@ class VisionsTypeset(object):
             new_data: The transformed DataFrame or Series.
             types: A dictionary of {name: type} pairs in the case of DataFrame input or a type.
         """
-        data, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
-        return data
+        new_data, _, state = self._traverse_graph(data, self.root_node, self.relation_graph)
+
+        # TODO: if nothing has changed return original data?
+        def reinstate_optional(new_series, series, state):
+            if state.get('hasnans', False):
+                new_series = new_series.reindex(series.index)
+            return new_series
+
+        # TODO: dispatch
+        # TODO: handler
+        new_data = reinstate_optional(new_data, data, state)
+        return new_data
 
     def output_graph(
         self,

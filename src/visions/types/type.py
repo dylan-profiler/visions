@@ -9,11 +9,7 @@ from visions.relations import TypeRelation
 
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
-        if series.empty:
-            from visions.types import Generic
-
-            return issubclass(cls, Generic)
-        return cls.contains_op(series)  # type: ignore
+        return cls in cls.typeset.detect_type_path(series)
 
     @property
     def relations(cls) -> Optional[Sequence[TypeRelation]]:
@@ -54,7 +50,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     @abstractmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         raise NotImplementedError
 
     @classmethod

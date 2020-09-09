@@ -6,15 +6,15 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains
 
 
-def string_is_geometry(series: pd.Series) -> bool:
+def string_is_geometry(series: pd.Series, state: dict) -> bool:
     """Shapely logs failures at a silly severity, just trying to suppress it's output on failures."""
     from shapely import wkt
     from shapely.errors import WKTReadingError
 
     # only way to get rid of sys output when wkt.loads hits a bad value
+    # TODO: use coercion wrapper for this
     sys.stderr = open(os.devnull, "w")
     try:
         result = all(wkt.loads(value) for value in series)
@@ -25,7 +25,7 @@ def string_is_geometry(series: pd.Series) -> bool:
     return result
 
 
-def to_geometry(series: pd.Series) -> pd.Series:
+def to_geometry(series: pd.Series, state: dict) -> pd.Series:
     from shapely import wkt
 
     return pd.Series([wkt.loads(value) for value in series])
@@ -59,8 +59,7 @@ class Geometry(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         from shapely.geometry.base import BaseGeometry
 
         return all(issubclass(type(x), BaseGeometry) for x in series)

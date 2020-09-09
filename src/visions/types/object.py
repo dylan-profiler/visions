@@ -8,9 +8,9 @@ from visions.types.type import VisionsBaseType
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic
+    from visions.types import Optional
 
-    relations = [IdentityRelation(cls, Generic)]
+    relations = [IdentityRelation(cls, Optional)]
     return relations
 
 
@@ -31,7 +31,7 @@ class Object(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         is_object = pdt.is_object_dtype(series)
         if is_object:
             ret = True

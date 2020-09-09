@@ -60,6 +60,32 @@ def coercion_test(
     return f
 
 
+def coercion_true_test(
+    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
+) -> Callable:
+    """A coercion equality test generator
+
+    Creates a coercion test based on a provided coercion method which also enforces
+    equality constraints on the output. This is useful when you want to change the
+    data type of a series without necessarily changing the data, for example,
+    when converting an integer to a float.
+
+    Args:
+        method: A method coercing a Series to another type.
+
+    Returns:
+        Whether the coercion failed or was successful.
+    """
+    tester = option_coercion_evaluator(method, extra_errors)
+
+    @functools.wraps(tester)
+    def f(series: pd.Series) -> bool:
+        result = tester(series)
+        return False if result is None else series.all()
+
+    return f
+
+
 def coercion_equality_test(method: Callable) -> Callable:
     """A coercion equality test generator
 
@@ -86,18 +112,14 @@ def coercion_equality_test(method: Callable) -> Callable:
 
 def coercion_single_map_test(mapping: List[Dict]) -> Callable:
     def f(series: pd.Series) -> bool:
-        # TODO: None value
-        return any(
-            series.isin(list(single_map.keys()) + [None]).all()
-            for single_map in mapping
-        )
+        return any(series.isin(list(single_map.keys())).all() for single_map in mapping)
 
     return f
 
 
 def coercion_multi_map_test(mapping: Dict) -> Callable:
     def f(series: pd.Series) -> bool:
-        return series.isin(list(mapping.keys()) + [None]).all()
+        return series.isin(list(mapping.keys())).all()
 
     return f
 

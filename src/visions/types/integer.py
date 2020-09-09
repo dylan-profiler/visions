@@ -6,42 +6,32 @@ from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
 
 
-def to_int(series: pd.Series) -> pd.Series:
-    try:
-        return series.astype(int)
-    except ValueError:
-        return series.astype("Int64")
+def to_int(series: pd.Series, state: dict) -> pd.Series:
+    hasnans = state.get('hasnans')
+    dtype = "Int64" if hasnans else np.int64
+    return series.astype(dtype)
 
 
-def float_is_int(series: pd.Series) -> bool:
+def float_is_int(series: pd.Series, state: dict) -> bool:
+    # TODO: coercion utils
     def check_equality(series):
-        if series.empty or not np.isfinite(series).all():
+        try:
+            if not np.isfinite(series).all():
+                return False
+            return series.eq(series.astype(int)).all()
+        except:
             return False
-        return series.eq(series.astype(int)).all()
 
-    return check_equality(series.dropna() if series.hasnans else series)
-
-
-def test_string_is_int(series) -> bool:
-    coerced_series = test_utils.option_coercion_evaluator(string_to_int)(series)
-    return coerced_series is not None and coerced_series in Integer
-
-
-def string_to_int(series: pd.Series) -> pd.Series:
-    # if any("," in x for x in series.dropna()):
-    #     series = series.str.replace(",", "")
-
-    return to_int(series)
+    return check_equality(series)
 
 
 def _get_relations(cls) -> List[TypeRelation]:
-    from visions.types import Float, Generic
+    from visions.types import Float, Optional
 
     relations = [
-        IdentityRelation(cls, Generic),
+        IdentityRelation(cls, Optional),
         InferenceRelation(cls, Float, relationship=float_is_int, transformer=to_int),
     ]
     return relations
@@ -61,5 +51,5 @@ class Integer(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_integer_dtype(series)

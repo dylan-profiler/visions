@@ -1,31 +1,32 @@
 from typing import Sequence
 
-import numpy as np
 import pandas as pd
 from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
-from visions.types.float import test_is_float
+from visions.types.float import string_is_float
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
-def test_string_is_complex(series) -> bool:
-    coerced_series = test_utils.option_coercion_evaluator(to_complex)(series)
-    return coerced_series is not None and not test_is_float(series)
+def string_is_complex(series, state: dict) -> bool:
+    def f(s):
+        return s.apply(complex)
+    coerced_series = test_utils.option_coercion_evaluator(f)(series)
+    return coerced_series is not None and not string_is_float(series, state)
 
 
-def to_complex(series: pd.Series) -> bool:
+def to_complex(series: pd.Series, state: dict) -> bool:
     return series.apply(complex)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic, String
+    from visions.types import Optional, String
 
     relations = [
-        IdentityRelation(cls, Generic),
+        IdentityRelation(cls, Optional),
         InferenceRelation(
-            cls, String, relationship=test_string_is_complex, transformer=to_complex
+            cls, String, relationship=string_is_complex, transformer=to_complex
         ),
     ]
     return relations
@@ -46,5 +47,5 @@ class Complex(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_complex_dtype(series)

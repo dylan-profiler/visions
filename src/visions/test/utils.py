@@ -128,7 +128,8 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
     )
     relation = next(relation_gen)
 
-    is_relation = relation.is_relation(series)
+    state = {'hasnans': True}
+    is_relation = relation.is_relation(series.dropna(), state)
 
     if not member:
         return (
@@ -136,9 +137,10 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
             f"{source_type}, {relation}, {member}, {series.name}, {series[0]}",
         )
     else:
-        cast_series = relation.transform(series)
+        # Note that the transformed series is not exactly the cast series
+        transformed_series = relation.transform(series.dropna(), state)
 
         return (
-            (is_relation and cast_series in source_type),
-            f"Relationship {relation} cast {series.values} to {cast_series.values}",
+            is_relation,
+            f"Relationship {relation} transformed {series.values} to {transformed_series.values}",
         )

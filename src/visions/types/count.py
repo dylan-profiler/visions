@@ -28,5 +28,5 @@ class Count(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_unsigned_integer_dtype(series)

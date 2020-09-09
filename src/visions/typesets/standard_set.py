@@ -6,7 +6,9 @@ from visions.types import (
     Float,
     Generic,
     Integer,
+    NonEmpty,
     Object,
+    Optional,
     String,
     TimeDelta,
 )
@@ -33,6 +35,8 @@ class StandardSet(VisionsTypeset):
     def __init__(self):
         types = {
             Generic,
+            NonEmpty,
+            Optional,
             Boolean,
             Float,
             Object,

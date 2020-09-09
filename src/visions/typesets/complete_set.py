@@ -15,7 +15,9 @@ from visions.types import (
     Image,
     Integer,
     IPAddress,
+    NonEmpty,
     Object,
+    Optional,
     Ordinal,
     Path,
     String,
@@ -57,6 +59,8 @@ class CompleteSet(VisionsTypeset):
     def __init__(self):
         types = {
             Generic,
+            Optional,
+            NonEmpty,
             Boolean,
             Float,
             Object,

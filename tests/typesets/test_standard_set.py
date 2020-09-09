@@ -19,7 +19,9 @@ from visions.types import (
     Float,
     Generic,
     Integer,
+    NonEmpty,
     Object,
+    Optional,
     String,
     TimeDelta,
 )
@@ -44,11 +46,9 @@ contains_map = {
         "float_series3",
         "float_series4",
         "inf_series",
-        "nan_series",
         "float_nan_series",
         "float_series5",
         "int_nan_series",
-        "nan_series_2",
         "float_with_inf",
         "float_series6",
     },
@@ -145,8 +145,14 @@ contains_map[Object] = {
     "time",
 }
 
+contains_map[NonEmpty] = set()
+contains_map[Optional] = set()
+
+
 # Empty series
 contains_map[Generic] = {
+    "nan_series",
+    "nan_series_2",
     "empty",
     "empty_bool",
     "empty_float",
@@ -189,8 +195,8 @@ inference_map = {
     "categorical_float_series": Categorical,
     "float_with_inf": Float,
     "inf_series": Float,
-    "nan_series": Float,
-    "nan_series_2": Float,
+    "nan_series": Generic,
+    "nan_series_2": Generic,
     "string_series": String,
     "categorical_string_series": Categorical,
     "timestamp_string_series": DateTime,
@@ -328,3 +334,11 @@ def test_conversion(source_type, relation_type, series, member):
     """
     result, message = convert(source_type, relation_type, series, member)
     assert result, message
+
+
+# @pytest.mark.parametrize()
+def test_cast():
+    for s in series:
+        print(s)
+        print(typeset.cast_to_inferred(s))
+        print("=" * 40)

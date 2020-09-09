@@ -28,7 +28,9 @@ from visions.types import (
     Image,
     Integer,
     IPAddress,
+    NonEmpty,
     Object,
+    Optional,
     Ordinal,
     Path,
     String,
@@ -57,11 +59,9 @@ contains_map = {
         "float_series3",
         "float_series4",
         "inf_series",
-        "nan_series",
         "float_nan_series",
         "float_series5",
         "int_nan_series",
-        "nan_series_2",
         "float_with_inf",
         "float_series6",
     },
@@ -149,6 +149,10 @@ contains_map[Object] = {
     "bool_nan_series",
 }
 
+
+contains_map[NonEmpty] = set()
+contains_map[Optional] = set()
+
 # Empty series
 contains_map[Generic] = {
     "empty",
@@ -156,6 +160,8 @@ contains_map[Generic] = {
     "empty_float",
     "empty_int64",
     "empty_object",
+    "nan_series",
+    "nan_series_2",
 }
 
 
@@ -193,8 +199,8 @@ inference_map = {
     "categorical_float_series": Categorical,
     "float_with_inf": Float,
     "inf_series": Float,
-    "nan_series": Float,
-    "nan_series_2": Float,
+    "nan_series": Generic,
+    "nan_series_2": Generic,
     "string_series": String,
     "categorical_string_series": Categorical,
     "timestamp_string_series": Date,

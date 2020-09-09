@@ -1,35 +1,3 @@
-import functools
-from typing import Callable
-
-import pandas as pd
-
-
-def nullable_series_contains(fn: Callable) -> Callable:
-    @functools.wraps(fn)
-    def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
-        if series.hasnans:
-            series = series.dropna()
-            if series.empty:
-                return False
-
-        return fn(cls, series, *args, **kwargs)
-
-    return inner
-
-
-def func_nullable_series_contains(fn: Callable) -> Callable:
-    @functools.wraps(fn)
-    def inner(series: pd.Series, *args, **kwargs) -> bool:
-        if series.hasnans:
-            series = series.dropna()
-            if series.empty:
-                return False
-
-        return fn(series, *args, **kwargs)
-
-    return inner
-
-
 def _contains_instance_attrs(series, is_method, class_name, attrs: list, sample_size=1):
     # TODO: user configurable .head or .sample
     # TODO: performance testing for series[0], series.iloc[0], series.head, series.sample

@@ -21,5 +21,5 @@ class Generic(VisionsBaseType):
         return []
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return True

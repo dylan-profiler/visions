@@ -5,17 +5,17 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import class_name_attrs, nullable_series_contains
+from visions.utils.series_utils import class_name_attrs
 
 
-def test_time(series):
-    dtseries = series.dropna().dt.date
-    value = date(1, 1, 1)
-    return True if all(v == value for v in dtseries) else None
-
-
-def to_time(series):
-    return series.dt.time
+# def test_time(series):
+#     dtseries = series.dt.date
+#     value = date(1, 1, 1)
+#     return True if all(v == value for v in dtseries) else None
+#
+#
+# def to_time(series, data=dict()):
+#     return series.dt.time
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -39,6 +39,5 @@ class Time(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return class_name_attrs(series, time, ["microsecond", "hour"])

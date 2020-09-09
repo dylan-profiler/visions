@@ -7,10 +7,8 @@ from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
-def to_ordinal(series: pd.Series) -> pd.Categorical:
-    return pd.Categorical(
-        series, categories=sorted(series.dropna().unique()), ordered=True
-    )
+def to_ordinal(series: pd.Series, state: dict) -> pd.Categorical:
+    return pd.Categorical(series, categories=sorted(series.unique()), ordered=True)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -34,5 +32,5 @@ class Ordinal(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_categorical_dtype(series) and series.cat.ordered
