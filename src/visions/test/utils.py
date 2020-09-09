@@ -144,3 +144,33 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
             is_relation,
             f"Relationship {relation} transformed {series.values} to {transformed_series.values}",
         )
+
+
+def get_cast_cases(_test_suite, _results):
+    argsvalues = []
+    for item in _test_suite:
+        changed = item.name in _results
+        value = _results.get(item.name, "")
+        args = {"id": f"{item.name}: {changed}"}
+        argsvalues.append(pytest.param(item, value, **args))
+
+    return dict(
+        argnames=["series", "expected"],
+        argvalues=argsvalues,
+    )
+
+
+def cast(series, typeset, expected=None):
+    result = typeset.cast_to_inferred(series)
+    if expected is None:
+        v = result.equals(series)
+        m = f"Series {series.name} cast expected {result.values} (no casting) got {result.values}"
+
+        if v:
+            v = id(series) == id(result)
+            m = f"Series {series.name} memory addresses are not equal, while return value was"
+    else:
+        v = result.equals(expected)
+        m = f"Series {series.name} cast expected {expected.values} got {result.values}"
+
+    return v, m
