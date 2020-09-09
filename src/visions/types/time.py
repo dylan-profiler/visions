@@ -7,7 +7,6 @@ from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import class_name_attrs
 
-
 # def test_time(series):
 #     dtseries = series.dt.date
 #     value = date(1, 1, 1)

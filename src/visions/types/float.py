@@ -41,9 +41,14 @@ def string_to_float(series: pd.Series, state: dict) -> pd.Series:
 def string_is_float(series: pd.Series, state: dict) -> bool:
     def f(s):
         return s.astype(float)
+
     coerced_series = test_utils.option_coercion_evaluator(f)(series)
 
-    return coerced_series is not None and coerced_series in Float and test_string_leading_zeros(series, coerced_series)
+    return (
+        coerced_series is not None
+        and coerced_series in Float
+        and test_string_leading_zeros(series, coerced_series)
+    )
 
 
 def to_float(series: pd.Series, state: dict) -> pd.Series:

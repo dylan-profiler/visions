@@ -9,7 +9,7 @@ from visions.types.type import VisionsBaseType
 
 
 def to_int(series: pd.Series, state: dict) -> pd.Series:
-    hasnans = state.get('hasnans')
+    hasnans = state.get("hasnans")
     dtype = "Int64" if hasnans else np.int64
     return series.astype(dtype)
 

@@ -12,6 +12,7 @@ from visions.utils.coercion import test_utils
 def string_is_complex(series, state: dict) -> bool:
     def f(s):
         return s.apply(complex)
+
     coerced_series = test_utils.option_coercion_evaluator(f)(series)
     return coerced_series is not None and not string_is_float(series, state)
 

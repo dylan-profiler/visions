@@ -128,7 +128,7 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
     )
     relation = next(relation_gen)
 
-    state = {'hasnans': True}
+    state = {"hasnans": True}
     is_relation = relation.is_relation(series.dropna(), state)
 
     if not member:

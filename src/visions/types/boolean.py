@@ -13,7 +13,7 @@ hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Boo
 
 
 def to_bool(series: pd.Series, state: dict) -> pd.Series:
-    hasnans = state.get('hasnans')
+    hasnans = state.get("hasnans")
     dtype = hasnan_bool_name if hasnans else bool
     return series.astype(dtype)
 

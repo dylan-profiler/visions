@@ -6,8 +6,8 @@ from visions.types.type import VisionsBaseType
 
 
 def na_transform(series, state: dict):
-    state['hasnans'] = series.hasnans
-    if state['hasnans']:
+    state["hasnans"] = series.hasnans
+    if state["hasnans"]:
         series = series.dropna()
     return series
 
@@ -37,8 +37,8 @@ class NonEmpty(VisionsBaseType):
     def contains_op(cls, series: pd.Series, state: dict):
         # Alternatively you could use len(series) > 0, in which case
         #  series such as [np.nan] are not recognized as empty
-        state['count'] = series.count()
-        return state['count'] > 0
+        state["count"] = series.count()
+        return state["count"] > 0
 
 
 class NonMissing(VisionsBaseType):

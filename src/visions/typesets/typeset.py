@@ -198,7 +198,9 @@ def _(
     }
     # TODO: use zip here
 
-    inferred_paths = {col: inf_path for col, (_, inf_path, _) in inferred_values.items()}
+    inferred_paths = {
+        col: inf_path for col, (_, inf_path, _) in inferred_values.items()
+    }
     inferred_series = {
         col: inf_series for col, (inf_series, _, _) in inferred_values.items()
     }
@@ -349,11 +351,13 @@ class VisionsTypeset(object):
             new_data: The transformed DataFrame or Series.
             types: A dictionary of {name: type} pairs in the case of DataFrame input or a type.
         """
-        new_data, _, state = self._traverse_graph(data, self.root_node, self.relation_graph)
+        new_data, _, state = self._traverse_graph(
+            data, self.root_node, self.relation_graph
+        )
 
         # TODO: if nothing has changed return original data?
         def reinstate_optional(new_series, series, state):
-            if state.get('hasnans', False):
+            if state.get("hasnans", False):
                 new_series = new_series.reindex(series.index)
             return new_series
 
