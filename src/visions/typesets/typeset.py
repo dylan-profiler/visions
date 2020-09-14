@@ -159,7 +159,9 @@ def traverse_graph_with_sampled_series(
         return traverse_graph_with_series(base_type, series, graph, state=state)
 
     series_sample = series.sample(sample_size)
-    _, path, _ = traverse_graph_with_series(base_type, series_sample, graph, state=state)
+    _, path, _ = traverse_graph_with_series(
+        base_type, series_sample, graph, state=state
+    )
     if len(path) == 1:
         return series, path, state
 

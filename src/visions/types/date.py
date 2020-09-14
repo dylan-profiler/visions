@@ -5,7 +5,11 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import class_name_attrs, nullable_series_contains, func_nullable_series_contains
+from visions.utils.series_utils import (
+    class_name_attrs,
+    func_nullable_series_contains,
+    nullable_series_contains,
+)
 
 
 @func_nullable_series_contains

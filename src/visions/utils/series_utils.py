@@ -6,7 +6,7 @@ import pandas as pd
 
 def nullable_series_contains(fn: Callable) -> Callable:
     @functools.wraps(fn)
-    def inner(cls, series: pd.Series, state = {}, *args, **kwargs) -> bool:
+    def inner(cls, series: pd.Series, state={}, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()
             if series.empty:
@@ -19,7 +19,7 @@ def nullable_series_contains(fn: Callable) -> Callable:
 
 def func_nullable_series_contains(fn: Callable) -> Callable:
     @functools.wraps(fn)
-    def inner(series: pd.Series, state= {}, *args, **kwargs) -> bool:
+    def inner(series: pd.Series, state={}, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()
             if series.empty:

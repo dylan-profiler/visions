@@ -8,6 +8,7 @@ from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.series_utils import nullable_series_contains
 
+
 def string_is_ip(series, state: dict):
     return test_utils.coercion_test(lambda s: s.apply(ip_address))(series)
 

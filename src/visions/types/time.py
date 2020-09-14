@@ -14,7 +14,7 @@ def test_time(series):
     return True if all(v == value for v in dtseries) else None
 
 
-def to_time(series, state : dict):
+def to_time(series, state: dict):
     return series.dt.time
 
 

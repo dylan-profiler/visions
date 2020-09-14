@@ -5,6 +5,7 @@ import functools
 from typing import Callable, Dict, List, Optional, Type, Union
 
 import pandas as pd
+
 from visions.utils.series_utils import func_nullable_series_contains
 
 

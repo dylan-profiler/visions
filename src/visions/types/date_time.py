@@ -11,7 +11,9 @@ from visions.utils.coercion import test_utils
 
 def string_is_datetime(series: pd.Series, state: dict):
     exceptions = [OverflowError, TypeError]
-    return test_utils.coercion_test(partial(to_datetime, state=state), exceptions)(series)
+    return test_utils.coercion_test(partial(to_datetime, state=state), exceptions)(
+        series
+    )
 
 
 def to_datetime(series: pd.Series, state: dict) -> pd.Series:

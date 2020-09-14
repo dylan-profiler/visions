@@ -9,6 +9,7 @@ from visions.types.type import VisionsBaseType
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
     from visions import Generic
+
     relations = [IdentityRelation(cls, Generic)]
     return relations
 
