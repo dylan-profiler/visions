@@ -5,7 +5,7 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains
+from visions.utils.series_utils import nullable_series_contains, series_not_empty
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -30,6 +30,7 @@ class File(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_empty
     @nullable_series_contains
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return all(isinstance(p, pathlib.Path) and p.exists() for p in series)

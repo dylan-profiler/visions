@@ -5,6 +5,7 @@ from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+from visions.utils.series_utils import series_not_empty
 
 
 def to_ordinal(series: pd.Series) -> pd.Categorical:
@@ -34,5 +35,6 @@ class Ordinal(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_categorical_dtype(series) and series.cat.ordered

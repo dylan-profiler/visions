@@ -7,7 +7,7 @@ from pandas.api import types as pdt
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
-from visions.utils.series_utils import func_nullable_series_contains, series_not_sparse
+from visions.utils.series_utils import series_not_empty, series_not_sparse
 from visions.utils.warning_handling import suppress_warnings
 
 
@@ -89,6 +89,7 @@ class Float(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_empty
     @series_not_sparse
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_float_dtype(series)

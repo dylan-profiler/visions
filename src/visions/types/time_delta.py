@@ -5,7 +5,7 @@ from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import series_not_sparse
+from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -30,5 +30,6 @@ class TimeDelta(VisionsBaseType):
 
     @classmethod
     @series_not_sparse
+    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_timedelta64_dtype(series)

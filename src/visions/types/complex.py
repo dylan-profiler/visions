@@ -7,7 +7,7 @@ from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.float import string_is_float
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
-from visions.utils.series_utils import series_not_sparse
+from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 
 def test_imaginary_in_string(
@@ -60,5 +60,6 @@ class Complex(VisionsBaseType):
 
     @classmethod
     @series_not_sparse
+    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_complex_dtype(series)

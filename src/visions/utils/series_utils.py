@@ -54,6 +54,16 @@ def series_not_sparse(fn: Callable) -> Callable:
     return inner
 
 
+def series_not_empty(fn: Callable) -> Callable:
+    @functools.wraps(fn)
+    def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
+        if series.empty:
+            return False
+        return fn(cls, series, *args, **kwargs)
+
+    return inner
+
+
 def _contains_instance_attrs(
     series, is_method, class_name, attrs: list, sample_size=1
 ) -> bool:

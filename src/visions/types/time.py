@@ -9,6 +9,7 @@ from visions.utils.series_utils import (
     class_name_attrs,
     func_nullable_series_contains,
     nullable_series_contains,
+    series_not_empty,
 )
 
 
@@ -44,6 +45,7 @@ class Time(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_empty
     @nullable_series_contains
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return class_name_attrs(series, time, ["microsecond", "hour"])

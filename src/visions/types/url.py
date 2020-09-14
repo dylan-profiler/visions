@@ -9,6 +9,7 @@ from visions.utils.series_utils import (
     func_nullable_series_contains,
     isinstance_attrs,
     nullable_series_contains,
+    series_not_empty,
 )
 
 
@@ -51,6 +52,7 @@ class URL(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_empty
     @nullable_series_contains
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return isinstance_attrs(series, ParseResult, ["netloc", "scheme"])
