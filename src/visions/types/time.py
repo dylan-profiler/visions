@@ -9,12 +9,12 @@ from visions.utils.series_utils import class_name_attrs, nullable_series_contain
 
 
 def test_time(series):
-    dtseries = series.dropna().dt.date
+    dtseries = series.dt.date
     value = date(1, 1, 1)
     return True if all(v == value for v in dtseries) else None
 
 
-def to_time(series):
+def to_time(series, state : dict):
     return series.dt.time
 
 
@@ -40,5 +40,5 @@ class Time(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return class_name_attrs(series, time, ["microsecond", "hour"])

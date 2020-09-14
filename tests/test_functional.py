@@ -75,6 +75,7 @@ def test_type_cast_infer_frame():
 
     typeset = CompleteSet()
     new_df = cast_to_inferred(df, typeset)
+    print(new_df)
     assert new_df["digits"].iloc[1] - 3 == 121220
     assert new_df["latin"].iloc[1] + "1" == "apple1"
 

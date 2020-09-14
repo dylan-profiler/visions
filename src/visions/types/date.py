@@ -5,17 +5,17 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
-from visions.utils.series_utils import class_name_attrs, nullable_series_contains
+from visions.utils.series_utils import class_name_attrs, nullable_series_contains, func_nullable_series_contains
 
 
-def test_date(series):
-    dtseries = series.dropna().dt.time
+@func_nullable_series_contains
+def datetime_is_date(series, state: dict):
+    dtseries = series.dt.time
     value = time(0, 0)
     return True if all(v == value for v in dtseries) else None
 
 
-def to_date(series):
+def to_date(series, state: dict):
     return series.dt.date
 
 
@@ -27,7 +27,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             DateTime,
-            relationship=test_utils.coercion_test(test_date),
+            relationship=datetime_is_date,
             transformer=to_date,
         ),
     ]
@@ -50,5 +50,5 @@ class Date(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return class_name_attrs(series, date, ["year", "month", "day"])

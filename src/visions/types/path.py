@@ -8,15 +8,15 @@ from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import nullable_series_contains
 
 
-def string_is_path(series) -> bool:
+def string_is_path(series, state: dict) -> bool:
     try:
-        s = to_path(series.copy())
+        s = to_path(series.copy(), state)
         return s.apply(lambda x: x.is_absolute()).all()
     except TypeError:
         return False
 
 
-def to_path(series: pd.Series) -> pd.Series:
+def to_path(series: pd.Series, state: dict) -> pd.Series:
     s = series.copy().apply(pathlib.PureWindowsPath)
     if not s.apply(lambda x: x.is_absolute()).all():
         return series.apply(pathlib.PurePosixPath)
@@ -52,5 +52,5 @@ class Path(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return all(isinstance(x, pathlib.PurePath) and x.is_absolute() for x in series)

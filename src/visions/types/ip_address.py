@@ -8,8 +8,11 @@ from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.series_utils import nullable_series_contains
 
+def string_is_ip(series, state: dict):
+    return test_utils.coercion_test(lambda s: s.apply(ip_address))(series)
 
-def to_ip(series: pd.Series) -> pd.Series:
+
+def to_ip(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(ip_address)
 
 
@@ -18,9 +21,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
     relations = [
         IdentityRelation(cls, Object),
-        InferenceRelation(
-            cls, String, relationship=test_utils.coercion_test(to_ip), transformer=to_ip
-        ),
+        InferenceRelation(cls, String, relationship=string_is_ip, transformer=to_ip),
     ]
     return relations
 
@@ -41,5 +42,5 @@ class IPAddress(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return all(isinstance(x, _BaseAddress) for x in series)

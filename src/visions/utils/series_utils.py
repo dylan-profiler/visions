@@ -6,26 +6,26 @@ import pandas as pd
 
 def nullable_series_contains(fn: Callable) -> Callable:
     @functools.wraps(fn)
-    def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
+    def inner(cls, series: pd.Series, state = {}, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()
             if series.empty:
                 return False
 
-        return fn(cls, series, *args, **kwargs)
+        return fn(cls, series, state, *args, **kwargs)
 
     return inner
 
 
 def func_nullable_series_contains(fn: Callable) -> Callable:
     @functools.wraps(fn)
-    def inner(series: pd.Series, *args, **kwargs) -> bool:
+    def inner(series: pd.Series, state= {}, *args, **kwargs) -> bool:
         if series.hasnans:
             series = series.dropna()
             if series.empty:
                 return False
 
-        return fn(series, *args, **kwargs)
+        return fn(series, state, *args, **kwargs)
 
     return inner
 

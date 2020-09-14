@@ -23,30 +23,39 @@ def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
     return not any(s[0] == "0" for s in series[coerced_series > 1])
 
 
-def test_string_is_float(series: pd.Series) -> bool:
-    coerced_series = test_utils.option_coercion_evaluator(string_to_float)(series)
-    if coerced_series is not None and coerced_series in Float:
-        return test_string_leading_zeros(series, coerced_series)
-
-    return False
-
-
-def string_to_float(series: pd.Series) -> pd.Series:
+# @func_nullable_series_contains
+def string_to_float(series: pd.Series, state: dict) -> pd.Series:
     # Slightly faster to check for the character if it's not present than to
     # attempt the replacement
-    # if any("," in x for x in series.dropna()):
+    # if any("," in x for x in series):
     #     series = series.str.replace(",", "")
-
-    return to_float(series)
-
-
-def test_is_float(series: pd.Series) -> bool:
-    coerced_series = test_utils.option_coercion_evaluator(to_float)(series)
-    return coerced_series is not None and coerced_series in Float
-
-
-def to_float(series: pd.Series) -> pd.Series:
     return series.astype(float)
+
+
+def f(s):
+    return s.astype(float)
+
+
+def string_is_float(series: pd.Series, state: dict) -> bool:
+    coerced_series = test_utils.option_coercion_evaluator(f)(series)
+
+    return (
+        coerced_series is not None
+        and coerced_series in Float
+        and test_string_leading_zeros(series, coerced_series)
+    )
+
+
+def to_float(series: pd.Series, state: dict) -> pd.Series:
+    return series.astype(float)
+
+
+def complex_is_float(series, state: dict):
+    return all(np.imag(series.values) == 0)
+
+
+def complex_to_float(series, state: dict):
+    return suppress_warnings(to_float)(series, state)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -55,13 +64,13 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     relations = [
         IdentityRelation(cls, Generic),
         InferenceRelation(
-            cls, String, relationship=test_string_is_float, transformer=string_to_float
+            cls, String, relationship=string_is_float, transformer=string_to_float
         ),
         InferenceRelation(
             cls,
             Complex,
-            relationship=lambda s: all(np.imag(s.values) == 0),
-            transformer=suppress_warnings(to_float),
+            relationship=complex_is_float,
+            transformer=complex_to_float,
         ),
     ]
     return relations
@@ -81,5 +90,5 @@ class Float(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_float_dtype(series)

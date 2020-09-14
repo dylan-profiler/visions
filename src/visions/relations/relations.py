@@ -6,7 +6,7 @@ def func_repr(func):
     return func.__name__ if hasattr(func, "__name__") else str("lambda")
 
 
-def identity_relation(series: pd.Series) -> pd.Series:
+def identity_relation(series: pd.Series, state: dict) -> pd.Series:
     return series
 
 
@@ -27,11 +27,12 @@ class TypeRelation:
     Examples:
         >>> from visions.types import Integer, Float
         >>> x = pd.Series([1.0, 2.0, 3.0])
+        >>> state = dict()
         >>> relation = TypeRelation(Integer, Float)
-        >>> relation.is_relation(x)
+        >>> relation.is_relation(x, state)
         True
 
-        >>> relation.transform(x)
+        >>> relation.transform(x, state)
         pd.Series([1, 2, 3])
     """
 
@@ -39,13 +40,13 @@ class TypeRelation:
     related_type = attr.ib()
     inferential = attr.ib()
     transformer = attr.ib(repr=func_repr)
-    relationship = attr.ib(default=lambda x: False, repr=func_repr)
+    relationship = attr.ib(default=lambda x, y: False, repr=func_repr)
 
-    def is_relation(self, series: pd.Series) -> bool:
-        return self.relationship(series)
+    def is_relation(self, series: pd.Series, state: dict) -> bool:
+        return self.relationship(series, state)
 
-    def transform(self, series: pd.Series) -> pd.Series:
-        return self.transformer(series)
+    def transform(self, series: pd.Series, state: dict) -> pd.Series:
+        return self.transformer(series, state)
 
     def __str__(self):
         return f"{self.related_type}->{self.type}"
