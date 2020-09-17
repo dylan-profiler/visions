@@ -1,9 +1,10 @@
-from typing import Dict, Set, Tuple, Type
+from typing import Dict, Optional, Set, Tuple, Type
 
 import networkx as nx
+import pandas as pd
 import pytest
 
-from visions import VisionsBaseType
+from visions import VisionsBaseType, VisionsTypeset
 
 
 def all_series_included(series_list, series_map):
@@ -12,6 +13,7 @@ def all_series_included(series_list, series_map):
     names = set([series.name for series in series_list])
     if not names == used_names:
         unused = names ^ used_names
+        # TODO: warning?
         raise ValueError(f"Not all series are included {unused}")
 
 
@@ -69,6 +71,7 @@ def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
 
 
 def infers(series, expected_type, typeset, difference):
+    # TODO: include paths on error!
     inferred_type = typeset.infer_type(series)
     return (
         (inferred_type == expected_type) != difference,
@@ -126,8 +129,12 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
     relation_gen = (
         rel for rel in source_type.relations if rel.related_type == relation_type
     )
-    relation = next(relation_gen)
-    is_relation = relation.is_relation(series, {})
+    try:
+        relation = next(relation_gen)
+        is_relation = relation.is_relation(series, {})
+    except StopIteration:
+        relation = None
+        is_relation = False
 
     if not member:
         return (
@@ -158,17 +165,20 @@ def get_cast_cases(_test_suite, _results):
     )
 
 
-def cast(series, typeset, expected=None):
+def cast(
+    series: pd.Series, typeset: VisionsTypeset, expected: Optional[pd.Series] = None
+):
     result = typeset.cast_to_inferred(series)
+    # TODO: if error also print Path
     if expected is None:
         v = result.equals(series)
-        m = f"Series {series.name} cast expected {result.values} (no casting) got {result.values}"
+        m = f"Series {series.name} cast expected {series.values} (dtype={series.dtype}) (no casting) got {result.values} (dtype={result.dtype})"
 
         if v:
             v = id(series) == id(result)
             m = f"Series {series.name} memory addresses are not equal, while return value was"
     else:
         v = result.equals(expected)
-        m = f"Series {series.name} cast expected {expected.values} got {result.values}"
+        m = f"Series {series.name} cast expected {expected.values} (dtype={expected.dtype}) got {result.values} (dtype={result.dtype})"
 
     return v, m

@@ -1,20 +1,25 @@
 from datetime import date, time
-from typing import Sequence
+from typing import Optional, Sequence
 
 import pandas as pd
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import class_name_attrs, nullable_series_contains
+from visions.utils.series_utils import (
+    class_name_attrs,
+    func_nullable_series_contains,
+    nullable_series_contains,
+)
 
 
-def test_time(series):
+@func_nullable_series_contains
+def test_time(series: pd.Series) -> Optional[bool]:
     dtseries = series.dt.date
     value = date(1, 1, 1)
     return True if all(v == value for v in dtseries) else None
 
 
-def to_time(series, state: dict):
+def to_time(series: pd.Series, state: dict) -> pd.Series:
     return series.dt.time
 
 

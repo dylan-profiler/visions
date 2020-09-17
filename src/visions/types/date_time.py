@@ -9,7 +9,7 @@ from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
-def string_is_datetime(series: pd.Series, state: dict):
+def string_is_datetime(series: pd.Series, state: dict) -> bool:
     exceptions = [OverflowError, TypeError]
     return test_utils.coercion_test(partial(to_datetime, state=state), exceptions)(
         series

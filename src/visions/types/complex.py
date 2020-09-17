@@ -9,12 +9,22 @@ from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
+def test_imaginary_in_string(
+    series: pd.Series, imaginary_indicator: tuple = ("j", "i")
+):
+    return any(any(v in s for v in imaginary_indicator) for s in series)
+
+
 def string_is_complex(series, state: dict) -> bool:
     def f(s):
         return s.apply(complex)
 
     coerced_series = test_utils.option_coercion_evaluator(f)(series)
-    return coerced_series is not None and not string_is_float(series, state)
+    return (
+        coerced_series is not None
+        and not string_is_float(series, state)
+        and test_imaginary_in_string(series)
+    )
 
 
 def to_complex(series: pd.Series, state: dict) -> bool:

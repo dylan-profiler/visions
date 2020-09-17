@@ -131,7 +131,9 @@ def traverse_graph_with_series(
         relation = graph[base_type][vision_type]["relationship"]
         if relation.is_relation(series, state):
             series = relation.transform(series, state)
-            return traverse_graph_with_series(vision_type, series, graph, path, state)
+            return traverse_graph_with_series(
+                vision_type, series, graph, path, state
+            )
 
     return series, path, state
 
@@ -310,7 +312,7 @@ class VisionsTypeset(object):
         data, _, _ = self._traverse_graph(data, self.root_node, self.base_graph)
         return data
 
-    def cast_to_inferred(self, data: pdT) -> Tuple[pdT, pathTypes]:
+    def cast_to_inferred(self, data: pdT) -> pdT:
         """Transforms input data and returns it's corresponding new type relation using all relations.
 
         Args:

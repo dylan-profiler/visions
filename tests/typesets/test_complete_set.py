@@ -114,6 +114,7 @@ contains_map = {
         "string_bool_nan",
         "string_flt_nan",
         "str_complex",
+        "str_complex_nan",
         "uuid_series_str",
         "str_int_leading_zeros",
         "email_address_str",
@@ -262,6 +263,7 @@ inference_map = {
     "categorical_char": Categorical,
     "ordinal": Ordinal,
     "str_complex": Complex,
+    "str_complex_nan": Complex,
     "uuid_series": UUID,
     "uuid_series_str": UUID,
     "uuid_series_missing": UUID,
@@ -298,7 +300,7 @@ def test_inference(series, type, typeset, difference):
 convert_map = [
     # Model type, Relation type
     (Integer, Float, {"int_nan_series", "float_series2"}),
-    (Complex, String, {"str_complex"}),
+    (Complex, String, {"str_complex", "str_complex_nan"}),
     (
         Float,
         String,
@@ -339,3 +341,6 @@ def test_conversion(source_type, relation_type, series, member):
     """
     result, message = convert(source_type, relation_type, series, member)
     assert result, message
+
+
+# TODO: cast...

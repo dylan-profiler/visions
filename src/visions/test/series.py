@@ -135,6 +135,7 @@ def get_series():
             name="complex_series_nan",
         ),
         pd.Series(["(1+1j)", "(2+2j)", "(10+100j)"], name="str_complex"),
+        pd.Series(["(1+1j)", "(2+2j)", "(10+100j)", "NaN"], name="str_complex_nan"),
         pd.Series(
             [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
             name="complex_series_nan_2",

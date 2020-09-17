@@ -104,6 +104,7 @@ contains_map = {
         "string_bool_nan",
         "string_flt_nan",
         "str_complex",
+        "str_complex_nan",
         "uuid_series_str",
         "str_int_leading_zeros",
         "email_address_str",
@@ -263,6 +264,7 @@ inference_map = {
     "categorical_char": Categorical,
     "ordinal": Categorical,
     "str_complex": Complex,
+    "str_complex_nan": Complex,
     "uuid_series": Object,
     "uuid_series_str": String,
     "uuid_series_missing": Object,
@@ -299,7 +301,7 @@ def test_inference(series, type, typeset, difference):
 convert_map = [
     # Model type, Relation type
     (Integer, Float, {"int_nan_series", "float_series2"}),
-    (Complex, String, {"str_complex"}),
+    (Complex, String, {"str_complex", "str_complex_nan"}),
     (
         Float,
         String,
@@ -348,7 +350,7 @@ cast_results = {
     "string_flt": pd.Series([1.0, 45.67, 3.5], dtype=np.float64),
     "string_bool_nan": pd.Series([True, False, None], dtype=hasnan_bool_name),
     "int_str_range": pd.Series(
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
         dtype=np.int64,
     ),
     "string_date": pd.Series(
@@ -360,6 +362,9 @@ cast_results = {
     "bool_nan_series": pd.Series([True, False, None], dtype=hasnan_bool_name),
     "str_complex": pd.Series(
         [complex(1, 1), complex(2, 2), complex(10, 100)], dtype=np.complex128
+    ),
+    "str_complex_nan": pd.Series(
+        [complex(1, 1), complex(2, 2), complex(10, 100), np.nan], dtype=np.complex128
     ),
     "complex_series_float": pd.Series([0, 1, 3, -1], dtype=np.int64),
     "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
