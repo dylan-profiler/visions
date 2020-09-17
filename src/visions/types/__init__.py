@@ -21,6 +21,7 @@ from visions.types.time_delta import TimeDelta
 from visions.types.type import VisionsBaseType
 from visions.types.url import URL
 from visions.types.uuid import UUID
+from visions.types.sparse import Sparse
 
 __all__ = [
     "VisionsBaseType",
@@ -46,4 +47,5 @@ __all__ = [
     "URL",
     "Time",
     "EmailAddress",
+    "Sparse",
 ]

@@ -22,23 +22,21 @@ series = get_sparse_series()
 typeset = StandardSet()
 
 contains_map = {
-    Generic: set(),
-    # DateTime: {"datetime_sparse"},
     DateTime: set(),
     TimeDelta: set(),
-    # Categorical: {"pd_categorical_sparse"},
     Categorical: set(),
     Object: set(),
-    Integer: {"int_sparse", "pd_int64_sparse"},
-    Float: {"float_sparse"},
-    Boolean: {"bool_sparse"},
-    Complex: {"complex_sparse"},
-    String: {"str_obj_sparse"},
+    Integer: set(),
+    Complex: set(),
+    Float: set(),
+    Boolean: set(),
+    String: set(),
+    Generic: {"int_sparse", "pd_int64_sparse", "float_sparse", "bool_sparse", "complex_sparse", "str_obj_sparse"},
 }
 
 if int(pd.__version__.split(".")[0]) >= 1:
-    contains_map[Boolean].add("pd_bool_sparse")
-    contains_map[String].add("pd_string_sparse")
+    contains_map[Generic].add("pd_bool_sparse")
+    contains_map[Generic].add("pd_string_sparse")
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
@@ -55,20 +53,20 @@ def test_contains(series, type, member):
 
 
 inference_map = {
-    "int_sparse": Integer,
-    "pd_int64_sparse": Integer,
-    "float_sparse": Float,
-    "bool_sparse": Boolean,
-    "pd_bool_sparse": Boolean,
-    "complex_sparse": Complex,
-    "str_obj_sparse": String,
-    "pd_categorical_sparse": Categorical,
-    # "datetime_sparse": DateTime,
+    "int_sparse": Generic,
+    "pd_int64_sparse": Generic,
+    "float_sparse": Generic,
+    "bool_sparse": Generic,
+    "pd_bool_sparse": Generic,
+    "complex_sparse": Generic,
+    "str_obj_sparse": Generic,
+    "pd_categorical_sparse": Generic,
+    # "datetime_sparse": Generic,
 }
 
 if int(pd.__version__.split(".")[0]) >= 1:
-    inference_map["pd_bool_sparse"] = Boolean
-    inference_map["pd_string_sparse"] = String
+    inference_map["pd_bool_sparse"] = Generic
+    inference_map["pd_string_sparse"] = Generic
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))

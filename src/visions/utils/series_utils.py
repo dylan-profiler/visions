@@ -44,6 +44,16 @@ def func_nullable_series_contains(fn: Callable) -> Callable:
     return inner
 
 
+def series_not_sparse(fn: Callable) -> Callable:
+    @functools.wraps(fn)
+    def inner(cls, series: pd.Series, *args, **kwargs) -> bool:
+        if pdt.is_sparse(series):
+            return False
+        return fn(cls, series, *args, **kwargs)
+
+    return inner
+
+
 def _contains_instance_attrs(
     series, is_method, class_name, attrs: list, sample_size=1
 ) -> bool:
