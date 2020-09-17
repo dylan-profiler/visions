@@ -5,9 +5,14 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import isinstance_attrs, nullable_series_contains
+from visions.utils.series_utils import (
+    func_nullable_series_contains,
+    isinstance_attrs,
+    nullable_series_contains,
+)
 
 
+@func_nullable_series_contains
 def string_is_url(series, state: dict) -> bool:
     try:
         return to_url(series, state).apply(lambda x: x.netloc and x.scheme).all()
