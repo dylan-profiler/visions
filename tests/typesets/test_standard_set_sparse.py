@@ -31,7 +31,14 @@ contains_map = {
     Float: set(),
     Boolean: set(),
     String: set(),
-    Generic: {"int_sparse", "pd_int64_sparse", "float_sparse", "bool_sparse", "complex_sparse", "str_obj_sparse"},
+    Generic: {
+        "int_sparse",
+        "pd_int64_sparse",
+        "float_sparse",
+        "bool_sparse",
+        "complex_sparse",
+        "str_obj_sparse",
+    },
 }
 
 if int(pd.__version__.split(".")[0]) >= 1:

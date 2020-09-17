@@ -15,13 +15,13 @@ from visions.types.ip_address import IPAddress
 from visions.types.object import Object
 from visions.types.ordinal import Ordinal
 from visions.types.path import Path
+from visions.types.sparse import Sparse
 from visions.types.string import String
 from visions.types.time import Time
 from visions.types.time_delta import TimeDelta
 from visions.types.type import VisionsBaseType
 from visions.types.url import URL
 from visions.types.uuid import UUID
-from visions.types.sparse import Sparse
 
 __all__ = [
     "VisionsBaseType",
