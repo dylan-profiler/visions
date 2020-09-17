@@ -1,3 +1,5 @@
+from typing import Optional
+
 import attr
 import pandas as pd
 
@@ -42,10 +44,14 @@ class TypeRelation:
     transformer = attr.ib(repr=func_repr)
     relationship = attr.ib(default=lambda x, y: False, repr=func_repr)
 
-    def is_relation(self, series: pd.Series, state: dict) -> bool:
+    def is_relation(self, series: pd.Series, state: Optional[dict] = None) -> bool:
+        if state is None:
+            state = {}
         return self.relationship(series, state)
 
-    def transform(self, series: pd.Series, state: dict) -> pd.Series:
+    def transform(self, series: pd.Series, state: Optional[dict] = None) -> pd.Series:
+        if state is None:
+            state = {}
         return self.transformer(series, state)
 
     def __str__(self):
