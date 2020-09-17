@@ -131,9 +131,7 @@ def traverse_graph_with_series(
         relation = graph[base_type][vision_type]["relationship"]
         if relation.is_relation(series, state):
             series = relation.transform(series, state)
-            return traverse_graph_with_series(
-                vision_type, series, graph, path, state
-            )
+            return traverse_graph_with_series(vision_type, series, graph, path, state)
 
     return series, path, state
 
