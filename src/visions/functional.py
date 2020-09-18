@@ -1,14 +1,13 @@
 from typing import Dict, List, Tuple, Type, Union
 
-import pandas as pd
-
+from visions.backend import DataType, FrameType
 from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 
 
 def cast_to_detected(
-    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
-) -> pd.DataFrame:
+    data: DataType, typeset: VisionsTypeset
+) -> FrameType:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -23,8 +22,8 @@ def cast_to_detected(
 
 
 def cast_to_inferred(
-    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
-) -> Tuple[pd.DataFrame, dict]:
+    data: DataType, typeset: VisionsTypeset
+) -> Tuple[FrameType, dict]:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -39,7 +38,7 @@ def cast_to_inferred(
 
 
 def infer_type(
-    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
+    data: DataType, typeset: VisionsTypeset
 ) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Infer the current types of each column in the DataFrame given the typeset.
 
@@ -54,7 +53,7 @@ def infer_type(
 
 
 def detect_type(
-    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
+    data: DataType, typeset: VisionsTypeset
 ) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Detect the type in the base graph
 
@@ -69,7 +68,7 @@ def detect_type(
 
 
 def compare_detect_inference_frame(
-    df: pd.DataFrame, typeset: VisionsTypeset
+    df: FrameType, typeset: VisionsTypeset
 ) -> List[Tuple[str, Type[VisionsBaseType], Type[VisionsBaseType]]]:
     """Compare the types given by inference on the base graph and the relational graph
 
@@ -94,7 +93,7 @@ def compare_detect_inference_frame(
     return comparisons
 
 
-def type_inference_report_frame(df, typeset) -> str:
+def type_inference_report_frame(df: FrameType, typeset) -> str:
     """Return formatted report of the output of `compare_detect_inference_frame`.
 
     Args:

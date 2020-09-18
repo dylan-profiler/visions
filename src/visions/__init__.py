@@ -1,4 +1,5 @@
 """Core functionality"""
+# TODO: make independent of backend
 import pandas as pd
 
 if int(pd.__version__.split(".")[0]) < 1:
