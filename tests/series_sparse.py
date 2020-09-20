@@ -26,9 +26,8 @@ def get_sparse_series():
             dtype=pd.SparseDtype(np.bool, False),
         ),
         pd.Series(
-            [None, None, "gold", "black", "silver"],
+            pd.SparseArray([None, None, "gold", "black", "silver"]),
             name="str_obj_sparse",
-            dtype=pd.SparseDtype(np.object, None),
         ),
         # Pending https://github.com/pandas-dev/pandas/issues/35762
         # pd.Series([NoneT, 0, 1, 2, 3, 4], name="datetime_sparse", dtype=pd.SparseDtype(np.datetime64)),
