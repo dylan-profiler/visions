@@ -9,8 +9,8 @@ Going back to our integer example.
 
 .. code-block:: python
 
-	>>> import visions as v
-    >>> v.Integer.get_relations()
+    >>> import visions as v
+    >>> v.Integer.relations
     [IdentityRelation(Generic -> Integer),
      InferenceRelation(Float -> Integer),
      InferenceRelation(String -> Integer)]
@@ -19,7 +19,7 @@ Now imagine a series of floats like `[1.0, 2.0, 3.0]`.
 
 .. code-block:: python
 
-    >>> float_int_relation = v.Integer.get_relations()[1]
+    >>> float_int_relation = v.Integer.relations[1]
     >>> series = pd.Series([1.0, 2.0, 3.0])
 
     >>> series in v.Integer
