@@ -192,6 +192,7 @@
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.utils</span> <span class="kn">import</span> <span class="n">func_nullable_series_contains</span>
 <span class="kn">from</span> <span class="nn">visions.utils.coercion.test_utils</span> <span class="kn">import</span> <span class="n">coercion_map</span><span class="p">,</span> <span class="n">coercion_map_test</span>
+<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">series_not_sparse</span>
 
 <span class="n">hasnan_bool_name</span> <span class="o">=</span> <span class="s2">&quot;boolean&quot;</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;Bool&quot;</span>
 
@@ -213,11 +214,17 @@
 
 
 <span class="k">def</span> <span class="nf">string_is_bool</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">string_coercions</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">coercion_map_test</span><span class="p">(</span><span class="n">string_coercions</span><span class="p">)(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">coercion_map_test</span><span class="p">(</span><span class="n">string_coercions</span><span class="p">)(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="k">def</span> <span class="nf">string_to_bool</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">string_coercions</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">to_bool</span><span class="p">(</span><span class="n">coercion_map</span><span class="p">(</span><span class="n">string_coercions</span><span class="p">)(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> <span class="n">state</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_bool</span><span class="p">(</span><span class="n">coercion_map</span><span class="p">(</span><span class="n">string_coercions</span><span class="p">)(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> <span class="n">state</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
@@ -258,6 +265,7 @@
         <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
+    <span class="nd">@series_not_sparse</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_bool_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
