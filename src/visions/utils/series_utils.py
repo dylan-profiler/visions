@@ -4,7 +4,6 @@ from typing import Callable
 import pandas as pd
 from pandas.api import types as pdt
 
-
 # For future reference: get the dtype from the subtype when the series is sparse
 # def sparse_series_contains(fn: Callable):
 #     @functools.wraps(fn)
@@ -14,7 +13,7 @@ from pandas.api import types as pdt
 #         else:
 #             dtype = series.dtype
 #         # TODO: pass dtype (e.g. in state)
-# 
+#
 #         return fn(cls, series, *args, **kwargs)
 #     return inner
 
