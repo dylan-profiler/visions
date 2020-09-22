@@ -10,7 +10,7 @@ def string_to_categorical_distinct_count(cls) -> InferenceRelation:
     """
     # TODO: only when not any other string relation (either exclude others or have ordering and evaluate last)
     return InferenceRelation(
-        relationship=lambda s: s.nunique() / len(s) < 0.5,
+        relationship=lambda s, state: s.nunique() / len(s) < 0.5,
         transformer=lambda s: s.astype("category"),
         related_type=String,
         type=cls,

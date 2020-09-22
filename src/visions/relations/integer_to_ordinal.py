@@ -1,17 +1,17 @@
+import pandas as pd
+
 from visions.relations import InferenceRelation
+from visions.relations.relations_utils import values_are_consecutive
 from visions.types.ordinal import to_ordinal
 
 
-def check_consecutive(l) -> bool:
-    return sorted(l) == list(range(min(l), max(l) + 1))
-
-
-def is_ordinal_int(s) -> bool:
-    unique_values = list(s.unique())
+def is_ordinal_int(s: pd.Series, state: dict) -> bool:
+    initial_element = 1
+    distinct_values = list(s.unique())
     return (
-        check_consecutive(unique_values)
-        and 2 < len(unique_values) < 10
-        and 1 in unique_values
+        initial_element in distinct_values
+        and values_are_consecutive(distinct_values)
+        and 2 < len(distinct_values) < 10
     )
 
 

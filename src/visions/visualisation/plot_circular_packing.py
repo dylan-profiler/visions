@@ -59,7 +59,7 @@ def to_json_tree_sorted(G, root):
     return data
 
 
-def write_circular_packing_files():
+def write_circular_packing_files() -> None:
     typeset = CompleteSet()
     graph = typeset.base_graph.copy()
     nx.relabel_nodes(graph, {n: str(n) for n in graph.nodes}, copy=False)

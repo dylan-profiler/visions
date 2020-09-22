@@ -5,17 +5,22 @@ import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import isinstance_attrs, nullable_series_contains
+from visions.utils.series_utils import (
+    func_nullable_series_contains,
+    isinstance_attrs,
+    nullable_series_contains,
+)
 
 
-def test_url(series) -> bool:
+@func_nullable_series_contains
+def string_is_url(series, state: dict) -> bool:
     try:
-        return to_url(series).apply(lambda x: x.netloc and x.scheme).all()
+        return to_url(series, state).apply(lambda x: x.netloc and x.scheme).all()
     except AttributeError:
         return False
 
 
-def to_url(series: pd.Series) -> pd.Series:
+def to_url(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(urlparse)
 
 
@@ -24,7 +29,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
     relations = [
         IdentityRelation(cls, Object),
-        InferenceRelation(cls, String, relationship=test_url, transformer=to_url),
+        InferenceRelation(cls, String, relationship=string_is_url, transformer=to_url),
     ]
     return relations
 
@@ -47,5 +52,5 @@ class URL(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return isinstance_attrs(series, ParseResult, ["netloc", "scheme"])

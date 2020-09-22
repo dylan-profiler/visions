@@ -1,29 +1,40 @@
+from functools import partial
 from typing import Sequence
 
-import numpy as np
 import pandas as pd
 from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.relations.string_to_bool import get_boolean_coercions
 from visions.types.type import VisionsBaseType
+from visions.utils import func_nullable_series_contains
 from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
 
 hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Bool"
 
 
-def to_bool(series: pd.Series) -> pd.Series:
-    return series.astype(hasnan_bool_name if series.hasnans else bool)
+def to_bool(series: pd.Series, state: dict) -> pd.Series:
+    dtype = hasnan_bool_name if series.hasnans else bool
+    return series.astype(dtype)
 
 
-def object_is_bool(series: pd.Series) -> bool:
-    bool_set = {True, False, None, np.nan}
+@func_nullable_series_contains
+def object_is_bool(series: pd.Series, state: dict) -> bool:
+    bool_set = {True, False}
     try:
         ret = all(item in bool_set for item in series)
     except:
         ret = False
 
     return ret
+
+
+def string_is_bool(series, state: dict, string_coercions):
+    return coercion_map_test(string_coercions)(series.str.lower())
+
+
+def string_to_bool(series, state: dict, string_coercions):
+    return to_bool(coercion_map(string_coercions)(series.str.lower()), state)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -34,12 +45,8 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             String,
-            relationship=lambda s: coercion_map_test(cls.string_coercions)(
-                s.str.lower()
-            ),
-            transformer=lambda s: to_bool(
-                coercion_map(cls.string_coercions)(s.str.lower())
-            ),
+            relationship=partial(string_is_bool, string_coercions=cls.string_coercions),
+            transformer=partial(string_to_bool, string_coercions=cls.string_coercions),
         ),
         InferenceRelation(
             cls, Object, relationship=object_is_bool, transformer=to_bool
@@ -68,7 +75,7 @@ class Boolean(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         if not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series):
             return True
 

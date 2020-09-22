@@ -4,11 +4,12 @@ import pandas as pd
 from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, TypeRelation
-from visions.types import Generic
 from visions.types.type import VisionsBaseType
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
+    from visions import Generic
+
     relations = [IdentityRelation(cls, Generic)]
     return relations
 
@@ -27,5 +28,5 @@ class Numeric(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_numeric_dtype(series)

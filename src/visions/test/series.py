@@ -67,7 +67,6 @@ def get_series():
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
         pd.Series(["Patty", "Valentine"], name="string_series"),
-        pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
         pd.Series(
             np.array(["upper", "hall"], dtype=np.unicode_),
@@ -78,10 +77,6 @@ def get_series():
         pd.Series(["1.0", "2.0", "3.0"], name="string_num"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
-        pd.Series(
-            ["POINT (-92 42)", "POINT (-92 42.1)", "POINT (-92 42.2)"],
-            name="geometry_string_series",
-        ),
         pd.Series(
             [
                 "I was only robbing the register,",
@@ -94,11 +89,10 @@ def get_series():
         ),
         pd.Series(["True", "False", None], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
-        pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
         pd.Series(
             [
                 "http://www.cwi.nl:80/%7Eguido/Python.html",
-                "https://github.com/pandas-profiling/pandas-profiling",
+                "https://github.com/dylan-profiling/hurricane",
             ],
             name="str_url",
         ),
@@ -135,6 +129,7 @@ def get_series():
             name="complex_series_nan",
         ),
         pd.Series(["(1+1j)", "(2+2j)", "(10+100j)"], name="str_complex"),
+        pd.Series(["(1+1j)", "(2+2j)", "(10+100j)", "NaN"], name="str_complex_nan"),
         pd.Series(
             [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
             name="complex_series_nan_2",
@@ -151,6 +146,8 @@ def get_series():
             name="complex_series_float",
         ),
         # Datetime Series
+        pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
+        pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.to_datetime(
             pd.Series(
                 [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
@@ -461,6 +458,10 @@ def get_geometry_series():
     from shapely import wkt
 
     series = [
+        pd.Series(
+            ["POINT (-92 42)", "POINT (-92 42.1)", "POINT (-92 42.2)"],
+            name="geometry_string_series",
+        ),
         pd.Series(
             [
                 wkt.loads("POINT (-92 42)"),

@@ -1,11 +1,14 @@
+import numpy as np
 import pandas as pd
 import pytest
 
 from visions import StandardSet
 from visions.test.series import get_geometry_series, get_series
 from visions.test.utils import (
+    cast,
     contains,
     convert,
+    get_cast_cases,
     get_contains_cases,
     get_convert_cases,
     get_inference_cases,
@@ -23,6 +26,7 @@ from visions.types import (
     String,
     TimeDelta,
 )
+from visions.types.boolean import hasnan_bool_name
 
 series = get_series() + get_geometry_series()
 
@@ -44,13 +48,14 @@ contains_map = {
         "float_series3",
         "float_series4",
         "inf_series",
-        "nan_series",
         "float_nan_series",
         "float_series5",
         "int_nan_series",
-        "nan_series_2",
         "float_with_inf",
         "float_series6",
+        # only NaNs
+        "nan_series",
+        "nan_series_2",
     },
     Categorical: {
         "categorical_int_series",
@@ -99,6 +104,7 @@ contains_map = {
         "string_bool_nan",
         "string_flt_nan",
         "str_complex",
+        "str_complex_nan",
         "uuid_series_str",
         "str_int_leading_zeros",
         "email_address_str",
@@ -258,6 +264,7 @@ inference_map = {
     "categorical_char": Categorical,
     "ordinal": Categorical,
     "str_complex": Complex,
+    "str_complex_nan": Complex,
     "uuid_series": Object,
     "uuid_series_str": String,
     "uuid_series_missing": Object,
@@ -294,7 +301,7 @@ def test_inference(series, type, typeset, difference):
 convert_map = [
     # Model type, Relation type
     (Integer, Float, {"int_nan_series", "float_series2"}),
-    (Complex, String, {"str_complex"}),
+    (Complex, String, {"str_complex", "str_complex_nan"}),
     (
         Float,
         String,
@@ -327,4 +334,48 @@ def test_conversion(source_type, relation_type, series, member):
         type: the type to test against
     """
     result, message = convert(source_type, relation_type, series, member)
+    assert result, message
+
+
+cast_results = {
+    "float_series2": pd.Series([1, 2, 3, 4], dtype=np.int64),
+    "int_nan_series": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
+    "timestamp_string_series": pd.Series(
+        [np.datetime64("1941-05-24"), np.datetime64("2016-10-13")],
+        dtype="datetime64[ns]",
+    ),
+    "string_num_nan": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
+    "string_num": pd.Series([1, 2, 3], dtype=np.int64),
+    "string_flt_nan": pd.Series([1.0, 45.67, np.nan], dtype=np.float64),
+    "string_flt": pd.Series([1.0, 45.67, 3.5], dtype=np.float64),
+    "string_bool_nan": pd.Series([True, False, None], dtype=hasnan_bool_name),
+    "int_str_range": pd.Series(
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        dtype=np.int64,
+    ),
+    "string_date": pd.Series(
+        [np.datetime64("1937-05-06"), np.datetime64("2014-04-20")],
+        dtype="datetime64[ns]",
+    ),
+    "str_float_non_leading_zeros": pd.Series([0.0, 0.04, 0.0], dtype=np.float64),
+    "str_int_zeros": pd.Series([0, 0, 0, 2], dtype=np.int64),
+    "bool_nan_series": pd.Series([True, False, None], dtype=hasnan_bool_name),
+    "str_complex": pd.Series(
+        [complex(1, 1), complex(2, 2), complex(10, 100)], dtype=np.complex128
+    ),
+    "str_complex_nan": pd.Series(
+        [complex(1, 1), complex(2, 2), complex(10, 100), np.nan], dtype=np.complex128
+    ),
+    "complex_series_float": pd.Series([0, 1, 3, -1], dtype=np.int64),
+    "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
+    "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
+    "mixed": pd.Series([True, False, None], dtype=hasnan_bool_name),
+}
+
+
+@pytest.mark.parametrize(**get_cast_cases(series, cast_results))
+def test_cast(series, expected):
+    if isinstance(expected, str):
+        expected = None
+    result, message = cast(series, typeset, expected)
     assert result, message
