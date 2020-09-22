@@ -113,21 +113,9 @@ def coercion_equality_test(method: Callable) -> Callable:
 
 
 def coercion_single_map_test(mapping: List[Dict]) -> Callable:
-<<<<<<< HEAD
     @func_nullable_series_contains
     def f(series: pd.Series, state: dict = {}) -> bool:
         return any(series.isin(list(single_map.keys())).all() for single_map in mapping)
-=======
-    def f(series: pd.Series) -> bool:
-        # TODO: None value
-        try:
-            return any(
-                series.isin(list(single_map.keys()) + [None]).all()
-                for single_map in mapping
-            )
-        except:
-            return False
->>>>>>> c04a8888... Sparse series contains
 
     return f
 
