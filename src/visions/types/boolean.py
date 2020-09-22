@@ -9,7 +9,7 @@ from visions.relations.string_to_bool import get_boolean_coercions
 from visions.types.type import VisionsBaseType
 from visions.utils import func_nullable_series_contains
 from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
-from visions.utils.series_utils import series_not_sparse
+from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Bool"
 
@@ -83,6 +83,7 @@ class Boolean(VisionsBaseType):
 
     @classmethod
     @series_not_sparse
+    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         if not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series):
             return True
