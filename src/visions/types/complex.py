@@ -59,7 +59,6 @@ class Complex(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @classmethod
     @series_not_sparse
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_complex_dtype(series)
