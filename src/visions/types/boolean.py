@@ -87,8 +87,9 @@ class Boolean(VisionsBaseType):
         def get_relations(cls):
             return _get_relations(cls)
 
+        name = cls.__name__
         return type(
-            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+            f"{name}[{type_name}]",
             (cls,),
             {
                 "string_coercions": string_coercions,

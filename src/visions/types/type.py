@@ -83,8 +83,9 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         def get_new_relations(cls) -> Sequence[TypeRelation]:
             return relations
 
+        name = cls.__name__
         new_type = type(
-            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+            f"{name}[{type_name}]",
             (cls,),
             {
                 "get_relations": classmethod(get_new_relations),
@@ -101,7 +102,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             relations = new_relations
         else:
             old_relations = [
-                attr.evolve(relation, type=new_type) for relation in cls.get_relations()
+                attr.evolve(relation, type=new_type) for relation in cls.relations
             ]
             relations = old_relations + new_relations
 
