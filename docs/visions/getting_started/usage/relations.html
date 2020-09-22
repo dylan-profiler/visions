@@ -199,15 +199,15 @@
 responsible for testing the validity of a relation while <cite>transform</cite> applies whatever
 transformation is required to map between the types defined on the relation.</p>
 <p>Going back to our integer example.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
-<span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Generic</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">),</span>
- <span class="n">InferenceRelation</span><span class="p">(</span><span class="n">Float</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">),</span>
- <span class="n">InferenceRelation</span><span class="p">(</span><span class="n">String</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">)]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="o">.</span><span class="n">relations</span>
+<span class="go">[IdentityRelation(Generic -&gt; Integer),</span>
+<span class="go"> InferenceRelation(Float -&gt; Integer),</span>
+<span class="go"> InferenceRelation(String -&gt; Integer)]</span>
 </pre></div>
 </div>
 <p>Now imagine a series of floats like <cite>[1.0, 2.0, 3.0]</cite>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">float_int_relation</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">float_int_relation</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="o">.</span><span class="n">relations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">series</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">Integer</span>
