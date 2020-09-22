@@ -23,7 +23,7 @@ In practice this looks like
 
 .. code-block:: python
 
-	>>> import visions as v
+    >>> import visions as v
     >>> test_series = pd.Series(['Apple', 'Orange', 'Pear'])
     >>> test_series in v.String
     True
@@ -42,8 +42,8 @@ represents a mapping between types. Let's take the example of an integer
 
 .. code-block:: python
 
-	>>> import visions as v
-    >>> v.Integer.get_relations()
+    >>> import visions as v
+    >>> v.Integer.relations
     [IdentityRelation(Generic -> Integer),
      InferenceRelation(Float -> Integer),
      InferenceRelation(String -> Integer)]

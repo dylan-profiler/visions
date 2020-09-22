@@ -9,6 +9,7 @@ from visions.relations.string_to_bool import get_boolean_coercions
 from visions.types.type import VisionsBaseType
 from visions.utils import func_nullable_series_contains
 from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
+from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Bool"
 
@@ -30,11 +31,17 @@ def object_is_bool(series: pd.Series, state: dict) -> bool:
 
 
 def string_is_bool(series, state: dict, string_coercions):
-    return coercion_map_test(string_coercions)(series.str.lower())
+    try:
+        return coercion_map_test(string_coercions)(series.str.lower())
+    except:
+        return False
 
 
 def string_to_bool(series, state: dict, string_coercions):
-    return to_bool(coercion_map(string_coercions)(series.str.lower()), state)
+    try:
+        return to_bool(coercion_map(string_coercions)(series.str.lower()), state)
+    except:
+        return False
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -75,6 +82,8 @@ class Boolean(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_sparse
+    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         if not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series):
             return True

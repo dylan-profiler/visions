@@ -9,13 +9,6 @@ from visions.relations import TypeRelation
 
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series, state: dict = {}) -> bool:
-        # Possible alternative:
-        # return cls in cls.typeset.detect_type_path(series)
-
-        if series.empty:
-            from visions.types import Generic
-
-            return issubclass(cls, Generic)
         return cls.contains_op(series, state)  # type: ignore
 
     @property
