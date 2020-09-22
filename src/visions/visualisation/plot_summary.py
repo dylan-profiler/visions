@@ -4,7 +4,7 @@ from visions.application.summaries.complete_summary import CompleteSummary
 from visions.types import DateTime, File, Integer, String
 
 
-def generate_summary_plots():
+def generate_summary_plots() -> None:
     summaries_dir = Path("summaries/")
     summaries_dir.mkdir(exist_ok=True)
 

@@ -9,8 +9,11 @@ from visions.utils.coercion import test_utils
 from visions.utils.series_utils import isinstance_attrs, nullable_series_contains
 
 
-def test_email(series):
-    return to_email(series).apply(lambda x: x.local and x.fqdn).all()
+def string_is_email(series, state: dict):
+    def test_email(s):
+        return s.apply(str_to_email).apply(lambda x: x.local and x.fqdn)
+
+    return test_utils.coercion_true_test(test_email)(series)
 
 
 def str_to_email(s):
@@ -22,7 +25,7 @@ def str_to_email(s):
         raise TypeError("Only strings supported")
 
 
-def to_email(series: pd.Series) -> pd.Series:
+def to_email(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(str_to_email)
 
 
@@ -34,7 +37,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             String,
-            relationship=test_utils.coercion_test(test_email),
+            relationship=string_is_email,
             transformer=to_email,
         ),
     ]
@@ -71,5 +74,5 @@ class EmailAddress(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return isinstance_attrs(series, FQDA, ["local", "fqdn"])

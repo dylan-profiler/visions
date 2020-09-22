@@ -54,7 +54,7 @@ class CompleteSet(VisionsTypeset):
 
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         types = {
             Generic,
             Boolean,

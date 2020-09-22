@@ -8,7 +8,6 @@ from urllib.parse import urlparse
 
 import numpy as np
 import pandas as pd
-from shapely import wkt
 
 from visions.types.email_address import FQDA
 
@@ -25,6 +24,7 @@ def get_series():
         pd.Series([1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0], name="int_series_boolean"),
         # Count
         pd.Series(np.array([1, 2, 3, 4], dtype=np.uint32), name="np_uint32"),
+        pd.Series(np.array([1, 2, 3, 4], dtype="UInt32"), name="pd_uint32"),
         # Categorical
         pd.Series([1, 2, 3], name="categorical_int_series", dtype="category"),
         pd.Series(
@@ -67,7 +67,6 @@ def get_series():
         pd.Series([np.nan, np.nan, np.nan, np.nan], name="nan_series_2"),
         # String Series
         pd.Series(["Patty", "Valentine"], name="string_series"),
-        pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.Series(["mack", "the", "finger"], name="string_unicode_series"),
         pd.Series(
             np.array(["upper", "hall"], dtype=np.unicode_),
@@ -78,10 +77,6 @@ def get_series():
         pd.Series(["1.0", "2.0", "3.0"], name="string_num"),
         pd.Series(["1.0", "45.67", np.nan], name="string_flt_nan"),
         pd.Series(["1.0", "45.67", "3.5"], name="string_flt"),
-        pd.Series(
-            ["POINT (-92 42)", "POINT (-92 42.1)", "POINT (-92 42.2)"],
-            name="geometry_string_series",
-        ),
         pd.Series(
             [
                 "I was only robbing the register,",
@@ -94,11 +89,10 @@ def get_series():
         ),
         pd.Series(["True", "False", None], name="string_bool_nan"),
         pd.Series(range(20), name="int_str_range").astype("str"),
-        pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
         pd.Series(
             [
                 "http://www.cwi.nl:80/%7Eguido/Python.html",
-                "https://github.com/pandas-profiling/pandas-profiling",
+                "https://github.com/dylan-profiling/hurricane",
             ],
             name="str_url",
         ),
@@ -135,6 +129,7 @@ def get_series():
             name="complex_series_nan",
         ),
         pd.Series(["(1+1j)", "(2+2j)", "(10+100j)"], name="str_complex"),
+        pd.Series(["(1+1j)", "(2+2j)", "(10+100j)", "NaN"], name="str_complex_nan"),
         pd.Series(
             [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan],
             name="complex_series_nan_2",
@@ -151,6 +146,8 @@ def get_series():
             name="complex_series_float",
         ),
         # Datetime Series
+        pd.Series(["1937-05-06", "20/4/2014"], name="string_date"),
+        pd.Series(["1941-05-24", "13/10/2016"], name="timestamp_string_series"),
         pd.to_datetime(
             pd.Series(
                 [datetime.datetime(2017, 3, 5, 12, 2), datetime.datetime(2019, 12, 4)],
@@ -239,24 +236,6 @@ def get_series():
             ],
             name="timedelta_negative",
         ),
-        # Geometry Series
-        pd.Series(
-            [
-                wkt.loads("POINT (-92 42)"),
-                wkt.loads("POINT (-92 42.1)"),
-                wkt.loads("POINT (-92 42.2)"),
-            ],
-            name="geometry_series",
-        ),
-        pd.Series(
-            [
-                wkt.loads("POINT (-92 42)"),
-                wkt.loads("POINT (-92 42.1)"),
-                wkt.loads("POINT (-92 42.2)"),
-                None,
-            ],
-            name="geometry_series_missing",
-        ),
         # Path Series
         pd.Series(
             [
@@ -340,7 +319,7 @@ def get_series():
             [pd.to_datetime, pd.to_timedelta, pd.read_json, pd.to_pickle],
             name="callable",
         ),
-        pd.Series([pd, wkt, np], name="module"),
+        pd.Series([pd, np], name="module"),
         pd.Series(["1.1", "2"], name="textual_float"),
         pd.Series(["1.1", "2", "NAN"], name="textual_float_nan"),
         # Object (Mixed, https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.api.types.infer_dtype.html)
@@ -377,15 +356,19 @@ def get_series():
             [
                 pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
                 pathlib.Path(os.path.join(base_path, "__init__.py")).absolute(),
-                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "utils.py")).absolute(),
             ],
             name="file_test_py",
         ),
         pd.Series(
             [
-                pathlib.Path(os.path.join(base_path, "..", "make.bat")).absolute(),
-                pathlib.Path(os.path.join(base_path, "..", "README.rst")).absolute(),
-                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "..", "py.typed")).absolute(),
+                pathlib.Path(
+                    os.path.join(
+                        base_path, "..", "visualisation", "circular_packing.html"
+                    )
+                ).absolute(),
+                pathlib.Path(os.path.join(base_path, "series.py")).absolute(),
             ],
             name="file_mixed_ext",
         ),
@@ -395,7 +378,7 @@ def get_series():
                 None,
                 pathlib.Path(os.path.join(base_path, "__init__.py")).absolute(),
                 None,
-                pathlib.Path(os.path.join(base_path, "test_copy.py")).absolute(),
+                pathlib.Path(os.path.join(base_path, "utils.py")).absolute(),
             ],
             name="file_test_py_missing",
         ),
@@ -405,19 +388,19 @@ def get_series():
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        "../src/visions/visualisation/typesets/typeset_complete.png",
+                        "../visualisation/typesets/typeset_complete.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                        r"../visualisation/typesets/typeset_standard.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                        r"../visualisation/typesets/typeset_geometry.png",
                     )
                 ).absolute(),
             ],
@@ -428,20 +411,20 @@ def get_series():
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_complete.png",
+                        r"../visualisation/typesets/typeset_complete.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_standard.png",
+                        r"../visualisation/typesets/typeset_standard.png",
                     )
                 ).absolute(),
                 None,
                 pathlib.Path(
                     os.path.join(
                         base_path,
-                        r"../src/visions/visualisation/typesets/typeset_geometry.png",
+                        r"../visualisation/typesets/typeset_geometry.png",
                     )
                 ).absolute(),
                 None,
@@ -469,3 +452,32 @@ def get_series():
         test_series.extend(pandas_1_series)
 
     return test_series
+
+
+def get_geometry_series():
+    from shapely import wkt
+
+    series = [
+        pd.Series(
+            ["POINT (-92 42)", "POINT (-92 42.1)", "POINT (-92 42.2)"],
+            name="geometry_string_series",
+        ),
+        pd.Series(
+            [
+                wkt.loads("POINT (-92 42)"),
+                wkt.loads("POINT (-92 42.1)"),
+                wkt.loads("POINT (-92 42.2)"),
+            ],
+            name="geometry_series",
+        ),
+        pd.Series(
+            [
+                wkt.loads("POINT (-92 42)"),
+                wkt.loads("POINT (-92 42.1)"),
+                wkt.loads("POINT (-92 42.2)"),
+                None,
+            ],
+            name="geometry_series_missing",
+        ),
+    ]
+    return series

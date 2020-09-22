@@ -51,7 +51,7 @@ def mutable_pseudo_hash(data, node, graph):
     # return id((data, node, graph))
     try:
         if isinstance(data, pd.DataFrame):
-            data_hash = hash(hash(tuple(df[col])) for col in df.columns)
+            data_hash = hash(hash(tuple(data[col])) for col in data.columns)
         else:
             data_hash = hash(tuple(data.values))
     except:

@@ -7,7 +7,7 @@ from visions.typesets import CompleteSet, GeometrySet, StandardSet
 # https://github.com/CristiFati/Prebuilt-Binaries/raw/master/Windows/PyGraphviz/pygraphviz-1.5-cp37-cp37m-win_amd64.whl
 
 
-def generate_typeset_plots():
+def generate_typeset_plots() -> None:
     typesets_dir = Path("typesets/")
     typesets_dir.mkdir(exist_ok=True)
 

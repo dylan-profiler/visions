@@ -4,3 +4,9 @@ from visions.relations.relations import (
     InferenceRelation,
     TypeRelation,
 )
+
+__all__ = [
+    "IdentityRelation",
+    "InferenceRelation",
+    "TypeRelation",
+]

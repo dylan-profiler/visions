@@ -90,7 +90,7 @@ def compare_detect_inference_frame(
     for key in detected_types.keys() & inferred_types.keys():  # type: ignore
         comparisons.append(
             (key, detected_types[key], inferred_types[key])  # type: ignore
-        )  # type: ignore
+        )
     return comparisons
 
 
@@ -136,7 +136,9 @@ def type_inference_report_frame(df, typeset) -> str:
             max_type_length=max_type_length,
             fill=fill,
         )
-    report += "In total {change_count} out of {type_count} types were changed.\n".format(
-        change_count=change_count, type_count=len(df.columns)
+    report += (
+        "In total {change_count} out of {type_count} types were changed.\n".format(
+            change_count=change_count, type_count=len(df.columns)
+        )
     )
     return report

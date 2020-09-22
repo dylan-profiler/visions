@@ -1,3 +1,4 @@
+from functools import partial
 from typing import Sequence
 
 import pandas as pd
@@ -8,7 +9,14 @@ from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 
 
-def to_datetime(series: pd.Series) -> pd.Series:
+def string_is_datetime(series: pd.Series, state: dict) -> bool:
+    exceptions = [OverflowError, TypeError]
+    return test_utils.coercion_test(partial(to_datetime, state=state), exceptions)(
+        series
+    )
+
+
+def to_datetime(series: pd.Series, state: dict) -> pd.Series:
     return pd.to_datetime(series)
 
 
@@ -20,9 +28,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
         InferenceRelation(
             cls,
             String,
-            relationship=test_utils.coercion_test(
-                to_datetime, [OverflowError, TypeError]  # type: ignore
-            ),
+            relationship=string_is_datetime,
             transformer=to_datetime,
         ),
     ]
@@ -43,5 +49,5 @@ class DateTime(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return pdt.is_datetime64_any_dtype(series)

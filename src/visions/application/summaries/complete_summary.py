@@ -20,7 +20,7 @@ from visions.typesets import CompleteSet
 
 
 class CompleteSummary(Summary):
-    def __init__(self):
+    def __init__(self) -> None:
         type_summary_ops = {
             Boolean: [],
             Categorical: [category_summary, unique_summary],

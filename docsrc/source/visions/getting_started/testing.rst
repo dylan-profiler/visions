@@ -21,7 +21,8 @@ Defining your own test cases for the "contains" relation requires a simple mappi
 .. code-block:: python
 
     import pytest
-    from tests.series import get_series
+    from visions.test.series import get_series
+    from visions.test.utils import contains, get_contains_cases
 
     # Mapping from type to series identifier
     typeset = YourTypeset()

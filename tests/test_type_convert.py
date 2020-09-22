@@ -2,7 +2,7 @@ import sys
 
 import pytest
 
-from tests.series import get_series
+from visions.test.series import get_geometry_series, get_series
 from visions.typesets import CompleteSet
 
 
@@ -37,7 +37,7 @@ def all_relations_tested(series_map):
 
 
 def pytest_generate_tests(metafunc):
-    _test_suite = get_series()
+    _test_suite = get_series() + get_geometry_series()
     if metafunc.function.__name__ in [
         "test_consistency",
         "test_side_effects",

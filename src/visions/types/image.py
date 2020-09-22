@@ -32,7 +32,7 @@ class Image(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return all(
             isinstance(p, Path) and p.exists() and imghdr.what(p) for p in series
         )

@@ -31,7 +31,7 @@ class Object(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         is_object = pdt.is_object_dtype(series)
         if is_object:
             ret = True

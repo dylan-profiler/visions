@@ -31,5 +31,5 @@ class File(VisionsBaseType):
 
     @classmethod
     @nullable_series_contains
-    def contains_op(cls, series: pd.Series) -> bool:
+    def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return all(isinstance(p, pathlib.Path) and p.exists() for p in series)

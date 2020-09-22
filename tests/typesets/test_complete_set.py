@@ -1,16 +1,26 @@
+import datetime
+import uuid
+from ipaddress import IPv4Address
+from pathlib import PurePosixPath, PureWindowsPath
+from urllib.parse import urlparse
+
+import numpy as np
 import pandas as pd
 import pytest
+from shapely import wkt
 
-from tests.series import get_series
-from tests.utils import (
+from visions import CompleteSet
+from visions.test.series import get_geometry_series, get_series
+from visions.test.utils import (
+    cast,
     contains,
     convert,
+    get_cast_cases,
     get_contains_cases,
     get_convert_cases,
     get_inference_cases,
     infers,
 )
-from visions import CompleteSet
 from visions.types import (
     URL,
     UUID,
@@ -35,8 +45,10 @@ from visions.types import (
     Time,
     TimeDelta,
 )
+from visions.types.boolean import hasnan_bool_name
+from visions.types.email_address import FQDA
 
-series = get_series()
+series = get_series() + get_geometry_series()
 
 typeset = CompleteSet()
 
@@ -48,7 +60,7 @@ contains_map = {
         "Int64_int_nan_series",
         "int_series_boolean",
     },
-    Count: {"np_uint32"},
+    Count: {"np_uint32", "pd_uint32"},
     Path: {"path_series_linux", "path_series_linux_missing", "path_series_windows"},
     URL: {"url_series", "url_nan_series", "url_none_series"},
     Float: {
@@ -114,6 +126,7 @@ contains_map = {
         "string_bool_nan",
         "string_flt_nan",
         "str_complex",
+        "str_complex_nan",
         "uuid_series_str",
         "str_int_leading_zeros",
         "email_address_str",
@@ -179,6 +192,7 @@ inference_map = {
     "Int64_int_series": Integer,
     "Int64_int_nan_series": Integer,
     "np_uint32": Count,
+    "pd_uint32": Count,
     "int_range": Integer,
     "float_series": Float,
     "float_nan_series": Float,
@@ -261,6 +275,7 @@ inference_map = {
     "categorical_char": Categorical,
     "ordinal": Ordinal,
     "str_complex": Complex,
+    "str_complex_nan": Complex,
     "uuid_series": UUID,
     "uuid_series_str": UUID,
     "uuid_series_missing": UUID,
@@ -297,7 +312,7 @@ def test_inference(series, type, typeset, difference):
 convert_map = [
     # Model type, Relation type
     (Integer, Float, {"int_nan_series", "float_series2"}),
-    (Complex, String, {"str_complex"}),
+    (Complex, String, {"str_complex", "str_complex_nan"}),
     (
         Float,
         String,
@@ -337,4 +352,92 @@ def test_conversion(source_type, relation_type, series, member):
         type: the type to test against
     """
     result, message = convert(source_type, relation_type, series, member)
+    assert result, message
+
+
+cast_results = {
+    "float_series2": pd.Series([1, 2, 3, 4], dtype=np.int64),
+    "int_nan_series": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
+    "string_num_nan": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
+    "string_num": pd.Series([1, 2, 3], dtype=np.int64),
+    "string_flt_nan": pd.Series([1.0, 45.67, np.nan], dtype=np.float64),
+    "string_flt": pd.Series([1.0, 45.67, 3.5], dtype=np.float64),
+    "string_bool_nan": pd.Series([True, False, None], dtype=hasnan_bool_name),
+    "int_str_range": pd.Series(
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        dtype=np.int64,
+    ),
+    "str_float_non_leading_zeros": pd.Series([0.0, 0.04, 0.0], dtype=np.float64),
+    "str_int_zeros": pd.Series([0, 0, 0, 2], dtype=np.int64),
+    "bool_nan_series": pd.Series([True, False, None], dtype=hasnan_bool_name),
+    "str_complex": pd.Series(
+        [complex(1, 1), complex(2, 2), complex(10, 100)], dtype=np.complex128
+    ),
+    "str_complex_nan": pd.Series(
+        [complex(1, 1), complex(2, 2), complex(10, 100), np.nan], dtype=np.complex128
+    ),
+    "complex_series_float": pd.Series([0, 1, 3, -1], dtype=np.int64),
+    "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
+    "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
+    "mixed": pd.Series([True, False, None], dtype=hasnan_bool_name),
+    "uuid_series_str": pd.Series(
+        [
+            uuid.UUID("0b8a22ca-80ad-4df5-85ac-fa49c44b7ede"),
+            uuid.UUID("aaa381d6-8442-4f63-88c8-7c900e9a23c6"),
+            uuid.UUID("00000000-0000-0000-0000-000000000000"),
+        ],
+    ),
+    "ip_str": pd.Series(
+        [IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")],
+    ),
+    "geometry_string_series": pd.Series(
+        [
+            wkt.loads("POINT (-92 42)"),
+            wkt.loads("POINT (-92 42.1)"),
+            wkt.loads("POINT (-92 42.2)"),
+        ],
+    ),
+    "email_address_str": pd.Series(
+        [FQDA("test", "example.com"), FQDA("info", "example.eu")],
+    ),
+    "str_url": pd.Series(
+        [
+            urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
+            urlparse("https://github.com/dylan-profiling/hurricane"),
+        ],
+    ),
+    "path_series_windows_str": pd.Series(
+        [
+            PureWindowsPath("C:\\home\\user\\file.txt"),
+            PureWindowsPath("C:\\home\\user\\test2.txt"),
+        ],
+    ),
+    "path_series_linux_str": pd.Series(
+        [
+            PurePosixPath("/home/user/file.txt"),
+            PurePosixPath("/home/user/test2.txt"),
+        ],
+    ),
+    "datetime": pd.Series(
+        [
+            datetime.date(2011, 1, 1),
+            datetime.date(2012, 1, 2),
+            datetime.date(2013, 1, 1),
+        ],
+    ),
+    "date_series_nat": pd.Series(
+        [datetime.date(2017, 3, 5), datetime.date(2019, 12, 4), pd.NaT],
+    ),
+    "timestamp_string_series": pd.Series(
+        [datetime.date(1941, 5, 24), datetime.date(2016, 10, 13)]
+    ),
+    "string_date": pd.Series([datetime.date(1937, 5, 6), datetime.date(2014, 4, 20)]),
+}
+
+
+@pytest.mark.parametrize(**get_cast_cases(series, cast_results))
+def test_cast(series, expected):
+    if isinstance(expected, str):
+        expected = None
+    result, message = cast(series, typeset, expected)
     assert result, message

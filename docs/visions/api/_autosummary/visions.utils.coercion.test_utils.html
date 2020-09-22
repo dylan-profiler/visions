@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.utils.coercion.test_utils &mdash; visions 0.5.0 documentation</title>
+  <title>visions.utils.coercion.test_utils &mdash; visions 0.5.1 documentation</title>
   
 
   
@@ -277,6 +277,27 @@ when converting an integer to a float.</p>
 <code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">extra_errors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>A coercion test generator</p>
 <p>Creates a coercion test based on a provided coercion method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – A method coercing a Series to another type.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the coercion failed or was successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="visions.utils.coercion.test_utils.coercion_true_test">
+<code class="sig-prename descclassname">visions.utils.coercion.test_utils.</code><code class="sig-name descname">coercion_true_test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">extra_errors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/coercion/test_utils.html#coercion_true_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.coercion.test_utils.coercion_true_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>A coercion equality test generator</p>
+<p>Creates a coercion test based on a provided coercion method which also enforces
+equality constraints on the output. This is useful when you want to change the
+data type of a series without necessarily changing the data, for example,
+when converting an integer to a float.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>method</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>) – A method coercing a Series to another type.</p>
