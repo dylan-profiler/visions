@@ -443,7 +443,7 @@ def get_series():
         pd.Series(["test@example.com", "info@example.eu"], name="email_address_str"),
     ]
 
-    if int(pd.__version__[0]) >= 1:
+    if int(pd.__version__.split(".")[0]) >= 1:
         pandas_1_series = [
             pd.Series(
                 ["Patty", "Valentine"], dtype="string", name="string_dtype_series"
@@ -452,32 +452,3 @@ def get_series():
         test_series.extend(pandas_1_series)
 
     return test_series
-
-
-def get_geometry_series():
-    from shapely import wkt
-
-    series = [
-        pd.Series(
-            ["POINT (-92 42)", "POINT (-92 42.1)", "POINT (-92 42.2)"],
-            name="geometry_string_series",
-        ),
-        pd.Series(
-            [
-                wkt.loads("POINT (-92 42)"),
-                wkt.loads("POINT (-92 42.1)"),
-                wkt.loads("POINT (-92 42.2)"),
-            ],
-            name="geometry_series",
-        ),
-        pd.Series(
-            [
-                wkt.loads("POINT (-92 42)"),
-                wkt.loads("POINT (-92 42.1)"),
-                wkt.loads("POINT (-92 42.2)"),
-                None,
-            ],
-            name="geometry_series_missing",
-        ),
-    ]
-    return series

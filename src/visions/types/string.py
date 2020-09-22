@@ -6,6 +6,7 @@ from pandas.api import types as pdt
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils import func_nullable_series_contains
+from visions.utils.series_utils import series_not_sparse
 
 
 @func_nullable_series_contains
@@ -37,6 +38,7 @@ class String(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
+    @series_not_sparse
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         # TODO: without the object check this passes string categories... is there a better way?
         if pdt.is_categorical_dtype(series):

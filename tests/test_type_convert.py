@@ -2,7 +2,8 @@ import sys
 
 import pytest
 
-from visions.test.series import get_geometry_series, get_series
+from visions.test.series import get_series
+from visions.test.series_geometry import get_geometry_series
 from visions.typesets import CompleteSet
 
 
