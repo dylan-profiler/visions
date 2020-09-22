@@ -189,6 +189,8 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">func_nullable_series_contains</span>
+
 
 <div class="viewcode-block" id="option_coercion_evaluator"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.option_coercion_evaluator">[docs]</a><span class="k">def</span> <span class="nf">option_coercion_evaluator</span><span class="p">(</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">extra_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -243,6 +245,32 @@
     <span class="k">return</span> <span class="n">f</span></div>
 
 
+<div class="viewcode-block" id="coercion_true_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_true_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_true_test</span><span class="p">(</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">extra_errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A coercion equality test generator</span>
+
+<span class="sd">    Creates a coercion test based on a provided coercion method which also enforces</span>
+<span class="sd">    equality constraints on the output. This is useful when you want to change the</span>
+<span class="sd">    data type of a series without necessarily changing the data, for example,</span>
+<span class="sd">    when converting an integer to a float.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        method: A method coercing a Series to another type.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether the coercion failed or was successful.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tester</span> <span class="o">=</span> <span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">extra_errors</span><span class="p">)</span>
+
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">tester</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">tester</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">series</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">f</span></div>
+
+
 <div class="viewcode-block" id="coercion_equality_test"><a class="viewcode-back" href="../../../../visions/api/_autosummary/visions.utils.coercion.test_utils.html#visions.utils.coercion.test_utils.coercion_equality_test">[docs]</a><span class="k">def</span> <span class="nf">coercion_equality_test</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A coercion equality test generator</span>
 
@@ -268,19 +296,17 @@
 
 
 <span class="k">def</span> <span class="nf">coercion_single_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="c1"># TODO: None value</span>
-        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
-            <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">single_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">single_map</span> <span class="ow">in</span> <span class="n">mapping</span>
-        <span class="p">)</span>
+    <span class="nd">@func_nullable_series_contains</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">single_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="k">for</span> <span class="n">single_map</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">f</span>
 
 
 <span class="k">def</span> <span class="nf">coercion_multi_map_test</span><span class="p">(</span><span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="nd">@func_nullable_series_contains</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">f</span>
 

@@ -188,17 +188,22 @@
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">isinstance_attrs</span><span class="p">,</span> <span class="n">nullable_series_contains</span>
+<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">func_nullable_series_contains</span><span class="p">,</span>
+    <span class="n">isinstance_attrs</span><span class="p">,</span>
+    <span class="n">nullable_series_contains</span><span class="p">,</span>
+<span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">test_url</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="nd">@func_nullable_series_contains</span>
+<span class="k">def</span> <span class="nf">string_is_url</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">to_url</span><span class="p">(</span><span class="n">series</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">netloc</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">to_url</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">netloc</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
 
-<span class="k">def</span> <span class="nf">to_url</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">to_url</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">urlparse</span><span class="p">)</span>
 
 
@@ -207,7 +212,7 @@
 
     <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">test_url</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_url</span><span class="p">),</span>
+        <span class="n">InferenceRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">string_is_url</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_url</span><span class="p">),</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">relations</span>
 
@@ -230,7 +235,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="nd">@nullable_series_contains</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">isinstance_attrs</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">ParseResult</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;netloc&quot;</span><span class="p">,</span> <span class="s2">&quot;scheme&quot;</span><span class="p">])</span></div>
 </pre></div>
 
