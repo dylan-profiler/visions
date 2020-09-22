@@ -10,7 +10,7 @@ def identity_relation(series: pd.Series) -> pd.Series:
     return series
 
 
-@attr.s(frozen=True)
+@attr.s
 class TypeRelation:
     """Relationship encoder between implementations of :class:`visions.types.type.VisionsBaseType`
 
@@ -35,11 +35,11 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type = attr.ib()
     related_type = attr.ib()
     inferential = attr.ib()
     transformer = attr.ib(repr=func_repr)
     relationship = attr.ib(default=lambda x: False, repr=func_repr)
+    type = attr.ib(default=None)
 
     def is_relation(self, series: pd.Series) -> bool:
         return self.relationship(series)
@@ -51,22 +51,18 @@ class TypeRelation:
         return f"{self.related_type}->{self.type}"
 
 
-@attr.s(frozen=True)
+@attr.s
 class IdentityRelation(TypeRelation):
-    relationship = attr.ib(repr=func_repr)
+    relationship = attr.ib(default=None, repr=func_repr)
     transformer = attr.ib(default=identity_relation, repr=func_repr)
     inferential = attr.ib(default=False)
 
-    @relationship.default
-    def make_relationship(self):
-        return self.type.__contains__
 
-
-@attr.s(frozen=True)
+@attr.s
 class InferenceRelation(TypeRelation):
     relationship = attr.ib(repr=func_repr)
     inferential = attr.ib(default=True)
 
     @relationship.default
     def make_relationship(self):
-        return self.type.__contains__
+        return self.type.contains_op

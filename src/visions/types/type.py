@@ -9,16 +9,21 @@ from visions.relations import TypeRelation
 
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series) -> bool:
-        if series.empty:
-            from visions.types import Generic
-
-            return issubclass(cls, Generic)
+        # if series.empty:
+        #     from visions.types import Generic
+        #
+        # return issubclass(cls, Generic)
         return cls.contains_op(series)  # type: ignore
 
     @property
     def relations(cls) -> Optional[Sequence[TypeRelation]]:
         if cls._relations is None:  # type: ignore
             cls._relations = cls.get_relations()  # type: ignore
+            for idx in range(len(cls._relations)):
+                if cls._relations[idx].type is None:
+                    cls._relations[idx].type = cls
+                if cls._relations[idx].relationship is None:
+                    cls._relations[idx].relationship = cls.__contains__
         return cls._relations
 
     def __add__(cls, other):

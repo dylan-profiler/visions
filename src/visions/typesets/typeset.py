@@ -5,6 +5,7 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple, Type, TypeVa
 
 import networkx as nx
 import pandas as pd
+import numpy as np
 
 from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
@@ -36,7 +37,7 @@ def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGra
     noninferential_edges = []
 
     for node in nodes:
-        for relation in node.get_relations():
+        for relation in node.relations:
             if relation.related_type not in nodes:
                 warnings.warn(
                     "Provided relations included mapping from {related_type} to {own_type} but {related_type} was not included in the provided list of nodes".format(
@@ -175,12 +176,13 @@ def traverse_graph_with_sampled_series(
 
 @singledispatch
 def traverse_graph(
-    data: pdT, root_node: Type[VisionsBaseType], graph: nx.DiGraph
+    data: Any, root_node: Type[VisionsBaseType], graph: nx.DiGraph
 ) -> Tuple[pdT, Any]:
     raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
 
 
 @traverse_graph.register(pd.Series)
+@traverse_graph.register(np.ndarray)
 def _(
     series: pd.Series, root_node: Type[VisionsBaseType], graph: nx.DiGraph
 ) -> Tuple[pd.Series, List[Type[VisionsBaseType]]]:
