@@ -1,32 +1,18 @@
-from typing import List, Sequence, Iterable
-
-import numpy as np
-import pandas as pd
-from pandas.api import types as pdt
 from functools import singledispatch
+from typing import Iterable, List, Sequence
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils import func_nullable_series_contains
-from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 
-def to_int(series: pd.Series, state: dict) -> pd.Series:
-    dtype = "Int64" if series.hasnans else np.int64
-    return series.astype(dtype)
+@singledispatch
+def to_int(sequence: Iterable, state: dict) -> Iterable:
+    return map(int, sequence)
 
 
-@func_nullable_series_contains
-def float_is_int(series: pd.Series, state: dict) -> bool:
-    def check_equality(series):
-        try:
-            if not np.isfinite(series).all():
-                return False
-            return series.eq(series.astype(int)).all()
-        except:
-            return False
-
-    return check_equality(series)
+@singledispatch
+def float_is_int(sequence: Iterable, state: dict) -> bool:
+    return all(int(value) == value for value in sequence)
 
 
 def _get_relations(cls) -> List[TypeRelation]:
@@ -44,21 +30,11 @@ def integer_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(value, int) for value in sequence)
 
 
-@series_not_sparse
-@series_not_empty
-def temp_func(cls, series, state):
-    return pdt.is_integer_dtype(series)
-
-
-@integer_contains.register(pd.Series)
-def _(sequence: pd.Series, state: dict) -> bool:
-    return temp_func(_, sequence, state)
-
-
 class Integer(VisionsBaseType):
     """**Integer** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
+        >>> import pandas as pd
         >>> x = pd.Series([1, 2, 3])
         >>> x in visions.Integer
         True
@@ -69,5 +45,5 @@ class Integer(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return integer_contains(series, state)
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return integer_contains(sequence, state)

@@ -1,8 +1,13 @@
 """Core functionality"""
-import pandas as pd
+try:
+    import pandas as pd
 
-if int(pd.__version__.split(".")[0]) < 1:
-    from visions.dtypes.boolean import BoolDtype
+    import visions.backends.pandas_functions
+
+    if int(pd.__version__.split(".")[0]) < 1:
+        from visions.dtypes.boolean import BoolDtype
+except ImportError:
+    pass
 
 from visions import types, typesets, utils
 from visions.functional import (
