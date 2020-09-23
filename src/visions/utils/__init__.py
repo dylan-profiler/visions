@@ -10,6 +10,7 @@ from visions.utils.series_utils import (
     nullable_series_contains,
 )
 from visions.utils.warning_handling import suppress_warnings
+from visions.utils.pandas import pandas_apply
 
 __all__ = [
     "test_utils",

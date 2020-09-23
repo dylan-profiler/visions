@@ -221,12 +221,8 @@ def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
 
 
 @get_type_from_path.register(list)  # type: ignore
+@get_type_from_path.register(tuple)
 def _(path_list: list) -> Type[VisionsBaseType]:
-    return path_list[-1]
-
-
-@get_type_from_path.register(tuple)  # type: ignore
-def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 

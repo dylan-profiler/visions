@@ -6,20 +6,21 @@ import pandas as pd
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import nullable_series_contains, series_not_empty
+from visions.utils.pandas import pandas_apply
 
 
 def string_is_path(series, state: dict) -> bool:
     try:
         s = to_path(series.copy(), state)
-        return s.apply(lambda x: x.is_absolute()).all()
+        return pandas_apply(s)(lambda x: x.is_absolute()).all()
     except TypeError:
         return False
 
 
 def to_path(series: pd.Series, state: dict) -> pd.Series:
-    s = series.copy().apply(pathlib.PureWindowsPath)
-    if not s.apply(lambda x: x.is_absolute()).all():
-        return series.apply(pathlib.PurePosixPath)
+    s = pandas_apply(series)(pathlib.PureWindowsPath)
+    if not pandas_apply(s)(lambda x: x.is_absolute()).all():
+        return pandas_apply(series)(pathlib.PurePosixPath)
     else:
         return s
 

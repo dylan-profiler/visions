@@ -11,18 +11,21 @@ from visions.utils.series_utils import (
     nullable_series_contains,
     series_not_empty,
 )
+from visions.utils.pandas import pandas_apply
 
 
 @func_nullable_series_contains
 def string_is_url(series, state: dict) -> bool:
     try:
-        return to_url(series, state).apply(lambda x: x.netloc and x.scheme).all()
+        return pandas_apply(to_url(series, state))(
+            lambda x: x.netloc and x.scheme
+        ).all()
     except AttributeError:
         return False
 
 
 def to_url(series: pd.Series, state: dict) -> pd.Series:
-    return series.apply(urlparse)
+    return pandas_apply(series)(urlparse)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:

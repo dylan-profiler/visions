@@ -38,12 +38,23 @@ contains_map = {
         "bool_sparse",
         "complex_sparse",
         "str_obj_sparse",
+        "pd_bool_sparse",
+        "pd_string_sparse",
     },
 }
 
-if int(pd.__version__.split(".")[0]) >= 1:
-    contains_map[Generic].add("pd_bool_sparse")
-    contains_map[Generic].add("pd_string_sparse")
+
+def remove_key(map, key):
+    for k, v in map.items():
+        if key in v:
+            map[k].remove(key)
+
+
+pandas_ver = [int(i) for i in pd.__version__.split(".")]
+
+if int(pandas_ver[0]) < 1:
+    remove_key(contains_map, "pd_bool_sparse")
+    remove_key(contains_map, "pd_string_sparse")
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
@@ -68,12 +79,12 @@ inference_map = {
     "complex_sparse": Generic,
     "str_obj_sparse": Generic,
     "pd_categorical_sparse": Generic,
+    "pd_string_sparse": Generic,
     # "datetime_sparse": Generic,
 }
 
-if int(pd.__version__.split(".")[0]) >= 1:
-    inference_map["pd_bool_sparse"] = Generic
-    inference_map["pd_string_sparse"] = Generic
+if int(pd.__version__.split(".")[0]) < 1:
+    inference_map.pop("pd_bool_sparse", None)
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))

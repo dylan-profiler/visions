@@ -7,14 +7,15 @@ from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.series_utils import nullable_series_contains, series_not_empty
+from visions.utils.pandas import pandas_apply
 
 
 def string_is_ip(series, state: dict):
-    return test_utils.coercion_test(lambda s: s.apply(ip_address))(series)
+    return test_utils.coercion_test(lambda s: pandas_apply(s)(ip_address))(series)
 
 
 def to_ip(series: pd.Series, state: dict) -> pd.Series:
-    return series.apply(ip_address)
+    return pandas_apply(series)(ip_address)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:

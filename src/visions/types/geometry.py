@@ -7,6 +7,7 @@ import pandas as pd
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import nullable_series_contains, series_not_empty
+from visions.utils.pandas import pandas_apply
 
 
 def string_is_geometry(series: pd.Series, state: dict) -> bool:
@@ -29,7 +30,7 @@ def string_is_geometry(series: pd.Series, state: dict) -> bool:
 def to_geometry(series: pd.Series, state: dict) -> pd.Series:
     from shapely import wkt
 
-    return pd.Series([wkt.loads(value) for value in series])
+    return pandas_apply(series)(wkt.loads)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:

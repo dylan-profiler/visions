@@ -8,6 +8,7 @@ from visions.types.float import string_is_float
 from visions.types.type import VisionsBaseType
 from visions.utils.coercion import test_utils
 from visions.utils.series_utils import series_not_empty, series_not_sparse
+from visions.utils.pandas import pandas_apply
 
 
 def test_imaginary_in_string(
@@ -18,7 +19,7 @@ def test_imaginary_in_string(
 
 def string_is_complex(series, state: dict) -> bool:
     def f(s):
-        return s.apply(complex)
+        return pandas_apply(s)(complex)
 
     coerced_series = test_utils.option_coercion_evaluator(f)(series)
     return (
@@ -29,7 +30,7 @@ def string_is_complex(series, state: dict) -> bool:
 
 
 def to_complex(series: pd.Series, state: dict) -> bool:
-    return series.apply(complex)
+    return pandas_apply(series)(complex)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:

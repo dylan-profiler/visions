@@ -59,6 +59,10 @@ def contains(series, type, member):
 def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
     argsvalues = []
     for series in _test_suite:
+        if series.name not in inferred_series_type_map:
+            raise Exception(
+                f"{series.name} has no defined inference type, please add one to the test case mapping"
+            )
         expected_type = inferred_series_type_map[series.name]
         for test_type in typeset.types:
             expected = test_type == expected_type

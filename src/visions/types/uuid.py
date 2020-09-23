@@ -11,17 +11,18 @@ from visions.utils.series_utils import (
     nullable_series_contains,
     series_not_empty,
 )
+from visions.utils.pandas import pandas_apply
 
 
 def string_is_uuid(series, state: dict) -> bool:
     def f(s):
-        return s.apply(uuid.UUID)
+        return pandas_apply(s)(uuid.UUID)
 
     return coercion_true_test(f)(series)
 
 
 def to_uuid(series: pd.Series, state: dict) -> pd.Series:
-    return series.apply(uuid.UUID)
+    return pandas_apply(series)(uuid.UUID)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:

@@ -11,11 +11,12 @@ from visions.utils.series_utils import (
     nullable_series_contains,
     series_not_empty,
 )
+from visions.utils.pandas import pandas_apply
 
 
 def string_is_email(series, state: dict):
     def test_email(s):
-        return s.apply(str_to_email).apply(lambda x: x.local and x.fqdn)
+        return pandas_apply(pandas_apply(s)(str_to_email))(lambda x: x.local and x.fqdn)
 
     return test_utils.coercion_true_test(test_email)(series)
 
@@ -30,7 +31,7 @@ def str_to_email(s):
 
 
 def to_email(series: pd.Series, state: dict) -> pd.Series:
-    return series.apply(str_to_email)
+    return pandas_apply(series)(str_to_email)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
