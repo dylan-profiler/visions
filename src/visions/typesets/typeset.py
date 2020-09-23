@@ -179,9 +179,9 @@ def traverse_graph_with_sampled_series(
 
 @singledispatch
 def traverse_graph(
-    data: pdT, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pdT, Any, dict]:
-    raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
+    data: Any, root_node: Type[VisionsBaseType], graph: nx.DiGraph
+) -> Tuple[Any, Any, dict]:
+    return traverse_graph_with_series(root_node, data, graph)
 
 
 @traverse_graph.register(pd.Series)
@@ -220,12 +220,8 @@ def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
     return {k: get_type_from_path(v) for k, v in path_dict.items()}
 
 
-@get_type_from_path.register(list)  # type: ignore
-def _(path_list: list) -> Type[VisionsBaseType]:
-    return path_list[-1]
-
-
 @get_type_from_path.register(tuple)  # type: ignore
+@get_type_from_path.register(list)
 def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 

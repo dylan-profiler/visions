@@ -1,8 +1,9 @@
-from typing import List, Sequence
+from typing import List, Sequence, Iterable
 
 import numpy as np
 import pandas as pd
 from pandas.api import types as pdt
+from functools import singledispatch
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
@@ -38,6 +39,22 @@ def _get_relations(cls) -> List[TypeRelation]:
     return relations
 
 
+@singledispatch
+def integer_contains(sequence: Iterable, state: dict) -> bool:
+    return all(isinstance(value, int) for value in sequence)
+
+
+@series_not_sparse
+@series_not_empty
+def temp_func(cls, series, state):
+    return pdt.is_integer_dtype(series)
+
+
+@integer_contains.register(pd.Series)
+def _(sequence: pd.Series, state: dict) -> bool:
+    return temp_func(_, sequence, state)
+
+
 class Integer(VisionsBaseType):
     """**Integer** implementation of :class:`visions.types.type.VisionsBaseType`.
 
@@ -52,7 +69,5 @@ class Integer(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @series_not_sparse
-    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return pdt.is_integer_dtype(series)
+        return integer_contains(series, state)
