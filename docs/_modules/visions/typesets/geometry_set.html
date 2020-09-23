@@ -235,10 +235,9 @@
             <span class="kn">import</span> <span class="nn">shapely</span>
         <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;This typeset requires dependencies that are currently not installed (</span><span class="si">{}</span><span class="s2">). &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;This typeset requires dependencies that are currently not installed (</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">). &quot;</span>
                 <span class="s2">&quot;You can follow the installation instructions to resolve this issue: &quot;</span>
                 <span class="s2">&quot;https://dylan-profiler.github.io/visions/visions/getting_started/installation.html&quot;</span>
-                <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="p">)</span></div>
 </pre></div>
 
