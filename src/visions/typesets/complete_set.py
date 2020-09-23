@@ -87,8 +87,7 @@ class CompleteSet(VisionsTypeset):
             import shapely
         except ImportError as e:
             raise ImportError(
-                "This typeset requires dependencies that are currently not installed ({}). "
+                f"This typeset requires dependencies that are currently not installed ({e}). "
                 "You can follow the installation instructions to resolve this issue: "
                 "https://dylan-profiler.github.io/visions/visions/getting_started/installation.html"
-                "".format(str(e))
             )

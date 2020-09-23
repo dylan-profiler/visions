@@ -36,12 +36,10 @@ def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGra
     noninferential_edges = []
 
     for node in nodes:
-        for relation in node.get_relations():
+        for relation in node.relations:
             if relation.related_type not in nodes:
                 warnings.warn(
-                    "Provided relations included mapping from {related_type} to {own_type} but {related_type} was not included in the provided list of nodes".format(
-                        related_type=relation.related_type, own_type=relation.type
-                    )
+                    f"Provided relations included mapping from {relation.related_type} to {relation.type} but {relation.related_type} was not included in the provided list of nodes"
                 )
             else:
                 relation_graph.add_edge(
@@ -99,9 +97,7 @@ def check_cycles(graph: nx.DiGraph) -> None:
     """
     cycles = list(nx.simple_cycles(graph))
     if len(cycles) > 0:
-        warnings.warn(
-            "Cyclical relations between types {cycles} detected".format(cycles=cycles)
-        )
+        warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
 def traverse_graph_with_series(
@@ -390,9 +386,7 @@ class VisionsTypeset(object):
             other_types = {other}
         else:
             raise NotImplementedError(
-                "Typeset operation not implemented for type {other_type}".format(
-                    other_type=type(other)
-                )
+                f"Typeset operation not implemented for type {type(other)}"
             )
         return other_types
 

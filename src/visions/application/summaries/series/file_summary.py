@@ -54,8 +54,6 @@ def file_hash_summary(series: pd.Series, hash_algorithm="md5") -> dict:
             raise
 
     summary = {
-        "hashes_{}".format(hash_algorithm): series.map(
-            lambda x: hash_file(x, hash_algorithm)
-        )
+        f"hashes_{hash_algorithm}": series.map(lambda x: hash_file(x, hash_algorithm))
     }
     return summary
