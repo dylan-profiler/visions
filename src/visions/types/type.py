@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type
+from typing import Callable, Optional, Sequence, Type, Union, Dict
 
 import attr
 import pandas as pd
@@ -7,14 +7,25 @@ import pandas as pd
 from visions.relations import TypeRelation
 
 
+class RelationsIterManager:
+    def __init__(self, relations: Sequence[TypeRelation]):
+        self._keys: Dict["Type[VisionsBaseType]", int] = {
+            item.related_type: i for i, item in enumerate(relations)
+        }
+        self.values = tuple(relations)
+
+    def __getitem__(self, index):
+        return self.values[self._keys.get(index, index)]
+
+
 class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, series: pd.Series, state: dict = {}) -> bool:
         return cls.contains_op(series, state)  # type: ignore
 
     @property
-    def relations(cls) -> Optional[Sequence[TypeRelation]]:
+    def relations(cls) -> RelationsIterManager:
         if cls._relations is None:  # type: ignore
-            cls._relations = cls.get_relations()  # type: ignore
+            cls._relations = RelationsIterManager(cls.get_relations())  # type: ignore
         return cls._relations
 
     def __add__(cls, other):
@@ -61,7 +72,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
         ] = None,
         replace: bool = False,
-    ):
+    ) -> "Type[VisionsBaseType]":
         """Make a copy of the type
 
         Args:
