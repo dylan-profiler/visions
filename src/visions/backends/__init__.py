@@ -10,6 +10,7 @@ except ImportError:
 
 try:
     import numpy as np
+
     import visions.backends.numpy_functions
 except ImportError:
     pass
