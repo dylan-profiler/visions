@@ -1,60 +1,31 @@
-from typing import Sequence
+from functools import singledispatch
+from typing import Iterable, Sequence
 
 import numpy as np
 import pandas as pd
-from pandas.api import types as pdt
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
-from visions.utils.series_utils import series_not_empty, series_not_sparse
-from visions.utils.warning_handling import suppress_warnings
 
 
-def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
-    if coerced_series.hasnans:
-        notna = coerced_series.notna()
-        coerced_series = coerced_series[notna]
-
-        if coerced_series.empty:
-            return False
-        series = series[notna]
-    return not any(s[0] == "0" for s in series[coerced_series > 1])
+@singledispatch
+def string_to_float(sequence: Iterable, state: dict) -> bool:
+    return map(str, sequence)
 
 
-# @func_nullable_series_contains
-def string_to_float(series: pd.Series, state: dict) -> pd.Series:
-    # Slightly faster to check for the character if it's not present than to
-    # attempt the replacement
-    # if any("," in x for x in series):
-    #     series = series.str.replace(",", "")
-    return series.astype(float)
+@singledispatch
+def string_is_float(sequence: Iterable, state: dict) -> bool:
+    return all(float(value) for value in sequence)
 
 
-def f(s):
-    return s.astype(float)
+@singledispatch
+def complex_to_float(sequence: Iterable, state: dict) -> Iterable:
+    return map(float, sequence)
 
 
-def string_is_float(series: pd.Series, state: dict) -> bool:
-    coerced_series = test_utils.option_coercion_evaluator(f)(series)
-
-    return (
-        coerced_series is not None
-        and coerced_series in Float
-        and test_string_leading_zeros(series, coerced_series)
-    )
-
-
-def to_float(series: pd.Series, state: dict) -> pd.Series:
-    return series.astype(float)
-
-
-def complex_is_float(series, state: dict):
-    return all(np.imag(series.values) == 0)
-
-
-def complex_to_float(series, state: dict):
-    return suppress_warnings(to_float)(series, state)
+@singledispatch
+def complex_is_float(sequence: Iterable, state: dict) -> bool:
+    return all(value.imag == 0 for value in sequence)
 
 
 def _get_relations(cls) -> Sequence[TypeRelation]:
@@ -75,6 +46,11 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     return relations
 
 
+@singledispatch
+def float_contains(sequence: Iterable, state: dict) -> bool:
+    return all(isinstance(value, float) for value in sequence)
+
+
 class Float(VisionsBaseType):
     """**Float** implementation of :class:`visions.types.type.VisionsBaseType`.
 
@@ -89,7 +65,5 @@ class Float(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @series_not_empty
-    @series_not_sparse
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return pdt.is_float_dtype(series)
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return float_contains(sequence, state)

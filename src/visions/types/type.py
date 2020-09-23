@@ -1,15 +1,14 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type
+from typing import Callable, Iterable, Optional, Sequence, Type
 
 import attr
-import pandas as pd
 
 from visions.relations import TypeRelation
 
 
 class VisionsBaseTypeMeta(ABCMeta):
-    def __contains__(cls, series: pd.Series, state: dict = {}) -> bool:
-        return cls.contains_op(series, state)  # type: ignore
+    def __contains__(cls, sequence: Iterable, state: dict = {}) -> bool:
+        return cls.contains_op(sequence, state)  # type: ignore
 
     @property
     def relations(cls) -> Optional[Sequence[TypeRelation]]:
@@ -50,7 +49,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     @abstractmethod
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
         raise NotImplementedError
 
     @classmethod

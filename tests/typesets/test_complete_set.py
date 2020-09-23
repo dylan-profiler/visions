@@ -10,6 +10,7 @@ import pytest
 from shapely import wkt
 
 from visions import CompleteSet
+from visions.backends.pandas.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
 from visions.test.utils import (
@@ -46,7 +47,6 @@ from visions.types import (
     Time,
     TimeDelta,
 )
-from visions.types.boolean import hasnan_bool_name
 from visions.types.email_address import FQDA
 
 series = get_series() + get_geometry_series()

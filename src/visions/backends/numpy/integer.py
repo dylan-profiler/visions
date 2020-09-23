@@ -2,8 +2,6 @@ import numpy as np
 
 from visions.types.integer import float_is_int, integer_contains, to_int
 
-# https://het.as.utexas.edu/HET/Software/Numpy/reference/arrays.scalars.html
-
 
 @to_int.register(np.ndarray)
 def _(series: np.ndarray, state: dict) -> np.ndarray:
