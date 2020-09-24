@@ -1,5 +1,5 @@
 import functools
-from collections import Callable
+from typing import Callable
 
 import pandas as pd
 from pandas.api import types as pdt
