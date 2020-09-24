@@ -1,18 +1,22 @@
-from typing import Sequence
-
-import pandas as pd
-from pandas.api import types as pdt
+from functools import singledispatch
+from typing import Iterable, Sequence
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
+
+
+@singledispatch
+def sparse_contains(sequence: Iterable, state: dict) -> bool:
+    return False
 
 
 class Sparse(VisionsBaseType):
     """**Sparse** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> import numpy as np
-        >>> x = pd.Sparse(pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1), np.nan]))
+        >>> import pandas as pd
+        >>> import visions
+        >>> x = pd.Sparse(pd.Series([np.complex(0, 0), np.complex(1, 2), np.complex(3, -1)]))
         >>> x in visions.Sparse
         True
     """
@@ -25,5 +29,5 @@ class Sparse(VisionsBaseType):
         return relations
 
     @classmethod
-    def contains_op(cls, series: pd.Series) -> bool:
-        return pdt.is_sparse(series)
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return sparse_contains(sequence, state)

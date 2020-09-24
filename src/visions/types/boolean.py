@@ -1,8 +1,6 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
-import pandas as pd
-
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
@@ -35,24 +33,6 @@ def string_to_bool(sequence: Iterable, state: dict):
     return to_bool(sequence, state)
 
 
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic, Object, String
-
-    relations = [
-        IdentityRelation(cls, Generic),
-        InferenceRelation(
-            cls,
-            String,
-            relationship=string_is_bool,
-            transformer=string_to_bool,
-        ),
-        InferenceRelation(
-            cls, Object, relationship=object_is_bool, transformer=object_to_bool
-        ),
-    ]
-    return relations
-
-
 @singledispatch
 def boolean_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(value, bool) for value in sequence)
@@ -62,18 +42,33 @@ class Boolean(VisionsBaseType):
     """**Boolean** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> x = pd.Series([True, False, False, True])
+        >>> import visions
+        >>> x = [True, False, False, True]
         >>> x in visions.Boolean
         True
 
-        >>> x = pd.Series([True, False, None])
+        >>> x = [True, False, None]
         >>> x in visions.Boolean
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import Generic, Object, String
+
+        relations = [
+            IdentityRelation(cls, Generic),
+            InferenceRelation(
+                cls,
+                String,
+                relationship=string_is_bool,
+                transformer=string_to_bool,
+            ),
+            InferenceRelation(
+                cls, Object, relationship=object_is_bool, transformer=object_to_bool
+            ),
+        ]
+        return relations
 
     @classmethod
     def contains_op(cls, sequence: Iterable, state: dict) -> bool:

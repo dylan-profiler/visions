@@ -1,8 +1,8 @@
 import pandas as pd
 
 from visions import String
+from visions.backends.pandas import test_utils
 from visions.relations import InferenceRelation
-from visions.utils.coercion import test_utils
 
 
 def to_datetime_year_week(series: pd.Series) -> pd.Series:

@@ -7,7 +7,10 @@ from visions.relations import TypeRelation
 
 
 class VisionsBaseTypeMeta(ABCMeta):
-    def __contains__(cls, sequence: Iterable, state: dict = {}) -> bool:
+    def __contains__(cls, sequence: Iterable, state=None) -> bool:
+        if state is None:
+            state = {}
+
         return cls.contains_op(sequence, state)  # type: ignore
 
     @property
@@ -21,8 +24,8 @@ class VisionsBaseTypeMeta(ABCMeta):
         from visions.typesets import VisionsTypeset
 
         if not any(issubclass(x, Generic) for x in [cls, other]):
-            return VisionsTypeset([Generic, cls, other])
-        return VisionsTypeset([cls, other])
+            return VisionsTypeset({Generic, cls, other})
+        return VisionsTypeset({cls, other})
 
     def __str__(cls) -> str:
         return str(cls.__name__)

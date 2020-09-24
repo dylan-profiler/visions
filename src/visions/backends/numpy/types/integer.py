@@ -1,15 +1,15 @@
 import numpy as np
 
-from visions.types.integer import float_is_int, integer_contains, to_int
+from visions.types.integer import float_is_int, float_to_int, integer_contains
 
 
-@to_int.register(np.ndarray)
+@float_to_int.register(np.ndarray)
 def _(series: np.ndarray, state: dict) -> np.ndarray:
     return series.astype(np.int)
 
 
 @float_is_int.register(np.ndarray)
-def _(series: np.ndarray, state: dict):
+def _(series: np.ndarray, state: dict) -> bool:
     return (series.astype(np.int) == series).all()
 
 

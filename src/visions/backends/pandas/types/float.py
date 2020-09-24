@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from pandas.api import types as pdt
 
+from visions.backends.pandas import test_utils
+from visions.backends.pandas.series_utils import series_not_empty, series_not_sparse
 from visions.types.float import (
     complex_is_float,
     complex_to_float,
@@ -9,8 +11,6 @@ from visions.types.float import (
     string_is_float,
     string_to_float,
 )
-from visions.utils.coercion import test_utils
-from visions.utils.series_utils import series_not_empty, series_not_sparse
 from visions.utils.warning_handling import suppress_warnings
 
 
@@ -48,21 +48,17 @@ def _(series: pd.Series, state: dict) -> bool:
 
 
 @complex_is_float.register(pd.Series)
-def _(series: pd.Series, state: dict):
+def _(series: pd.Series, state: dict) -> bool:
     return all(np.imag(series.values) == 0)
 
 
 @complex_to_float.register(pd.Series)
-def _(series: pd.Series, state: dict):
+def _(series: pd.Series, state: dict) -> pd.Series:
     return suppress_warnings(lambda s: s.astype(float))(series)
 
 
+@float_contains.register(pd.Series)
 @series_not_empty
 @series_not_sparse
-def tmp(cls, series: pd.Series, state: dict):
-    return pdt.is_float_dtype(series)
-
-
-@float_contains.register(pd.Series)
 def _(series: pd.Series, state: dict) -> bool:
-    return tmp(_, series, state)
+    return pdt.is_float_dtype(series)

@@ -1,15 +1,14 @@
 import os
 import sys
-from typing import Sequence
-
-import pandas as pd
+from functools import singledispatch
+from typing import Iterable, Sequence
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains, series_not_empty
 
 
-def string_is_geometry(series: pd.Series, state: dict) -> bool:
+@singledispatch
+def string_is_geometry(sequence: Iterable, state: dict) -> bool:
     """Shapely logs failures at a silly severity, just trying to suppress it's output on failures."""
     from shapely import wkt
     from shapely.errors import WKTReadingError
@@ -18,7 +17,7 @@ def string_is_geometry(series: pd.Series, state: dict) -> bool:
     # TODO: use coercion wrapper for this
     sys.stderr = open(os.devnull, "w")
     try:
-        result = all(wkt.loads(value) for value in series)
+        result = all(wkt.loads(value) for value in sequence)
     except (WKTReadingError, AttributeError, UnicodeEncodeError, TypeError):
         result = False
     finally:
@@ -26,22 +25,18 @@ def string_is_geometry(series: pd.Series, state: dict) -> bool:
     return result
 
 
-def to_geometry(series: pd.Series, state: dict) -> pd.Series:
+@singledispatch
+def string_to_geometry(sequence: Iterable, state: dict) -> Iterable:
     from shapely import wkt
 
-    return pd.Series([wkt.loads(value) for value in series])
+    return map(wkt.loads, sequence)
 
 
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Object, String
+@singledispatch
+def geometry_contains(sequence: Iterable, state: dict) -> bool:
+    from shapely.geometry.base import BaseGeometry
 
-    relations = [
-        IdentityRelation(cls, Object),
-        InferenceRelation(
-            cls, String, relationship=string_is_geometry, transformer=to_geometry
-        ),
-    ]
-    return relations
+    return all(issubclass(type(x), BaseGeometry) for x in sequence)
 
 
 # TODO: Evaluate https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
@@ -57,12 +52,19 @@ class Geometry(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import Object, String
+
+        relations = [
+            IdentityRelation(cls, Object),
+            InferenceRelation(
+                cls,
+                String,
+                relationship=string_is_geometry,
+                transformer=string_to_geometry,
+            ),
+        ]
+        return relations
 
     @classmethod
-    @series_not_empty
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        from shapely.geometry.base import BaseGeometry
-
-        return all(issubclass(type(x), BaseGeometry) for x in series)
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return geometry_contains(sequence, state)

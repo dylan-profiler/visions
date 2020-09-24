@@ -3,18 +3,18 @@ from typing import Dict, List
 import pandas as pd
 from pandas.api import types as pdt
 
+from visions.backends.pandas.series_utils import (
+    series_handle_nulls,
+    series_not_empty,
+    series_not_sparse,
+)
+from visions.backends.pandas.test_utils import coercion_map, coercion_map_test
 from visions.types.boolean import (
     boolean_contains,
     object_is_bool,
     object_to_bool,
     string_is_bool,
     string_to_bool,
-)
-from visions.utils.coercion.test_utils import coercion_map, coercion_map_test
-from visions.utils.series_utils import (
-    func_nullable_series_contains,
-    series_not_empty,
-    series_not_sparse,
 )
 
 hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Bool"
@@ -41,13 +41,13 @@ string_coercions = get_boolean_coercions("en")
 
 
 @object_to_bool.register(pd.Series)
-def _(series: pd.Series, state: dict):
+def _(series: pd.Series, state: dict) -> pd.Series:
     dtype = hasnan_bool_name if series.hasnans else bool
     return series.astype(dtype)
 
 
 @object_is_bool.register(pd.Series)
-@func_nullable_series_contains
+@series_handle_nulls
 def _(series: pd.Series, state: dict) -> bool:
     bool_set = {True, False}
     try:
@@ -59,7 +59,7 @@ def _(series: pd.Series, state: dict) -> bool:
 
 
 @string_is_bool.register(pd.Series)
-def _(series: pd.Series, state: dict):
+def _(series: pd.Series, state: dict) -> bool:
     try:
         return coercion_map_test(string_coercions)(series.str.lower())
     except:
@@ -67,22 +67,12 @@ def _(series: pd.Series, state: dict):
 
 
 @string_to_bool.register(pd.Series)
-def _(series, state: dict):
-    try:
-        return object_to_bool(coercion_map(string_coercions)(series.str.lower()), state)
-    except:
-        return False
-
-
-@series_not_sparse
-@series_not_empty
-def tmp_op(cls, series, state):
-    if not pdt.is_categorical_dtype(series) and pdt.is_bool_dtype(series):
-        return True
-
-    return False
+def _(series: pd.Series, state: dict) -> pd.Series:
+    return object_to_bool(coercion_map(string_coercions)(series.str.lower()), state)
 
 
 @boolean_contains.register(pd.Series)
-def _(series: pd.Series, state: dict):
-    return tmp_op(_, series, state)
+@series_not_sparse
+@series_not_empty
+def _(series: pd.Series, state: dict) -> bool:
+    return pdt.is_bool_dtype(series) and not pdt.is_categorical_dtype(series)

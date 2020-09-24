@@ -1,19 +1,15 @@
 import imghdr
+from functools import singledispatch
 from pathlib import Path
-from typing import Sequence
-
-import pandas as pd
+from typing import Iterable, Sequence
 
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains, series_not_empty
 
 
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import File
-
-    relations = [IdentityRelation(cls, File)]
-    return relations
+@singledispatch
+def image_contains(sequence: Iterable, state: dict) -> bool:
+    return all(isinstance(p, Path) and p.exists() and imghdr.what(p) for p in sequence)
 
 
 class Image(VisionsBaseType):
@@ -21,19 +17,19 @@ class Image(VisionsBaseType):
     (i.e. series with all image files)
 
     Examples:
-        >>> x = pd.Series([Path('/home/user/file.png'), Path('/home/user/test2.jpg')])
+        >>> import visions
+        >>> x = [Path('/home/user/file.png'), Path('/home/user/test2.jpg')]
         >>> x in visions.Image
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import File
+
+        relations = [IdentityRelation(cls, File)]
+        return relations
 
     @classmethod
-    @series_not_empty
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return all(
-            isinstance(p, Path) and p.exists() and imghdr.what(p) for p in series
-        )
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return image_contains(sequence, state)

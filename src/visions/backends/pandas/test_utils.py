@@ -6,7 +6,7 @@ from typing import Callable, Dict, List, Optional, Type, Union
 
 import pandas as pd
 
-from visions.utils.series_utils import func_nullable_series_contains
+from visions.backends.pandas.series_utils import series_handle_nulls
 
 
 def option_coercion_evaluator(
@@ -113,7 +113,7 @@ def coercion_equality_test(method: Callable) -> Callable:
 
 
 def coercion_single_map_test(mapping: List[Dict]) -> Callable:
-    @func_nullable_series_contains
+    @series_handle_nulls
     def f(series: pd.Series, state: dict = {}) -> bool:
         return any(series.isin(list(single_map.keys())).all() for single_map in mapping)
 
@@ -121,7 +121,7 @@ def coercion_single_map_test(mapping: List[Dict]) -> Callable:
 
 
 def coercion_multi_map_test(mapping: Dict) -> Callable:
-    @func_nullable_series_contains
+    @series_handle_nulls
     def f(series: pd.Series, state: dict = {}) -> bool:
         return series.isin(list(mapping.keys())).all()
 

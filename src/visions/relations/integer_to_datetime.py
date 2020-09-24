@@ -1,9 +1,9 @@
 import pandas as pd
 
+from visions.backends.pandas import test_utils
 from visions.relations import InferenceRelation
 from visions.relations.string_to_datetime import to_datetime_year_month_day
 from visions.types import Integer
-from visions.utils.coercion import test_utils
 
 
 def to_datetime(series: pd.Series) -> pd.Series:
