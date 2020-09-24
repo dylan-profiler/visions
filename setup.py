@@ -19,13 +19,11 @@ with (source_root / "requirements_test.txt").open(encoding="utf8") as f:
 
 type_geometry_requires = ["shapely"]
 type_image_path_requires = ["imagehash", "Pillow"]
-type_swifter_requires = ["swifter"]
 
 extras_requires = {
     "type_geometry": type_geometry_requires,
     "type_image_path": type_image_path_requires,
     "plotting": ["pydot", "pygraphviz", "matplotlib"],
-    "swifter": type_swifter_requires,
     "dev": dev_requirements,
     "test": test_requirements,
 }
