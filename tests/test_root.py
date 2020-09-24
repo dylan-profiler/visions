@@ -1,6 +1,6 @@
 import pytest
 
-from visions import Float, Generic, VisionsBaseType, VisionsTypeset
+from visions import Generic, VisionsBaseType, VisionsTypeset
 from visions.relations import IdentityRelation
 
 
@@ -8,7 +8,7 @@ class CustomGeneric(Generic):
     this_value = True
 
 
-class CustomNonGeneric:
+class CustomNonGeneric(VisionsBaseType):
     another_value = False
 
     @classmethod

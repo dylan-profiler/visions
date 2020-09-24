@@ -259,8 +259,9 @@
         <span class="k">def</span> <span class="nf">get_new_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
             <span class="k">return</span> <span class="n">relations</span>
 
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">new_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">[</span><span class="si">{type_name}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">type_name</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
             <span class="p">(</span><span class="bp">cls</span><span class="p">,),</span>
             <span class="p">{</span>
                 <span class="s2">&quot;get_relations&quot;</span><span class="p">:</span> <span class="nb">classmethod</span><span class="p">(</span><span class="n">get_new_relations</span><span class="p">),</span>
@@ -277,7 +278,7 @@
             <span class="n">relations</span> <span class="o">=</span> <span class="n">new_relations</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">old_relations</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">attr</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">relation</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">new_type</span><span class="p">)</span> <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_relations</span><span class="p">()</span>
+                <span class="n">attr</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">relation</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">new_type</span><span class="p">)</span> <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">relations</span>
             <span class="p">]</span>
             <span class="n">relations</span> <span class="o">=</span> <span class="n">old_relations</span> <span class="o">+</span> <span class="n">new_relations</span>
 
