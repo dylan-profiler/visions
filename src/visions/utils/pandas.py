@@ -9,12 +9,21 @@ def has_import(module: str) -> bool:
     return has_module
 
 
+@attr.s
 class Engine:
-    pass
+    name = attr.ib()
+
+    @classmethod
+    def setup(cls, *args, **kwargs) -> None:
+        raise NotImplemented("No setup defined for generic engine")
+
+    @staticmethod
+    def apply(series: pd.Series) -> Callable:
+        raise NotImplemented("No apply defined for generic engine")
 
 
 class PandasEngine(Engine):
-    name = 'pandas'
+    name = "pandas"
     _is_setup = False
 
     @classmethod
@@ -27,7 +36,7 @@ class PandasEngine(Engine):
 
 
 class SwifterEngine(Engine):
-    name = 'swifter'
+    name = "swifter"
     _is_setup = False
 
     @classmethod
@@ -36,6 +45,7 @@ class SwifterEngine(Engine):
             return
 
         import swifter
+
         cls._is_setup = True
 
     @staticmethod
@@ -44,15 +54,16 @@ class SwifterEngine(Engine):
 
 
 class PandarallelEngine(Engine):
-    name = 'pandarallel'
+    name = "pandarallel"
     _is_setup = False
 
     @classmethod
-    def setup(cls, *args) -> None:
+    def setup(cls, *args, **kwargs) -> None:
         if cls._is_setup:
             return
 
         from pandarallel import pandarallel
+
         pandarallel.initialize(*args)
         cls._is_setup = True
 
@@ -76,8 +87,9 @@ class PandasEnginesCollection:
 
 
 class PandasApply:
-    supported_engines = PandasEnginesCollection([engine for engine in _PANDAS_ENGINES
-                                       if hasattr(engine, 'apply')])
+    supported_engines = PandasEnginesCollection(
+        [engine for engine in _PANDAS_ENGINES if hasattr(engine, "apply")]
+    )
     _engine: Type[Engine] = PandasEngine
 
     @property
@@ -106,8 +118,8 @@ class PandasHandler:
 
     def _set_default_apply_engine(self) -> None:
         if self.has_swifter:
-            self.applier.engine = 'swifter'
-        #if self.has_pandarallel:
+            self.applier.engine = "swifter"
+        # if self.has_pandarallel:
         #    self.applier.engine = 'pandarallel'
 
 

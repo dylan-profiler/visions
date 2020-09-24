@@ -8,14 +8,26 @@ from visions.relations import TypeRelation
 
 
 class VisionsBaseTypeMeta(ABCMeta):
-    def __contains__(cls, series: pd.Series, state: dict = {}) -> bool:
-        return cls.contains_op(series, state)  # type: ignore
+    _relations_set: bool = False
+    _relations: Sequence[TypeRelation] = []
+
+    def get_relations(cls) -> Sequence[TypeRelation]:
+        # Pleases the MyPy Gods
+        raise NotImplementedError
 
     @property
-    def relations(cls) -> Optional[Sequence[TypeRelation]]:
-        if cls._relations is None:  # type: ignore
-            cls._relations = cls.get_relations()  # type: ignore
+    def relations(cls) -> Sequence[TypeRelation]:
+        if not cls._relations_set:
+            cls._relations = cls.get_relations()
+            cls._relations_set = True
         return cls._relations
+
+    def contains_op(cls, series: pd.Series, state: dict = {}) -> bool:
+        # Pleases the MyPy Gods
+        raise NotImplementedError
+
+    def __contains__(cls, series: pd.Series, state: dict = {}) -> bool:
+        return cls.contains_op(series, state)
 
     def __add__(cls, other):
         from visions.types import Generic
@@ -37,8 +49,6 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     Provides a common API for building custom visions data types.
     """
-
-    _relations: Optional[Sequence[TypeRelation]] = None
 
     def __init__(self):
         raise ValueError("Types cannot be initialized")
