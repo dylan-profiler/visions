@@ -1,6 +1,7 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
@@ -8,7 +9,7 @@ from visions.types.type import VisionsBaseType
 @singledispatch
 def string_is_complex(sequence: Iterable, state: dict) -> bool:
     try:
-        _ = string_to_complex(sequence, state)
+        _ = list(string_to_complex(sequence, state))
         return True
     except:
         return False
@@ -20,6 +21,7 @@ def string_to_complex(sequence: Iterable, state: dict) -> Iterable:
 
 
 @singledispatch
+@sequence_not_empty
 def complex_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(value, complex) for value in sequence)
 

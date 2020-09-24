@@ -1,18 +1,23 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
 @singledispatch
 def string_to_float(sequence: Iterable, state: dict) -> Iterable:
-    return map(str, sequence)
+    return map(float, sequence)
 
 
 @singledispatch
 def string_is_float(sequence: Iterable, state: dict) -> bool:
-    return all(float(value) for value in sequence)
+    try:
+        _ = list(string_to_float(sequence, state))
+        return True
+    except ValueError:
+        return False
 
 
 @singledispatch
@@ -22,10 +27,14 @@ def complex_to_float(sequence: Iterable, state: dict) -> Iterable:
 
 @singledispatch
 def complex_is_float(sequence: Iterable, state: dict) -> bool:
-    return all(value.imag == 0 for value in sequence)
+    try:
+        return all(value.imag == 0 for value in sequence)
+    except ValueError:
+        return False
 
 
 @singledispatch
+@sequence_not_empty
 def float_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(value, float) for value in sequence)
 

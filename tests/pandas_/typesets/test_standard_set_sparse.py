@@ -47,7 +47,7 @@ if int(pd.__version__.split(".")[0]) >= 1:
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
-def test_contains(series, type, member):
+def test_contains(name, series, type, member):
     """Test the generated combinations for "series in type"
 
     Args:
@@ -55,7 +55,7 @@ def test_contains(series, type, member):
         type: the type to test against
         member: the result
     """
-    result, message = contains(series, type, member)
+    result, message = contains(name, series, type, member)
     assert result, message
 
 
@@ -77,14 +77,14 @@ if int(pd.__version__.split(".")[0]) >= 1:
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))
-def test_inference(series, type, typeset, difference):
+def test_inference(name, series, type, typeset, difference):
     """Test the generated combinations for "inference(series) == type"
 
     Args:
         series: the series to test
         type: the type to test against
     """
-    result, message = infers(series, type, typeset, difference)
+    result, message = infers(name, series, type, typeset, difference)
     assert result, message
 
 

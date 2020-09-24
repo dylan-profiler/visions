@@ -1,6 +1,7 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
@@ -34,6 +35,7 @@ def string_to_bool(sequence: Iterable, state: dict):
 
 
 @singledispatch
+@sequence_not_empty
 def boolean_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(value, bool) for value in sequence)
 

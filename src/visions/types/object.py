@@ -1,13 +1,15 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
 @singledispatch
+@sequence_not_empty
 def object_contains(sequence: Iterable, state: dict) -> bool:
-    return True
+    return any(not isinstance(value, (float, bool, int, complex)) for value in sequence)
 
 
 class Object(VisionsBaseType):

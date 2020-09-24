@@ -2,6 +2,7 @@ from datetime import datetime
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
@@ -9,7 +10,7 @@ from visions.types.type import VisionsBaseType
 @singledispatch
 def string_is_datetime(sequence: Iterable, state: dict) -> bool:
     try:
-        _ = string_to_datetime(sequence, state)
+        _ = list(string_to_datetime(sequence, state))
         return True
     except (OverflowError, TypeError):
         return False
@@ -21,6 +22,7 @@ def string_to_datetime(sequence: Iterable, state: dict) -> Iterable:
 
 
 @singledispatch
+@sequence_not_empty
 def datetime_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(value, datetime) for value in sequence)
 

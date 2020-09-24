@@ -1,6 +1,7 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
@@ -12,12 +13,18 @@ def float_to_int(sequence: Iterable, state: dict) -> Iterable:
 
 @singledispatch
 def float_is_int(sequence: Iterable, state: dict) -> bool:
-    return all(int(value) == value for value in sequence)
+    try:
+        return all(int(value) == value for value in sequence)
+    except (ValueError, TypeError):
+        return False
 
 
 @singledispatch
+@sequence_not_empty
 def integer_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(value, int) for value in sequence)
+    return all(
+        isinstance(value, int) and not isinstance(value, bool) for value in sequence
+    )
 
 
 class Integer(VisionsBaseType):

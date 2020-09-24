@@ -1,11 +1,17 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
+from visions.backends.python.series_utils import (
+    sequence_handle_none,
+    sequence_not_empty,
+)
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
 @singledispatch
+@sequence_not_empty
+@sequence_handle_none
 def string_contains(sequence: Iterable, state: dict) -> bool:
     return all(isinstance(v, str) for v in sequence)
 

@@ -1,24 +1,35 @@
-from typing import Dict, Optional, Set, Tuple, Type
+from typing import Dict, Iterable, Optional, Set, Tuple, Type
 
 import networkx as nx
 import pandas as pd
 import pytest
 
+from tests.conftest import sequences_equal
 from visions import VisionsBaseType, VisionsTypeset
 
 
-def all_series_included(series_list, series_map):
+def all_series_included(
+    series_list: Dict[str, Iterable], series_map: Dict[Type[VisionsBaseType], Set[str]]
+):
     """Check that all names are indeed used"""
     used_names = set([name for names in series_map.values() for name in names])
-    names = set([series.name for series in series_list])
+    names = set(series_list.keys())
     if not names == used_names:
-        unused = names ^ used_names
+        unused = names - used_names
+        not_provided = used_names - names
         # TODO: warning?
-        raise ValueError(f"Not all series are included {unused}")
+        if len(unused) > 0:
+            raise ValueError(f"{len(unused)} series not included in tests {unused}")
+        if len(not_provided) > 0:
+            raise ValueError(
+                f"{len(not_provided)} series are included, not not provided {not_provided}"
+            )
 
 
 def get_contains_cases(
-    _test_suite, _series_map: Dict[Type[VisionsBaseType], Set[str]], typeset
+    _test_suite: Dict[str, Iterable],
+    _series_map: Dict[Type[VisionsBaseType], Set[str]],
+    typeset,
 ):
     """Parametrize contains tests
 
@@ -39,43 +50,45 @@ def get_contains_cases(
     all_series_included(_test_suite, _series_map)
 
     argsvalues = []
-    for item in _test_suite:
+    for name, item in _test_suite.items():
         for type, series_list in _series_map.items():
-            args = {"id": f"{item.name} x {type}"}
+            args = {"id": f"{name} x {type}"}
 
-            member = item.name in series_list
-            argsvalues.append(pytest.param(item, type, member, **args))
+            member = name in series_list
+            argsvalues.append(pytest.param(name, item, type, member, **args))
 
-    return {"argnames": "series,type,member", "argvalues": argsvalues}
+    return {"argnames": "name,series,type,member", "argvalues": argsvalues}
 
 
-def contains(series, type, member):
+def contains(name, series, type, member):
     return (
         member == (series in type),
-        f"{series.name} in {type}; expected {member}, got {series in type}",
+        f"{name} in {type}; expected {member}, got {series in type}",
     )
 
 
-def get_inference_cases(_test_suite, inferred_series_type_map, typeset):
+def get_inference_cases(
+    _test_suite: Dict[str, Iterable], inferred_series_type_map, typeset
+):
     argsvalues = []
-    for series in _test_suite:
-        expected_type = inferred_series_type_map[series.name]
+    for name, series in _test_suite.items():
+        expected_type = inferred_series_type_map[name]
         for test_type in typeset.types:
             expected = test_type == expected_type
-            args = {"id": f"{series.name} x {test_type} expected {expected}"}
+            args = {"id": f"{name} x {test_type} expected {expected}"}
             difference = test_type != expected_type
             argsvalues.append(
-                pytest.param(series, test_type, typeset, difference, **args)
+                pytest.param(name, series, test_type, typeset, difference, **args)
             )
-    return {"argnames": "series,type,typeset,difference", "argvalues": argsvalues}
+    return {"argnames": "name,series,type,typeset,difference", "argvalues": argsvalues}
 
 
-def infers(series, expected_type, typeset, difference):
+def infers(name, series, expected_type, typeset, difference):
     # TODO: include paths on error!
     inferred_type = typeset.infer_type(series)
     return (
         (inferred_type == expected_type) != difference,
-        f"inference of {series.name} expected {expected_type} to be {not difference} (typeset={typeset})",
+        f"inference of {name} expected {expected_type} to be {not difference} (typeset={typeset})",
     )
     # return series in inferred_type, f"series should be member of inferred type"
 
@@ -106,26 +119,28 @@ def all_relations_tested(series_map, typeset):
         )
 
 
-def get_convert_cases(_test_suite, _series_map, typeset):
+def get_convert_cases(_test_suite: Dict[str, Iterable], _series_map, typeset):
     all_relations_tested(_series_map, typeset)
 
     argsvalues = []
-    for item in _test_suite:
+    for name, item in _test_suite.items():
         for source_type, relation_type, series_list in _series_map:
             if item in relation_type:
-                args = {"id": f"{item.name}: {relation_type} -> {source_type}"}
-                member = item.name in series_list
+                args = {"id": f"{name}: {relation_type} -> {source_type}"}
+                member = name in series_list
                 argsvalues.append(
-                    pytest.param(source_type, relation_type, item, member, **args)
+                    pytest.param(name, source_type, relation_type, item, member, **args)
                 )
 
     return dict(
-        argnames=["source_type", "relation_type", "series", "member"],
+        argnames=["name", "source_type", "relation_type", "series", "member"],
         argvalues=argsvalues,
     )
 
 
-def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
+def convert(
+    name, source_type, relation_type, series: Iterable, member
+) -> Tuple[bool, str]:
     relation_gen = (
         rel for rel in source_type.relations if rel.related_type == relation_type
     )
@@ -139,7 +154,7 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
     if not member:
         return (
             (not is_relation),
-            f"{source_type}, {relation}, {member}, {series.name}, {series[0]}",
+            f"{source_type}, {relation}, {member}, {name}, {series}",
         )
     else:
         # Note that the transformed series is not exactly the cast series
@@ -147,38 +162,41 @@ def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
 
         return (
             is_relation,
-            f"Relationship {relation} transformed {series.values} to {transformed_series.values}",
+            f"Relationship {relation} transformed {series} to {transformed_series}",
         )
 
 
-def get_cast_cases(_test_suite, _results):
+def get_cast_cases(_test_suite: Dict[str, Iterable], _results):
     argsvalues = []
-    for item in _test_suite:
-        changed = item.name in _results
-        value = _results.get(item.name, "")
-        args = {"id": f"{item.name}: {changed}"}
-        argsvalues.append(pytest.param(item, value, **args))
+    for name, item in _test_suite.items():
+        changed = name in _results
+        value = _results.get(name, "")
+        args = {"id": f"{name}: {changed}"}
+        argsvalues.append(pytest.param(name, item, value, **args))
 
     return dict(
-        argnames=["series", "expected"],
+        argnames=["name", "series", "expected"],
         argvalues=argsvalues,
     )
 
 
 def cast(
-    series: pd.Series, typeset: VisionsTypeset, expected: Optional[pd.Series] = None
+    name: str,
+    series: Iterable,
+    typeset: VisionsTypeset,
+    expected: Optional[pd.Series] = None,
 ):
     result = typeset.cast_to_inferred(series)
     # TODO: if error also print Path
     if expected is None:
-        v = result.equals(series)
-        m = f"Series {series.name} cast expected {series.values} (dtype={series.dtype}) (no casting) got {result.values} (dtype={result.dtype})"
+        v = sequences_equal(result, series)
+        m = f"Series {name} cast expected {series} (no casting) got {result}"
 
         if v:
             v = id(series) == id(result)
-            m = f"Series {series.name} memory addresses are not equal, while return value was"
+            m = f"Series {name} memory addresses are not equal, while return value was"
     else:
-        v = result.equals(expected)
-        m = f"Series {series.name} cast expected {expected.values} (dtype={expected.dtype}) got {result.values} (dtype={result.dtype})"
+        v = sequences_equal(result, expected)
+        m = f"Series {name} cast expected {expected} got {result}"
 
     return v, m
