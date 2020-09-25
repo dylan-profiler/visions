@@ -1,8 +1,7 @@
 import warnings
-from functools import singledispatch, cached_property
+from functools import singledispatch
 from pathlib import Path
 from typing import (
-    Any,
     Dict,
     Iterable,
     List,
@@ -13,7 +12,7 @@ from typing import (
     TypeVar,
     Union,
     Sequence,
-    Mapping,
+    cast,
 )
 
 import networkx as nx
@@ -253,7 +252,7 @@ class VisionsTypeset(object):
         Args:
             types: a set of types
         """
-        self._root_node = None
+        self._root_node: Optional[Type[VisionsBaseType]] = None
 
         if not isinstance(types, Iterable):
             raise ValueError("types should be iterable")
@@ -265,7 +264,7 @@ class VisionsTypeset(object):
 
         self.types = set(self.relation_graph.nodes)
 
-    @cached_property
+    @property
     def root_node(self) -> Type[VisionsBaseType]:
         """Returns a cached copy of the relation_graphs root node
 
@@ -274,7 +273,9 @@ class VisionsTypeset(object):
         Returns:
             A cached copy of the relation_graphs root node.
         """
-        return next(nx.topological_sort(self.relation_graph))
+        if self._root_node is None:
+            self._root_node = next(nx.topological_sort(self.relation_graph))
+        return cast(Type[VisionsBaseType], self._root_node)
 
     @staticmethod
     def _traverse_graph(data: pdT, root_node: T, graph: nx.DiGraph):
