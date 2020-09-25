@@ -6,6 +6,10 @@ from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
+def no_leading_zeros(sequence, coerced_sequence) -> bool:
+    return not any(s[0] == "0" and c > 1 for s, c in zip(sequence, coerced_sequence))
+
+
 @singledispatch
 def string_to_float(sequence: Iterable, state: dict) -> Iterable:
     return map(float, sequence)
@@ -14,15 +18,15 @@ def string_to_float(sequence: Iterable, state: dict) -> Iterable:
 @singledispatch
 def string_is_float(sequence: Iterable, state: dict) -> bool:
     try:
-        _ = list(string_to_float(sequence, state))
-        return True
+        coerced = list(string_to_float(sequence, state))
+        return no_leading_zeros(sequence, coerced)
     except ValueError:
         return False
 
 
 @singledispatch
 def complex_to_float(sequence: Iterable, state: dict) -> Iterable:
-    return map(float, sequence)
+    return map(lambda v: v.real, sequence)
 
 
 @singledispatch

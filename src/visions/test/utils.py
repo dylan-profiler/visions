@@ -163,11 +163,11 @@ def convert(
         )
     else:
         # Note that the transformed series is not exactly the cast series
-        transformed_series = relation.transform(series, {})
+        transformed_series = list(relation.transform(series, {}))
 
         return (
             is_relation,
-            f"Relationship {relation} transformed {series} to {transformed_series}",
+            f"Relationship {relation} for {series} tested false (but shouldn't have). Transform result would have been {transformed_series}",
         )
 
 

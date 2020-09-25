@@ -3,14 +3,15 @@ from typing import Iterable, Sequence
 
 from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
+from visions.types.float import no_leading_zeros
 from visions.types.type import VisionsBaseType
 
 
 @singledispatch
 def string_is_complex(sequence: Iterable, state: dict) -> bool:
     try:
-        _ = list(string_to_complex(sequence, state))
-        return True
+        coerced = list(string_to_complex(sequence, state))
+        return no_leading_zeros(sequence, [r.real for r in coerced])
     except:
         return False
 

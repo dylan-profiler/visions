@@ -1,7 +1,7 @@
 import pytest
 
 from visions import StandardSet
-from visions.test.series import get_sequences
+from visions.backends.python.sequences import get_sequences
 from visions.test.utils import (
     cast,
     contains,
@@ -40,7 +40,7 @@ contains_map = {
         "float_series2",
     },
     Categorical: set(),
-    Boolean: {"bool_series"},
+    Boolean: {"bool_series", "bool_nan_series"},
     Complex: {
         "complex_series_py",
         "complex_series_py_float",
@@ -96,7 +96,6 @@ contains_map = {
         "module",
         "mixed_integer",
         "mixed_list",
-        "bool_nan_series",
         "date",
         "time",
     },
@@ -131,7 +130,7 @@ inference_map = {
     "timestamp_string_series": String,
     "string_unicode_series": String,
     "string_num": Integer,
-    "complex_series_py_float": Float,
+    "complex_series_py_float": Integer,
     "string_flt": Float,
     "string_bool_nan": Boolean,
     "string_date": String,
@@ -210,6 +209,9 @@ convert_map = [
             "textual_float_nan",
             "str_int_zeros",
             "textual_float",
+            "string_num",
+            "string_flt",
+            "str_float_non_leading_zeros",
         },
     ),
     (

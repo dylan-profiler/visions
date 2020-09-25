@@ -8,7 +8,11 @@ from visions.backends.pandas.series_utils import (
     series_not_empty,
     series_not_sparse,
 )
-from visions.backends.pandas.test_utils import coercion_map, coercion_map_test
+from visions.backends.pandas.test_utils import (
+    coercion_map,
+    coercion_map_test,
+    pandas_version,
+)
 from visions.types.boolean import (
     boolean_contains,
     object_is_bool,
@@ -17,7 +21,7 @@ from visions.types.boolean import (
     string_to_bool,
 )
 
-hasnan_bool_name = "boolean" if int(pd.__version__.split(".")[0]) >= 1 else "Bool"
+hasnan_bool_name = "boolean" if pandas_version[0] >= 1 else "Bool"
 
 
 def get_boolean_coercions(id: str) -> List[Dict]:

@@ -8,6 +8,9 @@ import pandas as pd
 
 from visions.backends.pandas.series_utils import series_handle_nulls
 
+pandas_version = tuple([int(i) for i in pd.__version__.split(".")])
+pandas_na_value = pd.NA if hasattr(pd, "NA") else None
+
 
 def option_coercion_evaluator(
     method: Callable, extra_errors: Optional[List[Type[Exception]]] = None

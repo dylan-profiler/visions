@@ -7,9 +7,7 @@ from visions.types.complex import complex_contains, string_is_complex, string_to
 from visions.types.float import string_is_float
 
 
-def test_imaginary_in_string(
-    series: pd.Series, imaginary_indicator: tuple = ("j", "i")
-):
+def imaginary_in_string(series: pd.Series, imaginary_indicator: tuple = ("j", "i")):
     return any(any(v in s for v in imaginary_indicator) for s in series)
 
 
@@ -22,7 +20,7 @@ def _(series: pd.Series, state: dict) -> bool:
     return (
         coerced_series is not None
         and not string_is_float(series, state)
-        and test_imaginary_in_string(series)
+        and imaginary_in_string(series)
     )
 
 

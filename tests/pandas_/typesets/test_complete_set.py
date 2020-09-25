@@ -10,6 +10,7 @@ import pytest
 from shapely import wkt
 
 from visions import CompleteSet
+from visions.backends.pandas.test_utils import pandas_version
 from visions.backends.pandas.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
@@ -152,7 +153,7 @@ contains_map = {
     EmailAddress: {"email_address", "email_address_missing"},
 }
 
-if int(pd.__version__[0]) >= 1:
+if pandas_version[0] >= 1:
     contains_map[String].add("string_dtype_series")
 
 contains_map[Object] = {
@@ -298,7 +299,7 @@ inference_map = {
     "email_address_str": EmailAddress,
     "py_datetime_str": DateTime,
 }
-if int(pd.__version__[0]) >= 1:
+if pandas_version[0] >= 1:
     inference_map["string_dtype_series"] = String
 
 

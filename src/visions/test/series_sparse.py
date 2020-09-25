@@ -3,12 +3,11 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-nan_value = pd.NA if hasattr(pd, "NA") else None
+from visions.backends.pandas.test_utils import pandas_version
 
 
 def get_sparse_series() -> Dict[str, pd.Series]:
     test_series = {
-        # Numpy dtypes
         "int_sparse": pd.Series([-1, 0, 1, 2, 3], dtype=pd.SparseDtype(np.int32, 0)),
         "float_sparse": pd.Series(
             [np.nan, 0, 1, 2, 3],
@@ -40,7 +39,7 @@ def get_sparse_series() -> Dict[str, pd.Series]:
         # )
     }
 
-    if int(pd.__version__.split(".")[0]) >= 1:
+    if pandas_version[0] >= 1:
         test_series["pd_string_sparse"] = pd.Series(
             ["Patty", "Valentine", "Upper", "", "", ""],
             dtype=pd.SparseDtype(pd.StringDtype(), ""),

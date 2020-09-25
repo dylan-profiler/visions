@@ -1,7 +1,7 @@
-import pandas as pd
 import pytest
 
 from visions import StandardSet
+from visions.backends.pandas.test_utils import pandas_version
 from visions.test.series_sparse import get_sparse_series
 from visions.test.utils import contains, get_contains_cases, get_inference_cases, infers
 from visions.types import (
@@ -41,7 +41,7 @@ contains_map = {
     },
 }
 
-if int(pd.__version__.split(".")[0]) >= 1:
+if pandas_version[0] >= 1:
     contains_map[Generic].add("pd_bool_sparse")
     contains_map[Generic].add("pd_string_sparse")
 
@@ -71,7 +71,7 @@ inference_map = {
     # "datetime_sparse": Generic,
 }
 
-if int(pd.__version__.split(".")[0]) >= 1:
+if pandas_version[0] >= 1:
     inference_map["pd_bool_sparse"] = Generic
     inference_map["pd_string_sparse"] = Generic
 

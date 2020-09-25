@@ -3,6 +3,7 @@ import pandas as pd
 import pytest
 
 from visions import StandardSet
+from visions.backends.pandas.test_utils import pandas_version
 from visions.backends.pandas.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
@@ -117,7 +118,7 @@ contains_map = {
     },
 }
 
-if int(pd.__version__[0]) >= 1:
+if pandas_version[0] >= 1:
     contains_map[String].add("string_dtype_series")
 
 contains_map[Object] = {
@@ -190,7 +191,7 @@ inference_map = {
     "float_series": Float,
     "float_nan_series": Float,
     "int_series_boolean": Integer,
-    "complex_series_py_float": Float,
+    "complex_series_py_float": Integer,
     "float_series2": Integer,
     "float_series3": Float,
     "float_series4": Float,
@@ -287,7 +288,7 @@ inference_map = {
     "email_address_missing": Object,
     "email_address_str": String,
 }
-if int(pd.__version__[0]) >= 1:
+if pandas_version[0] >= 1:
     inference_map["string_dtype_series"] = String
 
 

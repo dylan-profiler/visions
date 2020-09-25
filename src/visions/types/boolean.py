@@ -1,11 +1,16 @@
 from functools import singledispatch
 from typing import Iterable, Sequence
 
-from visions.backends.python.series_utils import sequence_not_empty
+from visions.backends.python.series_utils import (
+    sequence_handle_none,
+    sequence_not_empty,
+)
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
+@sequence_not_empty
+@sequence_handle_none
 def is_bool(sequence: Iterable, state: dict):
     return all(isinstance(value, bool) for value in sequence)
 
@@ -25,19 +30,19 @@ def object_is_bool(sequence: Iterable, state: dict) -> bool:
 
 
 @singledispatch
+@sequence_handle_none
 def string_is_bool(sequence: Iterable, state: dict):
-    return is_bool(sequence, state)
+    return all(value in ["True", "False"] for value in sequence)
 
 
 @singledispatch
 def string_to_bool(sequence: Iterable, state: dict):
-    return to_bool(sequence, state)
+    return map(lambda v: v == "True", sequence)
 
 
 @singledispatch
-@sequence_not_empty
 def boolean_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(value, bool) for value in sequence)
+    return is_bool(sequence, state)
 
 
 class Boolean(VisionsBaseType):
