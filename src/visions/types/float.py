@@ -26,7 +26,7 @@ def string_is_float(sequence: Iterable, state: dict) -> bool:
 
 @singledispatch
 def complex_to_float(sequence: Iterable, state: dict) -> Iterable:
-    return map(lambda v: v.real, sequence)
+    return list(map(lambda v: v.real, sequence))
 
 
 @singledispatch

@@ -227,7 +227,7 @@ convert_map = [
         },
     ),
     (Boolean, String, {"string_bool_nan"}),
-    (Boolean, Object, {"bool_nan_series", "mixed"}),
+    (Boolean, Object, {"bool_nan_series"}),
     (Float, Complex, {"complex_series_py_float"}),
     (DateTime, String, {"py_datetime_str"}),
 ]

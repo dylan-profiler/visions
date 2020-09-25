@@ -18,7 +18,7 @@ def string_is_complex(sequence: Iterable, state: dict) -> bool:
 
 @singledispatch
 def string_to_complex(sequence: Iterable, state: dict) -> Iterable:
-    return map(complex, sequence)
+    return list(map(complex, sequence))
 
 
 @singledispatch

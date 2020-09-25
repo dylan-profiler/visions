@@ -89,11 +89,15 @@ def get_inference_cases(
 
 
 def infers(name, series, expected_type, typeset, difference):
-    # TODO: include paths on error!
-    inferred_type = typeset.infer_type(series)
+    from visions.typesets.typeset import get_type_from_path
+
+    _, paths, _ = typeset._traverse_graph(series, typeset.root_node, typeset.relation_graph)
+    inferred_type = get_type_from_path(paths)
+
+    # inferred_type = typeset.infer_type(series)
     return (
         (inferred_type == expected_type) != difference,
-        f"inference of {name} expected {expected_type} to be {not difference} (typeset={typeset})",
+        f"inference of {name} expected {expected_type} to be {not difference} (typeset={typeset}). Path: {paths}",
     )
     # return series in inferred_type, f"series should be member of inferred type"
 
@@ -130,6 +134,12 @@ def get_convert_cases(_test_suite: Dict[str, Iterable], _series_map, typeset):
     argsvalues = []
     for name, item in _test_suite.items():
         for source_type, relation_type, series_list in _series_map:
+            for namex in series_list:
+                if namex not in _test_suite.keys():
+                    raise ValueError(
+                        f"{namex} specified in convert_map, but not in provided sequences"
+                    )
+
             if item in relation_type:
                 args = {"id": f"{name}: {relation_type} -> {source_type}"}
                 member = name in series_list
