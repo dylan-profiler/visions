@@ -371,6 +371,7 @@ cast_results = {
         [complex(1, 1), complex(2, 2), complex(10, 100), np.nan], dtype=np.complex128
     ),
     "complex_series_float": pd.Series([0, 1, 3, -1], dtype=np.int64),
+    "complex_series_py_float": pd.Series([0, 1, 3], dtype=np.int64),
     "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
     "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
     "mixed": pd.Series([True, False, None], dtype=hasnan_bool_name),
