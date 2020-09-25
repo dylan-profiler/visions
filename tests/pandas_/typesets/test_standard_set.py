@@ -324,7 +324,7 @@ convert_map = [
             # "string_with_sep_num_nan",
         },
     ),
-    (DateTime, String, {"timestamp_string_series", "string_date"}),
+    (DateTime, String, {"timestamp_string_series", "string_date", "py_datetime_str"}),
     (Boolean, String, {"string_bool_nan"}),
     (Float, Complex, {"complex_series_float", "complex_series_py_float"}),
     (Boolean, Object, {"bool_nan_series", "mixed"}),
@@ -348,6 +348,10 @@ cast_results = {
     "int_nan_series": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
     "timestamp_string_series": pd.Series(
         [np.datetime64("1941-05-24"), np.datetime64("2016-10-13")],
+        dtype="datetime64[ns]",
+    ),
+    "py_datetime_str": pd.Series(
+        [np.datetime64("1941-05-24 00:05:00"), np.datetime64("2016-10-13 00:10:00")],
         dtype="datetime64[ns]",
     ),
     "string_num_nan": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
