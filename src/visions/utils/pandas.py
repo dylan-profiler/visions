@@ -18,7 +18,7 @@ class Engine:
         raise NotImplementedError("No setup defined for generic engine")
 
     @staticmethod
-    def apply(series: pd.Series) -> Callable:
+    def apply(series: pd.Series) -> Callable[[Callable], pd.Series]:
         raise NotImplementedError("No apply defined for generic engine")
 
 
@@ -31,7 +31,7 @@ class PandasEngine(Engine):
         pass
 
     @staticmethod
-    def apply(series: pd.Series) -> Callable:
+    def apply(series: pd.Series) -> Callable[[Callable], pd.Series]:
         return series.apply
 
 
@@ -49,7 +49,7 @@ class SwifterEngine(Engine):
         cls._is_setup = True
 
     @staticmethod
-    def apply(series: pd.Series) -> Callable:
+    def apply(series: pd.Series) -> Callable[[Callable], pd.Series]:
         return series.swifter.apply
 
 
@@ -68,7 +68,7 @@ class PandarallelEngine(Engine):
         cls._is_setup = True
 
     @staticmethod
-    def apply(series: pd.Series) -> Callable:
+    def apply(series: pd.Series) -> Callable[[Callable], pd.Series]:
         return series.parallel_apply
 
 
@@ -79,10 +79,10 @@ class PandasEnginesCollection:
     def __init__(self, engines: List[Type[Engine]]):
         self.engines = {engine.name: engine for engine in engines}
 
-    def is_engine(self, name) -> bool:
+    def is_engine(self, name: str) -> bool:
         return name in self.engines
 
-    def get(self, name) -> Type[Engine]:
+    def get(self, name: str) -> Type[Engine]:
         return self.engines[name]
 
 
@@ -104,7 +104,7 @@ class PandasApply:
         self._engine.setup(*args, **kwargs)
 
     @property
-    def apply(self) -> Callable:
+    def apply(self) -> Callable[[pd.Series], Callable[[Callable], pd.Series]]:
         return self.engine.apply
 
 
@@ -126,5 +126,5 @@ class PandasHandler:
 _pandas_handler = PandasHandler()
 
 
-def pandas_apply(series: pd.Series) -> Callable:
+def pandas_apply(series: pd.Series) -> Callable[[Callable], pd.Series]:
     return _pandas_handler.applier.apply(series)
