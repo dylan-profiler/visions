@@ -12,13 +12,13 @@ def string_is_datetime(sequence: Iterable, state: dict) -> bool:
     try:
         _ = list(string_to_datetime(sequence, state))
         return True
-    except (OverflowError, TypeError):
+    except (OverflowError, TypeError, ValueError):
         return False
 
 
 @singledispatch
 def string_to_datetime(sequence: Iterable, state: dict) -> Iterable:
-    return map(datetime, sequence)
+    return map(datetime.fromisoformat, sequence)
 
 
 @singledispatch

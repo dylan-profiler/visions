@@ -66,6 +66,7 @@ def get_sequences() -> Dict[str, Iterable]:
         "complex_series_py_float": [complex(0, 0), complex(1, 0), complex(3, 0)],
         "string_date": ["1937-05-06", "20/4/2014"],
         "timestamp_string_series": ["1941-05-24", "13/10/2016"],
+        "py_datetime_str": ["1941-05-24 00:05:00", "13-10-2016 00:10:00"],
         "date": [
             datetime.date(2011, 1, 1),
             datetime.date(2012, 1, 2),

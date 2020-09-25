@@ -72,6 +72,11 @@ def get_inference_cases(
 ):
     argsvalues = []
     for name, series in _test_suite.items():
+        if name not in inferred_series_type_map:
+            raise ValueError(
+                f"{name} has no defined inference type, please add one to the test case mapping"
+            )
+
         expected_type = inferred_series_type_map[name]
         for test_type in typeset.types:
             expected = test_type == expected_type

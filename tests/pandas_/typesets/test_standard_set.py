@@ -86,6 +86,7 @@ contains_map = {
     },
     TimeDelta: {"timedelta_series", "timedelta_series_nat", "timedelta_negative"},
     String: {
+        "py_datetime_str",
         "timestamp_string_series",
         "string_with_sep_num_nan",
         "string_series",
@@ -201,6 +202,7 @@ inference_map = {
     "inf_series": Float,
     "nan_series": Float,
     "nan_series_2": Float,
+    "py_datetime_str": DateTime,
     "string_series": String,
     "categorical_string_series": Categorical,
     "timestamp_string_series": DateTime,

@@ -108,6 +108,7 @@ contains_map = {
     Time: {"time"},
     TimeDelta: {"timedelta_series", "timedelta_series_nat", "timedelta_negative"},
     String: {
+        "py_datetime_str",
         "timestamp_string_series",
         "string_with_sep_num_nan",
         "string_series",
@@ -295,6 +296,7 @@ inference_map = {
     "email_address": EmailAddress,
     "email_address_missing": EmailAddress,
     "email_address_str": EmailAddress,
+    "py_datetime_str": DateTime,
 }
 if int(pd.__version__[0]) >= 1:
     inference_map["string_dtype_series"] = String
@@ -334,7 +336,7 @@ convert_map = [
         },
     ),
     (Date, DateTime, {"date_series_nat", "datetime"}),
-    (DateTime, String, {"timestamp_string_series", "string_date"}),
+    (DateTime, String, {"timestamp_string_series", "string_date", "py_datetime_str"}),
     (Geometry, String, {"geometry_string_series"}),
     (Boolean, String, {"string_bool_nan"}),
     (IPAddress, String, {"ip_str"}),
@@ -434,6 +436,9 @@ cast_results = {
         [datetime.date(2017, 3, 5), datetime.date(2019, 12, 4), pd.NaT],
     ),
     "timestamp_string_series": pd.Series(
+        [datetime.date(1941, 5, 24), datetime.date(2016, 10, 13)]
+    ),
+    "py_datetime_str": pd.Series(
         [datetime.date(1941, 5, 24), datetime.date(2016, 10, 13)]
     ),
     "string_date": pd.Series([datetime.date(1937, 5, 6), datetime.date(2014, 4, 20)]),

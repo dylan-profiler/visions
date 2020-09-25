@@ -48,6 +48,7 @@ contains_map = {
     DateTime: set(),
     TimeDelta: set(),
     String: {
+        "py_datetime_str",
         "timestamp_string_series",
         "string_series",
         "string_unicode_series",
@@ -127,13 +128,14 @@ inference_map = {
     "complex_series_float": Integer,
     "string_series": String,
     "categorical_string_series": Categorical,
-    "timestamp_string_series": DateTime,
+    "timestamp_string_series": String,
     "string_unicode_series": String,
     "string_num": Integer,
     "complex_series_py_float": Float,
     "string_flt": Float,
     "string_bool_nan": Boolean,
-    "string_date": DateTime,
+    "string_date": String,
+    "py_datetime_str": DateTime,
     "str_url": String,
     "bool_series": Boolean,
     "bool_nan_series": Boolean,
@@ -199,7 +201,17 @@ def test_inference(name, series, type, typeset, difference):
 convert_map = [
     # Model type, Relation type
     (Integer, Float, {"float_series2"}),
-    (Complex, String, {"str_complex", "str_complex_nan"}),
+    (
+        Complex,
+        String,
+        {
+            "str_complex",
+            "str_complex_nan",
+            "textual_float_nan",
+            "str_int_zeros",
+            "textual_float",
+        },
+    ),
     (
         Float,
         String,
@@ -212,10 +224,10 @@ convert_map = [
             "str_int_zeros",
         },
     ),
-    (DateTime, String, {"timestamp_string_series", "string_date"}),
     (Boolean, String, {"string_bool_nan"}),
     (Boolean, Object, {"bool_nan_series", "mixed"}),
     (Float, Complex, {"complex_series_py_float"}),
+    (DateTime, String, {"py_datetime_str"})
 ]
 
 
@@ -234,14 +246,9 @@ def test_conversion(name, source_type, relation_type, series, member):
 #
 # cast_results = {
 #     "float_series2": [1, 2, 3, 4],
-#     "timestamp_string_series": [np.datetime64("1941-05-24"), np.datetime64("2016-10-13")],
 #     "string_num": pd.Series([1, 2, 3], dtype=np.int64),
 #     "string_flt": pd.Series([1.0, 45.67, 3.5], dtype=np.float64),
 #     "string_bool_nan": pd.Series([True, False, None], dtype=hasnan_bool_name),
-#     "string_date": pd.Series(
-#         [np.datetime64("1937-05-06"), np.datetime64("2014-04-20")],
-#         dtype="datetime64[ns]",
-#     ),
 #     "str_float_non_leading_zeros": pd.Series([0.0, 0.04, 0.0], dtype=np.float64),
 #     "str_int_zeros": pd.Series([0, 0, 0, 2], dtype=np.int64),
 #     "bool_nan_series": pd.Series([True, False, None], dtype=hasnan_bool_name),
