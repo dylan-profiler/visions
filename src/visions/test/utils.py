@@ -91,7 +91,9 @@ def get_inference_cases(
 def infers(name, series, expected_type, typeset, difference):
     from visions.typesets.typeset import get_type_from_path
 
-    _, paths, _ = typeset._traverse_graph(series, typeset.root_node, typeset.relation_graph)
+    _, paths, _ = typeset._traverse_graph(
+        series, typeset.root_node, typeset.relation_graph
+    )
     inferred_type = get_type_from_path(paths)
 
     # inferred_type = typeset.infer_type(series)

@@ -28,7 +28,7 @@ def performance_report(series_dict, convert_map, membership=True):
     df["type"] = df["type"].astype(str)
     aggs = ["min", "max"]
     agg_labels = ["worst", "best"]
-    summary_cols = ["series"]#, "big O"]
+    summary_cols = ["series"]  # , "big O"]
     agg_df = df.groupby("type").agg(aggs).reset_index()[["type"] + summary_cols]
     agg_df.columns = ["_".join(col).strip("_") for col in agg_df.columns]
     colrenames = {
@@ -63,7 +63,7 @@ def relations_is_relation_test(series_dict, convert_map):
     df[grouper] = df[grouper].astype(str)
     aggs = ["min", "max"]
     agg_labels = ["worst", "best"]
-    summary_cols = ["series"]#, "big O"]
+    summary_cols = ["series"]  # , "big O"]
     agg_df = df.groupby(grouper).agg(aggs).reset_index()[[grouper] + summary_cols]
     agg_df.columns = ["_".join(col).strip("_") for col in agg_df.columns]
     colrenames = {
@@ -92,7 +92,7 @@ def relations_transform_test(series_dict, convert_map):
     df[grouper] = df[grouper].astype(str)
     aggs = ["min", "max"]
     agg_labels = ["worst", "best"]
-    summary_cols = ["series"]#, "big O"]
+    summary_cols = ["series"]  # , "big O"]
     agg_df = df.groupby(grouper).agg(aggs).reset_index()[[grouper] + summary_cols]
     agg_df.columns = ["_".join(col).strip("_") for col in agg_df.columns]
     colrenames = {
