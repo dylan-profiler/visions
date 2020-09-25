@@ -1,7 +1,20 @@
 import warnings
 from functools import singledispatch, cached_property
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple, Type, TypeVar, Union, Sequence, Mapping
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    Sequence,
+    Mapping,
+)
 
 import networkx as nx
 import pandas as pd
@@ -12,9 +25,7 @@ from visions.types.type import VisionsBaseType
 T = Type[VisionsBaseType]
 pdT = TypeVar("pdT", pd.Series, pd.DataFrame)
 TypeOrTypeset = TypeVar("TypeOrTypeset", Type[VisionsBaseType], "VisionsTypeset")
-pathTypes = TypeVar(
-    "pathTypes", T, Dict[str, T]
-)
+pathTypes = TypeVar("pathTypes", T, Dict[str, T])
 
 
 def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGraph]:
@@ -176,27 +187,21 @@ def traverse_graph_with_sampled_series(
 
 @singledispatch
 def traverse_graph(
-    data: pdT,
-    root_node: T,
-    graph: nx.DiGraph
+    data: pdT, root_node: T, graph: nx.DiGraph
 ) -> Tuple[pdT, Union[List[T], Dict[str, List[T]]], Dict[str, dict]]:
     raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
 
 
 @traverse_graph.register(pd.Series)
 def _traverse_graph_series(
-    series: pd.Series,
-    root_node: T,
-    graph: nx.DiGraph
+    series: pd.Series, root_node: T, graph: nx.DiGraph
 ) -> Tuple[pd.Series, List[T], dict]:
     return traverse_graph_with_series(root_node, series, graph)
 
 
 @traverse_graph.register(pd.DataFrame)
 def _traverse_graph_dataframe(
-    df: pd.DataFrame,
-    root_node: T,
-    graph: nx.DiGraph
+    df: pd.DataFrame, root_node: T, graph: nx.DiGraph
 ) -> Tuple[pd.DataFrame, Dict[str, List[T]], Dict[str, dict]]:
 
     inferred_values = {
@@ -217,7 +222,9 @@ def _traverse_graph_dataframe(
 
 
 @singledispatch
-def get_type_from_path(path_data: Union[Sequence[T], Dict[str, Sequence[T]]]) -> Union[T, Dict[str, T]]:
+def get_type_from_path(
+    path_data: Union[Sequence[T], Dict[str, Sequence[T]]]
+) -> Union[T, Dict[str, T]]:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 
 

@@ -8,13 +8,14 @@ from visions.types import Integer
 from visions.utils.coercion import test_utils
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def redirect_state(func: Callable[[pd.Series], T]) -> Callable[[pd.Series, Dict], T]:
     @functools.wraps(func)
     def inner(series: pd.Series, state: Dict) -> T:
         return func(series)
+
     return inner
 
 
@@ -24,7 +25,9 @@ def to_datetime(series: pd.Series, state: dict) -> pd.Series:
 
 def _to_datetime(cls, func: Callable[[pd.Series], pd.Series]) -> InferenceRelation:
     return InferenceRelation(
-        relationship=redirect_state(test_utils.coercion_test(lambda s: func(s.astype(str)))),
+        relationship=redirect_state(
+            test_utils.coercion_test(lambda s: func(s.astype(str)))
+        ),
         transformer=to_datetime,
         type=cls,
         related_type=Integer,

@@ -10,7 +10,8 @@ from visions.utils.series_utils import func_nullable_series_contains
 
 
 def option_coercion_evaluator(
-    fn: Callable[[pd.Series], pd.Series], extra_errors: Optional[List[Type[Exception]]] = None
+    fn: Callable[[pd.Series], pd.Series],
+    extra_errors: Optional[List[Type[Exception]]] = None,
 ) -> Callable[[pd.Series], Optional[pd.Series]]:
     """A coercion test evaluator
 
@@ -39,7 +40,8 @@ def option_coercion_evaluator(
 
 
 def coercion_test(
-    fn: Callable[[pd.Series], pd.Series], extra_errors: Optional[List[Type[Exception]]] = None
+    fn: Callable[[pd.Series], pd.Series],
+    extra_errors: Optional[List[Type[Exception]]] = None,
 ) -> Callable[[pd.Series], bool]:
     """A coercion test generator
 
@@ -65,7 +67,8 @@ def coercion_test(
 
 
 def coercion_true_test(
-    fn: Callable[[pd.Series], pd.Series], extra_errors: Optional[List[Type[Exception]]] = None
+    fn: Callable[[pd.Series], pd.Series],
+    extra_errors: Optional[List[Type[Exception]]] = None,
 ) -> Callable[[pd.Series], bool]:
     """A coercion equality test generator
 
@@ -91,7 +94,9 @@ def coercion_true_test(
     return f
 
 
-def coercion_equality_test(fn: Callable[[pd.Series], pd.Series]) -> Callable[[pd.Series], bool]:
+def coercion_equality_test(
+    fn: Callable[[pd.Series], pd.Series]
+) -> Callable[[pd.Series], bool]:
     """A coercion equality test generator
 
     Creates a coercion test based on a provided coercion function which also enforces
@@ -131,7 +136,9 @@ def coercion_multi_map_test(mapping: Dict) -> Callable[[pd.Series, Dict], bool]:
     return f
 
 
-def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable[[pd.Series, Dict], bool]:
+def coercion_map_test(
+    mapping: Union[List[Dict], Dict]
+) -> Callable[[pd.Series, Dict], bool]:
     """Create a testing function for a single mapping or a list of mappings.
 
     Args:

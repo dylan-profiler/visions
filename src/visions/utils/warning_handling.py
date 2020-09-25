@@ -5,7 +5,7 @@ import sys
 import warnings
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def suppress_warnings(func: Callable[..., T]) -> Callable[..., T]:
@@ -14,6 +14,7 @@ def suppress_warnings(func: Callable[..., T]) -> Callable[..., T]:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             return func(*args, **kwargs)
+
     return inner
 
 

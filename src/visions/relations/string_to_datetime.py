@@ -7,13 +7,14 @@ from visions.relations import InferenceRelation
 from visions.utils.coercion import test_utils
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def redirect_state(func: Callable[[pd.Series], T]) -> Callable[[pd.Series, Dict], T]:
     @functools.wraps(func)
     def inner(series: pd.Series, state: Dict) -> T:
         return func(series)
+
     return inner
 
 

@@ -5,7 +5,7 @@ import pandas as pd
 from pandas.api import types as pdt
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 # For future reference: get the dtype from the subtype when the series is sparse
@@ -22,7 +22,9 @@ T = TypeVar('T')
 #     return inner
 
 
-def nullable_series_contains(fn: Callable[[Any, pd.Series, Dict], bool]) -> Callable[[Any, pd.Series, Dict], bool]:
+def nullable_series_contains(
+    fn: Callable[[Any, pd.Series, Dict], bool]
+) -> Callable[[Any, pd.Series, Dict], bool]:
     @functools.wraps(fn)
     def inner(cls: Any, series: pd.Series, state: Dict = {}) -> bool:
         if series.hasnans:
@@ -35,7 +37,9 @@ def nullable_series_contains(fn: Callable[[Any, pd.Series, Dict], bool]) -> Call
     return inner
 
 
-def func_nullable_series_contains(fn: Callable[[pd.Series, Dict], bool]) -> Callable[[pd.Series, Dict], bool]:
+def func_nullable_series_contains(
+    fn: Callable[[pd.Series, Dict], bool]
+) -> Callable[[pd.Series, Dict], bool]:
     @functools.wraps(fn)
     def inner(series: pd.Series, state: Dict = {}) -> bool:
         if series.hasnans:
@@ -69,7 +73,11 @@ def series_not_empty(fn: Callable[..., bool]) -> Callable[..., bool]:
 
 
 def _contains_instance_attrs(
-    series: pd.Series, is_method: Callable, class_name: Type[T], attrs: list, sample_size: int = 1
+    series: pd.Series,
+    is_method: Callable,
+    class_name: Type[T],
+    attrs: list,
+    sample_size: int = 1,
 ) -> bool:
     # TODO: user configurable .head or .sample
     # TODO: performance testing for series[0], series.iloc[0], series.head, series.sample
@@ -82,12 +90,16 @@ def _contains_instance_attrs(
         return False
 
 
-def class_name_attrs(series: pd.Series, class_name: Type[T], attrs: list, sample_size: int = 1) -> bool:
+def class_name_attrs(
+    series: pd.Series, class_name: Type[T], attrs: list, sample_size: int = 1
+) -> bool:
     def func(instance: T, class_name: Type[T]):
         return instance.__class__.__name__ == class_name.__name__
 
     return _contains_instance_attrs(series, func, class_name, attrs, sample_size)
 
 
-def isinstance_attrs(series: pd.Series, class_name: Type[T], attrs: list, sample_size: int =1) -> bool:
+def isinstance_attrs(
+    series: pd.Series, class_name: Type[T], attrs: list, sample_size: int = 1
+) -> bool:
     return _contains_instance_attrs(series, isinstance, class_name, attrs, sample_size)

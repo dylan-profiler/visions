@@ -40,7 +40,9 @@ def cast_to_inferred(
 
 
 @singledispatch
-def infer_type(data: Any, typeset: VisionsTypeset) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
+def infer_type(
+    data: Any, typeset: VisionsTypeset
+) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Infer the type in the base graph
 
     Args:
@@ -54,19 +56,25 @@ def infer_type(data: Any, typeset: VisionsTypeset) -> Union[Dict[str, Type[Visio
 
 
 @infer_type.register(pd.Series)
-def infer_type_series(series: pd.Series, typeset: VisionsTypeset) -> Type[VisionsBaseType]:
+def infer_type_series(
+    series: pd.Series, typeset: VisionsTypeset
+) -> Type[VisionsBaseType]:
     result = typeset.infer_type(series)
     return cast(Type[VisionsBaseType], result)
 
 
 @infer_type.register(pd.DataFrame)
-def infer_type_df(df: pd.DataFrame, typeset: VisionsTypeset) -> Dict[str, Type[VisionsBaseType]]:
+def infer_type_df(
+    df: pd.DataFrame, typeset: VisionsTypeset
+) -> Dict[str, Type[VisionsBaseType]]:
     result = typeset.infer_type(df)
     return cast(Dict[str, Type[VisionsBaseType]], result)
 
 
 @singledispatch
-def detect_type(data: Any, typeset: VisionsTypeset) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
+def detect_type(
+    data: Any, typeset: VisionsTypeset
+) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Detect the type in the base graph
 
     Args:
@@ -80,13 +88,17 @@ def detect_type(data: Any, typeset: VisionsTypeset) -> Union[Dict[str, Type[Visi
 
 
 @detect_type.register(pd.Series)
-def detect_type_series(series: pd.Series, typeset: VisionsTypeset) -> Type[VisionsBaseType]:
+def detect_type_series(
+    series: pd.Series, typeset: VisionsTypeset
+) -> Type[VisionsBaseType]:
     result = typeset.detect_type(series)
     return cast(Type[VisionsBaseType], result)
 
 
 @detect_type.register(pd.DataFrame)
-def detect_type_dataframe(df: pd.DataFrame, typeset: VisionsTypeset) -> Dict[str, Type[VisionsBaseType]]:
+def detect_type_dataframe(
+    df: pd.DataFrame, typeset: VisionsTypeset
+) -> Dict[str, Type[VisionsBaseType]]:
     result = typeset.detect_type(df)
     return cast(Dict[str, Type[VisionsBaseType]], result)
 
@@ -111,12 +123,12 @@ def compare_detect_inference_frame(
     detected_types = detect_type(df, typeset)
     inferred_types = infer_type(df, typeset)
 
-    assert isinstance(detected_types, dict) and isinstance(inferred_types, dict)  # Placate the MyPy Gods
+    assert isinstance(detected_types, dict) and isinstance(
+        inferred_types, dict
+    )  # Placate the MyPy Gods
 
     for key in detected_types.keys() & inferred_types.keys():
-        comparisons.append(
-            (key, detected_types[key], inferred_types[key])
-        )
+        comparisons.append((key, detected_types[key], inferred_types[key]))
     return comparisons
 
 

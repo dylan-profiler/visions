@@ -3,7 +3,7 @@ from typing import Optional, Callable, Type, TypeVar
 import attr
 import pandas as pd
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def func_repr(func: Callable) -> str:
@@ -12,7 +12,6 @@ def func_repr(func: Callable) -> str:
 
 def identity_relation(series: pd.Series, state: dict) -> pd.Series:
     return series
-
 
 
 @attr.s(frozen=True)
@@ -45,7 +44,9 @@ class TypeRelation:
     related_type = attr.ib()
     inferential: bool = attr.ib()
     transformer: Callable[[pd.Series, dict], pd.Series] = attr.ib(repr=func_repr)
-    relationship: Callable[[pd.Series, dict], bool] = attr.ib(default=lambda x, y: False, repr=func_repr)
+    relationship: Callable[[pd.Series, dict], bool] = attr.ib(
+        default=lambda x, y: False, repr=func_repr
+    )
 
     def is_relation(self, series: pd.Series, state: Optional[dict] = None) -> bool:
         if state is None:
@@ -64,7 +65,9 @@ class TypeRelation:
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
     relationship: Callable[[pd.Series, dict], bool] = attr.ib(repr=func_repr)
-    transformer: Callable[[pd.Series, dict], pd.Series] = attr.ib(default=identity_relation, repr=func_repr)
+    transformer: Callable[[pd.Series, dict], pd.Series] = attr.ib(
+        default=identity_relation, repr=func_repr
+    )
     inferential: bool = attr.ib(default=False)
 
     @relationship.default
