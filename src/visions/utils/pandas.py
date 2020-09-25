@@ -15,11 +15,11 @@ class Engine:
 
     @classmethod
     def setup(cls, *args, **kwargs) -> None:
-        raise NotImplemented("No setup defined for generic engine")
+        raise NotImplementedError("No setup defined for generic engine")
 
     @staticmethod
     def apply(series: pd.Series) -> Callable:
-        raise NotImplemented("No apply defined for generic engine")
+        raise NotImplementedError("No apply defined for generic engine")
 
 
 class PandasEngine(Engine):
