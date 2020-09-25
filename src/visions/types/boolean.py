@@ -32,7 +32,7 @@ def object_is_bool(series: pd.Series, state: dict) -> bool:
 
 def string_is_bool(series, state: dict, string_coercions):
     try:
-        return coercion_map_test(string_coercions)(series.str.lower())
+        return coercion_map_test(string_coercions)(series.str.lower(), state)
     except:
         return False
 

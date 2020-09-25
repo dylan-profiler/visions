@@ -10,7 +10,7 @@ from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 
 @func_nullable_series_contains
-def series_is_string(series: pd.Series, state: dict):
+def series_is_string(series: pd.Series, state={}) -> bool:
     return all(isinstance(v, str) for v in series)
 
 
@@ -47,4 +47,4 @@ class String(VisionsBaseType):
         elif not pdt.is_object_dtype(series):
             return pandas_has_string_dtype_flag and pdt.is_string_dtype(series)
 
-        return series_is_string(series)
+        return series_is_string(series, state)

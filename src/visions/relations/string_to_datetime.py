@@ -1,8 +1,20 @@
+from typing import Callable, Dict, TypeVar
+import functools
 import pandas as pd
 
 from visions import String
 from visions.relations import InferenceRelation
 from visions.utils.coercion import test_utils
+
+
+T = TypeVar('T')
+
+
+def redirect_state(func: Callable[[pd.Series], T]) -> Callable[[pd.Series, Dict], T]:
+    @functools.wraps(func)
+    def inner(series: pd.Series, state: Dict) -> T:
+        return func(series)
+    return inner
 
 
 def to_datetime_year_week(series: pd.Series) -> pd.Series:
@@ -50,8 +62,8 @@ def to_datetime_year_month_day(series: pd.Series) -> pd.Series:
 
 def _to_datetime(cls, func) -> InferenceRelation:
     return InferenceRelation(
-        relationship=test_utils.coercion_test(func),
-        transformer=func,
+        relationship=redirect_state(test_utils.coercion_test(func)),
+        transformer=redirect_state(func),
         related_type=String,
         type=cls,
     )

@@ -10,14 +10,15 @@ from visions.utils.series_utils import func_nullable_series_contains
 
 
 def option_coercion_evaluator(
-    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
-) -> Callable:
+    fn: Callable[[pd.Series], pd.Series], extra_errors: Optional[List[Type[Exception]]] = None
+) -> Callable[[pd.Series], Optional[pd.Series]]:
     """A coercion test evaluator
 
-    Evaluates a coercion method and optionally returns the coerced series.
+    Evaluates a coercion function and optionally returns the coerced series.
 
     Args:
-        method: A method coercing a Series to another Series.
+        fn: A function coercing a Series to another Series.
+        extra_errors: Additional exceptions to catch
 
     Returns:
         The coerced series if the coercion succeeds otherwise None.
@@ -27,10 +28,10 @@ def option_coercion_evaluator(
     if extra_errors:
         error_list.extend(extra_errors)
 
-    @functools.wraps(method)
+    @functools.wraps(fn)
     def f(series: pd.Series) -> Optional[pd.Series]:
         try:
-            return method(series)
+            return fn(series)
         except tuple(error_list):
             return None
 
@@ -38,23 +39,24 @@ def option_coercion_evaluator(
 
 
 def coercion_test(
-    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
-) -> Callable:
+    fn: Callable[[pd.Series], pd.Series], extra_errors: Optional[List[Type[Exception]]] = None
+) -> Callable[[pd.Series], bool]:
     """A coercion test generator
 
-    Creates a coercion test based on a provided coercion method.
+    Creates a coercion test based on a provided coercion function.
 
     Args:
-        method: A method coercing a Series to another type.
+        fn: A function coercing a Series to another type.
+        extra_errors: Additional exceptions to catch
 
     Returns:
         Whether the coercion failed or was successful.
 
     """
     # Returns True or False if the coercion succeeds
-    tester = option_coercion_evaluator(method, extra_errors)
+    tester = option_coercion_evaluator(fn, extra_errors)
 
-    @functools.wraps(method)
+    @functools.wraps(fn)
     def f(series: pd.Series) -> bool:
         result = tester(series)
         return True if result is not None else False
@@ -63,22 +65,23 @@ def coercion_test(
 
 
 def coercion_true_test(
-    method: Callable, extra_errors: Optional[List[Type[Exception]]] = None
-) -> Callable:
+    fn: Callable[[pd.Series], pd.Series], extra_errors: Optional[List[Type[Exception]]] = None
+) -> Callable[[pd.Series], bool]:
     """A coercion equality test generator
 
-    Creates a coercion test based on a provided coercion method which also enforces
+    Creates a coercion test based on a provided coercion function which also enforces
     equality constraints on the output. This is useful when you want to change the
     data type of a series without necessarily changing the data, for example,
     when converting an integer to a float.
 
     Args:
-        method: A method coercing a Series to another type.
+        fn: A function coercing a Series to another type.
+        extra_errors: Additional exceptions to catch
 
     Returns:
         Whether the coercion failed or was successful.
     """
-    tester = option_coercion_evaluator(method, extra_errors)
+    tester = option_coercion_evaluator(fn, extra_errors)
 
     @functools.wraps(tester)
     def f(series: pd.Series) -> bool:
@@ -88,21 +91,21 @@ def coercion_true_test(
     return f
 
 
-def coercion_equality_test(method: Callable) -> Callable:
+def coercion_equality_test(fn: Callable[[pd.Series], pd.Series]) -> Callable[[pd.Series], bool]:
     """A coercion equality test generator
 
-    Creates a coercion test based on a provided coercion method which also enforces
+    Creates a coercion test based on a provided coercion function which also enforces
     equality constraints on the output. This is useful when you want to change the
     data type of a series without necessarily changing the data, for example,
     when converting an integer to a float.
 
     Args:
-        method: A method coercing a Series to another type.
+        fn: A function coercing a Series to another type.
 
     Returns:
         Whether the coercion failed or was successful.
     """
-    tester = option_coercion_evaluator(method)
+    tester = option_coercion_evaluator(fn)
 
     @functools.wraps(tester)
     def f(series: pd.Series) -> bool:
@@ -112,7 +115,7 @@ def coercion_equality_test(method: Callable) -> Callable:
     return f
 
 
-def coercion_single_map_test(mapping: List[Dict]) -> Callable:
+def coercion_single_map_test(mapping: List[Dict]) -> Callable[[pd.Series, Dict], bool]:
     @func_nullable_series_contains
     def f(series: pd.Series, state: dict = {}) -> bool:
         return any(series.isin(list(single_map.keys())).all() for single_map in mapping)
@@ -120,7 +123,7 @@ def coercion_single_map_test(mapping: List[Dict]) -> Callable:
     return f
 
 
-def coercion_multi_map_test(mapping: Dict) -> Callable:
+def coercion_multi_map_test(mapping: Dict) -> Callable[[pd.Series, Dict], bool]:
     @func_nullable_series_contains
     def f(series: pd.Series, state: dict = {}) -> bool:
         return series.isin(list(mapping.keys())).all()
@@ -128,7 +131,7 @@ def coercion_multi_map_test(mapping: Dict) -> Callable:
     return f
 
 
-def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable:
+def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable[[pd.Series, Dict], bool]:
     """Create a testing function for a single mapping or a list of mappings.
 
     Args:
@@ -156,7 +159,7 @@ def coercion_map_test(mapping: Union[List[Dict], Dict]) -> Callable:
     return f
 
 
-def coercion_map(mapping: Union[List[Dict], Dict]) -> Callable:
+def coercion_map(mapping: Union[List[Dict], Dict]) -> Callable[[pd.Series], pd.Series]:
     """Maps a series given a mapping
 
     Args:

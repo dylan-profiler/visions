@@ -10,7 +10,7 @@ def is_unsigned_int(series: pd.Series, state: dict) -> bool:
     return series.ge(0).all()
 
 
-def to_unsigned_int(series: pd.Series) -> pd.Series:
+def to_unsigned_int(series: pd.Series, state: dict) -> pd.Series:
     return series.astype(np.uint64)
 
 

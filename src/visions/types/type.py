@@ -34,8 +34,8 @@ class VisionsBaseTypeMeta(ABCMeta):
         from visions.typesets import VisionsTypeset
 
         if not any(issubclass(x, Generic) for x in [cls, other]):
-            return VisionsTypeset([Generic, cls, other])
-        return VisionsTypeset([cls, other])
+            return VisionsTypeset({Generic, cls, other})
+        return VisionsTypeset({cls, other})
 
     def __str__(cls) -> str:
         return str(cls.__name__)

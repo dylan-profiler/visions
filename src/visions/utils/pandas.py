@@ -1,11 +1,11 @@
 import attr
-import importlib
+from importlib import util as import_util
 from typing import Callable, Type, List
 import pandas as pd
 
 
 def has_import(module: str) -> bool:
-    has_module = importlib.util.find_spec(module) is not None  # type: ignore
+    has_module = import_util.find_spec(module) is not None
     return has_module
 
 

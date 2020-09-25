@@ -8,7 +8,7 @@ from visions.types.type import VisionsBaseType
 from visions.utils.series_utils import series_not_empty
 
 
-def to_ordinal(series: pd.Series) -> pd.Categorical:
+def to_ordinal(series: pd.Series, state: dict) -> pd.Categorical:
     return pd.Categorical(
         series, categories=sorted(series.dropna().unique()), ordered=True
     )

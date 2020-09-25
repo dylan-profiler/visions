@@ -14,10 +14,10 @@ from visions.utils.series_utils import (
 
 
 @func_nullable_series_contains
-def test_time(series: pd.Series) -> Optional[bool]:
+def test_time(series: pd.Series, state: dict) -> bool:
     dtseries = series.dt.date
     value = date(1, 1, 1)
-    return True if all(v == value for v in dtseries) else None
+    return True if all(v == value for v in dtseries) else False
 
 
 def to_time(series: pd.Series, state: dict) -> pd.Series:

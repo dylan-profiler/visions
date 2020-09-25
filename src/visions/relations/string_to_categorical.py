@@ -1,5 +1,15 @@
+from typing import Callable
 from visions import String
 from visions.relations.relations import InferenceRelation
+import pandas as pd
+
+
+def _relationship(series: pd.series, state: dict) -> bool:
+    return (series.nunique() / len(series)) < 0.5
+
+
+def _transformer(series: pd.Series, state: dict) -> bool:
+    return series.astype("category")
 
 
 def string_to_categorical_distinct_count(cls) -> InferenceRelation:
@@ -10,8 +20,8 @@ def string_to_categorical_distinct_count(cls) -> InferenceRelation:
     """
     # TODO: only when not any other string relation (either exclude others or have ordering and evaluate last)
     return InferenceRelation(
-        relationship=lambda s, state: s.nunique() / len(s) < 0.5,
-        transformer=lambda s: s.astype("category"),
+        relationship=_relationship,
+        transformer=_transformer,
         related_type=String,
         type=cls,
     )
