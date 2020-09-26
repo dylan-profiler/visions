@@ -1,6 +1,8 @@
+from typing import Dict, Set, Type
+
 import pytest
 
-from visions import StandardSet
+from visions import StandardSet, VisionsBaseType
 from visions.backends.python.sequences import get_sequences
 from visions.test.utils import (
     cast,
@@ -29,7 +31,7 @@ sequences = get_sequences()
 
 typeset = StandardSet()
 
-contains_map = {
+contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
     Integer: {
         "int_series",
         "int_range",
