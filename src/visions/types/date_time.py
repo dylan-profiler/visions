@@ -1,5 +1,5 @@
 from datetime import datetime
-from functools import singledispatch
+from functools import partial, singledispatch
 from typing import Iterable, Sequence
 
 from visions.backends.python.series_utils import sequence_not_empty
@@ -18,7 +18,11 @@ def string_is_datetime(sequence: Iterable, state: dict) -> bool:
 
 @singledispatch
 def string_to_datetime(sequence: Iterable, state: dict) -> Iterable:
+    """
+    Python 3.7+
     return map(datetime.fromisoformat, sequence)
+    """
+    return map(lambda s: datetime.strptime(s, "%Y-%m-%d %H:%M:%S"), sequence)
 
 
 @singledispatch
