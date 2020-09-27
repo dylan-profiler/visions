@@ -1,3 +1,5 @@
+import visions.backends.python
+
 try:
     import pandas as pd
 
@@ -16,3 +18,5 @@ try:
     import visions.backends.numpy
 except ImportError:
     pass
+
+

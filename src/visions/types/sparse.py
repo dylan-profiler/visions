@@ -31,3 +31,4 @@ class Sparse(VisionsBaseType):
     @classmethod
     def contains_op(cls, sequence: Iterable, state: dict) -> bool:
         return sparse_contains(sequence, state)
+

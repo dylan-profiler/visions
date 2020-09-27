@@ -1,22 +1,47 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Iterable, Optional, Sequence, Type
+from typing import Callable, Optional, Sequence, Type, Dict, Any, Union, Iterable
+from singledispatchmethod import singledispatchmethod
+from multimethod import multimethod
 
 import attr
 
 from visions.relations import TypeRelation
 
 
-class VisionsBaseTypeMeta(ABCMeta):
-    def __contains__(cls, sequence: Iterable, state=None) -> bool:
-        if state is None:
-            state = {}
+_DEFAULT = object()
 
-        return cls.contains_op(sequence, state)  # type: ignore
+
+class RelationsIterManager:
+    def __init__(self, relations: Sequence[TypeRelation]):
+        self._keys: Dict["Type[VisionsBaseType]", int] = {
+            item.related_type: i for i, item in enumerate(relations)
+        }
+        self.values = tuple(relations)
+
+    def __getitem__(self, index: Union["Type[VisionsBaseType]", int]) -> TypeRelation:
+        idx = index if isinstance(index, int) else self._keys[index]
+        return self.values[idx]
+
+    def get(
+        self, index: Union["Type[VisionsBaseType]", int], default: Any = _DEFAULT
+    ) -> Union[TypeRelation, Any]:
+        try:
+            return self[index]
+        except (IndexError, KeyError) as err:
+            if default is _DEFAULT:
+                raise err
+            else:
+                return default
+
+
+class VisionsBaseTypeMeta(ABCMeta):
+    def __contains__(cls, sequence: Iterable) -> bool:
+        return cls.contains_op(sequence, {})  # type: ignore
 
     @property
-    def relations(cls) -> Optional[Sequence[TypeRelation]]:
+    def relations(cls) -> RelationsIterManager:
         if cls._relations is None:  # type: ignore
-            cls._relations = cls.get_relations()  # type: ignore
+            cls._relations = RelationsIterManager(cls.get_relations())  # type: ignore
         return cls._relations
 
     def __add__(cls, other):
@@ -43,16 +68,16 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     _relations: Optional[Sequence[TypeRelation]] = None
 
     def __init__(self):
-        raise ValueError("Types cannot be initialized")
+        pass
 
     @classmethod
     @abstractmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
         raise NotImplementedError
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+    def contains_op(sequence: Any, state: Any) -> bool:
         raise NotImplementedError
 
     @classmethod
@@ -63,7 +88,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
         ] = None,
         replace: bool = False,
-    ):
+    ) -> "Type[VisionsBaseType]":
         """Make a copy of the type
 
         Args:
@@ -102,3 +127,11 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             relations = old_relations + new_relations
 
         return new_type
+
+    @classmethod
+    def register_transformer(cls, relation, dispatchtype):
+        return cls.relations[relation].transformer.register(dispatchtype)
+
+    @classmethod
+    def register_relationship(cls, relation, dispatchtype):
+        return cls.relations[relation].relationship.register(dispatchtype)

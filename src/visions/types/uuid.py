@@ -1,28 +1,21 @@
 import uuid
-from functools import singledispatch
+from multimethod import multimethod
 from typing import Iterable, Sequence
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
 
 
-@singledispatch
-def string_is_uuid(sequence: Iterable, state: dict) -> bool:
+def string_is_uuid(item: str, state: dict) -> bool:
     try:
-        _ = [uuid.UUID(value) for value in sequence]
+        _ = string_to_uuid(item)
         return True
     except:
         return False
 
 
-@singledispatch
-def string_to_uuid(sequence: Iterable, state: dict) -> Iterable:
-    return [uuid.UUID(value) for value in sequence]
-
-
-@singledispatch
-def uuid_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(value, uuid.UUID) for value in sequence)
+def string_to_uuid(item: str, state: dict) -> Iterable:
+    return uuid.UUID(item)
 
 
 class UUID(VisionsBaseType):
@@ -43,6 +36,10 @@ class UUID(VisionsBaseType):
         >>> x in visions.UUID
         True
     """
+    @staticmethod
+    @multimethod
+    def contains_op(sequence: uuid.UUID, state: dict):
+        return True
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
@@ -55,7 +52,3 @@ class UUID(VisionsBaseType):
             ),
         ]
         return relations
-
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return uuid_contains(sequence, state)

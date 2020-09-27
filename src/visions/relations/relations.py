@@ -1,5 +1,6 @@
 from typing import Optional
 
+from multimethod import multimethod
 import attr
 import pandas as pd
 
@@ -8,8 +9,12 @@ def func_repr(func):
     return func.__name__ if hasattr(func, "__name__") else str("lambda")
 
 
-def identity_relation(series: pd.Series, state: dict) -> pd.Series:
+def identity_transform(series: pd.Series, state: dict) -> pd.Series:
     return series
+
+
+def default_relation(series: pd.Series, state: dict) -> pd.Series:
+    return False
 
 
 @attr.s(frozen=True)
@@ -41,8 +46,8 @@ class TypeRelation:
     type = attr.ib()
     related_type = attr.ib()
     inferential = attr.ib()
-    transformer = attr.ib(repr=func_repr)
-    relationship = attr.ib(default=lambda x, y: False, repr=func_repr)
+    transformer = attr.ib(converter=multimethod, repr=func_repr)
+    relationship = attr.ib(default=default_relation, converter=multimethod, repr=func_repr)
 
     def is_relation(self, series: pd.Series, state: Optional[dict] = None) -> bool:
         if state is None:
@@ -60,8 +65,8 @@ class TypeRelation:
 
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
-    relationship = attr.ib(repr=func_repr)
-    transformer = attr.ib(default=identity_relation, repr=func_repr)
+    relationship = attr.ib(repr=func_repr, converter=multimethod)
+    transformer = attr.ib(default=identity_transform, repr=func_repr)
     inferential = attr.ib(default=False)
 
     @relationship.default
@@ -71,7 +76,7 @@ class IdentityRelation(TypeRelation):
 
 @attr.s(frozen=True)
 class InferenceRelation(TypeRelation):
-    relationship = attr.ib(repr=func_repr)
+    relationship = attr.ib(converter=multimethod, repr=func_repr)
     inferential = attr.ib(default=True)
 
     @relationship.default
