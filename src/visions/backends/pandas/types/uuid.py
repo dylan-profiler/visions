@@ -8,10 +8,10 @@ from visions.backends.pandas.series_utils import (
     series_not_empty,
 )
 from visions.backends.pandas.test_utils import coercion_true_test
-from visions.types.uuid import string_is_uuid, string_to_uuid, uuid_contains
+from visions.types import UUID, String
 
 
-@string_is_uuid.register(pd.Series)
+@UUID.register_relationship(String, pd.Series)
 def _(series: pd.Series, state: dict) -> bool:
     def f(s):
         return s.apply(uuid.UUID)
@@ -19,13 +19,13 @@ def _(series: pd.Series, state: dict) -> bool:
     return coercion_true_test(f)(series)
 
 
-@string_to_uuid.register(pd.Series)
+@UUID.register_transformer(String, pd.Series)
 def _(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(uuid.UUID)
 
 
-@uuid_contains.register(pd.Series)
 @series_not_empty
 @series_handle_nulls
+@UUID.contains_op.register
 def _(series: pd.Series, state: dict) -> bool:
     return isinstance_attrs(series, uuid.UUID, ["time_low", "hex"])
