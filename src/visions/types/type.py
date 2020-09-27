@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type, Dict, Tuple, Any, Union
+from typing import Callable, Optional, Sequence, Type, Dict, Any, Union
 
 import attr
 import pandas as pd
