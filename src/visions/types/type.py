@@ -1,10 +1,13 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type, Union, Dict
+from typing import Callable, Optional, Sequence, Type, Dict, Tuple, Any, Union
 
 import attr
 import pandas as pd
 
 from visions.relations import TypeRelation
+
+
+_DEFAULT = object()
 
 
 class RelationsIterManager:
@@ -14,8 +17,20 @@ class RelationsIterManager:
         }
         self.values = tuple(relations)
 
-    def __getitem__(self, index):
-        return self.values[self._keys.get(index, index)]
+    def __getitem__(self, index: Union["Type[VisionsBaseType]", int]) -> TypeRelation:
+        idx = index if isinstance(index, int) else self._keys[index]
+        return self.values[idx]
+
+    def get(
+        self, index: Union["Type[VisionsBaseType]", int], default: Any = _DEFAULT
+    ) -> Union[TypeRelation, Any]:
+        try:
+            return self[index]
+        except (IndexError, KeyError) as err:
+            if default is _DEFAULT:
+                raise err
+            else:
+                return default
 
 
 class VisionsBaseTypeMeta(ABCMeta):
