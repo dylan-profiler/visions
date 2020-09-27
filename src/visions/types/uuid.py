@@ -1,6 +1,6 @@
 import uuid
 from multimethod import multimethod
-from typing import Iterable, Sequence
+from typing import Iterable, Sequence, Any
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
@@ -38,8 +38,8 @@ class UUID(VisionsBaseType):
     """
     @staticmethod
     @multimethod
-    def contains_op(sequence: uuid.UUID, state: dict):
-        return True
+    def contains_op(item: Any, state: dict):
+        return isinstance(item, uuid.UUID)
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
