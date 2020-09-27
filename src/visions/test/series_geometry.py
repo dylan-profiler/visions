@@ -1,30 +1,29 @@
+from typing import Dict
+
 import pandas as pd
 
 
-def get_geometry_series():
+def get_geometry_series() -> Dict[str, pd.Series]:
     from shapely import wkt
 
-    series = [
-        pd.Series(
+    series = {
+        "geometry_string_series": pd.Series(
             ["POINT (-92 42)", "POINT (-92 42.1)", "POINT (-92 42.2)"],
-            name="geometry_string_series",
         ),
-        pd.Series(
+        "geometry_series": pd.Series(
             [
                 wkt.loads("POINT (-92 42)"),
                 wkt.loads("POINT (-92 42.1)"),
                 wkt.loads("POINT (-92 42.2)"),
             ],
-            name="geometry_series",
         ),
-        pd.Series(
+        "geometry_series_missing": pd.Series(
             [
                 wkt.loads("POINT (-92 42)"),
                 wkt.loads("POINT (-92 42.1)"),
                 wkt.loads("POINT (-92 42.2)"),
                 None,
             ],
-            name="geometry_series_missing",
         ),
-    ]
+    }
     return series

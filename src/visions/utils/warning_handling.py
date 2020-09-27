@@ -5,6 +5,8 @@ import warnings
 
 
 def suppress_warnings(func):
+    """Suppress warnings produces while executing the wrapped function."""
+
     @functools.wraps(func)
     def inner(*args, **kwargs):
         with warnings.catch_warnings():

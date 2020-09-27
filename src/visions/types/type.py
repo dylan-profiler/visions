@@ -1,15 +1,17 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type
+from typing import Callable, Iterable, Optional, Sequence, Type
 
 import attr
-import pandas as pd
 
 from visions.relations import TypeRelation
 
 
 class VisionsBaseTypeMeta(ABCMeta):
-    def __contains__(cls, series: pd.Series, state: dict = {}) -> bool:
-        return cls.contains_op(series, state)  # type: ignore
+    def __contains__(cls, sequence: Iterable, state=None) -> bool:
+        if state is None:
+            state = {}
+
+        return cls.contains_op(sequence, state)  # type: ignore
 
     @property
     def relations(cls) -> Optional[Sequence[TypeRelation]]:
@@ -22,8 +24,8 @@ class VisionsBaseTypeMeta(ABCMeta):
         from visions.typesets import VisionsTypeset
 
         if not any(issubclass(x, Generic) for x in [cls, other]):
-            return VisionsTypeset([Generic, cls, other])
-        return VisionsTypeset([cls, other])
+            return VisionsTypeset({Generic, cls, other})
+        return VisionsTypeset({cls, other})
 
     def __str__(cls) -> str:
         return str(cls.__name__)
@@ -50,7 +52,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     @abstractmethod
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
         raise NotImplementedError
 
     @classmethod
@@ -76,8 +78,9 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         def get_new_relations(cls) -> Sequence[TypeRelation]:
             return relations
 
+        name = cls.__name__
         new_type = type(
-            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+            f"{name}[{type_name}]",
             (cls,),
             {
                 "get_relations": classmethod(get_new_relations),
@@ -94,7 +97,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             relations = new_relations
         else:
             old_relations = [
-                attr.evolve(relation, type=new_type) for relation in cls.get_relations()
+                attr.evolve(relation, type=new_type) for relation in cls.relations
             ]
             relations = old_relations + new_relations
 

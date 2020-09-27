@@ -1,45 +1,37 @@
-from typing import Sequence
+from functools import singledispatch
+from typing import Iterable, Sequence
 
-import pandas as pd
-from pandas.api import types as pdt
-
+from visions.backends.python.series_utils import (
+    sequence_handle_none,
+    sequence_not_empty,
+)
 from visions.relations import IdentityRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic
-
-    relations = [IdentityRelation(cls, Generic)]
-    return relations
-
-
-pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
+@singledispatch
+@sequence_not_empty
+@sequence_handle_none
+def object_contains(sequence: Iterable, state: dict) -> bool:
+    return any(not isinstance(value, (float, bool, int, complex)) for value in sequence)
 
 
 class Object(VisionsBaseType):
     """**Object** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> x = pd.Series(['a', 1, np.nan])
+        >>> x = ['a', 1, np.nan]
         >>> x in visions.Object
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import Generic
+
+        relations = [IdentityRelation(cls, Generic)]
+        return relations
 
     @classmethod
-    @series_not_sparse
-    @series_not_empty
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        is_object = pdt.is_object_dtype(series)
-        if is_object:
-            ret = True
-        elif pandas_has_string_dtype_flag:
-            ret = pdt.is_string_dtype(series) and not pdt.is_categorical_dtype(series)
-        else:
-            ret = False
-        return ret
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return object_contains(sequence, state)

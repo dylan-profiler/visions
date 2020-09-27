@@ -1,51 +1,10 @@
-from typing import Sequence
+from functools import singledispatch
+from typing import Iterable, Sequence
 
 import attr
-import pandas as pd
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
-from visions.utils.series_utils import (
-    isinstance_attrs,
-    nullable_series_contains,
-    series_not_empty,
-)
-
-
-def string_is_email(series, state: dict):
-    def test_email(s):
-        return s.apply(str_to_email).apply(lambda x: x.local and x.fqdn)
-
-    return test_utils.coercion_true_test(test_email)(series)
-
-
-def str_to_email(s):
-    if isinstance(s, FQDA):
-        return s
-    elif isinstance(s, str):
-        return FQDA(*s.split("@", maxsplit=1))
-    else:
-        raise TypeError("Only strings supported")
-
-
-def to_email(series: pd.Series, state: dict) -> pd.Series:
-    return series.apply(str_to_email)
-
-
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Object, String
-
-    relations = [
-        IdentityRelation(cls, Object),
-        InferenceRelation(
-            cls,
-            String,
-            relationship=string_is_email,
-            transformer=to_email,
-        ),
-    ]
-    return relations
 
 
 @attr.s(slots=True)
@@ -55,7 +14,36 @@ class FQDA(object):
 
     @staticmethod
     def from_str(s):
-        return str_to_email(s)
+        return _to_email(s)
+
+
+def _to_email(s) -> FQDA:
+    if isinstance(s, FQDA):
+        return s
+    elif isinstance(s, str):
+        return FQDA(*s.split("@", maxsplit=1))
+    else:
+        raise TypeError("Only strings supported")
+
+
+@singledispatch
+def string_is_email(sequence: Iterable, state: dict) -> bool:
+    try:
+        return all(
+            value.local and value.fqdn for value in string_to_email(sequence, state)
+        )
+    except (ValueError, TypeError, AttributeError):
+        return False
+
+
+@singledispatch
+def string_to_email(sequence: Iterable, state: dict) -> Iterable:
+    return map(_to_email, sequence)
+
+
+@singledispatch
+def email_address_contains(sequence: Iterable, state: dict) -> bool:
+    return all(isinstance(value, FQDA) for value in sequence)
 
 
 class EmailAddress(VisionsBaseType):
@@ -67,17 +55,27 @@ class EmailAddress(VisionsBaseType):
         This type
 
     Examples:
-        >>> x = pd.Series([FQDA('example','gmail.com'), FQDA.from_str('example@protonmail.com')])
+        >>> import visions
+        >>> x = [FQDA('example','gmail.com'), FQDA.from_str('example@protonmail.com')]
         >>> x in visions.EmailAddress
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import Object, String
+
+        relations = [
+            IdentityRelation(cls, Object),
+            InferenceRelation(
+                cls,
+                String,
+                relationship=string_is_email,
+                transformer=string_to_email,
+            ),
+        ]
+        return relations
 
     @classmethod
-    @series_not_empty
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return isinstance_attrs(series, FQDA, ["local", "fqdn"])
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return email_address_contains(sequence, state)

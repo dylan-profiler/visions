@@ -1,39 +1,32 @@
 import pathlib
-from typing import Sequence
-
-import pandas as pd
+from functools import singledispatch
+from typing import Iterable, Sequence
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import nullable_series_contains, series_not_empty
 
 
+@singledispatch
 def string_is_path(series, state: dict) -> bool:
     try:
-        s = to_path(series.copy(), state)
-        return s.apply(lambda x: x.is_absolute()).all()
+        s = string_to_path(series.copy(), state)
+        return all(value.is_absolute() for value in s)
     except TypeError:
         return False
 
 
-def to_path(series: pd.Series, state: dict) -> pd.Series:
-    s = series.copy().apply(pathlib.PureWindowsPath)
-    if not s.apply(lambda x: x.is_absolute()).all():
-        return series.apply(pathlib.PurePosixPath)
+@singledispatch
+def string_to_path(sequence: Iterable, state: dict) -> Iterable:
+    s = map(sequence, pathlib.PureWindowsPath)
+    if not all(value.is_absolute() for value in s):
+        return map(sequence, pathlib.PurePosixPath)
     else:
         return s
 
 
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Object, String
-
-    relations = [
-        IdentityRelation(cls, Object),
-        InferenceRelation(
-            cls, String, relationship=string_is_path, transformer=to_path
-        ),
-    ]
-    return relations
+@singledispatch
+def path_contains(sequence: Iterable, state: dict) -> bool:
+    return all(isinstance(x, pathlib.PurePath) and x.is_absolute() for x in sequence)
 
 
 class Path(VisionsBaseType):
@@ -41,17 +34,24 @@ class Path(VisionsBaseType):
 
     Examples:
         >>> import pathlib
-        >>> x = pd.Series([pathlib.Path('/home/user/file.txt'), pathlib.Path('/home/user/test2.txt')])
+        >>> import visions
+        >>> x = [pathlib.Path('/home/user/file.txt'), pathlib.Path('/home/user/test2.txt')]
         >>> x in visions.Path
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import Object, String
+
+        relations = [
+            IdentityRelation(cls, Object),
+            InferenceRelation(
+                cls, String, relationship=string_is_path, transformer=string_to_path
+            ),
+        ]
+        return relations
 
     @classmethod
-    @series_not_empty
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return all(isinstance(x, pathlib.PurePath) and x.is_absolute() for x in series)
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return path_contains(sequence, state)

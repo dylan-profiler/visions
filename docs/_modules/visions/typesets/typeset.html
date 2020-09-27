@@ -219,12 +219,10 @@
     <span class="n">noninferential_edges</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">get_relations</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">relation</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">relations</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">relation</span><span class="o">.</span><span class="n">related_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">&quot;Provided relations included mapping from </span><span class="si">{related_type}</span><span class="s2"> to </span><span class="si">{own_type}</span><span class="s2"> but </span><span class="si">{related_type}</span><span class="s2"> was not included in the provided list of nodes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">related_type</span><span class="o">=</span><span class="n">relation</span><span class="o">.</span><span class="n">related_type</span><span class="p">,</span> <span class="n">own_type</span><span class="o">=</span><span class="n">relation</span><span class="o">.</span><span class="n">type</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;Provided relations included mapping from </span><span class="si">{</span><span class="n">relation</span><span class="o">.</span><span class="n">related_type</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">relation</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> but </span><span class="si">{</span><span class="n">relation</span><span class="o">.</span><span class="n">related_type</span><span class="si">}</span><span class="s2"> was not included in the provided list of nodes&quot;</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">relation_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
@@ -282,9 +280,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cycles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">simple_cycles</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cycles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;Cyclical relations between types </span><span class="si">{cycles}</span><span class="s2"> detected&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cycles</span><span class="o">=</span><span class="n">cycles</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cyclical relations between types </span><span class="si">{</span><span class="n">cycles</span><span class="si">}</span><span class="s2"> detected&quot;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">traverse_graph_with_series</span><span class="p">(</span>
@@ -573,9 +569,7 @@
             <span class="n">other_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">other</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;Typeset operation not implemented for type </span><span class="si">{other_type}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">other_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Typeset operation not implemented for type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">other_types</span>
 

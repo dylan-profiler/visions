@@ -1,56 +1,62 @@
-from functools import partial
-from typing import Sequence
+from datetime import datetime
+from functools import partial, singledispatch
+from typing import Iterable, Sequence
 
-import pandas as pd
-from pandas.api import types as pdt
-
+from visions.backends.python.series_utils import sequence_not_empty
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
-from visions.utils.series_utils import series_not_empty, series_not_sparse
 
 
-def string_is_datetime(series: pd.Series, state: dict) -> bool:
-    exceptions = [OverflowError, TypeError]
-    return test_utils.coercion_test(partial(to_datetime, state=state), exceptions)(
-        series
-    )
+@singledispatch
+def string_is_datetime(sequence: Iterable, state: dict) -> bool:
+    try:
+        _ = list(string_to_datetime(sequence, state))
+        return True
+    except (OverflowError, TypeError, ValueError):
+        return False
 
 
-def to_datetime(series: pd.Series, state: dict) -> pd.Series:
-    return pd.to_datetime(series)
+@singledispatch
+def string_to_datetime(sequence: Iterable, state: dict) -> Iterable:
+    """
+    Python 3.7+
+    return map(datetime.fromisoformat, sequence)
+    """
+    return map(lambda s: datetime.strptime(s, "%Y-%m-%d %H:%M:%S"), sequence)
 
 
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic, String
-
-    relations = [
-        IdentityRelation(cls, Generic),
-        InferenceRelation(
-            cls,
-            String,
-            relationship=string_is_datetime,
-            transformer=to_datetime,
-        ),
-    ]
-    return relations
+@singledispatch
+@sequence_not_empty
+def datetime_contains(sequence: Iterable, state: dict) -> bool:
+    return all(isinstance(value, datetime) for value in sequence)
 
 
 class DateTime(VisionsBaseType):
     """**Datetime** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> x = pd.Series([pd.datetime(2017, 3, 5), pd.datetime(2019, 12, 4)])
+        >>> import datetime
+        >>> import visions
+        >>> x = [datetime.datetime(2017, 3, 5), datetime.datetime(2019, 12, 4)]
         >>> x in visions.DateTime
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        from visions.types import Generic, String
+
+        relations = [
+            IdentityRelation(cls, Generic),
+            InferenceRelation(
+                cls,
+                String,
+                relationship=string_is_datetime,
+                transformer=string_to_datetime,
+            ),
+        ]
+        return relations
 
     @classmethod
-    @series_not_sparse
-    @series_not_empty
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return pdt.is_datetime64_any_dtype(series)
+    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
+        return datetime_contains(sequence, state)

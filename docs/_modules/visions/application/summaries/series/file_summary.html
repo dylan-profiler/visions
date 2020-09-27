@@ -237,9 +237,7 @@
             <span class="k">raise</span>
 
     <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;hashes_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hash_algorithm</span><span class="p">):</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hash_file</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hash_algorithm</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="sa">f</span><span class="s2">&quot;hashes_</span><span class="si">{</span><span class="n">hash_algorithm</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hash_file</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hash_algorithm</span><span class="p">))</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">summary</span>
 </pre></div>

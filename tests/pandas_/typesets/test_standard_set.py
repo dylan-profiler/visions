@@ -3,6 +3,8 @@ import pandas as pd
 import pytest
 
 from visions import StandardSet
+from visions.backends.pandas.test_utils import pandas_version
+from visions.backends.pandas.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
 from visions.test.utils import (
@@ -27,9 +29,9 @@ from visions.types import (
     String,
     TimeDelta,
 )
-from visions.types.boolean import hasnan_bool_name
 
-series = get_series() + get_geometry_series()
+series = get_series()
+series.update(get_geometry_series())
 
 typeset = StandardSet()
 
@@ -74,6 +76,7 @@ contains_map = {
         "complex_series_py_nan",
         "complex_series_nan_2",
         "complex_series_float",
+        "complex_series_py_float",
     },
     DateTime: {
         "timestamp_series",
@@ -84,6 +87,7 @@ contains_map = {
     },
     TimeDelta: {"timedelta_series", "timedelta_series_nat", "timedelta_negative"},
     String: {
+        "py_datetime_str",
         "timestamp_string_series",
         "string_with_sep_num_nan",
         "string_series",
@@ -114,7 +118,7 @@ contains_map = {
     },
 }
 
-if int(pd.__version__[0]) >= 1:
+if pandas_version[0] >= 1:
     contains_map[String].add("string_dtype_series")
 
 contains_map[Object] = {
@@ -163,7 +167,7 @@ contains_map[Generic] = {
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
-def test_contains(series, type, member):
+def test_contains(name, series, type, member):
     """Test the generated combinations for "series in type"
 
     Args:
@@ -171,7 +175,7 @@ def test_contains(series, type, member):
         type: the type to test against
         member: the result
     """
-    result, message = contains(series, type, member)
+    result, message = contains(name, series, type, member)
     assert result, message
 
 
@@ -187,6 +191,7 @@ inference_map = {
     "float_series": Float,
     "float_nan_series": Float,
     "int_series_boolean": Integer,
+    "complex_series_py_float": Integer,
     "float_series2": Integer,
     "float_series3": Float,
     "float_series4": Float,
@@ -198,6 +203,7 @@ inference_map = {
     "inf_series": Float,
     "nan_series": Float,
     "nan_series_2": Float,
+    "py_datetime_str": DateTime,
     "string_series": String,
     "categorical_string_series": Categorical,
     "timestamp_string_series": DateTime,
@@ -282,19 +288,19 @@ inference_map = {
     "email_address_missing": Object,
     "email_address_str": String,
 }
-if int(pd.__version__[0]) >= 1:
+if pandas_version[0] >= 1:
     inference_map["string_dtype_series"] = String
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))
-def test_inference(series, type, typeset, difference):
+def test_inference(name, series, type, typeset, difference):
     """Test the generated combinations for "inference(series) == type"
 
     Args:
         series: the series to test
         type: the type to test against
     """
-    result, message = infers(series, type, typeset, difference)
+    result, message = infers(name, series, type, typeset, difference)
     assert result, message
 
 
@@ -319,22 +325,22 @@ convert_map = [
             # "string_with_sep_num_nan",
         },
     ),
-    (DateTime, String, {"timestamp_string_series", "string_date"}),
+    (DateTime, String, {"timestamp_string_series", "string_date", "py_datetime_str"}),
     (Boolean, String, {"string_bool_nan"}),
-    (Float, Complex, {"complex_series_float"}),
+    (Float, Complex, {"complex_series_float", "complex_series_py_float"}),
     (Boolean, Object, {"bool_nan_series", "mixed"}),
 ]
 
 
 @pytest.mark.parametrize(**get_convert_cases(series, convert_map, typeset))
-def test_conversion(source_type, relation_type, series, member):
+def test_conversion(name, source_type, relation_type, series, member):
     """Test the generated combinations for "convert(series) == type" and "infer(series) = source_type"
 
     Args:
         series: the series to test
         type: the type to test against
     """
-    result, message = convert(source_type, relation_type, series, member)
+    result, message = convert(name, source_type, relation_type, series, member)
     assert result, message
 
 
@@ -343,6 +349,10 @@ cast_results = {
     "int_nan_series": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
     "timestamp_string_series": pd.Series(
         [np.datetime64("1941-05-24"), np.datetime64("2016-10-13")],
+        dtype="datetime64[ns]",
+    ),
+    "py_datetime_str": pd.Series(
+        [np.datetime64("1941-05-24 00:05:00"), np.datetime64("2016-10-13 00:10:00")],
         dtype="datetime64[ns]",
     ),
     "string_num_nan": pd.Series([1, 2, np.nan], dtype=pd.Int64Dtype()),
@@ -368,6 +378,7 @@ cast_results = {
         [complex(1, 1), complex(2, 2), complex(10, 100), np.nan], dtype=np.complex128
     ),
     "complex_series_float": pd.Series([0, 1, 3, -1], dtype=np.int64),
+    "complex_series_py_float": pd.Series([0, 1, 3], dtype=np.int64),
     "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
     "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
     "mixed": pd.Series([True, False, None], dtype=hasnan_bool_name),
@@ -375,8 +386,8 @@ cast_results = {
 
 
 @pytest.mark.parametrize(**get_cast_cases(series, cast_results))
-def test_cast(series, expected):
+def test_cast(name, series, expected):
     if isinstance(expected, str):
         expected = None
-    result, message = cast(series, typeset, expected)
+    result, message = cast(name, series, typeset, expected)
     assert result, message

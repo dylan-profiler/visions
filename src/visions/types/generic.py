@@ -1,6 +1,4 @@
-from typing import Sequence
-
-import pandas as pd
+from typing import Iterable, Sequence
 
 from visions.relations import TypeRelation
 from visions.types.type import VisionsBaseType
@@ -11,7 +9,8 @@ class Generic(VisionsBaseType):
 
     Examples:
         >>> import numpy as np
-        >>> x = pd.Series(['a', 1, np.nan])
+        >>> import visions
+        >>> x = ['a', 1, np.nan]
         >>> x in visions.Generic
         True
     """
@@ -21,5 +20,5 @@ class Generic(VisionsBaseType):
         return []
 
     @classmethod
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
+    def contains_op(cls, iterable: Iterable, state: dict) -> bool:
         return True

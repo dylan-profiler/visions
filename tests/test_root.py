@@ -1,6 +1,6 @@
 import pytest
 
-from visions import Float, Generic, VisionsBaseType, VisionsTypeset
+from visions import Generic, VisionsBaseType, VisionsTypeset
 from visions.relations import IdentityRelation
 
 
@@ -8,7 +8,7 @@ class CustomGeneric(Generic):
     this_value = True
 
 
-class CustomNonGeneric:
+class CustomNonGeneric(VisionsBaseType):
     another_value = False
 
     @classmethod
@@ -19,7 +19,7 @@ class CustomNonGeneric:
 def make_test_type(root):
     class CustomFloat(VisionsBaseType):
         @classmethod
-        def contains_op(cls, series):
+        def contains_op(cls, series, state):
             return True
 
         @classmethod
