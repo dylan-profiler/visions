@@ -71,7 +71,7 @@ class IdentityRelation(TypeRelation):
 
     @relationship.default
     def make_relationship(self):
-        return self.type.__contains__
+        return self.type.contains_op
 
 
 @attr.s(frozen=True)
@@ -81,4 +81,4 @@ class InferenceRelation(TypeRelation):
 
     @relationship.default
     def make_relationship(self):
-        return self.type.__contains__
+        return self.type.contains_op
