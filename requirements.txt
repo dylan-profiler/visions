@@ -4,3 +4,4 @@ attrs>=19.3.0
 networkx>=2.4
 tangled_up_in_unicode>=0.0.4
 multimethod
+singledispatchmethod
