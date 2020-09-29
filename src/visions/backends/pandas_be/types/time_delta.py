@@ -16,3 +16,5 @@ def time_delta_contains(series: pd.Series, state: dict) -> bool:
         True
     """
     return pdt.is_timedelta64_dtype(series)
+
+TimeDelta.register_identity_relations(pd.Series)

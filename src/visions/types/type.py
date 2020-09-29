@@ -84,21 +84,19 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     def register_transformer(cls, relation, dispatchtype):
-        cls.register_identity_relations(relation, dispatchtype)
+        cls.register_identity_relations(dispatchtype)
         return cls.relations[relation].transformer.register(dispatchtype, dict)
 
     @classmethod
     def register_relationship(cls, relation, dispatchtype):
-        cls.register_identity_relations(relation, dispatchtype)
         return cls.relations[relation].relationship.register(dispatchtype, dict)
 
     @classmethod
-    def register_identity_relations(cls, visions_type, dispatch_types):
-        identity_relations = (relation for relation in visions_type.relations
+    def register_identity_relations(cls, dispatch_types):
+        identity_relations = (relation for relation in cls.relations
                               if isinstance(relation, IdentityRelation))
         for relation in identity_relations:
-
-            @visions_type.register_relationship(relation.related_type, dict)
+            @cls.register_relationship(relation, dispatch_types)
             def _(s, d):
                 return relation.relationship(s, d)
 
