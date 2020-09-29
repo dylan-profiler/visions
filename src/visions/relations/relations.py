@@ -84,4 +84,3 @@ class InferenceRelation(TypeRelation):
         converter=multimethod, repr=func_repr, default=identity_transform
     )
     inferential = attr.ib(default=True)
-

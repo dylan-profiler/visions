@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, Optional, Sequence, Type, Union
 
 from multimethod import multimethod
 
-from visions.relations import IdentityRelation, TypeRelation
+from visions.relations import TypeRelation
 
 _DEFAULT = object()
 
@@ -85,76 +85,14 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     def register_transformer(cls, relation, dispatchtype):
-       # cls.register_identity_relations(dispatchtype)
         return cls.relations[relation].transformer.register(dispatchtype, dict)
 
     @classmethod
     def register_relationship(cls, relation, dispatchtype):
         return cls.relations[relation].relationship.register(dispatchtype, dict)
 
-    @classmethod
-    def register_identity_relations(cls, dispatch_types):
-        identity_relations = (
-            relation
-            for relation in cls.relations
-            if isinstance(relation, IdentityRelation)
-        )
-        for relation in identity_relations:
-
-            @cls.register_relationship(relation, dispatch_types)
-            def _(s, d):
-                return relation.relationship(s, d)
-
     @staticmethod
     @multimethod
     @abstractmethod
     def contains_op(sequence: Any, state: Any) -> bool:
         raise NotImplementedError
-
-    # @classmethod
-    # def evolve_type(
-    #     cls,
-    #     type_name: str,
-    #     relations_generator: Optional[
-    #         Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
-    #     ] = None,
-    #     replace: bool = False,
-    # ) -> "Type[VisionsBaseType]":
-    #     """Make a copy of the type
-    #
-    #     Args:
-    #         type_name: the new type suffix, the type name will be `type[type_name]`
-    #         relations_generator: a function returning all TypeRelations for the new type
-    #         replace: if True, do not include the existing relations
-    #
-    #     Returns:
-    #         A new type
-    #     """
-    #
-    #     def get_new_relations(cls) -> Sequence[TypeRelation]:
-    #         return relations
-    #
-    #     name = cls.__name__
-    #     new_type = type(
-    #         f"{name}[{type_name}]",
-    #         (cls,),
-    #         {
-    #             "get_relations": classmethod(get_new_relations),
-    #             "contains_op": cls.contains_op,
-    #         },
-    #     )
-    #     new_relations = (
-    #         list(relations_generator(new_type)) if relations_generator else []
-    #     )
-    #     if replace:
-    #         assert (
-    #             relations_generator is not None
-    #         ), "When calling evolve_type with `replace=True`, a `relations_generator` is required."
-    #         relations = new_relations
-    #     else:
-    #         old_relations = [
-    #             attr.evolve(relation, type=new_type) for relation in cls.relations
-    #         ]
-    #         relations = old_relations + new_relations
-    #
-    #     return new_type

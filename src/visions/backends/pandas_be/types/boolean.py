@@ -75,5 +75,4 @@ def string_to_boolean(series: pd.Series, state: dict) -> pd.Series:
 @series_not_sparse
 @series_not_empty
 def boolean_contains(series: pd.Series, state: dict) -> bool:
-    print(".")
     return pdt.is_bool_dtype(series) and not pdt.is_categorical_dtype(series)
