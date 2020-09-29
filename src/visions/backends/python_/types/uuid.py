@@ -1,22 +1,22 @@
 import uuid
-from typing import Sequence, Iterable
+from typing import Sequence
 
-from visions.types.uuid import UUID
 from visions.types.string import String
+from visions.types.uuid import UUID
 
 
 @UUID.contains_op.register
-def uuid_contains(sequence: Iterable, state: dict) -> bool:
+def uuid_contains(sequence: Sequence, state: dict) -> bool:
     return all(isinstance(value, uuid.UUID) for value in sequence)
 
 
-@UUID.register_transformer(String, Iterable)
-def string_to_uuid(sequence: Iterable, state: dict) -> Sequence:
+@UUID.register_transformer(String, Sequence)
+def string_to_uuid(sequence: Sequence, state: dict) -> Sequence:
     return [uuid.UUID(value) for value in sequence]
 
 
-@UUID.register_relationship(String, Iterable)
-def string_is_uuid(sequence: Iterable, state: dict) -> bool:
+@UUID.register_relationship(String, Sequence)
+def string_is_uuid(sequence: Sequence, state: dict) -> bool:
     try:
         string_to_uuid(sequence)
         return True

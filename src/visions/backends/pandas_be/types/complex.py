@@ -30,7 +30,7 @@ def string_to_complex(series: pd.Series, state: dict) -> bool:
     return series.apply(complex)
 
 
-@Complex.contains_op.register(pd.Series)
+@Complex.contains_op.register
 @series_not_sparse
 @series_not_empty
 def complex_contains(series: pd.Series, state: dict) -> bool:

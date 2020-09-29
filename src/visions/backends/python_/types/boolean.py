@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Sequence
 
 from visions.backends.python_.series_utils import (
     sequence_handle_none,
@@ -9,36 +9,35 @@ from visions.types import Boolean, Object, String
 
 @sequence_not_empty
 @sequence_handle_none
-def is_bool(sequence: Iterable, state: dict):
+def is_bool(sequence: Sequence, state: dict):
     return all(isinstance(value, bool) for value in sequence)
 
 
-def to_bool(sequence: Iterable, state: dict):
+def to_bool(sequence: Sequence, state: dict):
     return map(bool, sequence)
 
 
-@Boolean.register_relationship(Object, Iterable)
-def object_is_bool(sequence: Iterable, state: dict) -> bool:
+@Boolean.register_relationship(Object, Sequence)
+def object_is_bool(sequence: Sequence, state: dict) -> bool:
     return is_bool(sequence, state)
 
 
-@Boolean.register_transformer(Object, Iterable)
-def object_to_bool(sequence: Iterable, state: dict) -> Iterable:
+@Boolean.register_transformer(Object, Sequence)
+def object_to_bool(sequence: Sequence, state: dict) -> Sequence:
     return to_bool(sequence, state)
 
 
-@Boolean.register_relationship(String, Iterable)
+@Boolean.register_relationship(String, Sequence)
 @sequence_handle_none
-def string_is_bool(sequence: Iterable, state: dict):
+def string_is_bool(sequence: Sequence, state: dict):
     return all(value in ["True", "False"] for value in sequence)
 
 
-@Boolean.register_transformer(String, Iterable)
-def string_to_bool(sequence: Iterable, state: dict):
+@Boolean.register_transformer(String, Sequence)
+def string_to_bool(sequence: Sequence, state: dict):
     return map(lambda v: v == "True", sequence)
 
 
-@Boolean.contains_op.register(Iterable)
-def boolean_contains(sequence: Iterable, state: dict) -> bool:
-    print("!")
+@Boolean.contains_op.register
+def boolean_contains(sequence: Sequence, state: dict) -> bool:
     return is_bool(sequence, state)

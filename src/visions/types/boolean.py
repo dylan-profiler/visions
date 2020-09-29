@@ -35,5 +35,4 @@ class Boolean(VisionsBaseType):
     @staticmethod
     @multimethod
     def contains_op(item: Any, state: dict) -> bool:
-        print("?")
         pass

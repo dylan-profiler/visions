@@ -1,4 +1,4 @@
-from typing import Iterable, Sequence
+from typing import Sequence
 from urllib.parse import ParseResult, urlparse
 
 from visions.types.string import String
@@ -11,12 +11,12 @@ def url_contains(sequence: Sequence, state: dict) -> bool:
 
 
 @URL.register_transformer(String, Sequence)
-def string_to_url(sequence: Iterable, state: dict) -> Iterable:
+def string_to_url(sequence: Sequence, state: dict) -> Sequence:
     return map(urlparse, sequence)
 
 
 @URL.register_relationship(String, Sequence)
-def string_is_url(sequence: Iterable, state: dict) -> bool:
+def string_is_url(sequence: Sequence, state: dict) -> bool:
     try:
         _ = all(isinstance(urlparse(value), ParseResult) for value in sequence)
         return True

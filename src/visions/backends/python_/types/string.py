@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Sequence
 
 from visions.backends.python_.series_utils import (
     sequence_handle_none,
@@ -7,8 +7,8 @@ from visions.backends.python_.series_utils import (
 from visions.types.string import String
 
 
-@String.contains_op.register(Iterable)
+@String.contains_op.register
 @sequence_not_empty
 @sequence_handle_none
-def string_contains(sequence: Iterable, state: dict) -> bool:
+def string_contains(sequence: Sequence, state: dict) -> bool:
     return all(isinstance(v, str) for v in sequence)

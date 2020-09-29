@@ -3,7 +3,7 @@ import sys
 
 import pytest
 
-from tests.conftest import sequences_equal
+from visions.test.utils import sequences_equal
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
 from visions.typesets import CompleteSet

@@ -22,7 +22,7 @@ from visions.types.time import Time
 #     return series.dt.time
 
 
-@Time.contains_op.register(pd.Series)
+@Time.contains_op.register
 @series_handle_nulls
 @series_not_empty
 def time_contains(series: pd.Series, state: dict) -> bool:

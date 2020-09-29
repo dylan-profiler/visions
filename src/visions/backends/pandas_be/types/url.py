@@ -7,8 +7,8 @@ from visions.backends.pandas_be.series_utils import (
     series_handle_nulls,
     series_not_empty,
 )
-from visions.types.url import URL
 from visions.types.string import String
+from visions.types.url import URL
 
 
 @URL.register_relationship(String, pd.Series)
@@ -25,7 +25,7 @@ def string_to_url(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(urlparse)
 
 
-@URL.contains_op.register(pd.Series)
+@URL.contains_op.register
 @series_handle_nulls
 @series_not_empty
 def url_contains(series: pd.Series, state: dict) -> bool:

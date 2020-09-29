@@ -1,13 +1,13 @@
 import os
 import sys
-from typing import Iterable
+from typing import Sequence
 
-from visions.types.string import String
 from visions.types.geometry import Geometry
+from visions.types.string import String
 
 
-@Geometry.register_relationship(String, Iterable)
-def string_is_geometry(sequence: Iterable, state: dict) -> bool:
+@Geometry.register_relationship(String, Sequence)
+def string_is_geometry(sequence: Sequence, state: dict) -> bool:
     """Shapely logs failures at a silly severity, just trying to suppress it's output on failures."""
     from shapely import wkt
     from shapely.errors import WKTReadingError
@@ -24,15 +24,15 @@ def string_is_geometry(sequence: Iterable, state: dict) -> bool:
     return result
 
 
-@Geometry.register_transformer(String, Iterable)
-def string_to_geometry(sequence: Iterable, state: dict) -> Iterable:
+@Geometry.register_transformer(String, Sequence)
+def string_to_geometry(sequence: Sequence, state: dict) -> Sequence:
     from shapely import wkt
 
     return map(wkt.loads, sequence)
 
 
-@Geometry.contains_op.register(Iterable)
-def geometry_contains(sequence: Iterable, state: dict) -> bool:
+@Geometry.contains_op.register
+def geometry_contains(sequence: Sequence, state: dict) -> bool:
     from shapely.geometry.base import BaseGeometry
 
     return all(issubclass(type(x), BaseGeometry) for x in sequence)

@@ -1,14 +1,14 @@
-from typing import Iterable
+from typing import Sequence
 
-from visions.types.object import Object
 from visions.backends.python_.series_utils import (
     sequence_handle_none,
     sequence_not_empty,
 )
+from visions.types.object import Object
 
 
-@Object.contains_op.register(Iterable)
+@Object.contains_op.register
 @sequence_not_empty
 @sequence_handle_none
-def object_contains(sequence: Iterable, state: dict) -> bool:
+def object_contains(sequence: Sequence, state: dict) -> bool:
     return any(not isinstance(value, (float, bool, int, complex)) for value in sequence)

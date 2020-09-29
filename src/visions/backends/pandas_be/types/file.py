@@ -9,7 +9,7 @@ from visions.backends.pandas_be.series_utils import (
 from visions.types.file import File
 
 
-@File.contains_op.register(pd.Series)
+@File.contains_op.register
 @series_not_empty
 @series_handle_nulls
 def file_contains(series: pd.Series, state: dict) -> bool:

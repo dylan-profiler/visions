@@ -28,7 +28,7 @@ def string_to_path(series: pd.Series, state: dict) -> pd.Series:
         return s
 
 
-@Path.contains_op.register(pd.Series)
+@Path.contains_op.register
 @series_not_empty
 @series_handle_nulls
 def path_contains(series: pd.Series, state: dict) -> bool:

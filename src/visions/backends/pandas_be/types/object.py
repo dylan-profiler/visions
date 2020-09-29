@@ -7,7 +7,7 @@ from visions.types.object import Object
 pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
 
 
-@Object.contains_op.register(pd.Series)
+@Object.contains_op.register
 @series_not_sparse
 @series_not_empty
 def object_contains(series: pd.Series, state: dict) -> bool:

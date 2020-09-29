@@ -6,8 +6,8 @@ from visions.backends.pandas_be.series_utils import (
     series_handle_nulls,
     series_not_empty,
 )
+from visions.types.email_address import FQDA, EmailAddress, _to_email
 from visions.types.string import String
-from visions.types.email_address import FQDA, _to_email, EmailAddress
 
 
 @EmailAddress.register_relationship(String, pd.Series)
@@ -23,7 +23,7 @@ def string_to_email(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(_to_email)
 
 
-@EmailAddress.contains_op.register(pd.Series)
+@EmailAddress.contains_op.register
 @series_not_empty
 @series_handle_nulls
 def email_address_contains(series: pd.Series, state: dict) -> bool:

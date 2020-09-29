@@ -11,7 +11,7 @@ from visions.types.ordinal import Ordinal
 #     )
 
 
-@Ordinal.contains_op.register(pd.Series)
+@Ordinal.contains_op.register
 @series_not_empty
 def ordinal_contains(series: pd.Series, state: dict) -> bool:
     return pdt.is_categorical_dtype(series) and series.cat.ordered

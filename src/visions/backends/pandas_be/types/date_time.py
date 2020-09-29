@@ -21,7 +21,7 @@ def string_to_datetime(series: pd.Series, state: dict) -> pd.Series:
     return pd.to_datetime(series)
 
 
-@DateTime.contains_op.register(pd.Series)
+@DateTime.contains_op.register
 @series_not_sparse
 @series_not_empty
 def datetime_contains(series: pd.Series, state: dict) -> bool:

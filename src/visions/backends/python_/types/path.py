@@ -1,11 +1,11 @@
 import pathlib
-from typing import Iterable
+from typing import Sequence
 
 from visions.types.path import Path
-from visions.types.path import String
+from visions.types.string import String
 
 
-@Path.register_relationship(String, Iterable)
+@Path.register_relationship(String, Sequence)
 def string_is_path(series, state: dict) -> bool:
     try:
         s = string_to_path(series.copy(), state)
@@ -14,8 +14,8 @@ def string_is_path(series, state: dict) -> bool:
         return False
 
 
-@Path.register_transformer(String, Iterable)
-def string_to_path(sequence: Iterable, state: dict) -> Iterable:
+@Path.register_transformer(String, Sequence)
+def string_to_path(sequence: Sequence, state: dict) -> Sequence:
     s = map(pathlib.PureWindowsPath, sequence)
     if not all(value.is_absolute() for value in s):
         return map(pathlib.PurePosixPath, sequence)
@@ -23,6 +23,6 @@ def string_to_path(sequence: Iterable, state: dict) -> Iterable:
         return s
 
 
-@Path.contains_op.register(Iterable)
-def path_contains(sequence: Iterable, state: dict) -> bool:
+@Path.contains_op.register
+def path_contains(sequence: Sequence, state: dict) -> bool:
     return all(isinstance(x, pathlib.PurePath) and x.is_absolute() for x in sequence)

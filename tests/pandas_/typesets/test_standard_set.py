@@ -2,9 +2,6 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from visions.typesets.standard_set import StandardSet
-from visions.backends.pandas_be.test_utils import pandas_version
-from visions.backends.pandas_be.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
 from visions.test.utils import (
@@ -29,6 +26,9 @@ from visions.types import (
     String,
     TimeDelta,
 )
+from visions.typesets.standard_set import StandardSet
+from visions.backends.pandas_be.test_utils import pandas_version
+from visions.backends.pandas_be.types.boolean import hasnan_bool_name
 
 series = get_series()
 series.update(get_geometry_series())

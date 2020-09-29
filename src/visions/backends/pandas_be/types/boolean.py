@@ -71,7 +71,7 @@ def string_to_boolean(series: pd.Series, state: dict) -> pd.Series:
     return object_to_boolean(coercion_map(string_coercions)(series.str.lower()), state)
 
 
-@Boolean.contains_op.register(pd.Series)
+@Boolean.contains_op.register
 @series_not_sparse
 @series_not_empty
 def boolean_contains(series: pd.Series, state: dict) -> bool:

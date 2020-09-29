@@ -1,9 +1,9 @@
 import pathlib
-from typing import Iterable
+from typing import Sequence
 
 from visions.types.file import File
 
 
-@File.contains_op.register(Iterable)
-def file_contains(sequence: Iterable, state: dict) -> bool:
+@File.contains_op.register
+def file_contains(sequence: Sequence, state: dict) -> bool:
     return all(isinstance(p, pathlib.Path) and p.exists() for p in sequence)

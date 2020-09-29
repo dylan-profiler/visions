@@ -1,13 +1,13 @@
 from datetime import datetime
-from typing import Iterable
+from typing import Sequence
 
 from visions.backends.python_.series_utils import sequence_not_empty
 from visions.types.date_time import DateTime
 from visions.types.string import String
 
 
-@DateTime.register_relationship(String, Iterable)
-def string_is_datetime(sequence: Iterable, state: dict) -> bool:
+@DateTime.register_relationship(String, Sequence)
+def string_is_datetime(sequence: Sequence, state: dict) -> bool:
     try:
         _ = list(string_to_datetime(sequence, state))
         return True
@@ -15,8 +15,8 @@ def string_is_datetime(sequence: Iterable, state: dict) -> bool:
         return False
 
 
-@DateTime.register_transformer(String, Iterable)
-def string_to_datetime(sequence: Iterable, state: dict) -> Iterable:
+@DateTime.register_transformer(String, Sequence)
+def string_to_datetime(sequence: Sequence, state: dict) -> Sequence:
     """
     Python 3.7+
     return map(datetime.fromisoformat, sequence)
@@ -24,7 +24,7 @@ def string_to_datetime(sequence: Iterable, state: dict) -> Iterable:
     return map(lambda s: datetime.strptime(s, "%Y-%m-%d %H:%M:%S"), sequence)
 
 
-@DateTime.contains_op.register(Iterable)
+@DateTime.contains_op.register
 @sequence_not_empty
-def datetime_contains(sequence: Iterable, state: dict) -> bool:
+def datetime_contains(sequence: Sequence, state: dict) -> bool:
     return all(isinstance(value, datetime) for value in sequence)

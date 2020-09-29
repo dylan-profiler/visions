@@ -24,7 +24,7 @@ def datetime_to_date(series: pd.Series, state: dict) -> pd.Series:
     return series.dt.date
 
 
-@Date.contains_op.register(pd.Series)
+@Date.contains_op.register
 @series_handle_nulls
 @series_not_empty
 def date_contains(series: pd.Series, state: dict) -> bool:

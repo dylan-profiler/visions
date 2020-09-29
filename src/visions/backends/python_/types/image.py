@@ -1,12 +1,12 @@
 import imghdr
 import pathlib
-from typing import Iterable
+from typing import Sequence
 
 from visions.types.image import Image
 
 
-@Image.contains_op.register(Iterable)
-def image_contains(sequence: Iterable, state: dict) -> bool:
+@Image.contains_op.register
+def image_contains(sequence: Sequence, state: dict) -> bool:
     return all(
         isinstance(p, pathlib.Path) and p.exists() and imghdr.what(p) for p in sequence
     )

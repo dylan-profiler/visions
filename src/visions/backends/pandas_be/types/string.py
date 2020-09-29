@@ -16,7 +16,7 @@ def _is_string(series: pd.Series, state: dict):
     return all(isinstance(v, str) for v in series)
 
 
-@String.contains_op.register(pd.Series)
+@String.contains_op.register
 @series_not_sparse
 @series_not_empty
 def string_contains(series: pd.Series, state: dict) -> bool:

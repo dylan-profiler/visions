@@ -37,7 +37,7 @@ def string_to_geometry(series: pd.Series, state: dict) -> pd.Series:
     return pd.Series([wkt.loads(value) for value in series])
 
 
-@Geometry.contains_op.register(pd.Series)
+@Geometry.contains_op.register
 @series_not_empty
 @series_handle_nulls
 def geometry_contains(series: pd.Series, state: dict) -> bool:

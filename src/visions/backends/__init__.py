@@ -4,10 +4,6 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-import visions.backends.python_
-
-logger.debug("Python backend loaded")
-
 try:
     import pandas as pd
 
@@ -30,3 +26,9 @@ try:
     logger.debug(f"Numpy backend loaded {np.__version__}")
 except ImportError:
     logger.debug("Numpy backend NOT loaded")
+
+
+
+import visions.backends.python_
+
+logger.debug("Python backend loaded")

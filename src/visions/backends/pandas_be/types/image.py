@@ -10,7 +10,7 @@ from visions.backends.pandas_be.series_utils import (
 from visions.types.image import Image
 
 
-@Image.contains_op.register(pd.Series)
+@Image.contains_op.register
 @series_not_empty
 @series_handle_nulls
 def image_contains(series: pd.Series, state: dict) -> bool:

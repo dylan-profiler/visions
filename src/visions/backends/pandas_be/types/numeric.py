@@ -5,7 +5,7 @@ from visions.backends.pandas_be.series_utils import series_not_empty, series_not
 from visions.types.numeric import Numeric
 
 
-@Numeric.contains_op.register(pd.Series)
+@Numeric.contains_op.register
 @series_not_sparse
 @series_not_empty
 def numeric_contains_op(series: pd.Series, state: dict) -> bool:

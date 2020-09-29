@@ -8,8 +8,8 @@ from visions.backends.pandas_be.series_utils import (
     series_not_empty,
 )
 from visions.backends.pandas_be.test_utils import coercion_true_test
-from visions.types.uuid import UUID
 from visions.types.string import String
+from visions.types.uuid import UUID
 
 
 @UUID.register_relationship(String, pd.Series)

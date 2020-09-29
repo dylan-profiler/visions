@@ -53,7 +53,7 @@ def complex_to_float(series: pd.Series, state: dict) -> pd.Series:
     return suppress_warnings(lambda s: s.astype(float))(series)
 
 
-@Float.contains_op.register(pd.Series)
+@Float.contains_op.register
 @series_not_empty
 @series_not_sparse
 def float_contains(series: pd.Series, state: dict) -> bool:

@@ -1,11 +1,11 @@
-from typing import Iterable
+from typing import Sequence
 
+from visions.types.email_address import FQDA, EmailAddress, _to_email
 from visions.types.string import String
-from visions.types.email_address import FQDA, _to_email, EmailAddress
 
 
-@EmailAddress.register_relationship(String, Iterable)
-def string_is_email(sequence: Iterable, state: dict) -> bool:
+@EmailAddress.register_relationship(String, Sequence)
+def string_is_email(sequence: Sequence, state: dict) -> bool:
     try:
         return all(
             value.local and value.fqdn for value in string_to_email(sequence, state)
@@ -14,11 +14,11 @@ def string_is_email(sequence: Iterable, state: dict) -> bool:
         return False
 
 
-@EmailAddress.register_relationship(String, Iterable)
-def string_to_email(sequence: Iterable, state: dict) -> Iterable:
+@EmailAddress.register_relationship(String, Sequence)
+def string_to_email(sequence: Sequence, state: dict) -> Sequence:
     return map(_to_email, sequence)
 
 
-@EmailAddress.contains_op.register(Iterable)
-def email_address_contains(sequence: Iterable, state: dict) -> bool:
+@EmailAddress.contains_op.register
+def email_address_contains(sequence: Sequence, state: dict) -> bool:
     return all(isinstance(value, FQDA) for value in sequence)

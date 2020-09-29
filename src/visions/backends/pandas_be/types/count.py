@@ -5,7 +5,7 @@ from visions.backends.pandas_be.series_utils import series_not_empty, series_not
 from visions.types.count import Count
 
 
-@Count.contains_op.register(pd.Series)
+@Count.contains_op.register
 @series_not_sparse
 @series_not_empty
 def count_contains(series: pd.Series, state: dict) -> bool:

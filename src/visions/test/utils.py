@@ -1,11 +1,25 @@
-from typing import Dict, Iterable, Optional, Set, Tuple, Type
+from typing import Any, Dict, Iterable, Optional, Set, Tuple, Type
 
 import networkx as nx
 import pandas as pd
 import pytest
 
-from tests.conftest import sequences_equal
 from visions import VisionsBaseType, VisionsTypeset
+
+
+def is_iter(v: Any) -> bool:
+    return isinstance(v, Iterable) and not isinstance(v, (str, bytes))
+
+
+def sequences_equal(s1: Iterable, s2: Iterable) -> bool:
+    for v1, v2 in zip(s1, s2):
+        if is_iter(v1) and is_iter(v2):
+            if not sequences_equal(v1, v2):
+                return False
+        elif not (pd.isna(v1) and pd.isna(v2)) and not v1 == v2:
+            return False
+
+    return True
 
 
 def all_series_included(

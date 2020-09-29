@@ -21,7 +21,7 @@ def string_to_ip_address(series: pd.Series, state: dict) -> pd.Series:
     return series.apply(ip_address)
 
 
-@IPAddress.contains_op.register(pd.Series)
+@IPAddress.contains_op.register
 @series_not_empty
 @series_handle_nulls
 def ip_address_contains(series: pd.Series, state: dict) -> bool:
