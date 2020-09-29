@@ -35,7 +35,7 @@ def string_is_bool(sequence: Sequence, state: dict):
 
 @Boolean.register_transformer(String, Sequence)
 def string_to_bool(sequence: Sequence, state: dict):
-    return map(lambda v: v.lower() == "true", sequence)
+    return map(lambda v: v.lower() == "true" if isinstance(v, str) else v, sequence)
 
 
 @Boolean.contains_op.register
