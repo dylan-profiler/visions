@@ -30,12 +30,12 @@ def object_to_bool(sequence: Sequence, state: dict) -> Sequence:
 @Boolean.register_relationship(String, Sequence)
 @sequence_handle_none
 def string_is_bool(sequence: Sequence, state: dict):
-    return all(value in ["True", "False"] for value in sequence)
+    return all(value.lower() in {"true", "false"} for value in sequence)
 
 
 @Boolean.register_transformer(String, Sequence)
 def string_to_bool(sequence: Sequence, state: dict):
-    return map(lambda v: v == "True", sequence)
+    return map(lambda v: v.lower() == "true", sequence)
 
 
 @Boolean.contains_op.register

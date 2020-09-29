@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, Optional, Sequence, Type, Union
 
 from multimethod import multimethod
 
-from visions.relations import TypeRelation
+from visions.relations import TypeRelation, IdentityRelation
 
 _DEFAULT = object()
 
@@ -84,11 +84,23 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     def register_transformer(cls, relation, dispatchtype):
-        return cls.relations[relation].transformer.register(dispatchtype)
+        cls.register_identity_relations(relation, dispatchtype)
+        return cls.relations[relation].transformer.register(dispatchtype, dict)
 
     @classmethod
     def register_relationship(cls, relation, dispatchtype):
-        return cls.relations[relation].relationship.register(dispatchtype)
+        cls.register_identity_relations(relation, dispatchtype)
+        return cls.relations[relation].relationship.register(dispatchtype, dict)
+
+    @classmethod
+    def register_identity_relations(cls, visions_type, dispatch_types):
+        identity_relations = (relation for relation in visions_type.relations
+                              if isinstance(relation, IdentityRelation))
+        for relation in identity_relations:
+
+            @visions_type.register_relationship(relation.related_type, dict)
+            def _(s, d):
+                return relation.relationship(s, d)
 
     @staticmethod
     @multimethod

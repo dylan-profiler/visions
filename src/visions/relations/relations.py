@@ -8,11 +8,11 @@ def func_repr(func):
     return func.__name__ if hasattr(func, "__name__") else str("lambda")
 
 
-def identity_transform(series: Any, state: dict) -> Any:
+def identity_transform(series: Any, state: dict = dict()) -> Any:
     return series
 
 
-def default_relation(series: Any, state: dict) -> bool:
+def default_relation(series: Any, state: dict = dict()) -> bool:
     return False
 
 
@@ -71,6 +71,7 @@ class IdentityRelation(TypeRelation):
     inferential = attr.ib(default=False)
 
     @relationship.default
+    @multimethod
     def make_relationship(self):
         return self.type.contains_op
 
