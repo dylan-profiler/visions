@@ -32,6 +32,10 @@ class RelationsIterManager:
             else:
                 return default
 
+    def __iter__(self):
+        for item in self.values:
+            yield item
+
 
 class VisionsBaseTypeMeta(ABCMeta):
     _relations = None

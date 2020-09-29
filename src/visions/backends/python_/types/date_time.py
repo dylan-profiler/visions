@@ -21,7 +21,7 @@ def string_to_datetime(sequence: Sequence, state: dict) -> Sequence:
     Python 3.7+
     return map(datetime.fromisoformat, sequence)
     """
-    return map(lambda s: datetime.strptime(s, "%Y-%m-%d %H:%M:%S"), sequence)
+    return tuple(map(lambda s: datetime.strptime(s, "%Y-%m-%d %H:%M:%S"), sequence))
 
 
 @DateTime.contains_op.register

@@ -16,7 +16,7 @@ def string_is_ip_address(sequence: Sequence, state: dict) -> bool:
 
 @IPAddress.register_transformer(String, Sequence)
 def string_to_ip_address(sequence: Sequence, state: dict) -> Sequence:
-    return map(ip_address, sequence)
+    return tuple(map(ip_address, sequence))
 
 
 @IPAddress.contains_op.register

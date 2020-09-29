@@ -15,7 +15,7 @@ def float_is_int(sequence: Sequence, state: dict) -> bool:
 
 @Integer.register_transformer(Float, Sequence)
 def float_to_int(sequence: Sequence, state: dict) -> Sequence:
-    return map(int, sequence)
+    return tuple(map(int, sequence))
 
 
 @Integer.contains_op.register

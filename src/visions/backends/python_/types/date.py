@@ -13,7 +13,7 @@ def datetime_is_date(sequence: Sequence, state: dict) -> bool:
 
 @Date.register_transformer(DateTime, Sequence)
 def datetime_to_date(sequence: Sequence, state: dict) -> Sequence:
-    return map(lambda v: v.date(), sequence)
+    return tuple(map(lambda v: v.date(), sequence))
 
 
 @Date.contains_op.register

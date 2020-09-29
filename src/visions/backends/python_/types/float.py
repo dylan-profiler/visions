@@ -21,7 +21,7 @@ def string_is_float(sequence: Sequence, state: dict) -> bool:
 
 @Float.register_transformer(String, Sequence)
 def string_to_float(sequence: Sequence, state: dict) -> Sequence:
-    return map(float, sequence)
+    return tuple(map(float, sequence))
 
 
 @Float.register_relationship(Complex, Sequence)

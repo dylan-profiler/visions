@@ -16,7 +16,7 @@ def string_is_email(sequence: Sequence, state: dict) -> bool:
 
 @EmailAddress.register_relationship(String, Sequence)
 def string_to_email(sequence: Sequence, state: dict) -> Sequence:
-    return map(_to_email, sequence)
+    return tuple(map(_to_email, sequence))
 
 
 @EmailAddress.contains_op.register

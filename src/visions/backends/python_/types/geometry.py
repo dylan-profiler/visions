@@ -28,7 +28,7 @@ def string_is_geometry(sequence: Sequence, state: dict) -> bool:
 def string_to_geometry(sequence: Sequence, state: dict) -> Sequence:
     from shapely import wkt
 
-    return map(wkt.loads, sequence)
+    return tuple(map(wkt.loads, sequence))
 
 
 @Geometry.contains_op.register

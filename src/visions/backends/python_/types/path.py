@@ -16,9 +16,9 @@ def string_is_path(series, state: dict) -> bool:
 
 @Path.register_transformer(String, Sequence)
 def string_to_path(sequence: Sequence, state: dict) -> Sequence:
-    s = map(pathlib.PureWindowsPath, sequence)
+    s = tuple(map(pathlib.PureWindowsPath, sequence))
     if not all(value.is_absolute() for value in s):
-        return map(pathlib.PurePosixPath, sequence)
+        return tuple(map(pathlib.PurePosixPath, sequence))
     else:
         return s
 

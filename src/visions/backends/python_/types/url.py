@@ -12,7 +12,7 @@ def url_contains(sequence: Sequence, state: dict) -> bool:
 
 @URL.register_transformer(String, Sequence)
 def string_to_url(sequence: Sequence, state: dict) -> Sequence:
-    return map(urlparse, sequence)
+    return tuple(map(urlparse, sequence))
 
 
 @URL.register_relationship(String, Sequence)

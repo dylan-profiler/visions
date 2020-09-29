@@ -1,10 +1,10 @@
-from typing import Dict, Iterable
+from typing import Dict, Sequence
 from urllib.parse import urlparse
 
 import numpy as np
 
 
-def get_sequences() -> Dict[str, Iterable]:
+def get_sequences() -> Dict[str, Sequence]:
     sequences = {
         "complex_series_float": [
             np.complex(0, 0),

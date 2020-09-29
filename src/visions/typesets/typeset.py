@@ -133,7 +133,7 @@ def traverse_graph_with_series(
 
 def traverse_graph_with_sampled_series(
     base_type: Type[VisionsBaseType],
-    series: Iterable,
+    series: pd.Series,
     graph: nx.DiGraph,
     sample_size: int = 10,
     state: dict = dict(),

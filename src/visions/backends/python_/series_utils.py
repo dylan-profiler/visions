@@ -1,6 +1,8 @@
 import functools
 from collections import Callable
-from typing import Sequence
+from typing import Sequence, TypeVar, Optional
+
+T = TypeVar('T')
 
 
 def sequence_not_empty(fn: Callable) -> Callable:
@@ -21,7 +23,7 @@ def sequence_handle_none(fn: Callable) -> Callable:
 
     @functools.wraps(fn)
     def inner(sequence: Sequence, *args, **kwargs) -> bool:
-        sequence = filter(None, sequence)
+        sequence = tuple(filter(None, sequence))
         return fn(sequence, *args, **kwargs)
 
     return inner
