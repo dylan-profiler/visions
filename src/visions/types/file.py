@@ -1,14 +1,11 @@
 import pathlib
-from functools import singledispatch
-from typing import Iterable, Sequence
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.path import Path
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-def file_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(p, pathlib.Path) and p.exists() for p in sequence)
 
 
 class File(VisionsBaseType):
@@ -23,11 +20,10 @@ class File(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions.types import Path
-
         relations = [IdentityRelation(cls, Path)]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return file_contains(sequence, state)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

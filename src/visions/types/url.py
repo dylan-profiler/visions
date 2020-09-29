@@ -1,28 +1,11 @@
-from functools import singledispatch
-from typing import Iterable, Sequence
-from urllib.parse import ParseResult, urlparse
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
+from visions.types.object import Object
+from visions.types.string import String
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-def string_is_url(sequence: Iterable, state: dict) -> bool:
-    try:
-        _ = all(isinstance(urlparse(value), ParseResult) for value in sequence)
-        return True
-    except:
-        return False
-
-
-@singledispatch
-def string_to_url(sequence: Iterable, state: dict) -> Iterable:
-    return map(urlparse, sequence)
-
-
-@singledispatch
-def url_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(sequence, ParseResult) for value in sequence)
 
 
 class URL(VisionsBaseType):
@@ -38,16 +21,13 @@ class URL(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions.types import Object, String
-
         relations = [
             IdentityRelation(cls, Object),
-            InferenceRelation(
-                cls, String, relationship=string_is_url, transformer=string_to_url
-            ),
+            InferenceRelation(cls, String),
         ]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return url_contains(sequence, state)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

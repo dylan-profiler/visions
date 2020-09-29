@@ -1,6 +1,6 @@
 import pandas as pd
 
-from visions.backends.pandas import test_utils
+from visions.backends.pandas_be import test_utils
 from visions.relations import InferenceRelation
 from visions.relations.string_to_datetime import to_datetime_year_month_day
 from visions.types import Integer

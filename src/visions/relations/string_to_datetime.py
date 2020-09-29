@@ -1,7 +1,7 @@
 import pandas as pd
 
 from visions import String
-from visions.backends.pandas import test_utils
+from visions.backends.pandas_be import test_utils
 from visions.relations import InferenceRelation
 
 

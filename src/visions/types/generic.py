@@ -1,4 +1,6 @@
-from typing import Iterable, Sequence
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import TypeRelation
 from visions.types.type import VisionsBaseType
@@ -19,6 +21,7 @@ class Generic(VisionsBaseType):
     def get_relations(cls) -> Sequence[TypeRelation]:
         return []
 
-    @classmethod
-    def contains_op(cls, iterable: Iterable, state: dict) -> bool:
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
         return True

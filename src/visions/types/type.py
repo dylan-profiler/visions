@@ -1,17 +1,16 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type, Dict, Any, Union, Iterable
-from singledispatchmethod import singledispatchmethod
+from typing import Any, Dict, Iterable, Optional, Sequence, Type, Union
+
 from multimethod import multimethod
 
-import attr
-
 from visions.relations import TypeRelation
-
 
 _DEFAULT = object()
 
 
 class RelationsIterManager:
+    """Class to enable to treat relations as dict"""
+
     def __init__(self, relations: Sequence[TypeRelation]):
         self._keys: Dict["Type[VisionsBaseType]", int] = {
             item.related_type: i for i, item in enumerate(relations)
@@ -35,13 +34,21 @@ class RelationsIterManager:
 
 
 class VisionsBaseTypeMeta(ABCMeta):
+    _relations = None
+
     def __contains__(cls, sequence: Iterable) -> bool:
-        return cls.contains_op(sequence, {})  # type: ignore
+        return cls.contains_op(sequence, dict())
+
+    def get_relations(cls) -> Sequence[TypeRelation]:
+        raise NotImplementedError
+
+    def contains_op(cls, item: Any, state: dict) -> bool:
+        raise NotImplementedError
 
     @property
     def relations(cls) -> RelationsIterManager:
-        if cls._relations is None:  # type: ignore
-            cls._relations = RelationsIterManager(cls.get_relations())  # type: ignore
+        if cls._relations is None:
+            cls._relations = RelationsIterManager(cls.get_relations())
         return cls._relations
 
     def __add__(cls, other):
@@ -75,59 +82,6 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     def get_relations(cls) -> Sequence[TypeRelation]:
         raise NotImplementedError
 
-    @staticmethod
-    @abstractmethod
-    def contains_op(sequence: Any, state: Any) -> bool:
-        raise NotImplementedError
-
-    @classmethod
-    def evolve_type(
-        cls,
-        type_name: str,
-        relations_generator: Optional[
-            Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
-        ] = None,
-        replace: bool = False,
-    ) -> "Type[VisionsBaseType]":
-        """Make a copy of the type
-
-        Args:
-            type_name: the new type suffix, the type name will be `type[type_name]`
-            relations_generator: a function returning all TypeRelations for the new type
-            replace: if True, do not include the existing relations
-
-        Returns:
-            A new type
-        """
-
-        def get_new_relations(cls) -> Sequence[TypeRelation]:
-            return relations
-
-        name = cls.__name__
-        new_type = type(
-            f"{name}[{type_name}]",
-            (cls,),
-            {
-                "get_relations": classmethod(get_new_relations),
-                "contains_op": cls.contains_op,
-            },
-        )
-        new_relations = (
-            list(relations_generator(new_type)) if relations_generator else []
-        )
-        if replace:
-            assert (
-                relations_generator is not None
-            ), "When calling evolve_type with `replace=True`, a `relations_generator` is required."
-            relations = new_relations
-        else:
-            old_relations = [
-                attr.evolve(relation, type=new_type) for relation in cls.relations
-            ]
-            relations = old_relations + new_relations
-
-        return new_type
-
     @classmethod
     def register_transformer(cls, relation, dispatchtype):
         return cls.relations[relation].transformer.register(dispatchtype)
@@ -135,3 +89,57 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     @classmethod
     def register_relationship(cls, relation, dispatchtype):
         return cls.relations[relation].relationship.register(dispatchtype)
+
+    @staticmethod
+    @multimethod
+    @abstractmethod
+    def contains_op(sequence: Any, state: Any) -> bool:
+        raise NotImplementedError
+
+    # @classmethod
+    # def evolve_type(
+    #     cls,
+    #     type_name: str,
+    #     relations_generator: Optional[
+    #         Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
+    #     ] = None,
+    #     replace: bool = False,
+    # ) -> "Type[VisionsBaseType]":
+    #     """Make a copy of the type
+    #
+    #     Args:
+    #         type_name: the new type suffix, the type name will be `type[type_name]`
+    #         relations_generator: a function returning all TypeRelations for the new type
+    #         replace: if True, do not include the existing relations
+    #
+    #     Returns:
+    #         A new type
+    #     """
+    #
+    #     def get_new_relations(cls) -> Sequence[TypeRelation]:
+    #         return relations
+    #
+    #     name = cls.__name__
+    #     new_type = type(
+    #         f"{name}[{type_name}]",
+    #         (cls,),
+    #         {
+    #             "get_relations": classmethod(get_new_relations),
+    #             "contains_op": cls.contains_op,
+    #         },
+    #     )
+    #     new_relations = (
+    #         list(relations_generator(new_type)) if relations_generator else []
+    #     )
+    #     if replace:
+    #         assert (
+    #             relations_generator is not None
+    #         ), "When calling evolve_type with `replace=True`, a `relations_generator` is required."
+    #         relations = new_relations
+    #     else:
+    #         old_relations = [
+    #             attr.evolve(relation, type=new_type) for relation in cls.relations
+    #         ]
+    #         relations = old_relations + new_relations
+    #
+    #     return new_type

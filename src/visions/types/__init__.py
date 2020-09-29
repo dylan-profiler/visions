@@ -12,6 +12,7 @@ from visions.types.geometry import Geometry
 from visions.types.image import Image
 from visions.types.integer import Integer
 from visions.types.ip_address import IPAddress
+from visions.types.numeric import Numeric
 from visions.types.object import Object
 from visions.types.ordinal import Ordinal
 from visions.types.path import Path
@@ -48,4 +49,5 @@ __all__ = [
     "Time",
     "EmailAddress",
     "Sparse",
+    "Numeric",
 ]

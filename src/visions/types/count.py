@@ -1,13 +1,10 @@
-from functools import singledispatch
-from typing import Iterable, Sequence
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.integer import Integer
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-def count_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(value, int) and value >= 0 for value in sequence)
 
 
 class Count(VisionsBaseType):
@@ -21,11 +18,10 @@ class Count(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions.types import Integer
-
         relations = [IdentityRelation(cls, Integer)]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return count_contains(sequence, state)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

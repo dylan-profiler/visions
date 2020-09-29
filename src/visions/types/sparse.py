@@ -1,13 +1,10 @@
-from functools import singledispatch
-from typing import Iterable, Sequence
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-def sparse_contains(sequence: Iterable, state: dict) -> bool:
-    return False
 
 
 class Sparse(VisionsBaseType):
@@ -23,12 +20,10 @@ class Sparse(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions.types import Generic
-
         relations = [IdentityRelation(cls, Generic)]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return sparse_contains(sequence, state)
-
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

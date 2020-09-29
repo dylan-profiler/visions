@@ -1,17 +1,10 @@
-import numbers
-from functools import singledispatch
-from typing import Iterable, Sequence
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-def numeric_contains_op(sequence: Iterable, state: dict):
-    return all(
-        isinstance(value, numbers.Number) and not isinstance(value, bool)
-        for value in sequence
-    )
 
 
 class Numeric(VisionsBaseType):
@@ -28,11 +21,10 @@ class Numeric(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions import Generic
-
         relations = [IdentityRelation(cls, Generic)]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return numeric_contains_op(sequence, state)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

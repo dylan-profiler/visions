@@ -1,19 +1,18 @@
-from typing import Optional
+from typing import Any, Optional
 
-from multimethod import multimethod
 import attr
-import pandas as pd
+from multimethod import multimethod
 
 
 def func_repr(func):
     return func.__name__ if hasattr(func, "__name__") else str("lambda")
 
 
-def identity_transform(series: pd.Series, state: dict) -> pd.Series:
+def identity_transform(series: Any, state: dict) -> Any:
     return series
 
 
-def default_relation(series: pd.Series, state: dict) -> pd.Series:
+def default_relation(series: Any, state: dict) -> bool:
     return False
 
 
@@ -47,14 +46,16 @@ class TypeRelation:
     related_type = attr.ib()
     inferential = attr.ib()
     transformer = attr.ib(converter=multimethod, repr=func_repr)
-    relationship = attr.ib(default=default_relation, converter=multimethod, repr=func_repr)
+    relationship = attr.ib(
+        default=default_relation, converter=multimethod, repr=func_repr
+    )
 
-    def is_relation(self, series: pd.Series, state: Optional[dict] = None) -> bool:
+    def is_relation(self, series: Any, state: Optional[dict] = None) -> bool:
         if state is None:
             state = {}
         return self.relationship(series, state)
 
-    def transform(self, series: pd.Series, state: Optional[dict] = None) -> pd.Series:
+    def transform(self, series: Any, state: Optional[dict] = None) -> Any:
         if state is None:
             state = {}
         return self.transformer(series, state)
@@ -65,7 +66,7 @@ class TypeRelation:
 
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
-    relationship = attr.ib(repr=func_repr, converter=multimethod)
+    relationship = attr.ib(repr=func_repr)  # converter=multimethod
     transformer = attr.ib(default=identity_transform, repr=func_repr)
     inferential = attr.ib(default=False)
 
@@ -76,9 +77,10 @@ class IdentityRelation(TypeRelation):
 
 @attr.s(frozen=True)
 class InferenceRelation(TypeRelation):
-    relationship = attr.ib(converter=multimethod, repr=func_repr)
+    relationship = attr.ib(
+        converter=multimethod, repr=func_repr, default=default_relation
+    )
+    transformer = attr.ib(
+        converter=multimethod, default=identity_transform, repr=func_repr
+    )
     inferential = attr.ib(default=True)
-
-    @relationship.default
-    def make_relationship(self):
-        return self.type.contains_op

@@ -155,7 +155,7 @@ def get_convert_cases(_test_suite: Dict[str, Iterable], _series_map, typeset):
     )
 
 
-def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
+def convert(name, source_type, relation_type, series, member) -> Tuple[bool, str]:
     relation = source_type.relations.get(relation_type, None)
     is_relation = False if relation is None else relation.is_relation(series, {})
 

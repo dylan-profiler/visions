@@ -3,7 +3,7 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-from visions.backends.pandas.test_utils import pandas_version
+from visions.backends.pandas_be.test_utils import pandas_version
 
 
 def get_sparse_series() -> Dict[str, pd.Series]:

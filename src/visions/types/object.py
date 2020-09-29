@@ -1,19 +1,10 @@
-from functools import singledispatch
-from typing import Iterable, Sequence
+from typing import Any, Sequence
 
-from visions.backends.python.series_utils import (
-    sequence_handle_none,
-    sequence_not_empty,
-)
+from multimethod import multimethod
+
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-@sequence_not_empty
-@sequence_handle_none
-def object_contains(sequence: Iterable, state: dict) -> bool:
-    return any(not isinstance(value, (float, bool, int, complex)) for value in sequence)
 
 
 class Object(VisionsBaseType):
@@ -27,11 +18,10 @@ class Object(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions.types import Generic
-
         relations = [IdentityRelation(cls, Generic)]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return object_contains(sequence, state)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

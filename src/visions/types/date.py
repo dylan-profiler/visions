@@ -1,25 +1,11 @@
-from datetime import date, time
-from functools import singledispatch
-from typing import Iterable, Sequence
+from typing import Any, Sequence
+
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
+from visions.types.date_time import DateTime
+from visions.types.object import Object
 from visions.types.type import VisionsBaseType
-
-
-@singledispatch
-def datetime_is_date(sequence: Iterable, state: dict) -> bool:
-    value = time(0, 0)
-    return all(v == value for v in sequence)
-
-
-@singledispatch
-def datetime_to_date(sequence: Iterable, state: dict) -> Iterable:
-    return map(lambda v: v.date(), sequence)
-
-
-@singledispatch
-def date_contains(sequence: Iterable, state: dict) -> bool:
-    return all(isinstance(value, date) for value in sequence)
 
 
 class Date(VisionsBaseType):
@@ -36,19 +22,16 @@ class Date(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        from visions.types import DateTime, Object
-
         relations = [
             IdentityRelation(cls, Object),
             InferenceRelation(
                 cls,
                 DateTime,
-                relationship=datetime_is_date,
-                transformer=datetime_to_date,
             ),
         ]
         return relations
 
-    @classmethod
-    def contains_op(cls, sequence: Iterable, state: dict) -> bool:
-        return date_contains(sequence, state)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

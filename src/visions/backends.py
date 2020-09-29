@@ -1,4 +1,4 @@
-import pandas as pd
-import numpy as np
-
-_supported_sequence_types = [pd.Series]
+# import numpy_ as np
+# import pandas_be as pd
+#
+# _supported_sequence_types = [pd.Series]
