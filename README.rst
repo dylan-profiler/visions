@@ -20,8 +20,15 @@ Visions
 * casting data types
 * automated data summarization
 
+.. image:: https://dylan-profiler.github.io/visions/_images/typeset_complete_base.svg
+    :width: 51 %
+
+.. image:: ./docsrc/source/_static/code-snippet.png
+    :width: 45 %
+
 Documentation
 -------------
+.. image:: https://github.com/dylan-profiler/visions/raw/master/docsrc/source/_static/code-snippet.png
 
 Full documentation can be found `here <https://dylan-profiler.github.io/visions/>`_.
 
