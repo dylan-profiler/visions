@@ -85,7 +85,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     def register_transformer(cls, relation, dispatchtype):
-        cls.register_identity_relations(dispatchtype)
+       # cls.register_identity_relations(dispatchtype)
         return cls.relations[relation].transformer.register(dispatchtype, dict)
 
     @classmethod

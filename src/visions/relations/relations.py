@@ -71,7 +71,6 @@ class IdentityRelation(TypeRelation):
     inferential = attr.ib(default=False)
 
     @relationship.default
-    @multimethod
     def make_relationship(self):
         return self.type.contains_op
 
@@ -85,3 +84,4 @@ class InferenceRelation(TypeRelation):
         converter=multimethod, repr=func_repr, default=identity_transform
     )
     inferential = attr.ib(default=True)
+

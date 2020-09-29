@@ -24,4 +24,5 @@ class String(VisionsBaseType):
     @staticmethod
     @multimethod
     def contains_op(item: Any, state: dict) -> bool:
+        print('default')
         pass
