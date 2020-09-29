@@ -1,6 +1,8 @@
 from functools import partial
 
 import pandas as pd
+
+# from dateutil.parser import ParserError
 from pandas.api import types as pdt
 
 from visions.backends.pandas_be import test_utils
@@ -10,13 +12,13 @@ from visions.types import DateTime, String
 
 @DateTime.register_relationship(String, pd.Series)
 def string_is_datetime(series: pd.Series, state: dict) -> bool:
-    exceptions = [OverflowError, TypeError]
+    exceptions = [OverflowError, TypeError, ValueError]
     return test_utils.coercion_test(
         partial(string_to_datetime, state=state), exceptions
     )(series)
 
 
-@DateTime.register_relationship(String, pd.Series)
+@DateTime.register_transformer(String, pd.Series)
 def string_to_datetime(series: pd.Series, state: dict) -> pd.Series:
     return pd.to_datetime(series)
 

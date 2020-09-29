@@ -22,15 +22,6 @@ def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
 
 
 @Float.register_relationship(String, pd.Series)
-def string_to_float(series: pd.Series, state: dict) -> pd.Series:
-    # Slightly faster to check for the character if it's not present than to
-    # attempt the replacement
-    # if any("," in x for x in series):
-    #     series = series.str.replace(",", "")
-    return series.astype(float)
-
-
-@Float.register_transformer(String, pd.Series)
 def string_is_float(series: pd.Series, state: dict) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(lambda s: s.astype(float))(
         series
@@ -41,6 +32,15 @@ def string_is_float(series: pd.Series, state: dict) -> bool:
         and float_contains(coerced_series, state)
         and test_string_leading_zeros(series, coerced_series)
     )
+
+
+@Float.register_transformer(String, pd.Series)
+def string_to_float(series: pd.Series, state: dict) -> pd.Series:
+    # Slightly faster to check for the character if it's not present than to
+    # attempt the replacement
+    # if any("," in x for x in series):
+    #     series = series.str.replace(",", "")
+    return series.astype(float)
 
 
 @Float.register_relationship(Complex, pd.Series)

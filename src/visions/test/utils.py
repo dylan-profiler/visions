@@ -71,7 +71,7 @@ def get_contains_cases(
             member = name in series_list
             argsvalues.append(pytest.param(name, item, type, member, **args))
 
-    return {"argnames": "name,series,type,member", "argvalues": argsvalues}
+    return {"argnames": ["name", "series", "type", "member"], "argvalues": argsvalues}
 
 
 def contains(name, series, type, member):

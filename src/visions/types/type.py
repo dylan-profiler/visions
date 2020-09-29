@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, Optional, Sequence, Type, Union
 
 from multimethod import multimethod
 
-from visions.relations import TypeRelation, IdentityRelation
+from visions.relations import IdentityRelation, TypeRelation
 
 _DEFAULT = object()
 
@@ -42,7 +42,8 @@ class VisionsBaseTypeMeta(ABCMeta):
     def get_relations(cls) -> Sequence[TypeRelation]:
         raise NotImplementedError
 
-    def contains_op(cls, item: Any, state: dict) -> bool:
+    @staticmethod
+    def contains_op(item: Any, state: dict) -> bool:
         raise NotImplementedError
 
     @property
@@ -93,9 +94,13 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
 
     @classmethod
     def register_identity_relations(cls, dispatch_types):
-        identity_relations = (relation for relation in cls.relations
-                              if isinstance(relation, IdentityRelation))
+        identity_relations = (
+            relation
+            for relation in cls.relations
+            if isinstance(relation, IdentityRelation)
+        )
         for relation in identity_relations:
+
             @cls.register_relationship(relation, dispatch_types)
             def _(s, d):
                 return relation.relationship(s, d)

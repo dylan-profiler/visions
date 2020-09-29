@@ -13,7 +13,7 @@ def identity_transform(series: Any, state: dict = dict()) -> Any:
 
 
 def default_relation(series: Any, state: dict = dict()) -> bool:
-    return False
+    raise NotImplementedError
 
 
 @attr.s(frozen=True)
@@ -82,6 +82,6 @@ class InferenceRelation(TypeRelation):
         converter=multimethod, repr=func_repr, default=default_relation
     )
     transformer = attr.ib(
-        converter=multimethod, default=identity_transform, repr=func_repr
+        converter=multimethod, repr=func_repr, default=identity_transform
     )
     inferential = attr.ib(default=True)
