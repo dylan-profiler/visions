@@ -22,7 +22,7 @@ Visions
 
 
 
-.. image:: https://github.com/dylan-profiler/visions/raw/master/docsrc/source/_static/side-by-side.png
+.. image:: https://github.com/dylan-profiler/visions/raw/develop/docsrc/source/_static/side-by-side.png
 
 
 
