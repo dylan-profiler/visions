@@ -8,7 +8,7 @@ repos:
     rev: v2.7.2
     hooks:
     -   id: pyupgrade
-        args: ['--exit-zero-even-if-changed']
+        args: ['--py36-plus','--exit-zero-even-if-changed']
 -   repo: https://github.com/pycqa/isort
     rev: 5.5.2
     hooks:
@@ -19,4 +19,4 @@ repos:
     rev: v2.3.0
     hooks:
     - id: flake8
-      args: ['--ignore=E501,W503']
+      args: ['--ignore=E501,W503,E203']

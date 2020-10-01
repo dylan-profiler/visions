@@ -46,7 +46,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
 
 @attr.s(slots=True)
-class FQDA(object):
+class FQDA:
     local = attr.ib()
     fqdn = attr.ib()
 

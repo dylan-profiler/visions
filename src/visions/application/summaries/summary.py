@@ -14,7 +14,7 @@ from visions.types import VisionsBaseType
 from visions.utils.graph import output_graph
 
 
-class Summary(object):
+class Summary:
     def __init__(self, summary_ops, typeset):
         """
 

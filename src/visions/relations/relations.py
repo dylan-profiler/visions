@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def func_repr(func):
-    return func.__name__ if hasattr(func, "__name__") else str("lambda")
+    return func.__name__ if hasattr(func, "__name__") else "lambda"
 
 
 def identity_relation(series: pd.Series, state: dict) -> pd.Series:
