@@ -39,7 +39,10 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     relations = [
         IdentityRelation(cls, Object),
         InferenceRelation(
-            cls, String, relationship=string_is_email, transformer=to_email,
+            cls,
+            String,
+            relationship=string_is_email,
+            transformer=to_email,
         ),
     ]
     return relations

@@ -30,7 +30,10 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
     relations = [
         IdentityRelation(cls, Object),
         InferenceRelation(
-            cls, DateTime, relationship=datetime_is_date, transformer=to_date,
+            cls,
+            DateTime,
+            relationship=datetime_is_date,
+            transformer=to_date,
         ),
     ]
     return relations
