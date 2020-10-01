@@ -1,9 +1,4 @@
 repos:
--   repo: https://github.com/psf/black
-    rev: stable
-    hooks:
-    - id: black
-      language_version: python
 -   repo: https://github.com/asottile/pyupgrade
     rev: v2.7.2
     hooks:
@@ -15,6 +10,11 @@ repos:
       - id: isort
         files: '.*'
         args: ['--profile=black']
+-   repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    - id: black
+      language_version: python
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
     hooks:
