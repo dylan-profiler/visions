@@ -1,11 +1,10 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type, Dict, Any, Union
+from typing import Any, Callable, Dict, Optional, Sequence, Type, Union
 
 import attr
 import pandas as pd
 
 from visions.relations import TypeRelation
-
 
 _DEFAULT = object()
 

@@ -387,20 +387,17 @@ def get_series():
             [
                 pathlib.Path(
                     os.path.join(
-                        base_path,
-                        "../visualisation/typesets/typeset_complete.png",
+                        base_path, "../visualisation/typesets/typeset_complete.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
-                        base_path,
-                        r"../visualisation/typesets/typeset_standard.png",
+                        base_path, r"../visualisation/typesets/typeset_standard.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
-                        base_path,
-                        r"../visualisation/typesets/typeset_geometry.png",
+                        base_path, r"../visualisation/typesets/typeset_geometry.png",
                     )
                 ).absolute(),
             ],
@@ -410,21 +407,18 @@ def get_series():
             [
                 pathlib.Path(
                     os.path.join(
-                        base_path,
-                        r"../visualisation/typesets/typeset_complete.png",
+                        base_path, r"../visualisation/typesets/typeset_complete.png",
                     )
                 ).absolute(),
                 pathlib.Path(
                     os.path.join(
-                        base_path,
-                        r"../visualisation/typesets/typeset_standard.png",
+                        base_path, r"../visualisation/typesets/typeset_standard.png",
                     )
                 ).absolute(),
                 None,
                 pathlib.Path(
                     os.path.join(
-                        base_path,
-                        r"../visualisation/typesets/typeset_geometry.png",
+                        base_path, r"../visualisation/typesets/typeset_geometry.png",
                     )
                 ).absolute(),
                 None,

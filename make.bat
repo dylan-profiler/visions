@@ -33,8 +33,7 @@ IF "%1" == "pypi_package" (
 )
 
 IF "%1" == "lint" (
-    isort --profile black --project visions .
-    black .
+    pre-commit run --all-files
     GOTO end
 )
 

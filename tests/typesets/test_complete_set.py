@@ -388,9 +388,7 @@ cast_results = {
             uuid.UUID("00000000-0000-0000-0000-000000000000"),
         ],
     ),
-    "ip_str": pd.Series(
-        [IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")],
-    ),
+    "ip_str": pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")],),
     "geometry_string_series": pd.Series(
         [
             wkt.loads("POINT (-92 42)"),
@@ -414,10 +412,7 @@ cast_results = {
         ],
     ),
     "path_series_linux_str": pd.Series(
-        [
-            PurePosixPath("/home/user/file.txt"),
-            PurePosixPath("/home/user/test2.txt"),
-        ],
+        [PurePosixPath("/home/user/file.txt"), PurePosixPath("/home/user/test2.txt")],
     ),
     "datetime": pd.Series(
         [
