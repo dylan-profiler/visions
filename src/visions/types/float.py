@@ -66,7 +66,10 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
             cls, String, relationship=string_is_float, transformer=string_to_float
         ),
         InferenceRelation(
-            cls, Complex, relationship=complex_is_float, transformer=complex_to_float,
+            cls,
+            Complex,
+            relationship=complex_is_float,
+            transformer=complex_to_float,
         ),
     ]
     return relations

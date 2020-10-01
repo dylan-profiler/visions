@@ -152,7 +152,10 @@ def get_cast_cases(_test_suite, _results):
         args = {"id": f"{item.name}: {changed}"}
         argsvalues.append(pytest.param(item, value, **args))
 
-    return dict(argnames=["series", "expected"], argvalues=argsvalues,)
+    return dict(
+        argnames=["series", "expected"],
+        argvalues=argsvalues,
+    )
 
 
 def cast(
