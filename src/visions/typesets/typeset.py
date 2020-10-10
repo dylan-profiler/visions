@@ -266,10 +266,6 @@ class VisionsTypeset:
             self._root_node = next(nx.topological_sort(self.relation_graph))
         return self._root_node  # type: ignore
 
-    @staticmethod
-    def _traverse_graph(data: pdT, root_node, graph) -> Tuple[pdT, Any, dict]:
-        return traverse_graph(data, root_node, graph)
-
     def detect(self, data: pdT) -> Tuple[pdT, Any, dict]:
         """The results found after only considering IdentityRelations.
 
@@ -282,7 +278,7 @@ class VisionsTypeset:
         Returns:
             A tuple of the coerced sequence, visited nodes and state
         """
-        return self._traverse_graph(data, self.root_node, self.base_graph)
+        return traverse_graph(data, self.root_node, self.base_graph)
 
     def detect_type(self, data: pdT) -> pathTypes:
         """The inferred type found only considering IdentityRelations.
@@ -308,7 +304,7 @@ class VisionsTypeset:
         Returns:
             A tuple of the coerced sequence, visited nodes and state
         """
-        return self._traverse_graph(data, self.root_node, self.relation_graph)
+        return traverse_graph(data, self.root_node, self.relation_graph)
 
     def infer_type(self, data: pdT) -> pathTypes:
         """The inferred type found using all type relations.
