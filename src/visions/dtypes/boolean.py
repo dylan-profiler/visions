@@ -155,7 +155,7 @@ def coerce_to_array(values, dtype, mask=None, copy=False):
             try:
                 dtype = _dtypes[str(np.dtype(dtype))]
             except KeyError:
-                raise ValueError("invalid dtype specified {}".format(dtype))
+                raise ValueError(f"invalid dtype specified {dtype}")
 
     if isinstance(values, BoolArray):
         values, mask = values._data, values._mask
@@ -180,9 +180,7 @@ def coerce_to_array(values, dtype, mask=None, copy=False):
             "mixed-integer",
             "mixed-integer-float",
         ]:
-            raise TypeError(
-                "{} cannot be converted to an IntegerDtype".format(values.dtype)
-            )
+            raise TypeError(f"{values.dtype} cannot be converted to an IntegerDtype")
 
     elif is_bool_dtype(values) and is_integer_dtype(dtype):
         values = np.array(values, dtype=int, copy=copy)
@@ -190,9 +188,7 @@ def coerce_to_array(values, dtype, mask=None, copy=False):
     elif not (
         is_integer_dtype(values) or is_float_dtype(values) or is_bool_dtype(values)
     ):
-        raise TypeError(
-            "{} cannot be converted to an IntegerDtype".format(values.dtype)
-        )
+        raise TypeError(f"{values.dtype} cannot be converted to an IntegerDtype")
 
     if mask is None:
         mask = isna(values)
@@ -624,7 +620,7 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
             result[mask] = op_name == "ne"
             return result
 
-        name = "__{name}__".format(name=op.__name__)
+        name = f"__{op.__name__}__"
         return set_function_name(cmp_method, name, cls)
 
     def _reduce(self, name, skipna=True, **kwargs):
@@ -735,7 +731,7 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
 
             return self._maybe_mask_result(result, mask, other, op_name)
 
-        name = "__{name}__".format(name=op.__name__)
+        name = f"__{op.__name__}__"
         return set_function_name(integer_arithmetic_method, name, cls)
 
 

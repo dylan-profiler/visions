@@ -226,7 +226,7 @@ def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
-class VisionsTypeset(object):
+class VisionsTypeset:
     """
     A collection of :class:`visions.types.type.VisionsBaseType` with  associated relationship map between them.
 

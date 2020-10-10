@@ -9,8 +9,8 @@ from visions import VisionsBaseType, VisionsTypeset
 
 def all_series_included(series_list, series_map):
     """Check that all names are indeed used"""
-    used_names = set([name for names in series_map.values() for name in names])
-    names = set([series.name for series in series_list])
+    used_names = {name for names in series_map.values() for name in names}
+    names = {series.name for series in series_list}
     if not names == used_names:
         unused = names ^ used_names
         # TODO: warning?

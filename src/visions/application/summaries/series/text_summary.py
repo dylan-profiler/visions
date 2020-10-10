@@ -1,5 +1,4 @@
 from collections import Counter
-from typing import Dict
 
 import pandas as pd
 from tangled_up_in_unicode import block, block_abbr, category, category_long, script
