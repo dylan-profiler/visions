@@ -345,7 +345,12 @@ class VisionsTypeset:
 
         output_graph(graph, file_name)
 
-    def plot_graph(self, dpi: int = 800, base_only: bool = False, figsize : Optional[Tuple[int, int]] = None):
+    def plot_graph(
+        self,
+        dpi: int = 800,
+        base_only: bool = False,
+        figsize: Optional[Tuple[int, int]] = None,
+    ):
         """
 
         Args:

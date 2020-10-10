@@ -4,7 +4,9 @@ from typing import Union
 import networkx as nx
 
 
-def output_graph(G: nx.DiGraph, file_name: Union[Path, str], sort: bool = True, file_format=None) -> None:
+def output_graph(
+    G: nx.DiGraph, file_name: Union[Path, str], sort: bool = True, file_format=None
+) -> None:
     """Output a graph to a file, either as image or as dot file.
 
     Args:
@@ -42,4 +44,6 @@ def output_graph(G: nx.DiGraph, file_name: Union[Path, str], sort: bool = True, 
     try:
         p.write(file_name, format=file_format)
     except AssertionError:
-        raise ValueError("Could not write file. Please make sure that the format is accepted by pydot.")
+        raise ValueError(
+            "Could not write file. Please make sure that the format is accepted by pydot."
+        )
