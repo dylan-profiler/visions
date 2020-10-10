@@ -345,11 +345,17 @@ class VisionsTypeset:
 
         output_graph(graph, file_name)
 
-    def plot_graph(self, dpi: int = 800, base_only: bool = False):
+    def plot_graph(
+        self,
+        dpi: int = 800,
+        base_only: bool = False,
+        figsize: Optional[Tuple[int, int]] = None,
+    ):
         """
 
         Args:
             dpi: dpi of the matplotlib figure.
+            figsize: figure size
             base_only: Only display the typesets base_graph
         Returns:
             Displays the image
@@ -363,7 +369,7 @@ class VisionsTypeset:
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
             self.output_graph(temp_file.name, dpi=dpi, base_only=base_only)
             img = mpimg.imread(temp_file.name)
-            plt.figure(dpi=dpi)
+            plt.figure(dpi=dpi, figsize=figsize)
             plt.axis("off")
             plt.imshow(img)
         os.unlink(temp_file.name)
