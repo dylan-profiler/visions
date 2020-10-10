@@ -24,6 +24,10 @@ def generate_typeset_plots() -> None:
         tsc.output_graph(typesets_dir / f"{name}.svg")
         tsc.output_graph(typesets_dir / f"{name}_base.svg", base_only=True)
 
+        # Plot the graph (pdf)
+        tsc.output_graph(typesets_dir / f"{name}.pdf")
+        tsc.output_graph(typesets_dir / f"{name}_base.pdf", base_only=True)
+
         # Plot the graph (png)
         tsc.output_graph(typesets_dir / f"{name}.png", dpi=150)
 
