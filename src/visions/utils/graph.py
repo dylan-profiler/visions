@@ -31,7 +31,7 @@ def output_graph(
 
         style = nx.get_edge_attributes(G, "style")
         for edge in sorted(G.edges, key=lambda x: (str(x[0]), str(x[1]))):
-            G_sorted.add_edge(*edge, style=style[edge])
+            G_sorted.add_edge(*edge, style=style.get(edge))
         G = G_sorted
 
     p = nx.drawing.nx_pydot.to_pydot(G)
