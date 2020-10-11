@@ -266,9 +266,19 @@ class VisionsTypeset:
             self._root_node = next(nx.topological_sort(self.relation_graph))
         return self._root_node  # type: ignore
 
-    @staticmethod
-    def _traverse_graph(data: pdT, root_node, graph):
-        return traverse_graph(data, root_node, graph)
+    def detect(self, data: pdT) -> Tuple[pdT, Any, dict]:
+        """The results found after only considering IdentityRelations.
+
+        Notes:
+            This is an advanced feature, consider using `detect_type` in case the type is what is needed.
+
+        Args:
+            data: a DataFrame or Series to determine types over
+
+        Returns:
+            A tuple of the coerced sequence, visited nodes and state
+        """
+        return traverse_graph(data, self.root_node, self.base_graph)
 
     def detect_type(self, data: pdT) -> pathTypes:
         """The inferred type found only considering IdentityRelations.
@@ -279,8 +289,22 @@ class VisionsTypeset:
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths, _ = self._traverse_graph(data, self.root_node, self.base_graph)
+        _, paths, _ = self.detect(data)
         return get_type_from_path(paths)
+
+    def infer(self, data: pdT) -> Tuple[pdT, Any, dict]:
+        """The results found after considering all relations.
+
+        Notes:
+            This is an advanced feature, consider using `infer_type` in case the type is what is needed.
+
+        Args:
+            data: a DataFrame or Series to determine types over
+
+        Returns:
+            A tuple of the coerced sequence, visited nodes and state
+        """
+        return traverse_graph(data, self.root_node, self.relation_graph)
 
     def infer_type(self, data: pdT) -> pathTypes:
         """The inferred type found using all type relations.
@@ -291,7 +315,7 @@ class VisionsTypeset:
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
+        _, paths, _ = self.infer(data)
         return get_type_from_path(paths)
 
     def cast_to_detected(self, data: pdT) -> pdT:
@@ -303,7 +327,7 @@ class VisionsTypeset:
         Returns:
             new_data: The transformed DataFrame or Series.
         """
-        data, _, _ = self._traverse_graph(data, self.root_node, self.base_graph)
+        data, _, _ = self.detect(data)
         return data
 
     def cast_to_inferred(self, data: pdT) -> pdT:
@@ -316,7 +340,7 @@ class VisionsTypeset:
             new_data: The transformed DataFrame or Series.
             types: A dictionary of {name: type} pairs in the case of DataFrame input or a type.
         """
-        data, _, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
+        data, _, _ = self.infer(data)
         return data
 
     def output_graph(
