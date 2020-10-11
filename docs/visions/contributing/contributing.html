@@ -7,12 +7,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Community contributions &mdash; visions 0.6.0 documentation</title>
+  <title>Community contributions &mdash; visions 0.6.1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -30,7 +31,11 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -192,9 +197,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="community-contributions">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="community-contributions">
 <h1>Community contributions<a class="headerlink" href="#community-contributions" title="Permalink to this headline">¶</a></h1>
-<p>Contributions are welcome to the <cite>visions</cite> package! Please insure all contributions
+<p>Contributions are welcome to the <code class="docutils literal notranslate"><span class="pre">visions</span></code> package! Please insure all contributions
 abide by the guidelines outlined below.</p>
 <blockquote>
 <div><p><em>When you build a tool, you do not know how it is going to be used.</em>
@@ -210,7 +239,7 @@ abide by the guidelines outlined below.</p>
 </div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>Test <cite>visions</cite> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
+<p>Test <code class="docutils literal notranslate"><span class="pre">visions</span></code> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make test</span>
 </pre></div>
 </div>
@@ -221,13 +250,12 @@ abide by the guidelines outlined below.</p>
 </div>
 <div class="section" id="linting">
 <h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h2>
-<p><cite>visions</cite> uses the <cite>black</cite> code style.</p>
+<p><code class="docutils literal notranslate"><span class="pre">visions</span></code> uses the <code class="docutils literal notranslate"><span class="pre">black</span></code> code style, <code class="docutils literal notranslate"><span class="pre">isort</span></code> for sorting imports and <code class="docutils literal notranslate"><span class="pre">pyupgrade</span></code> for updating python syntax.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make lint</span>
 </pre></div>
 </div>
 <p>Which is equivalent to:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">isort --profile black --project visions .</span>
-<span class="go">black .</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pre-commit run --all-files</span>
 </pre></div>
 </div>
 </div>
@@ -236,14 +264,14 @@ abide by the guidelines outlined below.</p>
 <p>Software should provide adequate documentation for beginning and advanced users.
 When you contribute, please check if your contribution requires some additional documentation.
 Documentation is written in ReStructuredText (.rst).
-You can find the source files in <a href="#id1"><span class="problematic" id="id2">`</span></a>docsrcsourcevisions`.</p>
+You can find the source files in <code class="docutils literal notranslate"><span class="pre">docsrc\source\visions\</span></code>.</p>
 <p>The documentation is automatically generated after each contribution by our <a class="reference external" href="https://github.com/dylan-profiler/visions/actions">Github Actions</a> workflow.</p>
 <p>If you like, you can manually generate the documentation by running:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make docs</span>
 </pre></div>
 </div>
 <p>This builds the docs using sphinx.</p>
-<p>You can view the docs locally by going to the <cite>docs/</cite> folder and starting a web server, e.g.:</p>
+<p>You can view the docs locally by going to the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> folder and starting a web server, e.g.:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd docs/</span>
 <span class="go">python -m http.server</span>
 </pre></div>

@@ -7,12 +7,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.typesets.typeset &mdash; visions 0.6.0 documentation</title>
+  <title>visions.typesets.typeset &mdash; visions 0.6.1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -30,7 +31,11 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -410,7 +415,7 @@
     <span class="k">return</span> <span class="n">path_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="VisionsTypeset"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.typesets.VisionsTypeset.html#visions.typesets.VisionsTypeset">[docs]</a><span class="k">class</span> <span class="nc">VisionsTypeset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="VisionsTypeset"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.typesets.VisionsTypeset.html#visions.typesets.VisionsTypeset">[docs]</a><span class="k">class</span> <span class="nc">VisionsTypeset</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of :class:`visions.types.type.VisionsBaseType` with  associated relationship map between them.</span>
 
@@ -450,9 +455,19 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span>  <span class="c1"># type: ignore</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">,</span> <span class="n">root_node</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">root_node</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pdT</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;The results found after only considering IdentityRelations.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            This is an advanced feature, consider using `detect_type` in case the type is what is needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: a DataFrame or Series to determine types over</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A tuple of the coerced sequence, visited nodes and state</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">detect_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathTypes</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The inferred type found only considering IdentityRelations.</span>
@@ -463,8 +478,22 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A dictionary of {name: type} pairs in the case of DataFrame input or a type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">get_type_from_path</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">infer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pdT</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;The results found after considering all relations.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            This is an advanced feature, consider using `infer_type` in case the type is what is needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: a DataFrame or Series to determine types over</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A tuple of the coerced sequence, visited nodes and state</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">infer_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathTypes</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The inferred type found using all type relations.</span>
@@ -475,7 +504,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A dictionary of {name: type} pairs in the case of DataFrame input or a type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">infer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">get_type_from_path</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">cast_to_detected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pdT</span><span class="p">:</span>
@@ -487,7 +516,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            new_data: The transformed DataFrame or Series.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_graph</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span>
 
     <span class="k">def</span> <span class="nf">cast_to_inferred</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pdT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pdT</span><span class="p">:</span>
@@ -500,7 +529,7 @@
 <span class="sd">            new_data: The transformed DataFrame or Series.</span>
 <span class="sd">            types: A dictionary of {name: type} pairs in the case of DataFrame input or a type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse_graph</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relation_graph</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">infer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span>
 
     <span class="k">def</span> <span class="nf">output_graph</span><span class="p">(</span>
@@ -529,11 +558,17 @@
 
         <span class="n">output_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span> <span class="n">base_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span>
+        <span class="n">base_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">figsize</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            dpi: dpi of the matplotlib figure.</span>
+<span class="sd">            figsize: figure size</span>
 <span class="sd">            base_only: Only display the typesets base_graph</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Displays the image</span>
@@ -547,7 +582,7 @@
         <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_graph</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">base_only</span><span class="o">=</span><span class="n">base_only</span><span class="p">)</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
