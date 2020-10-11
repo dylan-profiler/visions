@@ -9,8 +9,8 @@ from visions import VisionsBaseType, VisionsTypeset
 
 def all_series_included(series_list, series_map):
     """Check that all names are indeed used"""
-    used_names = set([name for names in series_map.values() for name in names])
-    names = set([series.name for series in series_list])
+    used_names = {name for names in series_map.values() for name in names}
+    names = {series.name for series in series_list}
     if not names == used_names:
         unused = names ^ used_names
         # TODO: warning?
@@ -126,15 +126,8 @@ def get_convert_cases(_test_suite, _series_map, typeset):
 
 
 def convert(source_type, relation_type, series, member) -> Tuple[bool, str]:
-    relation_gen = (
-        rel for rel in source_type.relations if rel.related_type == relation_type
-    )
-    try:
-        relation = next(relation_gen)
-        is_relation = relation.is_relation(series, {})
-    except StopIteration:
-        relation = None
-        is_relation = False
+    relation = source_type.relations.get(relation_type, None)
+    is_relation = False if relation is None else relation.is_relation(series, {})
 
     if not member:
         return (

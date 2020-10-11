@@ -47,9 +47,7 @@ def performance_report(membership=True):
 
 
 def get_relation(to_type, from_type):
-    return next(
-        relation for relation in to_type.relations if relation.related_type is from_type
-    )
+    return to_type.relations[from_type]
 
 
 def relations_is_relation_test():

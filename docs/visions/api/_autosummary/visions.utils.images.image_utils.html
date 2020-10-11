@@ -7,12 +7,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.utils.images.image_utils &mdash; visions 0.6.0 documentation</title>
+  <title>visions.utils.images.image_utils &mdash; visions 0.6.1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -30,7 +31,11 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -101,6 +106,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../applications/machine_learning.html">Machine Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../applications/compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -204,7 +210,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-visions.utils.images.image_utils">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-visions.utils.images.image_utils">
 <span id="visions-utils-images-image-utils"></span><h1>visions.utils.images.image_utils<a class="headerlink" href="#module-visions.utils.images.image_utils" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="visions.utils.images.image_utils.decode_byte_exif">
@@ -228,7 +258,7 @@
 <code class="sig-prename descclassname">visions.utils.images.image_utils.</code><code class="sig-name descname">extract_exif</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#extract_exif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.images.image_utils.extract_exif" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.5/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
 </dd>
 </dl>
 <p>Returns:</p>
@@ -244,7 +274,7 @@
 <code class="sig-prename descclassname">visions.utils.images.image_utils.</code><code class="sig-name descname">get_image_shape</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#get_image_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.images.image_utils.get_image_shape" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.5/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
 </dd>
 </dl>
 <p>Returns:</p>
@@ -260,7 +290,7 @@
 <code class="sig-prename descclassname">visions.utils.images.image_utils.</code><code class="sig-name descname">hash_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#hash_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.utils.images.image_utils.hash_image" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.5/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
 </dd>
 </dl>
 <p>Returns:</p>
@@ -277,7 +307,7 @@
 <dd><p>Returns True if the path refers to a truncated image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.5/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.6/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>

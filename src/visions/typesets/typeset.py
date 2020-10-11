@@ -36,12 +36,10 @@ def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGra
     noninferential_edges = []
 
     for node in nodes:
-        for relation in node.get_relations():
+        for relation in node.relations:
             if relation.related_type not in nodes:
                 warnings.warn(
-                    "Provided relations included mapping from {related_type} to {own_type} but {related_type} was not included in the provided list of nodes".format(
-                        related_type=relation.related_type, own_type=relation.type
-                    )
+                    f"Provided relations included mapping from {relation.related_type} to {relation.type} but {relation.related_type} was not included in the provided list of nodes"
                 )
             else:
                 relation_graph.add_edge(
@@ -99,9 +97,7 @@ def check_cycles(graph: nx.DiGraph) -> None:
     """
     cycles = list(nx.simple_cycles(graph))
     if len(cycles) > 0:
-        warnings.warn(
-            "Cyclical relations between types {cycles} detected".format(cycles=cycles)
-        )
+        warnings.warn(f"Cyclical relations between types {cycles} detected")
 
 
 def traverse_graph_with_series(
@@ -230,7 +226,7 @@ def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 
 
-class VisionsTypeset(object):
+class VisionsTypeset:
     """
     A collection of :class:`visions.types.type.VisionsBaseType` with  associated relationship map between them.
 
@@ -270,9 +266,19 @@ class VisionsTypeset(object):
             self._root_node = next(nx.topological_sort(self.relation_graph))
         return self._root_node  # type: ignore
 
-    @staticmethod
-    def _traverse_graph(data: pdT, root_node, graph):
-        return traverse_graph(data, root_node, graph)
+    def detect(self, data: pdT) -> Tuple[pdT, Any, dict]:
+        """The results found after only considering IdentityRelations.
+
+        Notes:
+            This is an advanced feature, consider using `detect_type` in case the type is what is needed.
+
+        Args:
+            data: a DataFrame or Series to determine types over
+
+        Returns:
+            A tuple of the coerced sequence, visited nodes and state
+        """
+        return traverse_graph(data, self.root_node, self.base_graph)
 
     def detect_type(self, data: pdT) -> pathTypes:
         """The inferred type found only considering IdentityRelations.
@@ -283,8 +289,22 @@ class VisionsTypeset(object):
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths, _ = self._traverse_graph(data, self.root_node, self.base_graph)
+        _, paths, _ = self.detect(data)
         return get_type_from_path(paths)
+
+    def infer(self, data: pdT) -> Tuple[pdT, Any, dict]:
+        """The results found after considering all relations.
+
+        Notes:
+            This is an advanced feature, consider using `infer_type` in case the type is what is needed.
+
+        Args:
+            data: a DataFrame or Series to determine types over
+
+        Returns:
+            A tuple of the coerced sequence, visited nodes and state
+        """
+        return traverse_graph(data, self.root_node, self.relation_graph)
 
     def infer_type(self, data: pdT) -> pathTypes:
         """The inferred type found using all type relations.
@@ -295,7 +315,7 @@ class VisionsTypeset(object):
         Returns:
             A dictionary of {name: type} pairs in the case of DataFrame input or a type
         """
-        _, paths, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
+        _, paths, _ = self.infer(data)
         return get_type_from_path(paths)
 
     def cast_to_detected(self, data: pdT) -> pdT:
@@ -307,7 +327,7 @@ class VisionsTypeset(object):
         Returns:
             new_data: The transformed DataFrame or Series.
         """
-        data, _, _ = self._traverse_graph(data, self.root_node, self.base_graph)
+        data, _, _ = self.detect(data)
         return data
 
     def cast_to_inferred(self, data: pdT) -> pdT:
@@ -320,7 +340,7 @@ class VisionsTypeset(object):
             new_data: The transformed DataFrame or Series.
             types: A dictionary of {name: type} pairs in the case of DataFrame input or a type.
         """
-        data, _, _ = self._traverse_graph(data, self.root_node, self.relation_graph)
+        data, _, _ = self.infer(data)
         return data
 
     def output_graph(
@@ -349,11 +369,17 @@ class VisionsTypeset(object):
 
         output_graph(graph, file_name)
 
-    def plot_graph(self, dpi: int = 800, base_only: bool = False):
+    def plot_graph(
+        self,
+        dpi: int = 800,
+        base_only: bool = False,
+        figsize: Optional[Tuple[int, int]] = None,
+    ):
         """
 
         Args:
             dpi: dpi of the matplotlib figure.
+            figsize: figure size
             base_only: Only display the typesets base_graph
         Returns:
             Displays the image
@@ -367,7 +393,7 @@ class VisionsTypeset(object):
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
             self.output_graph(temp_file.name, dpi=dpi, base_only=base_only)
             img = mpimg.imread(temp_file.name)
-            plt.figure(dpi=dpi)
+            plt.figure(dpi=dpi, figsize=figsize)
             plt.axis("off")
             plt.imshow(img)
         os.unlink(temp_file.name)
@@ -390,9 +416,7 @@ class VisionsTypeset(object):
             other_types = {other}
         else:
             raise NotImplementedError(
-                "Typeset operation not implemented for type {other_type}".format(
-                    other_type=type(other)
-                )
+                f"Typeset operation not implemented for type {type(other)}"
             )
         return other_types
 

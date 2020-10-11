@@ -340,6 +340,11 @@ def get_series():
         pd.Series([], name="empty_int64", dtype="Int64"),
         pd.Series([], name="empty_object", dtype="object"),
         pd.Series([], name="empty_bool", dtype=bool),
+        # All null series
+        pd.Series([None, None], name="all_null_none"),
+        pd.Series([np.nan, np.nan], name="all_null_nan"),
+        pd.Series([pd.NaT, pd.NaT], name="all_null_nat"),
+        pd.Series(["", ""], name="all_null_empty_str"),
         # IP
         pd.Series([IPv4Address("127.0.0.1"), IPv4Address("127.0.0.1")], name="ip"),
         pd.Series(

@@ -1,10 +1,35 @@
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Optional, Sequence, Type
+from typing import Any, Callable, Dict, Optional, Sequence, Type, Union
 
 import attr
 import pandas as pd
 
 from visions.relations import TypeRelation
+
+_DEFAULT = object()
+
+
+class RelationsIterManager:
+    def __init__(self, relations: Sequence[TypeRelation]):
+        self._keys: Dict["Type[VisionsBaseType]", int] = {
+            item.related_type: i for i, item in enumerate(relations)
+        }
+        self.values = tuple(relations)
+
+    def __getitem__(self, index: Union["Type[VisionsBaseType]", int]) -> TypeRelation:
+        idx = index if isinstance(index, int) else self._keys[index]
+        return self.values[idx]
+
+    def get(
+        self, index: Union["Type[VisionsBaseType]", int], default: Any = _DEFAULT
+    ) -> Union[TypeRelation, Any]:
+        try:
+            return self[index]
+        except (IndexError, KeyError) as err:
+            if default is _DEFAULT:
+                raise err
+            else:
+                return default
 
 
 class VisionsBaseTypeMeta(ABCMeta):
@@ -12,9 +37,9 @@ class VisionsBaseTypeMeta(ABCMeta):
         return cls.contains_op(series, state)  # type: ignore
 
     @property
-    def relations(cls) -> Optional[Sequence[TypeRelation]]:
+    def relations(cls) -> RelationsIterManager:
         if cls._relations is None:  # type: ignore
-            cls._relations = cls.get_relations()  # type: ignore
+            cls._relations = RelationsIterManager(cls.get_relations())  # type: ignore
         return cls._relations
 
     def __add__(cls, other):
@@ -61,7 +86,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             Callable[[Type[VisionsBaseTypeMeta]], Sequence[TypeRelation]]
         ] = None,
         replace: bool = False,
-    ):
+    ) -> "Type[VisionsBaseType]":
         """Make a copy of the type
 
         Args:
@@ -76,8 +101,9 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         def get_new_relations(cls) -> Sequence[TypeRelation]:
             return relations
 
+        name = cls.__name__
         new_type = type(
-            "{name}[{type_name}]".format(name=cls.__name__, type_name=type_name),
+            f"{name}[{type_name}]",
             (cls,),
             {
                 "get_relations": classmethod(get_new_relations),
@@ -94,7 +120,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
             relations = new_relations
         else:
             old_relations = [
-                attr.evolve(relation, type=new_type) for relation in cls.get_relations()
+                attr.evolve(relation, type=new_type) for relation in cls.relations
             ]
             relations = old_relations + new_relations
 

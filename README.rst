@@ -20,6 +20,12 @@ Visions
 * casting data types
 * automated data summarization
 
+
+
+.. image:: https://github.com/dylan-profiler/visions/raw/develop/docsrc/source/_static/side-by-side.png
+
+
+
 Documentation
 -------------
 

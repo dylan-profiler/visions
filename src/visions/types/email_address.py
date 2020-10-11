@@ -49,7 +49,7 @@ def _get_relations(cls) -> Sequence[TypeRelation]:
 
 
 @attr.s(slots=True)
-class FQDA(object):
+class FQDA:
     local = attr.ib()
     fqdn = attr.ib()
 
@@ -77,7 +77,7 @@ class EmailAddress(VisionsBaseType):
         return _get_relations(cls)
 
     @classmethod
-    @series_not_empty
     @nullable_series_contains
+    @series_not_empty
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
         return isinstance_attrs(series, FQDA, ["local", "fqdn"])

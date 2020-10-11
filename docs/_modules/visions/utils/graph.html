@@ -7,12 +7,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.utils.graph &mdash; visions 0.6.0 documentation</title>
+  <title>visions.utils.graph &mdash; visions 0.6.1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -30,7 +31,11 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -99,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/machine_learning.html">Machine Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -187,13 +193,17 @@
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
 
-<div class="viewcode-block" id="output_graph"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.utils.graph.html#visions.utils.graph.output_graph">[docs]</a><span class="k">def</span> <span class="nf">output_graph</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="output_graph"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.utils.graph.html#visions.utils.graph.output_graph">[docs]</a><span class="k">def</span> <span class="nf">output_graph</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">file_format</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Output a graph to a file, either as image or as dot file.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        G: the DiGraph to write or plot</span>
-<span class="sd">        file_name: the file name to write to. Extension can be svg, png or dot.</span>
+<span class="sd">        file_name: the file name to write to.</span>
 <span class="sd">        sort: create a copy of the graph with sorted keys</span>
+<span class="sd">        file_format: graphviz output format, if None, the file_name extension is used as format</span>
+<span class="sd">            https://graphviz.org/doc/info/output.html</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Nothing</span>
@@ -207,21 +217,25 @@
         <span class="n">G_sorted</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
         <span class="n">G_sorted</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
         <span class="n">G_sorted</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-        <span class="n">G_sorted</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))))</span>
+
+        <span class="n">style</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))):</span>
+            <span class="n">G_sorted</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="o">*</span><span class="n">edge</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge</span><span class="p">))</span>
         <span class="n">G</span> <span class="o">=</span> <span class="n">G_sorted</span>
 
     <span class="n">p</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">drawing</span><span class="o">.</span><span class="n">nx_pydot</span><span class="o">.</span><span class="n">to_pydot</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
         <span class="n">file_name</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.svg&quot;</span><span class="p">:</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">write_svg</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">file_name</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.png&quot;</span><span class="p">:</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">write_png</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">file_name</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.dot&quot;</span><span class="p">:</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">write_dot</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Extension should be .dot, .svg or .png&quot;</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="n">file_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">.</span><span class="n">suffix</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">file_format</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Could not write file. Please make sure that the format is accepted by pydot.&quot;</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>

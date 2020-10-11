@@ -70,11 +70,9 @@ contains_map = {
         "float_series3",
         "float_series4",
         "inf_series",
-        "nan_series",
         "float_nan_series",
         "float_series5",
         "int_nan_series",
-        "nan_series_2",
         "float_with_inf",
         "float_series6",
     },
@@ -133,6 +131,7 @@ contains_map = {
         "email_address_str",
         "str_float_non_leading_zeros",
         "str_int_zeros",
+        "all_null_empty_str",
     },
     Geometry: {"geometry_series", "geometry_series_missing"},
     IPAddress: {"ip", "ip_mixed_v4andv6", "ip_missing"},
@@ -170,6 +169,11 @@ contains_map[Generic] = {
     "empty_float",
     "empty_int64",
     "empty_object",
+    "all_null_nan",
+    "all_null_nat",
+    "all_null_none",
+    "nan_series",
+    "nan_series_2",
 }
 
 
@@ -207,8 +211,8 @@ inference_map = {
     "categorical_float_series": Categorical,
     "float_with_inf": Float,
     "inf_series": Float,
-    "nan_series": Float,
-    "nan_series_2": Float,
+    "nan_series": Generic,
+    "nan_series_2": Generic,
     "string_series": String,
     "categorical_string_series": Categorical,
     "timestamp_string_series": Date,
@@ -292,6 +296,10 @@ inference_map = {
     "email_address": EmailAddress,
     "email_address_missing": EmailAddress,
     "email_address_str": EmailAddress,
+    "all_null_nan": Generic,
+    "all_null_nat": Generic,
+    "all_null_none": Generic,
+    "all_null_empty_str": String,
 }
 if int(pd.__version__[0]) >= 1:
     inference_map["string_dtype_series"] = String
@@ -414,10 +422,7 @@ cast_results = {
         ],
     ),
     "path_series_linux_str": pd.Series(
-        [
-            PurePosixPath("/home/user/file.txt"),
-            PurePosixPath("/home/user/test2.txt"),
-        ],
+        [PurePosixPath("/home/user/file.txt"), PurePosixPath("/home/user/test2.txt")],
     ),
     "datetime": pd.Series(
         [
