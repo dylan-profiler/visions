@@ -16,12 +16,8 @@ Let's inspect the source code for `Ordinal` to gather intuition.
     :name: Ordinal
 
     from visions.types.type import VisionsBaseType
+    from visions.types.categorical import Categorical
 
-    def _get_relations():
-        from visions.types import Categorical
-
-        relations = [IdentityRelation(Ordinal, Categorical)]
-        return relations
 
     class Ordinal(VisionsBaseType):
         """**Ordinal** implementation of :class:`visions.types.VisionsBaseType`.
@@ -33,10 +29,10 @@ Let's inspect the source code for `Ordinal` to gather intuition.
 
         @classmethod
         def get_relations(cls):
-            return _get_relations()
+            return [IdentityRelation(cls, Categorical)]
 
         @classmethod
-        def contains_op(cls, series: pd.Series) -> bool:
+        def contains_op(cls, series: pd.Series, *args) -> bool:
             return pdt.is_categorical_dtype(series) and series.cat.ordered
 
 

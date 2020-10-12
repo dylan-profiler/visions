@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Country code type example &mdash; visions 0.6.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Problem type inference" href="ml_problem_set.html" />
+    <link rel="prev" title="Summaries example" href="summaries.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> visions
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="membership.html">Membership example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="casting.html">Casting example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summaries.html">Summaries example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Country code type example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml_problem_set.html">Problem type inference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Typeset testing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/summarizer.html">Data Summarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/validation.html">Data Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/machine_learning.html">Machine Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/compression.html">Data Compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/users.html">Users</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/type.html">Contributions new types to visions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../background/background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/nested_set_view.html">Nested set view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/graph_view.html">Graph view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">visions</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../examples.html">Examples</a> &raquo;</li>
+        
+      <li>Country code type example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/visions/getting_started/examples/country_code_type.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="country-code-type-example">
+<h1>Country code type example<a class="headerlink" href="#country-code-type-example" title="Permalink to this headline">¶</a></h1>
+<p>The following example shows a way of defining a CountryCode type that tests if all values of the sequence are within a set of country codes as specified in ISO 3166-1 (alpha-2):</p>
+<div class="literal-block-wrapper docutils container" id="countrycode-type-example">
+<div class="code-block-caption"><span class="caption-text">country_code_type_example.py</span><a class="headerlink" href="#countrycode-type-example" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span>
+
+
+<span class="k">def</span> <span class="nf">is_len_2</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">series</span><span class="o">.</span><span class="n">hasnans</span>
+
+
+<span class="k">def</span> <span class="nf">is_alpha2</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">iso_3166_alpha_iso_2_codes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;AF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AX&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AQ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BB&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BJ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BQ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BV&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CV&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CX&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DJ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;EC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;EG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SV&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GQ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ER&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;EE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ET&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FJ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;HU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ID&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IQ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;IT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;JM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;JP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;JE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;JO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LV&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LB&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MV&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ML&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MQ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;YT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MX&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ME&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;OM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;QA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;WS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ST&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SX&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SB&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ZA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ES&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SD&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SJ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;CH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TJ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TO&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TV&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GB&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;US&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;VI&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;WF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;EH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;YE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ZM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ZW&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">iso_3166_alpha_iso_2_codes</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CountryCode</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">)]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">is_len_2</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_alpha2</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ml_problem_set.html" class="btn btn-neutral float-right" title="Problem type inference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="summaries.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Ian Eaves and Simon Brugman
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

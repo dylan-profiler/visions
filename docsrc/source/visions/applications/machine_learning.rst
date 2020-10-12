@@ -13,6 +13,8 @@ While in theory, we could enforce categories to have a string representation and
 Often data is stored in plain-text CSV files, where the distinction is lost.
 Automatically distinguishing between problem type is not merely a mental exercise, it is actively used in AutoML (the process of automatically applying machine learning, not the product).
 
+For an example, see :doc:`usage of typesets <../getting_started/examples/ml_problem_set>`.
+
 Confidence scores
 -----------------
 When classification is used in practice, we often do not want to rely solely on the label prediction and want a measure of certainty that the model is correct.
