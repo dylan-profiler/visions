@@ -1,9 +1,11 @@
 from typing import Sequence
+
+import numpy as np
 import pandas as pd
 import pandas.api.types as pdt
-import numpy as np
+
 import visions
-from visions.relations import TypeRelation, IdentityRelation
+from visions.relations import IdentityRelation, TypeRelation
 from visions.typesets.typeset import get_type_from_path
 
 

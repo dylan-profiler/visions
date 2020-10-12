@@ -1,4 +1,3 @@
-import pathlib
 from typing import Any, Sequence
 
 from multimethod import multimethod
@@ -13,6 +12,7 @@ class File(VisionsBaseType):
     (i.e. existing path)
 
     Examples:
+        >>> import pathlib
         >>> x = [pathlib.Path('/home/user/file.txt'), pathlib.Path('/home/user/test2.txt')]
         >>> x in visions.File
         True

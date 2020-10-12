@@ -33,8 +33,7 @@ class RelationsIterManager:
                 return default
 
     def __iter__(self):
-        for item in self.values:
-            yield item
+        yield from self.values
 
 
 class VisionsBaseTypeMeta(ABCMeta):

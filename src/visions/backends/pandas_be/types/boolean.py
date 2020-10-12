@@ -4,8 +4,8 @@ import pandas as pd
 import pandas.api.types as pdt
 
 from visions.backends.pandas_be.series_utils import (
-    series_not_empty,
     series_handle_nulls,
+    series_not_empty,
     series_not_sparse,
 )
 from visions.backends.pandas_be.test_utils import (
@@ -46,7 +46,7 @@ def object_is_boolean(series: pd.Series, state: dict) -> bool:
     bool_set = {True, False}
     try:
         ret = all(item in bool_set for item in series)
-    except:
+    except (ValueError, TypeError, AttributeError):
         ret = False
 
     return ret
@@ -62,7 +62,7 @@ def object_to_boolean(series: pd.Series, state: dict) -> pd.Series:
 def string_is_boolean(series: pd.Series, state: dict) -> bool:
     try:
         return coercion_map_test(string_coercions)(series.str.lower())
-    except:
+    except (ValueError, TypeError, AttributeError):
         return False
 
 

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, Optional, Set, Tuple, Type, Sequence
+from typing import Any, Dict, Iterable, Optional, Sequence, Set, Tuple, Type
 
 import networkx as nx
 import pandas as pd
@@ -26,7 +26,7 @@ def all_series_included(
     series_list: Dict[str, Sequence], series_map: Dict[Type[VisionsBaseType], Set[str]]
 ):
     """Check that all names are indeed used"""
-    used_names = set([name for names in series_map.values() for name in names])
+    used_names = {name for names in series_map.values() for name in names}
     names = set(series_list.keys())
 
     if not names == used_names:

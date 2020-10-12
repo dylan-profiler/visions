@@ -4,15 +4,15 @@ from pathlib import Path
 from typing import (
     Any,
     Dict,
-    Sequence,
+    Iterable,
     List,
     Optional,
+    Sequence,
     Set,
     Tuple,
     Type,
     TypeVar,
     Union,
-    Iterable,
 )
 
 import networkx as nx

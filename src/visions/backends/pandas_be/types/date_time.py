@@ -1,14 +1,13 @@
 from functools import partial
 
 import pandas as pd
-
 from pandas.api import types as pdt
 
 from visions.backends.pandas_be import test_utils
 from visions.backends.pandas_be.series_utils import (
     series_handle_nulls,
-    series_not_sparse,
     series_not_empty,
+    series_not_sparse,
 )
 from visions.types import DateTime, String
 

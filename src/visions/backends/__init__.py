@@ -28,6 +28,9 @@ except ImportError:
     logger.debug("Numpy backend NOT loaded")
 
 
-import visions.backends.python_
+try:
+    import visions.backends.python_
 
-logger.debug("Python backend loaded")
+    logger.debug("Python backend loaded")
+except ImportError:
+    logger.debug("Python backend NOT loaded")

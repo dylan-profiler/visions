@@ -20,5 +20,5 @@ def string_is_uuid(sequence: Sequence, state: dict) -> bool:
     try:
         string_to_uuid(sequence)
         return True
-    except:
+    except (ValueError, TypeError, AttributeError):
         return False

@@ -1,4 +1,3 @@
-from datetime import timedelta
 from typing import Any, Sequence
 
 from multimethod import multimethod
@@ -12,6 +11,7 @@ class TimeDelta(VisionsBaseType):
     """**TimeDelta** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
+        >>> from datetime import timedelta
         >>> x = [timedelta(hours=1), timedelta(hours=3)]
         >>> x in visions.Timedelta
         True

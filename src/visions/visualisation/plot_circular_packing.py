@@ -1,7 +1,7 @@
 import json
 import re
-from pathlib import Path
 from itertools import chain
+from pathlib import Path
 
 import networkx as nx
 

@@ -19,7 +19,7 @@ def float_is_integer(series: pd.Series, state: dict) -> bool:
             if not np.isfinite(series).all():
                 return False
             return series.eq(series.astype(int)).all()
-        except:
+        except (ValueError, TypeError, AttributeError):
             return False
 
     return check_equality(series)

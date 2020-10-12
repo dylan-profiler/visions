@@ -1,6 +1,6 @@
 import functools
 from collections import Callable
-from typing import Sequence, TypeVar, Optional
+from typing import Sequence, TypeVar
 
 T = TypeVar("T")
 

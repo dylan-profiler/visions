@@ -43,7 +43,6 @@ def series_not_sparse(fn: Callable) -> Callable:
 
     @functools.wraps(fn)
     def inner(series: pd.Series, *args, **kwargs) -> bool:
-        print("in sparse test", series)
         if pdt.is_sparse(series):
             return False
         return fn(series, *args, **kwargs)

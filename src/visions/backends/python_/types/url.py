@@ -20,5 +20,5 @@ def string_is_url(sequence: Sequence, state: dict) -> bool:
     try:
         _ = all(isinstance(urlparse(value), ParseResult) for value in sequence)
         return True
-    except:
+    except (ValueError, TypeError, AttributeError):
         return False

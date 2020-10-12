@@ -10,7 +10,7 @@ from visions.types.type import VisionsBaseType
 
 
 @attr.s(slots=True)
-class FQDA(object):
+class FQDA:
     local = attr.ib()
     fqdn = attr.ib()
 

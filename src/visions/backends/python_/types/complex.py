@@ -11,7 +11,7 @@ def string_is_complex(sequence: Sequence, state: dict) -> bool:
     try:
         coerced = list(string_to_complex(sequence, state))
         return no_leading_zeros(sequence, [r.real for r in coerced])
-    except:
+    except (ValueError, TypeError, AttributeError):
         return False
 
 

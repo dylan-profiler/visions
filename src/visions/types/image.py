@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Any, Sequence
 
 from multimethod import multimethod
@@ -13,6 +12,7 @@ class Image(VisionsBaseType):
     (i.e. series with all image files)
 
     Examples:
+        >>> from pathlib import Path
         >>> import visions
         >>> x = [Path('/home/user/file.png'), Path('/home/user/test2.jpg')]
         >>> x in visions.Image
