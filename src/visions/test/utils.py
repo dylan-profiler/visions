@@ -11,7 +11,7 @@ def is_iter(v: Any) -> bool:
     return isinstance(v, Iterable) and not isinstance(v, (str, bytes))
 
 
-def sequences_equal(s1: Iterable, s2: Iterable) -> bool:
+def sequences_equal(s1: Sequence, s2: Sequence) -> bool:
     for v1, v2 in zip(s1, s2):
         if is_iter(v1) and is_iter(v2):
             if not sequences_equal(v1, v2):
@@ -23,7 +23,7 @@ def sequences_equal(s1: Iterable, s2: Iterable) -> bool:
 
 
 def all_series_included(
-    series_list: Dict[str, Iterable], series_map: Dict[Type[VisionsBaseType], Set[str]]
+    series_list: Dict[str, Sequence], series_map: Dict[Type[VisionsBaseType], Set[str]]
 ):
     """Check that all names are indeed used"""
     used_names = set([name for names in series_map.values() for name in names])
@@ -42,7 +42,7 @@ def all_series_included(
 
 
 def get_contains_cases(
-    _test_suite: Dict[str, Iterable],
+    _test_suite: Dict[str, Sequence],
     _series_map: Dict[Type[VisionsBaseType], Set[str]],
     typeset,
 ):
@@ -83,7 +83,7 @@ def contains(name, series, type, member):
 
 
 def get_inference_cases(
-    _test_suite: Dict[str, Iterable], inferred_series_type_map, typeset
+    _test_suite: Dict[str, Sequence], inferred_series_type_map, typeset
 ):
     argsvalues = []
     for name, series in _test_suite.items():
@@ -143,7 +143,7 @@ def all_relations_tested(series_map, typeset):
         )
 
 
-def get_convert_cases(_test_suite: Dict[str, Iterable], _series_map, typeset):
+def get_convert_cases(_test_suite: Dict[str, Sequence], _series_map, typeset):
     all_relations_tested(_series_map, typeset)
 
     argsvalues = []
@@ -187,7 +187,7 @@ def convert(name, source_type, relation_type, series, member) -> Tuple[bool, str
         )
 
 
-def get_cast_cases(_test_suite: Dict[str, Iterable], _results):
+def get_cast_cases(_test_suite: Dict[str, Sequence], _results):
     argsvalues = []
     for name, item in _test_suite.items():
         changed = name in _results
