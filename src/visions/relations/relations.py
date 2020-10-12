@@ -5,7 +5,7 @@ from multimethod import multimethod
 
 
 def func_repr(func):
-    return func.__name__ if hasattr(func, "__name__") else str("lambda")
+    return func.__name__ if hasattr(func, "__name__") else "lambda"
 
 
 def identity_transform(series: Any, state: dict = dict()) -> Any:

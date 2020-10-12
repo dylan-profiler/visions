@@ -20,7 +20,6 @@ def _is_string(series: pd.Series, state: dict):
 @series_not_sparse
 @series_not_empty
 def string_contains(series: pd.Series, state: dict) -> bool:
-    # TODO: without the object check this passes string categories... is there a better way?
     if pdt.is_categorical_dtype(series):
         return False
     elif not pdt.is_object_dtype(series):

@@ -1,4 +1,4 @@
-from typing import Dict, Iterable, List, Tuple, Type, Union
+from typing import Dict, Sequence, List, Tuple, Type, Union
 
 import pandas as pd
 
@@ -6,7 +6,7 @@ from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 
 
-def cast_to_detected(data: Iterable, typeset: VisionsTypeset) -> Iterable:
+def cast_to_detected(data: Sequence, typeset: VisionsTypeset) -> Sequence:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -20,7 +20,7 @@ def cast_to_detected(data: Iterable, typeset: VisionsTypeset) -> Iterable:
     return typeset.cast_to_detected(data)
 
 
-def cast_to_inferred(data: Iterable, typeset: VisionsTypeset) -> Iterable:
+def cast_to_inferred(data: Sequence, typeset: VisionsTypeset) -> Sequence:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -35,7 +35,7 @@ def cast_to_inferred(data: Iterable, typeset: VisionsTypeset) -> Iterable:
 
 
 def infer_type(
-    data: Iterable, typeset: VisionsTypeset
+    data: Sequence, typeset: VisionsTypeset
 ) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Infer the current types of each column in the DataFrame given the typeset.
 
@@ -50,7 +50,7 @@ def infer_type(
 
 
 def detect_type(
-    data: Iterable, typeset: VisionsTypeset
+    data: Sequence, typeset: VisionsTypeset
 ) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
     """Detect the type in the base graph
 
@@ -65,7 +65,7 @@ def detect_type(
 
 
 def compare_detect_inference_frame(
-    data: Iterable, typeset: VisionsTypeset
+    data: Sequence, typeset: VisionsTypeset
 ) -> List[Tuple[str, Type[VisionsBaseType], Type[VisionsBaseType]]]:
     """Compare the types given by inference on the base graph and the relational graph
 

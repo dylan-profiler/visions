@@ -19,6 +19,10 @@ from visions.types import (
     TimeDelta,
 )
 
+not_pandas_1_0_5 = not (
+    (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
+)
+
 series = get_sparse_series()
 
 typeset = StandardSet()
@@ -43,7 +47,8 @@ contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
     },
 }
 
-if pandas_version[0] >= 1:
+
+if pandas_version[0] >= 1 and not_pandas_1_0_5:
     contains_map[Generic].add("pd_bool_sparse")
     contains_map[Generic].add("pd_string_sparse")
 
@@ -73,7 +78,7 @@ inference_map = {
     # "datetime_sparse": Generic,
 }
 
-if pandas_version[0] >= 1:
+if pandas_version[0] >= 1 and not_pandas_1_0_5:
     inference_map["pd_bool_sparse"] = Generic
     inference_map["pd_string_sparse"] = Generic
 

@@ -56,9 +56,6 @@ contains_map = {
         "int_nan_series",
         "float_with_inf",
         "float_series6",
-        # only NaNs
-        "nan_series",
-        "nan_series_2",
     },
     Categorical: {
         "categorical_int_series",
@@ -115,6 +112,7 @@ contains_map = {
         "email_address_str",
         "str_float_non_leading_zeros",
         "str_int_zeros",
+        "all_null_empty_str",
     },
 }
 
@@ -163,6 +161,11 @@ contains_map[Generic] = {
     "empty_float",
     "empty_int64",
     "empty_object",
+    "all_null_none",
+    "all_null_nan",
+    "all_null_nat",
+    "nan_series",
+    "nan_series_2",
 }
 
 
@@ -201,8 +204,8 @@ inference_map = {
     "categorical_float_series": Categorical,
     "float_with_inf": Float,
     "inf_series": Float,
-    "nan_series": Float,
-    "nan_series_2": Float,
+    "nan_series": Generic,
+    "nan_series_2": Generic,
     "py_datetime_str": DateTime,
     "string_series": String,
     "categorical_string_series": Categorical,
@@ -287,6 +290,10 @@ inference_map = {
     "email_address": Object,
     "email_address_missing": Object,
     "email_address_str": String,
+    "all_null_none": Generic,
+    "all_null_nan": Generic,
+    "all_null_nat": Generic,
+    "all_null_empty_str": String,
 }
 if pandas_version[0] >= 1:
     inference_map["string_dtype_series"] = String

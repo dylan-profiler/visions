@@ -3,7 +3,11 @@ import pandas as pd
 from pandas.api import types as pdt
 
 from visions.backends.pandas_be import test_utils
-from visions.backends.pandas_be.series_utils import series_not_empty, series_not_sparse
+from visions.backends.pandas_be.series_utils import (
+    series_not_empty,
+    series_not_sparse,
+    series_handle_nulls,
+)
 from visions.types.complex import Complex
 from visions.types.float import Float
 from visions.types.string import String
@@ -22,6 +26,7 @@ def test_string_leading_zeros(series: pd.Series, coerced_series: pd.Series):
 
 
 @Float.register_relationship(String, pd.Series)
+@series_handle_nulls
 def string_is_float(series: pd.Series, state: dict) -> bool:
     coerced_series = test_utils.option_coercion_evaluator(lambda s: s.astype(float))(
         series
@@ -54,7 +59,8 @@ def complex_to_float(series: pd.Series, state: dict) -> pd.Series:
 
 
 @Float.contains_op.register
-@series_not_empty
 @series_not_sparse
+@series_handle_nulls
+@series_not_empty
 def float_contains(series: pd.Series, state: dict) -> bool:
     return pdt.is_float_dtype(series)

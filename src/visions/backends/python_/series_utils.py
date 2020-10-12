@@ -2,7 +2,7 @@ import functools
 from collections import Callable
 from typing import Sequence, TypeVar, Optional
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def sequence_not_empty(fn: Callable) -> Callable:

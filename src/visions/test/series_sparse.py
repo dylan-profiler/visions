@@ -5,6 +5,10 @@ import pandas as pd
 
 from visions.backends.pandas_be.test_utils import pandas_version
 
+not_pandas_1_0_5 = not (
+    (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
+)
+
 
 def get_sparse_series() -> Dict[str, pd.Series]:
     test_series = {
@@ -39,7 +43,7 @@ def get_sparse_series() -> Dict[str, pd.Series]:
         # )
     }
 
-    if pandas_version[0] >= 1:
+    if pandas_version[0] >= 1 and not_pandas_1_0_5:
         test_series["pd_string_sparse"] = pd.Series(
             ["Patty", "Valentine", "Upper", "", "", ""],
             dtype=pd.SparseDtype(pd.StringDtype(), ""),

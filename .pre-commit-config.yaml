@@ -1,6 +1,17 @@
 repos:
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.7.2
+    hooks:
+    -   id: pyupgrade
+        args: ['--py36-plus','--exit-zero-even-if-changed']
+-   repo: https://github.com/pycqa/isort
+    rev: 5.5.2
+    hooks:
+      - id: isort
+        files: '.*'
+        args: ['--profile=black']
 -   repo: https://github.com/psf/black
-    rev: stable
+    rev: 20.8b1
     hooks:
     - id: black
       language_version: python
@@ -8,3 +19,5 @@ repos:
     rev: v2.3.0
     hooks:
     - id: flake8
+# TODO: remove F40x, E772 and fix errors
+      args: ['--ignore=E501,W503,E203,F401,F403,F405,E722']

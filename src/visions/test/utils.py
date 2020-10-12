@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, Optional, Set, Tuple, Type
+from typing import Any, Dict, Iterable, Optional, Set, Tuple, Type, Sequence
 
 import networkx as nx
 import pandas as pd
@@ -28,6 +28,7 @@ def all_series_included(
     """Check that all names are indeed used"""
     used_names = set([name for names in series_map.values() for name in names])
     names = set(series_list.keys())
+
     if not names == used_names:
         unused = names - used_names
         not_provided = used_names - names
@@ -105,9 +106,7 @@ def get_inference_cases(
 def infers(name, series, expected_type, typeset, difference):
     from visions.typesets.typeset import get_type_from_path
 
-    _, paths, _ = typeset._traverse_graph(
-        series, typeset.root_node, typeset.relation_graph
-    )
+    _, paths, _ = typeset.infer(series)
     inferred_type = get_type_from_path(paths)
 
     # inferred_type = typeset.infer_type(series)
@@ -204,7 +203,7 @@ def get_cast_cases(_test_suite: Dict[str, Iterable], _results):
 
 def cast(
     name: str,
-    series: Iterable,
+    series: Sequence,
     typeset: VisionsTypeset,
     expected: Optional[pd.Series] = None,
 ):

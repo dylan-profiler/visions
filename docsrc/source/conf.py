@@ -44,12 +44,14 @@ release = _GetApiWrapperVersion()
 # ones.
 extensions = [
     "recommonmark",
+    # "nbsphinx",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
     "sphinx.ext.napoleon",
     "sphinx_autodoc_typehints",
     "sphinx.ext.viewcode",
+    # "sphinx_copybutton",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

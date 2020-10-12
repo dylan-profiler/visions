@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Dict, Iterable, Optional, Sequence, Type, Union
+from typing import Any, Dict, Optional, Sequence, Type, Union
 
 from multimethod import multimethod
 
@@ -40,7 +40,7 @@ class RelationsIterManager:
 class VisionsBaseTypeMeta(ABCMeta):
     _relations = None
 
-    def __contains__(cls, sequence: Iterable) -> bool:
+    def __contains__(cls, sequence: Sequence) -> bool:
         return cls.contains_op(sequence, dict())
 
     def get_relations(cls) -> Sequence[TypeRelation]:
