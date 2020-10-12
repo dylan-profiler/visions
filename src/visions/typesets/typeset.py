@@ -105,7 +105,7 @@ def traverse_graph_with_series(
     series: pd.Series,
     graph: nx.DiGraph,
     path: List[Type[VisionsBaseType]] = None,
-    state: dict = dict(),
+    state: Optional[dict] = None,
 ) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
@@ -114,10 +114,14 @@ def traverse_graph_with_series(
         series: the Series to check
         graph: the Graph to traverse
         path: the path so far
+        state: traversal state
 
     Returns:
         The most uniquely specified node matching the series.
     """
+    if state is None:
+        state = dict()
+
     if path is None:
         path = []
 
