@@ -15,8 +15,9 @@
    
       ~VisionsBaseType.__init__
       ~VisionsBaseType.contains_op
-      ~VisionsBaseType.evolve_type
       ~VisionsBaseType.get_relations
+      ~VisionsBaseType.register_relationship
+      ~VisionsBaseType.register_transformer
    
    
 

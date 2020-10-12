@@ -231,11 +231,26 @@
 <em class="property">class </em><code class="sig-prename descclassname">visions.types.time.</code><code class="sig-name descname">Time</code><a class="reference internal" href="../../../_modules/visions/types/time.html#Time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.time.Time" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Time</strong> implementation of <a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">visions.types.type.VisionsBaseType</span></code></a>.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">visions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="ow">in</span> <span class="n">visions</span><span class="o">.</span><span class="n">Time</span>
 <span class="go">True</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt id="visions.types.time.Time.contains_op">
+<em class="property">static </em><code class="sig-name descname">contains_op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/types/time.html#Time.contains_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.time.Time.contains_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>time_contains(sequence: Sequence, state: dict) -&gt; bool</p>
+<p>contains_op(item: Any, state: dict) -&gt; bool</p>
+<p>time_contains(series: pandas.core.series.Series, state: dict) -&gt; bool</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

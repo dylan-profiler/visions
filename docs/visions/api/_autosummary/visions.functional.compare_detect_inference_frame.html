@@ -214,18 +214,18 @@
 <h1>visions.functional.compare_detect_inference_frame<a class="headerlink" href="#visions-functional-compare-detect-inference-frame" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="visions.functional.compare_detect_inference_frame">
-<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">compare_detect_inference_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#compare_detect_inference_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.compare_detect_inference_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">visions.functional.</code><code class="sig-name descname">compare_detect_inference_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">typeset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#compare_detect_inference_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.functional.compare_detect_inference_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compare the types given by inference on the base graph and the relational graph</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – the DataFrame to detect types on</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) – the sequence to detect types on</p></li>
 <li><p><strong>typeset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code>) – the Typeset that provides the type context</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">type_before</span><span class="p">,</span> <span class="n">type_after</span> <span class="ow">in</span> <span class="n">compare_detect_inference_frame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">typeset</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> was </span><span class="si">{</span><span class="n">type_before</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">type_after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>

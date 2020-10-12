@@ -182,45 +182,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.date</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">multimethod</span> <span class="kn">import</span> <span class="n">multimethod</span>
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
+<span class="kn">from</span> <span class="nn">visions.types.object</span> <span class="kn">import</span> <span class="n">Object</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils</span> <span class="kn">import</span> <span class="n">func_nullable_series_contains</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">class_name_attrs</span><span class="p">,</span>
-    <span class="n">nullable_series_contains</span><span class="p">,</span>
-    <span class="n">series_not_empty</span><span class="p">,</span>
-<span class="p">)</span>
-
-
-<span class="nd">@func_nullable_series_contains</span>
-<span class="k">def</span> <span class="nf">datetime_is_date</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="n">dtseries</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">time</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="n">value</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dtseries</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
-
-
-<span class="k">def</span> <span class="nf">to_date</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
-
-
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">DateTime</span><span class="p">,</span> <span class="n">Object</span>
-
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span>
-            <span class="n">DateTime</span><span class="p">,</span>
-            <span class="n">relationship</span><span class="o">=</span><span class="n">datetime_is_date</span><span class="p">,</span>
-            <span class="n">transformer</span><span class="o">=</span><span class="n">to_date</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">]</span>
-    <span class="k">return</span> <span class="n">relations</span>
 
 
 <div class="viewcode-block" id="Date"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.date.html#visions.types.date.Date">[docs]</a><span class="k">class</span> <span class="nc">Date</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
@@ -228,20 +197,28 @@
 <span class="sd">    All values are should be datetime.date or missing</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; x = pd.Series([datetime.date(2017, 3, 5), datetime.date(2019, 12, 4)])</span>
+<span class="sd">        &gt;&gt;&gt; import datetime</span>
+<span class="sd">        &gt;&gt;&gt; import visions</span>
+<span class="sd">        &gt;&gt;&gt; x = [datetime.date(2017, 3, 5), datetime.date(2019, 12, 4)]</span>
 <span class="sd">        &gt;&gt;&gt; x in visions.Date</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
+            <span class="n">InferenceRelation</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="p">,</span>
+                <span class="n">DateTime</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">relations</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="nd">@series_not_empty</span>
-    <span class="nd">@nullable_series_contains</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">class_name_attrs</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">])</span></div>
+<div class="viewcode-block" id="Date.contains_op"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.date.html#visions.types.date.Date.contains_op">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@multimethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
            </div>

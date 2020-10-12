@@ -182,9 +182,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.generic</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">multimethod</span> <span class="kn">import</span> <span class="n">multimethod</span>
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">TypeRelation</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
@@ -195,7 +195,8 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt; x = pd.Series([&#39;a&#39;, 1, np.nan])</span>
+<span class="sd">        &gt;&gt;&gt; import visions</span>
+<span class="sd">        &gt;&gt;&gt; x = [&#39;a&#39;, 1, np.nan]</span>
 <span class="sd">        &gt;&gt;&gt; x in visions.Generic</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -204,9 +205,10 @@
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">[]</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+<div class="viewcode-block" id="Generic.contains_op"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.generic.html#visions.types.generic.Generic.contains_op">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@multimethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
 </pre></div>
 
            </div>

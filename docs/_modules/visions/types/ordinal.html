@@ -182,33 +182,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.ordinal</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas.api</span> <span class="kn">import</span> <span class="n">types</span> <span class="k">as</span> <span class="n">pdt</span>
+<span class="kn">from</span> <span class="nn">multimethod</span> <span class="kn">import</span> <span class="n">multimethod</span>
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.types.categorical</span> <span class="kn">import</span> <span class="n">Categorical</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">series_not_empty</span>
-
-
-<span class="k">def</span> <span class="nf">to_ordinal</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
-        <span class="n">series</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()),</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Categorical</span>
-
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="n">relations</span>
 
 
 <div class="viewcode-block" id="Ordinal"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.ordinal.html#visions.types.ordinal.Ordinal">[docs]</a><span class="k">class</span> <span class="nc">Ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.types.type.VisionsBaseType`.</span>
 
 <span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; import visions</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1, 2, 3, 1, 1], dtype=&#39;category&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; x in visions.Ordinal</span>
 <span class="sd">        True</span>
@@ -216,12 +204,13 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">relations</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="nd">@series_not_empty</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">ordered</span></div>
+<div class="viewcode-block" id="Ordinal.contains_op"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.ordinal.html#visions.types.ordinal.Ordinal.contains_op">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@multimethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
            </div>
