@@ -14,7 +14,9 @@ class Nominal(visions.VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return not pdt.is_categorical_dtype(series) or (pdt.is_categorical_dtype(series) and not series.cat.ordered)
+        return not pdt.is_categorical_dtype(series) or (
+            pdt.is_categorical_dtype(series) and not series.cat.ordered
+        )
 
 
 class Categorical(visions.VisionsBaseType):
@@ -36,8 +38,8 @@ class Binary(visions.VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        state['n_distinct'] = state.get('n_distinct') or series.nunique()
-        return state['n_distinct'] == 2
+        state["n_distinct"] = state.get("n_distinct") or series.nunique()
+        return state["n_distinct"] == 2
 
 
 class Ordinal(visions.VisionsBaseType):
@@ -106,8 +108,8 @@ class Classification(visions.VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        return state['dtype'] in [Nominal, Categorical, Ordinal, Binary]
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        return state["dtype"] in [Nominal, Categorical, Ordinal, Binary]
 
 
 class BinaryClassification(visions.VisionsBaseType):
@@ -117,8 +119,8 @@ class BinaryClassification(visions.VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        return state['dtype'] == Binary
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        return state["dtype"] == Binary
 
 
 class MultiClassification(visions.VisionsBaseType):
@@ -128,15 +130,15 @@ class MultiClassification(visions.VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        return state['dtype'] != Binary
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        return state["dtype"] != Binary
 
 
 class Regression(visions.VisionsBaseType):
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        return state['dtype'] in [Continuous, Discrete]
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        return state["dtype"] in [Continuous, Discrete]
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
@@ -150,26 +152,30 @@ class PoissonRegression(visions.VisionsBaseType):
 
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        if not state['dtype'] == Discrete:
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        if not state["dtype"] == Discrete:
             return False
 
         # This is a simplified test if poisson regression applies that doesn't take into account if
         # the ratio is significant
-        state['mean_var_ratio'] = state.get('mean_var_rate') or np.mean(series) / np.var(series)
-        return np.isclose(state['mean_var_ratio'], 1, rtol=0.05)
+        state["mean_var_ratio"] = state.get("mean_var_rate") or np.mean(
+            series
+        ) / np.var(series)
+        return np.isclose(state["mean_var_ratio"], 1, rtol=0.05)
 
 
 class NegBinomRegression(visions.VisionsBaseType):
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        if not state['dtype'] == Discrete:
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        if not state["dtype"] == Discrete:
             return False
 
         # See comment at poisson regression
-        state['mean_var_ratio'] = state.get('mean_var_rate') or np.mean(series) / np.var(series)
-        return state['mean_var_ratio'] > 1.05
+        state["mean_var_ratio"] = state.get("mean_var_rate") or np.mean(
+            series
+        ) / np.var(series)
+        return state["mean_var_ratio"] > 1.05
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
@@ -179,8 +185,8 @@ class NegBinomRegression(visions.VisionsBaseType):
 class OrdinalRegression(visions.VisionsBaseType):
     @classmethod
     def contains_op(cls, series, state):
-        state['dtype'] = state.get('dtype') or variable_set.detect_type(series)
-        return state['dtype'] == Ordinal
+        state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
+        return state["dtype"] == Ordinal
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
@@ -197,7 +203,7 @@ class MLProblemTypeset(visions.VisionsTypeset):
             Regression,
             NegBinomRegression,
             PoissonRegression,
-            OrdinalRegression
+            OrdinalRegression,
         }
         super().__init__(types)
 
@@ -207,11 +213,13 @@ problem_set.output_graph("problem_set.pdf")
 
 
 # Example
-dataset = pd.DataFrame({
-    "target_3": ["cat", "dog", "dog", "cat", "horse"],
-    "target_2": ["cat", "dog", "dog", "cat", "dog"],
-    "target_num": [1, 2, 2, 1, 2],
-})
+dataset = pd.DataFrame(
+    {
+        "target_3": ["cat", "dog", "dog", "cat", "horse"],
+        "target_2": ["cat", "dog", "dog", "cat", "dog"],
+        "target_num": [1, 2, 2, 1, 2],
+    }
+)
 
 
 for target in dataset.columns:
@@ -221,6 +229,4 @@ for target in dataset.columns:
     print(
         f"The target variable '{target}' is of the {state['dtype']} statistical type."
     )
-    print(
-        f"Our logic found that a {problem_type} model should be used."
-    )
+    print(f"Our logic found that a {problem_type} model should be used.")
