@@ -3,12 +3,12 @@ from typing import Dict, List
 import pandas as pd
 import pandas.api.types as pdt
 
-from visions.backends.pandas_be.series_utils import (
+from visions.backends.pandas_.series_utils import (
     series_handle_nulls,
     series_not_empty,
     series_not_sparse,
 )
-from visions.backends.pandas_be.test_utils import (
+from visions.backends.pandas_.test_utils import (
     coercion_map,
     coercion_map_test,
     pandas_version,

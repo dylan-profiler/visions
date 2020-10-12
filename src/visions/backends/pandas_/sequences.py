@@ -4,7 +4,7 @@ from typing import Dict, Iterable
 import numpy as np
 import pandas as pd
 
-from visions.backends.pandas_be.test_utils import pandas_version
+from visions.backends.pandas_.test_utils import pandas_version
 
 
 def get_sequences() -> Dict[str, Iterable]:

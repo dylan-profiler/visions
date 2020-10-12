@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas.api import types as pdt
 
-from visions.backends.pandas_be.series_utils import series_not_empty
+from visions.backends.pandas_.series_utils import series_not_empty
 from visions.types.ordinal import Ordinal
 
 # @Ordinal.register_transformer(Categorical, pd.Series)

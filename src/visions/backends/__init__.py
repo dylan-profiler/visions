@@ -1,14 +1,13 @@
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
 try:
     import pandas as pd
 
-    import visions.backends.pandas_be
-    from visions.backends.pandas_be.test_utils import pandas_version
+    import visions.backends.pandas_
+    from visions.backends.pandas_.test_utils import pandas_version
 
     if pandas_version[0] < 1:
         from visions.dtypes.boolean import BoolDtype

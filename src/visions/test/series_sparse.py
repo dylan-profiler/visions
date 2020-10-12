@@ -3,7 +3,7 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-from visions.backends.pandas_be.test_utils import pandas_version
+from visions.backends.pandas_.test_utils import pandas_version
 
 not_pandas_1_0_5 = not (
     (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
