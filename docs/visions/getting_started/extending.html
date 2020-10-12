@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Typeset testing" href="testing.html" />
-    <link rel="prev" title="Summaries example" href="examples/summaries.html" /> 
+    <link rel="prev" title="Problem type inference" href="examples/ml_problem_set.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -205,12 +205,8 @@
 <div class="literal-block-wrapper docutils container" id="ordinal">
 <div class="code-block-caption"><span class="caption-text">visions.types.ordinal.py</span><a class="headerlink" href="#ordinal" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span> <span class="nn">visions.types.categorical</span> <span class="kn">import</span> <span class="n">Categorical</span>
 
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">():</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Categorical</span>
-
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Ordinal</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="n">relations</span>
 
 <span class="k">class</span> <span class="nc">Ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.types.VisionsBaseType`.</span>
@@ -222,10 +218,10 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">ordered</span>
 </pre></div>
 </div>
@@ -359,7 +355,7 @@ in any way imaginable:</p>
         <a href="testing.html" class="btn btn-neutral float-right" title="Typeset testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="examples/summaries.html" class="btn btn-neutral float-left" title="Summaries example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="examples/ml_problem_set.html" class="btn btn-neutral float-left" title="Problem type inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
