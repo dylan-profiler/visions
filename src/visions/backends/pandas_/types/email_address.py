@@ -1,7 +1,7 @@
 import pandas as pd
 
-from visions.backends.pandas_be import test_utils
-from visions.backends.pandas_be.series_utils import (
+from visions.backends.pandas_ import test_utils
+from visions.backends.pandas_.series_utils import (
     isinstance_attrs,
     series_handle_nulls,
     series_not_empty,

@@ -10,8 +10,8 @@ import pytest
 from shapely import wkt
 
 from visions import CompleteSet
-from visions.backends.pandas_be.test_utils import pandas_version
-from visions.backends.pandas_be.types.boolean import hasnan_bool_name
+from visions.backends.pandas_.test_utils import pandas_version
+from visions.backends.pandas_.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
 from visions.test.utils import (

@@ -6,7 +6,7 @@ from typing import Callable, Dict, List, Optional, Type, Union
 
 import pandas as pd
 
-from visions.backends.pandas_be.series_utils import series_handle_nulls
+from visions.backends.pandas_.series_utils import series_handle_nulls
 
 pandas_version = tuple([int(i) for i in pd.__version__.split(".")])
 pandas_na_value = pd.NA if hasattr(pd, "NA") else None

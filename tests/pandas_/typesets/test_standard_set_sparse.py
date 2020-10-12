@@ -3,7 +3,7 @@ from typing import Dict, Set, Type
 import pytest
 
 from visions import StandardSet, VisionsBaseType
-from visions.backends.pandas_be.test_utils import pandas_version
+from visions.backends.pandas_.test_utils import pandas_version
 from visions.test.series_sparse import get_sparse_series
 from visions.test.utils import contains, get_contains_cases, get_inference_cases, infers
 from visions.types import (
