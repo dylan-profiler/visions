@@ -1,7 +1,9 @@
-import pandas as pd
+from typing import Dict, Set, Type
+
 import pytest
 
-from visions import StandardSet
+from visions import StandardSet, VisionsBaseType
+from visions.backends.pandas_be.test_utils import pandas_version
 from visions.test.series_sparse import get_sparse_series
 from visions.test.utils import contains, get_contains_cases, get_inference_cases, infers
 from visions.types import (
@@ -17,11 +19,15 @@ from visions.types import (
     TimeDelta,
 )
 
+not_pandas_1_0_5 = not (
+    (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
+)
+
 series = get_sparse_series()
 
 typeset = StandardSet()
 
-contains_map = {
+contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
     DateTime: set(),
     TimeDelta: set(),
     Categorical: set(),
@@ -41,13 +47,14 @@ contains_map = {
     },
 }
 
-if int(pd.__version__.split(".")[0]) >= 1:
+
+if pandas_version[0] >= 1 and not_pandas_1_0_5:
     contains_map[Generic].add("pd_bool_sparse")
     contains_map[Generic].add("pd_string_sparse")
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
-def test_contains(series, type, member):
+def test_contains(name, series, type, member):
     """Test the generated combinations for "series in type"
 
     Args:
@@ -55,7 +62,7 @@ def test_contains(series, type, member):
         type: the type to test against
         member: the result
     """
-    result, message = contains(series, type, member)
+    result, message = contains(name, series, type, member)
     assert result, message
 
 
@@ -71,20 +78,20 @@ inference_map = {
     # "datetime_sparse": Generic,
 }
 
-if int(pd.__version__.split(".")[0]) >= 1:
+if pandas_version[0] >= 1 and not_pandas_1_0_5:
     inference_map["pd_bool_sparse"] = Generic
     inference_map["pd_string_sparse"] = Generic
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))
-def test_inference(series, type, typeset, difference):
+def test_inference(name, series, type, typeset, difference):
     """Test the generated combinations for "inference(series) == type"
 
     Args:
         series: the series to test
         type: the type to test against
     """
-    result, message = infers(series, type, typeset, difference)
+    result, message = infers(name, series, type, typeset, difference)
     assert result, message
 
 

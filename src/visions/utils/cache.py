@@ -54,7 +54,7 @@ def mutable_pseudo_hash(data, node, graph):
             data_hash = hash(hash(tuple(data[col])) for col in data.columns)
         else:
             data_hash = hash(tuple(data.values))
-    except:
+    except (ValueError, TypeError, AttributeError):
         return id((data, node, graph))
 
     return hash((data_hash, node, graph))

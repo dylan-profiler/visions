@@ -1,7 +1,19 @@
 import warnings
 from functools import singledispatch
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple, Type, TypeVar, Union
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    List,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 import networkx as nx
 import pandas as pd
@@ -9,7 +21,6 @@ import pandas as pd
 from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
 
-pdT = TypeVar("pdT", pd.Series, pd.DataFrame)
 TypeOrTypeset = TypeVar("TypeOrTypeset", Type[VisionsBaseType], "VisionsTypeset")
 pathTypes = TypeVar(
     "pathTypes", Type[VisionsBaseType], Dict[str, Type[VisionsBaseType]]
@@ -23,7 +34,7 @@ def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGra
     each node corresponds to a type and each edge is a relation defined on the type.
 
     Args:
-        nodes:  An iterable of :class:`visions.types.type.VisionsBaseType`
+        nodes:  An Sequence of :class:`visions.types.type.VisionsBaseType`
 
     Returns:
         A directed graph of type relations for the provided nodes.
@@ -102,7 +113,7 @@ def check_cycles(graph: nx.DiGraph) -> None:
 
 def traverse_graph_with_series(
     base_type: Type[VisionsBaseType],
-    series: pd.Series,
+    series: Sequence,
     graph: nx.DiGraph,
     path: List[Type[VisionsBaseType]] = None,
     state: Optional[dict] = None,
@@ -142,7 +153,7 @@ def traverse_graph_with_sampled_series(
     graph: nx.DiGraph,
     sample_size: int = 10,
     state: dict = dict(),
-) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
+) -> Tuple[Sequence, List[Type[VisionsBaseType]], dict]:
     """Depth First Search traversal with sampling. There should be at most one successor that contains the series.
 
     Args:
@@ -179,16 +190,9 @@ def traverse_graph_with_sampled_series(
 
 @singledispatch
 def traverse_graph(
-    data: pdT, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pdT, Any, dict]:
-    raise TypeError(f"Undefined graph traversal over data of type {type(data)}")
-
-
-@traverse_graph.register(pd.Series)
-def _(
-    series: pd.Series, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
-    return traverse_graph_with_series(root_node, series, graph)
+    data: Sequence, root_node: Type[VisionsBaseType], graph: nx.DiGraph
+) -> Tuple[Sequence, List[Type[VisionsBaseType]], dict]:
+    return traverse_graph_with_series(root_node, data, graph)
 
 
 @traverse_graph.register(pd.DataFrame)  # type: ignore
@@ -220,12 +224,8 @@ def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
     return {k: get_type_from_path(v) for k, v in path_dict.items()}
 
 
-@get_type_from_path.register(list)  # type: ignore
-def _(path_list: list) -> Type[VisionsBaseType]:
-    return path_list[-1]
-
-
 @get_type_from_path.register(tuple)  # type: ignore
+@get_type_from_path.register(list)
 def _(path_list: tuple) -> Type[VisionsBaseType]:
     return path_list[-1]
 
@@ -248,7 +248,7 @@ class VisionsTypeset:
         self._root_node = None
 
         if not isinstance(types, Iterable):
-            raise ValueError("types should be iterable")
+            raise ValueError("types should be Sequence")
 
         self.relation_graph, self.base_graph = build_graph(set(types))
 
@@ -270,7 +270,7 @@ class VisionsTypeset:
             self._root_node = next(nx.topological_sort(self.relation_graph))
         return self._root_node  # type: ignore
 
-    def detect(self, data: pdT) -> Tuple[pdT, Any, dict]:
+    def detect(self, data: Sequence) -> Tuple[Sequence, Any, dict]:
         """The results found after only considering IdentityRelations.
 
         Notes:
@@ -284,7 +284,7 @@ class VisionsTypeset:
         """
         return traverse_graph(data, self.root_node, self.base_graph)
 
-    def detect_type(self, data: pdT) -> pathTypes:
+    def detect_type(self, data: Sequence) -> pathTypes:
         """The inferred type found only considering IdentityRelations.
 
         Args:
@@ -296,7 +296,7 @@ class VisionsTypeset:
         _, paths, _ = self.detect(data)
         return get_type_from_path(paths)
 
-    def infer(self, data: pdT) -> Tuple[pdT, Any, dict]:
+    def infer(self, data: Sequence) -> Tuple[Sequence, Any, dict]:
         """The results found after considering all relations.
 
         Notes:
@@ -310,7 +310,8 @@ class VisionsTypeset:
         """
         return traverse_graph(data, self.root_node, self.relation_graph)
 
-    def infer_type(self, data: pdT) -> pathTypes:
+    def infer_type(self, data: Sequence) -> pathTypes:
+
         """The inferred type found using all type relations.
 
         Args:
@@ -322,7 +323,7 @@ class VisionsTypeset:
         _, paths, _ = self.infer(data)
         return get_type_from_path(paths)
 
-    def cast_to_detected(self, data: pdT) -> pdT:
+    def cast_to_detected(self, data: Sequence) -> Sequence:
         """Transforms input data into a canonical representation using only IdentityRelations
 
         Args:
@@ -334,7 +335,7 @@ class VisionsTypeset:
         data, _, _ = self.detect(data)
         return data
 
-    def cast_to_inferred(self, data: pdT) -> pdT:
+    def cast_to_inferred(self, data: Sequence) -> Sequence:
         """Transforms input data and returns it's corresponding new type relation using all relations.
 
         Args:

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from visions.relations.relations import InferenceRelation
-from visions.types import Integer
+from visions.types.integer import Integer
 
 
 def is_unsigned_int(series: pd.Series, state: dict) -> bool:

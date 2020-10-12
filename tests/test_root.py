@@ -19,7 +19,7 @@ class CustomNonGeneric(VisionsBaseType):
 def make_test_type(root):
     class CustomFloat(VisionsBaseType):
         @classmethod
-        def contains_op(cls, series):
+        def contains_op(cls, series, state):
             return True
 
         @classmethod

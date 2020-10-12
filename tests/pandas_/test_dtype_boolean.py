@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from visions.types.boolean import hasnan_bool_name
+from visions.backends.pandas_be.types.boolean import hasnan_bool_name
 
 
 @pytest.mark.parametrize(

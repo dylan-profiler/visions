@@ -11,6 +11,7 @@ recursive-include src *.py
 # Include tests
 include tox.ini pytest.ini mypy.ini
 recursive-include tests *.py
+recursive-include tests *.ipynb
 
 # Include examples
 recursive-include examples *.py
