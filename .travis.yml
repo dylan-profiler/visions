@@ -34,10 +34,6 @@ jobs:
       script: mypy src tests
     - stage: Unit Testing
       script: pytest tests/
-script:
-#  - pytest --cov=. tests/
-  - pytest --mypy --black tests/
-  - pytest --black -m black src/
 
 #after_success:
 #  - codecov -F $TEST
