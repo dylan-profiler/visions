@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional, Sequence, Type, Union, cast
 
 from multimethod import multimethod
 
-from visions.relations import TypeRelation, IdentityRelation
+from visions.relations import TypeRelation
 
 _DEFAULT = object()
 

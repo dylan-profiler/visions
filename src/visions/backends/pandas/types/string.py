@@ -7,7 +7,6 @@ from visions.backends.pandas.series_utils import (
     series_not_sparse,
 )
 from visions.types.string import String
-from visions.backends.pandas.parallelization_engines import pandas_apply
 
 
 pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
