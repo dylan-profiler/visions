@@ -88,7 +88,7 @@ def contains(name: str, series: Sequence, type: T, member: bool) -> Tuple[bool, 
 
 def get_inference_cases(
     _test_suite: Dict[str, Sequence],
-    inferred_series_type_map: Dict[str, Sequence],
+    inferred_series_type_map: Dict[str, T],
     typeset: VisionsTypeset,
 ) -> Dict[str, Any]:
     argsvalues = []

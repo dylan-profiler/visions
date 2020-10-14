@@ -1,7 +1,5 @@
 import functools
-from typing import Sequence, TypeVar, Callable
-
-T = TypeVar("T")
+from typing import Sequence, Callable
 
 
 def sequence_not_empty(fn: Callable[..., bool]) -> Callable[..., bool]:

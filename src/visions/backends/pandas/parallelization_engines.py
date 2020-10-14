@@ -53,26 +53,7 @@ class SwifterEngine(Engine):
         return series.swifter.apply
 
 
-class PandarallelEngine(Engine):
-    name = "pandarallel"
-    _is_setup = False
-
-    @classmethod
-    def setup(cls, *args, **kwargs) -> None:
-        if cls._is_setup:
-            return
-
-        from pandarallel import pandarallel
-
-        pandarallel.initialize(*args)
-        cls._is_setup = True
-
-    @staticmethod
-    def apply(series: pd.Series) -> Callable[[Callable], pd.Series]:
-        return series.parallel_apply
-
-
-_PANDAS_ENGINES = [PandasEngine, SwifterEngine, PandarallelEngine]
+_PANDAS_ENGINES = [PandasEngine, SwifterEngine]
 
 
 class PandasEnginesCollection:
@@ -112,7 +93,6 @@ class PandasApply:
 class PandasHandler:
     def __init__(self):
         self.has_swifter = has_import("swifter")
-        self.has_pandarallel = has_import("pandarallel")
 
         self.applier = PandasApply()
         self._set_default_apply_engine()
@@ -120,8 +100,6 @@ class PandasHandler:
     def _set_default_apply_engine(self) -> None:
         if self.has_swifter:
             self.applier.engine = "swifter"
-        # if self.has_pandarallel:
-        #    self.applier.engine = 'pandarallel'
 
 
 _pandas_handler = PandasHandler()
