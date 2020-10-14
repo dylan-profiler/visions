@@ -27,19 +27,18 @@ install:
   - pip install -e .
 
 stages:
-  - linting
-  - type-checking
+  - validation
+  - test
 
 script: pytest tests/
 
 jobs:
   include:
-    - stage: lint
-      name: "Linting"
-      script: black --check src/
-    - stage: type-checking
-      name: "Type Checking"
-      script: mypy src tests
+    - stage: validation
+      name: "Linting and Type Checking"
+      script:
+        - black --check src/
+        - mypy src tests
 
 #after_success:
 #  - codecov -F $TEST
