@@ -26,14 +26,20 @@ install:
   - twine check dist/*
   - pip install -e .
 
+stages:
+  - linting
+  - type-checking
+
+script: pytest tests/
+
 jobs:
   include:
-    - stage: Linting
+    - stage: lint
+      name: "Linting"
       script: black --check src/
-    - stage: Type Checking
+    - stage: type-checking
+      name: "Type Checking"
       script: mypy src tests
-    - stage: Unit Testing
-      script: pytest tests/
 
 #after_success:
 #  - codecov -F $TEST
