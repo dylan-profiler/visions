@@ -1,15 +1,15 @@
-from typing import Dict, List, Tuple, Type, Union, Any, cast
+from typing import Dict, List, Sequence, Tuple, Type, Union
 
-from functools import singledispatch
 import pandas as pd
 
 from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 
 
-def cast_to_detected(
-    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
-) -> Union[pd.Series, pd.DataFrame]:
+T = Type[VisionsBaseType]
+
+
+def cast_to_detected(data: Sequence, typeset: VisionsTypeset) -> Sequence:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -23,9 +23,7 @@ def cast_to_detected(
     return typeset.cast_to_detected(data)
 
 
-def cast_to_inferred(
-    data: Union[pd.Series, pd.DataFrame], typeset: VisionsTypeset
-) -> Union[pd.Series, pd.DataFrame]:
+def cast_to_inferred(data: Sequence, typeset: VisionsTypeset) -> Sequence:
     """Casts a DataFrame into a typeset by first performing column wise type inference against
     a provided typeset
 
@@ -39,14 +37,11 @@ def cast_to_inferred(
     return typeset.cast_to_inferred(data)
 
 
-@singledispatch
-def infer_type(
-    data: Any, typeset: VisionsTypeset
-) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
-    """Infer the type in the base graph
+def infer_type(data: Sequence, typeset: VisionsTypeset) -> Union[Dict[str, T], T]:
+    """Infer the current types of each column in the DataFrame given the typeset.
 
     Args:
-        data: the data to detect types on
+        data: the DataFrame to infer types on
         typeset: the Typeset that provides the type context
 
     Returns:
@@ -55,30 +50,11 @@ def infer_type(
     return typeset.infer_type(data)
 
 
-@infer_type.register(pd.Series)
-def infer_type_series(
-    series: pd.Series, typeset: VisionsTypeset
-) -> Type[VisionsBaseType]:
-    result = typeset.infer_type(series)
-    return cast(Type[VisionsBaseType], result)
-
-
-@infer_type.register(pd.DataFrame)
-def infer_type_df(
-    df: pd.DataFrame, typeset: VisionsTypeset
-) -> Dict[str, Type[VisionsBaseType]]:
-    result = typeset.infer_type(df)
-    return cast(Dict[str, Type[VisionsBaseType]], result)
-
-
-@singledispatch
-def detect_type(
-    data: Any, typeset: VisionsTypeset
-) -> Union[Dict[str, Type[VisionsBaseType]], Type[VisionsBaseType]]:
+def detect_type(data: Sequence, typeset: VisionsTypeset) -> Union[Dict[str, T], T]:
     """Detect the type in the base graph
 
     Args:
-        data: the data to detect types on
+        data: the DataFrame to detect types on
         typeset: the Typeset that provides the type context
 
     Returns:
@@ -87,41 +63,25 @@ def detect_type(
     return typeset.detect_type(data)
 
 
-@detect_type.register(pd.Series)
-def detect_type_series(
-    series: pd.Series, typeset: VisionsTypeset
-) -> Type[VisionsBaseType]:
-    result = typeset.detect_type(series)
-    return cast(Type[VisionsBaseType], result)
-
-
-@detect_type.register(pd.DataFrame)
-def detect_type_dataframe(
-    df: pd.DataFrame, typeset: VisionsTypeset
-) -> Dict[str, Type[VisionsBaseType]]:
-    result = typeset.detect_type(df)
-    return cast(Dict[str, Type[VisionsBaseType]], result)
-
-
 def compare_detect_inference_frame(
-    df: pd.DataFrame, typeset: VisionsTypeset
-) -> List[Tuple[str, Type[VisionsBaseType], Type[VisionsBaseType]]]:
+    data: Sequence, typeset: VisionsTypeset
+) -> List[Tuple[str, T, T]]:
     """Compare the types given by inference on the base graph and the relational graph
 
     Args:
-        df: the DataFrame to detect types on
+        data: the sequence to detect types on
         typeset: the Typeset that provides the type context
 
     Examples:
-        >>> for column, type_before, type_after in compare_detect_inference_frame(df, typeset):
+        >>> for column, type_before, type_after in compare_detect_inference_frame(data, typeset):
         >>>    print(f"{column} was {type_before} is {type_after}")
 
     See Also:
         :doc:`type_inference_report_frame <visions.functional.type_inference_report_frame>`: Formatted report of the output of this function
     """
     comparisons = []
-    detected_types = detect_type(df, typeset)
-    inferred_types = infer_type(df, typeset)
+    detected_types = detect_type(data, typeset)
+    inferred_types = infer_type(data, typeset)
 
     assert isinstance(detected_types, dict) and isinstance(
         inferred_types, dict
@@ -132,6 +92,7 @@ def compare_detect_inference_frame(
     return comparisons
 
 
+# TODO: make independent of pandas
 def type_inference_report_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> str:
     """Return formatted report of the output of `compare_detect_inference_frame`.
 

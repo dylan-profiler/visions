@@ -11,19 +11,20 @@ typeset += EmailAddress
 
 
 def pytest_generate_tests(metafunc):
-    _test_suite = get_series() + get_geometry_series()
+    _test_suite = get_series()
+    _test_suite.update(get_geometry_series())
     if metafunc.function.__name__ in ["test_consistency", "test_traversal_mutex"]:
         argsvalues = []
-        for series in _test_suite:
-            args = {"id": series.name}
-            argsvalues.append(pytest.param(series, **args))
+        for name, series in _test_suite.items():
+            args = {"id": name}
+            argsvalues.append(pytest.param(name, series, **args))
 
-        metafunc.parametrize(argnames=["series"], argvalues=argsvalues)
+        metafunc.parametrize(argnames=["name", "series"], argvalues=argsvalues)
 
 
-def test_consistency(series):
+def test_consistency(name, series):
     detected_type = typeset.detect_type(series)
-    message = f"Detected type {detected_type} for series {series.name} but {detected_type}.contains_op(series) -> False"
+    message = f"Detected type {detected_type} for series {name} but {detected_type}.contains_op(series) -> False"
     assert series in detected_type, message
 
 
@@ -44,6 +45,6 @@ def _traverse_relation_graph(series, G, node=Generic):
         return node
 
 
-# What does this test? It doesn't explicitly invoke the actual traversal code.
-def test_traversal_mutex(series):
+def test_traversal_mutex(name, series):
+    """Tests that the relations in the graph are mutually exclusive (if not, we'll get non-determinism)"""
     _traverse_relation_graph(series, typeset.relation_graph)

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.float &mdash; visions 0.6.0 documentation</title>
+  <title>visions.types.float &mdash; visions 0.6.1 documentation</title>
   
 
   
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/machine_learning.html">Machine Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -181,101 +182,43 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.float</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas.api</span> <span class="kn">import</span> <span class="n">types</span> <span class="k">as</span> <span class="n">pdt</span>
+<span class="kn">from</span> <span class="nn">multimethod</span> <span class="kn">import</span> <span class="n">multimethod</span>
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.types.complex</span> <span class="kn">import</span> <span class="n">Complex</span>
+<span class="kn">from</span> <span class="nn">visions.types.generic</span> <span class="kn">import</span> <span class="n">Generic</span>
+<span class="kn">from</span> <span class="nn">visions.types.string</span> <span class="kn">import</span> <span class="n">String</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils.coercion</span> <span class="kn">import</span> <span class="n">test_utils</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="n">series_not_empty</span><span class="p">,</span> <span class="n">series_not_sparse</span>
-<span class="kn">from</span> <span class="nn">visions.utils.warning_handling</span> <span class="kn">import</span> <span class="n">suppress_warnings</span>
-
-
-<span class="k">def</span> <span class="nf">test_string_leading_zeros</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">coerced_series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">coerced_series</span><span class="o">.</span><span class="n">hasnans</span><span class="p">:</span>
-        <span class="n">notna</span> <span class="o">=</span> <span class="n">coerced_series</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
-        <span class="n">coerced_series</span> <span class="o">=</span> <span class="n">coerced_series</span><span class="p">[</span><span class="n">notna</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">coerced_series</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">notna</span><span class="p">]</span>
-    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">series</span><span class="p">[</span><span class="n">coerced_series</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">])</span>
-
-
-<span class="c1"># @func_nullable_series_contains</span>
-<span class="k">def</span> <span class="nf">string_to_float</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="c1"># Slightly faster to check for the character if it&#39;s not present than to</span>
-    <span class="c1"># attempt the replacement</span>
-    <span class="c1"># if any(&quot;,&quot; in x for x in series):</span>
-    <span class="c1">#     series = series.str.replace(&quot;,&quot;, &quot;&quot;)</span>
-    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">string_is_float</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">coerced_series</span> <span class="o">=</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">option_coercion_evaluator</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">series</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="n">coerced_series</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="ow">and</span> <span class="n">coerced_series</span> <span class="ow">in</span> <span class="n">Float</span>
-        <span class="ow">and</span> <span class="n">test_string_leading_zeros</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">coerced_series</span><span class="p">)</span>
-    <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">to_float</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">complex_is_float</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">complex_to_float</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">suppress_warnings</span><span class="p">(</span><span class="n">to_float</span><span class="p">)(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Complex</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">String</span>
-
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Generic</span><span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">string_is_float</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">string_to_float</span>
-        <span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span>
-            <span class="n">Complex</span><span class="p">,</span>
-            <span class="n">relationship</span><span class="o">=</span><span class="n">complex_is_float</span><span class="p">,</span>
-            <span class="n">transformer</span><span class="o">=</span><span class="n">complex_to_float</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">]</span>
-    <span class="k">return</span> <span class="n">relations</span>
 
 
 <div class="viewcode-block" id="Float"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.float.html#visions.types.float.Float">[docs]</a><span class="k">class</span> <span class="nc">Float</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Float** implementation of :class:`visions.types.type.VisionsBaseType`.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; x = pd.Series([1.0, 2.5, 5.0, np.nan])</span>
+<span class="sd">        &gt;&gt;&gt; import visions</span>
+<span class="sd">        &gt;&gt;&gt; x = [1.0, 2.5, 5.0]</span>
 <span class="sd">        &gt;&gt;&gt; x in visions.Float</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Generic</span><span class="p">),</span>
+            <span class="n">InferenceRelation</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="p">,</span>
+                <span class="n">String</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">InferenceRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Complex</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">relations</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="nd">@series_not_empty</span>
-    <span class="nd">@series_not_sparse</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_float_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Float.contains_op"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.float.html#visions.types.float.Float.contains_op">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@multimethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
            </div>

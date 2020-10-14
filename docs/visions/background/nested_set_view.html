@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nested set view &mdash; visions 0.6.0 documentation</title>
+  <title>Nested set view &mdash; visions 0.6.1 documentation</title>
   
 
   
@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../applications/machine_learning.html">Machine Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../applications/compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -198,7 +199,7 @@ Similarly, the membership relation is true when the circle includes all values.<
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title></title>
+    <title>Typeset circular packing</title>
     <meta charset="utf-8">
     <style>
         .node {
@@ -230,7 +231,7 @@ Similarly, the membership relation is true when the circle includes all values.<
 </head>
 <body>
 <svg width="700" height="700"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 <script>
     var svg = d3.select("svg"),
         margin = 20,
@@ -246,8 +247,6 @@ Similarly, the membership relation is true when the circle includes all values.<
         .size([diameter - margin, diameter - margin])
         .padding(30);
 
-    // d3.json("typesets/typeset_complete_base.json", function (error, root) {
-    //    if (error) throw error;
     // START-REPLACE
 	root = {"children": [{"name": "Boolean", "size": 1}, {"children": [{"name": "Ordinal", "size": 1}], "name": "Categorical"}, {"name": "Complex", "size": 1}, {"name": "DateTime", "size": 1}, {"name": "Float", "size": 1}, {"children": [{"name": "Count", "size": 1}], "name": "Integer"}, {"children": [{"name": "Date", "size": 1}, {"name": "EmailAddress", "size": 1}, {"name": "Geometry", "size": 1}, {"name": "IPAddress", "size": 1}, {"children": [{"children": [{"name": "Image", "size": 1}], "name": "File"}], "name": "Path"}, {"name": "String", "size": 1}, {"name": "Time", "size": 1}, {"name": "URL", "size": 1}, {"name": "UUID", "size": 1}], "name": "Object"}, {"name": "TimeDelta", "size": 1}], "name": "Generic"};
 	// END-REPLACE
@@ -297,7 +296,7 @@ Similarly, the membership relation is true when the circle includes all values.<
             .style('font-size', function(d){
                 var parent = d3.select(this.parentNode);
                 var c = parent.select('circle');
-                return Math.round(8 + 0.75 * c.attr('r') / 10).toString() + 'px';
+                return Math.round(8 + Math.log10(1000 * c.attr('r'))).toString() + 'px';
             })
           .text(function(d) {
               return d.data.name;

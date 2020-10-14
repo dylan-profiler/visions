@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.geometry &mdash; visions 0.6.0 documentation</title>
+  <title>visions.types.geometry &mdash; visions 0.6.1 documentation</title>
   
 
   
@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../applications/machine_learning.html">Machine Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../applications/compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -236,17 +237,18 @@
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="py function">
-<dt id="visions.types.geometry.string_is_geometry">
-<code class="sig-prename descclassname">visions.types.geometry.</code><code class="sig-name descname">string_is_geometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/types/geometry.html#string_is_geometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.geometry.string_is_geometry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shapely logs failures at a silly severity, just trying to suppress it’s output on failures.</p>
+<dl class="py method">
+<dt id="visions.types.geometry.Geometry.contains_op">
+<em class="property">static </em><code class="sig-name descname">contains_op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/types/geometry.html#Geometry.contains_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.geometry.Geometry.contains_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>geometry_contains(series: pandas.core.series.Series, state: dict) -&gt; bool</p>
+<p>geometry_contains(sequence: Sequence, state: dict) -&gt; bool</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
 </dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

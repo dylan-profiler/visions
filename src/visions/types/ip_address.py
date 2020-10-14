@@ -1,31 +1,11 @@
-from ipaddress import _BaseAddress, ip_address
-from typing import Sequence
+from typing import Any, Sequence
 
-import pandas as pd
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, InferenceRelation, TypeRelation
+from visions.types.object import Object
+from visions.types.string import String
 from visions.types.type import VisionsBaseType
-from visions.utils.coercion import test_utils
-from visions.utils.series_utils import nullable_series_contains, series_not_empty
-from visions.utils.pandas import pandas_apply
-
-
-def string_is_ip(series, state: dict):
-    return test_utils.coercion_test(lambda s: pandas_apply(s)(ip_address))(series)
-
-
-def to_ip(series: pd.Series, state: dict) -> pd.Series:
-    return pandas_apply(series)(ip_address)
-
-
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Object, String
-
-    relations = [
-        IdentityRelation(cls, Object),
-        InferenceRelation(cls, String, relationship=string_is_ip, transformer=to_ip),
-    ]
-    return relations
 
 
 class IPAddress(VisionsBaseType):
@@ -33,17 +13,24 @@ class IPAddress(VisionsBaseType):
 
     Examples:
         >>> from ipaddress import IPv4Address
-        >>> x = pd.Series([IPv4Address('127.0.0.1'), IPv4Address('128.0.1.2')])
+        >>> import visions
+        >>> x = [IPv4Address('127.0.0.1'), IPv4Address('128.0.1.2')]
         >>> x in visions.IPAddress
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        relations = [
+            IdentityRelation(cls, Object),
+            InferenceRelation(
+                cls,
+                String,
+            ),
+        ]
+        return relations
 
-    @classmethod
-    @series_not_empty
-    @nullable_series_contains
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return all(isinstance(x, _BaseAddress) for x in series)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

@@ -1,45 +1,27 @@
-from typing import Sequence
+from typing import Any, Sequence
 
-import pandas as pd
-from pandas.api import types as pdt
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import series_not_empty, series_not_sparse
-
-
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic
-
-    relations = [IdentityRelation(cls, Generic)]
-    return relations
-
-
-pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
 
 
 class Object(VisionsBaseType):
     """**Object** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> x = pd.Series(['a', 1, np.nan])
+        >>> x = ['a', 1, np.nan]
         >>> x in visions.Object
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        relations = [IdentityRelation(cls, Generic)]
+        return relations
 
-    @classmethod
-    @series_not_sparse
-    @series_not_empty
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        is_object = pdt.is_object_dtype(series)
-        if is_object:
-            ret = True
-        elif pandas_has_string_dtype_flag:
-            ret = pdt.is_string_dtype(series) and not pdt.is_categorical_dtype(series)
-        else:
-            ret = False
-        return ret
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

@@ -22,8 +22,7 @@ pypi_package:
 
 ## Run black linting
 lint:
-	isort --profile black --project visions .
-	black .
+	pre-commit run --all-files
 
 ## Run type checking
 type_checking:

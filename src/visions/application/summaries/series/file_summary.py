@@ -50,7 +50,7 @@ def file_hash_summary(series: pd.Series, hash_algorithm="md5") -> dict:
                     hash.update(file_buffer)
                     file_buffer = file.read(chunk_size)
                 return hash.hexdigest()
-        except IOError:
+        except OSError:
             raise
 
     summary = {

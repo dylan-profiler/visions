@@ -5,3 +5,4 @@ networkx>=2.4
 numexpr
 bottleneck
 tangled_up_in_unicode>=0.0.4
+multimethod==1.4

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>visions.types.url &mdash; visions 0.6.0 documentation</title>
+  <title>visions.types.url &mdash; visions 0.6.1 documentation</title>
   
 
   
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/machine_learning.html">Machine Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/compression.html">Data Compression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/integration.html">Data Discovery and Data Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
 <ul>
@@ -181,64 +182,39 @@
            <div itemprop="articleBody">
             
   <h1>Source code for visions.types.url</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">ParseResult</span><span class="p">,</span> <span class="n">urlparse</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">multimethod</span> <span class="kn">import</span> <span class="n">multimethod</span>
 
 <span class="kn">from</span> <span class="nn">visions.relations</span> <span class="kn">import</span> <span class="n">IdentityRelation</span><span class="p">,</span> <span class="n">InferenceRelation</span><span class="p">,</span> <span class="n">TypeRelation</span>
+<span class="kn">from</span> <span class="nn">visions.types.object</span> <span class="kn">import</span> <span class="n">Object</span>
+<span class="kn">from</span> <span class="nn">visions.types.string</span> <span class="kn">import</span> <span class="n">String</span>
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.utils.series_utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">func_nullable_series_contains</span><span class="p">,</span>
-    <span class="n">isinstance_attrs</span><span class="p">,</span>
-    <span class="n">nullable_series_contains</span><span class="p">,</span>
-    <span class="n">series_not_empty</span><span class="p">,</span>
-<span class="p">)</span>
-
-
-<span class="nd">@func_nullable_series_contains</span>
-<span class="k">def</span> <span class="nf">string_is_url</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">to_url</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">netloc</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
-
-
-<span class="k">def</span> <span class="nf">to_url</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">urlparse</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">visions.types</span> <span class="kn">import</span> <span class="n">Object</span><span class="p">,</span> <span class="n">String</span>
-
-    <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
-        <span class="n">InferenceRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">relationship</span><span class="o">=</span><span class="n">string_is_url</span><span class="p">,</span> <span class="n">transformer</span><span class="o">=</span><span class="n">to_url</span><span class="p">),</span>
-    <span class="p">]</span>
-    <span class="k">return</span> <span class="n">relations</span>
 
 
 <div class="viewcode-block" id="URL"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.url.html#visions.types.url.URL">[docs]</a><span class="k">class</span> <span class="nc">URL</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;**Url** implementation of :class:`visions.types.type.VisionsBaseType`.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
 <span class="sd">        &gt;&gt;&gt; from urllib.parse import urlparse</span>
 <span class="sd">        &gt;&gt;&gt; urls = [&#39;http://www.cwi.nl:80/%7Eguido/Python.html&#39;, &#39;https://github.com/pandas-profiling/pandas-profiling&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; x = pd.Series([urlparse(url) for url in urls])</span>
+<span class="sd">        &gt;&gt;&gt; x = [urlparse(url) for url in urls]</span>
 <span class="sd">        &gt;&gt;&gt; x in visions.URL</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">_get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
+            <span class="n">InferenceRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">relations</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="nd">@series_not_empty</span>
-    <span class="nd">@nullable_series_contains</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">isinstance_attrs</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">ParseResult</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;netloc&quot;</span><span class="p">,</span> <span class="s2">&quot;scheme&quot;</span><span class="p">])</span></div>
+<div class="viewcode-block" id="URL.contains_op"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.url.html#visions.types.url.URL.contains_op">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@multimethod</span>
+    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
            </div>

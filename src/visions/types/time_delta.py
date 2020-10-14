@@ -1,35 +1,28 @@
-from typing import Sequence
+from typing import Any, Sequence
 
-import pandas as pd
-from pandas.api import types as pdt
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import series_not_empty, series_not_sparse
-
-
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic
-
-    relations = [IdentityRelation(cls, Generic)]
-    return relations
 
 
 class TimeDelta(VisionsBaseType):
     """**TimeDelta** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
-        >>> x = pd.Series([pd.Timedelta(days=i) for i in range(3)])
+        >>> from datetime import timedelta
+        >>> x = [timedelta(hours=1), timedelta(hours=3)]
         >>> x in visions.Timedelta
         True
     """
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        relations = [IdentityRelation(cls, Generic)]
+        return relations
 
-    @classmethod
-    @series_not_sparse
-    @series_not_empty
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return pdt.is_timedelta64_dtype(series)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

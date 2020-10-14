@@ -12,3 +12,5 @@ typesets will fill
     examples/membership
     examples/casting
     examples/summaries
+    examples/country_code_type
+    examples/ml_problem_set

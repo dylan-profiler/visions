@@ -12,3 +12,4 @@ pytest>=5.2.0
 pytest-mypy
 pytest-black
 check-manifest>=0.41
+pandas

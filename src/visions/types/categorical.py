@@ -1,24 +1,18 @@
-from typing import Sequence
+from typing import Any, Sequence
 
-import pandas as pd
-from pandas.api import types as pdt
+from multimethod import multimethod
 
 from visions.relations import IdentityRelation, TypeRelation
+from visions.types.generic import Generic
 from visions.types.type import VisionsBaseType
-from visions.utils.series_utils import series_not_empty, series_not_sparse
-
-
-def _get_relations(cls) -> Sequence[TypeRelation]:
-    from visions.types import Generic
-
-    relations = [IdentityRelation(cls, Generic)]
-    return relations
 
 
 class Categorical(VisionsBaseType):
     """**Categorical** implementation of :class:`visions.types.type.VisionsBaseType`.
 
     Examples:
+        >>> import pandas as pd
+        >>> import visions
         >>> x = pd.Series([True, False, 1], dtype='category')
         >>> x in visions.Categorical
         True
@@ -26,10 +20,10 @@ class Categorical(VisionsBaseType):
 
     @classmethod
     def get_relations(cls) -> Sequence[TypeRelation]:
-        return _get_relations(cls)
+        relations = [IdentityRelation(cls, Generic)]
+        return relations
 
-    @classmethod
-    @series_not_sparse
-    @series_not_empty
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
-        return pdt.is_categorical_dtype(series)
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
+        pass

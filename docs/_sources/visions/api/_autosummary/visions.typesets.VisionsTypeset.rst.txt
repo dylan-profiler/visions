@@ -16,7 +16,9 @@
       ~VisionsTypeset.__init__
       ~VisionsTypeset.cast_to_detected
       ~VisionsTypeset.cast_to_inferred
+      ~VisionsTypeset.detect
       ~VisionsTypeset.detect_type
+      ~VisionsTypeset.infer
       ~VisionsTypeset.infer_type
       ~VisionsTypeset.output_graph
       ~VisionsTypeset.plot_graph
