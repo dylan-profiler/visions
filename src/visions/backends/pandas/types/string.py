@@ -18,7 +18,7 @@ def _is_string(series: pd.Series, state: dict):
         return False
     try:
         return (series.astype(str).values == series.values).all()
-    except:  # noqa
+    except (TypeError, ValueError):
         return False
 
 

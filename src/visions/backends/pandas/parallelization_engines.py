@@ -89,7 +89,6 @@ class PandasApply:
         return self.engine.apply
 
 
-# TODO: Pandarallel not currently working
 class PandasHandler:
     def __init__(self):
         self.has_swifter = has_import("swifter")

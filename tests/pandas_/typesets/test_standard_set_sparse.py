@@ -77,7 +77,6 @@ inference_map = {
     "pd_categorical_sparse": Generic,
     # "datetime_sparse": Generic,
 }
-inference_map = cast(Dict[str, Type[VisionsBaseType]], inference_map)
 
 if pandas_version[0] >= 1 and not_pandas_1_0_5:
     inference_map["pd_bool_sparse"] = Generic
