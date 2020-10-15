@@ -4,6 +4,7 @@ include SIDNfonds.png
 include requirements*.txt
 include src/visions/py.typed
 include *.yaml
+recursive-include src *.md
 
 exclude Makefile make.bat
 recursive-include src *.py

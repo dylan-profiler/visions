@@ -4,11 +4,11 @@ import pandas as pd
 
 
 def get_series() -> Dict[str, pd.Series]:
-    from visions.backends.numpy_.sequences import get_sequences as get_numpy_sequences
-    from visions.backends.pandas_.sequences import (
+    from visions.backends.numpy.sequences import get_sequences as get_numpy_sequences
+    from visions.backends.pandas.sequences import (
         get_sequences as get_pandas_sequences,
     )
-    from visions.backends.python_.sequences import (
+    from visions.backends.python.sequences import (
         get_sequences as get_builtin_sequences,
     )
 

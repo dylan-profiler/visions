@@ -9,14 +9,15 @@ python:
   - '3.8'
 
 env:
-  - PANDAS="<1"
-  - PANDAS=">=1.0.3"
+  - PIP="pandas<1"
+  - PIP="pandas>=1.0.3"
+  - PIP="swifter"
 
 before_install:
   - python -m pip install --upgrade pip setuptools wheel
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
-  - pip install "pandas$PANDAS"
+  - pip install "$PIP"
 
 install:
   - check-manifest
@@ -24,10 +25,19 @@ install:
   - twine check dist/*
   - pip install -e .
 
-script:
-#  - pytest --cov=. tests/
-  - pytest --mypy --black tests/
-  - pytest --black -m black src/
+stages:
+  - validation
+  - test
+
+script: pytest tests/
+
+jobs:
+  include:
+    - stage: validation
+      name: "Linting and Type Checking"
+      script:
+        - black --check src/
+        - mypy src tests
 
 #after_success:
 #  - codecov -F $TEST

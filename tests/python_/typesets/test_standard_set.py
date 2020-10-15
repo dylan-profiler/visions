@@ -3,7 +3,7 @@ from typing import Dict, Set, Type
 import pytest
 
 from visions import StandardSet, VisionsBaseType
-from visions.backends.python_.sequences import get_sequences
+from visions.backends.python.sequences import get_sequences
 from visions.test.utils import (
     cast,
     contains,

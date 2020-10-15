@@ -6,8 +6,8 @@ logger = logging.getLogger(__name__)
 try:
     import pandas as pd
 
-    import visions.backends.pandas_
-    from visions.backends.pandas_.test_utils import pandas_version
+    import visions.backends.pandas
+    from visions.backends.pandas.test_utils import pandas_version
 
     if pandas_version[0] < 1:
         from visions.dtypes.boolean import BoolDtype
@@ -20,7 +20,7 @@ except ImportError:
 try:
     import numpy as np
 
-    import visions.backends.numpy_
+    import visions.backends.numpy
 
     logger.debug(f"Numpy backend loaded {np.__version__}")
 except ImportError:
@@ -28,7 +28,7 @@ except ImportError:
 
 
 try:
-    import visions.backends.python_
+    import visions.backends.python
 
     logger.debug("Python backend loaded")
 except ImportError:

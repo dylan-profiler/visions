@@ -25,6 +25,8 @@ TypeOrTypeset = TypeVar("TypeOrTypeset", Type[VisionsBaseType], "VisionsTypeset"
 pathTypes = TypeVar(
     "pathTypes", Type[VisionsBaseType], Dict[str, Type[VisionsBaseType]]
 )
+pdT = TypeVar("pdT", pd.Series, pd.DataFrame)
+T = Type[VisionsBaseType]
 
 
 def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGraph]:
@@ -112,12 +114,12 @@ def check_cycles(graph: nx.DiGraph) -> None:
 
 
 def traverse_graph_with_series(
-    base_type: Type[VisionsBaseType],
+    base_type: T,
     series: Sequence,
     graph: nx.DiGraph,
-    path: List[Type[VisionsBaseType]] = None,
+    path: List[T] = None,
     state: Optional[dict] = None,
-) -> Tuple[pd.Series, List[Type[VisionsBaseType]], dict]:
+) -> Tuple[Sequence, List[T], dict]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
     Args:
@@ -148,12 +150,12 @@ def traverse_graph_with_series(
 
 
 def traverse_graph_with_sampled_series(
-    base_type: Type[VisionsBaseType],
+    base_type: T,
     series: pd.Series,
     graph: nx.DiGraph,
     sample_size: int = 10,
     state: dict = dict(),
-) -> Tuple[Sequence, List[Type[VisionsBaseType]], dict]:
+) -> Tuple[Sequence, List[T], dict]:
     """Depth First Search traversal with sampling. There should be at most one successor that contains the series.
 
     Args:
@@ -161,6 +163,7 @@ def traverse_graph_with_sampled_series(
         series: the Series to check
         graph: the Graph to traverse
         sample_size: number of items used in heuristic traversal
+        state: traversal state
 
     Returns:
         The most uniquely specified node matching the series.
@@ -190,23 +193,33 @@ def traverse_graph_with_sampled_series(
 
 @singledispatch
 def traverse_graph(
-    data: Sequence, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[Sequence, List[Type[VisionsBaseType]], dict]:
+    data: Sequence, root_node: T, graph: nx.DiGraph
+) -> Tuple[Sequence, Union[List[T], Dict[str, List[T]]], Dict[str, dict]]:
     return traverse_graph_with_series(root_node, data, graph)
 
 
-@traverse_graph.register(pd.DataFrame)  # type: ignore
-def _(
-    df: pd.DataFrame, root_node: Type[VisionsBaseType], graph: nx.DiGraph
-) -> Tuple[pd.DataFrame, Dict[str, List[Type[VisionsBaseType]]], Dict[str, dict]]:
+@traverse_graph.register(pd.Series)
+def _traverse_graph_series(
+    series: pd.Series, root_node: T, graph: nx.DiGraph
+) -> Tuple[pd.Series, List[T], dict]:
+    return traverse_graph_with_series(root_node, series, graph)
+
+
+@traverse_graph.register(pd.DataFrame)
+def _traverse_graph_dataframe(
+    df: pd.DataFrame, root_node: T, graph: nx.DiGraph
+) -> Tuple[pd.DataFrame, Dict[str, List[T]], Dict[str, dict]]:
+
     inferred_values = {
         col: traverse_graph(df[col], root_node, graph) for col in df.columns
     }
 
     inferred_series = {}
-    inferred_paths = {}
-    inferred_states = {}
+    inferred_paths: Dict[str, List[T]] = {}
+    inferred_states: Dict[str, dict] = {}
     for col, (inf_series, inf_path, inf_state) in inferred_values.items():
+        assert isinstance(inf_path, list)  # Placate the MyPy Gods
+
         inferred_series[col] = inf_series
         inferred_paths[col] = inf_path
         inferred_states[col] = inf_state
@@ -215,19 +228,21 @@ def _(
 
 
 @singledispatch
-def get_type_from_path(path_data: Any) -> pathTypes:
+def get_type_from_path(
+    path_data: Union[Sequence[T], Dict[str, Sequence[T]]]
+) -> Union[T, Dict[str, T]]:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 
 
-@get_type_from_path.register(dict)  # type: ignore
-def _(path_dict: dict) -> Dict[str, Type[VisionsBaseType]]:
-    return {k: get_type_from_path(v) for k, v in path_dict.items()}
-
-
-@get_type_from_path.register(tuple)  # type: ignore
 @get_type_from_path.register(list)
-def _(path_list: tuple) -> Type[VisionsBaseType]:
+@get_type_from_path.register(tuple)
+def _get_type_from_path_builtin(path_list: Sequence[T]) -> T:
     return path_list[-1]
+
+
+@get_type_from_path.register(dict)
+def _get_type_from_path_dict(path_dict: Dict[str, Sequence[T]]) -> Dict[str, T]:
+    return {k: v[-1] for k, v in path_dict.items()}
 
 
 class VisionsTypeset:
@@ -245,7 +260,7 @@ class VisionsTypeset:
         Args:
             types: a set of types
         """
-        self._root_node = None
+        self._root_node: Optional[T] = None
 
         if not isinstance(types, Iterable):
             raise ValueError("types should be Sequence")
@@ -258,7 +273,7 @@ class VisionsTypeset:
         self.types = set(self.relation_graph.nodes)
 
     @property
-    def root_node(self) -> Type[VisionsBaseType]:
+    def root_node(self) -> T:
         """Returns a cached copy of the relation_graphs root node
 
         Args:
@@ -268,9 +283,9 @@ class VisionsTypeset:
         """
         if self._root_node is None:
             self._root_node = next(nx.topological_sort(self.relation_graph))
-        return self._root_node  # type: ignore
+        return self._root_node
 
-    def detect(self, data: Sequence) -> Tuple[Sequence, Any, dict]:
+    def detect(self, data: Any) -> Tuple[Sequence, Any, dict]:
         """The results found after only considering IdentityRelations.
 
         Notes:
@@ -284,7 +299,7 @@ class VisionsTypeset:
         """
         return traverse_graph(data, self.root_node, self.base_graph)
 
-    def detect_type(self, data: Sequence) -> pathTypes:
+    def detect_type(self, data: Sequence) -> Union[T, Dict[str, T]]:
         """The inferred type found only considering IdentityRelations.
 
         Args:
@@ -310,7 +325,7 @@ class VisionsTypeset:
         """
         return traverse_graph(data, self.root_node, self.relation_graph)
 
-    def infer_type(self, data: Sequence) -> pathTypes:
+    def infer_type(self, data: Sequence) -> Union[T, Dict[str, T]]:
 
         """The inferred type found using all type relations.
 
@@ -403,7 +418,7 @@ class VisionsTypeset:
             plt.imshow(img)
         os.unlink(temp_file.name)
 
-    def _get_other_type(self, other: TypeOrTypeset) -> Set[Type[VisionsBaseType]]:
+    def _get_other_type(self, other: TypeOrTypeset) -> Set[T]:
         """Converts input into a set of :class:`visions.types.type.VisionsBaseType`
 
         Args:
@@ -425,7 +440,7 @@ class VisionsTypeset:
             )
         return other_types
 
-    def replace(self, old: VisionsBaseType, new: VisionsBaseType) -> "VisionsTypeset":
+    def replace(self, old: T, new: T) -> "VisionsTypeset":
         """Create a new typeset having replace one type with another.
 
         Args:

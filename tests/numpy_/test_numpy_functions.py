@@ -1,6 +1,6 @@
 import numpy as np
 
-from visions.backends.numpy_.types.integer import (
+from visions.backends.numpy.types.integer import (
     float_is_integer,
     float_to_integer,
     integer_contains,

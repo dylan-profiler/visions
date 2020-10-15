@@ -6,6 +6,8 @@ import pytest
 
 from visions import VisionsBaseType, VisionsTypeset
 
+T = Type[VisionsBaseType]
+
 
 def is_iter(v: Any) -> bool:
     return isinstance(v, Iterable) and not isinstance(v, (str, bytes))
@@ -23,7 +25,7 @@ def sequences_equal(s1: Sequence, s2: Sequence) -> bool:
 
 
 def all_series_included(
-    series_list: Dict[str, Sequence], series_map: Dict[Type[VisionsBaseType], Set[str]]
+    series_list: Dict[str, Sequence], series_map: Dict[T, Set[str]]
 ):
     """Check that all names are indeed used"""
     used_names = {name for names in series_map.values() for name in names}
@@ -43,13 +45,15 @@ def all_series_included(
 
 def get_contains_cases(
     _test_suite: Dict[str, Sequence],
-    _series_map: Dict[Type[VisionsBaseType], Set[str]],
-    typeset,
+    _series_map: Dict[T, Set[str]],
+    typeset: VisionsTypeset,
 ):
     """Parametrize contains tests
 
     Args:
-        mapping: mapping from type to a set of series' identifiers
+        _test_suite: mapping from sequence identifiers to sequences
+        _series_map: mapping from type to a set of sequence identifiers
+        typeset: A VisionsTypeset
 
     Returns:
         the args for the generated tests
@@ -75,7 +79,7 @@ def get_contains_cases(
     return {"argnames": ["name", "series", "type", "member"], "argvalues": argsvalues}
 
 
-def contains(name, series, type, member):
+def contains(name: str, series: Sequence, type: T, member: bool) -> Tuple[bool, str]:
     return (
         member == (series in type),
         f"{name} in {type}; expected {member}, got {series in type}",
@@ -83,8 +87,10 @@ def contains(name, series, type, member):
 
 
 def get_inference_cases(
-    _test_suite: Dict[str, Sequence], inferred_series_type_map, typeset
-):
+    _test_suite: Dict[str, Sequence],
+    inferred_series_type_map: Dict[str, T],
+    typeset: VisionsTypeset,
+) -> Dict[str, Any]:
     argsvalues = []
     for name, series in _test_suite.items():
         if name not in inferred_series_type_map:
@@ -103,7 +109,13 @@ def get_inference_cases(
     return {"argnames": "name,series,type,typeset,difference", "argvalues": argsvalues}
 
 
-def infers(name, series, expected_type, typeset, difference):
+def infers(
+    name: str,
+    series: Sequence,
+    expected_type: T,
+    typeset: VisionsTypeset,
+    difference: bool,
+) -> Tuple[bool, str]:
     from visions.typesets.typeset import get_type_from_path
 
     _, paths, _ = typeset.infer(series)
@@ -143,7 +155,7 @@ def all_relations_tested(series_map, typeset):
         )
 
 
-def get_convert_cases(_test_suite: Dict[str, Sequence], _series_map, typeset):
+def get_convert_cases(_test_suite, _series_map, typeset):
     all_relations_tested(_series_map, typeset)
 
     argsvalues = []
@@ -168,7 +180,9 @@ def get_convert_cases(_test_suite: Dict[str, Sequence], _series_map, typeset):
     )
 
 
-def convert(name, source_type, relation_type, series, member) -> Tuple[bool, str]:
+def convert(
+    name: str, source_type: T, relation_type: T, series: Sequence, member: bool
+) -> Tuple[bool, str]:
     relation = source_type.relations.get(relation_type, None)
     is_relation = False if relation is None else relation.is_relation(series, {})
 
@@ -187,7 +201,7 @@ def convert(name, source_type, relation_type, series, member) -> Tuple[bool, str
         )
 
 
-def get_cast_cases(_test_suite: Dict[str, Sequence], _results):
+def get_cast_cases(_test_suite: Dict[str, Sequence], _results: Dict) -> Dict:
     argsvalues = []
     for name, item in _test_suite.items():
         changed = name in _results
@@ -206,7 +220,7 @@ def cast(
     series: Sequence,
     typeset: VisionsTypeset,
     expected: Optional[pd.Series] = None,
-):
+) -> Tuple[bool, str]:
     result = typeset.cast_to_inferred(series)
     # TODO: if error also print Path
     if expected is None:

@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Dict, Optional, Sequence, Type, Union
+from typing import Any, Dict, Optional, Sequence, Type, Union, cast
 
 from multimethod import multimethod
 
@@ -37,7 +37,7 @@ class RelationsIterManager:
 
 
 class VisionsBaseTypeMeta(ABCMeta):
-    _relations = None
+    _relations: Optional[RelationsIterManager] = None
 
     def __contains__(cls, sequence: Sequence) -> bool:
         return cls.contains_op(sequence, dict())
@@ -76,8 +76,6 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     Provides a common API for building custom visions data types.
     """
 
-    _relations: Optional[Sequence[TypeRelation]] = None
-
     def __init__(self):
         pass
 
@@ -87,12 +85,18 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
         raise NotImplementedError
 
     @classmethod
-    def register_transformer(cls, relation, dispatchtype):
-        return cls.relations[relation].transformer.register(dispatchtype, dict)
+    def register_transformer(
+        cls, relation: "Type[VisionsBaseType]", dispatch_type: Any
+    ):
+        relation_transformer = cls.relations[relation].transformer
+        return cast(Any, relation_transformer).register(dispatch_type, dict)
 
     @classmethod
-    def register_relationship(cls, relation, dispatchtype):
-        return cls.relations[relation].relationship.register(dispatchtype, dict)
+    def register_relationship(
+        cls, relation: "Type[VisionsBaseType]", dispatch_type: Any
+    ):
+        relation_relationship = cls.relations[relation].relationship
+        return cast(Any, relation_relationship).register(dispatch_type, dict)
 
     @staticmethod
     @multimethod
