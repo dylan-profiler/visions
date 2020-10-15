@@ -190,6 +190,9 @@
 <span class="kn">from</span> <span class="nn">visions.typesets.typeset</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
 
 
+<span class="n">T</span> <span class="o">=</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span>
+
+
 <div class="viewcode-block" id="cast_to_detected"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.cast_to_detected.html#visions.functional.cast_to_detected">[docs]</a><span class="k">def</span> <span class="nf">cast_to_detected</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Casts a DataFrame into a typeset by first performing column wise type inference against</span>
 <span class="sd">    a provided typeset</span>
@@ -218,9 +221,7 @@
     <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">cast_to_inferred</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="infer_type"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.infer_type.html#visions.functional.infer_type">[docs]</a><span class="k">def</span> <span class="nf">infer_type</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]]:</span>
+<div class="viewcode-block" id="infer_type"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.infer_type.html#visions.functional.infer_type">[docs]</a><span class="k">def</span> <span class="nf">infer_type</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Infer the current types of each column in the DataFrame given the typeset.</span>
 
 <span class="sd">    Args:</span>
@@ -233,9 +234,7 @@
     <span class="k">return</span> <span class="n">typeset</span><span class="o">.</span><span class="n">infer_type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="detect_type"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.detect_type.html#visions.functional.detect_type">[docs]</a><span class="k">def</span> <span class="nf">detect_type</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]]:</span>
+<div class="viewcode-block" id="detect_type"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.detect_type.html#visions.functional.detect_type">[docs]</a><span class="k">def</span> <span class="nf">detect_type</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Detect the type in the base graph</span>
 
 <span class="sd">    Args:</span>
@@ -250,7 +249,7 @@
 
 <div class="viewcode-block" id="compare_detect_inference_frame"><a class="viewcode-back" href="../../visions/api/_autosummary/visions.functional.compare_detect_inference_frame.html#visions.functional.compare_detect_inference_frame">[docs]</a><span class="k">def</span> <span class="nf">compare_detect_inference_frame</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">typeset</span><span class="p">:</span> <span class="n">VisionsTypeset</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">]]:</span>
     <span class="sd">&quot;&quot;&quot;Compare the types given by inference on the base graph and the relational graph</span>
 
 <span class="sd">    Args:</span>
@@ -267,10 +266,13 @@
     <span class="n">comparisons</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">detected_types</span> <span class="o">=</span> <span class="n">detect_type</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
     <span class="n">inferred_types</span> <span class="o">=</span> <span class="n">infer_type</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">detected_types</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">inferred_types</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># type: ignore</span>
-        <span class="n">comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">detected_types</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">inferred_types</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>  <span class="c1"># type: ignore</span>
-        <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">detected_types</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">inferred_types</span><span class="p">,</span> <span class="nb">dict</span>
+    <span class="p">)</span>  <span class="c1"># Placate the MyPy Gods</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">detected_types</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">inferred_types</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">detected_types</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">inferred_types</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">comparisons</span></div>
 
 
@@ -279,7 +281,7 @@
     <span class="sd">&quot;&quot;&quot;Return formatted report of the output of `compare_detect_inference_frame`.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        data: the DataFrame to detect types on</span>
+<span class="sd">        df: the DataFrame to detect types on</span>
 <span class="sd">        typeset: the Typeset that provides the type context</span>
 
 <span class="sd">    Returns:</span>
