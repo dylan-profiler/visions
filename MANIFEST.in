@@ -13,7 +13,7 @@ recursive-include src *.py
 include tox.ini pytest.ini mypy.ini
 recursive-include tests *.py
 recursive-include tests *.ipynb
-recursive-include src\visions\test\data *
+recursive-include src/visions/test/data *
 
 # Include examples
 recursive-include examples *.py
