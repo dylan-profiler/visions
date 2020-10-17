@@ -19,5 +19,18 @@ repos:
     rev: v2.3.0
     hooks:
     - id: flake8
-# TODO: remove F40x, E772 and fix errors
-      args: ['--ignore=E501,W503,E203,F401,F403,F405,E722']
+      # TODO: remove F40x, E772 and fix errors
+      # Incompatible with black: W503
+      args: ['--max-line-length=120','--ignore=W503,E203,F401,F403,F405,E722']
+      additional_dependencies:
+        # - flake8-print
+        - flake8-2020
+-   repo: https://github.com/mgedmin/check-manifest
+    rev: "0.39"
+    hooks:
+    -   id: check-manifest
+#-   repo: https://github.com/pre-commit/mirrors-mypy
+#    rev: 'v0.790'
+#    hooks:
+#    -   id: mypy
+#        files: '^(src|tests)/'

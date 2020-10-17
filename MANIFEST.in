@@ -4,6 +4,7 @@ include SIDNfonds.png
 include requirements*.txt
 include src/visions/py.typed
 include *.yaml
+recursive-include src *.md
 
 exclude Makefile make.bat
 recursive-include src *.py
@@ -11,6 +12,8 @@ recursive-include src *.py
 # Include tests
 include tox.ini pytest.ini mypy.ini
 recursive-include tests *.py
+recursive-include tests *.ipynb
+recursive-include src/visions/test/data *
 
 # Include examples
 recursive-include examples *.py
@@ -20,7 +23,9 @@ recursive-include examples *.ipynb
 exclude src/visions/visualisation/summaries src/visions/visualisation/typesets
 recursive-exclude src/visions/visualisation/summaries *
 recursive-exclude src/visions/visualisation/typesets *
-recursive-exclude src/visions/visualisation *.html
+
+# Include template
+include src/visions/visualisation/circular_packing.html
 
 # Exclude directories
 exclude docs docsrc paper

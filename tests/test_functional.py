@@ -11,6 +11,7 @@ from visions.functional import (
 )
 from visions.types import Complex, DateTime, Integer, String
 from visions.typesets import CompleteSet, StandardSet
+from visions.visualisation.plot_circular_packing import plot_graph_circular_packing
 
 
 def test_type_inference_frame():
@@ -75,7 +76,6 @@ def test_type_cast_infer_frame():
 
     typeset = CompleteSet()
     new_df = cast_to_inferred(df, typeset)
-    print(new_df)
     assert new_df["digits"].iloc[1] - 3 == 121220
     assert new_df["latin"].iloc[1] + "1" == "apple1"
 
@@ -167,3 +167,8 @@ def test_type_detect_series():
     typeset = StandardSet()
     detected_type = detect_type(datetime_series, typeset)
     assert detected_type == DateTime
+
+
+def test_plotting(tmp_path):
+    complete_set = CompleteSet()
+    plot_graph_circular_packing(complete_set, tmp_path / "circular_packing_file.html")

@@ -1,6 +1,6 @@
-from typing import Sequence
+from typing import Any, Sequence
 
-import pandas as pd
+from multimethod import multimethod
 
 from visions.relations import TypeRelation
 from visions.types.type import VisionsBaseType
@@ -11,7 +11,8 @@ class Generic(VisionsBaseType):
 
     Examples:
         >>> import numpy as np
-        >>> x = pd.Series(['a', 1, np.nan])
+        >>> import visions
+        >>> x = ['a', 1, np.nan]
         >>> x in visions.Generic
         True
     """
@@ -20,6 +21,7 @@ class Generic(VisionsBaseType):
     def get_relations(cls) -> Sequence[TypeRelation]:
         return []
 
-    @classmethod
-    def contains_op(cls, series: pd.Series, state: dict) -> bool:
+    @staticmethod
+    @multimethod
+    def contains_op(item: Any, state: dict) -> bool:
         return True
