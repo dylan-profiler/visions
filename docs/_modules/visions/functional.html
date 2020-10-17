@@ -189,7 +189,6 @@
 <span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
 <span class="kn">from</span> <span class="nn">visions.typesets.typeset</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
 
-
 <span class="n">T</span> <span class="o">=</span> <span class="n">Type</span><span class="p">[</span><span class="n">VisionsBaseType</span><span class="p">]</span>
 
 
@@ -261,7 +260,8 @@
 <span class="sd">        &gt;&gt;&gt;    print(f&quot;{column} was {type_before} is {type_after}&quot;)</span>
 
 <span class="sd">    See Also:</span>
-<span class="sd">        :doc:`type_inference_report_frame &lt;visions.functional.type_inference_report_frame&gt;`: Formatted report of the output of this function</span>
+<span class="sd">        :doc:`type_inference_report_frame &lt;visions.functional.type_inference_report_frame&gt;`:</span>
+<span class="sd">            Formatted report of the output of this function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">comparisons</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">detected_types</span> <span class="o">=</span> <span class="n">detect_type</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
@@ -311,13 +311,10 @@
             <span class="n">change_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fill</span> <span class="o">=</span> <span class="s2">&quot;==&quot;</span>
-        <span class="n">report</span> <span class="o">+=</span> <span class="s2">&quot;{column: &lt;</span><span class="si">{max_column_length}</span><span class="s2">} {type_before: &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="si">{fill}</span><span class="s2"> {type_after: &lt;</span><span class="si">{max_type_length}</span><span class="s2">} </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span>
-            <span class="n">max_column_length</span><span class="o">=</span><span class="n">max_column_length</span><span class="p">,</span>
-            <span class="n">type_before</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">type_before</span><span class="p">),</span>
-            <span class="n">type_after</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">type_after</span><span class="p">),</span>
-            <span class="n">max_type_length</span><span class="o">=</span><span class="n">max_type_length</span><span class="p">,</span>
-            <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
+        <span class="n">report</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">:</span><span class="s2"> &lt;</span><span class="si">{</span><span class="n">max_column_length</span><span class="si">}}</span><span class="s2"> </span><span class="si">{</span><span class="n">type_before</span><span class="si">:</span><span class="s2"> &lt;</span><span class="si">{</span><span class="n">max_type_length</span><span class="si">}}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fill</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">type_after</span><span class="si">:</span><span class="s2"> &lt;</span><span class="si">{</span><span class="n">max_type_length</span><span class="si">}}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="p">)</span>
     <span class="n">report</span> <span class="o">+=</span> <span class="p">(</span>
         <span class="s2">&quot;In total </span><span class="si">{change_count}</span><span class="s2"> out of </span><span class="si">{type_count}</span><span class="s2"> types were changed.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
