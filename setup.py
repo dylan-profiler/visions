@@ -36,9 +36,14 @@ extras_requires["all"] = requirements + [
 ]
 
 
+__version__ = None
+with (source_root / "src/visions/version.py").open(encoding="utf8") as f:
+    exec(f.read())
+
+
 setup(
     name="visions",
-    version="0.6.1",
+    version=__version__,
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     author="Dylan Profiler",
