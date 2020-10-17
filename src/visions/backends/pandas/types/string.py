@@ -8,7 +8,6 @@ from visions.backends.pandas.series_utils import (
 )
 from visions.types.string import String
 
-
 pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")
 
 

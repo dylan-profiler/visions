@@ -1,6 +1,7 @@
-import attr
 from importlib import util as import_util
-from typing import Callable, Type, List
+from typing import Callable, List, Type
+
+import attr
 import pandas as pd
 
 

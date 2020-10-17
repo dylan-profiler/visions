@@ -5,7 +5,6 @@ import pandas as pd
 from visions.types.type import VisionsBaseType
 from visions.typesets.typeset import VisionsTypeset
 
-
 T = Type[VisionsBaseType]
 
 
@@ -77,7 +76,8 @@ def compare_detect_inference_frame(
         >>>    print(f"{column} was {type_before} is {type_after}")
 
     See Also:
-        :doc:`type_inference_report_frame <visions.functional.type_inference_report_frame>`: Formatted report of the output of this function
+        :doc:`type_inference_report_frame <visions.functional.type_inference_report_frame>`:
+            Formatted report of the output of this function
     """
     comparisons = []
     detected_types = detect_type(data, typeset)
@@ -127,13 +127,10 @@ def type_inference_report_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> st
             change_count += 1
         else:
             fill = "=="
-        report += "{column: <{max_column_length}} {type_before: <{max_type_length}} {fill} {type_after: <{max_type_length}} \n".format(
-            column=column,
-            max_column_length=max_column_length,
-            type_before=str(type_before),
-            type_after=str(type_after),
-            max_type_length=max_type_length,
-            fill=fill,
+        report += (
+            f"{column: <{max_column_length}} {type_before: <{max_type_length}} "
+            f"{fill} "
+            f"{type_after: <{max_type_length}} \n"
         )
     report += (
         "In total {change_count} out of {type_count} types were changed.\n".format(

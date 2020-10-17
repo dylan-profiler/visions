@@ -11,6 +11,7 @@ from visions.functional import (
 )
 from visions.types import Complex, DateTime, Integer, String
 from visions.typesets import CompleteSet, StandardSet
+from visions.visualisation.plot_circular_packing import plot_graph_circular_packing
 
 
 def test_type_inference_frame():
@@ -166,3 +167,8 @@ def test_type_detect_series():
     typeset = StandardSet()
     detected_type = detect_type(datetime_series, typeset)
     assert detected_type == DateTime
+
+
+def test_plotting(tmp_path):
+    complete_set = CompleteSet()
+    plot_graph_circular_packing(complete_set, tmp_path / "circular_packing_file.html")

@@ -52,7 +52,8 @@ def build_graph(nodes: Set[Type[VisionsBaseType]]) -> Tuple[nx.DiGraph, nx.DiGra
         for relation in node.relations:
             if relation.related_type not in nodes:
                 warnings.warn(
-                    f"Provided relations included mapping from {relation.related_type} to {relation.type} but {relation.related_type} was not included in the provided list of nodes"
+                    f"Provided relations included mapping from {relation.related_type} to {relation.type} "
+                    f"but {relation.related_type} was not included in the provided list of nodes"
                 )
             else:
                 relation_graph.add_edge(
@@ -252,7 +253,8 @@ class VisionsTypeset:
     Attributes:
         types: The collection of Visions Types derived from :class:`visions.types.type.VisionsBaseType`
         base_graph: The graph of relations composed exclusively of :class:`visions.relations.relations.IdentityRelation`
-        relation_graph: The full relation graph including both :class:`visions.relations.relations.IdentityRelation` and :class:`visions.relations.relations.InferenceRelation`
+        relation_graph: The full relation graph including both :class:`visions.relations.relations.IdentityRelation`
+            and :class:`visions.relations.relations.InferenceRelation`
     """
 
     def __init__(self, types: Set[Type[VisionsBaseType]]) -> None:

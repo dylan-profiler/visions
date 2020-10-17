@@ -116,9 +116,7 @@ def get_sequences() -> Dict[str, Sequence]:
         ],
         "file_mixed_ext": [
             Path(os.path.join(base_path, "py.typed")).absolute(),
-            Path(
-                os.path.join(base_path, "visualisation", "circular_packing.html")
-            ).absolute(),
+            Path(os.path.join(base_path, "test/data", "file.html")).absolute(),
             Path(os.path.join(base_path, "test/series.py")).absolute(),
         ],
         "file_test_py_missing": [
@@ -132,19 +130,22 @@ def get_sequences() -> Dict[str, Sequence]:
             Path(
                 os.path.join(
                     base_path,
-                    "visualisation/typesets/typeset_complete.png",
+                    "test/data",
+                    "img.png",
                 )
             ).absolute(),
             Path(
                 os.path.join(
                     base_path,
-                    r"visualisation/typesets/typeset_standard.png",
+                    "test/data",
+                    "img.jpeg",
                 )
             ).absolute(),
             Path(
                 os.path.join(
                     base_path,
-                    r"visualisation/typesets/typeset_geometry.png",
+                    "test/data",
+                    "img.jpg",
                 )
             ).absolute(),
         ],
@@ -152,20 +153,23 @@ def get_sequences() -> Dict[str, Sequence]:
             Path(
                 os.path.join(
                     base_path,
-                    r"visualisation/typesets/typeset_complete.png",
+                    "test/data",
+                    "img.png",
                 )
             ).absolute(),
             Path(
                 os.path.join(
                     base_path,
-                    r"visualisation/typesets/typeset_standard.png",
+                    "test/data",
+                    "img.jpeg",
                 )
             ).absolute(),
             None,
             Path(
                 os.path.join(
                     base_path,
-                    r"visualisation/typesets/typeset_geometry.png",
+                    "test/data",
+                    "img.jpg",
                 )
             ).absolute(),
             None,

@@ -197,7 +197,8 @@ def convert(
 
         return (
             is_relation,
-            f"Relationship {relation} for {series} tested false (but shouldn't have). Transform result would have been {transformed_series}",
+            f"Relationship {relation} for {series} tested false (but shouldn't have). "
+            f"Transform result would have been {transformed_series}",
         )
 
 

@@ -6,7 +6,7 @@ from visions.types.type import RelationsIterManager
 def test_property_base():
     """Assert that _relations is initialized"""
 
-    assert VisionsBaseType._relations == None
+    assert VisionsBaseType._relations is None
 
 
 def test_property_types():

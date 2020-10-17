@@ -20,7 +20,6 @@ before_install:
   - pip install "$PIP"
 
 install:
-  - check-manifest
   - python setup.py sdist bdist_wheel
   - twine check dist/*
   - pip install -e .
@@ -36,7 +35,7 @@ jobs:
     - stage: validation
       name: "Linting and Type Checking"
       script:
-        - black --check src/
+        - make lint
         - mypy src tests
 
 #after_success:
