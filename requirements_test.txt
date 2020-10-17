@@ -11,3 +11,4 @@ pydot
 pytest>=5.2.0
 check-manifest>=0.41
 pandas
+pre-commit
