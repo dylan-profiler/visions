@@ -1,4 +1,4 @@
-from typing import Any, Optional, Callable, TypeVar
+from typing import Any, Callable, Optional, TypeVar
 
 import attr
 from multimethod import multimethod

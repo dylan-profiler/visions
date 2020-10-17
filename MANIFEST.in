@@ -13,6 +13,7 @@ recursive-include src *.py
 include tox.ini pytest.ini mypy.ini
 recursive-include tests *.py
 recursive-include tests *.ipynb
+recursive-include src/visions/test/data *
 
 # Include examples
 recursive-include examples *.py
@@ -22,7 +23,9 @@ recursive-include examples *.ipynb
 exclude src/visions/visualisation/summaries src/visions/visualisation/typesets
 recursive-exclude src/visions/visualisation/summaries *
 recursive-exclude src/visions/visualisation/typesets *
-recursive-exclude src/visions/visualisation *.html
+
+# Include template
+include src/visions/visualisation/circular_packing.html
 
 # Exclude directories
 exclude docs docsrc paper

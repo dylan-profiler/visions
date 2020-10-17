@@ -3,11 +3,8 @@ from ipaddress import _BaseAddress, ip_address
 import pandas as pd
 
 from visions.backends.pandas import test_utils
-from visions.backends.pandas.series_utils import (
-    series_handle_nulls,
-    series_not_empty,
-)
 from visions.backends.pandas.parallelization_engines import pandas_apply
+from visions.backends.pandas.series_utils import series_handle_nulls, series_not_empty
 from visions.types.ip_address import IPAddress
 from visions.types.string import String
 

@@ -4,7 +4,6 @@ import sys
 import warnings
 from typing import Callable, TypeVar
 
-
 T = TypeVar("T")
 
 
