@@ -1,7 +1,7 @@
 Goals
 =====
 
-Axioms when designing `visions`:
+Axioms when designing ``visions``:
 
 - **Performant:** Efficiency as an enabler to more important things (reliability, dependability)
 - **Reduce complexity:** Simplify expressing data types, saving time. This includes sensible default types and typesets.

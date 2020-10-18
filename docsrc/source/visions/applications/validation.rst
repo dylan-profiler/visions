@@ -10,7 +10,7 @@ A variety of software packages have been developed to facilitate this workflow [
 These packages can benefit from decoupling semantic and machine type representations.
 
 The part of data validation that depends on machine types, the validation methods, should have to focus of such a package.
-For example, the software could have helper functions to assert if a float is approximately the reference value (see `pytest.approx` in [pytest]_).
+For example, the software could have helper functions to assert if a float is approximately the reference value (see ``pytest.approx`` in [pytest]_).
 The other part, defining and checking properties of the data depends on semantic types.
 For example, the International Standard Book Number (ISBN) has a `check digit <https://en.wikipedia.org/wiki/Check_digit>`_, which only makes sense to validate when a stored number is representing the ISBN.
 A key observation is that this highly overlaps with the data summarization example discussed above.

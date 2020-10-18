@@ -4,12 +4,12 @@ Theory
 Background
 ----------
 
-`visions` primary goal is to develop a robust mechanism for defining and using
+``visions`` primary goal is to develop a robust mechanism for defining and using
 *semantic* data types. These represent conceptual or logical notions of meaning
 and is distinct from the machine representation of data on disk. For example,
-we might say sequence :math:`S` is of semantic type `probability` when
-:math:`S \in [0, 1]` or `date` when each element is stored on the computer as a
-`datetime.datetime` object with all time components identically `0`.
+we might say sequence :math:`S` is of semantic type ``probability`` when
+:math:`S \in [0, 1]` or ``date`` when each element is stored on the computer as a
+``datetime.datetime`` object with all time components identically ``0``.
 
 Most data analytics libraries users are already familiar with have their own data
 types builtin, usually tightly coupled with the machine representation of the data
@@ -24,7 +24,7 @@ Open Challenges
 
 1. Finding a minimal representation of semantic types
 2. Detecting the semantic type of a sequence
-3. `visions` is interested in the semantic meaning of data and therefore should be able to infer the "intended" type of a sequence regardless of it's machine representation (e.g. the string `'1.0'` should be recognized as the number `1`).
+3. ``visions`` is interested in the semantic meaning of data and therefore should be able to infer the "intended" type of a sequence regardless of it's machine representation (e.g. the string ``'1.0'`` should be recognized as the number ``1``).
 
 
 We want to do all of this while keeping types easy to use, performant, and deterministic.
@@ -35,10 +35,10 @@ interested in probability as a sequence of values bounded such that :math:`x \in
 a business analyst might instead be interested in a definition where  :math:`x \in [0, 100]`.
 
 
-The `visions` Solution
-----------------------
+The ``visions`` Solution
+------------------------
 
-We solve all of these problems by introducing three conceptual ideas, `visions`
+We solve all of these problems by introducing three conceptual ideas, ``visions``
 types, typesets, and relations.
 
 A *type* at minimum requires only a single validation function which takes as its
@@ -50,15 +50,15 @@ defined on each type in the typeset to construct a relationship graph. When prop
 constructed this graph can be used to deterministically detect the current semantic types
 of a sequence (or dataset) or to infer a more representative type for the data.
 
-A *relation* object is responsible for mapping sequences between `visions` types.
+A *relation* object is responsible for mapping sequences between ``visions`` types.
 Each relation is composed of two functions, the first validates whether a
 mapping can be performed without loss of precision (i.e. '1.0' can be cast to
 integer while 1.1 cannot), the second is a surjective function responsible for
 actually performing the mapping.
 
-In practice, we distinguish `relations` into two categories as well, the first
-called `Identity Relations` require no transformation to the underlying machine
-type of the data (float(1.1) -> probability(1.1) where the second, `Inference Relations`,
+In practice, we distinguish ``relations`` into two categories as well, the first
+called ``Identity Relations`` require no transformation to the underlying machine
+type of the data (float(1.1) -> probability(1.1) where the second, ``Inference Relations``,
 have to coerce the sequence between machine types ('1.1' -> 1.1).
 
 
@@ -71,8 +71,8 @@ consistent semantic meaning. A typeset is then a directed rooted tree whose node
 are types with the root defined as the generic type associated with the universal set.
 
 Relations are directed edges between two nodes (types) in a relation graph (typeset).
-They are also defined on types such that a relation between types `A` and `B`,
-`Relation(A -> B)`, would be defined as an attribute of B. In order words, they
+They are also defined on types such that a relation between types ``A`` and ``B``,
+``Relation(A -> B)``, would be defined as an attribute of B. In order words, they
 are mappings *to* a type, not *from*.
 
 Following this, we can construct a relation graph from *any* collection of provided

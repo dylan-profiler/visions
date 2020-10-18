@@ -1,7 +1,7 @@
 Design decisions
 ================
 
-This section discusses the core implementation of `visions`.
+This section discusses the core implementation of ``visions``.
 This view can guide intuition of:
 
 - performance and complexity of operations
@@ -45,7 +45,7 @@ TODO: why (refer to goal)
 
 Why don't we use OOP inheritance?
 ---------------------------------
-You might wonder why for example `ImagePath` class does not inherit from `ExistingPath` class.
+You might wonder why for example ``Image`` class does not inherit from ``File`` class.
 The short answer is, we tried, in order to support our use cases inheritance ultimately only added complexity to the solution.
 Within the current abstraction, each type inherits from a base type, class inheritance from relations.
 
@@ -65,8 +65,8 @@ Why are relations defined on the type?
 --------------------------------------
 The short answer is extendability.
 
-Recall, relations define mappings to a type, so, given two types `A` and `B` with a relation from `B -> A`,
-that relationship is defined on `A`. Defining relationships in this way actually decouples types from each other.
+Recall, relations define mappings to a type, so, given two types ``A`` and ``B`` with a relation from ``B -> A``,
+that relationship is defined on ``A``. Defining relationships in this way actually decouples types from each other.
 This allows us to dynamically construct a relation graph based only on the types included in the typeset without
 modifying any type specific logic.
 
@@ -78,5 +78,5 @@ This behaviour `occurs for booleans and integers <https://pandas.pydata.org/pand
 Pandas itself offers `nullable integers <https://pandas.pydata.org/pandas-docs/stable/user_guide/integer_na.html#integer-na>`_.
 We implement nullable types as missing value bitmaps, in the same way pandas' nullable integers work.
 For each value, we keep a 1 bit per value that specifies whether a value is null or not.
-We use the contention that `NaN` is used when the type represents numbers, `None` otherwise.
+We use the contention that ``NaN`` is used when the type represents numbers, ``None`` otherwise.
 More information can be found here: `pandas 2.0 design document <https://dev.pandas.io/pandas2/internal-architecture.html#a-proposed-solution>`_
