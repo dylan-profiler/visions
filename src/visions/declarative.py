@@ -1,9 +1,24 @@
-from typing import Any, Callable, List, Optional, Type, TypeVar, Union
+from typing import Any, Callable, List, Optional, Type, TypeVar, Union, Sequence, List
 
 from visions.relations import IdentityRelation, InferenceRelation
 from visions.types.type import VisionsBaseType
 
 T = TypeVar("T")
+
+
+def process_relation(
+    cls, items: Optional[Union[Sequence, dict, Type[VisionsBaseType]]]
+) -> List[IdentityRelation]:
+    if items is None:
+        return []
+    elif isinstance(items, Sequence):
+        return [process_relation(cls, item) for item in items]
+    elif isinstance(items, dict):
+        return IdentityRelation(cls, **items)
+    elif issubclass(items, VisionsBaseType):
+        return IdentityRelation(cls, related_type=items)
+    else:
+        raise TypeError("identity should be a list, a dict of params or related_type.")
 
 
 def create_type(
@@ -13,18 +28,7 @@ def create_type(
     inference: Optional[Union[List[dict], dict]] = None,
 ):
     def get_relations(cls):
-        relations = []
-        if identity is not None:
-            if isinstance(identity, list):
-                relations += [IdentityRelation(cls, **params) for params in identity]
-            elif isinstance(identity, dict):
-                relations += [IdentityRelation(cls, **identity)]
-            elif issubclass(identity, VisionsBaseType):
-                relations += [IdentityRelation(cls, related_type=identity)]
-            else:
-                raise TypeError(
-                    "identity should be a list, a dict of params or related_type."
-                )
+        relations = process_relation(identity)
 
         if inference is not None:
             if isinstance(inference, dict):
