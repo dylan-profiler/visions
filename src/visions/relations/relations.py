@@ -50,6 +50,7 @@ class TypeRelation:
     relationship: Callable[[Any, dict], bool] = attr.ib(
         default=default_relation, converter=multimethod, repr=func_repr
     )
+    type = attr.ib(default=None)
 
     def is_relation(self, series: Any, state: Optional[dict] = None) -> bool:
         if state is None:

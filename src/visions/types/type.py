@@ -54,6 +54,8 @@ class VisionsBaseTypeMeta(ABCMeta):
     def relations(cls) -> RelationsIterManager:
         if cls._relations is None:
             cls._relations = RelationsIterManager(cls.get_relations())
+            for relation in cls._relations:
+                relation.type = cls
         return cls._relations
 
     def __add__(cls, other):

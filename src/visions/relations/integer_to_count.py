@@ -18,6 +18,5 @@ def integer_to_count(cls) -> InferenceRelation:
     return InferenceRelation(
         relationship=is_unsigned_int,
         transformer=to_unsigned_int,
-        type=cls,
         related_type=Integer,
     )
