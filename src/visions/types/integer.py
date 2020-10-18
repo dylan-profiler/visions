@@ -17,12 +17,11 @@ class Integer(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
         relations = [
-            IdentityRelation(cls, Generic),
+            IdentityRelation(Generic),
             InferenceRelation(
-                cls,
                 Float,
             ),
         ]

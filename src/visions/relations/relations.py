@@ -44,7 +44,6 @@ class TypeRelation:
         pd.Series([1, 2, 3])
     """
 
-    type = attr.ib()
     related_type = attr.ib()
     inferential: bool = attr.ib()
     transformer: Callable[[T, dict], T] = attr.ib(converter=multimethod, repr=func_repr)

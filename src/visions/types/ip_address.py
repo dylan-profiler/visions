@@ -19,12 +19,11 @@ class IPAddress(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
         relations = [
-            IdentityRelation(cls, Object),
+            IdentityRelation(Object),
             InferenceRelation(
-                cls,
                 String,
             ),
         ]

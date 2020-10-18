@@ -42,7 +42,8 @@ class VisionsBaseTypeMeta(ABCMeta):
     def __contains__(cls, sequence: Sequence) -> bool:
         return cls.contains_op(sequence, dict())
 
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
         raise NotImplementedError
 
     @staticmethod
