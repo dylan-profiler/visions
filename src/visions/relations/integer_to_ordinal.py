@@ -15,9 +15,9 @@
 #     )
 #
 #
-# def integer_to_ordinal(cls) -> InferenceRelation:
+# def integer_to_ordinal() -> InferenceRelation:
 #     from visions.types import Integer
 #
 #     return InferenceRelation(
-#         cls, Integer, relationship=is_ordinal_int, transformer=to_ordinal
+#         Integer, relationship=is_ordinal_int, transformer=to_ordinal
 #     )

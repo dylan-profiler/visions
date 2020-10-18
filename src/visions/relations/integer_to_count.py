@@ -14,7 +14,7 @@ def to_unsigned_int(series: pd.Series, state: dict) -> pd.Series:
     return series.astype(np.uint64)
 
 
-def integer_to_count(cls) -> InferenceRelation:
+def integer_to_count() -> InferenceRelation:
     return InferenceRelation(
         relationship=is_unsigned_int,
         transformer=to_unsigned_int,
