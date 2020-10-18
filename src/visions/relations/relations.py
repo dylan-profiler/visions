@@ -68,23 +68,19 @@ class TypeRelation:
 
 @attr.s(frozen=True)
 class IdentityRelation(TypeRelation):
-    relationship: Callable[[T, dict], bool] = attr.ib(repr=func_repr)
+    relationship: Callable[[T, dict], bool] = attr.ib(repr=func_repr, default=None)
     transformer: Callable[[T, dict], T] = attr.ib(
         default=identity_transform, repr=func_repr
     )
     inferential: bool = attr.ib(default=False)
 
-    @relationship.default
-    def make_relationship(self):
-        return self.type.contains_op
-
 
 @attr.s(frozen=True)
 class InferenceRelation(TypeRelation):
     relationship: Callable[[T, dict], bool] = attr.ib(
-        converter=multimethod, repr=func_repr, default=default_relation
+        repr=func_repr, default=default_relation
     )
     transformer: Callable[[T, dict], T] = attr.ib(
-        converter=multimethod, repr=func_repr, default=identity_transform
+        repr=func_repr, default=identity_transform
     )
     inferential: bool = attr.ib(default=True)

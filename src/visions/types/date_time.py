@@ -23,9 +23,7 @@ class DateTime(VisionsBaseType):
     def get_relations() -> Sequence[TypeRelation]:
         relations = [
             IdentityRelation(Generic),
-            InferenceRelation(
-                String,
-            ),
+            InferenceRelation(String),
         ]
         return relations
 

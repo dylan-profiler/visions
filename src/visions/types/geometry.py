@@ -22,9 +22,7 @@ class Geometry(VisionsBaseType):
     def get_relations() -> Sequence[TypeRelation]:
         relations = [
             IdentityRelation(Object),
-            InferenceRelation(
-                String,
-            ),
+            InferenceRelation(String),
         ]
         return relations
 
