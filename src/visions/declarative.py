@@ -7,8 +7,7 @@ T = TypeVar("T")
 
 
 def process_relation(
-    cls, items: Optional[Union[Sequence, dict, Type[VisionsBaseType]]]
-) -> IdentityRelation:
+    cls, items: Union[Sequence, dict, Type[VisionsBaseType]]) -> IdentityRelation:
     if isinstance(items, dict):
         return IdentityRelation(cls, **items)
     elif issubclass(items, VisionsBaseType):
@@ -25,9 +24,9 @@ def create_type(
 ):
     def get_relations(cls):
         if isinstance(identity, Sequence):
-            relation = [process_relation(item) for item in identity]
+            relations = [process_relation(item) for item in identity]
         else:
-            relation = [] if identity is None else process_relation(identity)
+            relations = [] if identity is None else process_relation(identity)
 
         if inference is not None:
             if isinstance(inference, dict):
