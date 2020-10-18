@@ -7,11 +7,11 @@ T = TypeVar("T")
 
 
 def process_relation(
-    cls, items: Union[dict, Type[VisionsBaseType]]) -> IdentityRelation:
+    items: Union[dict, Type[VisionsBaseType]]) -> IdentityRelation:
     if isinstance(items, dict):
-        return IdentityRelation(cls, **items)
+        return IdentityRelation(**items)
     elif issubclass(items, VisionsBaseType):
-        return IdentityRelation(cls, related_type=items)
+        return IdentityRelation(related_type=items)
     else:
         raise TypeError("identity should be a list, a dict of params or related_type.")
 
@@ -22,7 +22,7 @@ def create_type(
     identity: Optional[Union[Type[VisionsBaseType], List[Union[dict, Type[VisionsBaseType]]], dict]] = None,
     inference: Optional[Union[List[dict], dict]] = None,
 ):
-    def get_relations(cls):
+    def get_relations():
         if isinstance(identity, Sequence):
             relations = [process_relation(item) for item in identity]
         else:
@@ -30,9 +30,9 @@ def create_type(
 
         if inference is not None:
             if isinstance(inference, dict):
-                relations += [InferenceRelation(cls, **inference)]
+                relations += [InferenceRelation(**inference)]
             elif isinstance(inference, list):
-                relations += [InferenceRelation(cls, **params) for params in inference]
+                relations += [InferenceRelation(**params) for params in inference]
             else:
                 raise TypeError("inference should be a list or a dict of params.")
 
@@ -45,7 +45,7 @@ def create_type(
         name,
         (VisionsBaseType,),
         {
-            "get_relations": classmethod(get_relations),
+            "get_relations": staticmethod(get_relations),
             "contains_op": staticmethod(contains_op),
         },
     )
