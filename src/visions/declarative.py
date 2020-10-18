@@ -1,30 +1,42 @@
-from typing import Any, Callable, List, Optional, Type, TypeVar
+from typing import Any, Callable, List, Optional, Type, TypeVar, Union
 
-from visions import VisionsBaseType
 from visions.relations import IdentityRelation, InferenceRelation
+from visions.types.type import VisionsBaseType
 
 T = TypeVar("T")
 
 
 def create_type(
     name: str,
-    identity: Type[VisionsBaseType],
     contains: Callable[[Any, dict], bool],
-    inference: Optional[List[dict]] = None,
-    transformer: Optional[Callable[[T, dict], T]] = None,
+    identity: Optional[Union[Type[VisionsBaseType], List[dict], dict]] = None,
+    inference: Optional[Union[List[dict], dict]] = None,
 ):
     def get_relations(cls):
-        params = {"related_type": identity}
-        if transformer is not None:
-            params["transformer"] = transformer
+        relations = []
+        if identity is not None:
+            if isinstance(identity, list):
+                relations += [IdentityRelation(cls, **params) for params in identity]
+            elif isinstance(identity, dict):
+                relations += [IdentityRelation(cls, **identity)]
+            elif issubclass(identity, VisionsBaseType):
+                relations += [IdentityRelation(cls, related_type=identity)]
+            else:
+                raise TypeError(
+                    "identity should be a list, a dict of params or related_type."
+                )
 
-        relations = [IdentityRelation(cls, **params)]
         if inference is not None:
-            relations += [InferenceRelation(cls, **params) for params in inference]
+            if isinstance(inference, dict):
+                relations += [InferenceRelation(cls, **inference)]
+            elif isinstance(inference, list):
+                relations += [InferenceRelation(cls, **params) for params in inference]
+            else:
+                raise TypeError("identity should be a list or a dict of params.")
 
         return relations
 
-    def contains_op(cls, series, state):
+    def contains_op(series, state):
         return contains(series, state)
 
     return type(
@@ -32,6 +44,6 @@ def create_type(
         (VisionsBaseType,),
         {
             "get_relations": classmethod(get_relations),
-            "contains_op": classmethod(contains_op),
+            "contains_op": staticmethod(contains_op),
         },
     )
