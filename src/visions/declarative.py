@@ -24,12 +24,12 @@ def create_type(
     inference: Optional[Union[List[dict], dict]] = None,
 ):
     def get_relations():
-        if isinstance(identity, Sequence):
-            relations = [process_relation(item) for item in identity]
-        elif identity is None:
-            relations = []
-        else:
-            relations = process_relation(identity)
+        relations = []
+        if identity is not None:
+            if isinstance(identity, Sequence):
+                relations = [process_relation(item) for item in identity]
+            else:
+                relations = [process_relation(identity)]
 
         if inference is not None:
             if isinstance(inference, dict):

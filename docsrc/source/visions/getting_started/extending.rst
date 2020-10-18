@@ -61,24 +61,41 @@ For a boolean we could the true/false ratio for example.
 
 See: `examples/data_analysis` for an example.
 
-Custom Types (extend a type)
-----------------------------
+Declarative API
+---------------
 
-Another option is to create a new type based on an existing type.
-This is useful for small changes, such as adding a single relation.
-
-Each type has the method `evolve_type` for this purpose.
+Another option is to create a new type using the declarative API.
+We can use the `create_type` function for this purpose.
 
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
 
+    from visions import create_type
     from visions.types.date_time import DateTime
-    from visions.relations.integer_to_datetime import integer_to_datetime_year_month_day
+    from visions.types.generic import Generic
 
-    DateTimeIntYYYYMMDD = DateTime.evolve_type('int_yyyymmdd', lambda cls: [integer_to_datetime_year_month_day(cls)])
 
-    print(DateTimeIntYYYYMMDD)
-    # Prints: DateTime[int_yyyymmdd]
+    def integer_is_mydatetime(series: pd.Series, state):
+        return test_utils.coercion_test(lambda s: func(s.astype(str)))(series)
+
+
+    def integer_to_mydatetime(series: pd.Series) -> pd.Series:
+        return pd.to_datetime(series)
+
+
+    MyDateTime = create_type(
+        "MyDateTime",
+        contains=DateTime.contains_op,
+        identity=Generic,
+        inference=InferenceRelation(
+            relationship=integer_is_mydatetime,
+            transformer=integer_to_mydatetime,
+            related_type=Integer,
+        )
+    )
+
+    print(MyDateTime)
+    # Prints: MyDateTime
 
 .. hint::
 

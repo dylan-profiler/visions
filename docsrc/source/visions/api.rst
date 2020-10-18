@@ -9,4 +9,5 @@ API
     api/typesets
     api/summaries
     api/functional
+    api/declarative
     api/utils

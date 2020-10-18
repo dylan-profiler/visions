@@ -12,6 +12,7 @@ class RelationsIterManager:
     """Class to enable to treat relations as dict"""
 
     def __init__(self, relations: Sequence[TypeRelation]):
+        print(relations)
         self._keys: Dict["Type[VisionsBaseType]", int] = {
             item.related_type: i for i, item in enumerate(relations)
         }
