@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional, Type, Any, TypeVar
+from typing import Any, Callable, List, Optional, Type, TypeVar
 
 from visions import VisionsBaseType
 from visions.relations import IdentityRelation, InferenceRelation
@@ -14,9 +14,9 @@ def create_type(
     transformer: Optional[Callable[[T, dict], T]] = None,
 ):
     def get_relations(cls):
-        params = {'related_type': identity}
+        params = {"related_type": identity}
         if transformer is not None:
-            params['transformer'] = transformer
+            params["transformer"] = transformer
 
         relations = [IdentityRelation(cls, **params)]
         if inference is not None:
