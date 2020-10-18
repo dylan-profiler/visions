@@ -38,13 +38,15 @@ class RelationsIterManager:
 
 
 class VisionsBaseTypeMeta(ABCMeta):
-    _relations: Optional[RelationsIterManager] = None
+    _relations: Optional[Sequence[Type[TypeRelation]]] = None
+    _relations_manager: Optional[RelationsIterManager] = None
 
     def __contains__(cls, sequence: Sequence) -> bool:
         return cls.contains_op(sequence, dict())
 
     @staticmethod
     def get_relations() -> Sequence[TypeRelation]:
+        # deprecated
         raise NotImplementedError
 
     @staticmethod
@@ -55,8 +57,14 @@ class VisionsBaseTypeMeta(ABCMeta):
     def relations(cls) -> RelationsIterManager:
         from visions.relations.relations import IdentityRelation
 
-        if cls._relations is None:
-            cls._relations = RelationsIterManager(
+        if cls._relations_manager is None:
+            if cls._relations is None:
+                # Deprecated
+                rs = cls.get_relations()
+            else:
+                rs = cls._relations
+
+            cls._relations_manager = RelationsIterManager(
                 [
                     attr.evolve(
                         r,
@@ -74,10 +82,10 @@ class VisionsBaseTypeMeta(ABCMeta):
                         else None,
                         transformer=multimethod(r.transformer),
                     )
-                    for r in cls.get_relations()
+                    for r in rs
                 ]
             )
-        return cls._relations
+        return cls._relations_manager
 
     def __add__(cls, other):
         from visions.types import Generic
@@ -106,6 +114,7 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     @staticmethod
     @abstractmethod
     def get_relations() -> Sequence[TypeRelation]:
+        # deprecated
         raise NotImplementedError
 
     @classmethod
