@@ -10,11 +10,10 @@
 #     return pd.to_datetime(series)
 #
 #
-# def _to_datetime(cls, func) -> InferenceRelation:
+# def _to_datetime(func) -> InferenceRelation:
 #     return InferenceRelation(
 #         relationship=test_utils.coercion_test(lambda s: func(s.astype(str))),
 #         transformer=to_datetime,
-#         type=cls,
 #         related_type=Integer,
 #     )
 #

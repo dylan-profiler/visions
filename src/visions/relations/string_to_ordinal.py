@@ -15,11 +15,10 @@
 #         return False
 #
 #
-# def string_to_ordinal(cls) -> InferenceRelation:
+# def string_to_ordinal() -> InferenceRelation:
 #     from visions.types import String
 #
 #     return InferenceRelation(
-#         type=cls,
 #         related_type=String,
 #         relationship=is_ordinal_str,
 #         transformer=to_ordinal,
