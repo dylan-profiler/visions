@@ -4,12 +4,12 @@ Extending
 Custom Type (from scratch)
 ---------------------------
 
-Each `visions` type is a subclass of  `VisionsBaseType` requiring a unique implementation of two methods:
+Each ``visions`` type is a subclass of ``VisionsBaseType`` requiring a unique implementation of two methods:
 
-1. `get_relations`. Returns the set of relations mapping from another type to the current type.
-2. `contains_op`. Checks whether a series is of the type visions_type, returns Bool.
+1. ``get_relations``. Returns the set of relations mapping from another type to the current type.
+2. ``contains_op``. Checks whether a series is of the type visions_type, returns Bool.
 
-Let's inspect the source code for `Ordinal` to gather intuition.
+Let's inspect the source code for ``Ordinal`` to gather intuition.
 
 .. code-block:: python
     :caption: visions.types.ordinal.py
@@ -36,30 +36,30 @@ Let's inspect the source code for `Ordinal` to gather intuition.
             return pdt.is_categorical_dtype(series) and series.cat.ordered
 
 
-In this example, ordinal declares a single `IdentityRelation` from categorical. The meaning
-of `IdentityRelation` is not particularly important in this case, just know it means the mapping
+In this example, ordinal declares a single ``IdentityRelation`` from categorical. The meaning
+of ``IdentityRelation`` is not particularly important in this case, just know it means the mapping
 function between categorical and ordinal is the identity function.
 
-We can also see the `contains_op` requires the sequence to be an ordered categorical machine type representation.
+We can also see the ``contains_op`` requires the sequence to be an ordered categorical machine type representation.
 
 Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.
 
 .. note::
 
-    Your custom type might be helpful for others, in which case you can choose to contribute it to `visions`.
+    Your custom type might be helpful for others, in which case you can choose to contribute it to ``visions``.
     Read more on :doc:`how to contribute <../contributing/type>`.
 
 Another example
 ---------------
 
-The default typesets in `visions` consider `Boolean` and `Categorical` to be distinct types.
-In fact, `Boolean` is a special case of `Categorical` where the number of categories is 2 and contains the values "True" and "False" ("Man" and "Woman" wouldn't be binary).
+The default typesets in ``visions`` consider ``Boolean`` and ``Categorical`` to be distinct types.
+In fact, ``Boolean`` is a special case of ``Categorical`` where the number of categories is 2 and contains the values "True" and "False" ("Man" and "Woman" wouldn't be binary).
 
 Note that for data analysis, the distinction makes sense.
 For a boolean we could the true/false ratio for example.
 
-See: `examples/data_analysis` for an example.
+See: ``examples/data_analysis`` for an example.
 
 Custom Types (extend a type)
 ----------------------------
@@ -67,7 +67,7 @@ Custom Types (extend a type)
 Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.
 
-Each type has the method `evolve_type` for this purpose.
+Each type has the method ``evolve_type`` for this purpose.
 
 .. code-block:: python
    :caption: Add a inference relation from integer to datetime (YYYYMMDD)
@@ -90,13 +90,13 @@ Each type has the method `evolve_type` for this purpose.
             print(f"{column} was {type_before} is {type_after}")
 
 
-    Please read the `Type changes` section in the :doc:`functional API documentation <../api/functional>` for more details.
+    Please read the ``Type changes`` section in the :doc:`functional API documentation <../api/functional>` for more details.
 
 
 Custom Typesets (from scratch)
 ------------------------------
 
-Although `visions` comes with an array of starter typesets suitable for most standard usage
+Although ``visions`` comes with an array of starter typesets suitable for most standard usage
 you may quickly find yourself looking to expand upon those types to suit your own domain specific
 needs. In order to meet those needs there are a number of easy mechanisms to either extend pre-existing
 typesets or define your own from scratch.

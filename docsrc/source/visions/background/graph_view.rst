@@ -2,10 +2,10 @@ Graph view
 ==========
 
 
-In `visions` relationships between types are formalized through graph.
+In ``visions`` relationships between types are formalized through graph.
 The base data structure of a typeset is a `directed rooted tree <https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree>`_ (graph).
 Each node represents a `data type <../getting_started/concepts.html#type>`_.
-The root note is `Generic`.
+The root note is ``Generic``.
 
 Each data type is associated with a set.
 The root node is associated with the universal set
@@ -22,7 +22,7 @@ In order for graph traversal to be decidable membership of siblings must be mutu
 
 This is the same as saying sets of any two pairs of data types with the same parent must be disjoint, except for the missing value indicator.
 
-For example, the `Path` and `URL` data type both have the parent data type `Object` i.e.
+For example, the ``Path`` and ``URL`` data type both have the parent data type ``Object`` i.e.
 :math:`\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset`.
 
 For the three default typesets, this base structure can be visualised as:
