@@ -7,7 +7,7 @@ T = TypeVar("T")
 
 
 def process_relation(
-    cls, items: Union[Sequence, dict, Type[VisionsBaseType]]) -> IdentityRelation:
+    cls, items: Union[dict, Type[VisionsBaseType]]) -> IdentityRelation:
     if isinstance(items, dict):
         return IdentityRelation(cls, **items)
     elif issubclass(items, VisionsBaseType):
