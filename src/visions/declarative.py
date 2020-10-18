@@ -8,12 +8,8 @@ T = TypeVar("T")
 
 def process_relation(
     cls, items: Optional[Union[Sequence, dict, Type[VisionsBaseType]]]
-) -> List[IdentityRelation]:
-    if items is None:
-        return []
-    elif isinstance(items, Sequence):
-        return [process_relation(cls, item) for item in items]
-    elif isinstance(items, dict):
+) -> IdentityRelation:
+    if isinstance(items, dict):
         return IdentityRelation(cls, **items)
     elif issubclass(items, VisionsBaseType):
         return IdentityRelation(cls, related_type=items)
@@ -24,11 +20,14 @@ def process_relation(
 def create_type(
     name: str,
     contains: Callable[[Any, dict], bool],
-    identity: Optional[Union[Type[VisionsBaseType], List[dict], dict]] = None,
+    identity: Optional[Union[Type[VisionsBaseType], List[Union[dict, Type[VisionsBaseType]]], dict]] = None,
     inference: Optional[Union[List[dict], dict]] = None,
 ):
     def get_relations(cls):
-        relations = process_relation(identity)
+        if isinstance(identity, Sequence):
+            relation = [process_relation(item) for item in identity]
+        else:
+            relation = [] if identity is None else process_relation(identity)
 
         if inference is not None:
             if isinstance(inference, dict):
