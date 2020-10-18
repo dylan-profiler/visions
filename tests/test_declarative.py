@@ -34,9 +34,9 @@ def test_declarative():
         "Integer",
         identity=Generic,
         contains=is_np_int,
-        inference=[
-            dict(related_type=Float, relationship=float_is_int, transformer=to_int)
-        ],
+        inference=dict(
+            related_type=Float, relationship=float_is_int, transformer=to_int
+        ),
     )
 
     my_typeset = VisionsTypeset({Generic, Integer, Float})
