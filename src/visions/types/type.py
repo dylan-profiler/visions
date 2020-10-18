@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any, Dict, Optional, Sequence, Type, Union, cast
 
+import attr
 from multimethod import multimethod
 
 from visions.relations import TypeRelation
@@ -53,9 +54,9 @@ class VisionsBaseTypeMeta(ABCMeta):
     @property
     def relations(cls) -> RelationsIterManager:
         if cls._relations is None:
-            cls._relations = RelationsIterManager(cls.get_relations())
-            for relation in cls._relations:
-                relation.type = cls
+            cls._relations = RelationsIterManager(
+                [attr.evolve(r, type=cls) for r in cls.get_relations()]
+            )
         return cls._relations
 
     def __add__(cls, other):
