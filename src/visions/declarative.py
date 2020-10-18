@@ -32,7 +32,7 @@ def create_type(
             elif isinstance(inference, list):
                 relations += [InferenceRelation(cls, **params) for params in inference]
             else:
-                raise TypeError("identity should be a list or a dict of params.")
+                raise TypeError("inference should be a list or a dict of params.")
 
         return relations
 
