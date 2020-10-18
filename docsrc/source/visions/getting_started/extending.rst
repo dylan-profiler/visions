@@ -27,9 +27,9 @@ Let's inspect the source code for `Ordinal` to gather intuition.
             True
         """
 
-        @classmethod
-        def get_relations(cls):
-            return [IdentityRelation(cls, Categorical)]
+        @staticmethod
+        def get_relations():
+            return [IdentityRelation(Categorical)]
 
         @classmethod
         def contains_op(cls, series: pd.Series, *args) -> bool:
@@ -63,6 +63,10 @@ See: `examples/data_analysis` for an example.
 
 Custom Types (extend a type)
 ----------------------------
+
+.. error::
+
+    This feature has been removed, please use the declarative API
 
 Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.
