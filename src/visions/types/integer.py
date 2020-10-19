@@ -21,9 +21,7 @@ class Integer(VisionsBaseType):
     def get_relations() -> Sequence[TypeRelation]:
         relations = [
             IdentityRelation(Generic),
-            InferenceRelation(
-                Float,
-            ),
+            InferenceRelation(Float),
         ]
         return relations
 

@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any, Dict, Optional, Sequence, Type, Union, cast
 
+import attr
 from multimethod import multimethod
 
 from visions.relations import TypeRelation
@@ -52,10 +53,30 @@ class VisionsBaseTypeMeta(ABCMeta):
 
     @property
     def relations(cls) -> RelationsIterManager:
+        from visions.relations.relations import IdentityRelation
+
         if cls._relations is None:
-            cls._relations = RelationsIterManager(cls.get_relations())
-            for relation in cls._relations:
-                relation.type = cls
+            cls._relations = RelationsIterManager(
+                [
+                    attr.evolve(
+                        r,
+                        type=cls,
+                        relationship=cls.contains_op
+                        if r.relationship is None
+                        else r.relationship,
+                    )
+                    if isinstance(r, IdentityRelation)
+                    else attr.evolve(
+                        r,
+                        type=cls,
+                        relationship=multimethod(r.relationship)
+                        if r.relationship is not None
+                        else None,
+                        transformer=multimethod(r.transformer),
+                    )
+                    for r in cls.get_relations()
+                ]
+            )
         return cls._relations
 
     def __add__(cls, other):
@@ -82,9 +103,9 @@ class VisionsBaseType(metaclass=VisionsBaseTypeMeta):
     def __init__(self):
         pass
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    def get_relations() -> Sequence[TypeRelation]:
         raise NotImplementedError
 
     @classmethod

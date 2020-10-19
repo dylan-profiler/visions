@@ -47,11 +47,11 @@ You can use the package in the following way:
   The types and typeset can be chosen from the default library, or you can create custom types.
   (application: modeling the problem)
 
-- `visions` can detect types of your data.
+- ``visions`` can detect types of your data.
 
 - It lets you define mappings from one type to another.
   This is helpful when working with real-world data.
-  Provided these mappings, `visions` can infer and convert types.
+  Provided these mappings, ``visions`` can infer and convert types.
   (application: data cleaning)
 
 - You can then develop applications using the abstraction provided by the types.
@@ -59,7 +59,7 @@ You can use the package in the following way:
 How does it do it?
 ------------------
 
-Essentially, `visions` does the following:
+Essentially, ``visions`` does the following:
 
 - It builds on Pandas, Numpy and Python.
 - It extends the data types in Pandas to solve storage and implementation issues.
@@ -80,7 +80,7 @@ Essentially, `visions` does the following:
 
        :doc:`Read more <practitioner/>`
    **The Thinker**
-       Providing a deeper understanding of concepts behind `visions`
+       Providing a deeper understanding of concepts behind ``visions``
 
        :doc:`Read more <thinker/>`
    **The Creator**

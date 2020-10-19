@@ -23,9 +23,7 @@ class Float(VisionsBaseType):
     def get_relations() -> Sequence[TypeRelation]:
         relations = [
             IdentityRelation(Generic),
-            InferenceRelation(
-                String,
-            ),
+            InferenceRelation(String),
             InferenceRelation(Complex),
         ]
         return relations
