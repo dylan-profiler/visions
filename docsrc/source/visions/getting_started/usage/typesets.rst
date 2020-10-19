@@ -48,7 +48,7 @@ Type detection attempts to answer the question: `What type is my data right now?
 Inference
 =========
 
-Type inference attempts to answer the question: `What type is my data best represented as?``
+Type inference attempts to answer the question: `What type is my data best represented as?`
 
 .. code-block:: python
 

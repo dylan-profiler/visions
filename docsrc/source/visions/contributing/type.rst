@@ -8,7 +8,7 @@ Below you will find a checklist with instructions on which files to add or modif
 
 Type implementation:
 
-- place the type implementation in `src/visions/types/[your type_name].py`
+- place the type implementation in ``src/visions/types/[your type_name].py``
 - include the type in `src/visions/types/__init__.py`
 - include the type in a relevant typeset, or create one `src/visions/typesets/[your_typeset].py`
 
