@@ -262,9 +262,9 @@ def is_alpha2(series):
 
 
 class CountryCode(VisionsBaseType):
-    @classmethod
-    def get_relations(cls):
-        return [IdentityRelation(cls, String)]
+    @staticmethod
+    def get_relations():
+        return [IdentityRelation(String)]
 
     @classmethod
     def contains_op(cls, series, state):

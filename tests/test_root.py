@@ -11,8 +11,8 @@ class CustomGeneric(Generic):
 class CustomNonGeneric(VisionsBaseType):
     another_value = False
 
-    @classmethod
-    def get_relations(cls):
+    @staticmethod
+    def get_relations():
         return []
 
 
@@ -22,9 +22,9 @@ def make_test_type(root):
         def contains_op(cls, series, state):
             return True
 
-        @classmethod
-        def get_relations(cls):
-            return [IdentityRelation(cls, root)]
+        @staticmethod
+        def get_relations():
+            return [IdentityRelation(root)]
 
     return CustomFloat
 

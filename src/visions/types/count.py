@@ -16,9 +16,9 @@ class Count(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        relations = [IdentityRelation(cls, Integer)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        relations = [IdentityRelation(Integer)]
         return relations
 
     @staticmethod

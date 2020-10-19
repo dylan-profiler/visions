@@ -18,9 +18,9 @@ class Time(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        relations = [IdentityRelation(cls, Object)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        relations = [IdentityRelation(Object)]
         return relations
 
     @staticmethod
