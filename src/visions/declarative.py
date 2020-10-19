@@ -26,7 +26,7 @@ def create_type(
         if isinstance(identity, Sequence):
             relations = [process_relation(item) for item in identity]
         else:
-            relations = [] if identity is None else process_relation(identity)
+            relations = [] if identity is None else [process_relation(identity)]
 
         if inference is not None:
             if isinstance(inference, dict):
