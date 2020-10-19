@@ -204,14 +204,11 @@
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
         <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Object</span><span class="p">),</span>
-            <span class="n">InferenceRelation</span><span class="p">(</span>
-                <span class="bp">cls</span><span class="p">,</span>
-                <span class="n">DateTime</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Object</span><span class="p">),</span>
+            <span class="n">InferenceRelation</span><span class="p">(</span><span class="n">DateTime</span><span class="p">),</span>
         <span class="p">]</span>
         <span class="k">return</span> <span class="n">relations</span>
 

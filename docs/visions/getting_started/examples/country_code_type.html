@@ -463,9 +463,9 @@
 
 
 <span class="k">class</span> <span class="nc">CountryCode</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">String</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">String</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>

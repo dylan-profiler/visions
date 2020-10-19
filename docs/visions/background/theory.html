@@ -115,7 +115,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Theory</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#background">Background</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#open-challenges">Open Challenges</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-visions-solution">The <cite>visions</cite> Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-visions-solution">The <code class="docutils literal notranslate"><span class="pre">visions</span></code> Solution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-it-works">Why it works</a></li>
 </ul>
 </li>
@@ -195,12 +195,12 @@
 <h1>Theory<a class="headerlink" href="#theory" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p><cite>visions</cite> primary goal is to develop a robust mechanism for defining and using
+<p><code class="docutils literal notranslate"><span class="pre">visions</span></code> primary goal is to develop a robust mechanism for defining and using
 <em>semantic</em> data types. These represent conceptual or logical notions of meaning
 and is distinct from the machine representation of data on disk. For example,
-we might say sequence <span class="math notranslate nohighlight">\(S\)</span> is of semantic type <cite>probability</cite> when
-<span class="math notranslate nohighlight">\(S \in [0, 1]\)</span> or <cite>date</cite> when each element is stored on the computer as a
-<cite>datetime.datetime</cite> object with all time components identically <cite>0</cite>.</p>
+we might say sequence <span class="math notranslate nohighlight">\(S\)</span> is of semantic type <code class="docutils literal notranslate"><span class="pre">probability</span></code> when
+<span class="math notranslate nohighlight">\(S \in [0, 1]\)</span> or <code class="docutils literal notranslate"><span class="pre">date</span></code> when each element is stored on the computer as a
+<code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object with all time components identically <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <p>Most data analytics libraries users are already familiar with have their own data
 types builtin, usually tightly coupled with the machine representation of the data
 used by the library. We wanted to give users as much flexibility to design and work
@@ -213,7 +213,7 @@ challenges to solve.</p>
 <ol class="arabic simple">
 <li><p>Finding a minimal representation of semantic types</p></li>
 <li><p>Detecting the semantic type of a sequence</p></li>
-<li><p><cite>visions</cite> is interested in the semantic meaning of data and therefore should be able to infer the “intended” type of a sequence regardless of it’s machine representation (e.g. the string <cite>‘1.0’</cite> should be recognized as the number <cite>1</cite>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visions</span></code> is interested in the semantic meaning of data and therefore should be able to infer the “intended” type of a sequence regardless of it’s machine representation (e.g. the string <code class="docutils literal notranslate"><span class="pre">'1.0'</span></code> should be recognized as the number <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p></li>
 </ol>
 <p>We want to do all of this while keeping types easy to use, performant, and deterministic.</p>
 <p>Since users are free to imagine any possible type, different problem domains might
@@ -222,8 +222,8 @@ interested in probability as a sequence of values bounded such that <span class=
 a business analyst might instead be interested in a definition where  <span class="math notranslate nohighlight">\(x \in [0, 100]\)</span>.</p>
 </div>
 <div class="section" id="the-visions-solution">
-<h2>The <cite>visions</cite> Solution<a class="headerlink" href="#the-visions-solution" title="Permalink to this headline">¶</a></h2>
-<p>We solve all of these problems by introducing three conceptual ideas, <cite>visions</cite>
+<h2>The <code class="docutils literal notranslate"><span class="pre">visions</span></code> Solution<a class="headerlink" href="#the-visions-solution" title="Permalink to this headline">¶</a></h2>
+<p>We solve all of these problems by introducing three conceptual ideas, <code class="docutils literal notranslate"><span class="pre">visions</span></code>
 types, typesets, and relations.</p>
 <p>A <em>type</em> at minimum requires only a single validation function which takes as its
 argument a sequence and tests whether the input is of its type or not, returning
@@ -232,14 +232,14 @@ boolean. It optionally can contain relationships which we will describe in a mom
 defined on each type in the typeset to construct a relationship graph. When properly
 constructed this graph can be used to deterministically detect the current semantic types
 of a sequence (or dataset) or to infer a more representative type for the data.</p>
-<p>A <em>relation</em> object is responsible for mapping sequences between <cite>visions</cite> types.
+<p>A <em>relation</em> object is responsible for mapping sequences between <code class="docutils literal notranslate"><span class="pre">visions</span></code> types.
 Each relation is composed of two functions, the first validates whether a
 mapping can be performed without loss of precision (i.e. ‘1.0’ can be cast to
 integer while 1.1 cannot), the second is a surjective function responsible for
 actually performing the mapping.</p>
-<p>In practice, we distinguish <cite>relations</cite> into two categories as well, the first
-called <cite>Identity Relations</cite> require no transformation to the underlying machine
-type of the data (float(1.1) -&gt; probability(1.1) where the second, <cite>Inference Relations</cite>,
+<p>In practice, we distinguish <code class="docutils literal notranslate"><span class="pre">relations</span></code> into two categories as well, the first
+called <code class="docutils literal notranslate"><span class="pre">Identity</span> <span class="pre">Relations</span></code> require no transformation to the underlying machine
+type of the data (float(1.1) -&gt; probability(1.1) where the second, <code class="docutils literal notranslate"><span class="pre">Inference</span> <span class="pre">Relations</span></code>,
 have to coerce the sequence between machine types (‘1.1’ -&gt; 1.1).</p>
 </div>
 <div class="section" id="why-it-works">
@@ -249,8 +249,8 @@ and start by defining a semantic type as the set of all sequences with some
 consistent semantic meaning. A typeset is then a directed rooted tree whose nodes
 are types with the root defined as the generic type associated with the universal set.</p>
 <p>Relations are directed edges between two nodes (types) in a relation graph (typeset).
-They are also defined on types such that a relation between types <cite>A</cite> and <cite>B</cite>,
-<cite>Relation(A -&gt; B)</cite>, would be defined as an attribute of B. In order words, they
+They are also defined on types such that a relation between types <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Relation(A</span> <span class="pre">-&gt;</span> <span class="pre">B)</span></code>, would be defined as an attribute of B. In order words, they
 are mappings <em>to</em> a type, not <em>from</em>.</p>
 <p>Following this, we can construct a relation graph from <em>any</em> collection of provided
 types and associated relations. We define our dual objective of type detection and

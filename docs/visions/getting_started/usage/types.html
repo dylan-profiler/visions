@@ -203,8 +203,8 @@
 <p>Types are the fundamental building block of visions, representing “logical” abstractions
 of a sequence. This logical abstraction is distinct is often distinct from the
 underlying in-memory implementation.</p>
-<p>To make this distinction more concrete we can imagine the sequence <cite>[‘Apple’, ‘Orange’, ‘Pear’]</cite>.</p>
-<p>At a logical level these are of the type <cite>Fruit</cite> while under the hood each element is represented by the machine as <cite>String</cite>.</p>
+<p>To make this distinction more concrete we can imagine the sequence <code class="docutils literal notranslate"><span class="pre">['Apple',</span> <span class="pre">'Orange',</span> <span class="pre">'Pear']</span></code>.</p>
+<p>At a logical level these are of the type <code class="docutils literal notranslate"><span class="pre">Fruit</span></code> while under the hood each element is represented by the machine as <code class="docutils literal notranslate"><span class="pre">String</span></code>.</p>
 <p>Types have two basic capabilities:</p>
 <ol class="arabic simple">
 <li><p>Type membership testing</p></li>
@@ -212,7 +212,7 @@ underlying in-memory implementation.</p>
 </ol>
 <div class="section" id="membership">
 <h2>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h2>
-<p>Type membership is an important component of every visions type, membership checks answer the question <cite>is my sequence of a type?</cite>
+<p>Type membership is an important component of every visions type, membership checks answer the question “is my sequence of a type?”
 In practice this looks like</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Orange&#39;</span><span class="p">,</span> <span class="s1">&#39;Pear&#39;</span><span class="p">])</span>

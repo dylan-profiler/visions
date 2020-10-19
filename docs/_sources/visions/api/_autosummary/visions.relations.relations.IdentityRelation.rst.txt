@@ -15,7 +15,6 @@
    
       ~IdentityRelation.__init__
       ~IdentityRelation.is_relation
-      ~IdentityRelation.make_relationship
       ~IdentityRelation.transform
    
    

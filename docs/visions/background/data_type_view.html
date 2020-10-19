@@ -185,7 +185,7 @@
             
   <div class="section" id="data-type-view">
 <h1>Data Type View<a class="headerlink" href="#data-type-view" title="Permalink to this headline">¶</a></h1>
-<p><cite>Visions</cite> views data types through the lens of logical and physical data types.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Visions</span></code> views data types through the lens of logical and physical data types.</p>
 <p>This view can help guide our intuition around:</p>
 <ul class="simple">
 <li><p>how types relate</p></li>
@@ -229,18 +229,18 @@ Creating a new type has high overhead, as we need to define it from scratch for 
 <div class="section" id="decoupling-physical-and-logical-types">
 <h2>Decoupling physical and logical types<a class="headerlink" href="#decoupling-physical-and-logical-types" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li><p><cite>Physical types</cite> represent the actual, underlying representation of the data.</p></li>
-<li><p><cite>Logical types</cite> represent the abstracted understanding of that data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Physical</span> <span class="pre">types</span></code> represent the actual, underlying representation of the data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logical</span> <span class="pre">types</span></code> represent the abstracted understanding of that data.</p></li>
 </ol>
-<p>To make this distinction more concrete we can imagine the sequence <cite>[‘Apple’, ‘Orange’, ‘Pear’]</cite>.</p>
-<p>At a logical level these are of the type <cite>Fruit</cite> while under the hood each element is physically represented as <cite>String</cite>.</p>
+<p>To make this distinction more concrete we can imagine the sequence <code class="docutils literal notranslate"><span class="pre">['Apple',</span> <span class="pre">'Orange',</span> <span class="pre">'Pear']</span></code>.</p>
+<p>At a logical level these are of the type <code class="docutils literal notranslate"><span class="pre">Fruit</span></code> while under the hood each element is physically represented as <code class="docutils literal notranslate"><span class="pre">String</span></code>.</p>
 <p>This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
 Another simple example is a set of URLs. While we might say all URLs are stored as strings, not every string is an URL.
 There are also operations that are only sensible on URLs and not on strings, such as extracting the url, domain, or protocol.</p>
 </div>
 <div class="section" id="problem-with-missing-values">
 <h2>Problem with missing values<a class="headerlink" href="#problem-with-missing-values" title="Permalink to this headline">¶</a></h2>
-<p>Pandas’ current data model is inconsistent with respect to missing values (i.e. <cite>NaN</cite> or <cite>None</cite>).
+<p>Pandas’ current data model is inconsistent with respect to missing values (i.e. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>).
 Adding missing values to integers and boolean results in upcasting to float and object respectively.
 Implementing nullable integer and boolean logical types allow for more efficient storage which can be achieved
 through an internal bitmap (see the engineering view for details).</p>
@@ -326,7 +326,7 @@ Types should be grouped together if they have the same analysis summary.</p>
 </div>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
-<p>We note that many of the problems <cite>visions</cite> attempts to solve, are discussed in the <a class="reference external" href="https://dev.pandas.io/pandas2/">design documents for pandas 2.0</a> (2015-2016).</p>
+<p>We note that many of the problems <code class="docutils literal notranslate"><span class="pre">visions</span></code> attempts to solve, are discussed in the <a class="reference external" href="https://dev.pandas.io/pandas2/">design documents for pandas 2.0</a> (2015-2016).</p>
 </div>
 </div>
 </div>

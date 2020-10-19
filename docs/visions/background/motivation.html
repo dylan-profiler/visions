@@ -191,8 +191,8 @@
 <p>Example <a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/1.0.0/user_guide/io.html#io-read-csv-table">pandas.read_csv</a></p>
 <p>The pandas.read_csv functionality is an excellent example where machine and semantic type logic is (currently) mixed.
 The machine type logic concerns how columns are stored and encoded.
-Arguments as <cite>delimeter</cite>, <cite>header</cite>, <cite>nrows</cite>, <cite>compression</cite> are related to that.</p>
-<p>The semantic type logic is also included: <cite>thousands</cite>, <cite>converters</cite>, <cite>date_parser</cite>, <cite>dayfirst</cite>.</p>
+Arguments as <code class="docutils literal notranslate"><span class="pre">delimeter</span></code>, <code class="docutils literal notranslate"><span class="pre">header</span></code>, <code class="docutils literal notranslate"><span class="pre">nrows</span></code>, <code class="docutils literal notranslate"><span class="pre">compression</span></code> are related to that.</p>
+<p>The semantic type logic is also included: <code class="docutils literal notranslate"><span class="pre">thousands</span></code>, <code class="docutils literal notranslate"><span class="pre">converters</span></code>, <code class="docutils literal notranslate"><span class="pre">date_parser</span></code>, <code class="docutils literal notranslate"><span class="pre">dayfirst</span></code>.</p>
 <p>Our hope: machine and semantic type logic will be decoupled.</p>
 <p>note that the pandas docs agree</p>
 <blockquote>
@@ -219,7 +219,7 @@ The current state is that adding a type (e.g. ip-address) requires hundreds line
 <a class="reference external" href="https://github.com/AxeldeRomblay/MLBox/blob/4ad2f664102c031705d4eda6bf50e27a78bfc96d/mlbox/preprocessing/reader.py">https://github.com/AxeldeRomblay/MLBox/blob/4ad2f664102c031705d4eda6bf50e27a78bfc96d/mlbox/preprocessing/reader.py</a>
 The heuristics contain logic for parsing of datetimes, floats and makes assumptions on what a categorical is.
 Moreover, it adds redundancy to program yet another type inference system.</p>
-<p>Solution: use a dedicated module for semantic type inference (i.e. <cite>visions</cite>)</p>
+<p>Solution: use a dedicated module for semantic type inference (i.e. <code class="docutils literal notranslate"><span class="pre">visions</span></code>)</p>
 <p>Example:
 <a class="reference external" href="https://github.com/h2oai/h2o-3/blob/61275cf63d981d332220fa3aef157989fcef3305/h2o-py/h2o/h2o.py#L454">https://github.com/h2oai/h2o-3/blob/61275cf63d981d332220fa3aef157989fcef3305/h2o-py/h2o/h2o.py#L454</a></p>
 <p>Combating the beliefs that:

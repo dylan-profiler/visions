@@ -228,7 +228,7 @@ and type casting.</p>
 </div>
 <div class="section" id="detection">
 <h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
-<p>Type detection attempts to answer the question: <cite>What type is my data right now?</cite></p>
+<p>Type detection attempts to answer the question: <code class="docutils literal notranslate"><span class="pre">What</span> <span class="pre">type</span> <span class="pre">is</span> <span class="pre">my</span> <span class="pre">data</span> <span class="pre">right</span> <span class="pre">now?</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">detect_type</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">detect_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
@@ -243,7 +243,7 @@ and type casting.</p>
 </div>
 <div class="section" id="inference">
 <h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
-<p>Type inference attempts to answer the question: <cite>What type is my data best represented as?`</cite></p>
+<p>Type inference attempts to answer the question: <code class="docutils literal notranslate"><span class="pre">What</span> <span class="pre">type</span> <span class="pre">is</span> <span class="pre">my</span> <span class="pre">data</span> <span class="pre">best</span> <span class="pre">represented</span> <span class="pre">as?</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">detect_type</span><span class="p">,</span> <span class="n">infer_type</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">detect_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 <span class="go">String</span>
@@ -272,7 +272,7 @@ Integer detection is a fairly simple use case but visions supports arbitrarily c
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-generic-typeset">
 <h3>The Generic Typeset<a class="headerlink" href="#the-generic-typeset" title="Permalink to this headline">¶</a></h3>
-<p>All typesets include the <cite>Generic</cite> type at their base. The generic represents a catch all type
+<p>All typesets include the <code class="docutils literal notranslate"><span class="pre">Generic</span></code> type at their base. The generic represents a catch all type
 to which all sequences belong. This means an “empty” typeset would still include a generic at it’s root
 from which all other types can be related.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>

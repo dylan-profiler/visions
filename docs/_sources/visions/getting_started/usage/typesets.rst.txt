@@ -30,7 +30,7 @@ Let's look at an example sequence of integers encoded as strings to see these ca
 Detection
 =========
 
-Type detection attempts to answer the question: `What type is my data right now?`
+Type detection attempts to answer the question: ``What type is my data right now?``
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ Type detection attempts to answer the question: `What type is my data right now?
 Inference
 =========
 
-Type inference attempts to answer the question: `What type is my data best represented as?``
+Type inference attempts to answer the question: ``What type is my data best represented as?``
 
 .. code-block:: python
 
@@ -83,7 +83,7 @@ Details
 The Generic Typeset
 -------------------
 
-All typesets include the `Generic` type at their base. The generic represents a catch all type
+All typesets include the ``Generic`` type at their base. The generic represents a catch all type
 to which all sequences belong. This means an "empty" typeset would still include a generic at it's root
 from which all other types can be related.
 

@@ -11,9 +11,9 @@ Example `pandas.read_csv <https://pandas.pydata.org/pandas-docs/version/1.0.0/us
 
 The pandas.read_csv functionality is an excellent example where machine and semantic type logic is (currently) mixed.
 The machine type logic concerns how columns are stored and encoded.
-Arguments as `delimeter`, `header`, `nrows`, `compression` are related to that.
+Arguments as ``delimeter``, ``header``, ``nrows``, ``compression`` are related to that.
 
-The semantic type logic is also included: `thousands`, `converters`, `date_parser`, `dayfirst`.
+The semantic type logic is also included: ``thousands``, ``converters``, ``date_parser``, ``dayfirst``.
 
 Our hope: machine and semantic type logic will be decoupled.
 
@@ -46,7 +46,7 @@ https://github.com/AxeldeRomblay/MLBox/blob/4ad2f664102c031705d4eda6bf50e27a78bf
 The heuristics contain logic for parsing of datetimes, floats and makes assumptions on what a categorical is.
 Moreover, it adds redundancy to program yet another type inference system.
 
-Solution: use a dedicated module for semantic type inference (i.e. `visions`)
+Solution: use a dedicated module for semantic type inference (i.e. ``visions``)
 
 Example:
 https://github.com/h2oai/h2o-3/blob/61275cf63d981d332220fa3aef157989fcef3305/h2o-py/h2o/h2o.py#L454

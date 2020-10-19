@@ -5,9 +5,9 @@ Types are the fundamental building block of visions, representing "logical" abst
 of a sequence. This logical abstraction is distinct is often distinct from the
 underlying in-memory implementation.
 
-To make this distinction more concrete we can imagine the sequence `['Apple', 'Orange', 'Pear']`.
+To make this distinction more concrete we can imagine the sequence ``['Apple', 'Orange', 'Pear']``.
 
-At a logical level these are of the type `Fruit` while under the hood each element is represented by the machine as `String`.
+At a logical level these are of the type ``Fruit`` while under the hood each element is represented by the machine as ``String``.
 
 Types have two basic capabilities:
 
@@ -18,7 +18,7 @@ Types have two basic capabilities:
 Membership
 ==========
 
-Type membership is an important component of every visions type, membership checks answer the question `is my sequence of a type?`
+Type membership is an important component of every visions type, membership checks answer the question "is my sequence of a type?"
 In practice this looks like
 
 .. code-block:: python

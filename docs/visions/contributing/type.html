@@ -187,26 +187,26 @@
             
   <div class="section" id="contributions-new-types-to-visions">
 <h1>Contributions new types to visions<a class="headerlink" href="#contributions-new-types-to-visions" title="Permalink to this headline">¶</a></h1>
-<p><cite>visions</cite> is a continuously evolving project with the aim of expanding it’s set of useful
+<p><code class="docutils literal notranslate"><span class="pre">visions</span></code> is a continuously evolving project with the aim of expanding it’s set of useful
 semantic types. To that end, if you find a type construction useful, please feel free to contribute
 it back here.</p>
 <p>Below you will find a checklist with instructions on which files to add or modify.</p>
 <p>Type implementation:</p>
 <ul class="simple">
-<li><p>place the type implementation in <cite>src/visions/types/[your type_name].py</cite></p></li>
-<li><p>include the type in <cite>src/visions/types/__init__.py</cite></p></li>
-<li><p>include the type in a relevant typeset, or create one <cite>src/visions/typesets/[your_typeset].py</cite></p></li>
+<li><p>place the type implementation in <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/types/[your</span> <span class="pre">type_name].py</span></code></p></li>
+<li><p>include the type in <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/types/__init__.py</span></code></p></li>
+<li><p>include the type in a relevant typeset, or create one <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/typesets/[your_typeset].py</span></code></p></li>
 </ul>
 <p>Tests:</p>
 <ul class="simple">
-<li><p>add tests to <cite>tests/typesets/test_[your_typeset].py</cite> (use one of the other typesets as template).</p></li>
-<li><p>optionally add series to <cite>tests/series.py</cite></p></li>
+<li><p>add tests to <code class="docutils literal notranslate"><span class="pre">tests/contrib/typesets/test_[your_typeset].py</span></code> (use one of the other typesets as template).</p></li>
+<li><p>optionally add series to <code class="docutils literal notranslate"><span class="pre">tests/series.py</span></code></p></li>
 </ul>
 <p>Documentation:</p>
 <ul class="simple">
-<li><p>provide informative docstrings <cite>src/visions/types/[your type_name].py</cite></p></li>
-<li><p>include the type in the api documentation: <cite>docsrc/source/visions/api/types.rst</cite></p></li>
-<li><p>add a row to the defaults table: <cite>docsrc/source/visions/practitioner/defaults.rst</cite></p></li>
+<li><p>provide informative docstrings <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/types/[your</span> <span class="pre">type_name].py</span></code></p></li>
+<li><p>include the type in the api documentation: <code class="docutils literal notranslate"><span class="pre">docsrc/source/visions/api/types.rst</span></code></p></li>
+<li><p>add a row to the defaults table: <code class="docutils literal notranslate"><span class="pre">docsrc/source/visions/getting_started/usage/defaults.rst</span></code></p></li>
 </ul>
 </div>
 

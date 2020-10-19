@@ -218,7 +218,7 @@ In this special case, the confidence has to adhere to the rules of probability, 
 A classifier is said to be well-calibrated when it adheres to these rules.</p>
 <p>Models as Logistic regression return well-calibrated predictions by default, while others return biased scores, such as Random Forest or SVM classifiers.
 One can perform various analysis to understand how well a classifier is calibrated.</p>
-<p>A hierarchical type system such as <cite>visions</cite> can be used to differentiate between confidence scores and probabilities.
+<p>A hierarchical type system such as <code class="docutils literal notranslate"><span class="pre">visions</span></code> can be used to differentiate between confidence scores and probabilities.
 One then could perform specialised types of analysis based on this type.</p>
 <p>The <em>scikit-learn</em> package provides excellent resources for model calibration <a class="footnote-reference brackets" href="#f1" id="id2">1</a>.
 For more background on the relevant aspects of probability and decision theory, we recommend reading <a class="reference internal" href="#bishop2006pattern" id="id3"><span>[bishop2006pattern]</span></a>, chapter 1.5, p. 38-42.</p>
@@ -234,7 +234,7 @@ Likewise, strategies for filling missing values may also depend on the data type
 <div class="section" id="model-profiling">
 <h2>Model profiling<a class="headerlink" href="#model-profiling" title="Permalink to this headline">¶</a></h2>
 <p>There are plans to implement specific model statistics in the <a class="reference external" href="https://github.com/dylan-profiler/model-profiler">model-profiler</a> package (to be released).
-This package will focus on summarization of a model or sets of predictions and will be based on a custom <cite>visions</cite> typeset.
+This package will focus on summarization of a model or sets of predictions and will be based on a custom <code class="docutils literal notranslate"><span class="pre">visions</span></code> typeset.
 Relevant statistics encompass error metrics, analysis of residuals and model explainers.</p>
 <dl class="citation">
 <dt class="label" id="bishop2006pattern"><span class="brackets">bishop2006pattern</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>

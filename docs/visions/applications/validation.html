@@ -194,7 +194,7 @@ Tight coupling causes the same problem as discussed above because the user often
 <p>A variety of software packages have been developed to facilitate this workflow <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, <a class="footnote-reference brackets" href="#f2" id="id2">2</a>, <a class="footnote-reference brackets" href="#f3" id="id3">3</a>, <a class="footnote-reference brackets" href="#f4" id="id4">4</a>, <a class="footnote-reference brackets" href="#f5" id="id5">5</a>, <a class="footnote-reference brackets" href="#f6" id="id6">6</a>.
 These packages can benefit from decoupling semantic and machine type representations.</p>
 <p>The part of data validation that depends on machine types, the validation methods, should have to focus of such a package.
-For example, the software could have helper functions to assert if a float is approximately the reference value (see <cite>pytest.approx</cite> in <a class="reference internal" href="#pytest" id="id7"><span>[pytest]</span></a>).
+For example, the software could have helper functions to assert if a float is approximately the reference value (see <code class="docutils literal notranslate"><span class="pre">pytest.approx</span></code> in <a class="reference internal" href="#pytest" id="id7"><span>[pytest]</span></a>).
 The other part, defining and checking properties of the data depends on semantic types.
 For example, the International Standard Book Number (ISBN) has a <a class="reference external" href="https://en.wikipedia.org/wiki/Check_digit">check digit</a>, which only makes sense to validate when a stored number is representing the ISBN.
 A key observation is that this highly overlaps with the data summarization example discussed above.
