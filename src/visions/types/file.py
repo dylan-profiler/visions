@@ -18,9 +18,9 @@ class File(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        relations = [IdentityRelation(cls, Path)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        relations = [IdentityRelation(Path)]
         return relations
 
     @staticmethod

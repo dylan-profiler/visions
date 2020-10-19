@@ -20,14 +20,11 @@ class Date(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
         relations = [
-            IdentityRelation(cls, Object),
-            InferenceRelation(
-                cls,
-                DateTime,
-            ),
+            IdentityRelation(Object),
+            InferenceRelation(DateTime),
         ]
         return relations
 

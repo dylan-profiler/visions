@@ -6,7 +6,7 @@ This is an essential step when working with a new dataset, and therefore is wort
 
 An effective summary of the dataset goes beyond the *machine* type representations of the dataset.
 If a variable stores a URL as a string, we might be interested if every URL has the "https" scheme.
-There is also overlap between machine types, where `min`, `max` and `range` are sensible statistics for real values as well as dates.
+There is also overlap between machine types, where ``min``, ``max`` and ``range`` are sensible statistics for real values as well as dates.
 
 
 .. warning::
@@ -18,7 +18,7 @@ There is also overlap between machine types, where `min`, `max` and `range` are 
 How does it work?
 -----------------
 
-Summaries are designed as *summary functions* on top of a `visions` typeset.
+Summaries are designed as *summary functions* on top of a ``visions`` typeset.
 Each type in the set can be associated with a set of these functions.
 The summary of a variable is the union of the output of the summary functions associated with its type or any of its supertypes.
 
@@ -78,7 +78,7 @@ String summary
    :linenos:
    :caption: String Example (`view source <https://github.com/dylan-profiler/visions/tree/master/examples/summaries/string_example.py>`__)
 
-Notably, the `text_summary` obtains awesome Unicode statistics from another package within this project: `tangled up in unicode <https://github.com/dylan-profiler/tangled-up-in-unicode>`_.
+Notably, the ``text_summary`` obtains awesome Unicode statistics from another package within this project: `tangled up in unicode <https://github.com/dylan-profiler/tangled-up-in-unicode>`_.
 If you are working with text data, you definitely want to check it out.
 
 
@@ -100,5 +100,5 @@ Complete Typeset
 
 .. seealso:: :doc:`Summaries example <../getting_started/examples/summaries>`
 
-.. note:: Because `visions` types are nullable by default, they all inherit the same missing value summaries (`na_count`).
+.. note:: Because ``visions`` types are nullable by default, they all inherit the same missing value summaries (`na_count`).
    New visions types :doc:`can be created <../getting_started/extending>` at will if you prefer to produce your own summaries or extend your analysis to other types of objects.

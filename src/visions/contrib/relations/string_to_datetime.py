@@ -48,18 +48,17 @@
 #     return pd.to_datetime(series, format="%Y%m%d")
 #
 #
-# def _to_datetime(cls, func) -> InferenceRelation:
+# def _to_datetime(func) -> InferenceRelation:
 #     return InferenceRelation(
 #         relationship=test_utils.coercion_test(func),
 #         transformer=func,
 #         related_type=String,
-#         type=cls,
 #     )
 #
 #
-# def string_to_datetime_year_week(cls) -> InferenceRelation:
-#     return _to_datetime(cls, to_datetime_year_week)
+# def string_to_datetime_year_week() -> InferenceRelation:
+#     return _to_datetime(to_datetime_year_week)
 #
 #
-# def string_to_datetime_year_month_day(cls) -> InferenceRelation:
-#     return _to_datetime(cls, to_datetime_year_month_day)
+# def string_to_datetime_year_month_day() -> InferenceRelation:
+#     return _to_datetime(to_datetime_year_month_day)

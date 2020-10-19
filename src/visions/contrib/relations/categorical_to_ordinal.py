@@ -19,9 +19,9 @@
 #         return False
 #
 #
-# def categorical_to_ordinal(cls) -> InferenceRelation:
+# def categorical_to_ordinal() -> InferenceRelation:
 #     from visions.types import Categorical
 #
 #     return InferenceRelation(
-#         cls, Categorical, relationship=is_ordinal_cat, transformer=to_ordinal
+#         Categorical, relationship=is_ordinal_cat, transformer=to_ordinal
 #     )

@@ -27,9 +27,9 @@ Let's inspect the source code for `Ordinal` to gather intuition.
             True
         """
 
-        @classmethod
-        def get_relations(cls):
-            return [IdentityRelation(cls, Categorical)]
+        @staticmethod
+        def get_relations():
+            return [IdentityRelation(Categorical)]
 
         @classmethod
         def contains_op(cls, series: pd.Series, *args) -> bool:

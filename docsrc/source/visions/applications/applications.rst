@@ -2,8 +2,8 @@
 Applications
 ============
 
-This section discusses possible downstream tasks where `visions` could contribute to simplifying the workflow.
-Although this is by no means an exhaustive list, let's explore a few obvious examples where `visions` can help contribute to simplifying downstream workflows.
+This section discusses possible downstream tasks where ``visions`` could contribute to simplifying the workflow.
+Although this is by no means an exhaustive list, let's explore a few obvious examples where ``visions`` can help contribute to simplifying downstream workflows.
 We invite additional applications if you'd like to share, via a pull request.
 You can find more information :doc:`on this page <../contributing/contributing>`.
 

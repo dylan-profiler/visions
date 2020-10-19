@@ -18,14 +18,11 @@ class Geometry(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
         relations = [
-            IdentityRelation(cls, Object),
-            InferenceRelation(
-                cls,
-                String,
-            ),
+            IdentityRelation(Object),
+            InferenceRelation(String),
         ]
         return relations
 

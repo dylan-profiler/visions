@@ -1,7 +1,7 @@
 Data Type View
 **************
 
-`Visions` views data types through the lens of logical and physical data types.
+``Visions`` views data types through the lens of logical and physical data types.
 
 This view can help guide our intuition around:
 
@@ -52,12 +52,12 @@ Creating a new type has high overhead, as we need to define it from scratch for 
 Decoupling physical and logical types
 +++++++++++++++++++++++++++++++++++++
 
-1. `Physical types` represent the actual, underlying representation of the data.
-2. `Logical types` represent the abstracted understanding of that data.
+1. ``Physical types`` represent the actual, underlying representation of the data.
+2. ``Logical types`` represent the abstracted understanding of that data.
 
-To make this distinction more concrete we can imagine the sequence `['Apple', 'Orange', 'Pear']`.
+To make this distinction more concrete we can imagine the sequence ``['Apple', 'Orange', 'Pear']``.
 
-At a logical level these are of the type `Fruit` while under the hood each element is physically represented as `String`.
+At a logical level these are of the type ``Fruit`` while under the hood each element is physically represented as ``String``.
 
 This separation is useful when we working with data that means something different to use, while being stored in the same physical data type.
 Another simple example is a set of URLs. While we might say all URLs are stored as strings, not every string is an URL.
@@ -65,7 +65,7 @@ There are also operations that are only sensible on URLs and not on strings, suc
 
 Problem with missing values
 +++++++++++++++++++++++++++
-Pandas' current data model is inconsistent with respect to missing values (i.e. `NaN` or `None`).
+Pandas' current data model is inconsistent with respect to missing values (i.e. ``NaN`` or ``None``).
 Adding missing values to integers and boolean results in upcasting to float and object respectively.
 Implementing nullable integer and boolean logical types allow for more efficient storage which can be achieved
 through an internal bitmap (see the engineering view for details).
@@ -98,8 +98,8 @@ Motivating example: Nullable Integer / Float
 Motivating example: Objects
 
 .. Visions creates an internal type system representing the type of a pandas series rather than the underlying types of it's constituent objects.
-   This allows us to flexibly perform sets of well defined operations over things like `Option[integer]` which might otherwise be upcast by pandas into `float`.
-   This also allows us to produce more interesting summaries for data which might otherwise simply be represented in pandas as `object`.
+   This allows us to flexibly perform sets of well defined operations over things like ``Option[integer]`` which might otherwise be upcast by pandas into ``float``.
+   This also allows us to produce more interesting summaries for data which might otherwise simply be represented in pandas as ``object``.
 
 How do Python, Numpy and Pandas model data?
 ===========================================
@@ -162,4 +162,4 @@ Custom dtypes.
 References
 ==========
 
-We note that many of the problems `visions` attempts to solve, are discussed in the `design documents for pandas 2.0 <https://dev.pandas.io/pandas2/>`_ (2015-2016).
+We note that many of the problems ``visions`` attempts to solve, are discussed in the `design documents for pandas 2.0 <https://dev.pandas.io/pandas2/>`_ (2015-2016).

@@ -10,9 +10,9 @@ from visions.typesets.typeset import get_type_from_path
 
 
 class Nominal(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Categorical)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Categorical)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -22,11 +22,11 @@ class Nominal(visions.VisionsBaseType):
 
 
 class Categorical(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
         # This example could be extended to show how low-cardinality discrete variables would be
         # inferred to nominal / ordinal. This can be achieved with an InferenceRelation.
-        return [IdentityRelation(cls, visions.Generic)]
+        return [IdentityRelation(visions.Generic)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -34,9 +34,9 @@ class Categorical(visions.VisionsBaseType):
 
 
 class Binary(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Nominal)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Nominal)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -45,9 +45,9 @@ class Binary(visions.VisionsBaseType):
 
 
 class Ordinal(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Categorical)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Categorical)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -55,9 +55,9 @@ class Ordinal(visions.VisionsBaseType):
 
 
 class Numeric(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, visions.Generic)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(visions.Generic)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -65,9 +65,9 @@ class Numeric(visions.VisionsBaseType):
 
 
 class Continuous(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Numeric)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Numeric)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -75,9 +75,9 @@ class Continuous(visions.VisionsBaseType):
 
 
 class Discrete(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Numeric)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Numeric)]
 
     @classmethod
     def contains_op(cls, series: pd.Series, state: dict) -> bool:
@@ -104,9 +104,9 @@ variable_set.output_graph("variable_set.pdf")
 
 
 class Classification(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, visions.Generic)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(visions.Generic)]
 
     @classmethod
     def contains_op(cls, series, state):
@@ -115,9 +115,9 @@ class Classification(visions.VisionsBaseType):
 
 
 class BinaryClassification(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Classification)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Classification)]
 
     @classmethod
     def contains_op(cls, series, state):
@@ -126,9 +126,9 @@ class BinaryClassification(visions.VisionsBaseType):
 
 
 class MultiClassification(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Classification)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Classification)]
 
     @classmethod
     def contains_op(cls, series, state):
@@ -137,20 +137,20 @@ class MultiClassification(visions.VisionsBaseType):
 
 
 class Regression(visions.VisionsBaseType):
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(visions.Generic)]
+
     @classmethod
     def contains_op(cls, series, state):
         state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
         return state["dtype"] in [Continuous, Discrete]
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, visions.Generic)]
-
 
 class PoissonRegression(visions.VisionsBaseType):
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Regression)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Regression)]
 
     @classmethod
     def contains_op(cls, series, state):
@@ -167,6 +167,10 @@ class PoissonRegression(visions.VisionsBaseType):
 
 
 class NegBinomRegression(visions.VisionsBaseType):
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Regression)]
+
     @classmethod
     def contains_op(cls, series, state):
         state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
@@ -179,20 +183,16 @@ class NegBinomRegression(visions.VisionsBaseType):
         ) / np.var(series)
         return state["mean_var_ratio"] > 1.05
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Regression)]
-
 
 class OrdinalRegression(visions.VisionsBaseType):
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        return [IdentityRelation(Classification)]
+
     @classmethod
     def contains_op(cls, series, state):
         state["dtype"] = state.get("dtype") or variable_set.detect_type(series)
         return state["dtype"] == Ordinal
-
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        return [IdentityRelation(cls, Classification)]
 
 
 class MLProblemTypeset(visions.VisionsTypeset):
