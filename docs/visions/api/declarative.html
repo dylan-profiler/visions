@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Contributions new types to visions &mdash; visions 0.6.4 documentation</title>
+  <title>Declarative API &mdash; visions 0.6.4 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Background" href="../background/background.html" />
-    <link rel="prev" title="Community contributions" href="contributing.html" /> 
+    <link rel="next" title="visions.declarative.create_type" href="_autosummary/visions.declarative.create_type.html" />
+    <link rel="prev" title="Functional API" href="functional.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -105,10 +105,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../applications/users.html">Users</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contribution</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Community contributions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributions new types to visions</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Community contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/type.html">Contributions new types to visions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Background</span></p>
 <ul>
@@ -119,8 +119,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../background/about.html">About</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relations.html">Relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typesets.html">Typesets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summaries.html">Summaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functional.html">Functional API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Declarative API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/visions.declarative.create_type.html">visions.declarative.create_type</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -167,13 +179,15 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Contributions new types to visions</li>
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+      <li>Declarative API</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/visions/contributing/type.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/visions/api/declarative.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -186,29 +200,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="contributions-new-types-to-visions">
-<h1>Contributions new types to visions<a class="headerlink" href="#contributions-new-types-to-visions" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">visions</span></code> is a continuously evolving project with the aim of expanding it’s set of useful
-semantic types. To that end, if you find a type construction useful, please feel free to contribute
-it back here.</p>
-<p>Below you will find a checklist with instructions on which files to add or modify.</p>
-<p>Type implementation:</p>
-<ul class="simple">
-<li><p>place the type implementation in <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/types/[your</span> <span class="pre">type_name].py</span></code></p></li>
-<li><p>include the type in <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/types/__init__.py</span></code></p></li>
-<li><p>include the type in a relevant typeset, or create one <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/typesets/[your_typeset].py</span></code></p></li>
-</ul>
-<p>Tests:</p>
-<ul class="simple">
-<li><p>add tests to <code class="docutils literal notranslate"><span class="pre">tests/contrib/typesets/test_[your_typeset].py</span></code> (use one of the other typesets as template).</p></li>
-<li><p>optionally add series to <code class="docutils literal notranslate"><span class="pre">tests/series.py</span></code></p></li>
-</ul>
-<p>Documentation:</p>
-<ul class="simple">
-<li><p>provide informative docstrings <code class="docutils literal notranslate"><span class="pre">src/visions/contrib/types/[your</span> <span class="pre">type_name].py</span></code></p></li>
-<li><p>include the type in the api documentation: <code class="docutils literal notranslate"><span class="pre">docsrc/source/visions/api/types.rst</span></code></p></li>
-<li><p>add a row to the defaults table: <code class="docutils literal notranslate"><span class="pre">docsrc/source/visions/getting_started/usage/defaults.rst</span></code></p></li>
-</ul>
+  <div class="section" id="declarative-api">
+<h1>Declarative API<a class="headerlink" href="#declarative-api" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/visions.declarative.create_type.html#visions.declarative.create_type" title="visions.declarative.create_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_type</span></code></a>(name, contains[, identity, …])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
@@ -219,10 +225,10 @@ it back here.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../background/background.html" class="btn btn-neutral float-right" title="Background" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="_autosummary/visions.declarative.create_type.html" class="btn btn-neutral float-right" title="visions.declarative.create_type" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="contributing.html" class="btn btn-neutral float-left" title="Community contributions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="functional.html" class="btn btn-neutral float-left" title="Functional API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

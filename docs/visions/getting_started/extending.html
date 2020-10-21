@@ -94,6 +94,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#another-example">Another example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-types-extend-a-type">Custom Types (extend a type)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#declarative-api">Declarative API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
 </ul>
@@ -254,16 +258,42 @@ For a boolean we could the true/false ratio for example.</p>
 </div>
 <p>Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.</p>
-<p>Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</p>
+</div>
+</div>
+<div class="section" id="each-type-has-the-method-evolve-type-for-this-purpose">
+<h1>Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.<a class="headerlink" href="#each-type-has-the-method-evolve-type-for-this-purpose" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="declarative-api">
+<h2>Declarative API<a class="headerlink" href="#declarative-api" title="Permalink to this headline">¶</a></h2>
+<p>Another option is to create a new type using the declarative API.
+We can use the <code class="docutils literal notranslate"><span class="pre">create_type</span></code> function for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
- <span class="kn">from</span> <span class="nn">visions.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions</span> <span class="kn">import</span> <span class="n">create_type</span>
+ <span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
+ <span class="kn">from</span> <span class="nn">visions.types.generic</span> <span class="kn">import</span> <span class="n">Generic</span>
 
- <span class="n">DateTimeIntYYYYMMDD</span> <span class="o">=</span> <span class="n">DateTime</span><span class="o">.</span><span class="n">evolve_type</span><span class="p">(</span><span class="s1">&#39;int_yyyymmdd&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="bp">cls</span><span class="p">:</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">(</span><span class="bp">cls</span><span class="p">)])</span>
 
- <span class="nb">print</span><span class="p">(</span><span class="n">DateTimeIntYYYYMMDD</span><span class="p">)</span>
- <span class="c1"># Prints: DateTime[int_yyyymmdd]</span>
+ <span class="k">def</span> <span class="nf">integer_is_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+     <span class="k">return</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)))(</span><span class="n">series</span><span class="p">)</span>
+
+
+ <span class="k">def</span> <span class="nf">integer_to_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+
+ <span class="n">MyDateTime</span> <span class="o">=</span> <span class="n">create_type</span><span class="p">(</span>
+     <span class="s2">&quot;MyDateTime&quot;</span><span class="p">,</span>
+     <span class="n">contains</span><span class="o">=</span><span class="n">DateTime</span><span class="o">.</span><span class="n">contains_op</span><span class="p">,</span>
+     <span class="n">identity</span><span class="o">=</span><span class="n">Generic</span><span class="p">,</span>
+     <span class="n">inference</span><span class="o">=</span><span class="n">InferenceRelation</span><span class="p">(</span>
+         <span class="n">relationship</span><span class="o">=</span><span class="n">integer_is_mydatetime</span><span class="p">,</span>
+         <span class="n">transformer</span><span class="o">=</span><span class="n">integer_to_mydatetime</span><span class="p">,</span>
+         <span class="n">related_type</span><span class="o">=</span><span class="n">Integer</span><span class="p">,</span>
+     <span class="p">)</span>
+ <span class="p">)</span>
+
+ <span class="nb">print</span><span class="p">(</span><span class="n">MyDateTime</span><span class="p">)</span>
+ <span class="c1"># Prints: MyDateTime</span>
 </pre></div>
 </div>
 </div>

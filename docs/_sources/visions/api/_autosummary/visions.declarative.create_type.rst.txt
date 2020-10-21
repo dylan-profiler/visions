@@ -1,0 +1,6 @@
+﻿visions.declarative.create\_type
+================================
+
+.. currentmodule:: visions.declarative
+
+.. autofunction:: create_type
