@@ -9,7 +9,7 @@ T = Type[VisionsBaseType]
 
 
 def cast_to_detected(data: Sequence, typeset: VisionsTypeset) -> Sequence:
-    """Casts a DataFrame into a typeset by first performing column wise type inference against
+    """Casts a DataFrame into a typeset by first performing column wise type detection against
     a provided typeset
 
     Args:
