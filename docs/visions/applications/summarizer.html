@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -203,7 +204,7 @@
 This is an essential step when working with a new dataset, and therefore is worthwhile automating.</p>
 <p>An effective summary of the dataset goes beyond the <em>machine</em> type representations of the dataset.
 If a variable stores a URL as a string, we might be interested if every URL has the “https” scheme.
-There is also overlap between machine types, where <cite>min</cite>, <cite>max</cite> and <cite>range</cite> are sensible statistics for real values as well as dates.</p>
+There is also overlap between machine types, where <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code> and <code class="docutils literal notranslate"><span class="pre">range</span></code> are sensible statistics for real values as well as dates.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Currently, the visions package contains the code for type summarization for demonstration purposes.
@@ -213,7 +214,7 @@ Please use <a class="reference external" href="https://github.com/pandas-profili
 </div>
 <div class="section" id="how-does-it-work">
 <h2>How does it work?<a class="headerlink" href="#how-does-it-work" title="Permalink to this headline">¶</a></h2>
-<p>Summaries are designed as <em>summary functions</em> on top of a <cite>visions</cite> typeset.
+<p>Summaries are designed as <em>summary functions</em> on top of a <code class="docutils literal notranslate"><span class="pre">visions</span></code> typeset.
 Each type in the set can be associated with a set of these functions.
 The summary of a variable is the union of the output of the summary functions associated with its type or any of its supertypes.</p>
 <p>Examples from Integer, Datetime and String types are given below.</p>
@@ -551,7 +552,7 @@ The summary of a variable is the union of the output of the summary functions as
 </pre></div>
 </td></tr></table></div>
 </div>
-<p>Notably, the <cite>text_summary</cite> obtains awesome Unicode statistics from another package within this project: <a class="reference external" href="https://github.com/dylan-profiler/tangled-up-in-unicode">tangled up in unicode</a>.
+<p>Notably, the <code class="docutils literal notranslate"><span class="pre">text_summary</span></code> obtains awesome Unicode statistics from another package within this project: <a class="reference external" href="https://github.com/dylan-profiler/tangled-up-in-unicode">tangled up in unicode</a>.
 If you are working with text data, you definitely want to check it out.</p>
 </div>
 </div>
@@ -570,7 +571,7 @@ If you are working with text data, you definitely want to check it out.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Because <cite>visions</cite> types are nullable by default, they all inherit the same missing value summaries (<cite>na_count</cite>).
+<p>Because <code class="docutils literal notranslate"><span class="pre">visions</span></code> types are nullable by default, they all inherit the same missing value summaries (<cite>na_count</cite>).
 New visions types <a class="reference internal" href="../getting_started/extending.html"><span class="doc">can be created</span></a> at will if you prefer to produce your own summaries or extend your analysis to other types of objects.</p>
 </div>
 </div>

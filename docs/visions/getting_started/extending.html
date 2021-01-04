@@ -94,6 +94,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#another-example">Another example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-types-extend-a-type">Custom Types (extend a type)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#declarative-api">Declarative API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
 </ul>
@@ -196,12 +200,12 @@
 <h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="custom-type-from-scratch">
 <h2>Custom Type (from scratch)<a class="headerlink" href="#custom-type-from-scratch" title="Permalink to this headline">¶</a></h2>
-<p>Each <cite>visions</cite> type is a subclass of  <cite>VisionsBaseType</cite> requiring a unique implementation of two methods:</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">visions</span></code> type is a subclass of <code class="docutils literal notranslate"><span class="pre">VisionsBaseType</span></code> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
-<li><p><cite>get_relations</cite>. Returns the set of relations mapping from another type to the current type.</p></li>
-<li><p><cite>contains_op</cite>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_relations</span></code>. Returns the set of relations mapping from another type to the current type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contains_op</span></code>. Checks whether a series is of the type visions_type, returns Bool.</p></li>
 </ol>
-<p>Let’s inspect the source code for <cite>Ordinal</cite> to gather intuition.</p>
+<p>Let’s inspect the source code for <code class="docutils literal notranslate"><span class="pre">Ordinal</span></code> to gather intuition.</p>
 <div class="literal-block-wrapper docutils container" id="ordinal">
 <div class="code-block-caption"><span class="caption-text">visions.types.ordinal.py</span><a class="headerlink" href="#ordinal" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
@@ -216,9 +220,9 @@
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Categorical</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -226,40 +230,70 @@
 </pre></div>
 </div>
 </div>
-<p>In this example, ordinal declares a single <cite>IdentityRelation</cite> from categorical. The meaning
-of <cite>IdentityRelation</cite> is not particularly important in this case, just know it means the mapping
+<p>In this example, ordinal declares a single <code class="docutils literal notranslate"><span class="pre">IdentityRelation</span></code> from categorical. The meaning
+of <code class="docutils literal notranslate"><span class="pre">IdentityRelation</span></code> is not particularly important in this case, just know it means the mapping
 function between categorical and ordinal is the identity function.</p>
-<p>We can also see the <cite>contains_op</cite> requires the sequence to be an ordered categorical machine type representation.</p>
+<p>We can also see the <code class="docutils literal notranslate"><span class="pre">contains_op</span></code> requires the sequence to be an ordered categorical machine type representation.</p>
 <p>Alternatively you can choose to base a type on an existing type.
 This is convenient when you only change a single relation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Your custom type might be helpful for others, in which case you can choose to contribute it to <cite>visions</cite>.
+<p>Your custom type might be helpful for others, in which case you can choose to contribute it to <code class="docutils literal notranslate"><span class="pre">visions</span></code>.
 Read more on <a class="reference internal" href="../contributing/type.html"><span class="doc">how to contribute</span></a>.</p>
 </div>
 </div>
 <div class="section" id="another-example">
 <h2>Another example<a class="headerlink" href="#another-example" title="Permalink to this headline">¶</a></h2>
-<p>The default typesets in <cite>visions</cite> consider <cite>Boolean</cite> and <cite>Categorical</cite> to be distinct types.
-In fact, <cite>Boolean</cite> is a special case of <cite>Categorical</cite> where the number of categories is 2 and contains the values “True” and “False” (“Man” and “Woman” wouldn’t be binary).</p>
+<p>The default typesets in <code class="docutils literal notranslate"><span class="pre">visions</span></code> consider <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> and <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> to be distinct types.
+In fact, <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> is a special case of <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> where the number of categories is 2 and contains the values “True” and “False” (“Man” and “Woman” wouldn’t be binary).</p>
 <p>Note that for data analysis, the distinction makes sense.
 For a boolean we could the true/false ratio for example.</p>
-<p>See: <cite>examples/data_analysis</cite> for an example.</p>
+<p>See: <code class="docutils literal notranslate"><span class="pre">examples/data_analysis</span></code> for an example.</p>
 </div>
 <div class="section" id="custom-types-extend-a-type">
 <h2>Custom Types (extend a type)<a class="headerlink" href="#custom-types-extend-a-type" title="Permalink to this headline">¶</a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>This feature has been removed, please use the declarative API</p>
+</div>
 <p>Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.</p>
-<p>Each type has the method <cite>evolve_type</cite> for this purpose.</p>
+</div>
+</div>
+<div class="section" id="each-type-has-the-method-evolve-type-for-this-purpose">
+<h1>Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.<a class="headerlink" href="#each-type-has-the-method-evolve-type-for-this-purpose" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="declarative-api">
+<h2>Declarative API<a class="headerlink" href="#declarative-api" title="Permalink to this headline">¶</a></h2>
+<p>Another option is to create a new type using the declarative API.
+We can use the <code class="docutils literal notranslate"><span class="pre">create_type</span></code> function for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
- <span class="kn">from</span> <span class="nn">visions.relations.integer_to_datetime</span> <span class="kn">import</span> <span class="n">integer_to_datetime_year_month_day</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions</span> <span class="kn">import</span> <span class="n">create_type</span>
+ <span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
+ <span class="kn">from</span> <span class="nn">visions.types.generic</span> <span class="kn">import</span> <span class="n">Generic</span>
 
- <span class="n">DateTimeIntYYYYMMDD</span> <span class="o">=</span> <span class="n">DateTime</span><span class="o">.</span><span class="n">evolve_type</span><span class="p">(</span><span class="s1">&#39;int_yyyymmdd&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="bp">cls</span><span class="p">:</span> <span class="p">[</span><span class="n">integer_to_datetime_year_month_day</span><span class="p">(</span><span class="bp">cls</span><span class="p">)])</span>
 
- <span class="nb">print</span><span class="p">(</span><span class="n">DateTimeIntYYYYMMDD</span><span class="p">)</span>
- <span class="c1"># Prints: DateTime[int_yyyymmdd]</span>
+ <span class="k">def</span> <span class="nf">integer_is_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+     <span class="k">return</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)))(</span><span class="n">series</span><span class="p">)</span>
+
+
+ <span class="k">def</span> <span class="nf">integer_to_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+
+
+ <span class="n">MyDateTime</span> <span class="o">=</span> <span class="n">create_type</span><span class="p">(</span>
+     <span class="s2">&quot;MyDateTime&quot;</span><span class="p">,</span>
+     <span class="n">contains</span><span class="o">=</span><span class="n">DateTime</span><span class="o">.</span><span class="n">contains_op</span><span class="p">,</span>
+     <span class="n">identity</span><span class="o">=</span><span class="n">Generic</span><span class="p">,</span>
+     <span class="n">inference</span><span class="o">=</span><span class="n">InferenceRelation</span><span class="p">(</span>
+         <span class="n">relationship</span><span class="o">=</span><span class="n">integer_is_mydatetime</span><span class="p">,</span>
+         <span class="n">transformer</span><span class="o">=</span><span class="n">integer_to_mydatetime</span><span class="p">,</span>
+         <span class="n">related_type</span><span class="o">=</span><span class="n">Integer</span><span class="p">,</span>
+     <span class="p">)</span>
+ <span class="p">)</span>
+
+ <span class="nb">print</span><span class="p">(</span><span class="n">MyDateTime</span><span class="p">)</span>
+ <span class="c1"># Prints: MyDateTime</span>
 </pre></div>
 </div>
 </div>
@@ -270,12 +304,12 @@ This is useful for small changes, such as adding a single relation.</p>
      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> was </span><span class="si">{</span><span class="n">type_before</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">type_after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Please read the <cite>Type changes</cite> section in the <a class="reference internal" href="../api/functional.html"><span class="doc">functional API documentation</span></a> for more details.</p>
+<p>Please read the <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">changes</span></code> section in the <a class="reference internal" href="../api/functional.html"><span class="doc">functional API documentation</span></a> for more details.</p>
 </div>
 </div>
 <div class="section" id="custom-typesets-from-scratch">
 <h2>Custom Typesets (from scratch)<a class="headerlink" href="#custom-typesets-from-scratch" title="Permalink to this headline">¶</a></h2>
-<p>Although <cite>visions</cite> comes with an array of starter typesets suitable for most standard usage
+<p>Although <code class="docutils literal notranslate"><span class="pre">visions</span></code> comes with an array of starter typesets suitable for most standard usage
 you may quickly find yourself looking to expand upon those types to suit your own domain specific
 needs. In order to meet those needs there are a number of easy mechanisms to either extend pre-existing
 typesets or define your own from scratch.</p>

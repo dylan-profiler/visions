@@ -98,6 +98,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -211,9 +212,9 @@
 
 
 <span class="k">class</span> <span class="nc">Nominal</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Categorical</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -223,11 +224,11 @@
 
 
 <span class="k">class</span> <span class="nc">Categorical</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
         <span class="c1"># This example could be extended to show how low-cardinality discrete variables would be</span>
         <span class="c1"># inferred to nominal / ordinal. This can be achieved with an InferenceRelation.</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -235,9 +236,9 @@
 
 
 <span class="k">class</span> <span class="nc">Binary</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Nominal</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Nominal</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -246,9 +247,9 @@
 
 
 <span class="k">class</span> <span class="nc">Ordinal</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Categorical</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -256,9 +257,9 @@
 
 
 <span class="k">class</span> <span class="nc">Numeric</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -266,9 +267,9 @@
 
 
 <span class="k">class</span> <span class="nc">Continuous</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Numeric</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -276,9 +277,9 @@
 
 
 <span class="k">class</span> <span class="nc">Discrete</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Numeric</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -305,9 +306,9 @@
 
 
 <span class="k">class</span> <span class="nc">Classification</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
@@ -316,9 +317,9 @@
 
 
 <span class="k">class</span> <span class="nc">BinaryClassification</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Classification</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Classification</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
@@ -327,9 +328,9 @@
 
 
 <span class="k">class</span> <span class="nc">MultiClassification</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Classification</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Classification</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
@@ -338,20 +339,20 @@
 
 
 <span class="k">class</span> <span class="nc">Regression</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">variable_set</span><span class="o">.</span><span class="n">detect_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Continuous</span><span class="p">,</span> <span class="n">Discrete</span><span class="p">]</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">visions</span><span class="o">.</span><span class="n">Generic</span><span class="p">)]</span>
-
 
 <span class="k">class</span> <span class="nc">PoissonRegression</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Regression</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Regression</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
@@ -368,6 +369,10 @@
 
 
 <span class="k">class</span> <span class="nc">NegBinomRegression</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Regression</span><span class="p">)]</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">variable_set</span><span class="o">.</span><span class="n">detect_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
@@ -380,20 +385,16 @@
         <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;mean_var_ratio&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">1.05</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Regression</span><span class="p">)]</span>
-
 
 <span class="k">class</span> <span class="nc">OrdinalRegression</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Classification</span><span class="p">)]</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">variable_set</span><span class="o">.</span><span class="n">detect_type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">Ordinal</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Classification</span><span class="p">)]</span>
 
 
 <span class="k">class</span> <span class="nc">MLProblemTypeset</span><span class="p">(</span><span class="n">visions</span><span class="o">.</span><span class="n">VisionsTypeset</span><span class="p">):</span>

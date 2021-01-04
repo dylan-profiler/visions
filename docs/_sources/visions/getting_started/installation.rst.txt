@@ -1,7 +1,7 @@
 Installation
 ============
 
-You can install `visions` from source and from pip
+You can install ``visions`` from source and from pip
 
 Pip
 ---
@@ -13,12 +13,12 @@ Installing with pip:
     pip install visions[all]
 
 
-By default, `visions` installs the complete set of dependencies, including for specialized types such as images and geodata.
+By default, ``visions`` installs the complete set of dependencies, including for specialized types such as images and geodata.
 This is great for experimenting, however once you have settled on a set of types, it is recommended to slim down the dependencies.
 It is possible to obtain a more lightweight installation by installing only the specific dependencies you really need:
 
-* `type_geometry` for `Geometry`
-* `type_image_path` for `Image`
+* ``type_geometry`` for ``Geometry``
+* ``type_image_path`` for ``Image``
 
 .. code-block:: console
 
@@ -36,8 +36,7 @@ For additional dependencies (plotting, development, testing), please read the `c
 Source
 ------
 
-To install `visions` from source, clone the repository from `github
-<https://github.com/dylan-profiling/visions>`_:
+To install ``visions`` from source, clone the repository from `github <https://github.com/dylan-profiling/visions>`_:
 
 .. code-block:: console
 
@@ -48,4 +47,4 @@ To install `visions` from source, clone the repository from `github
 Requirements
 ------------
 
-The requirements are listed in `setup.py` and the files `requirements.txt`, `requirements_dev.txt` and `requirements_test.txt`.
+The requirements are listed in ``setup.py`` and the files ``requirements.txt``, ``requirements_dev.txt`` and ``requirements_test.txt``.

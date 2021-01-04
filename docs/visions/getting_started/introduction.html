@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -201,17 +202,17 @@ Type systems are extremely flexible and applications include dataset creation, e
 <li><p>You pick the types and typeset that are relevant to your problem.
 The types and typeset can be chosen from the default library, or you can create custom types.
 (application: modeling the problem)</p></li>
-<li><p><cite>visions</cite> can detect types of your data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visions</span></code> can detect types of your data.</p></li>
 <li><p>It lets you define mappings from one type to another.
 This is helpful when working with real-world data.
-Provided these mappings, <cite>visions</cite> can infer and convert types.
+Provided these mappings, <code class="docutils literal notranslate"><span class="pre">visions</span></code> can infer and convert types.
 (application: data cleaning)</p></li>
 <li><p>You can then develop applications using the abstraction provided by the types.</p></li>
 </ul>
 </div>
 <div class="section" id="how-does-it-do-it">
 <h2>How does it do it?<a class="headerlink" href="#how-does-it-do-it" title="Permalink to this headline">¶</a></h2>
-<p>Essentially, <cite>visions</cite> does the following:</p>
+<p>Essentially, <code class="docutils literal notranslate"><span class="pre">visions</span></code> does the following:</p>
 <ul class="simple">
 <li><p>It builds on Pandas, Numpy and Python.</p></li>
 <li><p>It extends the data types in Pandas to solve storage and implementation issues.</p></li>

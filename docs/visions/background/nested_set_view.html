@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -191,10 +192,10 @@
 <p>Below we see a <a class="reference external" href="https://en.wikipedia.org/wiki/Circle_packing">circle packing</a> representation of the data types in the complete set.
 Each circle represents the subset of all possible values that is denoted as that type.
 For example, the boolean type has the possible values <span class="math notranslate nohighlight">\(\{True, False, None\}\)</span>.
-There is one root type, <cite>Generic</cite>, of which represents all possible values.</p>
+There is one root type, <code class="docutils literal notranslate"><span class="pre">Generic</span></code>, of which represents all possible values.</p>
 <p>When we perform type inference of a set of values, we find the narrowest circle that contains all values.
-For example, a set <span class="math notranslate nohighlight">\(\{'2020-01-01', '2020-02-02'\}\)</span> is a member of <cite>Generic</cite>, <cite>DateTime</cite> and <cite>Date</cite>.
-<cite>Date</cite> is the narrowest circle, hence the type.
+For example, a set <span class="math notranslate nohighlight">\(\{'2020-01-01', '2020-02-02'\}\)</span> is a member of <code class="docutils literal notranslate"><span class="pre">Generic</span></code>, <code class="docutils literal notranslate"><span class="pre">DateTime</span></code> and <code class="docutils literal notranslate"><span class="pre">Date</span></code>.
+<code class="docutils literal notranslate"><span class="pre">Date</span></code> is the narrowest circle, hence the type.
 Similarly, the membership relation is true when the circle includes all values.</p>
 <!DOCTYPE html>
 <html lang="en">

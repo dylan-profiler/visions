@@ -1,15 +1,15 @@
 Concepts
 ========
 
-This page introduces the key concepts `visions` uses: types, typesets and type relations.
+This page introduces the key concepts ``visions`` uses: types, typesets and type relations.
 
 Types
 -----
 
 A data type is a logical abstraction constraining the set of values data can be composed from.
-For example, `integers` can consist of values like 1, 2, and 3 but never 4.5.
+For example, *integers* can consist of values like 1, 2, and 3 but never 4.5.
 
-Within the `visions` framework, types represent a logical abstraction over sequences of data
+Within the ``visions`` framework, types represent a logical abstraction over sequences of data
 like python lists, numpy arrays, or pandas series.
 These types might correspond to every day notions like integers, floats, strings, and datetimes or more complicated,
 user configured ideas like geometries, fruits, or files. These logical, or semantic notions of type are

@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -152,6 +153,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../typesets.html">Typesets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../summaries.html">Summaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../declarative.html">Declarative API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
 </ul>
 </li>
@@ -241,9 +243,9 @@
 <dl class="py method">
 <dt id="visions.types.path.Path.contains_op">
 <em class="property">static </em><code class="sig-name descname">contains_op</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/types/path.html#Path.contains_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#visions.types.path.Path.contains_op" title="Permalink to this definition">¶</a></dt>
-<dd><p>path_contains(series: pandas.core.series.Series, state: dict) -&gt; bool</p>
+<dd><p>path_contains(sequence: Sequence, state: dict) -&gt; bool</p>
+<p>path_contains(series: pandas.core.series.Series, state: dict) -&gt; bool</p>
 <p>contains_op(item: Any, state: dict) -&gt; bool</p>
-<p>path_contains(sequence: Sequence, state: dict) -&gt; bool</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>

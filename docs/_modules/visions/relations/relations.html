@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -228,13 +229,13 @@
 <span class="sd">        pd.Series([1, 2, 3])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nb">type</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
     <span class="n">related_type</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
     <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
     <span class="n">transformer</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="n">multimethod</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">)</span>
     <span class="n">relationship</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="n">default_relation</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="n">multimethod</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span>
     <span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_relation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -252,24 +253,20 @@
 
 <div class="viewcode-block" id="IdentityRelation"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.relations.relations.IdentityRelation.html#visions.relations.relations.IdentityRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">IdentityRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
-    <span class="n">relationship</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">)</span>
+    <span class="n">relationship</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">transformer</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="n">identity_transform</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span>
     <span class="p">)</span>
-    <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="nd">@relationship</span><span class="o">.</span><span class="n">default</span>
-    <span class="k">def</span> <span class="nf">make_relationship</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">contains_op</span></div>
+    <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InferenceRelation"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.relations.relations.InferenceRelation.html#visions.relations.relations.InferenceRelation">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">InferenceRelation</span><span class="p">(</span><span class="n">TypeRelation</span><span class="p">):</span>
     <span class="n">relationship</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">converter</span><span class="o">=</span><span class="n">multimethod</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default_relation</span>
+        <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default_relation</span>
     <span class="p">)</span>
     <span class="n">transformer</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">converter</span><span class="o">=</span><span class="n">multimethod</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">identity_transform</span>
+        <span class="nb">repr</span><span class="o">=</span><span class="n">func_repr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">identity_transform</span>
     <span class="p">)</span>
     <span class="n">inferential</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 </pre></div>

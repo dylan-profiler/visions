@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -195,10 +196,10 @@
             
   <div class="section" id="graph-view">
 <h1>Graph view<a class="headerlink" href="#graph-view" title="Permalink to this headline">¶</a></h1>
-<p>In <cite>visions</cite> relationships between types are formalized through graph.
+<p>In <code class="docutils literal notranslate"><span class="pre">visions</span></code> relationships between types are formalized through graph.
 The base data structure of a typeset is a <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree">directed rooted tree</a> (graph).
 Each node represents a <a class="reference external" href="../getting_started/concepts.html#type">data type</a>.
-The root note is <cite>Generic</cite>.</p>
+The root note is <code class="docutils literal notranslate"><span class="pre">Generic</span></code>.</p>
 <p>Each data type is associated with a set.
 The root node is associated with the universal set</p>
 <p><span class="math notranslate nohighlight">\(U = \{\textrm{all data structures supported by a Series}\}\)</span>.</p>
@@ -209,7 +210,7 @@ The root node is associated with the universal set</p>
 <p>Symbolically : <span class="math notranslate nohighlight">\(f: \textrm{Type} \times S \to \{True, False\}\)</span>.</p>
 <p>In order for graph traversal to be decidable membership of siblings must be mutually exclusive.</p>
 <p>This is the same as saying sets of any two pairs of data types with the same parent must be disjoint, except for the missing value indicator.</p>
-<p>For example, the <cite>Path</cite> and <cite>URL</cite> data type both have the parent data type <cite>Object</cite> i.e.
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">Path</span></code> and <code class="docutils literal notranslate"><span class="pre">URL</span></code> data type both have the parent data type <code class="docutils literal notranslate"><span class="pre">Object</span></code> i.e.
 <span class="math notranslate nohighlight">\(\textrm{Path} \setminus \{\textrm{None}\} \cap \textrm{URL} \setminus \{\textrm{None}\} = \emptyset\)</span>.</p>
 <p>For the three default typesets, this base structure can be visualised as:</p>
 <div class="figure align-center" id="id1">

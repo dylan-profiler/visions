@@ -17,9 +17,9 @@ class TimeDelta(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        relations = [IdentityRelation(cls, Generic)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        relations = [IdentityRelation(Generic)]
         return relations
 
     @staticmethod

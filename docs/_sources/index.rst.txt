@@ -2,7 +2,7 @@
 Visions
 =========
 
-Welcome to `visions`, a system for extendable, performant data types in Python.
+Welcome to ``visions``, a system for extendable, performant data types in Python.
 
     *And you could define your own types, and that's where I got very interested.*
     (..)

@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/extending.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/extending.html#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../visions/getting_started/testing.html">Typeset testing</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Applications</span></p>
@@ -202,9 +203,9 @@
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
-        <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Generic</span><span class="p">)]</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">TypeRelation</span><span class="p">]:</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Generic</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">relations</span>
 
 <div class="viewcode-block" id="Categorical.contains_op"><a class="viewcode-back" href="../../../visions/api/_autosummary/visions.types.categorical.html#visions.types.categorical.Categorical.contains_op">[docs]</a>    <span class="nd">@staticmethod</span>

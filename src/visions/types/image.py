@@ -19,9 +19,9 @@ class Image(VisionsBaseType):
         True
     """
 
-    @classmethod
-    def get_relations(cls) -> Sequence[TypeRelation]:
-        relations = [IdentityRelation(cls, File)]
+    @staticmethod
+    def get_relations() -> Sequence[TypeRelation]:
+        relations = [IdentityRelation(File)]
         return relations
 
     @staticmethod

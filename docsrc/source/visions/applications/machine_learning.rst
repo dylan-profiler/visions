@@ -30,7 +30,7 @@ A classifier is said to be well-calibrated when it adheres to these rules.
 Models as Logistic regression return well-calibrated predictions by default, while others return biased scores, such as Random Forest or SVM classifiers.
 One can perform various analysis to understand how well a classifier is calibrated.
 
-A hierarchical type system such as `visions` can be used to differentiate between confidence scores and probabilities.
+A hierarchical type system such as ``visions`` can be used to differentiate between confidence scores and probabilities.
 One then could perform specialised types of analysis based on this type.
 
 The *scikit-learn* package provides excellent resources for model calibration [#f1]_.
@@ -47,7 +47,7 @@ Likewise, strategies for filling missing values may also depend on the data type
 Model profiling
 ---------------
 There are plans to implement specific model statistics in the `model-profiler <https://github.com/dylan-profiler/model-profiler>`_ package (to be released).
-This package will focus on summarization of a model or sets of predictions and will be based on a custom `visions` typeset.
+This package will focus on summarization of a model or sets of predictions and will be based on a custom ``visions`` typeset.
 Relevant statistics encompass error metrics, analysis of residuals and model explainers.
 
 .. [bishop2006pattern] Bishop, C. M. (2006). Pattern recognition and machine learning. springer.
