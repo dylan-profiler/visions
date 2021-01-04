@@ -74,7 +74,7 @@ def get_contains_cases(
             args = {"id": f"{name} x {type}"}
 
             member = name in series_list
-            argsvalues.append(pytest.param(name, item, type, member, **args))
+            argsvalues.append(pytest.param(name, item, type, member, **args)) # type: ignore
 
     return {"argnames": ["name", "series", "type", "member"], "argvalues": argsvalues}
 
@@ -104,7 +104,7 @@ def get_inference_cases(
             args = {"id": f"{name} x {test_type} expected {expected}"}
             difference = test_type != expected_type
             argsvalues.append(
-                pytest.param(name, series, test_type, typeset, difference, **args)
+                pytest.param(name, series, test_type, typeset, difference, **args) # type: ignore
             )
     return {"argnames": "name,series,type,typeset,difference", "argvalues": argsvalues}
 
@@ -208,7 +208,7 @@ def get_cast_cases(_test_suite: Dict[str, Sequence], _results: Dict) -> Dict:
         changed = name in _results
         value = _results.get(name, "")
         args = {"id": f"{name}: {changed}"}
-        argsvalues.append(pytest.param(name, item, value, **args))
+        argsvalues.append(pytest.param(name, item, value, **args)) # type: ignore
 
     return dict(
         argnames=["name", "series", "expected"],
