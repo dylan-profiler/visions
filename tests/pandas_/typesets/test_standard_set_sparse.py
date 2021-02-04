@@ -66,7 +66,7 @@ def test_contains(name, series, type, member):
     assert result, message
 
 
-inference_map = {
+inference_map: Dict[str, Type[VisionsBaseType]] = {
     "int_sparse": Generic,
     "pd_int64_sparse": Generic,
     "float_sparse": Generic,

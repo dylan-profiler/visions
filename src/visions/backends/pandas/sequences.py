@@ -5,17 +5,18 @@ import numpy as np
 import pandas as pd
 
 from visions.backends.pandas.test_utils import pandas_version
+from visions.backends.pandas.types.boolean import hasnan_bool_name
 
 
 def get_sequences() -> Dict[str, Iterable]:
     sequences = {
         "float_series6": pd.Series([np.nan, 1.1], dtype=np.single),
         "bool_series2": pd.Series([True, False, False, True], dtype=bool),
-        "nullable_bool_series": pd.Series([True, False, None], dtype="Bool"),
+        "nullable_bool_series": pd.Series([True, False, None], dtype=hasnan_bool_name),
         "int_str_range": pd.Series(range(20)).astype("str"),
         "Int64_int_series": pd.Series([1, 2, 3], dtype="Int64"),
         "Int64_int_nan_series": pd.Series([1, 2, 3, np.nan], dtype="Int64"),
-        "pd_uint32": pd.Series(np.array([1, 2, 3, 4], dtype="UInt32")),
+        "pd_uint32": pd.Series([1, 2, 3, 4], dtype="UInt32"),
         "categorical_int_series": pd.Series([1, 2, 3], dtype="category"),
         "categorical_char": pd.Series(
             pd.Categorical(
