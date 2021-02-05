@@ -11,5 +11,4 @@ from visions.functional import (
 )
 from visions.types import *
 from visions.typesets import *
-
-from .version import __version__
+from visions.version import __version__

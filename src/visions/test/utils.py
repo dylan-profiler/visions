@@ -71,10 +71,10 @@ def get_contains_cases(
     argsvalues = []
     for name, item in _test_suite.items():
         for type, series_list in _series_map.items():
-            args = {"id": f"{name} x {type}"}
+            args: Dict[str, Any] = {"id": f"{name} x {type}"}
 
             member = name in series_list
-            argsvalues.append(pytest.param(name, item, type, member, **args))  # type: ignore
+            argsvalues.append(pytest.param(name, item, type, member, **args))
 
     return {"argnames": ["name", "series", "type", "member"], "argvalues": argsvalues}
 
@@ -101,10 +101,10 @@ def get_inference_cases(
         expected_type = inferred_series_type_map[name]
         for test_type in typeset.types:
             expected = test_type == expected_type
-            args = {"id": f"{name} x {test_type} expected {expected}"}
+            args: Dict[str, Any] = {"id": f"{name} x {test_type} expected {expected}"}
             difference = test_type != expected_type
             argsvalues.append(
-                pytest.param(name, series, test_type, typeset, difference, **args)  # type: ignore
+                pytest.param(name, series, test_type, typeset, difference, **args)
             )
     return {"argnames": "name,series,type,typeset,difference", "argvalues": argsvalues}
 
@@ -168,7 +168,9 @@ def get_convert_cases(_test_suite, _series_map, typeset):
                     )
 
             if item in relation_type:
-                args = {"id": f"{name}: {relation_type} -> {source_type}"}
+                args: Dict[str, Any] = {
+                    "id": f"{name}: {relation_type} -> {source_type}"
+                }
                 member = name in series_list
                 argsvalues.append(
                     pytest.param(name, source_type, relation_type, item, member, **args)
@@ -207,8 +209,8 @@ def get_cast_cases(_test_suite: Dict[str, Sequence], _results: Dict) -> Dict:
     for name, item in _test_suite.items():
         changed = name in _results
         value = _results.get(name, "")
-        args = {"id": f"{name}: {changed}"}
-        argsvalues.append(pytest.param(name, item, value, **args))  # type: ignore
+        args: Dict[str, Any] = {"id": f"{name}: {changed}"}
+        argsvalues.append(pytest.param(name, item, value, **args))
 
     return dict(
         argnames=["name", "series", "expected"],
