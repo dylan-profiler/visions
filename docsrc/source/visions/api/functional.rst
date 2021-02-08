@@ -29,16 +29,3 @@ Type changes
    compare_detect_inference_frame
    type_inference_report_frame
 
-=========
-Summaries
-=========
-
-.. currentmodule:: visions.application.summaries.functional
-.. toctree::
-
-.. autosummary::
-   :toctree: _autosummary
-
-   summarize
-   summarize_frame
-   summarize_series
