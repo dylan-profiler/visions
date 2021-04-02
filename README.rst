@@ -53,7 +53,7 @@ Acknowledgements
 
 This package is part of the `dylan-profiler <https://github.com/dylan-profiler>`_ project.
 The package is core component of `pandas-profiling <https://github.com/pandas-profiling/pandas-profiling>`_.
-More information can be found `here <https://dylan-profiler.github.io/visions/visions/about.html>`__.
+More information can be found `here <https://dylan-profiler.github.io/visions/visions/background/about.html>`__.
 This work was partially supported by `SIDN Fonds <https://www.sidnfonds.nl/projecten/dylan-data-analysis-leveraging-automatisation>`_.
 
 
