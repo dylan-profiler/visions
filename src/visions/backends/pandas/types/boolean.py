@@ -13,28 +13,13 @@ from visions.backends.pandas.test_utils import (
     coercion_map_test,
     pandas_version,
 )
+from visions.backends.python.types.boolean import get_boolean_coercions
 from visions.types.boolean import Boolean
 from visions.types.object import Object
 from visions.types.string import String
 
+
 hasnan_bool_name = "boolean" if pandas_version[0] >= 1 else "Bool"
-
-
-def get_boolean_coercions(id: str) -> List[Dict]:
-    coercion_map = {
-        "default": [{"true": True, "false": False}],
-        "en": [
-            {"true": True, "false": False},
-            {"y": True, "n": False},
-            {"yes": True, "no": False},
-        ],
-        "nl": [
-            {"true": True, "false": False},
-            {"ja": True, "nee": False},
-            {"j": True, "n": False},
-        ],
-    }
-    return coercion_map[id]
 
 
 string_coercions = get_boolean_coercions("en")
