@@ -108,15 +108,15 @@ contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
 
 
 @pytest.mark.parametrize(**get_contains_cases(sequences, contains_map, typeset))
-def test_contains(name, series, type, member):
+def test_contains(name, series, contains_type, member):
     """Test the generated combinations for "series in type"
 
     Args:
         series: the series to test
-        type: the type to test against
+        contains_type: the type to test against
         member: the result
     """
-    result, message = contains(name, series, type, member)
+    result, message = contains(name, series, contains_type, member)
     assert result, message
 
 
@@ -187,14 +187,14 @@ inference_map = {
 
 
 @pytest.mark.parametrize(**get_inference_cases(sequences, inference_map, typeset))
-def test_inference(name, series, type, typeset, difference):
+def test_inference(name, series, inference_type, typeset, difference):
     """Test the generated combinations for "inference(series) == type"
 
     Args:
         series: the series to test
-        type: the type to test against
+        inference_type: the type to test against
     """
-    result, message = infers(name, series, type, typeset, difference)
+    result, message = infers(name, series, inference_type, typeset, difference)
     assert result, message
 
 
