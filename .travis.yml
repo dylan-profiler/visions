@@ -23,6 +23,8 @@ before_install:
   - export HADOOP_VERSION=2.7
   - export SPARK_DIRECTORY=../
   - export SPARK_HOME=../spark/
+  - export ARROW_PRE_0_15_IPC_FORMAT=1
+  - export SPARK_LOCAL_IP=127.0.0.1
   - make install-spark-ci
 
 install:
