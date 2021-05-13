@@ -1,5 +1,5 @@
 from pyspark.sql.dataframe import DataFrame
-from pyspark.sql.types import FloatType
+from pyspark.sql.types import DecimalType, FloatType
 
 from visions.types.float import Float
 
@@ -8,4 +8,4 @@ from visions.types.float import Float
 def float_contains(sequence: DataFrame, state: dict) -> bool:
     assert len(sequence.schema) == 1
     dtype = sequence.schema[0].dataType
-    return isinstance(dtype, FloatType)
+    return isinstance(dtype, (FloatType, DecimalType))

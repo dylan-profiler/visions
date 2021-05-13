@@ -1,5 +1,5 @@
 from pyspark.sql.dataframe import DataFrame
-from pyspark.sql.types import DateType
+from pyspark.sql.types import TimestampType
 
 from visions.types.date_time import DateTime
 
@@ -8,4 +8,4 @@ from visions.types.date_time import DateTime
 def datetime_contains(sequence: DataFrame, state: dict) -> bool:
     assert len(sequence.schema) == 1
     dtype = sequence.schema[0].dataType
-    return isinstance(dtype, DateType)
+    return isinstance(dtype, TimestampType)
