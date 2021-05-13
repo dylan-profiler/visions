@@ -18,17 +18,20 @@ before_install:
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
   - pip install "$PIP"
+  - make install-spark-ci
 
 install:
   - python setup.py sdist bdist_wheel
   - twine check dist/*
-  - pip install -e .
+  - make install
 
 stages:
   - validation
   - test
 
-script: pytest tests/
+script:
+  - pytest -m "not spark_test" tests/
+  - pytest -m spark_test tests/
 
 jobs:
   include:

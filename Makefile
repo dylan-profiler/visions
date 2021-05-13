@@ -28,6 +28,14 @@ lint:
 install:
 	pip install -e .
 
+## Install spark (for tests)
+install-spark-ci:
+	sudo apt-get update
+	sudo apt-get -y install openjdk-8-jdk
+	curl https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+	--output ${SPARK_DIRECTORY}/spark.tgz
+	cd ${SPARK_DIRECTORY} && tar -xvzf spark.tgz && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
+
 ## Plots
 plots:
 	cd src/visions/visualisation/
