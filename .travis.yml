@@ -18,6 +18,11 @@ before_install:
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
   - pip install "$PIP"
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+  - export SPARK_VERSION=2.4.7
+  - export HADOOP_VERSION=2.7
+  - export SPARK_DIRECTORY=../
+  - export SPARK_HOME=../spark/
   - make install-spark-ci
 
 install:
