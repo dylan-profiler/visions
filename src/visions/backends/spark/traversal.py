@@ -15,7 +15,8 @@ def _traverse_graph_spark_dataframe(
     df: DataFrame, root_node: T, graph: nx.DiGraph
 ) -> Tuple[DataFrame, Dict[str, List[T]], Dict[str, dict]]:
     inferred_values = {
-        col: traverse_graph_with_series(root_node, df.select(col), graph) for col in df.columns
+        col: traverse_graph_with_series(root_node, df.select(col), graph)
+        for col in df.columns
     }
 
     inferred_series = {}
