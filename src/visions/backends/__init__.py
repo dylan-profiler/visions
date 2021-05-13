@@ -28,6 +28,16 @@ except ImportError:
 
 
 try:
+    import pyspark
+
+    import visions.backends.pyspark
+
+    logger.debug(f"Pyspark backend loaded {pyspark.__version__}")
+except ImportError:
+    logger.debug("Pyspark backend NOT loaded")
+
+
+try:
     import visions.backends.python
 
     logger.debug("Python backend loaded")
