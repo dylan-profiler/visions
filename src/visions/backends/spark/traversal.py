@@ -13,7 +13,7 @@ T = Type[VisionsBaseType]
 @traverse_graph.register(DataFrame)
 def _traverse_graph_spark_dataframe(
     df: DataFrame, root_node: T, graph: nx.DiGraph
-) -> Tuple[pd.DataFrame, Dict[str, List[T]], Dict[str, dict]]:
+) -> Tuple[DataFrame, Dict[str, List[T]], Dict[str, dict]]:
     inferred_values = {
         col: traverse_graph(df[col], root_node, graph) for col in df.columns
     }
@@ -28,4 +28,5 @@ def _traverse_graph_spark_dataframe(
         inferred_paths[col] = inf_path
         inferred_states[col] = inf_state
 
-    return pd.DataFrame(inferred_series), inferred_paths, inferred_states
+    # note inference disabled, return df
+    return df, inferred_paths, inferred_states
