@@ -24,10 +24,6 @@ pypi_package:
 lint:
 	pre-commit run --all-files
 
-## Run type checking
-type_checking:
-	mypy .
-
 ## Install visions locally
 install:
 	pip install -e .
@@ -42,7 +38,6 @@ plots:
 ## lint, type check, install, rebuild docs, and finally test
 all:
 	make lint
-	make type_checking
 	make install
 	make plots
 	make docs
