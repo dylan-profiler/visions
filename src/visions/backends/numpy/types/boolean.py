@@ -6,6 +6,10 @@ from visions.backends.numpy.array_utils import (
     array_handle_nulls,
     array_not_empty,
 )
+from visions.backends.numpy.test_utils import (
+    coercion_map,
+    coercion_map_test,
+)
 
 from visions.backends.python.types.boolean import get_boolean_coercions
 from visions.types.boolean import Boolean
@@ -29,8 +33,8 @@ def object_is_boolean(array: np.ndarray, state: dict) -> bool:
 
 
 @Boolean.register_transformer(Object, np.ndarray)
-def object_to_boolean(array: np.ndarray, state: dict) -> pd.Series:
-    return series.astype(bool)
+def object_to_boolean(array: np.ndarray, state: dict) -> np.ndarray:
+    return array.astype(bool)
 
 
 @Boolean.register_relationship(String, np.ndarray)
@@ -42,13 +46,13 @@ def string_is_boolean(array: np.ndarray, state: dict) -> bool:
         return False
 
 
-@Boolean.register_transformer(String, pd.Series)
-def string_to_boolean(series: pd.Series, state: dict) -> pd.Series:
-    return object_to_boolean(coercion_map(string_coercions)(series.str.lower()), state)
+@Boolean.register_transformer(String, np.ndarray)
+def string_to_boolean(array: np.ndarray, state: dict) -> np.ndarray:
+    return object_to_boolean(coercion_map(string_coercions)(array.str.lower()), state)
 
 
 @Boolean.contains_op.register
 @array_handle_nulls
 @array_not_empty
-def boolean_contains(series: pd.Series, state: dict) -> bool:
-    return pdt.is_bool_dtype(series) and not pdt.is_categorical_dtype(series)
+def boolean_contains(array: np.ndarray, state: dict) -> bool:
+    return np.issubdtype(array.dtype, np.bool)
