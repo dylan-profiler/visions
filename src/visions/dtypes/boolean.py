@@ -52,7 +52,7 @@ class _BoolDtype(ExtensionDtype):
 
     @cache_readonly
     def numpy_dtype(self):
-        """ Return an instance of our numpy dtype """
+        """Return an instance of our numpy dtype"""
         return np.dtype(self.type)
 
     @cache_readonly
@@ -62,7 +62,7 @@ class _BoolDtype(ExtensionDtype):
 
     @cache_readonly
     def itemsize(self):
-        """ Return the number of bytes numpy requires to store the bool"""
+        """Return the number of bytes numpy requires to store the bool"""
         return self.numpy_dtype.itemsize
 
     @classmethod
