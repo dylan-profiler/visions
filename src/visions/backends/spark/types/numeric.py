@@ -6,6 +6,8 @@ from visions.types.numeric import Numeric
 
 @Numeric.contains_op.register
 def numeric_contains(sequence: DataFrame, state: dict) -> bool:
-    assert len(sequence.schema) == 1
+    if len(sequence.schema) != 1:
+        return False
+
     dtype = sequence.schema[0].dataType
     return isinstance(dtype, NumericType)

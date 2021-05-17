@@ -6,6 +6,8 @@ from visions.types.boolean import Boolean
 
 @Boolean.contains_op.register
 def boolean_contains(sequence: DataFrame, state: dict) -> bool:
-    assert len(sequence.schema) == 1
+    if len(sequence.schema) != 1:
+        return False
+
     dtype = sequence.schema[0].dataType
     return isinstance(dtype, BooleanType)
