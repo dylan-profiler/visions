@@ -1,4 +1,4 @@
-sudo: required
+os: linux
 dist: bionic
 language: python
 cache: pip
@@ -9,34 +9,50 @@ python:
   - '3.8'
 
 env:
-  - PIP="pandas<1"
-  - PIP="pandas>=1.0.3"
-  - PIP="swifter"
+  global:
+    - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    - HADOOP_VERSION=2.7
+    - SPARK_DIRECTORY=../
+    - SPARK_HOME=../spark/
+    - ARROW_PRE_0_15_IPC_FORMAT=1
+    - SPARK_LOCAL_IP=127.0.0.1
+  jobs:
+    - PIP="pandas<1"
+    - PIP="pandas>=1.0.3"
+    - PIP="swifter"
 
 before_install:
   - python -m pip install --upgrade pip setuptools wheel
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
   - pip install "$PIP"
+  - |
+      if [ "$TRAVIS_PYTHON_VERSION" = "3.8" ]; then
+        export SPARK_VERSION=3.0.1
+      else
+        export SPARK_VERSION=2.4.7
+      fi
+  - make install-spark-ci
 
 install:
   - python setup.py sdist bdist_wheel
   - twine check dist/*
-  - pip install -e .
+  - make install
 
 stages:
   - validation
   - test
 
-script: pytest tests/
+script:
+  - pytest -m "not spark_test" tests/
+  - pytest -m spark_test tests/
 
 jobs:
   include:
     - stage: validation
-      name: "Linting and Type Checking"
+      name: "Linting"
       script:
         - make lint
-        - mypy src tests
 
 #after_success:
 #  - codecov -F $TEST

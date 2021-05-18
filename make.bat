@@ -42,16 +42,9 @@ IF "%1" == "install" (
 	GOTO end
 )
 
-
-IF "%1" == "type_checking" (
-	mypy .
-	GOTO end
-)
-
 IF "%1%" == "all" (
     make lint
     make install
-    make type_checking
     make plots
     make docs
     make test

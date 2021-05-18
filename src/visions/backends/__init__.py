@@ -11,10 +11,10 @@ try:
 
     if pandas_version[0] < 1:
         from visions.dtypes.boolean import BoolDtype
-    logger.debug(f"Pandas backend loaded {pd.__version__}")
+    logger.info(f"Pandas backend loaded {pd.__version__}")
 
 except ImportError:
-    logger.debug("Pandas backend NOT loaded")
+    logger.info("Pandas backend NOT loaded")
 
 
 try:
@@ -22,14 +22,24 @@ try:
 
     import visions.backends.numpy
 
-    logger.debug(f"Numpy backend loaded {np.__version__}")
+    logger.info(f"Numpy backend loaded {np.__version__}")
 except ImportError:
-    logger.debug("Numpy backend NOT loaded")
+    logger.info("Numpy backend NOT loaded")
+
+
+try:
+    import pyspark
+
+    import visions.backends.spark
+
+    logger.info(f"Pyspark backend loaded {pyspark.__version__}")
+except ImportError:
+    logger.info("Pyspark backend NOT loaded")
 
 
 try:
     import visions.backends.python
 
-    logger.debug("Python backend loaded")
+    logger.info("Python backend loaded")
 except ImportError:
-    logger.debug("Python backend NOT loaded")
+    logger.info("Python backend NOT loaded")

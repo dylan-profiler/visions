@@ -42,6 +42,17 @@ You can install ``visions`` via pip:
 
 Alternatives and more details can be found in the `documentation <https://dylan-profiler.github.io/visions/visions/getting_started/installation.html>`_.
 
+Supported frameworks
+--------------------
+
+These frameworks are supported out-of-the-box in addition to native Python types:
+
+.. image:: https://github.com/dylan-profiler/visions/raw/develop/docsrc/source/_static/frameworks.png
+
+- Numpy
+- Pandas
+- Spark
+
 Contributing and support
 ------------------------
 Contributions to ``visions`` are welcome.
