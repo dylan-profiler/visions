@@ -1,13 +1,9 @@
-from importlib import util as import_util
 from typing import Callable, List, Type
 
 import attr
 import pandas as pd
 
-
-def has_import(module: str) -> bool:
-    has_module = import_util.find_spec(module) is not None
-    return has_module
+from visions.backends.shared.utilities import has_import
 
 
 @attr.s
@@ -25,7 +21,7 @@ class Engine:
 
 class PandasEngine(Engine):
     name = "pandas"
-    _is_setup = False
+    _is_setup = True
 
     @classmethod
     def setup(cls, *args, **kwargs) -> None:
@@ -45,8 +41,6 @@ class SwifterEngine(Engine):
         if cls._is_setup:
             return
 
-        import swifter
-
         cls._is_setup = True
 
     @staticmethod
@@ -57,7 +51,7 @@ class SwifterEngine(Engine):
 _PANDAS_ENGINES = [PandasEngine, SwifterEngine]
 
 
-class PandasEnginesCollection:
+class EngineCollection:
     def __init__(self, engines: List[Type[Engine]]):
         self.engines = {engine.name: engine for engine in engines}
 
@@ -69,7 +63,7 @@ class PandasEnginesCollection:
 
 
 class PandasApply:
-    supported_engines = PandasEnginesCollection(
+    supported_engines = EngineCollection(
         [engine for engine in _PANDAS_ENGINES if hasattr(engine, "apply")]
     )
     _engine: Type[Engine] = PandasEngine

@@ -15,7 +15,7 @@ from visions.backends.python.types.boolean import get_boolean_coercions
 from visions.types.boolean import Boolean
 from visions.types.object import Object
 from visions.types.string import String
-
+from visions.backends.shared.nan_handling import nan_mask
 
 string_coercions = get_boolean_coercions("en")
 
@@ -34,7 +34,9 @@ def object_is_boolean(array: np.ndarray, state: dict) -> bool:
 
 @Boolean.register_transformer(Object, np.ndarray)
 def object_to_boolean(array: np.ndarray, state: dict) -> np.ndarray:
-    return array.astype(bool)
+    mask = nan_mask(array)
+    array[mask] = array[mask].astype(bool)
+    return array
 
 
 @Boolean.register_relationship(String, np.ndarray)
@@ -48,11 +50,14 @@ def string_is_boolean(array: np.ndarray, state: dict) -> bool:
 
 @Boolean.register_transformer(String, np.ndarray)
 def string_to_boolean(array: np.ndarray, state: dict) -> np.ndarray:
-    return object_to_boolean(coercion_map(string_coercions)(array.str.lower()), state)
+    mask = nan_mask(array)
+    val_generator = (val.lower() for val in array[mask])
+    array[mask] = object_to_boolean(coercion_map(string_coercions)(val_generator), state)
+    return array
 
 
 @Boolean.contains_op.register
 @array_handle_nulls
 @array_not_empty
 def boolean_contains(array: np.ndarray, state: dict) -> bool:
-    return np.issubdtype(array.dtype, np.bool)
+    return np.issubdtype(array.dtype, np.bool_)

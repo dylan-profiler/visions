@@ -27,6 +27,7 @@ from visions.types import (
 from visions.typesets.standard_set import StandardSet
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
+
 array = get_series()
 array.update(get_geometry_series())
 array = {k: v.to_numpy() for k, v in array.items()}
@@ -43,7 +44,7 @@ contains_map = {
         "np_uint32",
         "pd_uint32",
         "categorical_int_series",
-        "ordinal"
+        "ordinal",
     },
     Float: {
         "float_series",
@@ -56,7 +57,7 @@ contains_map = {
         "int_nan_series",
         "float_with_inf",
         "float_series6",
-        "categorical_float_series"
+        "categorical_float_series",
     },
     Boolean: {"bool_series", "bool_series2", "bool_series3", "nullable_bool_series"},
     Complex: {
@@ -67,7 +68,7 @@ contains_map = {
         "complex_series_nan_2",
         "complex_series_float",
         "complex_series_py_float",
-        "categorical_complex_series"
+        "categorical_complex_series",
     },
     DateTime: {
         "timestamp_series",
@@ -385,6 +386,7 @@ cast_results = {
     "mixed": pd.Series([True, False, None], dtype=bool),
 }
 cast_results = {k: v.to_numpy() for k, v in cast_results.items()}
+
 
 @pytest.mark.parametrize(**get_cast_cases(array, cast_results))
 def test_cast(name, series, expected):

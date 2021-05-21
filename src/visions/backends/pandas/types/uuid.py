@@ -2,7 +2,7 @@ import uuid
 
 import pandas as pd
 
-from visions.backends.pandas.parallelization_engines import pandas_apply
+from visions.backends.shared.parallelization_engines import pandas_apply
 from visions.backends.pandas.series_utils import (
     isinstance_attrs,
     series_handle_nulls,

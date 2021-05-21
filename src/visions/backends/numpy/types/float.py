@@ -18,7 +18,7 @@ def test_string_leading_zeros(array: np.ndarray, coerced_array: np.ndarray):
 @Float.register_relationship(String, np.ndarray)
 @array_handle_nulls
 def string_is_float(array: np.ndarray, state: dict) -> bool:
-    coerced_array = test_utils.option_coercion_evaluator(lambda s: s.astype(float))(
+    coerced_array = test_utils.option_coercion_evaluator(lambda s: s.astype(np.float_))(
         array
     )
 
@@ -31,21 +31,21 @@ def string_is_float(array: np.ndarray, state: dict) -> bool:
 
 @Float.register_transformer(String, np.ndarray)
 def string_to_float(array: np.array, state: dict) -> np.ndarray:
-    return array.astype(float)
+    return array.astype(np.float_)
 
 
 @Float.register_relationship(Complex, np.ndarray)
 def complex_is_float(array: np.array, state: dict) -> bool:
-    return all(np.imag(array.values) == 0)
+    return all(np.imag(array) == 0)
 
 
 @Float.register_transformer(Complex, np.ndarray)
 def complex_to_float(array: np.array, state: dict) -> np.ndarray:
-    return suppress_warnings(lambda s: s.astype(float))(array)
+    return suppress_warnings(lambda s: s.astype(np.float_))(array)
 
 
 @Float.contains_op.register
 @array_handle_nulls
 @array_not_empty
 def float_contains(array: np.ndarray, state: dict) -> bool:
-    return np.issubdtype(array.dtype, float)
+    return np.issubdtype(array.dtype, np.float_)

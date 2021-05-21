@@ -1,6 +1,7 @@
 from functools import partial
 
 import numpy as np
+import pandas as pd
 import bottleneck as bn
 
 from visions.backends.numpy import test_utils
@@ -25,9 +26,9 @@ def string_is_datetime(array: np.ndarray, state: dict) -> bool:
 
     if coerced_array is None:
         return False
-    if np.isnan(bn.nanmin(coerced_array)):  # if they are all coerced to NaT
+    elif np.isnat(coerced_array).any():
         return False
-    
+
     return True
 
 

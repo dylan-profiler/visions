@@ -11,4 +11,4 @@ from visions.types.object import Object
 @array_handle_nulls
 @array_not_empty
 def object_contains(array: np.ndarray, state: dict) -> bool:
-    return np.issubdtype(array.dtype, object) or np.issubdtype(array.dtype, str)
+    return np.issubdtype(array.dtype, np.object_)

@@ -110,7 +110,9 @@ def coercion_equality_test(
 def coercion_single_map_test(mapping: List[Dict]) -> Callable[[np.ndarray, Dict], bool]:
     @array_handle_nulls
     def f(array: np.ndarray, state: dict = {}) -> bool:
-        return any(np.isin(array, list(single_map.keys())).all() for single_map in mapping)
+        return any(
+            np.isin(array, list(single_map.keys())).all() for single_map in mapping
+        )
 
     return f
 
@@ -150,7 +152,9 @@ def coercion_map_test(
     return f
 
 
-def coercion_map(mapping: Union[List[Dict], Dict]) -> Callable[[np.ndarray], np.ndarray]:
+def coercion_map(
+    mapping: Union[List[Dict], Dict]
+) -> Callable[[np.ndarray], np.ndarray]:
     """Maps a array given a mapping
     Args:
         mapping: a dict to map, or a list of dicts.
