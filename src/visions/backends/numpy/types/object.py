@@ -2,8 +2,11 @@ from datetime import datetime
 
 import numpy as np
 
-from visions.backends.numpy.array_utils import (array_handle_nulls,
-                                                array_not_empty)
+from visions.backends.numpy.array_utils import (
+    all_type,
+    array_handle_nulls,
+    array_not_empty,
+)
 from visions.types.object import Object
 
 
@@ -13,7 +16,7 @@ def not_excluded_type(array: np.ndarray, excludes) -> bool:
         return True
 
     dtype = type(array[0])
-    return not all(isinstance(v, dtype) for v in array)
+    return not all_type(array, dtype)
 
 
 @Object.contains_op.register

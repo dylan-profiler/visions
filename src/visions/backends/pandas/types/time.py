@@ -2,9 +2,11 @@ from datetime import time
 
 import pandas as pd
 
-from visions.backends.pandas.series_utils import (class_name_attrs,
-                                                  series_handle_nulls,
-                                                  series_not_empty)
+from visions.backends.pandas.series_utils import (
+    class_name_attrs,
+    series_handle_nulls,
+    series_not_empty,
+)
 from visions.types.time import Time
 
 # @Time.register_relationship(DateTime, pd.Series)

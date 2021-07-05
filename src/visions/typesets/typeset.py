@@ -1,8 +1,19 @@
 import warnings
 from functools import singledispatch
 from pathlib import Path
-from typing import (Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple,
-                    Type, TypeVar, Union)
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    List,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 import networkx as nx
 import pandas as pd

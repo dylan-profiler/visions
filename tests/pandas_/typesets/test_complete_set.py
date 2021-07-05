@@ -14,13 +14,40 @@ from visions.backends.pandas.test_utils import pandas_version
 from visions.backends.pandas.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
-from visions.test.utils import (cast, contains, convert, get_cast_cases,
-                                get_contains_cases, get_convert_cases,
-                                get_inference_cases, infers)
-from visions.types import (URL, UUID, Boolean, Categorical, Complex, Count,
-                           Date, DateTime, EmailAddress, File, Float, Generic,
-                           Geometry, Image, Integer, IPAddress, Object,
-                           Ordinal, Path, String, Time, TimeDelta)
+from visions.test.utils import (
+    cast,
+    contains,
+    convert,
+    get_cast_cases,
+    get_contains_cases,
+    get_convert_cases,
+    get_inference_cases,
+    infers,
+)
+from visions.types import (
+    URL,
+    UUID,
+    Boolean,
+    Categorical,
+    Complex,
+    Count,
+    Date,
+    DateTime,
+    EmailAddress,
+    File,
+    Float,
+    Generic,
+    Geometry,
+    Image,
+    Integer,
+    IPAddress,
+    Object,
+    Ordinal,
+    Path,
+    String,
+    Time,
+    TimeDelta,
+)
 from visions.types.email_address import FQDA
 
 series = get_series()

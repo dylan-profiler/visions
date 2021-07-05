@@ -1,1 +1,1 @@
-from . import nan_handling, parallelization_engines, utilies
+from . import nan_handling, parallelization_engines, utilities

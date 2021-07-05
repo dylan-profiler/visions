@@ -1,8 +1,7 @@
 import numpy as np
 
 from visions.backends.numpy import test_utils
-from visions.backends.numpy.array_utils import (array_handle_nulls,
-                                                array_not_empty)
+from visions.backends.numpy.array_utils import array_handle_nulls, array_not_empty
 from visions.types.complex import Complex
 from visions.types.float import Float
 from visions.types.string import String

@@ -161,9 +161,9 @@ def coercion_map(
     Returns:
         A callable that maps the array.
     """
-    if type(mapping) == list:
+    if isinstance(mapping, list):
         mapping = {k: v for d in mapping for k, v in d.items()}
-    elif type(mapping) != dict:
+    elif not isinstance(mapping, dict):
         raise ValueError("Mapping should be dict or list of dicts")
 
     f = np.vectorize(lambda value: mapping.get(value, np.nan))

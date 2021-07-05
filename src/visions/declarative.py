@@ -1,5 +1,4 @@
-from typing import (Any, Callable, List, Optional, Sequence, Type, TypeVar,
-                    Union)
+from typing import Any, Callable, List, Optional, Sequence, Type, TypeVar, Union
 
 from visions.relations import IdentityRelation, InferenceRelation
 from visions.types.type import VisionsBaseType

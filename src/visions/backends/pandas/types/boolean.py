@@ -3,12 +3,16 @@ from typing import Dict, List
 import pandas as pd
 import pandas.api.types as pdt
 
-from visions.backends.pandas.series_utils import (series_handle_nulls,
-                                                  series_not_empty,
-                                                  series_not_sparse)
-from visions.backends.pandas.test_utils import (coercion_map,
-                                                coercion_map_test,
-                                                pandas_version)
+from visions.backends.pandas.series_utils import (
+    series_handle_nulls,
+    series_not_empty,
+    series_not_sparse,
+)
+from visions.backends.pandas.test_utils import (
+    coercion_map,
+    coercion_map_test,
+    pandas_version,
+)
 from visions.backends.python.types.boolean import get_boolean_coercions
 from visions.types.boolean import Boolean
 from visions.types.object import Object

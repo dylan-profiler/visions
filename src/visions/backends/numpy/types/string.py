@@ -1,7 +1,6 @@
 import numpy as np
 
-from visions.backends.numpy.array_utils import (array_handle_nulls,
-                                                array_not_empty)
+from visions.backends.numpy.array_utils import array_handle_nulls, array_not_empty
 from visions.types.string import String
 
 

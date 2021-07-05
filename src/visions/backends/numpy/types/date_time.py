@@ -6,8 +6,7 @@ import numpy as np
 import pandas as pd
 
 from visions.backends.numpy import test_utils
-from visions.backends.numpy.array_utils import (array_handle_nulls,
-                                                array_not_empty)
+from visions.backends.numpy.array_utils import array_handle_nulls, array_not_empty
 from visions.types import DateTime, String
 
 

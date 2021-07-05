@@ -4,11 +4,28 @@ import pytest
 
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
-from visions.test.utils import (cast, contains, convert, get_cast_cases,
-                                get_contains_cases, get_convert_cases,
-                                get_inference_cases, infers)
-from visions.types import (Boolean, Categorical, Complex, DateTime, Float,
-                           Generic, Integer, Object, String, TimeDelta)
+from visions.test.utils import (
+    cast,
+    contains,
+    convert,
+    get_cast_cases,
+    get_contains_cases,
+    get_convert_cases,
+    get_inference_cases,
+    infers,
+)
+from visions.types import (
+    Boolean,
+    Categorical,
+    Complex,
+    DateTime,
+    Float,
+    Generic,
+    Integer,
+    Object,
+    String,
+    TimeDelta,
+)
 from visions.typesets.standard_set import StandardSet
 
 
