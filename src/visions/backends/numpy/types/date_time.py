@@ -1,14 +1,13 @@
+from datetime import datetime
 from functools import partial
 
+import bottleneck as bn
 import numpy as np
 import pandas as pd
-import bottleneck as bn
 
 from visions.backends.numpy import test_utils
-from visions.backends.numpy.array_utils import (
-    array_handle_nulls,
-    array_not_empty,
-)
+from visions.backends.numpy.array_utils import (array_handle_nulls,
+                                                array_not_empty)
 from visions.types import DateTime, String
 
 
@@ -34,11 +33,15 @@ def string_is_datetime(array: np.ndarray, state: dict) -> bool:
 
 @DateTime.register_transformer(String, np.ndarray)
 def string_to_datetime(array: np.ndarray, state: dict) -> np.ndarray:
-    return array.astype(np.datetime64)
+    # return array.astype(np.datetime64)
+    return pd.to_datetime(array).to_numpy()
 
 
 @DateTime.contains_op.register
 @array_handle_nulls
 @array_not_empty
 def datetime_contains(array: np.ndarray, state: dict) -> bool:
-    return np.issubdtype(array.dtype, np.datetime64)
+    if np.issubdtype(array.dtype, np.datetime64):
+        return True
+
+    return all(isinstance(v, datetime) for v in array)

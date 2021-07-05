@@ -1,10 +1,7 @@
 import pandas as pd
 
-from visions.utils.profiling import (
-    profile_relation_is_relation,
-    profile_relation_transform,
-    profile_type,
-)
+from visions.utils.profiling import (profile_relation_is_relation,
+                                     profile_relation_transform, profile_type)
 
 
 def performance_report(series_dict, convert_map, membership=True):

@@ -1,7 +1,9 @@
+import math
+from typing import Any, Iterator
+
 import numpy as np
 import pandas as pd
-from typing import Any
-import math
+
 from .utilities import has_import
 
 has_numba = has_import("numba")
@@ -27,7 +29,7 @@ def nan_mask(array: np.ndarray) -> np.ndarray:
     try:
         mask = ~np.isnan(array)
     except TypeError:
-        #mask = np.array([not pd. for v in array], dtype=bool)
+        # mask = np.array([not pd. for v in array], dtype=bool)
         mask = ~pd.isna(array)
     return mask
 
@@ -46,4 +48,4 @@ if has_numba:
 else:
 
     def anynan(array: np.ndarray) -> bool:
-        return any(nan_check(v) for v in array)
+        return any(math.isnan(v) for v in array)

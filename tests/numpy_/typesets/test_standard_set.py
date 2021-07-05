@@ -2,35 +2,32 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from visions.test.utils import (
-    cast,
-    contains,
-    convert,
-    get_cast_cases,
-    get_contains_cases,
-    get_convert_cases,
-    get_inference_cases,
-    infers,
-)
-from visions.types import (
-    Boolean,
-    Complex,
-    DateTime,
-    Float,
-    Generic,
-    Integer,
-    Object,
-    String,
-    TimeDelta,
-    Categorical,
-)
-from visions.typesets.standard_set import StandardSet
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
+from visions.test.utils import (cast, contains, convert, get_cast_cases,
+                                get_contains_cases, get_convert_cases,
+                                get_inference_cases, infers)
+from visions.types import (Boolean, Categorical, Complex, DateTime, Float,
+                           Generic, Integer, Object, String, TimeDelta)
+from visions.typesets.standard_set import StandardSet
+
+
+def reload_series_to_numpy(s):
+    return np.array(s.tolist())
+
 
 array = get_series()
 array.update(get_geometry_series())
 array = {k: v.to_numpy() for k, v in array.items()}
+
+# Pandas doesn't correctly handle complex categoricals pending
+# https://github.com/pandas-dev/pandas/pull/36482/
+array.pop("categorical_complex_series")
+
+# Some sequences don't round trip correctly from pandas (i.e. Series.to_numpy()
+# is not equivalent to np.array(Series.tolist())
+array["Int64_int_series"] = reload_series_to_numpy(array["Int64_int_series"])
+array["pd_uint32"] = reload_series_to_numpy(array["pd_uint32"])
 
 typeset = StandardSet() - Categorical
 
@@ -44,7 +41,6 @@ contains_map = {
         "np_uint32",
         "pd_uint32",
         "categorical_int_series",
-        "ordinal",
     },
     Float: {
         "float_series",
@@ -59,7 +55,14 @@ contains_map = {
         "float_series6",
         "categorical_float_series",
     },
-    Boolean: {"bool_series", "bool_series2", "bool_series3", "nullable_bool_series"},
+    Boolean: {
+        "bool_series",
+        "bool_series2",
+        "bool_series3",
+        "nullable_bool_series",
+        "bool_nan_series",
+        "mixed",
+    },
     Complex: {
         "complex_series",
         "complex_series_py",
@@ -68,7 +71,7 @@ contains_map = {
         "complex_series_nan_2",
         "complex_series_float",
         "complex_series_py_float",
-        "categorical_complex_series",
+        # "categorical_complex_series",
     },
     DateTime: {
         "timestamp_series",
@@ -111,6 +114,7 @@ contains_map = {
         "categorical_string_series",
         "categorical_char",
         "string_dtype_series",
+        "ordinal",
     },
 }
 
@@ -144,10 +148,9 @@ contains_map[Object] = {
     "module",
     "mixed_integer",
     "mixed_list",
-    "mixed",
-    "bool_nan_series",
     "date",
     "time",
+    "ordinal",
 }
 
 # Empty series
@@ -228,7 +231,7 @@ inference_map = {
     "complex_series_nan_2": Complex,
     "complex_series_py_nan": Complex,
     "complex_series_py": Complex,
-    "categorical_complex_series": Complex,
+    # "categorical_complex_series": Complex,
     "timestamp_series": DateTime,
     "timestamp_series_nat": DateTime,
     "timestamp_aware_series": DateTime,
@@ -268,7 +271,7 @@ inference_map = {
     "date": Object,
     "time": Object,
     "categorical_char": String,
-    "ordinal": Integer,
+    "ordinal": String,
     "str_complex": Complex,
     "str_complex_nan": Complex,
     "uuid_series": Object,
@@ -330,7 +333,7 @@ convert_map = [
     (DateTime, String, {"timestamp_string_series", "string_date", "py_datetime_str"}),
     (Boolean, String, {"string_bool_nan"}),
     (Float, Complex, {"complex_series_float", "complex_series_py_float"}),
-    (Boolean, Object, {"bool_nan_series", "mixed"}),
+    (Boolean, Object, {"bool_nan_series", "mixed", "nullable_bool_series"}),
 ]
 
 
@@ -361,7 +364,7 @@ cast_results = {
     "string_num": pd.Series([1, 2, 3], dtype=np.int64),
     "string_flt_nan": pd.Series([1.0, 45.67, np.nan], dtype=np.float64),
     "string_flt": pd.Series([1.0, 45.67, 3.5], dtype=np.float64),
-    "string_bool_nan": pd.Series([True, False, None], dtype=bool),
+    "string_bool_nan": np.array([True, False, None]),
     "int_str_range": pd.Series(
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
         dtype=np.int64,
@@ -372,7 +375,7 @@ cast_results = {
     ),
     "str_float_non_leading_zeros": pd.Series([0.0, 0.04, 0.0], dtype=np.float64),
     "str_int_zeros": pd.Series([0, 0, 0, 2], dtype=np.int64),
-    "bool_nan_series": pd.Series([True, False, None], dtype=bool),
+    "bool_nan_series": np.array([True, False, None]),
     "str_complex": pd.Series(
         [complex(1, 1), complex(2, 2), complex(10, 100)], dtype=np.complex128
     ),
@@ -383,9 +386,11 @@ cast_results = {
     "complex_series_py_float": pd.Series([0, 1, 3], dtype=np.int64),
     "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
     "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
-    "mixed": pd.Series([True, False, None], dtype=bool),
+    "mixed": np.array([True, False, np.nan]),
 }
-cast_results = {k: v.to_numpy() for k, v in cast_results.items()}
+cast_results = {
+    k: v.to_numpy() if isinstance(v, pd.Series) else v for k, v in cast_results.items()
+}
 
 
 @pytest.mark.parametrize(**get_cast_cases(array, cast_results))

@@ -1,15 +1,5 @@
-from visions.types import (
-    Boolean,
-    Categorical,
-    Complex,
-    DateTime,
-    Float,
-    Generic,
-    Integer,
-    Object,
-    String,
-    TimeDelta,
-)
+from visions.types import (Boolean, Categorical, Complex, DateTime, Float,
+                           Generic, Integer, Object, String, TimeDelta)
 from visions.typesets.typeset import VisionsTypeset
 
 

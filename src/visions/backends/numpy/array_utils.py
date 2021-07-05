@@ -2,6 +2,7 @@ import functools
 from typing import Callable
 
 import numpy as np
+
 from visions.backends.shared.nan_handling import nan_mask
 
 

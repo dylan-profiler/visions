@@ -1,9 +1,7 @@
 from typing import Sequence
 
-from visions.backends.python.series_utils import (
-    sequence_handle_none,
-    sequence_not_empty,
-)
+from visions.backends.python.series_utils import (sequence_handle_none,
+                                                  sequence_not_empty)
 from visions.types.object import Object
 
 

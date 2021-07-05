@@ -28,7 +28,7 @@ def get_sequences() -> Dict[str, Iterable]:
         "categorical_float_series": pd.Series([1.0, 2.0, 3.1], dtype="category"),
         "categorical_string_series": pd.Series(["Georgia", "Sam"], dtype="category"),
         "categorical_complex_series": pd.Series(
-            [np.complex(0, 0), np.complex(1, 2), np.complex(3, -1)],
+            [complex(0, 0), complex(1, 2), complex(3, -1)],
             dtype="category",
         ),
         "ordinal": pd.Series(

@@ -5,19 +5,10 @@ import pytest
 from visions import StandardSet, VisionsBaseType
 from visions.backends.pandas.test_utils import pandas_version
 from visions.test.series_sparse import get_sparse_series
-from visions.test.utils import contains, get_contains_cases, get_inference_cases, infers
-from visions.types import (
-    Boolean,
-    Categorical,
-    Complex,
-    DateTime,
-    Float,
-    Generic,
-    Integer,
-    Object,
-    String,
-    TimeDelta,
-)
+from visions.test.utils import (contains, get_contains_cases,
+                                get_inference_cases, infers)
+from visions.types import (Boolean, Categorical, Complex, DateTime, Float,
+                           Generic, Integer, Object, String, TimeDelta)
 
 not_pandas_1_0_5 = not (
     (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)

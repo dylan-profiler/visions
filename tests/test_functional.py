@@ -3,15 +3,12 @@ import datetime
 import numpy as np
 import pandas as pd
 
-from visions.functional import (
-    cast_to_detected,
-    cast_to_inferred,
-    detect_type,
-    infer_type,
-)
+from visions.functional import (cast_to_detected, cast_to_inferred,
+                                detect_type, infer_type)
 from visions.types import Complex, DateTime, Integer, String
 from visions.typesets import CompleteSet, StandardSet
-from visions.visualisation.plot_circular_packing import plot_graph_circular_packing
+from visions.visualisation.plot_circular_packing import \
+    plot_graph_circular_packing
 
 
 def test_type_inference_frame():

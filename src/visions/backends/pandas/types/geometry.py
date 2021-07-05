@@ -3,7 +3,8 @@ import sys
 
 import pandas as pd
 
-from visions.backends.pandas.series_utils import series_handle_nulls, series_not_empty
+from visions.backends.pandas.series_utils import (series_handle_nulls,
+                                                  series_not_empty)
 from visions.types.geometry import Geometry
 from visions.types.string import String
 

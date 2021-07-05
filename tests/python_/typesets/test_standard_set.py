@@ -4,28 +4,11 @@ import pytest
 
 from visions import StandardSet, VisionsBaseType
 from visions.backends.python.sequences import get_sequences
-from visions.test.utils import (
-    cast,
-    contains,
-    convert,
-    get_cast_cases,
-    get_contains_cases,
-    get_convert_cases,
-    get_inference_cases,
-    infers,
-)
-from visions.types import (
-    Boolean,
-    Categorical,
-    Complex,
-    DateTime,
-    Float,
-    Generic,
-    Integer,
-    Object,
-    String,
-    TimeDelta,
-)
+from visions.test.utils import (cast, contains, convert, get_cast_cases,
+                                get_contains_cases, get_convert_cases,
+                                get_inference_cases, infers)
+from visions.types import (Boolean, Categorical, Complex, DateTime, Float,
+                           Generic, Integer, Object, String, TimeDelta)
 
 sequences = get_sequences()
 

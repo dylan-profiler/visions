@@ -1,11 +1,9 @@
 import pandas as pd
 from pandas.api import types as pdt
 
-from visions.backends.pandas.series_utils import (
-    series_handle_nulls,
-    series_not_empty,
-    series_not_sparse,
-)
+from visions.backends.pandas.series_utils import (series_handle_nulls,
+                                                  series_not_empty,
+                                                  series_not_sparse)
 from visions.types.object import Object
 
 pandas_has_string_dtype_flag = hasattr(pdt, "is_string_dtype")

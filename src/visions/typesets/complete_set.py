@@ -1,27 +1,7 @@
-from visions.types import (
-    URL,
-    UUID,
-    Boolean,
-    Categorical,
-    Complex,
-    Count,
-    Date,
-    DateTime,
-    EmailAddress,
-    File,
-    Float,
-    Generic,
-    Geometry,
-    Image,
-    Integer,
-    IPAddress,
-    Object,
-    Ordinal,
-    Path,
-    String,
-    Time,
-    TimeDelta,
-)
+from visions.types import (URL, UUID, Boolean, Categorical, Complex, Count,
+                           Date, DateTime, EmailAddress, File, Float, Generic,
+                           Geometry, Image, Integer, IPAddress, Object,
+                           Ordinal, Path, String, Time, TimeDelta)
 from visions.typesets.typeset import VisionsTypeset
 
 

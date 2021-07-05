@@ -1,10 +1,8 @@
 import numpy as np
 
 from visions.backends.numpy import test_utils
-from visions.backends.numpy.array_utils import (
-    array_handle_nulls,
-    array_not_empty,
-)
+from visions.backends.numpy.array_utils import (array_handle_nulls,
+                                                array_not_empty)
 from visions.types.complex import Complex
 from visions.types.float import Float
 from visions.types.string import String
@@ -48,4 +46,4 @@ def complex_to_float(array: np.array, state: dict) -> np.ndarray:
 @array_handle_nulls
 @array_not_empty
 def float_contains(array: np.ndarray, state: dict) -> bool:
-    return np.issubdtype(array.dtype, np.float_)
+    return np.issubdtype(array.dtype, np.floating)
