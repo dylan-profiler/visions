@@ -41,6 +41,8 @@ class SwifterEngine(Engine):
         if cls._is_setup:
             return
 
+        import swifter
+
         cls._is_setup = True
 
     @staticmethod
