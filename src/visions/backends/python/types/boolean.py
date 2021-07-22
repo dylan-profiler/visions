@@ -1,10 +1,27 @@
-from typing import Sequence
+from typing import Dict, List, Sequence
 
 from visions.backends.python.series_utils import (
     sequence_handle_none,
     sequence_not_empty,
 )
 from visions.types import Boolean, Object, String
+
+
+def get_boolean_coercions(id: str) -> List[Dict]:
+    coercion_map = {
+        "default": [{"true": True, "false": False}],
+        "en": [
+            {"true": True, "false": False},
+            {"y": True, "n": False},
+            {"yes": True, "no": False},
+        ],
+        "nl": [
+            {"true": True, "false": False},
+            {"ja": True, "nee": False},
+            {"j": True, "n": False},
+        ],
+    }
+    return coercion_map[id]
 
 
 @sequence_not_empty
