@@ -46,6 +46,7 @@ setup(
     version=__version__,
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
+    license="BSD License",
     author="Dylan Profiler",
     author_email="visions@ictopzee.nl",
     package_data={"vision": ["py.typed"]},
