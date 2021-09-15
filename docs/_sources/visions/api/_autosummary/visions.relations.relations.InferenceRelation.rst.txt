@@ -21,4 +21,12 @@
 
    
    
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~InferenceRelation.relationship
+      ~InferenceRelation.transformer
+      ~InferenceRelation.inferential
+   
    

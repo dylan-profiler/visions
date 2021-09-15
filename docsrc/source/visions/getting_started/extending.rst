@@ -2,7 +2,7 @@ Extending
 =========
 
 Custom Type (from scratch)
----------------------------
+--------------------------
 
 Each ``visions`` type is a subclass of ``VisionsBaseType`` requiring a unique implementation of two methods:
 
@@ -72,7 +72,7 @@ Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.
 
 Each type has the method ``evolve_type`` for this purpose.
-=======
+
 Declarative API
 ---------------
 

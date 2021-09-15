@@ -35,7 +35,6 @@ extras_requires["all"] = requirements + [
     for dependency in dependencies
 ]
 
-
 __version__ = None
 with (source_root / "src/visions/version.py").open(encoding="utf8") as f:
     exec(f.read())
