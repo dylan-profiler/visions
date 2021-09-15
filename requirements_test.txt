@@ -12,5 +12,8 @@ pytest>=5.2.0
 check-manifest>=0.41
 pandas
 pre-commit
+<<<<<<< HEAD
 pytest-spark>=0.6.0
 pyarrow>=1.0.1
+=======
+>>>>>>> 82a9bbeae15bdd2cd4cb23808ffdc5effd5aa753
