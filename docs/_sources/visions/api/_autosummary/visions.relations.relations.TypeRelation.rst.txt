@@ -21,12 +21,4 @@
 
    
    
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~TypeRelation.inferential
-      ~TypeRelation.transformer
-      ~TypeRelation.relationship
-   
    
