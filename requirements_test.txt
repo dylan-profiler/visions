@@ -12,3 +12,5 @@ pytest>=5.2.0
 check-manifest>=0.41
 pandas
 pre-commit
+pytest-spark>=0.6.0
+pyarrow>=1.0.1

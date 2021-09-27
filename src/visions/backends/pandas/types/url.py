@@ -2,12 +2,12 @@ from urllib.parse import ParseResult, urlparse
 
 import pandas as pd
 
-from visions.backends.pandas.parallelization_engines import pandas_apply
 from visions.backends.pandas.series_utils import (
     isinstance_attrs,
     series_handle_nulls,
     series_not_empty,
 )
+from visions.backends.shared.parallelization_engines import pandas_apply
 from visions.types.string import String
 from visions.types.url import URL
 

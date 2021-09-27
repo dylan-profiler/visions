@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Extending &mdash; visions 0.7.1 documentation</title>
   
@@ -16,10 +16,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -32,6 +29,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -54,7 +52,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> visions
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> visions
           
 
           
@@ -96,9 +94,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#custom-type-from-scratch">Custom Type (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#another-example">Another example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-types-extend-a-type">Custom Types (extend a type)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#each-type-has-the-method-evolve-type-for-this-purpose">Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#declarative-api">Declarative API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-from-scratch">Custom Typesets (from scratch)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-typesets-extend-typeset">Custom typesets (extend typeset)</a></li>
@@ -173,8 +168,6 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -186,7 +179,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/visions/getting_started/extending.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -262,10 +255,8 @@ For a boolean we could the true/false ratio for example.</p>
 </div>
 <p>Another option is to create a new type based on an existing type.
 This is useful for small changes, such as adding a single relation.</p>
+<p>Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</p>
 </div>
-</div>
-<div class="section" id="each-type-has-the-method-evolve-type-for-this-purpose">
-<h1>Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.<a class="headerlink" href="#each-type-has-the-method-evolve-type-for-this-purpose" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="declarative-api">
 <h2>Declarative API<a class="headerlink" href="#declarative-api" title="Permalink to this headline">¶</a></h2>
 <p>Another option is to create a new type using the declarative API.
@@ -387,29 +378,37 @@ in any way imaginable:</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="testing.html" class="btn btn-neutral float-right" title="Typeset testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="examples/ml_problem_set.html" class="btn btn-neutral float-left" title="Problem type inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="testing.html" class="btn btn-neutral float-right" title="Typeset testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/ml_problem_set.html" class="btn btn-neutral float-left" title="Problem type inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Ian Eaves and Simon Brugman.
+        
+        &copy; Copyright 2021, Ian Eaves and Simon Brugman
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

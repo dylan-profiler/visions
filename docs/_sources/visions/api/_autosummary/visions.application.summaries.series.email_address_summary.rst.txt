@@ -1,6 +1,0 @@
-﻿visions.application.summaries.series.email\_address\_summary
-============================================================
-
-.. currentmodule:: visions.application.summaries.series
-
-.. autofunction:: email_address_summary

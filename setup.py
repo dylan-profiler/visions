@@ -35,7 +35,6 @@ extras_requires["all"] = requirements + [
     for dependency in dependencies
 ]
 
-
 __version__ = None
 with (source_root / "src/visions/version.py").open(encoding="utf8") as f:
     exec(f.read())
@@ -46,6 +45,7 @@ setup(
     version=__version__,
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
+    license="BSD License",
     author="Dylan Profiler",
     author_email="visions@ictopzee.nl",
     package_data={"vision": ["py.typed"]},
@@ -64,5 +64,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
 )

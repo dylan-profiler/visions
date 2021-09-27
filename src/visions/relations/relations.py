@@ -46,9 +46,11 @@ class TypeRelation:
 
     related_type = attr.ib()
     inferential: bool = attr.ib()
-    transformer: Callable[[T, dict], T] = attr.ib(converter=multimethod, repr=func_repr)
+    transformer: Callable[[T, dict], T] = attr.ib(
+        converter=multimethod, repr=func_repr  # type: ignore
+    )
     relationship: Callable[[Any, dict], bool] = attr.ib(
-        default=default_relation, converter=multimethod, repr=func_repr
+        default=default_relation, converter=multimethod, repr=func_repr  # type: ignore
     )
     type = attr.ib(default=None)
 
