@@ -34,6 +34,8 @@ repos:
     hooks:
     -   id: mypy
         files: '^src/'
+        additional_dependencies:
+          - types-attrs
 -   repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.8.0
     hooks:
