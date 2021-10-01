@@ -8,7 +8,7 @@ import pandas as pd
 
 from visions.backends.pandas.series_utils import series_handle_nulls
 
-pandas_version = tuple([int(i) for i in pd.__version__.split(".")])
+pandas_version = tuple(int(i) for i in pd.__version__.split("."))
 pandas_na_value = pd.NA if hasattr(pd, "NA") else None
 
 
