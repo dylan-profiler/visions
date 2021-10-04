@@ -39,7 +39,7 @@ def get_sequences() -> Dict[str, Sequence]:
         "np_uint32": np.array([1, 2, 3, 4], dtype=np.uint32),
         "string_np_unicode_series": np.array(["upper", "hall"], dtype=np.unicode_),
         "complex_series": [np.complex128(0, 0), np.complex128(1, 2), np.complex128(3, -1)],
-        "bool_series3": np.array([1, 0, 0, 1], dtype=np.bool),
+        "bool_series3": np.array([1, 0, 0, 1], dtype=np.bool_),
         "complex_series_nan": [
             np.complex128(0, 0),
             np.complex128(1, 2),
