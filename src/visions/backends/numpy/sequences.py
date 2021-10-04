@@ -35,7 +35,7 @@ def get_sequences() -> Dict[str, Sequence]:
             "In the hot New Jersey night",
             np.nan,
         ],
-        "float_series3": np.array([1.2, 2, 3, 4], dtype=np.float),
+        "float_series3": np.array([1.2, 2, 3, 4], dtype=np.float64),
         "np_uint32": np.array([1, 2, 3, 4], dtype=np.uint32),
         "string_np_unicode_series": np.array(["upper", "hall"], dtype=np.unicode_),
         "complex_series": [np.complex128(0, 0), np.complex128(1, 2), np.complex128(3, -1)],
