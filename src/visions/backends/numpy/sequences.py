@@ -7,10 +7,10 @@ import numpy as np
 def get_sequences() -> Dict[str, Sequence]:
     sequences = {
         "complex_series_float": [
-            np.complex128(0, 0),
-            np.complex128(1, 0),
-            np.complex128(3, 0),
-            np.complex128(-1, 0),
+            complex(0, 0),
+            complex(1, 0),
+            complex(3, 0),
+            complex(-1, 0),
         ],
         "url_nan_series": [
             urlparse("http://www.cwi.nl:80/%7Eguido/Python.html"),
@@ -39,21 +39,21 @@ def get_sequences() -> Dict[str, Sequence]:
         "np_uint32": np.array([1, 2, 3, 4], dtype=np.uint32),
         "string_np_unicode_series": np.array(["upper", "hall"], dtype=np.unicode_),
         "complex_series": [
-            np.complex128(0, 0),
-            np.complex128(1, 2),
-            np.complex128(3, -1),
+            complex(0, 0),
+            complex(1, 2),
+            complex(3, -1),
         ],
         "bool_series3": np.array([1, 0, 0, 1], dtype=np.bool_),
         "complex_series_nan": [
-            np.complex128(0, 0),
-            np.complex128(1, 2),
-            np.complex128(3, -1),
-            np.complex128(np.nan, np.nan),
+            complex(0, 0),
+            complex(1, 2),
+            complex(3, -1),
+            complex(np.nan, np.nan),
         ],
         "complex_series_nan_2": [
-            np.complex128(0, 0),
-            np.complex128(1, 2),
-            np.complex128(3, -1),
+            complex(0, 0),
+            complex(1, 2),
+            complex(3, -1),
             np.nan,
         ],
         "complex_series_py_nan": [
