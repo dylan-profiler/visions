@@ -7,7 +7,6 @@ from visions.backends.numpy.types.float import string_is_float
 from visions.types.complex import Complex
 from visions.types.string import String
 
-
 _OLD_NUMPY = version.parse(np.version.version) <= version.parse("1.19.0")
 
 
