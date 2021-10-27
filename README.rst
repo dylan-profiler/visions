@@ -49,9 +49,10 @@ These frameworks are supported out-of-the-box in addition to native Python types
 
 .. image:: https://github.com/dylan-profiler/visions/raw/develop/docsrc/source/_static/frameworks.png
 
-- Numpy
-- Pandas
-- Spark
+- Pandas (feature complete)
+- Numpy (boolean, complex, date time, float, integer, string, time deltas, string, objects)
+- Spark (boolean, categorical, date, date time, float, integer, numeric, object, string)
+- Python (string, float, integer, date time, time delta, boolean, categorical, object, complex - other datatypes are untested)
 
 Contributing and support
 ------------------------
