@@ -14,7 +14,7 @@ def string_is_email(sequence: Sequence, state: dict) -> bool:
         return False
 
 
-@EmailAddress.register_relationship(String, Sequence)
+@EmailAddress.register_transformer(String, Sequence)
 def string_to_email(sequence: Sequence, state: dict) -> Sequence:
     return tuple(map(_to_email, sequence))
 
