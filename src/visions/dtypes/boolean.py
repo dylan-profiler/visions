@@ -3,6 +3,7 @@ import warnings
 from typing import Type
 
 import numpy as np
+import pandas
 from pandas._libs import lib
 from pandas.compat import set_function_name
 from pandas.core import nanops, ops
