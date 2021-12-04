@@ -21,4 +21,12 @@
 
    
    
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~IdentityRelation.relationship
+      ~IdentityRelation.transformer
+      ~IdentityRelation.inferential
+   
    
