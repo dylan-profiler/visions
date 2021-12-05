@@ -111,7 +111,7 @@ def get_sequences() -> Dict[str, Iterable]:
         "empty_int64": pd.Series([], dtype="Int64"),
         "empty_object": pd.Series([], dtype="object"),
         "empty_bool": pd.Series([], dtype=bool),
-        "float_series4": pd.Series([1, 2, 3.05, 4], dtype=np.float),
+        "float_series4": pd.Series([1, 2, 3.05, 4], dtype=np.float64),
         # Null Sequences
         "all_null_none": pd.Series([None, None]),
         "all_null_nan": pd.Series([np.nan, np.nan]),

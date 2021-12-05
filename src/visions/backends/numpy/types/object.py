@@ -23,6 +23,9 @@ def not_excluded_type(array: np.ndarray, excludes) -> bool:
 @array_handle_nulls
 @array_not_empty
 def object_contains(array: np.ndarray, state: dict) -> bool:
+    if np.issubdtype(array.dtype, np.str_):
+        return True
+
     if not np.issubdtype(array.dtype, np.object_):
         return False
 

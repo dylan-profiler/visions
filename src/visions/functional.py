@@ -115,7 +115,7 @@ def type_inference_report_frame(df: pd.DataFrame, typeset: VisionsTypeset) -> st
         >>> print(report)
     """
     padding = 5
-    max_column_length = max([len(column) for column in df.columns]) + padding
+    max_column_length = max(len(column) for column in df.columns) + padding
     max_type_length = 30
 
     report = ""

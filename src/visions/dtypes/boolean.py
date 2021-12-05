@@ -3,6 +3,7 @@ import warnings
 from typing import Type
 
 import numpy as np
+import pandas
 from pandas._libs import lib
 from pandas.compat import set_function_name
 from pandas.core import nanops, ops
@@ -20,7 +21,17 @@ from pandas.core.dtypes.common import (
     is_scalar,
 )
 from pandas.core.dtypes.dtypes import register_extension_dtype
-from pandas.core.dtypes.generic import ABCIndexClass, ABCSeries
+
+if tuple(map(int, pandas.__version__.split("."))) < (1, 3):
+    from pandas.core.dtypes.generic import ABCIndexClass
+
+    dtg = ABCIndexClass
+else:
+    from pandas.core.dtypes.generic import ABCIndex
+
+    dtg = ABCIndex
+
+from pandas.core.dtypes.generic import ABCSeries
 from pandas.core.dtypes.missing import isna, notna
 from pandas.core.tools.numeric import to_numeric
 from pandas.util._decorators import cache_readonly
@@ -590,7 +601,7 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
             op_name = op.__name__
             mask = None
 
-            if isinstance(other, (ABCSeries, ABCIndexClass)):
+            if isinstance(other, (ABCSeries, dtg)):
                 # Rely on pandas to unbox and dispatch to us.
                 return NotImplemented
 
@@ -681,7 +692,7 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
             op_name = op.__name__
             mask = None
 
-            if isinstance(other, (ABCSeries, ABCIndexClass)):
+            if isinstance(other, (ABCSeries, dtg)):
                 # Rely on pandas to unbox and dispatch to us.
                 return NotImplemented
 
