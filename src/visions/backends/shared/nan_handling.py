@@ -54,7 +54,6 @@ if has_numba:
                 return True
         return False
 
-
 else:
 
     def anynan(array: np.ndarray) -> bool:
