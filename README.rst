@@ -25,7 +25,6 @@ Visions
 .. image:: https://github.com/dylan-profiler/visions/raw/develop/docsrc/source/_static/side-by-side.png
 
 
-
 Documentation
 -------------
 
@@ -59,6 +58,23 @@ Contributing and support
 Contributions to ``visions`` are welcome.
 For more information, please visit the `Community contributions page <https://dylan-profiler.github.io/visions/visions/contributing/contributing.html>`_.
 The `the Github issues tracker <https://github.com/dylan-profiler/visions/issues/new/choose>`_ is used for reporting bugs, feature requests and support questions.
+
+
+Companies & Packages Using Visions
+----------------------------------
+.. image:: https://pandas-profiling.github.io/pandas-profiling/docs/assets/logo_header.png
+   :height: 100 px
+   :alt: Pandas Profiling
+   :target: https://github.com/pandas-profiling/pandas-profiling
+.. image:: https://pbs.twimg.com/profile_images/1437912877751439362/Vc8ma_um_400x400.jpg
+   :height: 100 px
+   :alt: BitRook
+   :target: https://www.bitrook.com/
+.. image:: https://github.com/dylan-profiler/compressio/raw/master/images/logo/compressio-logos_transparent_banner.png
+   :height: 100 px
+   :alt: Compressio
+   :target: https://github.com/dylan-profiler/compressio/blob/master/images/logo/compressio-logos_transparent.png
+
 
 Acknowledgements
 ----------------
