@@ -28,15 +28,15 @@
 
 ``Visions`` provides a set of tools for defining and using *semantic* data types.
 
-- [x]  [Semantic type](https://dylan-profiler.github.io/visions/visions/getting_started/concepts.html#types) detection &
+- [x] [Semantic type](https://dylan-profiler.github.io/visions/visions/getting_started/concepts.html#types) detection &
   inference on sequence data.
 
-- [x]  Automated data processing
+- [x] Automated data processing
 
-- [x]  Completely customizable. `Visions` makes it easy to build and modify semantic data types for domain specific
+- [x] Completely customizable. `Visions` makes it easy to build and modify semantic data types for domain specific
   purposes
 
-- [x]  Out of the box support for
+- [x] Out of the box support for
   multiple [backend implementations](https://github.com/dylan-profiler/visions#supported-frameworks) including pandas,
   spark, numpy, and python
 
@@ -121,8 +121,6 @@ df.head(2)
   </tbody>
 </table>
 
-
-
 The most import abstraction in `visions` are Types - these represent semantic notions about data. You have access to a
 range of well tested types like `Integer`, `Float`, and `Files` covering the most common software development use cases.
 Types can be bundled together into typesets. Behind the scenes, `visions` builds a traversable graph for any collection
@@ -138,8 +136,8 @@ typeset.plot_graph()
 
 ![](https://dylan-profiler.github.io/visions/_images/typeset_complete_base.svg)
 
-Because of the special relationship between types these graphs can be used to detect the appropriate type of your data
-or _infer_ a more appropriate representations.
+Because of the special relationship between types these graphs can be used to detect the type of your data
+or _infer_ a more appropriate one.
 
 ```python
 # Detection looks like this
@@ -166,9 +164,8 @@ typeset.infer_type(df.astype(str))
 }
 ```
 
-`Visions` solves the most common problems working with tabular data - sequences of Integers are still recognized as
-integers whether they have trailing 0's from being cast to float, missing values. It's just as easy to get access to
-nicely cleaned and processed data as well.
+`Visions` solves many of the most common problems working with tabular data for example, sequences of Integers are still recognized as
+integers whether they have trailing decimal 0's from being cast to float, missing values, or something else altgether. Much of this cleaning is performed automatically providing nicely cleaned and processed data as well.
 
 ```python
 cleaned_df = typeset.cast_to_inferred(df)
