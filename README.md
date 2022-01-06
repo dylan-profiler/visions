@@ -166,7 +166,7 @@ typeset.infer_type(df.astype(str))
 
 `Visions` solves many of the most common problems working with tabular data for example, sequences of Integers are still
 recognized as integers whether they have trailing decimal 0's from being cast to float, missing values, or something
-else altgether. Much of this cleaning is performed automatically providing nicely cleaned and processed data as well.
+else altogether. Much of this cleaning is performed automatically providing nicely cleaned and processed data as well.
 
 ```python
 cleaned_df = typeset.cast_to_inferred(df)
