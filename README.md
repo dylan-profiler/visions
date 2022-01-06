@@ -135,6 +135,7 @@ typeset.plot_graph()
 ```
 
 ![](https://dylan-profiler.github.io/visions/_images/typeset_complete_base.svg)
+Note: Plots require pygraphviz to be [installed](https://pygraphviz.github.io/documentation/stable/install.html).
 
 Because of the special relationship between types these graphs can be used to detect the type of your data or _infer_ a
 more appropriate one.
@@ -180,8 +181,8 @@ info!
 
 ## Supported frameworks
 
-`Visions` is able to exploit framework specific capabilities offered by libraries like pandas and spark. Thanks to a
-dispatch based implementation, visions objects provide automatic support for the following backends.
+Thanks to its dispatch based implementation `Visions` is able to exploit framework specific capabilities offered by
+libraries like pandas and spark. Currently it works with the following backends by default.
 
 - [Pandas](https://github.com/pandas-dev/pandas) (feature complete)
 - [Numpy](https://github.com/numpy/numpy) (boolean, complex, date time, float, integer, string, time deltas, string,
@@ -193,6 +194,20 @@ dispatch based implementation, visions objects provide automatic support for the
 
 If you're using pandas it will also take advantage of parallelization tools like
 [swifter](https://github.com/jmcarpenter2/swifter) if available.
+
+It also offers a simple annotation based API for registering new implementations as needed. For example, if you wished
+to extend the categorical data type to include a Dask specific implementation you might do something like
+
+```python
+from visions.types.categorical import Categorical
+from pandas.api import types as pdt
+import dask
+
+
+@Categorical.contains_op.register
+def categorical_contains(series: dask.dataframe.Series, state: dict) -> bool:
+    return pdt.is_categorical_dtype(series.dtype)
+```
 
 ## Contributing and support
 
