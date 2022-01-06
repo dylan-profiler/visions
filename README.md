@@ -136,8 +136,8 @@ typeset.plot_graph()
 
 ![](https://dylan-profiler.github.io/visions/_images/typeset_complete_base.svg)
 
-Because of the special relationship between types these graphs can be used to detect the type of your data
-or _infer_ a more appropriate one.
+Because of the special relationship between types these graphs can be used to detect the type of your data or _infer_ a
+more appropriate one.
 
 ```python
 # Detection looks like this
@@ -164,8 +164,9 @@ typeset.infer_type(df.astype(str))
 }
 ```
 
-`Visions` solves many of the most common problems working with tabular data for example, sequences of Integers are still recognized as
-integers whether they have trailing decimal 0's from being cast to float, missing values, or something else altgether. Much of this cleaning is performed automatically providing nicely cleaned and processed data as well.
+`Visions` solves many of the most common problems working with tabular data for example, sequences of Integers are still
+recognized as integers whether they have trailing decimal 0's from being cast to float, missing values, or something
+else altgether. Much of this cleaning is performed automatically providing nicely cleaned and processed data as well.
 
 ```python
 cleaned_df = typeset.cast_to_inferred(df)
@@ -216,4 +217,4 @@ of [pandas-profiling](https://github.com/pandas-profiling/pandas-profiling). Mor
 found [here](https://dylan-profiler.github.io/visions/visions/background/about.html>). This work was partially supported
 by [SIDN Fonds](https://www.sidnfonds.nl/projecten/dylan-data-analysis-leveraging-automatisation).
 
-![](https://github.com/dylan-profiler/visions/raw/master/SIDNfonds.png)
+![](https://github.com/dylan-profiler/visions/raw/master/images/SIDNfonds.png)

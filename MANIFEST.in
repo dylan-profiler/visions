@@ -1,6 +1,5 @@
 include LICENSE
 include README.md
-include SIDNfonds.png
 include requirements*.txt
 include src/visions/py.typed
 include *.yaml
@@ -23,6 +22,7 @@ recursive-include examples *.ipynb
 exclude src/visions/visualisation/summaries src/visions/visualisation/typesets
 recursive-exclude src/visions/visualisation/summaries *
 recursive-exclude src/visions/visualisation/typesets *
+reverse-exclude images *
 
 # Include template
 include src/visions/visualisation/circular_packing.html
