@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/visions.png" width="300px"><br>
+  <img src="images/visions.png" width="600px"><br>
   <i>And these visions of data types, they kept us up past the dawn.</i> 
 </div>
 
