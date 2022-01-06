@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 # Read the contents of README file
 source_root = Path(".")
-with (source_root / "README.rst").open(encoding="utf-8") as f:
+with (source_root / "README.md").open(encoding="utf-8") as f:
     long_description = f.read()
 
 # Read the requirements
@@ -38,7 +38,6 @@ extras_requires["all"] = requirements + [
 __version__ = None
 with (source_root / "src/visions/version.py").open(encoding="utf8") as f:
     exec(f.read())
-
 
 setup(
     name="visions",

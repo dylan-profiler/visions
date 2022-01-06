@@ -1,5 +1,8 @@
-Visions
-=======
+.. figure:: visions.png
+   :height: 300 px
+   :align: center
+
+   *And these visions of data types, they kept us up past the dawn.*
 
 |JossPaper|
 |PyPiDownloadsBadge|
@@ -8,18 +11,15 @@ Visions
 |PythonBadge|
 |BinderBadge|
 
-..
+A Library for Semantic Data Types
+--------------------------------------------------
 
-    *And these visions of data types, they kept us up past the dawn.*
+``Visions`` provides a set of tools for defining and using *semantic* data types.
 
-..
-
-``Visions`` provides an extensible suite of tools to support common data analysis operations including
-
+* Automated semantic type inference on sequence data.
 * type inference on unknown data
 * casting data types
 * automated data summarization
-
 
 
 .. image:: https://github.com/dylan-profiler/visions/raw/develop/docsrc/source/_static/side-by-side.png
