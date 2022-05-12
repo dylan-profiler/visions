@@ -121,7 +121,7 @@ df.head(2)
   </tbody>
 </table>
 
-The most import abstraction in `visions` are Types - these represent semantic notions about data. You have access to a
+The most important abstraction in `visions` are Types - these represent semantic notions about data. You have access to a
 range of well tested types like `Integer`, `Float`, and `Files` covering the most common software development use cases.
 Types can be bundled together into typesets. Behind the scenes, `visions` builds a traversable graph for any collection
 of types.
