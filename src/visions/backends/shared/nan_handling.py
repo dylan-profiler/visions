@@ -1,5 +1,5 @@
 import math
-from typing import Any, Iterator
+from datetime import datetime, timedelta
 
 import numpy as np
 import pandas as pd
@@ -31,21 +31,23 @@ def nan_mask(array: np.ndarray) -> np.ndarray:
 # generated jit
 if has_numba:
 
-    @nb.generated_jit(nopython=True)
     def is_missing(x):
         """
         Return True if the value is missing, False otherwise.
         """
-        if isinstance(x, nb.types.Float):
-            return lambda x: np.isnan(x)
-        elif isinstance(x, (nb.types.NPDatetime, nb.types.NPTimedelta)):
-            # The corresponding Not-a-Time value
+        if isinstance(x, float):
+            return np.isnan(x)
+        elif isinstance(x, (datetime, timedelta)):
             missing = x("NaT")
-            return lambda x: x == missing
+            return x == missing
         elif x is None:
-            return lambda x: True
+            return True
         else:
-            return lambda x: False
+            return False
+
+
+    nb.extending.overload(is_missing)(is_missing)
+
 
     @nb.jit
     def hasna(x: np.ndarray) -> bool:

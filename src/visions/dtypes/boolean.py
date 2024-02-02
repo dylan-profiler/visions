@@ -197,7 +197,7 @@ def coerce_to_array(values, dtype, mask=None, copy=False):
         values = np.array(values, dtype=int, copy=copy)
 
     elif not (
-        is_integer_dtype(values) or is_float_dtype(values) or is_bool_dtype(values)
+            is_integer_dtype(values) or is_float_dtype(values) or is_bool_dtype(values)
     ):
         raise TypeError(f"{values.dtype} cannot be converted to an IntegerDtype")
 
@@ -302,9 +302,9 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
 
     def __init__(self, values, mask, copy=False):
         if not (
-            isinstance(values, np.ndarray)
-            and is_integer_dtype(values.dtype)
-            or is_bool_dtype(values.dtype)
+                isinstance(values, np.ndarray)
+                and is_integer_dtype(values.dtype)
+                or is_bool_dtype(values.dtype)
         ):
             raise TypeError(
                 "values should be integer numpy array. Use "
@@ -566,7 +566,6 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
 
         # if we want nans, count the mask
         if not dropna:
-
             # TODO(extension)
             # appending to an Index *always* infers
             # w/o passing the dtype
@@ -678,7 +677,7 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
         # a float result
         # or our op is a divide
         if (is_float_dtype(other) or is_float(other)) or (
-            op_name in ["rtruediv", "truediv"]
+                op_name in ["rtruediv", "truediv"]
         ):
             result[mask] = np.nan
             return result
@@ -749,7 +748,6 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
 BoolArray._add_arithmetic_ops()
 BoolArray._add_comparison_ops()
 
-
 _dtype_docstring = """
 An ExtensionDtype for {dtype} data.
 
@@ -768,7 +766,7 @@ BoolDtype = register_extension_dtype(
         "BoolDtype",
         (_BoolDtype,),
         {
-            "type": np.bool,
+            "type": np.bool_,
             "name": "Bool",
             "__doc__": _dtype_docstring.format(dtype="bool"),
         },

@@ -6,7 +6,7 @@ import pandas as pd
 from visions.backends.pandas.test_utils import pandas_version
 
 not_pandas_1_0_5 = not (
-    (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
+        (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
 )
 
 
@@ -23,7 +23,7 @@ def get_sparse_series() -> Dict[str, pd.Series]:
         ),
         "bool_sparse": pd.Series(
             [True, False, False],
-            dtype=pd.SparseDtype(np.bool, False),
+            dtype=pd.SparseDtype(np.bool_, False),
         ),
         "str_obj_sparse": pd.Series(
             pd.arrays.SparseArray([None, None, "gold", "black", "silver"]),
