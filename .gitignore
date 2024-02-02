@@ -6,6 +6,7 @@ docsrc/source/visions/api/_autosummary/
 docsrc/build/
 plots/*/
 playground/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

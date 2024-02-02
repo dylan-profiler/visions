@@ -28,13 +28,7 @@ repos:
     rev: "0.49"
     hooks:
     -   id: check-manifest
-# -   repo: https://github.com/pre-commit/mirrors-mypy
-#     rev: 'v1.8.0'
-#     hooks:
-#     -   id: mypy
-#         files: '^src/'
-#         additional_dependencies:
-#           - types-attrs
+# g
 -   repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
