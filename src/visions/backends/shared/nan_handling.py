@@ -45,9 +45,7 @@ if has_numba:
         else:
             return False
 
-
     nb.extending.overload(is_missing)(is_missing)
-
 
     @nb.jit
     def hasna(x: np.ndarray) -> bool:
