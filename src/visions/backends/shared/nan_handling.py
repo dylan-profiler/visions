@@ -1,8 +1,8 @@
 import math
-from typing import Any, Iterator
-
 import numpy as np
 import pandas as pd
+from datetime import datetime, timedelta
+from typing import Any, Iterator
 
 from .utilities import has_import
 
@@ -30,22 +30,44 @@ def nan_mask(array: np.ndarray) -> np.ndarray:
 # TODO: There are optimizations here, just have to define precisely the desired missing ruleset in the
 # generated jit
 if has_numba:
-
-    @nb.generated_jit(nopython=True)
-    def is_missing(x):
+    def is_missing(x: Any) -> bool:
         """
         Return True if the value is missing, False otherwise.
         """
-        if isinstance(x, nb.types.Float):
-            return lambda x: np.isnan(x)
-        elif isinstance(x, (nb.types.NPDatetime, nb.types.NPTimedelta)):
+        if isinstance(x, float):
+            return np.isnan(x)
+        elif isinstance(x, (datetime, timedelta)):
             # The corresponding Not-a-Time value
-            missing = x("NaT")
-            return lambda x: x == missing
+            return x == x("NaT")
         elif x is None:
-            return lambda x: True
+            return True
         else:
-            return lambda x: False
+            return False
+
+
+    # @nb.extending.overload(is_missing)
+    # def ol_is_missing(x):
+    #     """
+    #     Return True if the value is missing, False otherwise.
+    #     """
+    #     if isinstance(x, nb.types.Float):
+    #         def func(val: nb.types.Float) -> bool:
+    #             return np.isnan(val)
+    #     elif isinstance(x, (nb.types.NPDatetime, nb.types.NPTimedelta)):
+    #         # The corresponding Not-a-Time value
+    #         def func(val: Union[nb.types.NPDatetime, nb.types.NPTimedelta]) -> bool:
+    #             return val == MISSING_TIME
+    #     elif x is None:
+    #         def func(val: None) -> bool:
+    #             return True
+    #     else:
+    #         def func(val: Any) -> bool:
+    #             return False
+    #
+    #     return func
+
+    nb.extending.overload(is_missing)(lambda x: is_missing)
+
 
     @nb.jit
     def hasna(x: np.ndarray) -> bool:
