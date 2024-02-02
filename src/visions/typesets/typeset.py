@@ -299,7 +299,6 @@ class VisionsTypeset:
         return traverse_graph(data, self.root_node, self.relation_graph)
 
     def infer_type(self, data: Sequence) -> Union[T, Dict[str, T]]:
-
         """The inferred type found using all type relations.
 
         Args:

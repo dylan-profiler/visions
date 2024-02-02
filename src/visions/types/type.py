@@ -58,21 +58,27 @@ class VisionsBaseTypeMeta(ABCMeta):
         if cls._relations is None:
             cls._relations = RelationsIterManager(
                 [
-                    attr.evolve(
-                        r,
-                        type=cls,
-                        relationship=cls.contains_op
-                        if r.relationship is None
-                        else r.relationship,
-                    )
-                    if isinstance(r, IdentityRelation)
-                    else attr.evolve(
-                        r,
-                        type=cls,
-                        relationship=multimethod(r.relationship)
-                        if r.relationship is not None
-                        else None,
-                        transformer=multimethod(r.transformer),
+                    (
+                        attr.evolve(
+                            r,
+                            type=cls,
+                            relationship=(
+                                cls.contains_op
+                                if r.relationship is None
+                                else r.relationship
+                            ),
+                        )
+                        if isinstance(r, IdentityRelation)
+                        else attr.evolve(
+                            r,
+                            type=cls,
+                            relationship=(
+                                multimethod(r.relationship)
+                                if r.relationship is not None
+                                else None
+                            ),
+                            transformer=multimethod(r.transformer),
+                        )
                     )
                     for r in cls.get_relations()
                 ]
