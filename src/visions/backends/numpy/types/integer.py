@@ -7,9 +7,7 @@ from visions.types.integer import Integer
 
 @Integer.register_relationship(Float, np.ndarray)
 def float_is_integer(series: np.ndarray, state: dict) -> bool:
-    if np.isnan(series).any():
-        return False
-    return np.all(np.mod(series, 1) == 0)
+    return np.all(np.mod(series[~np.isnan(series)], 1) == 0)
 
 
 @Integer.register_transformer(Float, np.ndarray)
