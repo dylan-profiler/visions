@@ -11,7 +11,6 @@ from shapely import wkt
 
 from visions import CompleteSet
 from visions.backends.pandas.test_utils import pandas_version
-from visions.backends.pandas.types.boolean import hasnan_bool_name
 from visions.test.series import get_series
 from visions.test.series_geometry import get_geometry_series
 from visions.test.utils import (
@@ -444,7 +443,10 @@ cast_results = {
         datetime.date(1941, 5, 24),
         datetime.date(2016, 10, 13),
     ],
-    "py_datetime_str": [datetime.date(1941, 5, 24), datetime.date(2016, 10, 13)],
+    "py_datetime_str": [
+        datetime.datetime(1941, 5, 24, 0, 5, 0),
+        datetime.datetime(2016, 10, 13, 0, 10, 0)
+    ],
     "string_date": [datetime.date(1937, 5, 6), datetime.date(2014, 4, 20)],
 }
 

@@ -1,4 +1,4 @@
-from typing import Dict, Set, Type, cast
+from typing import Dict, Set, Type
 
 import pytest
 
@@ -20,7 +20,7 @@ from visions.types import (
 )
 
 not_pandas_1_0_5 = not (
-    (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
+        (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
 )
 
 series = get_sparse_series()
@@ -31,26 +31,35 @@ contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
     DateTime: set(),
     TimeDelta: set(),
     Categorical: set(),
-    Object: set(),
-    Integer: set(),
-    Complex: set(),
-    Float: set(),
-    Boolean: set(),
-    String: set(),
-    Generic: {
-        "int_sparse",
-        "pd_int64_sparse",
-        "float_sparse",
-        "bool_sparse",
-        "complex_sparse",
+    Object: {
+        "pd_string_sparse",
         "str_obj_sparse",
     },
+    Integer: {
+        "int_sparse",
+        "pd_int64_sparse",
+    },
+    Complex: {
+        "complex_sparse",
+    },
+    Float: {
+        "float_sparse",
+    },
+    Boolean: {
+        "bool_sparse",
+        "pd_bool_sparse",
+    },
+    String: {
+        "pd_string_sparse",
+        "str_obj_sparse",
+    },
+    Generic: set(),
 }
 
 
-if pandas_version[0] >= 1 and not_pandas_1_0_5:
-    contains_map[Generic].add("pd_bool_sparse")
-    contains_map[Generic].add("pd_string_sparse")
+# if pandas_version[0] >= 1 and not_pandas_1_0_5:
+#     contains_map[Generic].add("pd_bool_sparse")
+#     contains_map[String].add("pd_string_sparse")
 
 
 @pytest.mark.parametrize(**get_contains_cases(series, contains_map, typeset))
@@ -67,20 +76,17 @@ def test_contains(name, series, contains_type, member):
 
 
 inference_map: Dict[str, Type[VisionsBaseType]] = {
-    "int_sparse": Generic,
-    "pd_int64_sparse": Generic,
-    "float_sparse": Generic,
-    "bool_sparse": Generic,
-    "pd_bool_sparse": Generic,
-    "complex_sparse": Generic,
-    "str_obj_sparse": Generic,
+    "int_sparse": Integer,
+    "pd_int64_sparse": Integer,
+    "float_sparse": Float,
+    "bool_sparse": Boolean,
+    "pd_bool_sparse": Boolean,
+    "complex_sparse": Complex,
+    "str_obj_sparse": String,
+    "pd_string_sparse": String,
     "pd_categorical_sparse": Generic,
-    # "datetime_sparse": Generic,
+    "datetime_sparse": Generic,
 }
-
-if pandas_version[0] >= 1 and not_pandas_1_0_5:
-    inference_map["pd_bool_sparse"] = Generic
-    inference_map["pd_string_sparse"] = Generic
 
 
 @pytest.mark.parametrize(**get_inference_cases(series, inference_map, typeset))
