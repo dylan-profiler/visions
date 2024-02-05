@@ -20,9 +20,9 @@ def string_is_float(array: np.ndarray, state: dict) -> bool:
     )
 
     return (
-        coerced_array is not None
-        and float_contains(coerced_array, state)
-        and test_string_leading_zeros(array, coerced_array)
+            coerced_array is not None
+            and float_contains(coerced_array, state)
+            and test_string_leading_zeros(array, coerced_array)
     )
 
 
