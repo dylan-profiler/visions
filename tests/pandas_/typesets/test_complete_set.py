@@ -447,8 +447,9 @@ cast_results = {
     "py_datetime_str": pd.Series(
         [
             datetime.datetime(1941, 5, 24, 0, 5, 0),
-            datetime.datetime(2016, 10, 13, 0, 10, 0)
-        ], dtype='datetime64[ns]'
+            datetime.datetime(2016, 10, 13, 0, 10, 0),
+        ],
+        dtype="datetime64[ns]",
     ),
     "string_date": pd.Series([datetime.date(1937, 5, 6), datetime.date(2014, 4, 20)]),
 }

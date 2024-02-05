@@ -16,7 +16,7 @@ def pandas_infer_datetime(series: pd.Series, state: dict) -> pd.Series:
     except Exception:
         pass
 
-    return pd.to_datetime(series, format='mixed')
+    return pd.to_datetime(series, format="mixed")
 
 
 @DateTime.register_relationship(String, pd.Series)
@@ -26,7 +26,9 @@ def string_is_datetime(series: pd.Series, state: dict) -> bool:
         return pandas_infer_datetime(series, state)
 
     exceptions = [OverflowError, TypeError]
-    coerced_series = test_utils.option_coercion_evaluator(string_to_datetime_func, exceptions)(series)
+    coerced_series = test_utils.option_coercion_evaluator(
+        string_to_datetime_func, exceptions
+    )(series)
 
     if coerced_series is None:
         return False

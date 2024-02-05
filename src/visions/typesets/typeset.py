@@ -115,11 +115,11 @@ def check_cycles(graph: nx.DiGraph) -> None:
 
 
 def traverse_graph_with_series(
-        base_type: T,
-        series: Sequence,
-        graph: nx.DiGraph,
-        path: List[T] = None,
-        state: Optional[dict] = None,
+    base_type: T,
+    series: Sequence,
+    graph: nx.DiGraph,
+    path: List[T] = None,
+    state: Optional[dict] = None,
 ) -> Tuple[Sequence, List[T], dict]:
     """Depth First Search traversal. There should be at most one successor that contains the series.
 
@@ -152,11 +152,11 @@ def traverse_graph_with_series(
 
 
 def traverse_graph_with_sampled_series(
-        base_type: T,
-        series: pd.Series,
-        graph: nx.DiGraph,
-        sample_size: int = 10,
-        state: dict = dict(),
+    base_type: T,
+    series: pd.Series,
+    graph: nx.DiGraph,
+    sample_size: int = 10,
+    state: dict = dict(),
 ) -> Tuple[Sequence, List[T], dict]:
     """Depth First Search traversal with sampling. There should be at most one successor that contains the series.
 
@@ -190,19 +190,19 @@ def traverse_graph_with_sampled_series(
         series = relation.transform(series, state)
         from_type = to_type
 
-    return series, path[0: (i + 2)], state
+    return series, path[0 : (i + 2)], state
 
 
 @singledispatch
 def traverse_graph(
-        data: Sequence, root_node: T, graph: nx.DiGraph
+    data: Sequence, root_node: T, graph: nx.DiGraph
 ) -> Tuple[Sequence, Union[List[T], Dict[str, List[T]]], Dict[str, dict]]:
     return traverse_graph_with_series(root_node, data, graph)
 
 
 @singledispatch
 def get_type_from_path(
-        path_data: Union[Sequence[T], Dict[str, Sequence[T]]]
+    path_data: Union[Sequence[T], Dict[str, Sequence[T]]]
 ) -> Union[T, Dict[str, T]]:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 
@@ -337,10 +337,10 @@ class VisionsTypeset:
         return data
 
     def output_graph(
-            self,
-            file_name: Union[str, Path],
-            base_only: bool = False,
-            dpi: Optional[int] = None,
+        self,
+        file_name: Union[str, Path],
+        base_only: bool = False,
+        dpi: Optional[int] = None,
     ) -> None:
         """Write the type graph to a file.
 
@@ -363,10 +363,10 @@ class VisionsTypeset:
         output_graph(graph, file_name)
 
     def plot_graph(
-            self,
-            dpi: int = 800,
-            base_only: bool = False,
-            figsize: Optional[Tuple[int, int]] = None,
+        self,
+        dpi: int = 800,
+        base_only: bool = False,
+        figsize: Optional[Tuple[int, int]] = None,
     ):
         """
 

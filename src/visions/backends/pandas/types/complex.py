@@ -12,13 +12,17 @@ from visions.types.complex import Complex
 from visions.types.string import String
 
 
-def imaginary_in_string(series: pd.Series, imaginary_indicator: tuple = ("j", "i")) -> bool:
+def imaginary_in_string(
+    series: pd.Series, imaginary_indicator: tuple = ("j", "i")
+) -> bool:
     return any(any(v in s for v in imaginary_indicator) for s in series)
 
 
 def convert_val_to_complex(val: str) -> Union[complex, float]:
     result = complex(val)
-    return np.nan if any(math.isnan(val) for val in (result.real, result.imag)) else result
+    return (
+        np.nan if any(math.isnan(val) for val in (result.real, result.imag)) else result
+    )
 
 
 def convert_to_complex_series(series: pd.Series) -> pd.Series:
@@ -27,12 +31,14 @@ def convert_to_complex_series(series: pd.Series) -> pd.Series:
 
 @Complex.register_relationship(String, pd.Series)
 def string_is_complex(series: pd.Series, state: dict) -> bool:
-    coerced_series = test_utils.option_coercion_evaluator(convert_to_complex_series)(series)
+    coerced_series = test_utils.option_coercion_evaluator(convert_to_complex_series)(
+        series
+    )
 
     return (
-            coerced_series is not None
-            and not all(v.imag == 0 for v in coerced_series.dropna())
-            and imaginary_in_string(series)
+        coerced_series is not None
+        and not all(v.imag == 0 for v in coerced_series.dropna())
+        and imaginary_in_string(series)
     )
 
 

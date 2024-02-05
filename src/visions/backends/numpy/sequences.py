@@ -44,12 +44,7 @@ def get_sequences() -> Dict[str, Sequence]:
             complex(3, -1),
         ],
         "bool_series3": np.array([1, 0, 0, 1], dtype=np.bool_),
-        "complex_series_nan": [
-            complex(0, 0),
-            complex(1, 2),
-            complex(3, -1),
-            None
-        ],
+        "complex_series_nan": [complex(0, 0), complex(1, 2), complex(3, -1), None],
         "complex_series_nan_2": [
             complex(0, 0),
             complex(1, 2),

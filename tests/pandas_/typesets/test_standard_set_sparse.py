@@ -20,7 +20,7 @@ from visions.types import (
 )
 
 not_pandas_1_0_5 = not (
-        (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
+    (pandas_version[0] == 1) and (pandas_version[1] == 0) and (pandas_version[2] == 5)
 )
 
 series = get_sparse_series()

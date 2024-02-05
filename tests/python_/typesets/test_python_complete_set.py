@@ -445,7 +445,7 @@ cast_results = {
     ],
     "py_datetime_str": [
         datetime.datetime(1941, 5, 24, 0, 5, 0),
-        datetime.datetime(2016, 10, 13, 0, 10, 0)
+        datetime.datetime(2016, 10, 13, 0, 10, 0),
     ],
     "string_date": [datetime.date(1937, 5, 6), datetime.date(2014, 4, 20)],
 }
