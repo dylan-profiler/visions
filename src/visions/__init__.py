@@ -11,4 +11,5 @@ from visions.functional import (
 )
 from visions.types import *
 from visions.typesets import *
-from visions.version import __version__
+
+__version__ = "0.7.6"
