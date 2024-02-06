@@ -16,6 +16,7 @@ from visions.test.utils import (
 )
 from visions.types import (
     Boolean,
+    Categorical,
     Complex,
     DateTime,
     Float,
@@ -24,7 +25,6 @@ from visions.types import (
     Object,
     String,
     TimeDelta,
-    Categorical
 )
 from visions.typesets.standard_set import StandardSet
 
