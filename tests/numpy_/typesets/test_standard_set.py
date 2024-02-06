@@ -328,7 +328,7 @@ def test_inference(name, series, inference_type, typeset, difference):
 # Conversions in one single step
 convert_map = [
     # Model type, Relation type
-    (Integer, Float, {"int_nan_series", "float_series2"}),
+    (Integer, Float, {"int_nan_series", "float_series2", "Int64_int_nan_series"}),
     (Complex, String, {"str_complex", "str_complex_nan"}),
     (
         Float,
@@ -403,6 +403,7 @@ cast_results = {
     "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
     "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
     "mixed": np.array([True, False, np.nan]),
+    "Int64_int_nan_series": np.array([1, 2, 3, np.nan]),
 }
 cast_results = {
     k: v.to_numpy() if isinstance(v, pd.Series) else v for k, v in cast_results.items()

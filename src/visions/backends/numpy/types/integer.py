@@ -10,7 +10,10 @@ def float_is_integer(series: np.ndarray, state: dict) -> bool:
     return np.all(np.mod(series[~np.isnan(series)], 1) == 0)
 
 
+# TODO: The array_handle_nulls is actually removing nulls from the result. This is _far_ from ideal but there is no
+# other native way to represent nullable integers in numpy
 @Integer.register_transformer(Float, np.ndarray)
+@array_handle_nulls
 def float_to_integer(series: np.ndarray, state: dict) -> np.ndarray:
     return series.astype(int)
 
