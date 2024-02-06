@@ -2,7 +2,6 @@
   <img src="images/visions.png" width="600px"><br>
   <i>And these visions of data types, they kept us up past the dawn.</i> 
 </div>
-
 <p align="center">
   <a href="https://pypi.org/project/visions/">
     <img src="https://pepy.tech/badge/visions" />
@@ -121,7 +120,8 @@ df.head(2)
   </tbody>
 </table>
 
-The most important abstraction in `visions` are Types - these represent semantic notions about data. You have access to a
+The most important abstraction in `visions` are Types - these represent semantic notions about data. You have access to
+a
 range of well tested types like `Integer`, `Float`, and `Files` covering the most common software development use cases.
 Types can be bundled together into typesets. Behind the scenes, `visions` builds a traversable graph for any collection
 of types.

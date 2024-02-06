@@ -18,7 +18,7 @@ pypi_package:
 	check-manifest
 	python setup.py sdist bdist_wheel
 	twine check dist/*
-	twine upload --skip-existing dist/*
+	twine upload --skip-existing dist/* -u __token__
 
 ## Run black linting
 lint:

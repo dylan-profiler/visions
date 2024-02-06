@@ -51,7 +51,7 @@ setup(
     tests_require=test_requirements,
     python_requires=">=3.8",
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type="text/markdown",
     zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3",
