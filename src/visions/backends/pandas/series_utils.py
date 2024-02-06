@@ -2,7 +2,6 @@ import functools
 from typing import Callable
 
 import pandas as pd
-from pandas.api import types as pdt
 
 
 # For future reference: get the dtype from the subtype when the series is sparse
@@ -11,7 +10,7 @@ def series_handle_sparse_dtype(fn: Callable[..., bool]) -> Callable[..., bool]:
 
     @functools.wraps(fn)
     def inner(series: pd.Series, state: dict, *args, **kwargs) -> bool:
-        if pdt.is_sparse(series):
+        if isinstance(series.dtype, pd.SparseDtype):
             dtype = series.dtype.subtype
         else:
             dtype = series.dtype
@@ -43,7 +42,7 @@ def series_not_sparse(fn: Callable[..., bool]) -> Callable[..., bool]:
 
     @functools.wraps(fn)
     def inner(series: pd.Series, *args, **kwargs) -> bool:
-        if pdt.is_sparse(series):
+        if isinstance(series, pd.SparseDtype):
             return False
         return fn(series, *args, **kwargs)
 

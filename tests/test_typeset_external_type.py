@@ -2,6 +2,7 @@
 Test for issue 85
 https://github.com/dylan-profiler/visions/issues/85
 """
+
 import pytest
 
 from visions import VisionsTypeset

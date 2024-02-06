@@ -566,7 +566,6 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
 
         # if we want nans, count the mask
         if not dropna:
-
             # TODO(extension)
             # appending to an Index *always* infers
             # w/o passing the dtype
@@ -749,7 +748,6 @@ class BoolArray(ExtensionArray, ExtensionOpsMixin):
 BoolArray._add_arithmetic_ops()
 BoolArray._add_comparison_ops()
 
-
 _dtype_docstring = """
 An ExtensionDtype for {dtype} data.
 
@@ -768,7 +766,7 @@ BoolDtype = register_extension_dtype(
         "BoolDtype",
         (_BoolDtype,),
         {
-            "type": np.bool,
+            "type": np.bool_,
             "name": "Bool",
             "__doc__": _dtype_docstring.format(dtype="bool"),
         },

@@ -1,6 +1,7 @@
 """
 A selection of testing utilities for visions.
 """
+
 import functools
 from typing import Callable, Dict, List, Optional, Type, Union
 

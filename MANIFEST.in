@@ -1,10 +1,10 @@
 include LICENSE
 include README.md
-include SIDNfonds.png
 include requirements*.txt
 include src/visions/py.typed
 include *.yaml
 recursive-include src *.md
+recursive-include images *.png
 
 exclude Makefile make.bat
 recursive-include src *.py
@@ -23,6 +23,7 @@ recursive-include examples *.ipynb
 exclude src/visions/visualisation/summaries src/visions/visualisation/typesets
 recursive-exclude src/visions/visualisation/summaries *
 recursive-exclude src/visions/visualisation/typesets *
+
 
 # Include template
 include src/visions/visualisation/circular_packing.html

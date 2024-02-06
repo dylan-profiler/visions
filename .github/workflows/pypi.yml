@@ -2,23 +2,23 @@ name: Deploy to PyPi
 
 on:
   release:
-      types: [created]
-  
+    types: [ created ]
+
 jobs:
   release:
     if: github.event_name == 'release' && github.event.action == 'created'
     name: PyPi Release
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
       name: Checkout repo
-
-    - name: Set up Python 3.8
+    
+    - name: Set up Python 3.12
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8
-
+        python-version: 3.12
+    
     - uses: actions/cache@v1
       name: Cache pip dependencies
       with:
@@ -26,23 +26,23 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
+    
     - name: Install pip dependencies
       run: |
-         pip install --upgrade pip
-         pip install -r requirements.txt
-         pip install -r requirements_dev.txt
-         pip install -r requirements_test.txt
-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements_dev.txt
+        pip install -r requirements_test.txt
+    
     - name: Install
       run: make install
-
+    
     - name: Make distribution
       run: |
         check-manifest
         python setup.py sdist bdist_wheel
         twine check dist/*
-
+    
     - name: Publish a Python distribution to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:

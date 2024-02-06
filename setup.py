@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 # Read the contents of README file
 source_root = Path(".")
-with (source_root / "README.rst").open(encoding="utf-8") as f:
+with (source_root / "README.md").open(encoding="utf-8") as f:
     long_description = f.read()
 
 # Read the requirements
@@ -35,14 +35,8 @@ extras_requires["all"] = requirements + [
     for dependency in dependencies
 ]
 
-__version__ = None
-with (source_root / "src/visions/version.py").open(encoding="utf8") as f:
-    exec(f.read())
-
-
 setup(
     name="visions",
-    version=__version__,
     url="https://github.com/dylan-profiler/visions",
     description="Visions",
     license="BSD License",
@@ -55,16 +49,16 @@ setup(
     include_package_data=True,
     extras_require=extras_requires,
     tests_require=test_requirements,
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
 )

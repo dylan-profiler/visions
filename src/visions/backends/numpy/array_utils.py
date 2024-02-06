@@ -61,7 +61,6 @@ if has_numba:
     def all_type(array: np.ndarray, dtypes: Union[type, Tuple[type, ...]]) -> bool:
         return _base_all_type(array, dtypes)
 
-
 else:
 
     def all_type(array: np.ndarray, dtypes: Union[type, Tuple[type, ...]]) -> bool:

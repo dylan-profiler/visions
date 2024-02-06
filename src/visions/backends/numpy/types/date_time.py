@@ -6,6 +6,7 @@ import pandas as pd
 
 from visions.backends.numpy import test_utils
 from visions.backends.numpy.array_utils import array_handle_nulls, array_not_empty
+from visions.backends.pandas.types.date_time import pandas_infer_datetime
 from visions.types import DateTime, String
 
 
@@ -32,7 +33,7 @@ def string_is_datetime(array: np.ndarray, state: dict) -> bool:
 @DateTime.register_transformer(String, np.ndarray)
 def string_to_datetime(array: np.ndarray, state: dict) -> np.ndarray:
     # return array.astype(np.datetime64)
-    return pd.to_datetime(array).to_numpy()
+    return pandas_infer_datetime(pd.Series(array), state).to_numpy()
 
 
 @DateTime.contains_op.register

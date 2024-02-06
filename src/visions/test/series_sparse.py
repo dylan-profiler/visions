@@ -14,7 +14,7 @@ def get_sparse_series() -> Dict[str, pd.Series]:
     test_series = {
         "int_sparse": pd.Series([-1, 0, 1, 2, 3], dtype=pd.SparseDtype(np.int32, 0)),
         "float_sparse": pd.Series(
-            [np.nan, 0, 1, 2, 3],
+            [np.nan, 0.2, 1, 2, 3],
             dtype=pd.SparseDtype(np.float64, np.nan),
         ),
         "complex_sparse": pd.Series(
@@ -23,17 +23,17 @@ def get_sparse_series() -> Dict[str, pd.Series]:
         ),
         "bool_sparse": pd.Series(
             [True, False, False],
-            dtype=pd.SparseDtype(np.bool, False),
+            dtype=pd.SparseDtype(np.bool_, False),
         ),
         "str_obj_sparse": pd.Series(
             pd.arrays.SparseArray([None, None, "gold", "black", "silver"]),
         ),
         # Pending https://github.com/pandas-dev/pandas/issues/35762
-        # pd.Series([NoneT, 0, 1, 2, 3, 4], name="datetime_sparse", dtype=pd.SparseDtype(np.datetime64)),
+        # pd.Series([None, 0, 1, 2, 3, 4], name="datetime_sparse", dtype=pd.SparseDtype(np.datetime64)),
         # Pandas dtypes
         "pd_int64_sparse": pd.Series(
             [0, 1, 2, 3, None],
-            dtype=pd.SparseDtype(pd.Int64Dtype()),
+            dtype=pd.SparseDtype("int", np.nan),
         ),
         # Pending https://github.com/pandas-dev/pandas/issues/35793
         # pd.Series(
@@ -50,7 +50,7 @@ def get_sparse_series() -> Dict[str, pd.Series]:
         )
         test_series["pd_bool_sparse"] = pd.Series(
             [True, False, False, None],
-            dtype=pd.SparseDtype(pd.BooleanDtype(), None),
+            dtype=pd.SparseDtype("bool", pd.NA),
         )
 
     return test_series

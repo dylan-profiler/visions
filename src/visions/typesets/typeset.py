@@ -143,6 +143,7 @@ def traverse_graph_with_series(
 
     for vision_type in graph.successors(base_type):
         relation = graph[base_type][vision_type]["relationship"]
+
         if relation.is_relation(series, state):
             series = relation.transform(series, state)
             return traverse_graph_with_series(vision_type, series, graph, path, state)
@@ -299,7 +300,6 @@ class VisionsTypeset:
         return traverse_graph(data, self.root_node, self.relation_graph)
 
     def infer_type(self, data: Sequence) -> Union[T, Dict[str, T]]:
-
         """The inferred type found using all type relations.
 
         Args:

@@ -11,7 +11,10 @@ def get_series() -> Dict[str, pd.Series]:
     sequences = get_builtin_sequences()
     sequences.update(get_numpy_sequences())
 
-    test_series = {name: pd.Series(sequence) for name, sequence in sequences.items()}
+    test_series = {}
+    for name, sequence in sequences.items():
+        test_series[name] = pd.Series(sequence)
+
     test_series.update(get_pandas_sequences())
     assert all(isinstance(v, pd.Series) for v in test_series.values())
 
