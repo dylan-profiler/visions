@@ -16,7 +16,6 @@ from visions.test.utils import (
 )
 from visions.types import (
     Boolean,
-    Categorical,
     Complex,
     DateTime,
     Float,
@@ -25,6 +24,7 @@ from visions.types import (
     Object,
     String,
     TimeDelta,
+    Categorical
 )
 from visions.typesets.standard_set import StandardSet
 
@@ -33,20 +33,27 @@ def reload_series_to_numpy(s):
     return np.array(s.tolist())
 
 
+def fix_nan(series: pd.Series):
+    mask = [val is pd.NA for val in series]
+    series[mask] = np.nan
+    return reload_series_to_numpy(series)
+
+
 array = get_series()
 array.update(get_geometry_series())
 array = {k: v.to_numpy() for k, v in array.items()}
 
 # Pandas doesn't correctly handle complex categoricals pending
 # https://github.com/pandas-dev/pandas/pull/36482/
-array.pop("categorical_complex_series")
+# array.pop("categorical_complex_series")
 
 # Some sequences don't round trip correctly from pandas (i.e. Series.to_numpy()
 # is not equivalent to np.array(Series.tolist())
 array["Int64_int_series"] = reload_series_to_numpy(array["Int64_int_series"])
 array["pd_uint32"] = reload_series_to_numpy(array["pd_uint32"])
+array["Int64_int_nan_series"] = fix_nan(array["Int64_int_nan_series"])
 
-typeset = StandardSet() - Categorical
+typeset = StandardSet()  # - Categorical
 
 contains_map = {
     Integer: {
@@ -72,6 +79,7 @@ contains_map = {
         "float_series6",
         "categorical_float_series",
     },
+    Categorical: set(),
     Boolean: {
         "bool_series",
         "bool_series2",
@@ -88,7 +96,7 @@ contains_map = {
         "complex_series_nan_2",
         "complex_series_float",
         "complex_series_py_float",
-        # "categorical_complex_series",
+        "categorical_complex_series",
     },
     DateTime: {
         "timestamp_series",
@@ -193,6 +201,7 @@ def test_contains(name, series, contains_type, member):
         contains_type: the type to test against
         member: the result
     """
+
     result, message = contains(name, series, contains_type, member)
     assert result, message
 
@@ -247,7 +256,6 @@ inference_map = {
     "complex_series_nan_2": Complex,
     "complex_series_py_nan": Complex,
     "complex_series_py": Complex,
-    # "categorical_complex_series": Complex,
     "timestamp_series": DateTime,
     "timestamp_series_nat": DateTime,
     "timestamp_aware_series": DateTime,
@@ -310,6 +318,7 @@ inference_map = {
     "all_null_nat": Generic,
     "all_null_empty_str": String,
     "string_dtype_series": String,
+    "categorical_complex_series": Complex,
 }
 
 
