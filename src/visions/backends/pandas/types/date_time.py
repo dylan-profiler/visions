@@ -1,5 +1,3 @@
-from functools import partial
-
 import pandas as pd
 from pandas.api import types as pdt
 
@@ -12,14 +10,26 @@ from visions.backends.pandas.series_utils import (
 from visions.types import DateTime, String
 
 
+def pandas_infer_datetime(series: pd.Series, state: dict) -> pd.Series:
+    try:
+        return pd.to_datetime(series)
+    except Exception:
+        pass
+
+    return pd.to_datetime(series, format="mixed")
+
+
 @DateTime.register_relationship(String, pd.Series)
 @series_handle_nulls
 def string_is_datetime(series: pd.Series, state: dict) -> bool:
-    exceptions = [OverflowError, TypeError]
+    def string_to_datetime_func(series: pd.Series) -> pd.Series:
+        return pandas_infer_datetime(series, state)
 
+    exceptions = [OverflowError, TypeError]
     coerced_series = test_utils.option_coercion_evaluator(
-        partial(string_to_datetime, state=state), exceptions
+        string_to_datetime_func, exceptions
     )(series)
+
     if coerced_series is None:
         return False
     else:
@@ -28,7 +38,7 @@ def string_is_datetime(series: pd.Series, state: dict) -> bool:
 
 @DateTime.register_transformer(String, pd.Series)
 def string_to_datetime(series: pd.Series, state: dict) -> pd.Series:
-    return pd.to_datetime(series)
+    return pandas_infer_datetime(series, state)
 
 
 @DateTime.contains_op.register

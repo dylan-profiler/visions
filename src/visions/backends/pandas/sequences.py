@@ -68,7 +68,7 @@ def get_sequences() -> Dict[str, Iterable]:
             pd.date_range(
                 start="2013-05-18 12:00:01",
                 periods=2,
-                freq="H",
+                freq="h",
                 tz="Europe/Brussels",
             )
         ),

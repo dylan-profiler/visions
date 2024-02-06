@@ -1,6 +1,7 @@
 """
 A selection of testing utilities for visions.
 """
+
 import functools
 from typing import Callable, Dict, List, Optional, Type, Union
 
@@ -160,10 +161,10 @@ def coercion_map(mapping: Union[List[Dict], Dict]) -> Callable[[pd.Series], pd.S
     Returns:
         A callable that maps the series.
     """
-    if type(mapping) == list:
+    if isinstance(mapping, list):
         mapping = {k: v for d in mapping for k, v in d.items()}
 
-    elif type(mapping) != dict:
+    elif not isinstance(mapping, dict):
         raise ValueError("Mapping should be dict or list of dicts")
 
     def f(series: pd.Series) -> pd.Series:

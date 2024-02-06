@@ -33,33 +33,40 @@ def reload_series_to_numpy(s):
     return np.array(s.tolist())
 
 
+def fix_nan(series: pd.Series):
+    mask = [val is pd.NA for val in series]
+    series[mask] = np.nan
+    return reload_series_to_numpy(series)
+
+
 array = get_series()
 array.update(get_geometry_series())
 array = {k: v.to_numpy() for k, v in array.items()}
 
 # Pandas doesn't correctly handle complex categoricals pending
 # https://github.com/pandas-dev/pandas/pull/36482/
-array.pop("categorical_complex_series")
+# array.pop("categorical_complex_series")
 
 # Some sequences don't round trip correctly from pandas (i.e. Series.to_numpy()
 # is not equivalent to np.array(Series.tolist())
 array["Int64_int_series"] = reload_series_to_numpy(array["Int64_int_series"])
 array["pd_uint32"] = reload_series_to_numpy(array["pd_uint32"])
+array["Int64_int_nan_series"] = fix_nan(array["Int64_int_nan_series"])
 
-typeset = StandardSet() - Categorical
+typeset = StandardSet()  # - Categorical
 
 contains_map = {
     Integer: {
-        "int_series",
         "Int64_int_series",
+        "int_series",
         "int_range",
-        "Int64_int_nan_series",
         "int_series_boolean",
         "np_uint32",
         "pd_uint32",
         "categorical_int_series",
     },
     Float: {
+        "Int64_int_nan_series",
         "float_series",
         "float_series2",
         "float_series3",
@@ -72,6 +79,7 @@ contains_map = {
         "float_series6",
         "categorical_float_series",
     },
+    Categorical: set(),
     Boolean: {
         "bool_series",
         "bool_series2",
@@ -88,7 +96,7 @@ contains_map = {
         "complex_series_nan_2",
         "complex_series_float",
         "complex_series_py_float",
-        # "categorical_complex_series",
+        "categorical_complex_series",
     },
     DateTime: {
         "timestamp_series",
@@ -133,56 +141,55 @@ contains_map = {
         "string_dtype_series",
         "ordinal",
     },
+    Object: {
+        "path_series_linux",
+        "path_series_linux_missing",
+        "path_series_windows",
+        "url_series",
+        "url_nan_series",
+        "url_none_series",
+        "file_test_py",
+        "file_mixed_ext",
+        "file_test_py_missing",
+        "image_png",
+        "image_png_missing",
+        "image_png",
+        "image_png_missing",
+        "email_address",
+        "email_address_missing",
+        "uuid_series",
+        "uuid_series_missing",
+        "ip",
+        "ip_mixed_v4andv6",
+        "ip_missing",
+        "geometry_series",
+        "geometry_series_missing",
+        "mixed_list[str,int]",
+        "mixed_dict",
+        "callable",
+        "module",
+        "mixed_integer",
+        "mixed_list",
+        "date",
+        "time",
+        "ordinal",
+    },
+    Generic: {
+        "empty",
+        "empty_bool",
+        "empty_float",
+        "empty_int64",
+        "empty_object",
+        "all_null_none",
+        "all_null_nan",
+        "all_null_nat",
+        "nan_series",
+        "nan_series_2",
+    },
 }
 
-
-contains_map[Object] = {
-    "path_series_linux",
-    "path_series_linux_missing",
-    "path_series_windows",
-    "url_series",
-    "url_nan_series",
-    "url_none_series",
-    "file_test_py",
-    "file_mixed_ext",
-    "file_test_py_missing",
-    "image_png",
-    "image_png_missing",
-    "image_png",
-    "image_png_missing",
-    "email_address",
-    "email_address_missing",
-    "uuid_series",
-    "uuid_series_missing",
-    "ip",
-    "ip_mixed_v4andv6",
-    "ip_missing",
-    "geometry_series",
-    "geometry_series_missing",
-    "mixed_list[str,int]",
-    "mixed_dict",
-    "callable",
-    "module",
-    "mixed_integer",
-    "mixed_list",
-    "date",
-    "time",
-    "ordinal",
-}
 
 # Empty series
-contains_map[Generic] = {
-    "empty",
-    "empty_bool",
-    "empty_float",
-    "empty_int64",
-    "empty_object",
-    "all_null_none",
-    "all_null_nan",
-    "all_null_nat",
-    "nan_series",
-    "nan_series_2",
-}
 
 
 @pytest.mark.parametrize(**get_contains_cases(array, contains_map, typeset))
@@ -194,6 +201,7 @@ def test_contains(name, series, contains_type, member):
         contains_type: the type to test against
         member: the result
     """
+
     result, message = contains(name, series, contains_type, member)
     assert result, message
 
@@ -248,7 +256,6 @@ inference_map = {
     "complex_series_nan_2": Complex,
     "complex_series_py_nan": Complex,
     "complex_series_py": Complex,
-    # "categorical_complex_series": Complex,
     "timestamp_series": DateTime,
     "timestamp_series_nat": DateTime,
     "timestamp_aware_series": DateTime,
@@ -311,6 +318,7 @@ inference_map = {
     "all_null_nat": Generic,
     "all_null_empty_str": String,
     "string_dtype_series": String,
+    "categorical_complex_series": Complex,
 }
 
 
@@ -329,7 +337,7 @@ def test_inference(name, series, inference_type, typeset, difference):
 # Conversions in one single step
 convert_map = [
     # Model type, Relation type
-    (Integer, Float, {"int_nan_series", "float_series2"}),
+    (Integer, Float, {"int_nan_series", "float_series2", "Int64_int_nan_series"}),
     (Complex, String, {"str_complex", "str_complex_nan"}),
     (
         Float,
@@ -404,6 +412,7 @@ cast_results = {
     "textual_float": pd.Series([1.1, 2.0], dtype=np.float64),
     "textual_float_nan": pd.Series([1.1, 2.0, np.nan], dtype=np.float64),
     "mixed": np.array([True, False, np.nan]),
+    "Int64_int_nan_series": np.array([1, 2, 3, np.nan]),
 }
 cast_results = {
     k: v.to_numpy() if isinstance(v, pd.Series) else v for k, v in cast_results.items()

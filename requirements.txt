@@ -1,5 +1,5 @@
-numpy
-pandas>=0.25.3
+numpy>=1.23.2
+pandas>=2.0.0
 attrs>=19.3.0
 networkx>=2.4
 multimethod>=1.4
