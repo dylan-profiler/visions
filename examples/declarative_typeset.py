@@ -4,7 +4,11 @@ from visions import Generic, VisionsTypeset, create_type
 
 
 def is_np_float(array, state):
+<<<<<<< HEAD
     return np.issubdtype(array.dtype, np.floating)
+=======
+    return np.issubdtype(array.dtype, np.float_)
+>>>>>>> master
 
 
 def is_np_int(array, state):
