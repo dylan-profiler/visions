@@ -6,6 +6,7 @@ from visions import Generic, VisionsTypeset, create_type
 def is_np_float(array, state):
     return np.issubdtype(array.dtype, np.floating)
 
+
 def is_np_int(array, state):
     return np.issubdtype(array.dtype, np.int_)
 
