@@ -127,7 +127,8 @@ elif HAS_IMGHDR:
     def path_is_image(p: Union[Path, str]) -> bool:
         return imghdr.what(p) is not None
 else:
-
+    from visions.utils.errors import VisionsDependencyError
+    
     def path_is_image(p: Union[Path, str]) -> bool:
         msg = "No image support available. Please install visions[type_image_path] to use these features."
         raise VisionsDependencyError(msg)

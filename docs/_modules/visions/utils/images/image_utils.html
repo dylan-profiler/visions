@@ -250,8 +250,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">path_is_image</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">imghdr</span><span class="o">.</span><span class="n">what</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 <span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">visions.utils.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisionsDependencyError</span>
+    
     <span class="k">def</span><span class="w"> </span><span class="nf">path_is_image</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;No image support available. Please install visions[type_image_path] to use these features.&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No image support available. Please install visions[type_image_path] to use these features.&quot;</span>
+        <span class="k">raise</span> <span class="n">VisionsDependencyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </pre></div>
 
            </div>
