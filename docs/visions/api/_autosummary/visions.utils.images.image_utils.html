@@ -1,24 +1,25 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>visions.utils.images.image_utils &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>visions.utils.images.image_utils &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="visions.utils.monkeypatches.imghdr_patch" href="visions.utils.monkeypatches.imghdr_patch.html" />
+    <link rel="next" title="visions.utils.monkeypatches.pathlib_patch" href="visions.utils.monkeypatches.pathlib_patch.html" />
     <link rel="prev" title="Utils" href="../utils.html" /> 
 </head>
 
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,8 +85,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../functional.html">Functional API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../declarative.html">Declarative API</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.utils.images.image_utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="visions.utils.monkeypatches.imghdr_patch.html">visions.utils.monkeypatches.imghdr_patch</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.utils.images.image_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.images.image_utils.decode_byte_exif"><code class="docutils literal notranslate"><span class="pre">decode_byte_exif()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.images.image_utils.extract_exif"><code class="docutils literal notranslate"><span class="pre">extract_exif()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.images.image_utils.get_image_shape"><code class="docutils literal notranslate"><span class="pre">get_image_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.images.image_utils.hash_image"><code class="docutils literal notranslate"><span class="pre">hash_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.images.image_utils.is_image_truncated"><code class="docutils literal notranslate"><span class="pre">is_image_truncated()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.images.image_utils.open_image"><code class="docutils literal notranslate"><span class="pre">open_image()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.monkeypatches.pathlib_patch.html">visions.utils.monkeypatches.pathlib_patch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.graph.html">visions.utils.graph</a></li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.warning_handling.html">visions.utils.warning_handling</a></li>
@@ -104,10 +116,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../api.html">API</a> &raquo;</li>
-          <li><a href="../utils.html">Utils</a> &raquo;</li>
-      <li>visions.utils.images.image_utils</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="../utils.html">Utils</a></li>
+      <li class="breadcrumb-item active">visions.utils.images.image_utils</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/visions/api/_autosummary/visions.utils.images.image_utils.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -118,84 +130,76 @@
            <div itemprop="articleBody">
              
   <section id="module-visions.utils.images.image_utils">
-<span id="visions-utils-images-image-utils"></span><h1>visions.utils.images.image_utils<a class="headerlink" href="#module-visions.utils.images.image_utils" title="Permalink to this headline"></a></h1>
+<span id="visions-utils-images-image-utils"></span><h1>visions.utils.images.image_utils<a class="headerlink" href="#module-visions.utils.images.image_utils" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.images.image_utils.decode_byte_exif">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">decode_byte_exif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exif_val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#decode_byte_exif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.decode_byte_exif" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">decode_byte_exif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exif_val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#decode_byte_exif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.decode_byte_exif" title="Link to this definition"></a></dt>
 <dd><p>Decode byte encodings</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>exif_val</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exif_val</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</span>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 <p>Returns:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.images.image_utils.extract_exif">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">extract_exif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#extract_exif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.extract_exif" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">extract_exif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#extract_exif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.extract_exif" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<span class="sphinx_autodoc_typehints-type">&lt;module ‘PIL.Image’ from ‘/Users/ian/repos/dylan-profiling/visions/.venv/lib/python3.13/site-packages/PIL/Image.py’&gt;</span>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
 </dd>
 </dl>
 <p>Returns:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.images.image_utils.get_image_shape">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">get_image_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#get_image_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.get_image_shape" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">get_image_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#get_image_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.get_image_shape" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<span class="sphinx_autodoc_typehints-type">&lt;module ‘PIL.Image’ from ‘/Users/ian/repos/dylan-profiling/visions/.venv/lib/python3.13/site-packages/PIL/Image.py’&gt;</span>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
 </dd>
 </dl>
 <p>Returns:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.images.image_utils.hash_image">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">hash_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#hash_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.hash_image" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">hash_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#hash_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.hash_image" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<span class="sphinx_autodoc_typehints-type">&lt;module ‘PIL.Image’ from ‘/Users/ian/repos/dylan-profiling/visions/.venv/lib/python3.13/site-packages/PIL/Image.py’&gt;</span>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
 </dd>
 </dl>
 <p>Returns:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.images.image_utils.is_image_truncated">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">is_image_truncated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#is_image_truncated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.is_image_truncated" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">is_image_truncated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#is_image_truncated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.is_image_truncated" title="Link to this definition"></a></dt>
 <dd><p>Returns True if the path refers to a truncated image</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>&lt;module 'PIL.Image' from '/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/PIL/Image.py'&gt;</em>) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<span class="sphinx_autodoc_typehints-type">&lt;module ‘PIL.Image’ from ‘/Users/ian/repos/dylan-profiling/visions/.venv/lib/python3.13/site-packages/PIL/Image.py’&gt;</span>)</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if the image is truncated</p>
 </dd>
 </dl>
@@ -203,18 +207,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.images.image_utils.open_image">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">open_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#open_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.open_image" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.images.image_utils.</span></span><span class="sig-name descname"><span class="pre">open_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/images/image_utils.html#open_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.images.image_utils.open_image" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></span>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code>]</span></p>
 </dd>
 </dl>
 <p>Returns:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code>]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -224,13 +226,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../utils.html" class="btn btn-neutral float-left" title="Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="visions.utils.monkeypatches.imghdr_patch.html" class="btn btn-neutral float-right" title="visions.utils.monkeypatches.imghdr_patch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="visions.utils.monkeypatches.pathlib_patch.html" class="btn btn-neutral float-right" title="visions.utils.monkeypatches.pathlib_patch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

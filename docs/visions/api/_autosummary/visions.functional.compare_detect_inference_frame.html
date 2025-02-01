@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>visions.functional.compare_detect_inference_frame &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>visions.functional.compare_detect_inference_frame &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -110,10 +115,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../api.html">API</a> &raquo;</li>
-          <li><a href="../typesets.html">Typesets</a> &raquo;</li>
-      <li>visions.functional.compare_detect_inference_frame</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="../typesets.html">Typesets</a></li>
+      <li class="breadcrumb-item active">visions.functional.compare_detect_inference_frame</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/visions/api/_autosummary/visions.functional.compare_detect_inference_frame.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,17 +129,20 @@
            <div itemprop="articleBody">
              
   <section id="visions-functional-compare-detect-inference-frame">
-<h1>visions.functional.compare_detect_inference_frame<a class="headerlink" href="#visions-functional-compare-detect-inference-frame" title="Permalink to this headline"></a></h1>
+<h1>visions.functional.compare_detect_inference_frame<a class="headerlink" href="#visions-functional-compare-detect-inference-frame" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.functional.compare_detect_inference_frame">
-<span class="sig-prename descclassname"><span class="pre">visions.functional.</span></span><span class="sig-name descname"><span class="pre">compare_detect_inference_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#compare_detect_inference_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.functional.compare_detect_inference_frame" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.functional.</span></span><span class="sig-name descname"><span class="pre">compare_detect_inference_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/functional.html#compare_detect_inference_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.functional.compare_detect_inference_frame" title="Link to this definition"></a></dt>
 <dd><p>Compare the types given by inference on the base graph and the relational graph</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) – the sequence to detect types on</p></li>
-<li><p><strong>typeset</strong> (<a class="reference internal" href="visions.typesets.VisionsTypeset.html#visions.typesets.VisionsTypeset" title="visions.typesets.typeset.VisionsTypeset"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code></a>) – the Typeset that provides the type context</p></li>
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></span>) – the sequence to detect types on</p></li>
+<li><p><strong>typeset</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="visions.typesets.VisionsTypeset.html#visions.typesets.VisionsTypeset" title="visions.typesets.typeset.VisionsTypeset"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsTypeset</span></code></a></span>) – the Typeset that provides the type context</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]]</span></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -149,11 +157,6 @@
 </dd>
 </dl>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="visions.types.type.VisionsBaseType.html#visions.types.type.VisionsBaseType" title="visions.types.type.VisionsBaseType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VisionsBaseType</span></code></a>]]]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -169,7 +172,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extending &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Extending &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -97,8 +102,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Extending</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Extending</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/getting_started/extending.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -109,9 +114,9 @@
            <div itemprop="articleBody">
              
   <section id="extending">
-<h1>Extending<a class="headerlink" href="#extending" title="Permalink to this headline"></a></h1>
+<h1>Extending<a class="headerlink" href="#extending" title="Link to this heading"></a></h1>
 <section id="custom-type-from-scratch">
-<h2>Custom Type (from scratch)<a class="headerlink" href="#custom-type-from-scratch" title="Permalink to this headline"></a></h2>
+<h2>Custom Type (from scratch)<a class="headerlink" href="#custom-type-from-scratch" title="Link to this heading"></a></h2>
 <p>Each <code class="docutils literal notranslate"><span class="pre">visions</span></code> type is a subclass of <code class="docutils literal notranslate"><span class="pre">VisionsBaseType</span></code> requiring a unique implementation of two methods:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">get_relations</span></code>. Returns the set of relations mapping from another type to the current type.</p></li>
@@ -119,13 +124,13 @@
 </ol>
 <p>Let’s inspect the source code for <code class="docutils literal notranslate"><span class="pre">Ordinal</span></code> to gather intuition.</p>
 <div class="literal-block-wrapper docutils container" id="ordinal">
-<div class="code-block-caption"><span class="caption-text">visions.types.ordinal.py</span><a class="headerlink" href="#ordinal" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">visions.types.type</span> <span class="kn">import</span> <span class="n">VisionsBaseType</span>
-<span class="kn">from</span> <span class="nn">visions.types.categorical</span> <span class="kn">import</span> <span class="n">Categorical</span>
+<div class="code-block-caption"><span class="caption-text">visions.types.ordinal.py</span><a class="headerlink" href="#ordinal" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">visions.types.type</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisionsBaseType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">visions.types.categorical</span><span class="w"> </span><span class="kn">import</span> <span class="n">Categorical</span>
 
 
-<span class="k">class</span> <span class="nc">Ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.types.VisionsBaseType`.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Ordinal</span><span class="p">(</span><span class="n">VisionsBaseType</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;**Ordinal** implementation of :class:`visions.types.VisionsBaseType`.</span>
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; x = pd.Series([1, 2, 3, 1, 1], dtype=&#39;category&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; x in visions.Ordinal</span>
@@ -133,11 +138,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_relations</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_relations</span><span class="p">():</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">IdentityRelation</span><span class="p">(</span><span class="n">Categorical</span><span class="p">)]</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contains_op</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">pdt</span><span class="o">.</span><span class="n">is_categorical_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">ordered</span>
 </pre></div>
 </div>
@@ -155,7 +160,7 @@ Read more on <a class="reference internal" href="../contributing/type.html"><spa
 </div>
 </section>
 <section id="another-example">
-<h2>Another example<a class="headerlink" href="#another-example" title="Permalink to this headline"></a></h2>
+<h2>Another example<a class="headerlink" href="#another-example" title="Link to this heading"></a></h2>
 <p>The default typesets in <code class="docutils literal notranslate"><span class="pre">visions</span></code> consider <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> and <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> to be distinct types.
 In fact, <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> is a special case of <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> where the number of categories is 2 and contains the values “True” and “False” (“Man” and “Woman” wouldn’t be binary).</p>
 <p>Note that for data analysis, the distinction makes sense.
@@ -163,7 +168,7 @@ For a boolean we could the true/false ratio for example.</p>
 <p>See: <code class="docutils literal notranslate"><span class="pre">examples/data_analysis</span></code> for an example.</p>
 </section>
 <section id="custom-types-extend-a-type">
-<h2>Custom Types (extend a type)<a class="headerlink" href="#custom-types-extend-a-type" title="Permalink to this headline"></a></h2>
+<h2>Custom Types (extend a type)<a class="headerlink" href="#custom-types-extend-a-type" title="Link to this heading"></a></h2>
 <div class="admonition error">
 <p class="admonition-title">Error</p>
 <p>This feature has been removed, please use the declarative API</p>
@@ -173,21 +178,21 @@ This is useful for small changes, such as adding a single relation.</p>
 <p>Each type has the method <code class="docutils literal notranslate"><span class="pre">evolve_type</span></code> for this purpose.</p>
 </section>
 <section id="declarative-api">
-<h2>Declarative API<a class="headerlink" href="#declarative-api" title="Permalink to this headline"></a></h2>
+<h2>Declarative API<a class="headerlink" href="#declarative-api" title="Link to this heading"></a></h2>
 <p>Another option is to create a new type using the declarative API.
 We can use the <code class="docutils literal notranslate"><span class="pre">create_type</span></code> function for this purpose.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">visions</span> <span class="kn">import</span> <span class="n">create_type</span>
- <span class="kn">from</span> <span class="nn">visions.types.date_time</span> <span class="kn">import</span> <span class="n">DateTime</span>
- <span class="kn">from</span> <span class="nn">visions.types.generic</span> <span class="kn">import</span> <span class="n">Generic</span>
+<div class="code-block-caption"><span class="caption-text">Add a inference relation from integer to datetime (YYYYMMDD)</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span><span class="w"> </span><span class="nn">visions</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_type</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">visions.types.date_time</span><span class="w"> </span><span class="kn">import</span> <span class="n">DateTime</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">visions.types.generic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span>
 
 
- <span class="k">def</span> <span class="nf">integer_is_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">integer_is_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
      <span class="k">return</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">coercion_test</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)))(</span><span class="n">series</span><span class="p">)</span>
 
 
- <span class="k">def</span> <span class="nf">integer_to_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">integer_to_mydatetime</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
      <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
 
 
@@ -218,16 +223,16 @@ We can use the <code class="docutils literal notranslate"><span class="pre">crea
 </div>
 </section>
 <section id="custom-typesets-from-scratch">
-<h2>Custom Typesets (from scratch)<a class="headerlink" href="#custom-typesets-from-scratch" title="Permalink to this headline"></a></h2>
+<h2>Custom Typesets (from scratch)<a class="headerlink" href="#custom-typesets-from-scratch" title="Link to this heading"></a></h2>
 <p>Although <code class="docutils literal notranslate"><span class="pre">visions</span></code> comes with an array of starter typesets suitable for most standard usage
 you may quickly find yourself looking to expand upon those types to suit your own domain specific
 needs. In order to meet those needs there are a number of easy mechanisms to either extend pre-existing
 typesets or define your own from scratch.</p>
 <p>For example, you could define a custom typeset with only time specific types as follows:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomSet</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomSet</span><span class="p">(</span><span class="n">VisionTypeset</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Typeset that exclusively supports time related types</span>
 
 <span class="sd">    Includes support for the following types:</span>
 
@@ -238,7 +243,7 @@ typesets or define your own from scratch.</p>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">DateTime</span><span class="p">,</span>
             <span class="n">TimeDelta</span><span class="p">,</span>
@@ -251,8 +256,8 @@ typesets or define your own from scratch.</p>
 </div>
 <p>or even more simply,</p>
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Custom time typeset (simplified)</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<div class="code-block-caption"><span class="caption-text">Custom time typeset (simplified)</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">visions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">v</span>
 <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">TimeDelta</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span><span class="p">]</span>
 <span class="n">CustomSet</span> <span class="o">=</span> <span class="n">VisionTypeset</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
 </pre></div>
@@ -260,12 +265,12 @@ typesets or define your own from scratch.</p>
 </div>
 </section>
 <section id="custom-typesets-extend-typeset">
-<h2>Custom typesets (extend typeset)<a class="headerlink" href="#custom-typesets-extend-typeset" title="Permalink to this headline"></a></h2>
+<h2>Custom typesets (extend typeset)<a class="headerlink" href="#custom-typesets-extend-typeset" title="Link to this heading"></a></h2>
 <p>Alternatively, typesets support a limited algebra allowing you to define new typesets
 based on simple manipulations to pre-existing sets.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<div class="code-block-caption"><span class="caption-text">Custom time typeset</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">visions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">v</span>
 <span class="n">typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="n">Time</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">Date</span>
 
 <span class="c1"># Alternatively</span>
@@ -275,7 +280,7 @@ based on simple manipulations to pre-existing sets.</p>
 </div>
 <p>Just like addition and subtraction elsewhere in Python, you can split these operations up
 in any way imaginable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">visions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">v</span>
 <span class="n">rdw_typeset</span> <span class="o">=</span> <span class="n">CompleteSet</span><span class="p">()</span>
 <span class="n">rdw_typeset</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">Boolean</span>
 <span class="n">rdw_typeset</span> <span class="o">+=</span> <span class="n">BooleanNL</span>
@@ -299,7 +304,7 @@ in any way imaginable:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

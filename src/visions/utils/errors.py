@@ -1,0 +1,2 @@
+class VisionsDependencyError(ImportError):
+    pass

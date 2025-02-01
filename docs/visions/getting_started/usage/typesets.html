@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Typesets &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Typesets &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -107,9 +112,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../usage.html">Usage</a> &raquo;</li>
-      <li>Typesets</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../usage.html">Usage</a></li>
+      <li class="breadcrumb-item active">Typesets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/visions/getting_started/usage/typesets.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -120,12 +125,12 @@
            <div itemprop="articleBody">
              
   <section id="typesets">
-<h1>Typesets<a class="headerlink" href="#typesets" title="Permalink to this headline"></a></h1>
+<h1>Typesets<a class="headerlink" href="#typesets" title="Link to this heading"></a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>Groups of types can be combined to perform analysis over data sequences like pandas series or dataframes.
 These type grouping are called typesets.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">StandardSet</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">visions.typesets</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardSet</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span> <span class="o">=</span> <span class="n">StandardSet</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">typeset</span><span class="o">.</span><span class="n">types</span>
 <span class="go">{DateTime, String, Generic, TimeDelta, Integer, Complex, Boolean, Object, Categorical, Float}</span>
@@ -141,24 +146,24 @@ and type casting.</p>
 </div>
 </section>
 <section id="detection">
-<h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline"></a></h2>
+<h2>Detection<a class="headerlink" href="#detection" title="Link to this heading"></a></h2>
 <p>Type detection attempts to answer the question: <code class="docutils literal notranslate"><span class="pre">What</span> <span class="pre">type</span> <span class="pre">is</span> <span class="pre">my</span> <span class="pre">data</span> <span class="pre">right</span> <span class="pre">now?</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Functional</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">detect_type</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">visions.functional</span><span class="w"> </span><span class="kn">import</span> <span class="n">detect_type</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">detect_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 <span class="n">String</span>
 
 <span class="c1"># Object Oriented</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">CompleteSet</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">visions.typesets</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompleteSet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset</span><span class="o">.</span><span class="n">detect_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">)</span>
 <span class="n">String</span>
 </pre></div>
 </div>
 </section>
 <section id="inference">
-<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline"></a></h2>
+<h2>Inference<a class="headerlink" href="#inference" title="Link to this heading"></a></h2>
 <p>Type inference attempts to answer the question: <code class="docutils literal notranslate"><span class="pre">What</span> <span class="pre">type</span> <span class="pre">is</span> <span class="pre">my</span> <span class="pre">data</span> <span class="pre">best</span> <span class="pre">represented</span> <span class="pre">as?</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">detect_type</span><span class="p">,</span> <span class="n">infer_type</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">visions.functional</span><span class="w"> </span><span class="kn">import</span> <span class="n">detect_type</span><span class="p">,</span> <span class="n">infer_type</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">detect_type</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 <span class="go">String</span>
 
@@ -170,9 +175,9 @@ and type casting.</p>
 Integer detection is a fairly simple use case but visions supports arbitrarily complex types from geometries to URLs to file paths and beyond.</p>
 </section>
 <section id="cast">
-<h2>Cast<a class="headerlink" href="#cast" title="Permalink to this headline"></a></h2>
+<h2>Cast<a class="headerlink" href="#cast" title="Link to this heading"></a></h2>
 <p>Type casting is the process of converting a series or dataframe from one type to another, for example, from strings to integers.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">visions.functional</span> <span class="kn">import</span> <span class="n">cast_to_inferred</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">visions.functional</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast_to_inferred</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cast_to_inferred</span><span class="p">(</span><span class="n">test_series</span><span class="p">,</span> <span class="n">typeset</span><span class="p">)</span>
 <span class="go">pd.Series([1, 2, 3])</span>
 </pre></div>
@@ -183,13 +188,13 @@ Integer detection is a fairly simple use case but visions supports arbitrarily c
 </div>
 </section>
 <section id="details">
-<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline"></a></h2>
+<h2>Details<a class="headerlink" href="#details" title="Link to this heading"></a></h2>
 <section id="the-generic-typeset">
-<h3>The Generic Typeset<a class="headerlink" href="#the-generic-typeset" title="Permalink to this headline"></a></h3>
+<h3>The Generic Typeset<a class="headerlink" href="#the-generic-typeset" title="Link to this heading"></a></h3>
 <p>All typesets include the <code class="docutils literal notranslate"><span class="pre">Generic</span></code> type at their base. The generic represents a catch all type
 to which all sequences belong. This means an “empty” typeset would still include a generic at it’s root
 from which all other types can be related.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">visions.typesets</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisionsTypeset</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">my_typeset</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">my_typeset</span><span class="o">.</span><span class="n">types</span>
 <span class="p">{</span><span class="n">Generic</span><span class="p">}</span>
@@ -197,13 +202,13 @@ from which all other types can be related.</p>
 </div>
 </section>
 <section id="multiple-typesets">
-<h3>Multiple Typesets<a class="headerlink" href="#multiple-typesets" title="Permalink to this headline"></a></h3>
+<h3>Multiple Typesets<a class="headerlink" href="#multiple-typesets" title="Link to this heading"></a></h3>
 <p>Another potential “gotcha” is to remember that all operations are defined over the specific typeset
 used to invoke the operation. In practice this means two different typesets might infer or detect
 different types for the same series.</p>
 <p>Let’s take the example of two typesets: one including the integer type and one without.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">visions</span> <span class="k">as</span> <span class="nn">v</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">visions.typesets</span> <span class="kn">import</span> <span class="n">VisionsTypeset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">visions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">v</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">visions.typesets</span><span class="w"> </span><span class="kn">import</span> <span class="n">VisionsTypeset</span>
 <span class="o">&gt;&gt;&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_1</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">Float</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">typeset_2</span> <span class="o">=</span> <span class="n">VisionsTypeset</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">Float</span><span class="p">])</span>
@@ -228,9 +233,10 @@ matching type included in the typeset was returned.</p>
 for any specific typeset will vary based on the relations implemented on each type included in
 the typeset.</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../../../_images/typeset_complete_base.svg"><img alt="Visualisation of the base data structure of the *CompleteSet*." src="../../../_images/typeset_complete_base.svg" width="700px" /></a>
+<a class="reference internal image-reference" href="../../../_images/typeset_complete_base.svg"><img alt="Visualisation of the base data structure of the *CompleteSet*." src="../../../_images/typeset_complete_base.svg" style="width: 700px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Visualisation of the base data structure of the <em>CompleteSet</em>.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Visualisation of the base data structure of the <em>CompleteSet</em>.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
@@ -248,7 +254,7 @@ the typeset.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

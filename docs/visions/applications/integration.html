@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Discovery and Data Integration &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Data Discovery and Data Integration &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -89,8 +94,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Data Discovery and Data Integration</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Discovery and Data Integration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/applications/integration.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,38 +106,43 @@
            <div itemprop="articleBody">
              
   <section id="data-discovery-and-data-integration">
-<h1>Data Discovery and Data Integration<a class="headerlink" href="#data-discovery-and-data-integration" title="Permalink to this headline"></a></h1>
+<h1>Data Discovery and Data Integration<a class="headerlink" href="#data-discovery-and-data-integration" title="Link to this heading"></a></h1>
 <p>Data discovery is the task of finding data sets relevant to their task at hand.
 Data integration is the task of combining those data sets.
 <em>“No data scientist we have talked to reports spending less than 80% of his time on discovery and integration.”</em> Stonebraker et al. report <a class="reference internal" href="#stonebraker2018dataintegration" id="id1"><span>[stonebraker2018dataintegration]</span></a>.</p>
 <p>The semantic types of data sets are critical for both tasks.</p>
 <p>Data discovery can be supported by information retrieval systems.
-Some queries like <em>“find a file with the extension CSV that contains ‘url’”</em> and <em>“find a dataset that is under a public license matching ‘titanic’”</em> are possible within current solutions based on full-text search and metadata standards <a class="footnote-reference brackets" href="#f1" id="id2">1</a>, <a class="footnote-reference brackets" href="#f2" id="id3">2</a>, <a class="footnote-reference brackets" href="#f3" id="id4">3</a>.
+Some queries like <em>“find a file with the extension CSV that contains ‘url’”</em> and <em>“find a dataset that is under a public license matching ‘titanic’”</em> are possible within current solutions based on full-text search and metadata standards <a class="footnote-reference brackets" href="#f1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f3" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
 However, queries based on the semantics of the data sets are out of reach of such approaches.
 Semantic types could support systems, such as the knowledge-graph-based <a class="reference internal" href="#aurum2018datadiscovery" id="id5"><span>[aurum2018datadiscovery]</span></a>, to allow for queries as “find tables that contain a column with name ‘ID’ and have at least one column that looks like an input column”.</p>
 <p>Providing types and their relations can provide additional support for common operations in data integration.
 Consider integrating two data sets, one coming from the office in New York, another from the same company but the one Amsterdam office.
 Without proper typing, the “wages” column in the first data set might be in dollar, while the second one in euro.</p>
-<dl class="citation">
-<dt class="label" id="stonebraker2018dataintegration"><span class="brackets"><a class="fn-backref" href="#id1">stonebraker2018dataintegration</a></span></dt>
-<dd><p>Stonebraker, M., &amp; Ilyas, I. F. (2018). Data Integration: The Current Status and the Way Forward. IEEE Data Eng. Bull., 41(2), 3-9.</p>
-</dd>
-<dt class="label" id="aurum2018datadiscovery"><span class="brackets"><a class="fn-backref" href="#id5">aurum2018datadiscovery</a></span></dt>
-<dd><p>Fernandez, R. C., Abedjan, Z., Koko, F., Yuan, G., Madden, S., &amp; Stonebraker, M. (2018, April). Aurum: A data discovery system. In 2018 IEEE 34th International Conference on Data Engineering (ICDE) (pp. 1001-1012). IEEE.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="stonebraker2018dataintegration" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">stonebraker2018dataintegration</a><span class="fn-bracket">]</span></span>
+<p>Stonebraker, M., &amp; Ilyas, I. F. (2018). Data Integration: The Current Status and the Way Forward. IEEE Data Eng. Bull., 41(2), 3-9.</p>
+</div>
+<div class="citation" id="aurum2018datadiscovery" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">aurum2018datadiscovery</a><span class="fn-bracket">]</span></span>
+<p>Fernandez, R. C., Abedjan, Z., Koko, F., Yuan, G., Madden, S., &amp; Stonebraker, M. (2018, April). Aurum: A data discovery system. In 2018 IEEE 34th International Conference on Data Engineering (ICDE) (pp. 1001-1012). IEEE.</p>
+</div>
+</div>
 <p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="https://schema.org/Dataset">https://schema.org/Dataset</a></p>
-</dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p><a class="reference external" href="https://developers.google.com/search/docs/data-types/dataset">https://developers.google.com/search/docs/data-types/dataset</a></p>
-</dd>
-<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
-<dd><p><a class="reference external" href="https://datasetsearch.research.google.com/">https://datasetsearch.research.google.com/</a></p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://schema.org/Dataset">https://schema.org/Dataset</a></p>
+</aside>
+<aside class="footnote brackets" id="f2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://developers.google.com/search/docs/data-types/dataset">https://developers.google.com/search/docs/data-types/dataset</a></p>
+</aside>
+<aside class="footnote brackets" id="f3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://datasetsearch.research.google.com/">https://datasetsearch.research.google.com/</a></p>
+</aside>
+</aside>
 </section>
 
 
@@ -146,7 +156,7 @@ Without proper typing, the “wages” column in the first data set might be in 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

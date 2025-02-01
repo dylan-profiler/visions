@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.0
+    rev: v3.17.0
     hooks:
     -   id: pyupgrade
         args: ['--py36-plus','--exit-zero-even-if-changed']
@@ -11,12 +11,12 @@ repos:
       - id: isort
         args: ["--profile", "black", "--filter-files"]
 -   repo: https://github.com/psf/black
-    rev: 24.1.1
+    rev: 24.8.0
     hooks:
     - id: black
       language_version: python
 -   repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
+    rev: 7.1.0
     hooks:
     - id: flake8
       # TODO: remove F40x, E772 and fix errors
@@ -26,7 +26,7 @@ repos:
         # - flake8-print
         - flake8-2020
 -   repo: https://github.com/mgedmin/check-manifest
-    rev: "0.49"
+    rev: "0.50"
     hooks:
     -   id: check-manifest
 # -   repo: https://github.com/pre-commit/mirrors-mypy
