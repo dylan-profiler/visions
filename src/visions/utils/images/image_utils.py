@@ -5,8 +5,8 @@ from typing import Optional, Tuple, Union
 import imagehash
 from PIL import ExifTags, Image
 
-HAS_IMGHDR = import_util.find_spec('imghdr') is not None
-HAS_PUREMAGIC = import_util.find_spec('puremagic') is not None
+HAS_IMGHDR = import_util.find_spec("imghdr") is not None
+HAS_PUREMAGIC = import_util.find_spec("puremagic") is not None
 HAS_IMAGE_SUPPORT = HAS_IMGHDR or HAS_PUREMAGIC
 
 
@@ -118,17 +118,19 @@ if HAS_PUREMAGIC:
     # Checks the mime type to identify images
     def path_is_image(file: Union[Path, str]) -> bool:
         try:
-            return puremagic.magic_file(file)[0].mime_type.startswith('image')
+            return puremagic.magic_file(file)[0].mime_type.startswith("image")
         except Exception:
             return False
+
 elif HAS_IMGHDR:
     import imghdr
 
     def path_is_image(p: Union[Path, str]) -> bool:
         return imghdr.what(p) is not None
+
 else:
     from visions.utils.errors import VisionsDependencyError
-    
+
     def path_is_image(p: Union[Path, str]) -> bool:
         msg = "No image support available. Please install visions[type_image_path] to use these features."
         raise VisionsDependencyError(msg)

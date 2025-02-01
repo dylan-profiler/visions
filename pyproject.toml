@@ -90,7 +90,7 @@ include-package-data = true
 zip-safe = false
 
 [tool.setuptools.package-dir]
-"" = "src"
+visions = "src/visions"
 
 [tool.setuptools.dynamic]
 version = { attr = "visions.__version__" }

@@ -7,7 +7,5 @@ __all__ = [
 
 if HAS_IMGHDR:
     from visions.utils.monkeypatches import imghdr_patch
+
     __all__.append("imghdr_patch")
-
-
-

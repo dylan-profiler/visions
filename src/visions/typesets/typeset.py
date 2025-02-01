@@ -202,7 +202,7 @@ def traverse_graph(
 
 @singledispatch
 def get_type_from_path(
-    path_data: Union[Sequence[T], Dict[str, Sequence[T]]]
+    path_data: Union[Sequence[T], Dict[str, Sequence[T]]],
 ) -> Union[T, Dict[str, T]]:
     raise TypeError(f"Can't get types from path object of type {type(path_data)}")
 

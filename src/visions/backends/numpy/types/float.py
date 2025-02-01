@@ -15,9 +15,9 @@ def test_string_leading_zeros(array: np.ndarray, coerced_array: np.ndarray):
 @Float.register_relationship(String, np.ndarray)
 @array_handle_nulls
 def string_is_float(array: np.ndarray, state: dict) -> bool:
-    coerced_array = test_utils.option_coercion_evaluator(lambda s: s.astype(np.floating))(
-        array
-    )
+    coerced_array = test_utils.option_coercion_evaluator(
+        lambda s: s.astype(np.floating)
+    )(array)
 
     return (
         coerced_array is not None

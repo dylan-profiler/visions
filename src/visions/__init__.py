@@ -1,7 +1,6 @@
 """Core functionality"""
 
-from visions import test
-from visions import types, typesets, utils
+from visions import test, types, typesets, utils
 from visions.backends import *
 from visions.declarative import create_type
 from visions.functional import (
