@@ -86,7 +86,7 @@ def coercion_true_test(
 
 
 def coercion_equality_test(
-    fn: Callable[[np.ndarray], np.ndarray]
+    fn: Callable[[np.ndarray], np.ndarray],
 ) -> Callable[[np.ndarray], bool]:
     """A coercion equality test generator
     Creates a coercion test based on a provided coercion function which also enforces
@@ -127,7 +127,7 @@ def coercion_multi_map_test(mapping: Dict) -> Callable[[np.ndarray, Dict], bool]
 
 
 def coercion_map_test(
-    mapping: Union[List[Dict], Dict]
+    mapping: Union[List[Dict], Dict],
 ) -> Callable[[np.ndarray, Dict], bool]:
     """Create a testing function for a single mapping or a list of mappings.
     Args:
@@ -154,7 +154,7 @@ def coercion_map_test(
 
 
 def coercion_map(
-    mapping: Union[List[Dict], Dict]
+    mapping: Union[List[Dict], Dict],
 ) -> Callable[[np.ndarray], np.ndarray]:
     """Maps a array given a mapping
     Args:

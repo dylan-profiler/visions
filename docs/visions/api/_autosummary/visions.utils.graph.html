@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>visions.utils.graph &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>visions.utils.graph &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,9 +86,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../declarative.html">Declarative API</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.images.image_utils.html">visions.utils.images.image_utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="visions.utils.monkeypatches.imghdr_patch.html">visions.utils.monkeypatches.imghdr_patch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.monkeypatches.pathlib_patch.html">visions.utils.monkeypatches.pathlib_patch</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.utils.graph</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.utils.graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.graph.output_graph"><code class="docutils literal notranslate"><span class="pre">output_graph()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.warning_handling.html">visions.utils.warning_handling</a></li>
 </ul>
 </li>
@@ -104,10 +111,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../api.html">API</a> &raquo;</li>
-          <li><a href="../utils.html">Utils</a> &raquo;</li>
-      <li>visions.utils.graph</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="../utils.html">Utils</a></li>
+      <li class="breadcrumb-item active">visions.utils.graph</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/visions/api/_autosummary/visions.utils.graph.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -118,29 +125,29 @@
            <div itemprop="articleBody">
              
   <section id="module-visions.utils.graph">
-<span id="visions-utils-graph"></span><h1>visions.utils.graph<a class="headerlink" href="#module-visions.utils.graph" title="Permalink to this headline"></a></h1>
+<span id="visions-utils-graph"></span><h1>visions.utils.graph<a class="headerlink" href="#module-visions.utils.graph" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.graph.output_graph">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.graph.</span></span><span class="sig-name descname"><span class="pre">output_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/graph.html#output_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.graph.output_graph" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.graph.</span></span><span class="sig-name descname"><span class="pre">output_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/graph.html#output_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.graph.output_graph" title="Link to this definition"></a></dt>
 <dd><p>Output a graph to a file, either as image or as dot file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>G</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DiGraph</span></code>) – the DiGraph to write or plot</p></li>
-<li><p><strong>file_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the file name to write to.</p></li>
-<li><p><strong>sort</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – create a copy of the graph with sorted keys</p></li>
+<li><p><strong>G</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiGraph</span></code></span>) – the DiGraph to write or plot</p></li>
+<li><p><strong>file_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – the file name to write to.</p></li>
+<li><p><strong>sort</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – create a copy of the graph with sorted keys</p></li>
 <li><p><strong>file_format</strong> – graphviz output format, if None, the file_name extension is used as format
 <a class="reference external" href="https://graphviz.org/doc/info/output.html">https://graphviz.org/doc/info/output.html</a></p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Nothing</p>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError when the file_name does not end on .svg</strong><strong>, </strong><strong>png</strong><strong> or </strong><strong>dot</strong> – </p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError when the file_name does not end on .svg</strong><strong>, </strong><strong>.png</strong><strong> or </strong><strong>.dot</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -158,7 +165,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

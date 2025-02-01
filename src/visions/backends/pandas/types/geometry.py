@@ -20,7 +20,13 @@ def string_is_geometry(sequence: pd.Series, state: dict) -> bool:
     sys.stderr = open(os.devnull, "w")
     try:
         result = all(wkt.loads(value) for value in sequence)
-    except (WKTReadingError, AttributeError, UnicodeEncodeError, TypeError):
+    except (
+        WKTReadingError,
+        AttributeError,
+        UnicodeEncodeError,
+        TypeError,
+        UnicodeDecodeError,
+    ):
         result = False
     finally:
         sys.stderr = sys.__stderr__

@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Typeset testing &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Typeset testing &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -93,8 +98,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Typeset testing</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Typeset testing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/getting_started/testing.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -105,7 +110,7 @@
            <div itemprop="articleBody">
              
   <section id="typeset-testing">
-<h1>Typeset testing<a class="headerlink" href="#typeset-testing" title="Permalink to this headline"></a></h1>
+<h1>Typeset testing<a class="headerlink" href="#typeset-testing" title="Link to this heading"></a></h1>
 <p>To test a typeset we typically apply it to a collection of series and assess the type that is detected matches the one that is expected. Visions contains a collection of utility functions that can help you test your typeset. Additionally, you can reuse the extensive collection of series that visions uses internally.</p>
 <p>The name of the series is used as identifier:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">testable_series</span> <span class="o">=</span> <span class="p">[</span>
@@ -116,11 +121,11 @@
 </div>
 <p>There are currently three kind of test cases that can be automatically generated to easily test the typeset: contains, inference and conversion. The test cases are generated based on an easily defined mapping specific to the type of test.</p>
 <section id="testing-contains">
-<h2>Testing contains<a class="headerlink" href="#testing-contains" title="Permalink to this headline"></a></h2>
+<h2>Testing contains<a class="headerlink" href="#testing-contains" title="Link to this heading"></a></h2>
 <p>Defining your own test cases for the “contains” relation requires a simple mapping from each type to a set of series identifiers. All series in the provided list of series should be included the the mapping. If not, <code class="docutils literal notranslate"><span class="pre">get_contains_cases</span></code> will kindly tell you which ones are missing. The example below shows a minimal example.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
-<span class="kn">from</span> <span class="nn">visions.test.series</span> <span class="kn">import</span> <span class="n">get_series</span>
-<span class="kn">from</span> <span class="nn">visions.test.utils</span> <span class="kn">import</span> <span class="n">contains</span><span class="p">,</span> <span class="n">get_contains_cases</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">visions.test.series</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_series</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">visions.test.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">contains</span><span class="p">,</span> <span class="n">get_contains_cases</span>
 
 <span class="c1"># Mapping from type to series identifier</span>
 <span class="n">typeset</span> <span class="o">=</span> <span class="n">YourTypeset</span><span class="p">()</span>
@@ -134,8 +139,8 @@
 
 <span class="c1"># Generating the test cases</span>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="o">**</span><span class="n">get_contains_cases</span><span class="p">(</span><span class="n">contains_map</span><span class="p">,</span> <span class="n">typeset</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">test_contains</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Test the generated combinations for &quot;series in type&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_contains</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test the generated combinations for &quot;series in type&quot;</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        series: the series to test</span>
@@ -148,7 +153,7 @@
 </div>
 </section>
 <section id="testing-inference-and-conversion">
-<h2>Testing inference and conversion<a class="headerlink" href="#testing-inference-and-conversion" title="Permalink to this headline"></a></h2>
+<h2>Testing inference and conversion<a class="headerlink" href="#testing-inference-and-conversion" title="Link to this heading"></a></h2>
 <p>For the other tests, please see visions’ tests. The directory <code class="docutils literal notranslate"><span class="pre">tests/typesets/</span></code> contains visions’ own typeset tests. For instance, the <code class="docutils literal notranslate"><span class="pre">CompleteSet</span></code> with all default types is tested in <code class="docutils literal notranslate"><span class="pre">test_complete_set.py</span></code> and can be used as guiding template.</p>
 </section>
 </section>
@@ -164,7 +169,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

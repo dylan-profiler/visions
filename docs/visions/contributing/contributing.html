@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Community contributions &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Community contributions &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -96,8 +101,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Community contributions</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Community contributions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/contributing/contributing.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -108,7 +113,7 @@
            <div itemprop="articleBody">
              
   <section id="community-contributions">
-<h1>Community contributions<a class="headerlink" href="#community-contributions" title="Permalink to this headline"></a></h1>
+<h1>Community contributions<a class="headerlink" href="#community-contributions" title="Link to this heading"></a></h1>
 <p>Contributions are welcome to the <code class="docutils literal notranslate"><span class="pre">visions</span></code> package! Please insure all contributions
 abide by the guidelines outlined below.</p>
 <blockquote>
@@ -117,14 +122,14 @@ abide by the guidelines outlined below.</p>
 <p class="attribution">—Bjarne Stroustrup</p>
 </div></blockquote>
 <section id="installing-dependencies">
-<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline"></a></h2>
+<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Link to this heading"></a></h2>
 <p>To get access to the development tools, you should have all dependencies installed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install visions[dev,test,plotting]</span>
 </pre></div>
 </div>
 </section>
 <section id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h2>
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
 <p>Test <code class="docutils literal notranslate"><span class="pre">visions</span></code> with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make test</span>
 </pre></div>
@@ -135,7 +140,7 @@ abide by the guidelines outlined below.</p>
 </div>
 </section>
 <section id="linting">
-<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline"></a></h2>
+<h2>Linting<a class="headerlink" href="#linting" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">visions</span></code> uses the <code class="docutils literal notranslate"><span class="pre">black</span></code> code style, <code class="docutils literal notranslate"><span class="pre">isort</span></code> for sorting imports and <code class="docutils literal notranslate"><span class="pre">pyupgrade</span></code> for updating python syntax.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make lint</span>
 </pre></div>
@@ -146,7 +151,7 @@ abide by the guidelines outlined below.</p>
 </div>
 </section>
 <section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
 <p>Software should provide adequate documentation for beginning and advanced users.
 When you contribute, please check if your contribution requires some additional documentation.
 Documentation is written in ReStructuredText (.rst).
@@ -164,7 +169,7 @@ You can find the source files in <code class="docutils literal notranslate"><spa
 </div>
 </section>
 <section id="all-together">
-<h2>All together<a class="headerlink" href="#all-together" title="Permalink to this headline"></a></h2>
+<h2>All together<a class="headerlink" href="#all-together" title="Link to this heading"></a></h2>
 <p>A shorthand for all commands above is:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make all</span>
 </pre></div>
@@ -183,7 +188,7 @@ You can find the source files in <code class="docutils literal notranslate"><spa
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Validation &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Data Validation &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -89,8 +94,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Data Validation</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Validation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/applications/validation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,12 +106,12 @@
            <div itemprop="articleBody">
              
   <section id="data-validation">
-<h1>Data Validation<a class="headerlink" href="#data-validation" title="Permalink to this headline"></a></h1>
+<h1>Data Validation<a class="headerlink" href="#data-validation" title="Link to this heading"></a></h1>
 <p>Data validation is intended to provide automated guarantees over the input data, validating whether the data are meaningful, correct, accurate, consistent or complete.
 In data analysis, we often expect certain assumption to be invariant over time regardless of how the dataset is manipulated.
 For example, we might expect a field to always be unique (identifier) or a number to range between one and five (ratings).
 Tight coupling causes the same problem as discussed above because the user often designs validation rules that are grounded in the meaning of the data.</p>
-<p>A variety of software packages have been developed to facilitate this workflow <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, <a class="footnote-reference brackets" href="#f2" id="id2">2</a>, <a class="footnote-reference brackets" href="#f3" id="id3">3</a>, <a class="footnote-reference brackets" href="#f4" id="id4">4</a>, <a class="footnote-reference brackets" href="#f5" id="id5">5</a>, <a class="footnote-reference brackets" href="#f6" id="id6">6</a>.
+<p>A variety of software packages have been developed to facilitate this workflow <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f3" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f4" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f5" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#f6" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.
 These packages can benefit from decoupling semantic and machine type representations.</p>
 <p>The part of data validation that depends on machine types, the validation methods, should have to focus of such a package.
 For example, the software could have helper functions to assert if a float is approximately the reference value (see <code class="docutils literal notranslate"><span class="pre">pytest.approx</span></code> in <a class="reference internal" href="#pytest" id="id7"><span>[pytest]</span></a>).
@@ -114,33 +119,40 @@ The other part, defining and checking properties of the data depends on semantic
 For example, the International Standard Book Number (ISBN) has a <a class="reference external" href="https://en.wikipedia.org/wiki/Check_digit">check digit</a>, which only makes sense to validate when a stored number is representing the ISBN.
 A key observation is that this highly overlaps with the data summarization example discussed above.
 Large components of that application can be reused to reduce code complexity.</p>
-<dl class="citation">
-<dt class="label" id="pytest"><span class="brackets"><a class="fn-backref" href="#id7">pytest</a></span></dt>
-<dd><p>pytest x.y, 2004
+<div role="list" class="citation-list">
+<div class="citation" id="pytest" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">pytest</a><span class="fn-bracket">]</span></span>
+<p>pytest x.y, 2004
 Krekel et al., <a class="reference external" href="https://github.com/pytest-dev/pytest">https://github.com/pytest-dev/pytest</a></p>
-</dd>
-</dl>
+</div>
+</div>
 <p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/great-expectations/great_expectations">https://github.com/great-expectations/great_expectations</a></p>
-</dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/zaxr/bulwark">https://github.com/zaxr/bulwark</a></p>
-</dd>
-<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/engarde-dev/engarde">https://github.com/engarde-dev/engarde</a></p>
-</dd>
-<dt class="label" id="f4"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/csparpa/fluentcheck">https://github.com/csparpa/fluentcheck</a></p>
-</dd>
-<dt class="label" id="f5"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/jmenglund/pandas-validation">https://github.com/jmenglund/pandas-validation</a></p>
-</dd>
-<dt class="label" id="f6"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/TMiguelT/PandasSchema">https://github.com/TMiguelT/PandasSchema</a></p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/great-expectations/great_expectations">https://github.com/great-expectations/great_expectations</a></p>
+</aside>
+<aside class="footnote brackets" id="f2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/zaxr/bulwark">https://github.com/zaxr/bulwark</a></p>
+</aside>
+<aside class="footnote brackets" id="f3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/engarde-dev/engarde">https://github.com/engarde-dev/engarde</a></p>
+</aside>
+<aside class="footnote brackets" id="f4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/csparpa/fluentcheck">https://github.com/csparpa/fluentcheck</a></p>
+</aside>
+<aside class="footnote brackets" id="f5" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/jmenglund/pandas-validation">https://github.com/jmenglund/pandas-validation</a></p>
+</aside>
+<aside class="footnote brackets" id="f6" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/TMiguelT/PandasSchema">https://github.com/TMiguelT/PandasSchema</a></p>
+</aside>
+</aside>
 </section>
 
 
@@ -154,7 +166,7 @@ Krekel et al., <a class="reference external" href="https://github.com/pytest-dev
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -15,9 +15,9 @@ def test_string_leading_zeros(array: np.ndarray, coerced_array: np.ndarray):
 @Float.register_relationship(String, np.ndarray)
 @array_handle_nulls
 def string_is_float(array: np.ndarray, state: dict) -> bool:
-    coerced_array = test_utils.option_coercion_evaluator(lambda s: s.astype(np.float_))(
-        array
-    )
+    coerced_array = test_utils.option_coercion_evaluator(
+        lambda s: s.astype(np.floating)
+    )(array)
 
     return (
         coerced_array is not None
@@ -28,7 +28,7 @@ def string_is_float(array: np.ndarray, state: dict) -> bool:
 
 @Float.register_transformer(String, np.ndarray)
 def string_to_float(array: np.array, state: dict) -> np.ndarray:
-    return array.astype(np.float_)
+    return array.astype(np.floating)
 
 
 @Float.register_relationship(Complex, np.ndarray)
@@ -38,7 +38,7 @@ def complex_is_float(array: np.array, state: dict) -> bool:
 
 @Float.register_transformer(Complex, np.ndarray)
 def complex_to_float(array: np.array, state: dict) -> np.ndarray:
-    return suppress_warnings(lambda s: s.astype(np.float_))(array)
+    return suppress_warnings(lambda s: s.astype(np.floating))(array)
 
 
 @Float.contains_op.register
