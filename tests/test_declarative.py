@@ -5,11 +5,8 @@ from visions.declarative import create_type
 
 
 def is_np_float(array, state):
-<<<<<<< HEAD
     return np.issubdtype(array.dtype, np.floating)
-=======
-    return np.issubdtype(array.dtype, np.float_)
->>>>>>> master
+
 
 
 def is_np_int(array, state):
@@ -45,10 +42,7 @@ def test_declarative():
 
     my_typeset = VisionsTypeset({Generic, Integer, Float})
 
-<<<<<<< HEAD
     array = np.arange(1, 100).astype(np.floating)
-=======
-    array = np.arange(1, 100).astype(np.float_)
->>>>>>> master
+
     assert my_typeset.detect_type(array) == Float
     assert my_typeset.infer_type(array) == Integer
