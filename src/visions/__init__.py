@@ -13,4 +13,4 @@ from visions.functional import (
 from visions.types import *
 from visions.typesets import *
 
-__version__ = "0.7.7"
+__version__ = "0.8.0"
