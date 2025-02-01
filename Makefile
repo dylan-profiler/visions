@@ -16,7 +16,7 @@ test:
 pypi_package:
 	make install
 	check-manifest
-	python setup.py sdist bdist_wheel
+	python -m build
 	twine check dist/*
 	twine upload --skip-existing dist/* -u __token__
 
