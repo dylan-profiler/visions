@@ -31,7 +31,6 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install .[testing]
-    
     - name: Install
       run: make install
     
