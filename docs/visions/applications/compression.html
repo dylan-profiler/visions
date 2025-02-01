@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Compression &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Data Compression &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -92,8 +97,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Data Compression</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Compression</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/applications/compression.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,7 +109,7 @@
            <div itemprop="articleBody">
              
   <section id="data-compression">
-<h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline"></a></h1>
+<h1>Data Compression<a class="headerlink" href="#data-compression" title="Link to this heading"></a></h1>
 <p>Decoupling <em>semantic</em> data types from <em>physical</em> data types makes it easier to compress variables.
 For this example, we restrict ourselves to in-memory compression.
 Our task is to automatically obtain an efficient in-memory representation, to minimize the RAM used while preserving the same semantic type.</p>
@@ -116,7 +121,7 @@ However, that does not mean that this is “just data munging” and we cannot d
 We observe that some patterns occur more often (“Yes”, “No” over “Arr” or “Nay”) and there are other indicators that can help a system to decide what to do (the variable two distinct values).
 We note that a rule-based system that trivially encodes each variable with two distinct values as boolean is no solution, as the encoding loses part of it’s meaning (e.g. encoding “Male”, “Female”).</p>
 <section id="compressio">
-<h2>Compressio<a class="headerlink" href="#compressio" title="Permalink to this headline"></a></h2>
+<h2>Compressio<a class="headerlink" href="#compressio" title="Link to this heading"></a></h2>
 <p>Compressio performs this lossless in-memory compression of pandas DataFrames and Series powered by the visions type system.
 This may yield up to 10x less RAM usage for the same data.</p>
 <p>For the code, examples and an analysis of pandas’ types, you can visit the <a class="reference external" href="https://github.com/dylan-profiler/compressio">Project Homepage</a>.</p>
@@ -134,7 +139,7 @@ This may yield up to 10x less RAM usage for the same data.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

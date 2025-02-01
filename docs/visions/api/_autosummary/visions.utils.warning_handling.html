@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>visions.utils.warning_handling &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>visions.utils.warning_handling &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -26,11 +27,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,10 +85,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../declarative.html">Declarative API</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.images.image_utils.html">visions.utils.images.image_utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="visions.utils.monkeypatches.imghdr_patch.html">visions.utils.monkeypatches.imghdr_patch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.monkeypatches.pathlib_patch.html">visions.utils.monkeypatches.pathlib_patch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="visions.utils.graph.html">visions.utils.graph</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.utils.warning_handling</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">visions.utils.warning_handling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.warning_handling.discard_stderr"><code class="docutils literal notranslate"><span class="pre">discard_stderr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visions.utils.warning_handling.suppress_warnings"><code class="docutils literal notranslate"><span class="pre">suppress_warnings()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -103,10 +111,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../api.html">API</a> &raquo;</li>
-          <li><a href="../utils.html">Utils</a> &raquo;</li>
-      <li>visions.utils.warning_handling</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="../utils.html">Utils</a></li>
+      <li class="breadcrumb-item active">visions.utils.warning_handling</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/visions/api/_autosummary/visions.utils.warning_handling.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -117,26 +125,26 @@
            <div itemprop="articleBody">
              
   <section id="module-visions.utils.warning_handling">
-<span id="visions-utils-warning-handling"></span><h1>visions.utils.warning_handling<a class="headerlink" href="#module-visions.utils.warning_handling" title="Permalink to this headline"></a></h1>
+<span id="visions-utils-warning-handling"></span><h1>visions.utils.warning_handling<a class="headerlink" href="#module-visions.utils.warning_handling" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.warning_handling.discard_stderr">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.warning_handling.</span></span><span class="sig-name descname"><span class="pre">discard_stderr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/warning_handling.html#discard_stderr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.warning_handling.discard_stderr" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.warning_handling.</span></span><span class="sig-name descname"><span class="pre">discard_stderr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/warning_handling.html#discard_stderr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.warning_handling.discard_stderr" title="Link to this definition"></a></dt>
 <dd><p>Shapely logs failures at a silly severity, just trying to suppress it’s output on failures.
 Only known way to get rid of sys output when wkt.loads hits a bad value</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[…, ~T]</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="visions.utils.warning_handling.suppress_warnings">
-<span class="sig-prename descclassname"><span class="pre">visions.utils.warning_handling.</span></span><span class="sig-name descname"><span class="pre">suppress_warnings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/warning_handling.html#suppress_warnings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.warning_handling.suppress_warnings" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">visions.utils.warning_handling.</span></span><span class="sig-name descname"><span class="pre">suppress_warnings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/visions/utils/warning_handling.html#suppress_warnings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#visions.utils.warning_handling.suppress_warnings" title="Link to this definition"></a></dt>
 <dd><p>Suppress warnings produces while executing the wrapped function.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[…, ~T]</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -153,7 +161,7 @@ Only known way to get rid of sys output when wkt.loads hits a bad value</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

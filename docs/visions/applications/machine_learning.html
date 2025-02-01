@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Machine Learning &mdash; visions 0.7.5 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Machine Learning &mdash; visions 0.7.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=35f4697d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -27,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> visions
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            visions
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,8 +100,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Machine Learning</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Machine Learning</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/visions/applications/machine_learning.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -107,10 +112,10 @@
            <div itemprop="articleBody">
              
   <section id="machine-learning">
-<h1>Machine Learning<a class="headerlink" href="#machine-learning" title="Permalink to this headline"></a></h1>
+<h1>Machine Learning<a class="headerlink" href="#machine-learning" title="Link to this heading"></a></h1>
 <p>In the field of pattern recognition and machine learning, we consider the supervised scenario where we have a labelled training set which we use to learn the parameters of a model that predicts a target vector.</p>
 <section id="problem-type-inference">
-<h2>Problem type inference<a class="headerlink" href="#problem-type-inference" title="Permalink to this headline"></a></h2>
+<h2>Problem type inference<a class="headerlink" href="#problem-type-inference" title="Link to this heading"></a></h2>
 <p>We encounter the importance of semantic data types in machine learning right away, as the field distinguishes two kinds of supervised learning tasks.
 When predicting a finite number of discrete categories, the task is known as classification, and when predicting one or more continuous variables, it is known as regression <a class="reference internal" href="#bishop2006pattern" id="id1"><span>[bishop2006pattern]</span></a>.
 Automatically distinguishing the two might be seen trivial, however, there are ambiguous cases.
@@ -121,7 +126,7 @@ Automatically distinguishing between problem type is not merely a mental exercis
 <p>For an example, see <a class="reference internal" href="../getting_started/examples/ml_problem_set.html"><span class="doc">usage of typesets</span></a>.</p>
 </section>
 <section id="confidence-scores">
-<h2>Confidence scores<a class="headerlink" href="#confidence-scores" title="Permalink to this headline"></a></h2>
+<h2>Confidence scores<a class="headerlink" href="#confidence-scores" title="Link to this heading"></a></h2>
 <p>When classification is used in practice, we often do not want to rely solely on the label prediction and want a measure of certainty that the model is correct.
 This is especially the case when a decision can have an enormous impact.
 Consider a medical diagnosis problem where, based on an fMRI scan, we wish to determine whether the patient has cancer.
@@ -135,11 +140,11 @@ A classifier is said to be well-calibrated when it adheres to these rules.</p>
 One can perform various analysis to understand how well a classifier is calibrated.</p>
 <p>A hierarchical type system such as <code class="docutils literal notranslate"><span class="pre">visions</span></code> can be used to differentiate between confidence scores and probabilities.
 One then could perform specialised types of analysis based on this type.</p>
-<p>The <em>scikit-learn</em> package provides excellent resources for model calibration <a class="footnote-reference brackets" href="#f1" id="id2">1</a>.
+<p>The <em>scikit-learn</em> package provides excellent resources for model calibration <a class="footnote-reference brackets" href="#f1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 For more background on the relevant aspects of probability and decision theory, we recommend reading <a class="reference internal" href="#bishop2006pattern" id="id3"><span>[bishop2006pattern]</span></a>, chapter 1.5, p. 38-42.</p>
 </section>
 <section id="encoding-variables">
-<h2>Encoding variables<a class="headerlink" href="#encoding-variables" title="Permalink to this headline"></a></h2>
+<h2>Encoding variables<a class="headerlink" href="#encoding-variables" title="Link to this heading"></a></h2>
 <p>Another case in machine learning where semantic types are relevant is the encoding of variables.
 There are various ways to encode variables in predictive models that depend on its statistical type.
 For example, categorical values can be encoded as one-hot or <a class="reference external" href="https://en.wikipedia.org/wiki/Categorical_variable#Dummy_coding">dummy coded</a>, <a class="reference external" href="https://mlbox.readthedocs.io/en/latest/features.html#categorical-features">random projection or via learned representations</a>.
@@ -147,21 +152,24 @@ Ordinals can be <a class="reference external" href="https://scikit-learn.org/sta
 Likewise, strategies for filling missing values may also depend on the data type.</p>
 </section>
 <section id="model-profiling">
-<h2>Model profiling<a class="headerlink" href="#model-profiling" title="Permalink to this headline"></a></h2>
+<h2>Model profiling<a class="headerlink" href="#model-profiling" title="Link to this heading"></a></h2>
 <p>There are plans to implement specific model statistics in the <a class="reference external" href="https://github.com/dylan-profiler/model-profiler">model-profiler</a> package (to be released).
 This package will focus on summarization of a model or sets of predictions and will be based on a custom <code class="docutils literal notranslate"><span class="pre">visions</span></code> typeset.
 Relevant statistics encompass error metrics, analysis of residuals and model explainers.</p>
-<dl class="citation">
-<dt class="label" id="bishop2006pattern"><span class="brackets">bishop2006pattern</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
-<dd><p>Bishop, C. M. (2006). Pattern recognition and machine learning. springer.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="bishop2006pattern" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>bishop2006pattern<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Bishop, C. M. (2006). Pattern recognition and machine learning. springer.</p>
+</div>
+</div>
 <p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><a class="reference external" href="https://scikit-learn.org/stable/modules/calibration.html">https://scikit-learn.org/stable/modules/calibration.html</a></p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/calibration.html">https://scikit-learn.org/stable/modules/calibration.html</a></p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -176,7 +184,7 @@ Relevant statistics encompass error metrics, analysis of residuals and model exp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Ian Eaves and Simon Brugman.</p>
+    <p>&#169; Copyright 2025, Ian Eaves and Simon Brugman.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

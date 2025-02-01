@@ -1,5 +1,6 @@
 """Core functionality"""
 
+from visions import test
 from visions import types, typesets, utils
 from visions.backends import *
 from visions.declarative import create_type
@@ -12,4 +13,4 @@ from visions.functional import (
 from visions.types import *
 from visions.typesets import *
 
-__version__ = "0.7.6"
+__version__ = "0.7.7"
