@@ -23,21 +23,19 @@ jobs:
       name: Cache pip dependencies
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
         restore-keys: |
           ${{ runner.os }}-pip-
     
     - name: Install pip dependencies
       run: |
         pip install --upgrade pip
-        pip install .[testing]
-    - name: Install
-      run: make install
+        pip install build check-manifest twine
     
     - name: Make distribution
       run: |
         check-manifest
-        python setup.py sdist bdist_wheel
+        python -m build
         twine check dist/*
     
     - name: Publish a Python distribution to PyPI

@@ -31,16 +31,14 @@ jobs:
       name: Cache pip dependencies
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
     - name: Install pip dependencies
       run: |
          pip install --upgrade pip
-         pip install -r requirements.txt
-         pip install -r requirements_dev.txt
-         pip install -r requirements_test.txt
+         pip install -e ".[testing]" matplotlib
 
     - name: Code formatting using black
       run: black .
