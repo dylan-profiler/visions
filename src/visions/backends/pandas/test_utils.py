@@ -15,7 +15,7 @@ pandas_na_value = pd.NA if hasattr(pd, "NA") else None
 
 def option_coercion_evaluator(
     fn: Callable[[pd.Series], pd.Series],
-    extra_errors: Optional[List[Type[Exception]]] = None,
+    extra_errors: Optional[list[type[Exception]]] = None,
 ) -> Callable[[pd.Series], Optional[pd.Series]]:
     """A coercion test evaluator
     Evaluates a coercion function and optionally returns the coerced series.
@@ -42,7 +42,7 @@ def option_coercion_evaluator(
 
 def coercion_test(
     fn: Callable[[pd.Series], pd.Series],
-    extra_errors: Optional[List[Type[Exception]]] = None,
+    extra_errors: Optional[list[type[Exception]]] = None,
 ) -> Callable[[pd.Series], bool]:
     """A coercion test generator
     Creates a coercion test based on a provided coercion function.
@@ -65,7 +65,7 @@ def coercion_test(
 
 def coercion_true_test(
     fn: Callable[[pd.Series], pd.Series],
-    extra_errors: Optional[List[Type[Exception]]] = None,
+    extra_errors: Optional[list[type[Exception]]] = None,
 ) -> Callable[[pd.Series], bool]:
     """A coercion equality test generator
     Creates a coercion test based on a provided coercion function which also enforces
@@ -111,7 +111,7 @@ def coercion_equality_test(
     return f
 
 
-def coercion_single_map_test(mapping: List[Dict]) -> Callable[[pd.Series, Dict], bool]:
+def coercion_single_map_test(mapping: list[dict]) -> Callable[[pd.Series, dict], bool]:
     @series_handle_nulls
     def f(series: pd.Series, state: dict = {}) -> bool:
         return any(series.isin(list(single_map.keys())).all() for single_map in mapping)
@@ -119,7 +119,7 @@ def coercion_single_map_test(mapping: List[Dict]) -> Callable[[pd.Series, Dict],
     return f
 
 
-def coercion_multi_map_test(mapping: Dict) -> Callable[[pd.Series, Dict], bool]:
+def coercion_multi_map_test(mapping: dict) -> Callable[[pd.Series, dict], bool]:
     @series_handle_nulls
     def f(series: pd.Series, state: dict = {}) -> bool:
         return series.isin(list(mapping.keys())).all()
@@ -128,8 +128,8 @@ def coercion_multi_map_test(mapping: Dict) -> Callable[[pd.Series, Dict], bool]:
 
 
 def coercion_map_test(
-    mapping: Union[List[Dict], Dict],
-) -> Callable[[pd.Series, Dict], bool]:
+    mapping: Union[list[dict], dict],
+) -> Callable[[pd.Series, dict], bool]:
     """Create a testing function for a single mapping or a list of mappings.
     Args:
         mapping: A dict with a mapping or a list of dicts
@@ -154,7 +154,7 @@ def coercion_map_test(
     return f
 
 
-def coercion_map(mapping: Union[List[Dict], Dict]) -> Callable[[pd.Series], pd.Series]:
+def coercion_map(mapping: Union[list[dict], dict]) -> Callable[[pd.Series], pd.Series]:
     """Maps a series given a mapping
     Args:
         mapping: a dict to map, or a list of dicts.

@@ -1,6 +1,6 @@
 import os
+from collections.abc import Sequence
 from contextlib import redirect_stderr
-from typing import Sequence
 
 from visions.types.geometry import Geometry
 from visions.types.string import String

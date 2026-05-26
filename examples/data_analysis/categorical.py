@@ -1,4 +1,5 @@
-from typing import List, Sequence
+from collections.abc import Sequence
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -23,7 +24,7 @@ def to_category(series: pd.Series) -> pd.Series:
         )
 
 
-def _get_relations(cls) -> List[TypeRelation]:
+def _get_relations(cls) -> list[TypeRelation]:
     from visions.types import Generic
 
     relations = [

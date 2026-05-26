@@ -1,4 +1,5 @@
-from typing import Any, Callable, List, Optional, Sequence, Type, TypeVar, Union
+from collections.abc import Sequence
+from typing import Any, Callable, List, Optional, Type, TypeVar, Union
 
 from visions.relations import IdentityRelation, InferenceRelation
 from visions.types.type import VisionsBaseType
@@ -6,7 +7,7 @@ from visions.types.type import VisionsBaseType
 T = TypeVar("T")
 
 
-def process_relation(items: Union[dict, Type[VisionsBaseType]]) -> IdentityRelation:
+def process_relation(items: Union[dict, type[VisionsBaseType]]) -> IdentityRelation:
     if isinstance(items, dict):
         return IdentityRelation(**items)
     elif issubclass(items, VisionsBaseType):
@@ -19,9 +20,9 @@ def create_type(
     name: str,
     contains: Callable[[Any, dict], bool],
     identity: Optional[
-        Union[Type[VisionsBaseType], List[Union[dict, Type[VisionsBaseType]]], dict]
+        Union[type[VisionsBaseType], list[Union[dict, type[VisionsBaseType]]], dict]
     ] = None,
-    inference: Optional[Union[List[dict], dict]] = None,
+    inference: Optional[Union[list[dict], dict]] = None,
 ):
     def get_relations():
         if isinstance(identity, Sequence):

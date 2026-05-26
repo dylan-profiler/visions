@@ -1,4 +1,4 @@
-from typing import Sequence
+from collections.abc import Sequence
 
 from visions.backends.python.series_utils import sequence_not_empty
 from visions.backends.python.types.float import no_leading_zeros

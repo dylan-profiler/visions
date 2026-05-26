@@ -1,4 +1,4 @@
-from typing import Sequence
+from collections.abc import Sequence
 
 from visions.types.email_address import FQDA, EmailAddress, _to_email
 from visions.types.string import String

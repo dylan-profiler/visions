@@ -1,15 +1,16 @@
 import datetime
 import os
 import uuid
+from collections.abc import Sequence
 from ipaddress import IPv4Address, IPv6Address
 from pathlib import Path, PurePosixPath, PureWindowsPath
-from typing import Dict, Sequence, cast
+from typing import Dict, cast
 from urllib.parse import urlparse
 
 from visions.types.email_address import FQDA
 
 
-def get_sequences() -> Dict[str, Sequence]:
+def get_sequences() -> dict[str, Sequence]:
     base_path = Path(__file__).parent.parent.parent.absolute()
 
     sequences = {
@@ -183,4 +184,4 @@ def get_sequences() -> Dict[str, Sequence]:
         "email_address_str": ["test@example.com", "info@example.eu"],
     }
     assert all(isinstance(v, Sequence) for v in sequences.values())
-    return cast(Dict[str, Sequence], sequences)
+    return cast(dict[str, Sequence], sequences)
