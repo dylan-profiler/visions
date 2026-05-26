@@ -32,7 +32,6 @@ def float_to_integer(series: pd.Series, state: dict) -> pd.Series:
 
 
 @Integer.contains_op.register
-@series_not_sparse
 @series_not_empty
 def integer_contains(series: pd.Series, state: dict) -> bool:
     return pdt.is_integer_dtype(series)

@@ -59,7 +59,6 @@ def complex_to_float(series: pd.Series, state: dict) -> pd.Series:
 
 
 @Float.contains_op.register
-@series_not_sparse
 @series_handle_nulls
 @series_not_empty
 def float_contains(series: pd.Series, state: dict) -> bool:
