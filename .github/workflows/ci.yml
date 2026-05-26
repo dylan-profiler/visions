@@ -15,19 +15,19 @@ jobs:
     - name: Install GraphViz
       run: sudo apt-get install graphviz
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
 
     - name: Configurating Git
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v6
       with:
-        python-version: 3.8
+        python-version: "3.13"
 
-    - uses: actions/cache@v1
+    - uses: actions/cache@v4
       name: Cache pip dependencies
       with:
         path: ~/.cache/pip
