@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Dict, Optional, Sequence, Type, Union, cast
+from collections.abc import Sequence
+from typing import Any, Dict, Optional, Type, Union, cast
 
 import attr
 from multimethod import multimethod
@@ -13,7 +14,7 @@ class RelationsIterManager:
     """Class to enable to treat relations as dict"""
 
     def __init__(self, relations: Sequence[TypeRelation]):
-        self._keys: Dict["Type[VisionsBaseType]", int] = {
+        self._keys: dict["Type[VisionsBaseType]", int] = {
             item.related_type: i for i, item in enumerate(relations)
         }
         self.values = tuple(relations)

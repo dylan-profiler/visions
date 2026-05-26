@@ -9,14 +9,18 @@ from visions.backends.pandas.series_utils import (
 )
 from visions.types import DateTime, String
 
+_PANDAS_VERSION = tuple(map(int, pd.__version__.split(".")[:2]))
 
-def pandas_infer_datetime(series: pd.Series, state: dict) -> pd.Series:
-    try:
+
+if _PANDAS_VERSION >= (2, 0):
+
+    def pandas_infer_datetime(series: pd.Series, state: dict) -> pd.Series:
+        return pd.to_datetime(series, format="mixed")
+
+else:
+
+    def pandas_infer_datetime(series: pd.Series, state: dict) -> pd.Series:
         return pd.to_datetime(series)
-    except Exception:
-        pass
-
-    return pd.to_datetime(series, format="mixed")
 
 
 @DateTime.register_relationship(String, pd.Series)

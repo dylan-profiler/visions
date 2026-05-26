@@ -1,5 +1,5 @@
+from collections.abc import Sequence
 from ipaddress import _BaseAddress, ip_address
-from typing import Sequence
 
 from visions.types.ip_address import IPAddress
 from visions.types.string import String

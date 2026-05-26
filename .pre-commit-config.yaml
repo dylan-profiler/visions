@@ -1,9 +1,9 @@
 repos:
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+    rev: v3.21.1
     hooks:
     -   id: pyupgrade
-        args: ['--py36-plus','--exit-zero-even-if-changed']
+        args: ['--py39-plus','--exit-zero-even-if-changed']
 -   repo: https://github.com/pycqa/isort
 
     rev: 5.13.2

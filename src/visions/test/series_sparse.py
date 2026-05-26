@@ -10,7 +10,7 @@ not_pandas_1_0_5 = not (
 )
 
 
-def get_sparse_series() -> Dict[str, pd.Series]:
+def get_sparse_series() -> dict[str, pd.Series]:
     test_series = {
         "int_sparse": pd.Series([-1, 0, 1, 2, 3], dtype=pd.SparseDtype(np.int32, 0)),
         "float_sparse": pd.Series(

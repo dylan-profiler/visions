@@ -1,5 +1,5 @@
 import pathlib
-from typing import Sequence
+from collections.abc import Sequence
 
 from visions.types.path import Path
 from visions.types.string import String

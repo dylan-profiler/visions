@@ -3,6 +3,19 @@ from typing import Callable
 
 import pandas as pd
 
+_PANDAS_VERSION = tuple(map(int, pd.__version__.split(".")[:2]))
+
+if _PANDAS_VERSION >= (0, 24):
+
+    def pandas_is_categorical(series: pd.Series) -> bool:
+        return isinstance(series.dtype, pd.CategoricalDtype)
+
+else:
+    from pandas.api import types as pdt
+
+    def pandas_is_categorical(series: pd.Series) -> bool:
+        return pdt.is_categorical_dtype(series)
+
 
 # For future reference: get the dtype from the subtype when the series is sparse
 def series_handle_sparse_dtype(fn: Callable[..., bool]) -> Callable[..., bool]:
@@ -42,7 +55,7 @@ def series_not_sparse(fn: Callable[..., bool]) -> Callable[..., bool]:
 
     @functools.wraps(fn)
     def inner(series: pd.Series, *args, **kwargs) -> bool:
-        if isinstance(series, pd.SparseDtype):
+        if isinstance(series.dtype, pd.SparseDtype):
             return False
         return fn(series, *args, **kwargs)
 

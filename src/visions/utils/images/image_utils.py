@@ -41,7 +41,7 @@ def is_image_truncated(image: Image) -> bool:
         return True
 
 
-def get_image_shape(image: Image) -> Optional[Tuple[int, int]]:
+def get_image_shape(image: Image) -> Optional[tuple[int, int]]:
     """
 
     Args:

@@ -54,13 +54,13 @@ _PANDAS_ENGINES = [PandasEngine, SwifterEngine]
 
 
 class EngineCollection:
-    def __init__(self, engines: List[Type[Engine]]):
+    def __init__(self, engines: list[type[Engine]]):
         self.engines = {engine.name: engine for engine in engines}
 
     def is_engine(self, name: str) -> bool:
         return name in self.engines
 
-    def get(self, name: str) -> Type[Engine]:
+    def get(self, name: str) -> type[Engine]:
         return self.engines[name]
 
 
@@ -68,10 +68,10 @@ class PandasApply:
     supported_engines = EngineCollection(
         [engine for engine in _PANDAS_ENGINES if hasattr(engine, "apply")]
     )
-    _engine: Type[Engine] = PandasEngine
+    _engine: type[Engine] = PandasEngine
 
     @property
-    def engine(self) -> Type[Engine]:
+    def engine(self) -> type[Engine]:
         return self._engine
 
     @engine.setter

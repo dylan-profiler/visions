@@ -1,4 +1,4 @@
-from typing import Sequence
+from collections.abc import Sequence
 
 from visions.backends.python.series_utils import (
     sequence_handle_none,

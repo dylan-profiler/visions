@@ -1,4 +1,4 @@
-from typing import Sequence
+from collections.abc import Sequence
 from urllib.parse import ParseResult, urlparse
 
 from visions.types.string import String

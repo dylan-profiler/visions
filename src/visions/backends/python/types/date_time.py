@@ -1,5 +1,5 @@
+from collections.abc import Sequence
 from datetime import datetime
-from typing import Sequence
 
 from visions.backends.python.series_utils import sequence_not_empty
 from visions.types.date_time import DateTime
