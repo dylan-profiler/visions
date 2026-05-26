@@ -5,7 +5,6 @@ from visions.backends.pandas.series_utils import (
     pandas_is_categorical,
     series_handle_nulls,
     series_not_empty,
-    series_not_sparse,
 )
 from visions.types.object import Object
 
