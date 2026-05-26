@@ -1,5 +1,6 @@
 import functools
-from typing import Callable, Sequence
+from collections.abc import Sequence
+from typing import Callable
 
 
 def sequence_not_empty(fn: Callable[..., bool]) -> Callable[..., bool]:

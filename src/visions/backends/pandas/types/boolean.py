@@ -4,9 +4,9 @@ import pandas as pd
 import pandas.api.types as pdt
 
 from visions.backends.pandas.series_utils import (
+    pandas_is_categorical,
     series_handle_nulls,
     series_not_empty,
-    series_not_sparse,
 )
 from visions.backends.pandas.test_utils import (
     coercion_map,
@@ -56,8 +56,7 @@ def string_to_boolean(series: pd.Series, state: dict) -> pd.Series:
 
 
 @Boolean.contains_op.register
-@series_not_sparse
 @series_handle_nulls
 @series_not_empty
 def boolean_contains(series: pd.Series, state: dict) -> bool:
-    return pdt.is_bool_dtype(series) and not pdt.is_categorical_dtype(series)
+    return pdt.is_bool_dtype(series) and not pandas_is_categorical(series)

@@ -1,5 +1,5 @@
 import os
-import sys
+from contextlib import redirect_stderr
 
 import pandas as pd
 
@@ -7,29 +7,31 @@ from visions.backends.pandas.series_utils import series_handle_nulls, series_not
 from visions.types.geometry import Geometry
 from visions.types.string import String
 
+try:
+    from shapely.errors import ShapelyError
+except ImportError:
+    from shapely.errors import WKTReadingError as ShapelyError
+
 
 # TODO: Evaluate https://jorisvandenbossche.github.io/blog/2019/08/13/geopandas-extension-array-refactor/
 @Geometry.register_relationship(String, pd.Series)
 def string_is_geometry(sequence: pd.Series, state: dict) -> bool:
     """Shapely logs failures at a silly severity, just trying to suppress it's output on failures."""
     from shapely import wkt
-    from shapely.errors import WKTReadingError
 
     # only way to get rid of sys output when wkt.loads hits a bad value
     # TODO: use coercion wrapper for this
-    sys.stderr = open(os.devnull, "w")
-    try:
-        result = all(wkt.loads(value) for value in sequence)
-    except (
-        WKTReadingError,
-        AttributeError,
-        UnicodeEncodeError,
-        TypeError,
-        UnicodeDecodeError,
-    ):
-        result = False
-    finally:
-        sys.stderr = sys.__stderr__
+    with open(os.devnull, "w") as devnull, redirect_stderr(devnull):
+        try:
+            result = all(wkt.loads(value) for value in sequence)
+        except (
+            ShapelyError,
+            AttributeError,
+            UnicodeEncodeError,
+            TypeError,
+            UnicodeDecodeError,
+        ):
+            result = False
     return result
 
 

@@ -1,26 +1,28 @@
 import os
-import sys
-from typing import Sequence
+from collections.abc import Sequence
+from contextlib import redirect_stderr
 
 from visions.types.geometry import Geometry
 from visions.types.string import String
+
+try:
+    from shapely.errors import ShapelyError
+except ImportError:
+    from shapely.errors import WKTReadingError as ShapelyError
 
 
 @Geometry.register_relationship(String, Sequence)
 def string_is_geometry(sequence: Sequence, state: dict) -> bool:
     """Shapely logs failures at a silly severity, just trying to suppress it's output on failures."""
     from shapely import wkt
-    from shapely.errors import WKTReadingError
 
     # only way to get rid of sys output when wkt.loads hits a bad value
     # TODO: use coercion wrapper for this
-    sys.stderr = open(os.devnull, "w")
-    try:
-        result = all(wkt.loads(value) for value in sequence)
-    except (WKTReadingError, AttributeError, UnicodeEncodeError, TypeError):
-        result = False
-    finally:
-        sys.stderr = sys.__stderr__
+    with open(os.devnull, "w") as devnull, redirect_stderr(devnull):
+        try:
+            result = all(wkt.loads(value) for value in sequence)
+        except (ShapelyError, AttributeError, UnicodeEncodeError, TypeError):
+            result = False
     return result
 
 

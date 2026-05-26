@@ -1,4 +1,4 @@
-from typing import Sequence
+from collections.abc import Sequence
 
 
 def values_are_consecutive(sequence: Sequence) -> bool:

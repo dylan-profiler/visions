@@ -1,5 +1,6 @@
 import datetime
-from typing import Dict, Iterable
+from collections.abc import Iterable
+from typing import Dict
 
 import numpy as np
 import pandas as pd
@@ -8,7 +9,7 @@ from visions.backends.pandas.test_utils import pandas_version
 from visions.backends.pandas.types.boolean import hasnan_bool_name
 
 
-def get_sequences() -> Dict[str, Iterable]:
+def get_sequences() -> dict[str, Iterable]:
     sequences = {
         "float_series6": pd.Series([np.nan, 1.1], dtype=np.single),
         "bool_series2": pd.Series([True, False, False, True], dtype=bool),

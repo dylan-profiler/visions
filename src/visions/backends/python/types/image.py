@@ -1,5 +1,5 @@
 import pathlib
-from typing import Sequence
+from collections.abc import Sequence
 
 from visions.types.image import Image
 from visions.utils.images.image_utils import path_is_image

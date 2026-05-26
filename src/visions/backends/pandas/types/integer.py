@@ -2,11 +2,7 @@ import numpy as np
 import pandas as pd
 from pandas.api import types as pdt
 
-from visions.backends.pandas.series_utils import (
-    series_handle_nulls,
-    series_not_empty,
-    series_not_sparse,
-)
+from visions.backends.pandas.series_utils import series_handle_nulls, series_not_empty
 from visions.types.float import Float
 from visions.types.integer import Integer
 
@@ -32,7 +28,6 @@ def float_to_integer(series: pd.Series, state: dict) -> pd.Series:
 
 
 @Integer.contains_op.register
-@series_not_sparse
 @series_not_empty
 def integer_contains(series: pd.Series, state: dict) -> bool:
     return pdt.is_integer_dtype(series)

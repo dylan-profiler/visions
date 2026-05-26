@@ -31,7 +31,7 @@ sequences = get_sequences()
 
 typeset = StandardSet()
 
-contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
+contains_map: dict[type[VisionsBaseType], set[str]] = {
     Integer: {
         "int_series",
         "int_range",

@@ -41,7 +41,7 @@ def test_declarative():
 
     my_typeset = VisionsTypeset({Generic, Integer, Float})
 
-    array = np.arange(1, 100).astype(np.floating)
+    array = np.arange(1, 100).astype(np.float64)
 
     assert my_typeset.detect_type(array) == Float
     assert my_typeset.infer_type(array) == Integer

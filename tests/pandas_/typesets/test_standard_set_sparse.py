@@ -27,7 +27,7 @@ series = get_sparse_series()
 
 typeset = StandardSet()
 
-contains_map: Dict[Type[VisionsBaseType], Set[str]] = {
+contains_map: dict[type[VisionsBaseType], set[str]] = {
     DateTime: set(),
     TimeDelta: set(),
     Categorical: set(),
@@ -75,7 +75,7 @@ def test_contains(name, series, contains_type, member):
     assert result, message
 
 
-inference_map: Dict[str, Type[VisionsBaseType]] = {
+inference_map: dict[str, type[VisionsBaseType]] = {
     "int_sparse": Integer,
     "pd_int64_sparse": Integer,
     "float_sparse": Float,

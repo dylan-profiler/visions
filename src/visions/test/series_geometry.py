@@ -3,7 +3,7 @@ from typing import Dict
 import pandas as pd
 
 
-def get_geometry_series() -> Dict[str, pd.Series]:
+def get_geometry_series() -> dict[str, pd.Series]:
     from shapely import wkt
 
     series = {

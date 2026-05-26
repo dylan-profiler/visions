@@ -1,4 +1,5 @@
-from typing import Dict, List, Sequence
+from collections.abc import Sequence
+from typing import Dict, List
 
 from visions.backends.python.series_utils import (
     sequence_handle_none,
@@ -7,7 +8,7 @@ from visions.backends.python.series_utils import (
 from visions.types import Boolean, Object, String
 
 
-def get_boolean_coercions(id: str) -> List[Dict]:
+def get_boolean_coercions(id: str) -> list[dict]:
     coercion_map = {
         "default": [{"true": True, "false": False}],
         "en": [

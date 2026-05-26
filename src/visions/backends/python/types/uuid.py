@@ -1,5 +1,5 @@
 import uuid
-from typing import Sequence
+from collections.abc import Sequence
 
 from visions.types.string import String
 from visions.types.uuid import UUID

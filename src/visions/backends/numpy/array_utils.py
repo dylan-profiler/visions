@@ -1,5 +1,6 @@
 import functools
-from typing import Callable, Sequence, Tuple, TypeVar, Union
+from collections.abc import Sequence
+from typing import Callable, Tuple, TypeVar, Union
 
 import numpy as np
 
@@ -39,7 +40,7 @@ def array_not_empty(fn: Callable[..., bool]) -> Callable[..., bool]:
     return inner
 
 
-def _base_all_type(array: np.ndarray, dtypes: Union[type, Tuple[type, ...]]) -> bool:
+def _base_all_type(array: np.ndarray, dtypes: Union[type, tuple[type, ...]]) -> bool:
     return all(isinstance(v, dtypes) for v in array)
 
 
@@ -48,7 +49,7 @@ if has_numba:
     # There are alternative implementations with forceobj=True which work in all cases
     # including the use of isinstance, but in those cases worst case performance can be substantially worse
     # than the default python implementation.
-    def all_type_numba(dtype: Union[Tuple, T]):
+    def all_type_numba(dtype: Union[tuple, T]):
         @nb.jit(nopython=True)
         def inner(array: np.ndarray) -> bool:
             for i in nb.prange(array.size):
@@ -58,10 +59,10 @@ if has_numba:
 
         return inner
 
-    def all_type(array: np.ndarray, dtypes: Union[type, Tuple[type, ...]]) -> bool:
+    def all_type(array: np.ndarray, dtypes: Union[type, tuple[type, ...]]) -> bool:
         return _base_all_type(array, dtypes)
 
 else:
 
-    def all_type(array: np.ndarray, dtypes: Union[type, Tuple[type, ...]]) -> bool:
+    def all_type(array: np.ndarray, dtypes: Union[type, tuple[type, ...]]) -> bool:
         return _base_all_type(array, dtypes)

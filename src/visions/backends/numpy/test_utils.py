@@ -12,7 +12,7 @@ from visions.backends.numpy.array_utils import array_handle_nulls
 
 def option_coercion_evaluator(
     fn: Callable[[np.ndarray], np.ndarray],
-    extra_errors: Optional[List[Type[Exception]]] = None,
+    extra_errors: Optional[list[type[Exception]]] = None,
 ) -> Callable[[np.ndarray], Optional[np.ndarray]]:
     """A coercion test evaluator
     Evaluates a coercion function and optionally returns the coerced array.
@@ -39,7 +39,7 @@ def option_coercion_evaluator(
 
 def coercion_test(
     fn: Callable[[np.ndarray], np.ndarray],
-    extra_errors: Optional[List[Type[Exception]]] = None,
+    extra_errors: Optional[list[type[Exception]]] = None,
 ) -> Callable[[np.ndarray], bool]:
     """A coercion test generator
     Creates a coercion test based on a provided coercion function.
@@ -62,7 +62,7 @@ def coercion_test(
 
 def coercion_true_test(
     fn: Callable[[np.ndarray], np.ndarray],
-    extra_errors: Optional[List[Type[Exception]]] = None,
+    extra_errors: Optional[list[type[Exception]]] = None,
 ) -> Callable[[np.ndarray], bool]:
     """A coercion equality test generator
     Creates a coercion test based on a provided coercion function which also enforces
@@ -108,7 +108,7 @@ def coercion_equality_test(
     return f
 
 
-def coercion_single_map_test(mapping: List[Dict]) -> Callable[[np.ndarray, Dict], bool]:
+def coercion_single_map_test(mapping: list[dict]) -> Callable[[np.ndarray, dict], bool]:
     @array_handle_nulls
     def f(array: np.ndarray, state: dict = {}) -> bool:
         return any(
@@ -118,7 +118,7 @@ def coercion_single_map_test(mapping: List[Dict]) -> Callable[[np.ndarray, Dict]
     return f
 
 
-def coercion_multi_map_test(mapping: Dict) -> Callable[[np.ndarray, Dict], bool]:
+def coercion_multi_map_test(mapping: dict) -> Callable[[np.ndarray, dict], bool]:
     @array_handle_nulls
     def f(array: np.ndarray, state: dict = {}) -> bool:
         return np.isin(array, list(mapping.keys())).all()
@@ -127,8 +127,8 @@ def coercion_multi_map_test(mapping: Dict) -> Callable[[np.ndarray, Dict], bool]
 
 
 def coercion_map_test(
-    mapping: Union[List[Dict], Dict],
-) -> Callable[[np.ndarray, Dict], bool]:
+    mapping: Union[list[dict], dict],
+) -> Callable[[np.ndarray, dict], bool]:
     """Create a testing function for a single mapping or a list of mappings.
     Args:
         mapping: A dict with a mapping or a list of dicts
@@ -154,7 +154,7 @@ def coercion_map_test(
 
 
 def coercion_map(
-    mapping: Union[List[Dict], Dict],
+    mapping: Union[list[dict], dict],
 ) -> Callable[[np.ndarray], np.ndarray]:
     """Maps a array given a mapping
     Args:
