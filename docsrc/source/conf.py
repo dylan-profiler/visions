@@ -13,6 +13,8 @@
 import os
 import sys
 from datetime import date
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as get_distribution_version
 
 sys.path.insert(0, os.path.join("..", "..", "src"))
 sys.path.insert(0, os.path.join("..", "..", "src", "visions"))
@@ -29,9 +31,12 @@ author = "Simon Brugman and Ian Eaves"
 
 
 def _GetApiWrapperVersion():
-    import pkg_resources
+    try:
+        return get_distribution_version("visions")
+    except PackageNotFoundError:
+        from visions import __version__
 
-    return pkg_resources.get_distribution("visions").version
+        return __version__
 
 
 release = _GetApiWrapperVersion()
