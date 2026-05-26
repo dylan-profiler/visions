@@ -2,10 +2,7 @@ import numpy as np
 import pandas as pd
 from pandas.api import types as pdt
 
-from visions.backends.pandas.series_utils import (
-    series_handle_nulls,
-    series_not_empty,
-)
+from visions.backends.pandas.series_utils import series_handle_nulls, series_not_empty
 from visions.types.float import Float
 from visions.types.integer import Integer
 
