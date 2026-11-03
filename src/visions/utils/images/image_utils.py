@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 from importlib import util as import_util
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import TYPE_CHECKING, Optional, Tuple, Union
 
-import imagehash
-from PIL import ExifTags, Image
+if TYPE_CHECKING:
+    from PIL import Image
 
 HAS_IMGHDR = import_util.find_spec("imghdr") is not None
 HAS_PUREMAGIC = import_util.find_spec("puremagic") is not None
@@ -19,6 +21,8 @@ def open_image(path: Path) -> Optional[Image.Image]:
     Returns:
 
     """
+    from PIL import Image
+
     try:
         return Image.open(path)
     except (OSError, AttributeError):
@@ -65,6 +69,8 @@ def hash_image(image: Image) -> Optional[str]:
     Returns:
 
     """
+    import imagehash
+
     try:
         return str(imagehash.phash(image))
     except (OSError, AttributeError):
@@ -95,6 +101,8 @@ def extract_exif(image: Image) -> dict:
     Returns:
 
     """
+    from PIL import ExifTags
+
     try:
         exif_data = image._getexif()
         if exif_data is not None:
